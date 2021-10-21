@@ -1,0 +1,70 @@
+h1 {
+	text-align: center;
+}
+
+i {
+	font-style: normal;
+}
+
+.list {
+	width: 1303px;
+	margin: auto;
+	overflow: hidden;
+	margin-top: 20px;
+}
+
+.list dl {
+	margin-top: 80px;
+	float: left;
+	width: 300px;
+	border: 2px solid rgb(203, 218, 218);
+	padding: 10px;
+}
+
+.list dl+dl {
+	margin-left: 5px;
+}
+
+.list dl img {
+	width: 100%;
+	text-align: center;
+}
+
+.list dl dd {
+	margin: auto;
+}
+
+.list dl dd span {
+	font: bold 20px/20px "微軟正黑體";
+	color: black;
+}
+
+dt {
+	width: "280px";
+	height: "200px";
+	margin: 0 0 10px 0;
+}
+
+.mycar {
+	width: 200px;
+	font: bold 16px/30px "微軟正黑體";
+	text-align: center;
+	margin: 30px 200px;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+}
+
+.mycar a {
+	display: block;
+	width: 100%;
+	font: bold 16px/30px "微軟正黑體";
+}
+
+.mycar i {
+	font: bold 22px/30px "微軟正黑體";
+	color: red;
+	position: relative;
+	right: 10px;
+	top: 0;
+}
