@@ -14,5 +14,15 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("select distinct category from Product")
 	List<String>  getAllCategories();
 	
+	@Query("from Product where productName like '%:productName%'")
+	List<Product> findByProductName(String productName);
+	
+	@Query("from Product p where p.category=:category")
+	List<Product> getProductsByCategory(String category);
 
+	Product findByProductId(int productId);
+
+	
+	
+	
 }
