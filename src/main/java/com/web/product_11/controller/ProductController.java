@@ -171,7 +171,7 @@ public class ProductController {
 		@GetMapping("/getPicture/{productId}")
 		//位元組陣列，回應本體型態byte[]
 		public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer productId) {
-		   //預設圖片字串，找不到圖片顯示
+			//預設圖片字串，找不到圖片顯示
 			String filePath = "/resources/images/NoImage.jpg";
 			//裝圖片的位元
 		    byte[] media = null;
@@ -198,12 +198,14 @@ public class ProductController {
 		            }
 		        } else {
 		        	//blob == null，直接顯示預設圖片
+		        	System.out.println("預設path--->filePath======="+filePath);
 		            media = toByteArray(filePath);
 		            filename = filePath;
 		        }
 		    } else {
 		    	//bean == null
 		    	//直接把預設檔案轉成位元組陣列放入media變數內，直接顯示預設圖片
+		    	System.out.println("預設path--->filePath=======---"+filePath);            
 		        media = toByteArray(filePath);
 		        filename = filePath;
 		    }

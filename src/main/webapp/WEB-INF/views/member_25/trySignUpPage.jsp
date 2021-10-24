@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%
-response.setContentType("text/html;charset=UTF-8");
-response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
-response.setHeader("Pragma", "no-cache"); // HTTP 1.0
-response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
-%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -47,6 +42,12 @@ form {
 .loginarea {
 	text-align: center;
 }
+
+span.error {
+	color: red;
+	display: inline-block;
+	font-size: 8pt;
+}
 </style>
 
 
@@ -63,64 +64,57 @@ form {
 
 	<div class="resgisterform">
 		<form:form method='POST' modelAttribute="loginBeanDefault"
-			class='form-horizontal' >
+			class='form-horizontal'>
 			<!-- 檔案上傳的標籤一定要有enctype="multipart/form-data -->
+			
+			<c:if test='${loginBeanDefault.id != null}'>
+                 <form:hidden path="id" /><br>&nbsp;
+			</c:if>
 			<tr>
-				<td></td>
-				<!-- <input class="formElem" type="text" name="phone" id="phone"
-					size="30" placeholder="phone"> -->
+				<td>
+				
                     <form:input id="phone" path="userPhone" type='text'
-							class='form:input-large' />
+							cssclass='form:input-large' /><br>
+					<form:errors path="userPhone" cssClass="error" />				
+				<br>
+				<br>
 				</td>
-				<br>
-				<span id="idPhone" style="color: red;"></span>
-				<br>
-				<!-- <span id="idsp3">(1.至少6位數 2.含英文+數字+特殊字元 3.不能空白)</span>
-                <span id="idsp4" style="color: sienna;"></span> -->
-
 			</tr>
 			<tr>
-				<td></td>
-				<!-- <input class="formElem" type="text" name="idEmail" id="idEmail"
-					size="30" placeholder="E-mail"> -->
+				<td>
                     <form:input id="idEmail" path="userEmail" type='text'
-							class='form:input-large' />
+							class='form:input-large' /><br>
+					<form:errors path="userEmail" cssClass="error" />
 				<br>
-				<span id="idEmail1" style="color: red;"></span>
 				<br>
 
 				</td>
 				<br>
 			</tr>
 			<tr>
-				<td></td>
-				<!-- <input class="formElem" type="Password" name="Password" id="idPwd"
-					size="30" placeholder="Password"> -->
+				<td>
                     <form:input id="idPwd" path="userPwd" type='text'
-							class='form:input-large' />
-				<br>
-				<span id="idsp" style="color: black;"></span>
-				<span id="idsp0" style="color: red;"></span>
-				<span id="idsp1"></span>
-				<br />
+							class='form:input-large' /><br>
+					<form:errors path="userPwd" cssClass="error" />
+				<br>		
 				<span class="hint">(1.不可空白 2.至少6個字且必須包含英數字)</span>
 				</td>
 				<br>
-
-
 				<br>
-
 			</tr>
 			
-			<!--      下拉選單身分別 -->
-        <!--    <tr>     
-				 <td></td>    
-				<label type="hidden">
-                    <form:input id="Identification" path="Identification" type='text'
-                    class='form:input-large'  /> </label>
-				<br><br><br>
-
-			</tr>   --> 
+			<tr>
+				<td>
+                    <form:input id="idPwd1" path="userPwd1" type='text'
+							class='form:input-large' /><br>
+					<form:errors path="userPwd1" cssClass="error" />
+				<br>		
+				<span class="hint">(1.不可空白 2.至少6個字且必須包含英數字)</span>
+				</td>
+				<br>
+				<br>
+			</tr>
+			
 
 			
 
@@ -132,15 +126,15 @@ form {
 		<br>
 
 		
-		<input type="submit" id="submit" style="display:none;"  name="submit" value="註冊" class="reg">
+		<input type="submit" id="submit"  name="submit" value="註冊" class="reg">
 				
 		<!--  <button type="submit" id="btnAdd"  name="submit" value="儲存修改" style="text-align: center; font-size: 18x;"></button> -->
 				<br><br><br><br><br>
 			<hr>
 			<h3>已有帳號?</h3>
-			<a href="UserLogin.jsp">
-				<p class="text">登入以繼續</p>
-			</a>
+
+				<a  href="<c:url value='/try/login' />" class="text">登入以繼續</a><BR>
+
 		</div>
 
     </form:form>
@@ -155,7 +149,7 @@ form {
 
 
 
-
+<!--  
 	<script src=""></script>
     <script>
 
@@ -351,7 +345,8 @@ form {
 
         // }
 
-    </script>
+    </script>    
+    -->
 
 </body>
 </html>
