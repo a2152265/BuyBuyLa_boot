@@ -49,6 +49,15 @@ public class ForumBean implements Serializable{
 	this.coverImage=coverImage;
 	this.fileName=fileName;
 	}
+	
+	public ForumBean(Integer id,String userName,String userEmail,String date,String tag,String content) {
+		this.id=id;
+		this.userName=userName;
+		this.userEmail=userEmail;
+		this.date=date;
+		this.tag=tag;
+		this.content=content;
+	}
 
 	public void setImage(MultipartFile image) {
 	    this.image = image;

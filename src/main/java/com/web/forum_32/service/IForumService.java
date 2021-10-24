@@ -7,13 +7,13 @@ import com.web.forum_32.model.ForumBean;
 
 public interface IForumService {
 	List<ForumBean> getAllContents();
-	public ForumBean getContentByUsername(String userName);
 	void addContent(ForumBean content);
-	public ForumBean getContentById(int id);
-	void deleteContent (int id);
-	void updateContent (ForumBean fb);
+	
+	public ForumBean getContentByUsername(String userName);
+	public ForumBean getContentById(Integer id);
+	void delete (Integer id);
+	void update (ForumBean fb);
 	List<ForumBean> getAllContentsByChat();
 	List<ForumBean> getAllContentsByBox();
 	List<ForumBean> getAllContentsByOther();
-	void updateContent2(ForumBean fb);
 }
