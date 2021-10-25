@@ -179,7 +179,7 @@ h2 span {
 			<tbody id="tbody">
 			<c:forEach var="row" items="${rs.rows}">
 				<tr>
-					<td><img width='100' height='200' src="<c:url value='/getPicture/${row.PID}' />" /></td>
+					<td><img width='150'src="<c:url value='/getPicture/${row.PID}' />" /></td>
 					<td>${row.P_name}</td>
 					<td><a href="<c:url value='/sub' />?id=${row.PID}"><button class="down">-</button></a><input type="text" value="${row.count}" readonly="readonly" /><a href="<c:url value='/add' />?id=${row.PID}"><button class="up">+</button></a></td>
 					<td>NT<span>${row.P_price}</span></td>

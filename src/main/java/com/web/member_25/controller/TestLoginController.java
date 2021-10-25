@@ -129,6 +129,7 @@ public class TestLoginController {
 		Boolean loginResult=false;
 		
 		loginResult = memberService.overlappedAccount(mb.getUserEmail());
+		System.out.println("----done------------------------=");
 		if (loginResult ==false) {
 			System.out.println("帳號重複  ----->");
 
@@ -492,7 +493,7 @@ public class TestLoginController {
 	}
 	
 	
-	@GetMapping("/member/verifyBtn")
+	@GetMapping("/member/verifyBtne")
 	public String sendEmailForgetPwd(
 			@ModelAttribute("sellerData") membershipInformationBean mb,
 			@ModelAttribute("loginSession") membershipInformationBean mb2,

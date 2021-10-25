@@ -7,5 +7,5 @@ import com.web.record_30.model.RecordBean;
 public interface IRecordService {
 	List<RecordBean> getAllRecords(String buyer);
 	void deleteById(int record_id);
-	RecordBean update(RecordBean recordBean );
+	void update(RecordBean recordBean );
 }

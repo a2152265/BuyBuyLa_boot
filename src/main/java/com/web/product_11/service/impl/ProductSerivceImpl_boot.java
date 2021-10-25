@@ -40,7 +40,12 @@ public class ProductSerivceImpl_boot implements ProductService{
 
 	@Override
 	public Product getProductById(int productId) {
+
 		return productRepositoryDao.findByProductId(productId);
+
+		
+//		return productRepositoryDao.getById(productId);
+
 	}
 
 	@Override

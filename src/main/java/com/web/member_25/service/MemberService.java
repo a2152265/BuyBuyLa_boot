@@ -3,7 +3,7 @@ package com.web.member_25.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.web.member_25.model.MemberBean;
+
 import com.web.member_25.model.membershipInformationBean;
 
 
@@ -13,7 +13,7 @@ public interface MemberService {
 	boolean existsById(String id);
 
 
-	List<MemberBean> findAll();
+
 
 	membershipInformationBean findById(int id);
 
