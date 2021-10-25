@@ -1,4 +1,4 @@
-package com.web.member_25.validate;
+package com.web.member_25.func;
 
 import java.util.regex.Pattern;
 

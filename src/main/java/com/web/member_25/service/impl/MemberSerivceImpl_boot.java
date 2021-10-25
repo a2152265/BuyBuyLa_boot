@@ -54,7 +54,7 @@ public class MemberSerivceImpl_boot implements MemberService{
 	@Override
 	public void update(membershipInformationBean mb) {
 		System.out.println("update區--------->getFileName--------->"+mb.getFileName());
-		membertRepository.upadteMemberData(mb.getUserPhone(), mb.getFileName(), mb.getUserGender(), mb.getAddress(), mb.getHead_shot(), mb.getFileName(), mb.getUserEmail());
+		membertRepository.upadteMemberData(mb.getUserPhone(), mb.getFileName(),mb.getUserNickname(),mb.getBirthday(), mb.getUserGender(), mb.getAddress(), mb.getHead_shot(), mb.getFileName(), mb.getUserEmail());
 		System.out.println("update更新完畢 準備重新導向zzzz");
 		//測試
 //		membertRepository.update(mb);
@@ -63,7 +63,7 @@ public class MemberSerivceImpl_boot implements MemberService{
 	@Override
 	public void updateWithNoImage(membershipInformationBean mb) {
 		System.out.println("updateWithNoImage區--------->getFileName--------->"+mb.getFileName());
-		membertRepository.upadteMemberDataWithNoImg(mb.getUserPhone(), mb.getFileName(), mb.getUserGender(), mb.getAddress(),  mb.getUserEmail());
+		membertRepository.upadteMemberDataWithNoImg(mb.getUserPhone(), mb.getFileName(),mb.getUserNickname(),mb.getBirthday(), mb.getUserGender(), mb.getAddress(),  mb.getUserEmail());
 		System.out.println("updateWithNoImage更新完畢 準備重新導向zzzz");
 		
 	}

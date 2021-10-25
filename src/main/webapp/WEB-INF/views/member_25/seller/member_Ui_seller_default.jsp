@@ -43,17 +43,7 @@
 
 
         <h1>Welcome ~~      WE Will BuyBuyLA your money</h1>
-        <nav>
-            <ul class="flex-nav">
-                <li><a href="#">未付款</a></li>
-                <li><a href="#">已付款</a></li>
-                <li><a href="#">已出貨</a></li>
-                <li><a href="#">運送中</a></li>
-                <li><a href="#">已送達</a></li>
-                <li><a href="#">已完成</a></li>
-                <li><a href="#">取消交易</a></li>
-            </ul>
-        </nav>
+        
         
   
 
@@ -109,7 +99,7 @@
             <!--放從DB取出的資料-->         
               ${sellerData.userNickname} 
             &nbsp;&nbsp;/&nbsp;&nbsp;
-            <form:input id="userNickname" path="userNickname" type='text'  style="width: 250px; height: 30px;" />
+            <form:input id="userNickname" path="userNickname" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
             
             </td> 
           </tr>
@@ -121,7 +111,7 @@
             <!--放從DB取出的資料-->         
               ${sellerData.userName} 
             &nbsp;&nbsp;/&nbsp;&nbsp;
-            <form:input id="userName" path="userName" type='text'  style="width: 250px; height: 30px;" />
+            <form:input id="userName" path="userName" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
             
             </td> 
           </tr>
@@ -133,7 +123,7 @@
              <!--放從DB取出的資料-->         
               ${sellerData.userPhone} 
              &nbsp;&nbsp;/&nbsp;&nbsp;  
-             <form:input id="userPhone" path="userPhone" type='text'  style="width: 250px; height: 30px;" />
+             <form:input id="userPhone" path="userPhone" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
              
             </td>
             </tr>
@@ -145,7 +135,7 @@
                 <!--放從DB取出的資料-->         
                   ${sellerData.birthday} 
                 &nbsp;&nbsp;/&nbsp;&nbsp;
-                <form:input id="birthday" path="birthday" type='text'  style="width: 250px; height: 30px;" />
+                <form:input id="birthday" path="birthday" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
                 
                 </td> 
               </tr>
@@ -174,7 +164,7 @@
             <!--放從DB取出的資料-->         
               ${sellerData.address} 
             &nbsp;&nbsp;/&nbsp;&nbsp;
-            <form:input id="address" path="address" type='text'  style="width: 250px; height: 30px;" />
+            <form:input id="address" path="address" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
             
             </td> 
           </tr>
@@ -186,7 +176,7 @@
             <td> 
             <label for="verifyCode"></label>
             <!--驗證碼欄位-->         
-            <form:input id="verifyCode" path="verifyCode" type='text'  style="width: 250px; height: 30px;" />
+            <form:input id="verifyCode" path="verifyCode" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
             &nbsp;&nbsp;/&nbsp;&nbsp;
            
           <!--  <li>    <button type="button"><c:url value='/member/verifyBtn' />送出驗證碼   </button> </li> -->

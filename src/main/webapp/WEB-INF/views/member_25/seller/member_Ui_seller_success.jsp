@@ -109,7 +109,7 @@
             <!--放從DB取出的資料-->         
               ${sellerData.userNickname} 
             &nbsp;&nbsp;/&nbsp;&nbsp;
-            <form:input id="userNickname" path="userNickname" type='text'  style="width: 250px; height: 30px;" />
+            <form:input id="userNickname" path="userNickname" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
             
             </td> 
           </tr>
@@ -121,7 +121,7 @@
             <!--放從DB取出的資料-->         
               ${sellerData.userName} 
             &nbsp;&nbsp;/&nbsp;&nbsp;
-            <form:input id="userName" path="userName" type='text'  style="width: 250px; height: 30px;" />
+            <form:input id="userName" path="userName" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
             
             </td> 
           </tr>
@@ -133,7 +133,7 @@
              <!--放從DB取出的資料-->         
               ${sellerData.userPhone} 
              &nbsp;&nbsp;/&nbsp;&nbsp;  
-             <form:input id="userPhone" path="userPhone" type='text'  style="width: 250px; height: 30px;" />
+             <form:input id="userPhone" path="userPhone" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
              
             </td>
             </tr>
@@ -145,7 +145,7 @@
                 <!--放從DB取出的資料-->         
                   ${sellerData.birthday} 
                 &nbsp;&nbsp;/&nbsp;&nbsp;
-                <form:input id="birthday" path="birthday" type='text'  style="width: 250px; height: 30px;" />
+                <form:input id="birthday" path="birthday" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
                 
                 </td> 
               </tr>
@@ -174,7 +174,7 @@
             <!--放從DB取出的資料-->         
               ${sellerData.address} 
             &nbsp;&nbsp;/&nbsp;&nbsp;
-            <form:input id="address" path="address" type='text'  style="width: 250px; height: 30px;" />
+            <form:input id="address" path="address" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
             
             </td> 
           </tr>

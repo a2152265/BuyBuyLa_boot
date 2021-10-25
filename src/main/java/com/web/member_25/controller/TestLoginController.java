@@ -39,9 +39,10 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.web.member_25.func.MemberValidator;
+import com.web.member_25.func.ProcessImage;
 import com.web.member_25.model.membershipInformationBean;
 import com.web.member_25.service.MemberService;
-import com.web.member_25.validate.MemberValidator;
 
 @Controller
 @SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" })
@@ -111,6 +112,10 @@ public class TestLoginController {
 			}
 			System.out.println("======================");
 			return "member_25/trySignUpPage";
+		}else {
+			System.out.println("無錯誤-----帳號-------->"+mb.getUserEmail());
+			System.out.println("無錯誤------密碼------->"+mb.getUserPwd());
+	
 		}
 		
 		
@@ -195,7 +200,8 @@ public class TestLoginController {
 			mb2.setUserEmail(userEmail);
 			mb2.setUserPwd(userPwd);
 			model.addAttribute("loginSession", mb2);
-
+			//先建立一個bean
+			model.addAttribute("sellerData", new membershipInformationBean());
 			return "redirect:/products"; // 登入成功
 
 		} else if (loginResult == 2) {
@@ -240,8 +246,6 @@ public class TestLoginController {
 		mb2=memberService.findMemberData(mb.getUserEmail());
 		if (mb2.getFileName()==null||mb2.getFileName().equals("")) {
 			System.out.println("------登入後預載預設圖片------");
-			
-			
 		}
 		
 		
@@ -249,6 +253,7 @@ public class TestLoginController {
 		System.out.println("getUserEmail --getMemberData2--><--->" + mb2.getUserEmail());
 		System.out.println("getUserPwd --getMemberData2--><--->" + mb2.getUserPwd());
 		model.addAttribute("memberUiDefault", mb2);
+		
 		return "member_25/tryMember_Ui";
 	}
 
@@ -267,6 +272,8 @@ public class TestLoginController {
 		}
 		System.out.println("==========進入tryProcessMemberUpdate=====================");
 		membershipInformationBean mb2 = new membershipInformationBean();
+		//先查DB的會員資料再去把表單的資料塞過去
+		mb2=memberService.findMemberDataAll(mb.getUserEmail());
 		System.out.println("mb.getUserGender()+++++"+mb.getUserGender());
 		System.out.println("mb.getUserName()+++++"+mb.getUserName());
 		mb2.setUserEmail(mb.getUserEmail());
@@ -275,45 +282,20 @@ public class TestLoginController {
 		mb2.setUserGender(mb.getUserGender());
 		mb2.setUserPhone(mb.getUserPhone());
 		mb2.setUserName(mb.getUserName());
+		mb2.setUserNickname(mb.getUserNickname());
+		mb2.setBirthday(mb.getBirthday());
 		mb2.setIdentification(mb.getIdentification());
+		System.out.println("setIdentification---------->"+mb2.getIdentification());
 	
-
-		// ==============存圖片的方法================================================
-		// 1.存進資料庫(只需要備份一次) 2.存去系統的資料夾中(減輕DB負擔)
-
-		// 方法1.存進資料庫
-		// 上面做完存玩後 再來搬檔案
-		// 為了要自定義檔案(圖片)名稱+主鍵
-		MultipartFile memberImage = mb.getProductImage();
-		String originalFilename = memberImage.getOriginalFilename(); // 取出來式最初的黨名
-		mb.setFileName(originalFilename);
-		System.out.println("originalFilename-------------->"+originalFilename);
-		// 建立Blob物件，交由 Hibernate 寫入資料庫
 		
-			try {
-				byte[] b = memberImage.getBytes(); // 取出所有位元組
-				Blob blob = new SerialBlob(b); // Blob是介面 所以new一個有實作他的類別SerialBlob
-				mb.setHead_shot(blob); // 把blob放到BookBean裡面的coverImage裡
-				System.out.println("改完後的圖片------mb.getHead_shot()-------->" + mb.getHead_shot());
-				System.out.println("改完後的圖片------originalFilename-------->" + originalFilename);
-				if (originalFilename=="" || originalFilename==null || originalFilename.trim()=="" || originalFilename.equals("")  ) {
-					System.out.println("----------update with no cat----------");
-					memberService.updateWithNoImage(mb2);
-					System.out.println("----------update with no cat------- done---");
-				
-				}else {
-					System.out.println("有上傳檔案哦------------>不是空或 空空 --------------------");
-					mb2.setHead_shot(mb.getHead_shot());
-					mb2.setFileName(originalFilename);
-					model.addAttribute("memberData", mb2);
-					memberService.update(mb2);
-				}
-	
-			}catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-			}
+		//下面是個處理好的bean 待update
+		mb2= new ProcessImage().uploadImage(mb2,mb);
+		System.out.println("setIdentification2---------->"+mb2.getIdentification());
+		System.out.println("-------------開始存入");
+		memberService.save(mb2);
+		System.out.println("-------------存入完畢");
 		
+	model.addAttribute("memberData", mb2);	
 		System.out.println("update success");
 		return "member_25/tryMember_Ui";
 	}
@@ -330,129 +312,7 @@ public class TestLoginController {
 		return "redirect:/";
 	}
 
-	// 加入存取圖片
-	// 把表格欄位的圖片抓出來往前端送
-	// 要怎麼把blob抓出來改成byte陣列(圖片、檔案)
-	@GetMapping("/getPicturefromMember/{id}")
-	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp,
-			@ModelAttribute("memberUiDefault") membershipInformationBean mb) {
-		System.out.println("------------------/getPicture/{id}------------------------id->" + mb.getId());
-		// 萬一找不到圖的預設圖片
-		String filePath = "NoImage2.jpg";
-		// 要放的byte陣列
-		byte[] media = null;
-		// media - headers(表投)
-		HttpHeaders headers = new HttpHeaders();
-		String filename = "";
-		int len = 0;
-		// 用ID找到所有資料
-		membershipInformationBean bean = memberService.findById(mb.getId());
-
-		//		if (bean.getFileName() != null ||  !bean.getFileName().equals("")) {
-//			Blob blob = bean.getHead_shot();
-//			filename = bean.getFileName();
-//			if (blob != null) { // 有圖片時
-//				try { // 找長度
-//					len = (int) blob.length();
-//					media = blob.getBytes(1, len); // 地1個位元組(JDBC都是從1開始 0會掛掉)-最後一個取出放入
-//					System.out.println("----------------有圖片哦------------blob------->" + blob);
-//					System.out.println("----------------有圖片哦------------filename--->" + filename);
-//				} catch (SQLException e) {
-//					System.out.println("----------------圖片錯誤-------------");
-//					throw new RuntimeException("MemberController的getPicture()發生SQLException: " + e.getMessage());
-//				}
-//				
-//			} else { // 直接把檔案轉成byte放到media 然後放預設圖片上去
-//				media = toByteArray(filePath);
-//				filename = filePath;
-//				System.out.println("----------------直接把檔案轉成byte放到media 然後放預設圖片上去-------------");
-//			}
-//		} 	
-//		else {
-//			media = toByteArray(filePath);
-//			filename = filePath;
-//			System.out.println("----------------直接把檔案轉成byte放到media 然後放預設圖片上去22-------------");
-//
-//		}
-		
-		
-		if (bean.getFileName() == null ||  bean.getFileName().equals("")) {
-			Blob blob = bean.getHead_shot();
-			filename = bean.getFileName();
-			
-			media = toByteArray(filePath);
-			filename = filePath;
-			System.out.println("----------------直接把檔案轉成byte放到media 然後放預設圖片上去22-------------");			
-		} 	
-		else {
-			Blob blob = bean.getHead_shot();
-			if (blob != null) { // 有圖片時
-				try { // 找長度
-					len = (int) blob.length();
-					media = blob.getBytes(1, len); // 地1個位元組(JDBC都是從1開始 0會掛掉)-最後一個取出放入
-					System.out.println("----------------有圖片哦------------blob------->" + blob);
-					System.out.println("----------------有圖片哦------------filename--->" + filename);
-				} catch (SQLException e) {
-					System.out.println("----------------圖片錯誤-------------");
-					throw new RuntimeException("MemberController的getPicture()發生SQLException: " + e.getMessage());
-				}
-				
-			} else { // 直接把檔案轉成byte放到media 然後放預設圖片上去
-				media = toByteArray(filePath);
-				filename = filePath;
-				System.out.println("----------------直接把檔案轉成byte放到media 然後放預設圖片上去-------------");
-			}
-		}
-		
-		
-		System.out.println("===================測試中=====================");
-		
-		
-		
-		System.out.println("filename最終版---------------->"+filePath);
-		// 不要放去快取區
-		System.out.println("----------------快取前-------------");
-		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-		System.out.println("----------------快取後-------------");
-
-		// 由黨名傳回對應的MimeType(image/jpg)
-		String mimeType = servletContext.getMimeType(filename);
-		System.out.println("----------------getMimeType後------------->" + mimeType);
-		// spring要得式MediaType 所以用valueOf轉成要得東西
-		MediaType mediaType;
-		if (mimeType!=null) {
-			 mediaType = MediaType.valueOf(mimeType);
-		}else {
-			mediaType = MediaType.valueOf("image/jpg");
-		}
-		System.out.println("----------------getMimeType 轉MediaType後-------------");
-		System.out.println("mediaTypeForm member =" + mediaType);
-
-		headers.setContentType(mediaType);
-		// 開始建立
-		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-		return responseEntity;
-	}
-
-	// 把路徑轉成位元組陣列
-	private byte[] toByteArray(String filepath) {
-		byte[] b = null;
-		// 取出真的路徑 -------------------->
-		String realPath = servletContext.getRealPath(filepath);
-		   System.out.println("-----------開始讀取照片-----realPath-----"+realPath);
-		try {
-			File file = new File(realPath);
-			long size = file.length();
-			b = new byte[(int) size]; // 建立byte
-			InputStream fis = servletContext.getResourceAsStream(filepath);
-			fis.read(b); // 全部讀出
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return b;
-	}
+	
 	
 	
 //	
@@ -467,35 +327,50 @@ public class TestLoginController {
 
 	// 買家進化'
 	@GetMapping("/member/evolution")
-	public String buyerEvolution(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
+	public String buyerEvolution(@ModelAttribute("loginSession") membershipInformationBean mb, 
+			@ModelAttribute("sellerData") membershipInformationBean sellerDataMb, 
+			Model model) {
+		
+		//sellerData初始化設定
+//		model.addAttribute("sellerData", sellerDataMb);
+		System.out.println("------sellerData 驗證後資料 name----------------?"+sellerDataMb.getUserName());
+		
 		membershipInformationBean mb2 = new membershipInformationBean();
 		
 		mb2 = memberService.findMemberDataAll(mb.getUserEmail());
 		model.addAttribute("sellerData", mb2);
 		
-		
+		System.out.println("---------------判斷會員資格中-----------------");
 		if(!mb2.getIdentification().equals("seller")) {
+
+			System.out.println("---------------未認證會員-----------------");
 			//包含驗證
 			return "member_25/seller/member_Ui_seller_default";
 		}
-	
+		System.out.println("---------準備進入已認證賣家中心---------");
 //		return "member_25/seller/member_Ui_seller";
 		return "redirect:/member/seller_Ui_v";
 	}
 	//已認證賣家UI
 	@GetMapping("/member/seller_Ui_v")
 	public String seller_Ui_v(
-			@ModelAttribute("sellerData") membershipInformationBean mb, 
+			@ModelAttribute("sellerData") membershipInformationBean mb,
+			@ModelAttribute("loginSession") membershipInformationBean mb3, 
 			Model model) {
-	
-		return "member_25/member_Ui_buyer";		
+		membershipInformationBean mb2 = new membershipInformationBean();			
+	mb=memberService.findMemberDataAll(mb.getUserEmail());
+	System.out.println("---------預載已認證賣家中心---------");
+		return "member_25/seller/member_Ui_seller";		
 	}
 	//已認證賣家UI - 更新基本資料
 	@PostMapping("/member/seller_Ui_v")
 	public String processBuyerEvolution(@ModelAttribute("sellerData") membershipInformationBean mb, Model model) {
-		membershipInformationBean mb2 = new membershipInformationBean();		
-		model.addAttribute("byyerData", mb);
-		return "member_25/member_Ui_buyer";
+		membershipInformationBean mb2 = new membershipInformationBean();
+		System.out.println("---------已認證賣家中心更新資料---------");
+		memberService.save(mb);
+		System.out.println("---------已認證賣家中心更新資料完畢---------");
+		model.addAttribute("sellerData", mb);
+		return "member_25/seller/member_Ui_seller";
 	}
 	
 	
@@ -571,7 +446,7 @@ public class TestLoginController {
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("member", new membershipInformationBean());
 
-		return "member_25/manager_List";
+		return "member_25/manager/manager_List";
 	}
 	
 	
@@ -579,8 +454,8 @@ public class TestLoginController {
 	JavaMailSender mailSender;
 	// 驗證信測試
 	
-	@GetMapping("/member/verifyBtn")
 //	@ResponseStatus(value = HttpStatus.OK) //可以用void的方法 但沒啥用
+	@GetMapping("/member/verifyBtn")
 	public String sendEmail(
 			@ModelAttribute("sellerData") membershipInformationBean mb,
 			@ModelAttribute("loginSession") membershipInformationBean mb2,
@@ -610,11 +485,48 @@ public class TestLoginController {
 		
 		//存已輸入汁值
 		mBean=mb;
-		
+		System.out.println("----------------?mb.getUserName()------?"+mb.getUserName());
+		model.addAttribute("sellerData",mBean);
 //		return "member_25/seller/member_Ui_seller_default";
 		return "redirect:/member/evolution";
 	}
 	
+	
+	@GetMapping("/member/verifyBtn")
+	public String sendEmailForgetPwd(
+			@ModelAttribute("sellerData") membershipInformationBean mb,
+			@ModelAttribute("loginSession") membershipInformationBean mb2,
+			Model model
+			) {
+		//驗證碼
+		membershipInformationBean vtBtn = new membershipInformationBean();
+		//存已輸入汁值
+		membershipInformationBean mBean = new membershipInformationBean();
+		int VerificationCode = (int) (Math.random()*10000);//產生從[0,10)
+		
+		SimpleMailMessage message =new SimpleMailMessage();
+//		message.setTo(mb.getUserEmail());  //使用者email
+		message.setTo("a2152265@gmail.com");  //測試用我的
+		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
+		message.setText("您好 : "+mb.getUserName()+"/n歡迎光臨BuyByLA  "+"您的驗證碼是:"+VerificationCode);	  
+		mailSender.send(message); 
+		System.out.println("------------------已寄出------------------ --->code="+VerificationCode);
+		System.out.println("------------------已寄出------------------ --->code="+VerificationCode);
+		System.out.println("------------------已寄出------------------ --->code="+VerificationCode);
+
+		System.out.println("------------------loginSession------------------ --->code="+mb2.getUserEmail());
+		System.out.println("------------------selletData------------------ --->code="+mb.getUserEmail());
+		vtBtn.setVerificationCode(VerificationCode);
+		model.addAttribute("beanForVerificationCode",vtBtn);
+		
+		
+		//存已輸入汁值
+		mBean=mb;
+		System.out.println("----------------?mb.getUserName()------?"+mb.getUserName());
+		model.addAttribute("sellerData",mBean);
+//		return "member_25/seller/member_Ui_seller_default";
+		return "redirect:/member/evolution";
+	}
 	
 
 }

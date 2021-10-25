@@ -82,10 +82,10 @@
                  <!-- 讀取圖片 -->
                <img width='150'
                  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>" />
-                      <br><!-- 上傳圖片 -->
+                      <br><br><!-- 上傳圖片 -->
                      修改<form:input id="productImage" path="productImage" type='file'  cssClass="size:20%;"  />
                        &nbsp;&nbsp;
-         <br><br>
+         <br><br><br>
           </td>
           </tr>
           
@@ -113,7 +113,7 @@
             <!--放從DB取出的資料-->         
               ${memberUiDefault.userNickname} 
             &nbsp;&nbsp;/&nbsp;&nbsp;
-            <form:input id="userNickname" path="userNickname" type='text'  style="width: 250px; height: 30px;" />
+            <form:input id="userNickname" path="userNickname" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
             <br><br>
             </td> 
           </tr>
@@ -130,7 +130,7 @@
             <!--放從DB取出的資料-->         
               ${memberUiDefault.userName} 
             &nbsp;&nbsp;/&nbsp;&nbsp;
-            <form:input id="userName" path="userName" type='text'  style="width: 250px; height: 30px;" />
+            <form:input id="userName" path="userName" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
             <br><br>
             </td> 
           </tr>
@@ -142,7 +142,7 @@
              <!--放從DB取出的資料-->         
               ${memberUiDefault.userPhone} 
              &nbsp;&nbsp;/&nbsp;&nbsp;  
-             <form:input id="userPhone" path="userPhone" type='text'  style="width: 250px; height: 30px;" />
+             <form:input id="userPhone" path="userPhone" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
              <br><br>
             </td>
             </tr>
@@ -154,7 +154,7 @@
                 <!--放從DB取出的資料-->         
                   ${memberUiDefault.birthday} 
                 &nbsp;&nbsp;/&nbsp;&nbsp;
-                <form:input id="birthday" path="birthday" type='text'  style="width: 250px; height: 30px;" />
+                <form:input id="birthday" path="birthday" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
                 <br><br>
                 </td> 
               </tr>
@@ -183,7 +183,7 @@
             <!--放從DB取出的資料-->         
               ${memberUiDefault.address} 
             &nbsp;&nbsp;/&nbsp;&nbsp;
-            <form:input id="address" path="address" type='text'  style="width: 250px; height: 30px;" />
+            <form:input id="address" path="address" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
             <br><br>
             </td> 
           </tr>

@@ -41,6 +41,8 @@ public interface MembertRepository extends JpaRepository<membershipInformationBe
   @Query("UPDATE membershipInformationBean m "
 			+ "set m.userPhone=:userPhone,"
 			+ "m.userName=:userName,"
+			+ "m.userNickname=:userNickname,"
+			+ "m.birthday=:birthday,"
 			+ "m.userGender=:userGender,"
 			+ "m.address=:address,"   //,head_shot=:head_shot
 			+ "m.head_shot=:head_shot," 
@@ -49,6 +51,8 @@ public interface MembertRepository extends JpaRepository<membershipInformationBe
   void upadteMemberData(
 		  @Param("userPhone") String userPhone,
 		  @Param("userName") String userName,
+		  @Param("userNickname") String userNickname,
+		  @Param("birthday") String birthday,
 		  @Param("userGender") String userGender,
 		  @Param("address") String address,
 		  @Param("head_shot") Blob blob,
@@ -63,20 +67,26 @@ public interface MembertRepository extends JpaRepository<membershipInformationBe
   @Query("UPDATE membershipInformationBean m "
 			+ "set m.userPhone=:userPhone,"
 			+ "m.userName=:userName,"
+			+ "m.userNickname=:userNickname,"
+			+ "m.birthday=:birthday,"
 			+ "m.userGender=:userGender,"
 			+ "m.address=:address "   //,head_shot=:head_shot
 			+ "WHERE m.userEmail=:userEmail") 
   void upadteMemberDataWithNoImg(
 		  @Param("userPhone") String userPhone,
 		  @Param("userName") String userName,
+		  @Param("userNickname") String userNickname,
+		  @Param("birthday") String birthday,
 		  @Param("userGender") String userGender,
 		  @Param("address") String address,
 		  @Param("userEmail") String userEmail);
 	
 	
 	
-	
-	
+//	@Modifying
+//	@Query("update User u set u.firstname = ?1, u.lastname = ?2 where u.id = ?3")
+//	void setUserInfoById(String firstname, String lastname, Integer userId);
+//	
 	//只搜包含某些關鍵字
 //	List<Registration> findByPlaceContaining(String place);
 
