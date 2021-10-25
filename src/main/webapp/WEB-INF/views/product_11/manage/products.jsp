@@ -65,6 +65,7 @@ body{
     <th style="width:20%;">productImage</th>
     <th style="width:10%;">price</th>
     <th style="width:10%;">stock</th>
+    <th style="width:10%;">category</th>
     <th style="width:10%;">update</th>
     <th style="width:10%;">delete</th>
         </tr>
@@ -78,6 +79,7 @@ body{
   				   src="<c:url value='/getPicture/${product.productId}' />" /></td>
     <td>${product.price}</td>
     <td>${product.stock}</td>
+    <td>${product.category}</td>
    <!-- <td><input type=button onclick="location.href='./update/${product.productId}'" value='update'></td>
     <td><input type=button onclick="location.href='/delete/${product.productId}'" value='update'></td>-->
      <td><a id="update" href="<c:url value='/update?productId=${product.productId}' />">update</a></td>
