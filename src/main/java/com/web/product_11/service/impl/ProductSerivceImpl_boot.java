@@ -41,8 +41,8 @@ public class ProductSerivceImpl_boot implements ProductService{
 
 	@Override
 	public Product getProductById(int productId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return productRepositoryDao.getById(productId);
 	}
 
 	@Override

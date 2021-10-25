@@ -175,7 +175,7 @@ h2 span {
 			<tbody id="tbody">
 				<c:forEach var="row" items="${rs.rows}">
 					<tr>
-						<td><img width='100' height='200' src="<c:url value='/getPicture/${row.PID}' />" /></td>
+						<td><img width='150' src="<c:url value='/getPicture/${row.PID}' />" /></td>
 						<td>${row.P_name}</td>
 						<td>${row.count}</td>
 						<td>NT<span>${row.P_price}</span></td>

@@ -10,7 +10,6 @@ import com.web.record_30.model.RecordBean;
 
 public interface CartService {
 	public void addItemByid(int pid,boolean exists);
-	public boolean existsById(int pid);
 	public void add(int pid);
 	public void sub(int pid);
 	public void deletecart(int pid);
