@@ -30,7 +30,6 @@
 			<img src="image/BuyBuyLaLogo.png" alt="Microsoft" class="logo">
 
 			<ul class="main-menu">
-
 				<c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
 					<li><a href="<c:url value='/try/login' />">會員登入</a></li>
 					<li><a href="<c:url value='/try/add' />">會員註冊</a></li>
@@ -38,6 +37,7 @@
 
 
 
+					<li><a href="<c:url value='/member/evolution' />">賣家中心</a></li>
 				<li><a href="forum">討論區</a></li>
 				<li><a href="campaigns">活動專區</a></li>
 

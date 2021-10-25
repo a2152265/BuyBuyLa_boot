@@ -25,6 +25,8 @@ public class membershipInformationBean {
 	String userPhone;
 	@Column(name="userPwd")
 	String userPwd;
+	
+	
 	@Column(name="userName")
 	String userName;
 	@Column(name="userNickname")
@@ -41,11 +43,23 @@ public class membershipInformationBean {
 	@Column(name="fileName")
 	String  fileName;
 	
+	@Column(name="birthday")
+	String birthday;
+	
+	//verify 驗證碼
+	@Column(name="verifyCode")
+	Integer verifyCode;
 	
 	
 	public membershipInformationBean() {
 		
 	}
+	
+	@Transient
+	String userPwd1;
+	
+	@Transient
+	int VerificationCode;
 	
 	//-----------------上傳'檔案(船幾個就要有幾份)-------------------------------
 		@Transient  //@Transient告訴spring要忽略  我們自己要用來裝圖片的
@@ -58,10 +72,17 @@ public class membershipInformationBean {
 		public void setProductImage(MultipartFile productImage) {
 		    this.productImage = productImage;
 		}
+		
+		
+		
+		
+		
 
 		public membershipInformationBean(Integer id, String userEmail, String userPhone, String userPwd,
 				String userName, String userNickname, String userGender, String address, String identification,
-				Blob head_shot, String fileName, MultipartFile productImage) {
+				Blob head_shot, String fileName, String birthday, Integer verifyCode, String userPwd1,
+				int verificationCode, MultipartFile productImage) {
+			super();
 			this.id = id;
 			this.userEmail = userEmail;
 			this.userPhone = userPhone;
@@ -73,9 +94,41 @@ public class membershipInformationBean {
 			Identification = identification;
 			this.head_shot = head_shot;
 			this.fileName = fileName;
+			this.birthday = birthday;
+			this.verifyCode = verifyCode;
+			this.userPwd1 = userPwd1;
+			VerificationCode = verificationCode;
 			this.productImage = productImage;
 		}
 
+		public int getVerificationCode() {
+			return VerificationCode;
+		}
+
+		public void setVerificationCode(int verificationCode) {
+			VerificationCode = verificationCode;
+		}
+
+		public String getUserPwd1() {
+			return userPwd1;
+		}
+
+		public void setUserPwd1(String userPwd1) {
+			this.userPwd1 = userPwd1;
+		}
+
+		
+		
+
+		public Integer getVerifyCode() {
+			return verifyCode;
+		}
+
+		public void setVerifyCode(Integer verifyCode) {
+			this.verifyCode = verifyCode;
+		}
+
+		
 		public Integer getId() {
 			return id;
 		}
@@ -163,15 +216,13 @@ public class membershipInformationBean {
 		public void setFileName(String fileName) {
 			this.fileName = fileName;
 		}
-		
-		
 
-		
-		
-		
-		
-		
-	
-	
+		public String getBirthday() {
+			return birthday;
+		}
+
+		public void setBirthday(String birthday) {
+			this.birthday = birthday;
+		}
 
 }
