@@ -40,11 +40,18 @@
 nav {
 	text-align: center;
 }
-
+hr {margin:0.7rem 0;}
 h1 {
 	display: inline;
 }
-
+.functionBtn{
+display:inline;
+padding:10px 50px;
+}
+.functionBtn:hover{
+background-color:lightgray;
+cursor:pointer;
+}
 .newContent {
 	width: 1000px;
 	margin: 0 auto;
@@ -135,28 +142,27 @@ h1 {
 					<div>
 						<p class="card-text">${content.content}</p>
 						<div><hr>
-							<a href="#" class="btn" style="background-color: rgb(171, 131, 102); color: cornsilk;">${content.tag}</a>
-							<span style="position: absolute; left: 140px;">
-							<img style="width: 30px;" src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png">
-							<label>0</label>
-							</span> 
-							
-							<span style="position: absolute; left: 220px;"> 
-							<img style="width: 30px;" src="https://cdn-icons-png.flaticon.com/128/739/739286.png">
-							<label>0</label>
-							</span> 
-							
-							<span style="position: absolute; left: 300px;"> 
-							<img style="width: 30px;" src="https://cdn-icons-png.flaticon.com/128/709/709612.png">
-							<label>0</label>
-							</span><hr>
+<%-- 							<a href="#" class="btn" style="background-color: rgb(171, 131, 102); color: cornsilk;">${content.tag}</a> --%>
+							<div class="functionBtn">
+							<img style="width: 25px;" src="https://cdn-icons-png.flaticon.com/128/633/633759.png">
+							讚
+							</div>
+							<div class="functionBtn message">
+							<img style="width: 25px;" src="https://cdn-icons-png.flaticon.com/128/739/739286.png">
+							留言
+							</div>
+							<div class="functionBtn">
+							<img style="width: 25px;" src="https://cdn-icons.flaticon.com/png/128/2958/premium/2958783.png?token=exp=1635147050~hmac=33064c751b5b32486e2467622d021dc8">
+							分享
+							</div>
+							<hr>
+							<img src="" style="width: 50px; height: 50px; border-radius: 50%;"> 
+							<input style="border-radius:10px;" type="text" size="50" placeholder="留言......">
 						</div>
 					</div>
 				</div>
-				<span>${content.date}
-				<button style="float:right;padding:1px 2px" type="button" class="btn btn-success">引言回覆</button>
+				<span>最後發表 ${content.date}
 				</span>
-				<div><textarea rows="3" style="width:100%"></textarea></div>
 			</div>
 			<br>
 			</c:forEach>

@@ -141,9 +141,9 @@ public class ForumController {
 				}
 				forumService.update(updfb);
 			} else if (updfb.getImage().isEmpty()) {
-				ForumBean fCoverImg = forumService.getContentById(updfb.getId());
-				updfb.setCoverImage(fCoverImg.getCoverImage());
-				updfb.setFileName(fCoverImg.getFileName());
+				ForumBean imgIsEmpty = forumService.getContentById(updfb.getId());
+				updfb.setCoverImage(imgIsEmpty.getCoverImage());
+				updfb.setFileName(imgIsEmpty.getFileName());
 				forumService.update(updfb);
 			}
 		} else {
