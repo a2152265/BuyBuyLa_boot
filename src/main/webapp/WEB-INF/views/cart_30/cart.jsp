@@ -140,8 +140,8 @@ h2 span {
 <body>
 
 <sql:setDataSource var="snapshot" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-      url="jdbc:sqlserver://localhost:1433;databaseName=shopping" 
-     user="sa"  password="zxcv265358"/> 
+      url="jdbc:sqlserver://MSI\\SQLEXPRESS:1433;databaseName=BuyBuyLa" 
+     user="sa"  password="password"/> 
 <!-- ======= -->
 <%-- <sql:setDataSource var="snapshot" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver" --%>
 <%--      url="jdbc:sqlserver://localhost:1433;databaseName=BuyBuyLa" --%>
