@@ -12,7 +12,7 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.web.member_25.dao.MembertRepository;
-import com.web.member_25.model.MemberBean;
+
 import com.web.member_25.model.membershipInformationBean;
 import com.web.member_25.service.MemberService;
 import com.web.product_11.dao.ProductRepository;
@@ -32,11 +32,6 @@ public class MemberSerivceImpl_boot implements MemberService{
 		return false;
 	}
 
-	@Override
-	public List<MemberBean> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public membershipInformationBean findById(int id) {

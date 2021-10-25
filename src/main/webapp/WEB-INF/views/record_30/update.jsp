@@ -135,7 +135,7 @@ input, textarea, select {
 				</tr>
 			</table>
 				<div class="wrap">
-        <a href="<c:url value='update2' />"><input type="submit" name="update" class="button" value="確認送出" /></a>
+     	<input type="submit" class="button" value="確認送出" />
 		
     </div>
 		

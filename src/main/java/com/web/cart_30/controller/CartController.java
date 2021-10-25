@@ -48,17 +48,8 @@ public class CartController {
 	@GetMapping("/additem")
 	public String additem(@RequestParam Integer id ,Model model) {
 		System.out.println("PID cc= "+id);
-		boolean exists = cartService.existsById(id);
-		System.out.println("exists = "+exists);
-		if(exists!=true) {
-			cartService.addItemByid(id,exists);
-
-		}
-		else {
-			cartService.add(id);
-			model.addAttribute("additem");	
-		}
-		
+	
+		cartService.addItemByid(id,true);
 		return "redirect:/products";
 	}
 	
@@ -110,6 +101,7 @@ public class CartController {
 		String now = dtf.format(LocalDateTime.now());
 		System.out.println(now);
 		for(Cart c:cart) {
+						
 			rb.setRecord_id(rc);
 			rb.setPid(c.getPid());
 			rb.setP_name(c.getP_name());
@@ -118,11 +110,14 @@ public class CartController {
 			rb.setBuyer("asd1234");
 			rb.setSeller(c.getSeller());
 			rb.setBuy_time(now);
-			System.out.println("RID = "+rb.getRecord_id()+", PID = "+rb.getPid()+", NAME = "
+			rb.setTransport_status("待出貨");
+			System.out.println("****************************************************");
+			System.out.println("***"+rb.getId()+"RID = "+rb.getRecord_id()+", PID = "+rb.getPid()+", NAME = "
 					+ rb.getP_name()+", PRICE = "+rb.getP_price()+", CNT = "+rb.getPcount()
 					+", BUYER = "+rb.getBuyer()+", SELLER = "+rb.getSeller());
 			
 			cartService.addToRecord2(rb);
+
 
 		}
 		cartService.addRidCount();

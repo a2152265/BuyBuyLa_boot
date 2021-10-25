@@ -140,8 +140,8 @@ h2 span {
 <body>
 
 <sql:setDataSource var="snapshot" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-      url="jdbc:sqlserver://localhost:1433;databaseName=shopping" 
-     user="sa"  password="zxcv265358"/> 
+      url="jdbc:sqlserver://MSI\\SQLEXPRESS:1433;databaseName=BuyBuyLa" 
+     user="sa"  password="password"/> 
 <!-- ======= -->
 <%-- <sql:setDataSource var="snapshot" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver" --%>
 <%--      url="jdbc:sqlserver://localhost:1433;databaseName=BuyBuyLa" --%>
@@ -179,7 +179,7 @@ h2 span {
 			<tbody id="tbody">
 			<c:forEach var="row" items="${rs.rows}">
 				<tr>
-					<td><img width='100' height='200' src="<c:url value='/getPicture/${row.PID}' />" /></td>
+					<td><img width='150'src="<c:url value='/getPicture/${row.PID}' />" /></td>
 					<td>${row.P_name}</td>
 					<td><a href="<c:url value='/sub' />?id=${row.PID}"><button class="down">-</button></a><input type="text" value="${row.count}" readonly="readonly" /><a href="<c:url value='/add' />?id=${row.PID}"><button class="up">+</button></a></td>
 					<td>NT<span>${row.P_price}</span></td>

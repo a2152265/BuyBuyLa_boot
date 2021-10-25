@@ -54,8 +54,8 @@ public class RecordController {
 	
 	
 	@GetMapping("/delete")
-	public String delete(@ModelAttribute("RecordBean") RecordBean record,Model model) {
-		model.addAttribute("delete",record);
+	public String delete(@ModelAttribute("delete") RecordBean record,Model model) {
+//		model.addAttribute("delete",record);
 		return "record_30/delete";
 		
 	}

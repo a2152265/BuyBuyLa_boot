@@ -6,39 +6,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.web.record_30.dao.IRecordDao;
+
+import com.web.record_30.dao.RecordRepository;
 import com.web.record_30.model.RecordBean;
 import com.web.record_30.service.IRecordService;
 
 @Service
 public class RecordService implements IRecordService {
 
-	IRecordDao recordDao;
-	
+//	IRecordDao recordDao;
+	RecordRepository recordRepository;
 	@Autowired
-	public RecordService(IRecordDao recordDao) {
-	
-		this.recordDao = recordDao;
+	public RecordService(RecordRepository recordRepository) {
+		this.recordRepository = recordRepository;
 	}
 
-	@Transactional
+
+//	@Transactional
 	@Override
 	public List<RecordBean> getAllRecords(String buyer) {
 		// TODO Auto-generated method stub
-		return recordDao.getAllRecords(buyer);
+		
+		return recordRepository.findByRecord(buyer);
 	}
+	
+
 	
 	@Transactional
 	@Override
 	public void deleteById(int record_id) {
-		recordDao.deleteById(record_id);
+		System.out.println("**********"+record_id);
+		recordRepository.delete(record_id);
 		
 	}
+	
 	@Transactional
 	@Override
-	public RecordBean update(RecordBean recordBean) {
+	public void update(RecordBean recordBean) {
 	
-		return recordDao.update(recordBean);
+		 recordRepository.update(recordBean.getPcount(),recordBean.getRecord_id(),recordBean.getPid());
 	}
 
 }

@@ -2,6 +2,7 @@ package com.web.cart_30.service.impl;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,11 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.web.cart_30.dao.CartDao;
+import com.web.cart_30.dao.CartRepository;
+import com.web.cart_30.dao.RidCountRepository;
 import com.web.cart_30.model.Cart;
 
 import com.web.cart_30.model.RidCount;
 import com.web.cart_30.service.CartService;
+import com.web.product_11.dao.ProductRepository;
+import com.web.product_11.model.Product;
+import com.web.record_30.dao.RecordRepository;
 import com.web.record_30.model.RecordBean;
 
 
@@ -22,93 +27,115 @@ import com.web.record_30.model.RecordBean;
 @Service
 public class CartServiceImpl implements CartService {
 	
-	CartDao cartDao;
-	SessionFactory factory;
+	RecordRepository  recordRepository;
+	CartRepository cartRepository;
+	ProductRepository productRepository;
+	RidCountRepository ridCountRepository;
 	
 	@Autowired
-	public CartServiceImpl(CartDao cartDao, SessionFactory factory) {
-	
-		this.cartDao = cartDao;
-		this.factory = factory;
+
+
+	public CartServiceImpl(CartRepository cartRepository, ProductRepository productRepository,RidCountRepository ridCountRepository,RecordRepository recordRepository) {
+		this.cartRepository = cartRepository;
+		this.productRepository = productRepository;
+		this.ridCountRepository = ridCountRepository;
+		this.recordRepository = recordRepository;
 	}
 
 
 
 
-
-	@Transactional
 	@Override
 	public void addItemByid(int pid,boolean exists) {
 		System.out.println("serviceqqqqqqqqqqqqqqqqqqqqqqqqq");
+		Optional<Product> product = productRepository.findById(pid);
+		exists = cartRepository.existsById(pid);
+		System.out.println("serviceqqqqqqqqqqqqqqqqqqqqqqqqq"+exists);	
 		if(exists!=true) {
-			 cartDao.addItemByid(pid,exists);
+			Cart cart = new Cart(
+					product.get().getProductId(),
+					product.get().getProductName(),
+					product.get().getPrice(),
+					1,
+					"asd123",
+					product.get().getSerller(),
+					product.get().getCoverImage());
+			cartRepository.save(cart);
+		}else {
+			Optional<Cart> cart =cartRepository.findById(pid);
+			int count = cart.get().getCount()+1;
+			cartRepository.add(count,pid);
 		}
-		cartDao.add(pid);
+
 	}
 
 
 
-
-	
-
-	@Transactional
-	@Override
-	public boolean existsById(int pid) {
-		System.out.println("ssssssssssssssssss");
-		return cartDao.existsById(pid);
-	}
-
-
-	@Transactional
 	@Override
 	public void add(int pid) {
-		cartDao.add(pid);
+		Optional<Cart> cart =cartRepository.findById(pid);
+		int count = cart.get().getCount()+1;
+		cartRepository.add(count,pid);
 		
 	}
 
 
-	@Transactional
+
 	@Override
 	public void sub(int pid) {
-		cartDao.sub(pid);
+		Optional<Cart> cart =cartRepository.findById(pid);
+		if(cart.get().getCount()>1) {
+			int count = cart.get().getCount()-1;
+			cartRepository.add(count,pid);
+		}
+		
 		
 	}
 
 
-	@Transactional
+
 	@Override
 	public void deletecart(int pid) {
-		cartDao.deletecart(pid);
+		cartRepository.deleteById(pid);
 		
 	}
-
-
+//
+//
 	@Transactional
 	@Override
 	public List<Cart> addToRecord() {
-		Session session = factory.getCurrentSession();
+//		Session session = factory.getCurrentSession();
 //		List<Cart> cart = new ArrayList<Cart>();
-		String hql = "FROM Cart";
-		List<Cart> cart = session.createQuery(hql,Cart.class)
-		.getResultList();
-		
+		List<Cart> cart =cartRepository.findAll();
+//		List<Cart> cart = session.createQuery(hql,Cart.class)
+//		.getResultList();		
 		return cart;
 	
 	}
-	
-	
-	
+//	
+//	
+//	
 	@Transactional
 	@Override
 	public void addToRecord2(RecordBean rb) {
-		cartDao.addToRecord(rb);
+			
+		recordRepository.insert(
+				rb.getRecord_id(),
+				rb.getPid(),
+				rb.getP_name(),
+				rb.getP_price(),
+				rb.getPcount(),
+				rb.getBuyer(),
+				rb.getSeller(),
+				rb.getBuy_time(),
+				rb.getTransport_status());
 		
 	}
 
 	@Transactional
 	@Override
 	public void deleteAll() {
-		cartDao.deleteAll();
+		cartRepository.deleteAll();
 		
 	}
 
@@ -118,23 +145,22 @@ public class CartServiceImpl implements CartService {
 	@Transactional
 	@Override
 	public int getRidCount(int id) {
-		Session session = factory.getCurrentSession();
+
+		RidCount rc=ridCountRepository.getById(1);
 		
-		int rc = session.get(RidCount.class,id)
-				.getRidcount();
 		System.out.println(rc+"************************************");
 		
-		return rc;
+		return rc.getRidcount();
 		
 	}
-
-
 
 
 	@Transactional
 	@Override
 	public void addRidCount() {
-		cartDao.addRidCount(1);
+		RidCount rc =ridCountRepository.getById(1);
+		int cnt = rc.getRidcount()+1;
+		ridCountRepository.add(cnt,1);
 		
 	}
 

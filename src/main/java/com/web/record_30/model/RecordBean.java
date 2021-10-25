@@ -12,9 +12,9 @@ public class RecordBean {
 private static final long serialVersionUID = 1L;
 	
 	@Id
-	
-	private Integer record_id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;	
+	private Integer record_id;	
 	private Integer pid;
 	private String p_name;
 	private Double p_price;
@@ -22,6 +22,7 @@ private static final long serialVersionUID = 1L;
 	private String buyer;
 	private String seller;
 	private Integer pcount;
+	private String transport_status;
 	
 	public RecordBean() {
 		
@@ -29,8 +30,28 @@ private static final long serialVersionUID = 1L;
 	
 	
 
-	public RecordBean(Integer record_id, Integer pid, String p_name, Double p_price, String buy_time, String buyer,
-			String seller, Integer pcount) {
+
+
+	public String getTransport_status() {
+		return transport_status;
+	}
+
+
+
+
+
+	public void setTransport_status(String transport_status) {
+		this.transport_status = transport_status;
+	}
+
+
+
+
+
+	public RecordBean(Integer id, Integer record_id, Integer pid, String p_name, Double p_price, String buy_time,
+			String buyer, String seller, Integer pcount, String transport_status) {
+		
+		this.id = id;
 		this.record_id = record_id;
 		this.pid = pid;
 		this.p_name = p_name;
@@ -39,7 +60,34 @@ private static final long serialVersionUID = 1L;
 		this.buyer = buyer;
 		this.seller = seller;
 		this.pcount = pcount;
+		this.transport_status = transport_status;
 	}
+
+
+
+
+
+
+
+
+
+	public Integer getId() {
+		return id;
+	}
+
+
+
+
+
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+
+
 
 
 
