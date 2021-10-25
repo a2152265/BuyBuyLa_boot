@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.web.member_25.dao.MemberDao;
-import com.web.member_25.model.MemberBean;
+
 import com.web.member_25.model.membershipInformationBean;
 
 
