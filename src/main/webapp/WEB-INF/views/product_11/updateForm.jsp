@@ -59,6 +59,9 @@ fieldset {
         <form:form method='POST' modelAttribute="product" class='form-horizontal'
         	enctype="multipart/form-data">
             <fieldset >
+            <div class="face">
+     <img width='300' height='300' id="demo" class="normalFace" onclick="fileSelect();"
+  				   src="<c:url value='/getPicture/${product.productId}' />" />	
              	<div class="form-group">
                     <label class="control-label col-lg-2 col-lg-2" for='productId'>
                         商品代號
@@ -142,9 +145,7 @@ fieldset {
         </form:form>
     </section>
    
-    <div class="face">
-     <img width='300' height='300' id="demo" class="normalFace" onclick="fileSelect();"
-  				   src="<c:url value='/getPicture/${product.productId}' />" />	
+    
   				   
  <form id="form_face" enctype="multipart/form-data" style="width:auto;">
   <input type="file" name="productImage" id="productImage" onchange="fileSelected();" style="display:none;">
