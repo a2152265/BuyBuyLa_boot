@@ -57,36 +57,47 @@ public class CartController {
 	
 	@GetMapping("/cart")
 	public String cart(Model model) {
-		
-		
+	List<Cart> cart = cartService.addToRecord();
+	model.addAttribute("cart", cart);	
 		 return "cart_30/cart";
 	}
 	
 	
 	@GetMapping("/deletecart")
 	public String deletecart(@RequestParam Integer id ,Model model) {
-		cartService.deletecart(id);	
-		 return "cart_30/cart";
+		List<Cart> cart = cartService.addToRecord();
+		model.addAttribute("cart", cart);	
+		cartService.deletecart(id);
+
+		 return "redirect:/cart";
 	}
 	
 	@GetMapping("/add")
 	public String add(@RequestParam Integer id,Model model) {
 		System.out.println("starttttt===============");
+		List<Cart> cart = cartService.addToRecord();
+		model.addAttribute("cart", cart);
 		cartService.add(id);	
 		System.out.println("===============endddddddddddd");
-		 return "cart_30/cart";
+	
+		 return "redirect:/cart";
 	}
 	
 	@GetMapping("/sub")
 	public String sub(@RequestParam Integer id,Model model) {
 		System.out.println("starttttt===============");
+		List<Cart> cart = cartService.addToRecord();
+		model.addAttribute("cart", cart);
 		cartService.sub(id);	
 		System.out.println("===============endddddddddddd");
-		 return "cart_30/cart";
+	
+		 return "redirect:/cart";
 	}
 	
 	@GetMapping("/check")
 	public String check(Model model) {
+		List<Cart> cart = cartService.addToRecord();
+		model.addAttribute("cart", cart);	
 		 return "cart_30/check";
 	}
 	
@@ -94,6 +105,7 @@ public class CartController {
 	@GetMapping("/fin")
 	public String fin(Model model) {
 		List<Cart> cart = cartService.addToRecord();
+		model.addAttribute("cart", cart);	
 		int rc = cartService.getRidCount(1);
 		RecordBean rb =new RecordBean();
 		

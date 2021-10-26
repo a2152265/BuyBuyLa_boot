@@ -140,12 +140,6 @@ h2 span {
 </head>
 
 <body>
-	<sql:setDataSource var="snapshot"
-		driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-		url="jdbc:sqlserver://localhost:1433;databaseName=shopping" user="sa"
-		password="zxcv265358" />
-
-	<sql:query sql="select * from Cart" var="rs" dataSource="${snapshot}" />
 
 
 	<div class="container">
@@ -173,13 +167,13 @@ h2 span {
 				</tr>
 			</thead>
 			<tbody id="tbody">
-				<c:forEach var="row" items="${rs.rows}">
+				<c:forEach var="row" items="${cart}">
 					<tr>
-						<td><img width='150' src="<c:url value='/getPicture/${row.PID}' />" /></td>
-						<td>${row.P_name}</td>
+						<td><img width='150' src="<c:url value='/getPicture/${row.pid}' />" /></td>
+						<td>${row.p_name}</td>
 						<td>${row.count}</td>
-						<td>NT<span>${row.P_price}</span></td>
-						<td>NT<span class="total">${row.count*row.P_price}</span></td>
+						<td>NT<span>${row.p_price}</span></td>
+						<td>NT<span class="total">${row.count*row.p_price}</span></td>
 					</tr>
 
 				</c:forEach>

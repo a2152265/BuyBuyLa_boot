@@ -139,16 +139,16 @@ h2 span {
 
 <body>
 
-<sql:setDataSource var="snapshot" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-      url="jdbc:sqlserver://localhost:1433;databaseName=shopping" 
-     user="sa"  password="zxcv265358"/> 
+<%-- <sql:setDataSource var="snapshot" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver" --%>
+<%--       url="jdbc:sqlserver://localhost:1433;databaseName=shopping"  --%>
+<%--      user="sa"  password="zxcv265358"/>  --%>
 <!-- ======= -->
 <%-- <sql:setDataSource var="snapshot" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver" --%>
 <%--      url="jdbc:sqlserver://localhost:1433;databaseName=BuyBuyLa" --%>
 <%--      user="sa"  password="password"/> --%>
 <!-- >>>>>>> branch 'Dev_MVC3' of git@github.com:BuyBuyLA/BuyBuyLAProject.git -->
      
- <sql:query sql="select * from Cart" var="rs" dataSource="${snapshot}" /> 
+<%--  <sql:query sql="select * from Cart" var="rs" dataSource="${snapshot}" />  --%>
  
  
 	<div class="container">
@@ -177,15 +177,15 @@ h2 span {
 				</tr>
 			</thead>
 			<tbody id="tbody">
-			<c:forEach var="row" items="${rs.rows}">
+			<c:forEach var="row" items="${cart}">
 				<tr>
-					<td><img width='150'src="<c:url value='/getPicture/${row.PID}' />" /></td>
-					<td>${row.P_name}</td>
-					<td><a href="<c:url value='/sub' />?id=${row.PID}"><button class="down">-</button></a><input type="text" value="${row.count}" readonly="readonly" /><a href="<c:url value='/add' />?id=${row.PID}"><button class="up">+</button></a></td>
-					<td>NT<span>${row.P_price}</span></td>
-					<td>NT<span class="total">${row.count*row.P_price}</span></td>
+					<td><img width='150'src="<c:url value='/getPicture/${row.pid}' />" /></td>
+					<td>${row.p_name}</td>
+					<td><a href="<c:url value='/sub' />?id=${row.pid}"><button class="down">-</button></a><input type="text" value="${row.count}" readonly="readonly" /><a href="<c:url value='/add' />?id=${row.pid}"><button class="up">+</button></a></td>
+					<td>NT<span>${row.p_price}</span></td>
+					<td>NT<span class="total">${row.count*row.p_price}</span></td>
 					<td>
-						<a href="<c:url value='/deletecart' />?id=${row.PID}"><button>刪除</button></a>
+						<a href="<c:url value='/deletecart' />?id=${row.pid}"><button>刪除</button></a>
 					</td>
 				</tr>
 			
