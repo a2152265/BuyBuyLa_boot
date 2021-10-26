@@ -192,6 +192,14 @@
 				<img src="https://unsplash.com/photos/8pb7Hq539Zw?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink" width="150" height="150" alt="封面圖片" >
 			</div>
 			
+			 <tr>
+                <td> <label  for="productInfo">
+                        商品照片:
+                     </label></td>
+                <td> 
+                		<form:input id="productImage" path="productImage" type='file' accept=".jpg,.png,.gif,.svg"
+                            class='form:input-large' /></td>
+            </tr>
 			
             <tr>
                 <td><label  for="productName">
@@ -249,14 +257,7 @@
                 <td> <form:textarea id="productInfo" path="productInfo" type='text'
                             class='form:input-large' /></td>
             </tr>
-             <tr>
-                <td> <label  for="productInfo">
-                        商品照片:
-                     </label></td>
-                <td> 
-                		<form:input id="productImage" path="productImage" type='file' accept=".jpg,.png,.gif,.svg"
-                            class='form:input-large' /></td>
-            </tr>
+            
                </tbody>
     </table>
     		<div class="wrap" style="display: flex;margin-left: 80px;">
@@ -268,14 +269,13 @@
     </section>
     
     <script>
-    $('#productImage').change(function() {
-    	  var file = $('#productImage')[0].files[0];
-    	  var reader = new FileReader;
-    	  reader.onload = function(e) {
-    	    $('#display').attr('src', e.target.result);
-    	  };
-    	  reader.readAsDataURL(file);
-    	});
+    var x = new FileReader;
+    document.forms[0].elements[0].onchange = function () {
+        x.readAsDataURL(this.files[0]);
+    }
+    x.onloadend = function () {
+        document.images[0].src = this.result;
+    }
     
     
 
