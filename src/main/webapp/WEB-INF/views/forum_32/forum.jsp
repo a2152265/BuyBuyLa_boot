@@ -57,8 +57,7 @@
 			</div>
 		</div>
 	</nav>
-
-	<div class="row" style="margin-top:200px">
+	<div class="row" style="margin-top:100px">
 		<div class="col-6 col-md-3" style="margin-left: 150px; width: 260px">
 			<div class="accordion" id="accordionExample">
 				<div class="accordion-item">
@@ -131,30 +130,23 @@
 			</div>
 		</div>
 		
-		<div class="col-12 col-md-9 bg-white" style=" border: 1px solid black; width:60%;padding: 20px; margin-left:50px">
+		<div class="col-12 col-md-9 bg-white" style=" width:60%;padding: 20px; margin-left:50px">
 		<div>
 		<b>話題區</b>
-		<div class="btn-group mb-3">
-		  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-		    排序依據
-		  </button>
-		  <ul class="dropdown-menu">
-		    <li><a class="dropdown-item" href="#">最新</a></li>
-		    <li><a class="dropdown-item" href="#">最熱門</a></li>
-		  </ul>
-		</div>
+		<select class="form-select mb-3" aria-label="Default select example" style="width:130px;display:inline;">
+		  <option value="1">最新</option>
+		  <option value="2">最熱門</option>
+		</select>
 		<button style="float: right;" type="button" class="btn btn-outline-danger mb-3" data-bs-toggle="modal" data-bs-target="#Modal">發起討論</button>
-		</div><br>
+		</div>
+		<br>
 			
 			<c:forEach var='content' items='${content}'>
-				<div class="card mx-auto"
-					style="width: 54rem; padding: 10px; border: outset; border-radius: 3%">
-<!-- 					style="width: 34rem; padding: 10px; border: outset; border-radius: 3%"> -->
+				<div class="card mx-auto" style="width: 57rem; padding: 15px; border: outset;margin:0px;">
 					<div>
-						<img src="" style="width: 50px; height: 50px; border-radius: 50%;">
-						<span>${content.userName}</span> <img id="edit"
-							data-bs-toggle="dropdown" aria-expanded="false"
-							class="dropdown-toggle"
+						<img src="https://storage.googleapis.com/shopeetw-university/static/avatar.jpg" style="width: 50px; height: 50px; border-radius: 50%;"> 
+						<span style="margin-left:15px;font-size: 20px">${content.userName}</span>
+						<img id="edit" data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle"
 							style="cursor: pointer; float: right; width: 30px; height: 30px;"
 							src="https://cdn-icons-png.flaticon.com/128/1827/1827933.png">
 						<ul class="dropdown-menu">
@@ -167,37 +159,26 @@
 						</ul>
 					</div>
 					<br>
-						<h1>${content.title}</h1>
-					<div class="card-body">
+					<div class="card-body" style="padding:0px">
 						<div>
-							<p class="card-text">${content.content}</p>
-							<div>
-								<hr>
-								<%-- <a href="#" class="btn" style="background-color: rgb(171, 131, 102); color: cornsilk;">${content.tag}</a> --%>
-								<div class="functionBtn">
-									<img style="width: 25px;"
-										src="https://cdn-icons-png.flaticon.com/128/633/633759.png">
-									讚
-								</div>
-								<div class="functionBtn message">
-									<img style="width: 25px;"
-										src="https://cdn-icons-png.flaticon.com/128/739/739286.png">
-									留言
-								</div>
-								<div class="functionBtn">
-									<img style="width: 25px;"
-										src="https://cdn-icons.flaticon.com/png/128/2958/premium/2958783.png?token=exp=1635279746~hmac=ac2bac0097337bc02fd875a7da6a5be5">
-									分享
-								</div>
-								<hr>
-								<img src="" style="width: 50px; height: 50px; border-radius: 50%;"> 
-									<input style="border-radius: 10px;" type="text" size="50" placeholder="留言......">
+							<h3><a href="#">${content.title}</a></h3>
+							<div class="box">
+							<div class="card-text ellipsis">${content.content}</div>
 							</div>
 						</div>
+						
+						<br>
+						<div>
+					<span style="font-size: 20px">${content.date}</span>
+					<img style="width: 20px;margin-left:20px" src="https://cdn-icons-png.flaticon.com/128/633/633759.png">
+					<span>0</span>
+					<img style="width: 20px;margin-left:20px" src="https://cdn-icons-png.flaticon.com/128/739/739286.png">
+					<span>0</span>
+					<img style="width: 20px;margin-left:20px" src="https://cdn-icons.flaticon.com/png/512/722/premium/722358.png?token=exp=1635284495~hmac=d84e061e39a2802f4976812059654e61">	
+					<span>0</span>
+						</div>
 					</div>
-					<span>最後發表 ${content.date} </span>
 				</div>
-				<br>
 			</c:forEach>
 		</div>
 	</div>
@@ -228,7 +209,7 @@
 								style="display:none" />
 							<form:input path="tag" type="text" id="insTag" style="display:none" />
 							<br>
-							<form:input type="text" path="title" placeholder="標題" style="font-size: 30px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"/>
+							<form:input type="text" path="title" required="true" placeholder="標題" style="font-size: 30px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"/>
 							<form:textarea path="content" class="form-control content" placeholder="請輸入內文" rows="7" id="recipient-name" style="display:none"/> 
 							<div id="summernote"></div>
 							<div class="mb-3">
@@ -272,10 +253,8 @@
 								style="display:none" />
 							<form:input path="tag" type="text" id="updTag"
 								style="display:none" />
-<!-- 							<img id=insImgshow class="img-thumbnail" src="" -->
-<!-- 								style="width: 100%; height: 200px;"> -->
 							<br>
-							<form:input type="text" placeholder="標題" path="title" style="font-size: 30px" class="form-control updTitle" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"/>
+							<form:input type="text" required="true" placeholder="標題" path="title" style="font-size: 30px" class="form-control updTitle" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"/>
 							<form:textarea path="content" class="form-control updContent"
 								placeholder="請輸入內文" rows="7" id="recipient-name" style="display:none"/> 
 							<div id="summernote2"></div>
@@ -302,5 +281,6 @@
 <!-- summernote -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script src='${pageContext.request.contextPath}/js/forum_sum_32.js'></script>
+    
 </body>
 </html>
