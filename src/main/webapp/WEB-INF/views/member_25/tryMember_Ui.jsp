@@ -233,6 +233,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="<c:url value='???' />"">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">購買紀錄</span>
+                    </a>
+                </li>
+                <li>
                     <a href="<c:url value='???' />">
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">  個人主頁</span>

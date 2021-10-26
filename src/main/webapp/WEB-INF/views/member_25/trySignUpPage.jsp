@@ -307,7 +307,7 @@ footer a {
 			<form:input id="pwd" path="userPwd1" type='text' placeholder="Password check" cssclass='form-control'  />
 			<br><form:errors path="userPwd1" cssClass="error"  style="color: red;" />
 			
-            <input type="submit" id="submit"  name="submit" value="註冊" class="reg" >
+            <input type="submit" id="submit"  name="submit" value="註冊" class="reg" onclick="return(confirm('確認註冊？'))"  >
 
 		</form:form>
 

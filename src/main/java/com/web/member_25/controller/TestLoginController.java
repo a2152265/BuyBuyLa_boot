@@ -195,7 +195,7 @@ public class TestLoginController {
 				mb2.setUserEmail(userEmail);
 				mb2.setUserPwd(userPwd);
 				model.addAttribute("managerSession", mb2);
-				return "redirect:/try/manager";
+				return "redirect:/manager_Ui";
 			}
 			System.out.println("登入成功 userEmail  ----->" + userEmail);
 			mb2.setUserEmail(userEmail);
@@ -433,7 +433,7 @@ public class TestLoginController {
 		}
 
 //	// 管理者專用區
-//	@GetMapping("/try/manager")
+//	@GetMapping("/manager_Ui")
 //	public String manager(@ModelAttribute("managerSession") membershipInformationBean mb, Model model) {
 //		System.out.println("managerSession --manager----->" + mb.getUserEmail());
 //
@@ -441,14 +441,30 @@ public class TestLoginController {
 //	}
 
 	// 管理者介面專用 - 展示會員資料
-	@RequestMapping("/try/manager")
+	@RequestMapping("/manager_Ui")
 	public String list(Model model) {
 		List<membershipInformationBean> memberList = memberService.selectAllUsers();
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("member", new membershipInformationBean());
-
+		model.addAttribute("memberEdit", new membershipInformationBean());
+		System.out.println("---------------展示會員資料----------------");
+		
 		return "member_25/manager/manager_List";
 	}
+	
+	// 管理者介面專用 - 修改會員資料
+		@PostMapping("/manager_Ui")
+		public String listChange(Model model) {
+			List<membershipInformationBean> memberList = memberService.selectAllUsers();
+			model.addAttribute("memberList", memberList);
+//			model.addAttribute("member", new membershipInformationBean());
+			model.addAttribute("memberEdit", new membershipInformationBean());
+
+			
+			return "member_25/manager/manager_List";
+		}
+		
+	
 	
 	
 	@Autowired
@@ -527,6 +543,43 @@ public class TestLoginController {
 		model.addAttribute("sellerData",mBean);
 //		return "member_25/seller/member_Ui_seller_default";
 		return "redirect:/member/evolution";
+	}
+	
+	@PostMapping("/memberEdit?id={id}")
+	public String edit(
+			@ModelAttribute("managerSession") membershipInformationBean managerMb,
+			@ModelAttribute("memberList") membershipInformationBean mb,
+			@ModelAttribute("memberEdit") membershipInformationBean editMb,
+			@PathVariable int id,
+			BindingResult result, // 老爸 is errors (表單有任何錯誤都放到這裡)
+			Model model
+			) {
+		System.out.println("editMb----->"+editMb.getUserEmail());
+		System.out.println("editMb----->"+editMb.getIdentification());
+		
+		new MemberValidator().validate(mb, result);
+		System.out.println("修改會員(PUT, 11-05): " + mb);
+		if (result.hasErrors()) {
+			System.out.println("======================");
+			List<ObjectError> list = result.getAllErrors();
+			for (ObjectError error : list) {
+				System.out.println("有錯誤：" + error);
+			}
+			System.out.println("======================");
+//			return "member_25/manager/manager_List";
+			return "redirect:/memberEdit?id={id}";
+		}else {
+			System.out.println("無錯誤-----帳號-------->"+mb.getUserEmail());
+			System.out.println("無錯誤------密碼------->"+mb.getUserPwd());
+	
+		}
+		
+		
+
+		
+		
+		
+		return "member_25/manager/manager_List";
 	}
 	
 	
