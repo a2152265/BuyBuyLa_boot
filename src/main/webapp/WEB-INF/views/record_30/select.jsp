@@ -1,97 +1,225 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-body {
-	font-family: "微軟正黑體";
-	background-color: rgb(203, 218, 218);
-	align-items: center;
-	justify-content: center;
-	position: relative;
-}
-
-h1 {
-	background-color: #f7f7f7;
-	/* 告訴電腦背景顏色 */
-	padding: 18px 0 16px 22px;
-	/* 告訴電腦內距要多大 */
-	border-left: 8px solid #33779e;
-	/* 告訴電腦左邊框要多寬、跟顏色 */
-	color: #333 !important;
-	/* 告訴電腦文字顏色 */
-	width: 300px;
-}
-
-form {
-	background-color: rgb(255, 255, 255, 0.8);
-	margin: 20px auto;
-	max-width: 600px;
-	padding: 80px;
-	/* border-radius: 20px; */
-	box-shadow: 0 10px 10px 0 rgba(177, 175, 175, 0.2);
-}
-
-table {
-	border: 1px solid rgba(147, 156, 165, 0.2);
-	border-radius: 20px;
-	border-collapse: collapse;
-	margin: auto;
-	width: 600px;
-	height: 400px;
-	text-align: center;
-}
-
-input, textarea, select {
-	border: 1px solid rgb(155, 153, 153, 0.4);
-	background-color: rgb(203, 218, 218, 0.2);
-	font-size: 21px;
-}
-
-.leftSide {
-	float: left;
-}
-    .wrap {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .button {
-            width: 140px;
-            height: 45px;
-            font-family: 'Roboto', sans-serif;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            font-weight: 500;
-            color: #000;
-            background-color: #fff;
-            border: none;
-            border-radius: 45px;
-            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease 0s;
-            cursor: pointer;
-            outline: none;
-        }
-
-        .button:hover {
-            background-color: #33779e;
-            color: #fff;
-            transform: translateY(-7px);
-        }
-</style>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Bootstrap Simple Data Table</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<style>
+				body {
+					color: #566787;
+					background: #f5f5f5;
+					font-family: 'Roboto', sans-serif;
+				}
+				.table-responsive {
+					margin: 30px 0;
+				}
+				.table-wrapper {
+					min-width: 1000px;
+					background: #fff;
+					padding: 20px;
+					box-shadow: 0 1px 1px rgba(0,0,0,.05);
+				}
+				.table-title {
+					padding-bottom: 10px;
+					margin: 0 0 10px;
+					min-width: 100%;
+				}
+				.table-title h2 {
+					margin: 8px 0 0;
+					font-size: 22px;
+				}
+				.search-box {
+					position: relative;
+					float: right;
+				}
+				.search-box input {
+					height: 34px;
+					border-radius: 20px;
+					padding-left: 35px;
+					border-color: #ddd;
+					box-shadow: none;
+				}
+				.search-box input:focus {
+					border-color: #3FBAE4;
+				}
+				.search-box i {
+					color: #a0a5b1;
+					position: absolute;
+					font-size: 19px;
+					top: 8px;
+					left: 10px;
+				}
+				table.table tr th, table.table tr td {
+					border-color: #e9e9e9;
+				}
+				table.table-striped tbody tr:nth-of-type(odd) {
+					background-color: #fcfcfc;
+				}
+				table.table-striped.table-hover tbody tr:hover {
+					background: #f5f5f5;
+				}
+				table.table th i {
+					font-size: 13px;
+					margin: 0 5px;
+					cursor: pointer;
+				}
+				table.table td:last-child {
+					width: 130px;
+				}
+				table.table td a {
+					color: #a0a5b1;
+					display: inline-block;
+					margin: 0 5px;
+				}
+				table.table td a.view {
+					color: #03A9F4;
+				}
+				table.table td a.edit {
+					color: #FFC107;
+				}
+				table.table td a.delete {
+					color: #E34724;
+				}
+				table.table td i {
+					font-size: 19px;
+				}
+				.pagination {
+					float: right;
+					margin: 0 0 5px;
+				}
+				.pagination li a {
+					border: none;
+					font-size: 95%;
+					width: 30px;
+					height: 30px;
+					color: #999;
+					margin: 0 2px;
+					line-height: 30px;
+					border-radius: 30px !important;
+					text-align: center;
+					padding: 0;
+				}
+				.pagination li a:hover {
+					color: #666;
+				}
+				.pagination li.active a {
+					background: #03A9F4;
+				}
+				.pagination li.active a:hover {
+					background: #0397d6;
+				}
+				.pagination li.disabled i {
+					color: #ccc;
+				}
+				.pagination li i {
+					font-size: 16px;
+					padding-top: 6px
+				}
+				.hint-text {
+					float: left;
+					margin-top: 6px;
+					font-size: 95%;
+				}
+				.bt1{
+					padding-right: 0px;
+					padding-left: 0px;
+					padding-top: 0px;
+					padding-bottom: 3px;	
+					border-top-width: 0px;
+					border-bottom-width: 0px;
+					border-right-width: 0px;
+				}
+	</style>
+<script>
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>
 </head>
 <body>
-<h1>您的購買紀錄&nbsp;:</h1>
-	<form:form method='POST' modelAttribute="RecordBean" class='form-horizontal'>
+	<div class="container-xl">
+		<div class="table-responsive">
+			<div class="table-wrapper">
+				<div class="table-title">
+					<div class="row">
+						<div class="col-sm-8"><h2>Customer <b>Details</b></h2></div>
+						<div class="col-sm-4">
+							<div class="search-box">
+								<i class="material-icons">&#xE8B6;</i>
+								<input type="text" class="form-control" placeholder="Search&hellip;">
+							</div>
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>訂單編號<i class="fa fa-sort"></i></th>
+			
+							<th>訂單總價</th>
+	
+							<th>購買時間</th>
+							<th>詳細資料</th>
+						</tr>
+					</thead>
+					<%
+			int i = 0;
+			%>
+					<tbody>
+					<c:forEach var="selects" items="${selectlist}">
+					<% i += 1;	%>
+						<tr>
+							<td>${selects.record_id}</td>
+					
+			
+							<td>${selects.totalprice}</td>
+							
+							<td>${selects.buy_time}</td>
+							
+							<td>
+								<a href="<c:url value='/select?id=${selects.record_id}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
 
-<h3>請輸入要查詢的帳號:<form:input id="buyer" path="buyer" type='text'/></h3>
-<input type="submit" value="確認送出">
+							</td>
+						</tr>
+						</c:forEach>														
+						
+					</tbody>
+				</table>
+				<div class="clearfix">
+					<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+					<ul class="pagination">
+						<li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+						<li class="page-item"><a href="#" class="page-link">1</a></li>
+						<li class="page-item"><a href="#" class="page-link">2</a></li>
+						<li class="page-item active"><a href="#" class="page-link">3</a></li>
+						<li class="page-item"><a href="#" class="page-link">4</a></li>
+						<li class="page-item"><a href="#" class="page-link">5</a></li>
+						<li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+					</ul>
+				</div>
+			</div>
+				<h2 style="text-align: right;">
+				共
+				<%
+				out.println(i);
+				%>筆交易
+			</h2>
+		</div>
 
-</form:form>
+
+		
+	</div>   
 </body>
 </html>

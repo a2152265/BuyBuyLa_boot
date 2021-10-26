@@ -22,7 +22,7 @@
                 timer: 3000
                 })
 
-                setTimeout("location.href='user'",2000)
+                setTimeout("location.href='test'",2000)
 
     </script>
 

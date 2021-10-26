@@ -18,12 +18,13 @@ import com.web.cart_30.model.Cart;
 import com.web.cart_30.service.CartService;
 import com.web.member_25.model.membershipInformationBean;
 import com.web.record_30.model.RecordBean;
+import com.web.record_30.model.RecordList;
 
 
 
 
 @Controller
-@SessionAttributes("cart")
+@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" })
 public class CartController {
 	CartService cartService;
 
@@ -103,7 +104,7 @@ public class CartController {
 	
 	
 	@GetMapping("/fin")
-	public String fin(Model model) {
+	public String fin(@ModelAttribute("loginSession") membershipInformationBean mb ,Model model) {
 		List<Cart> cart = cartService.addToRecord();
 		model.addAttribute("cart", cart);	
 		int rc = cartService.getRidCount(1);
@@ -111,7 +112,9 @@ public class CartController {
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		String now = dtf.format(LocalDateTime.now());
+		String account = mb.getUserEmail();
 		System.out.println(now);
+		double totalprice =0;
 		for(Cart c:cart) {
 						
 			rb.setRecord_id(rc);
@@ -119,7 +122,7 @@ public class CartController {
 			rb.setP_name(c.getP_name());
 			rb.setP_price(c.getP_price());
 			rb.setPcount(c.getCount());
-			rb.setBuyer("asd1234");
+			rb.setBuyer(account);
 			rb.setSeller(c.getSeller());
 			rb.setBuy_time(now);
 			rb.setTransport_status("待出貨");
@@ -128,10 +131,15 @@ public class CartController {
 					+ rb.getP_name()+", PRICE = "+rb.getP_price()+", CNT = "+rb.getPcount()
 					+", BUYER = "+rb.getBuyer()+", SELLER = "+rb.getSeller());
 			
+			totalprice+=c.getP_price()*c.getCount();
+			
 			cartService.addToRecord2(rb);
-
+			
 
 		}
+		RecordList  recordList = new RecordList(rc, account, totalprice,now);
+		
+		cartService.addToRecordList(recordList);
 		cartService.addRidCount();
 		 return "cart_30/fin";
 	}

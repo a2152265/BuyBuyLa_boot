@@ -12,8 +12,11 @@ import com.web.record_30.model.RecordBean;
 
 public interface RecordRepository extends JpaRepository<RecordBean, Integer> {
 	
-	@Query(nativeQuery = true, value = "select * from Record where buyer=?1 order by record_id")
-    public List<RecordBean> findByRecord(String buyer);
+	@Query(nativeQuery = true, value = "select * from Record where record_id=?1 order by pid")
+    public List<RecordBean> findByRecord(int record_id );
+	
+	@Query(nativeQuery = true, value = "select * from Record where buyer=?1  order by record_id")
+    public List<RecordBean> findByRecords(String buyer );
 	
 	
 	@Modifying

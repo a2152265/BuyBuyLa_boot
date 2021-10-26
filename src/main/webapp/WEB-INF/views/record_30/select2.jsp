@@ -1,222 +1,226 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*"%>
-<%-- <%@page import="user.Select2bean"%> --%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>購物紀錄</title>
-<style>
-        body {
-            font-family: "微軟正黑體";
-            background-color: rgb(203, 218, 218);
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        table {
-            border: 1px solid rgba(147, 156, 165, 0.2);
-            border-radius: 20px;
-            border-collapse: collapse;
-            margin: auto;
-            width: 820px;
-            height: 400px;
-            text-align: center;
-         
-        }
-       
-        header {
-            text-align: center;
-        }
-
-        input,
-        textarea,
-        select {
-            border: 1px solid rgb(155, 153, 153, 0.4);
-            background-color: rgb(203, 218, 218, 0.2);
-        }
-
-        form {
-            background-color: rgb(255, 255, 255, 0.8);
-            margin: 20px auto;
-            max-width: 820px;
-            padding: 80px;
-            /* border-radius: 20px; */
-            box-shadow: 0 10px 10px 0 rgba(177, 175, 175, 0.2);
-        }
-
-        .form-group__file {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            width: 100%;
-            min-width: 130px;
-            height: 180px;
-        }
-
-        .file-label {
-            margin: 10px 0;
-        }
-
-        .file-input {
-            opacity: 0;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 130px;
-            height: 180px;
-            cursor: pointer;
-            z-index: 100;
-        }
-
-        .file-preview-background {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 130px;
-            height: 140px;
-            background-color: #f7f7f7;
-            border: 2px dashed #dfdfdf;
-            border-radius: 10px;
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 3px;
-            text-align: center;
-            color: #bbb;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* z-index: 1; */
-        }
-
-        .file-preview {
-            width: 120px;
-            height: 120px;
-            position: absolute;
-            top: 46px;
-            left: 8px;
-            border-radius: 65px;
-            z-index: 10;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 0.4s ease-in;
-        }
-
-        h1 {
-            background-color: #f7f7f7;
-            /* 告訴電腦背景顏色 */
-            padding: 18px 0 16px 22px;
-            /* 告訴電腦內距要多大 */
-            border-left: 8px solid #33779e;
-            /* 告訴電腦左邊框要多寬、跟顏色 */
-            color: #333 !important;
-            /* 告訴電腦文字顏色 */
-            width: 300px;
-        }
-
-.wrap {
-	margin-top: -145px;
-	margin-left: -30px;
-	text-align: center;
-}
-
-a {
-	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
-	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
-	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
-	-o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
-	transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
-	display: block;
-	margin: 40px auto;
-	max-width: 180px;
-	text-decoration: none;
-	border-radius: 4px;
-	padding: 20px 30px;
-}
-
-a.button {
-	color: rgba(30, 22, 54, 0.6);
-	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
-}
-
-a.button:hover {
-	color: rgba(255, 255, 255, 0.85);
-	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
-}
-
-a.button2 {
-	color: rgba(30, 22, 54, 0.6);
-	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
-}
-
-a.button2:hover {
-	color: rgba(255, 255, 255, 0.85);
-	box-shadow: rgba(30, 22, 54, 0.7) 0 80px 0px 2px inset;
-}
-    
-
-
-</style>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Bootstrap Simple Data Table</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<style>
+				body {
+					color: #566787;
+					background: #f5f5f5;
+					font-family: 'Roboto', sans-serif;
+				}
+				.table-responsive {
+					margin: 30px 0;
+				}
+				.table-wrapper {
+					min-width: 1000px;
+					background: #fff;
+					padding: 20px;
+					box-shadow: 0 1px 1px rgba(0,0,0,.05);
+				}
+				.table-title {
+					padding-bottom: 10px;
+					margin: 0 0 10px;
+					min-width: 100%;
+				}
+				.table-title h2 {
+					margin: 8px 0 0;
+					font-size: 22px;
+				}
+				.search-box {
+					position: relative;
+					float: right;
+				}
+				.search-box input {
+					height: 34px;
+					border-radius: 20px;
+					padding-left: 35px;
+					border-color: #ddd;
+					box-shadow: none;
+				}
+				.search-box input:focus {
+					border-color: #3FBAE4;
+				}
+				.search-box i {
+					color: #a0a5b1;
+					position: absolute;
+					font-size: 19px;
+					top: 8px;
+					left: 10px;
+				}
+				table.table tr th, table.table tr td {
+					border-color: #e9e9e9;
+				}
+				table.table-striped tbody tr:nth-of-type(odd) {
+					background-color: #fcfcfc;
+				}
+				table.table-striped.table-hover tbody tr:hover {
+					background: #f5f5f5;
+				}
+				table.table th i {
+					font-size: 13px;
+					margin: 0 5px;
+					cursor: pointer;
+				}
+				table.table td:last-child {
+					width: 130px;
+				}
+				table.table td a {
+					color: #a0a5b1;
+					display: inline-block;
+					margin: 0 5px;
+				}
+				table.table td a.view {
+					color: #03A9F4;
+				}
+				table.table td a.edit {
+					color: #FFC107;
+				}
+				table.table td a.delete {
+					color: #E34724;
+				}
+				table.table td i {
+					font-size: 19px;
+				}
+				.pagination {
+					float: right;
+					margin: 0 0 5px;
+				}
+				.pagination li a {
+					border: none;
+					font-size: 95%;
+					width: 30px;
+					height: 30px;
+					color: #999;
+					margin: 0 2px;
+					line-height: 30px;
+					border-radius: 30px !important;
+					text-align: center;
+					padding: 0;
+				}
+				.pagination li a:hover {
+					color: #666;
+				}
+				.pagination li.active a {
+					background: #03A9F4;
+				}
+				.pagination li.active a:hover {
+					background: #0397d6;
+				}
+				.pagination li.disabled i {
+					color: #ccc;
+				}
+				.pagination li i {
+					font-size: 16px;
+					padding-top: 6px
+				}
+				.hint-text {
+					float: left;
+					margin-top: 6px;
+					font-size: 95%;
+				}
+				.bt1{
+					padding-right: 0px;
+					padding-left: 0px;
+					padding-top: 0px;
+					padding-bottom: 3px;	
+					border-top-width: 0px;
+					border-bottom-width: 0px;
+					border-right-width: 0px;
+				}
+	</style>
+<script>
+	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+</script>
 </head>
 <body>
-<%-- 	<jsp:useBean id="select2" class="user.Select2bean" scope="session" /> --%>
-
-<h1>您的購買紀錄&nbsp;:</h1>
-	<form>
-
-
-
-			<%
+	<div class="container-xl">
+		<div class="table-responsive">
+			<div class="table-wrapper">
+				<div class="table-title">
+					<div class="row">
+						<div class="col-sm-8"><h2>Customer <b>Details</b></h2></div>
+						<div class="col-sm-4">
+							<div class="search-box">
+								<i class="material-icons">&#xE8B6;</i>
+								<input type="text" class="form-control" placeholder="Search&hellip;">
+							</div>
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>訂單編號<i class="fa fa-sort"></i></th>
+							<th>商品編號</th>
+							<th>商品名稱</th>
+							<th>商品單價</th>
+							<th>訂購數量</th>
+							<th>購買時間</th>
+							<th>詳細資料</th>
+						</tr>
+					</thead>
+					<%
 			int i = 0;
 			%>
-			<table>
-					<thead>
-					<td style="font-size: 30px;">編號</td>
-						<td style="font-size:30px">商品編號</td>
-						<td style="font-size:30px">商品名稱</td>
-						<td style="font-size:30px">單價</td>
-						<td style="font-size:30px">交易時間</td>
-						<td style="font-size:30px">數量</td>
-					
-					</thead>
-					
-				<c:forEach var="selects" items="${select}">
-<% i += 1;	%>
-					<tr>  
-						<td style="font-size:30px;">${selects.record_id}</td>
-						<td style="font-size:30px">${selects.pid}</td>
-						<td style="font-size:30px">${selects.p_name}</td>
-						<td style="font-size:30px">${selects.p_price}</td>
-						<td style="font-size:30px">${selects.buy_time}</td>
-						<td style="font-size:30px">${selects.pcount}</td>
-					</tr>
-				</c:forEach>
+					<tbody>
+					<c:forEach var="selects" items="${select}">
+					<% i += 1;	%>
+						<tr>
+							<td>${selects.record_id}</td>
+							<td>${selects.pid}</td>
+							<td>${selects.p_name}</td>
+							<td>${selects.p_price}</td>
+							<td>${selects.pcount}</td>
+							<td>${selects.buy_time}</td>
+							
+							<td>
+								<a href="<c:url value='/product?id=${selects.pid}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
 
-			</table>
-			<br>
-			<br>
-			
-		
-			<h2 style="text-align: right;">
+							</td>
+						</tr>
+						</c:forEach>														
+						
+					</tbody>
+				</table>
+				<div class="clearfix">
+					<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+					<ul class="pagination">
+						<li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+						<li class="page-item"><a href="#" class="page-link">1</a></li>
+						<li class="page-item"><a href="#" class="page-link">2</a></li>
+						<li class="page-item active"><a href="#" class="page-link">3</a></li>
+						<li class="page-item"><a href="#" class="page-link">4</a></li>
+						<li class="page-item"><a href="#" class="page-link">5</a></li>
+						<li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+					</ul>
+				</div>
+			</div>
+				<h2 style="text-align: right;">
 				共
 				<%
 				out.println(i);
-				%>筆資料
+				%>筆交易
 			</h2>
-			
-			<br>
-			<br>	
-			<br>
-		
-
-		<div class="wrap">
-			<a href="<c:url value='user' />" class="button" name="return" id="return">返回</a>		
 		</div>
-	</form>
+
+
+		
+	</div>   
 </body>
 </html>
