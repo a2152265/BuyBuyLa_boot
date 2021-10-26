@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -28,166 +29,153 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.service.IForumService;
 
-
 @Controller
 public class ForumController {
 
 	IForumService forumService;
 	ServletContext servletContext;
-	
+
 	@Autowired
 	public ForumController(IForumService forumService, ServletContext servletContext) {
-		this.forumService=forumService;
+		this.forumService = forumService;
 		this.servletContext = servletContext;
 	}
 
 	// 首頁展示
 	@GetMapping("/forum")
 	public String forum(Model model) {
-		List<ForumBean> list = forumService.getAllContents();
-		model.addAttribute("content", list);
-		model.addAttribute("forumBean",new ForumBean());
+		List<ForumBean> allList = forumService.getAllContents();
+		model.addAttribute("content", allList);
+		model.addAttribute("forumBean", new ForumBean());
+		model.addAttribute("updateForumBean", new ForumBean());
 		return "forum_32/forum";
 	}
-	
-	// 修改頁面
-	@GetMapping("/update32/{id}")
-	public String update(Model model,@PathVariable Integer id) {
-		ForumBean fb = forumService.getContentById(id);
-		model.addAttribute("updid",id);
-		model.addAttribute("updateForumBean",fb);
-		return "forum_32/update32";
-	}
-	
-	// 修改頁面
-	@PostMapping("/update32/{id}")
-	public String update2(@ModelAttribute("updateForumBean") ForumBean fb,
-							@PathVariable Integer id, 
-							BindingResult result,
-							Model model) {
-		fb.setId(id);
-		String[] suppressedFields = result.getSuppressedFields();
-		if (suppressedFields.length > 0) {
-			throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
-		}
-		
-		if(!fb.getImage().isEmpty()) {
-		MultipartFile image = fb.getImage();
-		String originalFilename = image.getOriginalFilename();
-		fb.setFileName(originalFilename);
-		//  建立Blob物件，交由 Hibernate 寫入資料庫
-		if (image != null && !image.isEmpty() ) {
-			try {
-				byte[] b = image.getBytes();
-				Blob blob = new SerialBlob(b);
-				fb.setCoverImage(blob);
-			} catch(Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-			}
-		}	
-		
-		forumService.updateContent(fb);}else if(fb.getImage().isEmpty()) {
-			forumService.updateContent2(fb);
-		}
-		return "redirect:/forum";
-	}
-
-	// 刪除貼文
-	@GetMapping("/delete32")
-	public String deleteContentById(@RequestParam("id") Integer id,Model model) {
-		System.out.println("id=id=id=id="+id);
-		forumService.deleteContent(id);
-		return "redirect:/forum";
-	}
-
-	// 新增貼文
-	@PostMapping("/forum")
-	public String processAddNewFourmForm(@ModelAttribute("forumBean") ForumBean fb, BindingResult result) {
-		String[] suppressedFields = result.getSuppressedFields();
-		if (suppressedFields.length > 0) {
-			throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
-		}
-		MultipartFile image = fb.getImage();
-		String originalFilename = image.getOriginalFilename();
-		fb.setFileName(originalFilename);
-		//  建立Blob物件，交由 Hibernate 寫入資料庫
-		if (image != null && !image.isEmpty() ) {
-			try {
-				byte[] b = image.getBytes();
-				Blob blob = new SerialBlob(b);
-				fb.setCoverImage(blob);
-			} catch(Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-			}
-		}	
-		
-		forumService.addContent(fb);
-		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-		String rootDirectory = servletContext.getRealPath("/");
-		try {
-			File imageFolder = new File(rootDirectory, "images");
-			if (!imageFolder.exists()) imageFolder.mkdirs();
-			File file = new File(imageFolder, fb.getUserEmail() + ext);
-			image.transferTo(file);
-		} catch(Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-		}
-		return "redirect:/forum";
-	}
-	
-	// 白名單
-	@InitBinder
-	public void whiteListing(WebDataBinder binder) {
-		binder.setAllowedFields(
-				"userName"
-			  , "userEmail"
-			  , "tag"
-			  , "id"
-			  , "content"
-			  , "image"
-			  , "date"
-			  , "files"
-			  );
-	}
-	
 	
 	// 首頁展示-忙裡偷閒聊
 	@GetMapping("/chat")
 	public String chat(Model model) {
-		List<ForumBean> list = forumService.getAllContentsByChat();
-		model.addAttribute("content", list);
-		model.addAttribute("forumBean",new ForumBean());
+		List<ForumBean> chatList = forumService.getAllContentsByChat();
+		if(!chatList.isEmpty()) {
+		model.addAttribute("content", chatList);
+	}else {
+		List<ForumBean> allList = forumService.getAllContents();
+		model.addAttribute("content", allList);
+	}
+		model.addAttribute("forumBean", new ForumBean());
+		model.addAttribute("updateForumBean", new ForumBean());
 		return "forum_32/forum";
 	}
-	
+
 	// 首頁展示-開箱文
 	@GetMapping("/box")
 	public String box(Model model) {
-		List<ForumBean> list = forumService.getAllContentsByBox();
-		model.addAttribute("content", list);
-		model.addAttribute("forumBean",new ForumBean());
+		List<ForumBean> boxList = forumService.getAllContentsByBox();
+		if(!boxList.isEmpty()) {
+		model.addAttribute("content", boxList);
+	}else {
+		List<ForumBean> allList = forumService.getAllContents();
+		model.addAttribute("content", allList);
+	}
+		model.addAttribute("forumBean", new ForumBean());
+		model.addAttribute("updateForumBean", new ForumBean());
 		return "forum_32/forum";
 	}
-	
+
 	// 首頁展示-其他
 	@GetMapping("/other")
 	public String other(Model model) {
-		List<ForumBean> list = forumService.getAllContentsByOther();
-		model.addAttribute("content", list);
-		model.addAttribute("forumBean",new ForumBean());
+		List<ForumBean> orderList = forumService.getAllContentsByOther();
+			if(!orderList.isEmpty()) {
+			model.addAttribute("content", orderList);
+		}else {
+			List<ForumBean> allList = forumService.getAllContents();
+			model.addAttribute("content", allList);
+		}
+		model.addAttribute("forumBean", new ForumBean());
+		model.addAttribute("updateForumBean", new ForumBean());
 		return "forum_32/forum";
 	}
-	
-	// 
+
+	// 編輯貼文
+	@GetMapping(value = "/editURL")
+	@ResponseBody
+	public ForumBean Url(@RequestParam("id") Integer id, @ModelAttribute("updateForumBean") ForumBean f, Model model) {
+		ForumBean fb = forumService.getContentById(id);
+		f = new ForumBean(fb.getId(), fb.getUserName(), fb.getUserEmail(), fb.getDate(), fb.getTag(), fb.getContent());
+		return f;
+	}
+
+	// 刪除貼文
+	@GetMapping("/delete32")
+	public String deleteContentById(@RequestParam("id") Integer id, Model model) {
+		System.out.println("id=id=id=id=" + id);
+		forumService.delete(id);
+		return "redirect:/forum";
+	}
+
+	// 新增貼文.編輯
+	@PostMapping({"/forum","/chat","/box"})
+	public String processAddNewFourmForm(@ModelAttribute("updateForumBean") ForumBean updfb,
+			@ModelAttribute("forumBean") ForumBean fb, BindingResult result) {
+		if (updfb.getId() != null) {
+			if (!updfb.getImage().isEmpty()) {
+				MultipartFile image = updfb.getImage();
+				String originalFilename = image.getOriginalFilename();
+				updfb.setFileName(originalFilename);
+				if (image != null && !image.isEmpty()) {
+					try {
+						byte[] b = image.getBytes();
+						Blob blob = new SerialBlob(b);
+						updfb.setCoverImage(blob);
+					} catch (Exception e) {
+						e.printStackTrace();
+						throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+					}
+				}
+				forumService.update(updfb);
+			} else if (updfb.getImage().isEmpty()) {
+				ForumBean imgIsEmpty = forumService.getContentById(updfb.getId());
+				updfb.setCoverImage(imgIsEmpty.getCoverImage());
+				updfb.setFileName(imgIsEmpty.getFileName());
+				forumService.update(updfb);
+			}
+		} else {
+			String[] suppressedFields = result.getSuppressedFields();
+			if (suppressedFields.length > 0) {
+				throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
+			}
+			MultipartFile image = fb.getImage();
+			String originalFilename = image.getOriginalFilename();
+			fb.setFileName(originalFilename);
+			if (image != null && !image.isEmpty()) {
+				try {
+					byte[] b = image.getBytes();
+					Blob blob = new SerialBlob(b);
+					fb.setCoverImage(blob);
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+				}
+			}
+			forumService.addContent(fb);
+		}
+		return "redirect:/forum";
+	}
+
+	// 白名單
+	@InitBinder
+	public void whiteListing(WebDataBinder binder) {
+		binder.setAllowedFields("userName", "userEmail", "tag", "id", "content", "image", "date", "files");
+	}
+
+	//
 	@GetMapping("/forwardDemo")
 	public String forward(Model model, HttpServletRequest request) {
 		String uri = request.getRequestURI();
@@ -221,7 +209,7 @@ public class ForumController {
 	public String redirectA(Model model, HttpServletRequest request) {
 		return "redirectedPage";
 	}
-	
+
 	// 首頁顯示圖片
 	@GetMapping("/getPicture32/{id}")
 	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer id) {
@@ -257,7 +245,7 @@ public class ForumController {
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
 		return responseEntity;
 	}
-	
+
 	private byte[] toByteArray(String filepath) {
 		byte[] b = null;
 		String realPath = servletContext.getRealPath(filepath);
@@ -274,5 +262,5 @@ public class ForumController {
 		}
 		return b;
 	}
-	
+
 }

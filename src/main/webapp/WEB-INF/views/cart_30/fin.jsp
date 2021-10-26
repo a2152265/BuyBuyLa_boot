@@ -131,7 +131,7 @@ h2 span {
 <body>
 <sql:setDataSource var="snapshot" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
       url="jdbc:sqlserver://MSI\\SQLEXPRESS:1433;databaseName=BuyBuyLa" 
-     user="sa"  password="password"/>
+     user="sa"  password="123123123"/>
      
 <sql:query
  sql="select * from Cart"

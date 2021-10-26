@@ -62,7 +62,7 @@ public class TestLoginController {
 //		System.out.println("回首頁");
 //		return "member_25/tryIndex";
 //	}
-
+	
 	@GetMapping("/try/index")
 	public String index(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
 		System.out.println("login後回首頁GetMapping");

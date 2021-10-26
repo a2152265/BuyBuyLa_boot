@@ -4,75 +4,68 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.web.forum_32.dao.ForumDao;
+import com.web.forum_32.dao.ForumRepository;
 import com.web.forum_32.model.ForumBean;
 
 
 
 @Service
-@Transactional
 public class ForumService implements IForumService {
-
-	ForumDao forumDao;
-	
 	
 	@Autowired
-	public void setDao(ForumDao forumDao) {
-		this.forumDao = forumDao;
-	}
+	ForumRepository forumRepository;
+	
 
 	@Override
 	public List<ForumBean> getAllContents() {
-		return forumDao.getAllContents();
+		return forumRepository.findAllByOrderByIdDesc();
 	}
-
+    
 	@Override
 	public ForumBean getContentByUsername(String userName) {
-		// TODO Auto-generated method stub
-		return forumDao.getContentByUsername(userName);
+//		return forumRepository.findByName(userName);
+		return null;
 	}
 
 	@Override
 	public void addContent(ForumBean content) {
-		forumDao.addContent(content);
+		forumRepository.save(content);
 	}
 	
 	@Override
-	public ForumBean getContentById(int id) {
-		return forumDao.getContentById(id);
+	public ForumBean getContentById(Integer id) {
+		return forumRepository.getById(id);
 	}
 	
 	@Override
-	public void deleteContent(int id) {
-		forumDao.deleteContent(id);
+	public void delete(Integer id) {
+		forumRepository.deleteById(id);
 	}
 
 	@Override
-	public void updateContent(ForumBean fb) {
-		forumDao.updateContent(fb);
+	public void update(ForumBean fb) {
+		forumRepository.save(fb);
 	}
 	
 	@Override
 	public List<ForumBean> getAllContentsByChat() {
-		return forumDao.getAllContentsByChat();
+		return forumRepository.findByChat();
+
 	}
 
 	@Override
 	public List<ForumBean> getAllContentsByBox() {
-		return forumDao.getAllContentsByBox();
+		return forumRepository.findByBox();
+
 	}
 
 	@Override
 	public List<ForumBean> getAllContentsByOther() {
-		return forumDao.getAllContentsByOther();
+		return forumRepository.findByOrder();
 	}
 
-	@Override
-	public void updateContent2(ForumBean fb) {
-		forumDao.updateContent2(fb);
-	}
+
 	
 	
 
