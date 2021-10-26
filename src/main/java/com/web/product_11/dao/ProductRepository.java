@@ -30,4 +30,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("update Product set productName=:name,price=:price,category=:category,stock=:stock,productNo=:no where productId=:id")
 	void updateProductNoImg(@Param("name") String name,@Param("price") Double price,@Param("category")String category,@Param("stock")Integer stock,@Param("no") String no,@Param("id")Integer id);
 	
+	List<Product> findBySeller(String seller);
+	
 }

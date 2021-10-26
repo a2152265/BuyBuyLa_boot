@@ -69,4 +69,9 @@ public class ProductSerivceImpl_boot implements ProductService{
 		productRepositoryDao.deleteById(productId);
 	}
 
+	@Override
+	public List<Product> getProductBySeller(String seller) {
+		return productRepositoryDao.findBySeller(seller);
+	}
+
 }

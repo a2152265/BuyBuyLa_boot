@@ -226,6 +226,10 @@
                 <td><label class='' for="productNo">商品代號:</label></td>
                 <td> <form:textarea id="productNo" path="productNo" type='text' class='form:input-large' /></td>
             </tr>
+                 <tr>
+                <td><label class='' for="insertTime">新增時間:</label></td>
+                <td> <input  value="${product.insertTime}" readonly="readonly" id="insertTime"  path="insertTime" type='text' class='form:input-large'  /></td>
+            </tr>
            
           
            
