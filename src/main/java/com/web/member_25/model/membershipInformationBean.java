@@ -82,7 +82,7 @@ public class membershipInformationBean {
 				String userName, String userNickname, String userGender, String address, String identification,
 				Blob head_shot, String fileName, String birthday, Integer verifyCode, String userPwd1,
 				int verificationCode, MultipartFile productImage) {
-			super();
+	
 			this.id = id;
 			this.userEmail = userEmail;
 			this.userPhone = userPhone;
