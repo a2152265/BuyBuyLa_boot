@@ -21,9 +21,11 @@ public class ForumBean implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	private Integer id;
+	
 	private String userName;
 	private String userEmail;
 	private String tag;          // 標籤
+	private String title;        // 標題
 	private String content;      // 內容
 	private Blob coverImage;     // 圖片
 	private String fileName;     // 檔名
@@ -39,23 +41,25 @@ public class ForumBean implements Serializable{
 	public ForumBean() {
 	}
 	
-	public ForumBean(Integer id,String userName,String userEmail,String date,String tag,String content,Blob coverImage,String fileName) {
+	public ForumBean(Integer id,String userName,String userEmail,String date,String tag,String title,String content,Blob coverImage,String fileName) {
 	this.id=id;
 	this.userName=userName;
 	this.userEmail=userEmail;
 	this.date=date;
 	this.tag=tag;
+	this.title=title;
 	this.content=content;
 	this.coverImage=coverImage;
 	this.fileName=fileName;
 	}
 	
-	public ForumBean(Integer id,String userName,String userEmail,String date,String tag,String content) {
+	public ForumBean(Integer id,String userName,String userEmail,String date,String tag,String title,String content) {
 		this.id=id;
 		this.userName=userName;
 		this.userEmail=userEmail;
 		this.date=date;
 		this.tag=tag;
+		this.title=title;
 		this.content=content;
 	}
 
@@ -87,6 +91,12 @@ public class ForumBean implements Serializable{
 	}
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getContent() {
 		return content;

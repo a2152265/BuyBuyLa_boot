@@ -15,6 +15,9 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
 
+<!-- summernote -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
 <style>
 .tab {
 	display: block;
@@ -95,6 +98,7 @@ h1 {
 #edit:hover {
 	transform: scale(1.1, 1.1);
 }
+b{font-size: 30px}
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -102,7 +106,6 @@ h1 {
 	$(document).ready(function(){
 		$('.updateDataClass').click(function(){
 			var dataid=$(this).data('id');
-			console.log(dataid);
 			$.ajax({
 				type:"GET",
 				url:"editURL",
@@ -110,8 +113,12 @@ h1 {
 					"id":dataid
 				},
 				success:function(data){
-					$('.updContent').text(data['content']);
-					$('#updImgshow').attr('src','<c:url value='/getPicture32/' />'+dataid);
+					var content = data['content'];
+					var title = data['title']
+// 					$('.updContent').text(content);
+					$('.updTitle').val(title);
+// 					$('#updImgshow').attr('src','<c:url value='/getPicture32/' />'+dataid);
+					$('#summernote2').summernote('code', content);
 					$('#updid').val(data['id']);
 				}
 			})
@@ -119,7 +126,7 @@ h1 {
 	});
 </script>
 </head>
-<body>
+<body class="bg-light">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">討論區</a>
@@ -157,12 +164,8 @@ h1 {
 		</div>
 	</nav>
 
-	<div class="newContent">
-		<button type="button" class="btn btn-outline-secondary"
-			data-bs-toggle="modal" data-bs-target="#Modal">新增貼文</button>
-	</div>
-	<div class="row">
-		<div class="col-6 col-md-3" style="margin-left: 200px; width: 260px">
+	<div class="row" style="margin-top:200px">
+		<div class="col-6 col-md-3" style="margin-left: 150px; width: 260px">
 			<div class="accordion" id="accordionExample">
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingThree">
@@ -193,7 +196,7 @@ h1 {
 						aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 						<div class="accordion-body">
 							<a href="#" style="text-decoration: none; color: black"><span
-								class="tata">精選話題區</span></a>
+								class="tata">話題區</span></a>
 							<hr>
 							<a href="#" style="text-decoration: none; color: black"><span
 								class="tata">新手賣家發問區</span></a>
@@ -235,10 +238,18 @@ h1 {
 		</div>
 		
 		<div class="col-12 col-md-9"
-			style="margin-left: 80px; width: 45%; border: 1px solid black; padding: 40px;">
+			style=" border: 1px solid black; width:60%;padding: 20px; margin-left:50px">
+<!-- 				<div class="newContent"> -->
+<!-- 					<button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#Modal">新增貼文</button> -->
+<!-- 				</div> -->
+		<div>
+		<b>精選話題區</b><button style="float: right;" type="button" class="btn btn-outline-danger mb-3" data-bs-toggle="modal" data-bs-target="#Modal">發起討論</button>
+		</div>
+			
 			<c:forEach var='content' items='${content}'>
 				<div class="card mx-auto"
-					style="width: 34rem; padding: 10px; border: outset; border-radius: 3%">
+					style="width: 54rem; padding: 10px; border: outset; border-radius: 3%">
+<!-- 					style="width: 34rem; padding: 10px; border: outset; border-radius: 3%"> -->
 					<div>
 						<img src="" style="width: 50px; height: 50px; border-radius: 50%;">
 						<span>${content.userName}</span> <img id="edit"
@@ -256,18 +267,19 @@ h1 {
 						</ul>
 					</div>
 					<br>
-					<div class="productImg">
-						<a href="#"> <img style="width: 522px; height: 347px"
-							class="card-img-top"
-							src="<c:url value='/getPicture32/${content.id}' />" />
-						</a>
-					</div>
+<!-- 					<div class="productImg"> -->
+<!-- 						<a href="#"> <img style="width: 522px; height: 347px" -->
+<!-- 							class="card-img-top" -->
+<%-- 							src="<c:url value='/getPicture32/${content.id}' />" /> --%>
+<!-- 						</a> -->
+<!-- 					</div> -->
+						<h1>${content.title}</h1>
 					<div class="card-body">
 						<div>
 							<p class="card-text">${content.content}</p>
 							<div>
 								<hr>
-								<%-- 							<a href="#" class="btn" style="background-color: rgb(171, 131, 102); color: cornsilk;">${content.tag}</a> --%>
+								<%-- <a href="#" class="btn" style="background-color: rgb(171, 131, 102); color: cornsilk;">${content.tag}</a> --%>
 								<div class="functionBtn">
 									<img style="width: 25px;"
 										src="https://cdn-icons-png.flaticon.com/128/633/633759.png">
@@ -301,12 +313,17 @@ h1 {
 
 	<div class="modal fade" id="Modal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 			<form:form method='POST' modelAttribute="forumBean"
 				class='form-horizontal' enctype="multipart/form-data">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h3 style="margin-left: auto;" class="modal-title"
+							<select style="width:200px" id="insSelectTag" class="form-select" aria-label="Default select example">
+								<option>話題區</option>
+								<option>新手賣家發問區</option>
+								<option>賣家閒聊討論區</option>
+							</select>
+						<h3 style="margin-left:150px;" class="modal-title"
 							id="exampleModalLabel">建立貼文</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
@@ -315,28 +332,25 @@ h1 {
 						<form:input path="userName" type="text" value="廖總"
 							style="display:none" />
 						<div class="mb-3">
-							<label>分類標籤</label> <select id="insSelectTag" class="form-select" aria-label="Default select example">
-								<option>忙裡偷閒聊</option>
-								<option>開箱文</option>
-								<option>其他</option>
-							</select><br> <br>
 							<form:input type="text" path="date" id="nowDate"
 								style="display:none" />
 							<form:input path="tag" type="text" id="insTag"
 								style="display:none" />
-							<img id=insImgshow class="img-thumbnail" src=""
-								style="width: 100%; height: 200px;"><br>
+<!-- 							<img id=insImgshow class="img-thumbnail" src="" -->
+<!-- 								style="width: 100%; height: 200px;"> -->
 							<br>
+							<form:input type="text" path="title" placeholder="標題" style="font-size: 30px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"/>
+							<form:textarea path="content" class="form-control content"
+								placeholder="請輸入內文" rows="7" id="recipient-name" style="display:none"/> 
+								
+							<div id="summernote"></div>
 							<div class="mb-3">
-								<form:input class="form-control" path="image" id="insImgBtn"
-									type="file" />
+								<form:input style="display:none" class="form-control" path="image" id="insImgBtn" type="file" /> 
 							</div>
-							<form:textarea path="content" class="form-control"
-								placeholder="在想什麼呢？" rows="7" id="recipient-name" />
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button id="submit" type="submit" class="btn btn-primary">送出</button>
+						<button id="insSubmit" type="submit" class="btn btn-primary">送出</button>
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">取消</button>
 					</div>
@@ -344,47 +358,50 @@ h1 {
 			</form:form>
 		</div>
 	</div>
-
-
+	
+	
 	<div class="modal fade" id="UpdateModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 			<form:form method='POST' modelAttribute="updateForumBean"
-				class='form-horizontal updform' enctype="multipart/form-data">
+				class='form-horizontal' enctype="multipart/form-data">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h3 style="margin-left: auto;" class="modal-title"
+							<select style="width:200px" id="insSelectTag" class="form-select" aria-label="Default select example">
+								<option>話題區</option>
+								<option>新手賣家發問區</option>
+								<option>賣家閒聊討論區</option>
+							</select>
+						<h3 style="margin-left:150px;" class="modal-title"
 							id="exampleModalLabel">編輯貼文</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body updContentBody">
-						<form:input path="userName" type="text" value="asd123"
+					<form:input id="updid" path="id" type="text" style="display:none" />
+						<form:input path="userName" type="text" value="廖總"
 							style="display:none" />
-						<form:input id="updid" path="id" type="text" style="display:none" />
 						<div class="mb-3">
-							<label>分類標籤</label> <select id="updSelectTag">
-								<option>忙裡偷閒聊</option>
-								<option>開箱文</option>
-								<option>其他</option>
-							</select><br> <br>
 							<form:input type="text" path="date" id="nowUpdDate"
 								style="display:none" />
 							<form:input path="tag" type="text" id="updTag"
 								style="display:none" />
-							<img id='updImgshow' class="img-thumbnail" src=""
-								style="width: 100%; height: 300px;"><br>
+<!-- 							<img id=insImgshow class="img-thumbnail" src="" -->
+<!-- 								style="width: 100%; height: 200px;"> -->
 							<br>
-							<div class="mb-3">
-								<form:input class="form-control" path="image" id="updImgBtn"
-									type="file" />
-							</div>
+							<form:input type="text" placeholder="標題" path="title" style="font-size: 30px" class="form-control updTitle" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"/>
 							<form:textarea path="content" class="form-control updContent"
-								placeholder="在想什麼呢？" rows="7" id="recipient-name" />
+								placeholder="請輸入內文" rows="7" id="recipient-name" style="display:none"/> 
+								
+							<div id="summernote2"></div>
+							<div class="mb-3">
+								<form:input class="form-control" path="image" id="insImgBtn"
+ 									type="file" style="display:none" /> 
+							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button id="submit" type="submit" class="btn btn-primary">送出</button>
+						<button id="updSubmit" type="submit" class="btn btn-primary">送出</button>
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">取消</button>
 					</div>
@@ -392,6 +409,54 @@ h1 {
 			</form:form>
 		</div>
 	</div>
+
+
+<!-- 	<div class="modal fade" id="UpdateModal" tabindex="-1" -->
+<!-- 		aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!-- 		<div class="modal-dialog"> -->
+<%-- 			<form:form method='POST' modelAttribute="updateForumBean" --%>
+<%-- 				class='form-horizontal updform' enctype="multipart/form-data"> --%>
+<!-- 				<div class="modal-content"> -->
+<!-- 					<div class="modal-header"> -->
+<!-- 						<h3 style="margin-left: auto;" class="modal-title" -->
+<!-- 							id="exampleModalLabel">編輯貼文</h3> -->
+<!-- 						<button type="button" class="btn-close" data-bs-dismiss="modal" -->
+<!-- 							aria-label="Close"></button> -->
+<!-- 					</div> -->
+<!-- 					<div class="modal-body updContentBody"> -->
+<%-- 						<form:input path="userName" type="text" value="asd123" --%>
+<%-- 							style="display:none" /> --%>
+<%-- 						<form:input id="updid" path="id" type="text" style="display:none" /> --%>
+<!-- 						<div class="mb-3"> -->
+<!-- 							<select id="updSelectTag"> -->
+<!-- 								<option>話題區</option> -->
+<!-- 								<option>新手賣家發問區</option> -->
+<!-- 								<option>賣家閒聊討論區</option> -->
+<!-- 							</select><br> <br> -->
+<%-- 							<form:input type="text" path="date" id="nowUpdDate" --%>
+<%-- 								style="display:none" /> --%>
+<%-- 							<form:input path="tag" type="text" id="updTag" --%>
+<%-- 								style="display:none" /> --%>
+<!-- 							<img id='updImgshow' class="img-thumbnail" src="" -->
+<!-- 								style="width: 100%; height: 300px;"><br> -->
+<!-- 							<br> -->
+<!-- 							<div class="mb-3"> -->
+<%-- 								<form:input class="form-control" path="image" id="updImgBtn" --%>
+<%-- 									type="file" /> --%>
+<!-- 							</div> -->
+<%-- 							<form:textarea path="content" class="form-control updContent" --%>
+<%-- 								placeholder="請輸入內文" rows="7" id="recipient-name" /> --%>
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="modal-footer"> -->
+<!-- 						<button id="submit" type="submit" class="btn btn-primary">送出</button> -->
+<!-- 						<button type="button" class="btn btn-secondary" -->
+<!-- 							data-bs-dismiss="modal">取消</button> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<%-- 			</form:form> --%>
+<!-- 		</div> -->
+<!-- 	</div> -->
 
 
 
@@ -438,8 +503,41 @@ h1 {
 		     }
 		     $('#nowUpdDate').val(updFormatDate(date))
 			 })
-		     
-		     
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+      <script>
+      $('#summernote').summernote({
+        placeholder: '請輸入內文',
+        tabsize: 2,
+        height: 200,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['insert', ['picture']]
+        ]
+      	
+      });
+      $('#summernote2').summernote({
+        tabsize: 2,
+        height: 200,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['insert', ['picture']]
+        ]
+      	
+      });
+      $('#insSubmit').on('click',function(){
+      var markupStr = $('#summernote').summernote('code');
+    	  $('.content').text(markupStr);
+      })
+      $('#updSubmit').on('click',function(){
+      var markupStr = $('#summernote2').summernote('code');
+    	  $('.updContent').text(markupStr);
+      })
     </script>
 </body>
 </html>

@@ -108,7 +108,7 @@ public class ForumController {
 	@ResponseBody
 	public ForumBean Url(@RequestParam("id") Integer id, @ModelAttribute("updateForumBean") ForumBean f, Model model) {
 		ForumBean fb = forumService.getContentById(id);
-		f = new ForumBean(fb.getId(), fb.getUserName(), fb.getUserEmail(), fb.getDate(), fb.getTag(), fb.getContent());
+		f = new ForumBean(fb.getId(), fb.getUserName(), fb.getUserEmail(), fb.getDate(), fb.getTag(),fb.getTitle(), fb.getContent());
 		return f;
 	}
 
@@ -168,11 +168,11 @@ public class ForumController {
 		}
 		return "redirect:/forum";
 	}
-
+	
 	// 白名單
 	@InitBinder
 	public void whiteListing(WebDataBinder binder) {
-		binder.setAllowedFields("userName", "userEmail", "tag", "id", "content", "image", "date", "files");
+		binder.setAllowedFields("title","userName", "userEmail", "tag", "id", "content", "image", "date", "files");
 	}
 
 	//
