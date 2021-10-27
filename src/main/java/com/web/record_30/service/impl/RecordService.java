@@ -36,17 +36,17 @@ public class RecordService implements IRecordService {
 	
 	@Transactional
 	@Override
-	public void deleteById(int record_id) {
+	public void deleteRecord(int record_id,int pid) {
 		System.out.println("**********"+record_id);
-		recordRepository.delete(record_id);
+		recordRepository.deleteRecord(record_id,pid);
 		
 	}
 	
 	@Transactional
 	@Override
-	public void update(RecordBean recordBean) {
+	public void update(int rid,int pid,String ts) {
 	
-		 recordRepository.update(recordBean.getPcount(),recordBean.getRecord_id(),recordBean.getPid());
+		 recordRepository.update(ts,rid,pid);
 	}
 
 

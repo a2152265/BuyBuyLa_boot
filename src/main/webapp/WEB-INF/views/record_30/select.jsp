@@ -6,16 +6,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Bootstrap Simple Data Table</title>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+
+    <title>card</title>
+<!-- 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto"> -->
+<!-- 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<!-- 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+<!-- 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
 	<style>
 				body {
 					color: #566787;
@@ -142,62 +158,47 @@
 					border-right-width: 0px;
 				}
 	</style>
-<script>
-	$(document).ready(function(){
-		$('[data-toggle="tooltip"]').tooltip();
-	});
-</script>
+    <script>
+        $(document).ready(function () {
+            jQuery('#example').DataTable();
+        });
+
+
+    </script>
+
+    <style>
+    </style>
 </head>
+
 <body>
-	<div class="container-xl">
-		<div class="table-responsive">
-			<div class="table-wrapper">
-				<div class="table-title">
-					<div class="row">
-						<div class="col-sm-8"><h2>Customer <b>Details</b></h2></div>
-						<div class="col-sm-4">
-							<div class="search-box">
-								<i class="material-icons">&#xE8B6;</i>
-								<input type="text" class="form-control" placeholder="Search&hellip;">
-							</div>
-						</div>
-					</div>
-				</div>
-				<table class="table table-striped table-hover table-bordered">
-					<thead>
-						<tr>
-							<th>訂單編號<i class="fa fa-sort"></i></th>
-			
-							<th>訂單總價</th>
-	
-							<th>購買時間</th>
-							<th>詳細資料</th>
-						</tr>
-					</thead>
-					<%
+    
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>訂單編號<i class="fa fa-sort"></i></th>
+                <th>訂單總價</th>
+                <th>購買時間</th>
+                <th>詳細資料</th>
+            </tr>
+        </thead>
+        		<%
 			int i = 0;
 			%>
-					<tbody>
-					<c:forEach var="selects" items="${selectlist}">
+        <tbody>
+        <c:forEach var="selects" items="${selectlist}">
 					<% i += 1;	%>
-						<tr>
-							<td>${selects.record_id}</td>
-					
-			
-							<td>${selects.totalprice}</td>
-							
-							<td>${selects.buy_time}</td>
-							
-							<td>
-								<a href="<c:url value='/select?id=${selects.record_id}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-
-							</td>
-						</tr>
-						</c:forEach>														
-						
-					</tbody>
-				</table>
-				<div class="clearfix">
+            <tr>
+                <td>${selects.record_id}</td>
+                <td>${selects.totalprice}</td>
+                <td>${selects.buy_time}</td>
+                <td>
+				<a href="<c:url value='/select?id=${selects.record_id}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+				</td>
+            </tr>
+</c:forEach>
+        </tfoot>
+    </table>
+<div class="clearfix">
 					<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
 					<ul class="pagination">
 						<li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
@@ -210,16 +211,7 @@
 					</ul>
 				</div>
 			</div>
-				<h2 style="text-align: right;">
-				共
-				<%
-				out.println(i);
-				%>筆交易
-			</h2>
-		</div>
 
 
-		
-	</div>   
 </body>
 </html>

@@ -218,7 +218,9 @@
 				%>筆交易
 			</h2>
 		</div>
-
+			<center>	
+			<a href="<c:url value='/selectLsit' />" class="edit" title="Edit" data-toggle="tooltip">回上一頁</a>
+			</center>
 
 		
 	</div>   

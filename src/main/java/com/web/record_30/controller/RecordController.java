@@ -61,18 +61,18 @@ public class RecordController {
 	
 	
 	
-	@GetMapping("/delete")
-	public String delete(@ModelAttribute("delete") RecordBean record,Model model) {
-//		model.addAttribute("delete",record);
-		return "record_30/delete";
-		
-	}
+//	@GetMapping("/delete")
+//	public String delete(@ModelAttribute("delete") RecordBean record,Model model) {
+////		model.addAttribute("delete",record);
+//		return "record_30/delete";
+//		
+//	}
 	
-	@PostMapping("/delete")
-	public String delete2(@ModelAttribute("delete") RecordBean record ,Model model) {
-		Integer rid= record.getRecord_id();
+	@GetMapping("/delete")
+	public String delete2(@RequestParam Integer rid,@RequestParam Integer pid ,Model model) {
+
 		System.out.println("rid2 =" +rid);	
-		recordservice.deleteById(rid);
+		recordservice.deleteRecord(rid,pid);
 		return "record_30/delete2";
 		
 	}
@@ -81,7 +81,7 @@ public class RecordController {
 	
 	
 	@GetMapping("/update30")
-	public String update(@ModelAttribute("loginSession") membershipInformationBean mb,@ModelAttribute("RecordBean") RecordBean record ,Model model ) {
+	public String update(@ModelAttribute("loginSession") membershipInformationBean mb,@ModelAttribute("updatebean") RecordBean record ,Model model ) {
 		RecordBean recordBean =new RecordBean();
 		model.addAttribute("update",record);
 		
@@ -90,7 +90,7 @@ public class RecordController {
 		List<RecordBean> list = recordservice.getAllRecords(account);
 		
 		model.addAttribute("updateRecord", list);
-        System.out.println("buyer= "+record.getBuyer());
+        System.out.println("buyer= "+record.getPid());
         
 //		recordBean.setRecord_id(20);;
 //		recordBean.setPid(2);
@@ -101,15 +101,19 @@ public class RecordController {
 	}
 	
 	@GetMapping("/updatevalue30")
-	public String update2(@RequestParam Integer rid,@RequestParam Integer pid,Model model) {
-		
+	public String update2(@RequestParam Integer rid,@RequestParam Integer pid,@RequestParam String ts,Model model) {
 
-		System.out.println("rid = "+ rid+",pid = "+pid+"+++++++++++++++++++++++");
+		recordservice.update(rid, pid, ts);
+		System.out.println("rid = "+ rid+",pid = "+pid+"TS = "+ts+"+++++++++++++++++++++++");
 		
 		return "record_30/update2";
 		
 	}
-
+	
+	@GetMapping("/selectBydate")
+	public String selectBydate() {
+		return "record_30/user";
+	}
 	
 	
 

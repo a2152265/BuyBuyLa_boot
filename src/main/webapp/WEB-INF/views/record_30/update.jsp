@@ -16,6 +16,26 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
+	<script>
+	$(document).ready(function(){
+	     $('#update').click(function(e){
+	         e.preventDefault();
+	 //         var formData=new FormData(form);
+	         $.ajax({
+	             url:'updatevalue30',
+	             type:'post',
+	             data:$('#form1').serialize(),
+	             success:function(data){
+	            	 console.log(data);
+// 	                 setTimeout("location.href='insertsuccess'",0)
+
+	            }
+	         })
+	     })
+	 })
+	</script>
 	<style>
 				body {
 					color: #566787;
@@ -172,63 +192,53 @@
 							<th>商品單價</th>
 							<th>訂購數量</th>
 							<th>購買時間</th>
+							<th>出貨狀況</th>
 							<th>編輯資料</th>
 						</tr>
 					</thead>
 					<tbody>
+						
 					<c:forEach var="update" items="${updateRecord}">
+<%-- 					<form class="needs-validation" id='form1'> --%>
 						<tr>
-							<td>${update.record_id}</td>
-							<td>${update.pid}</td>
+							<td id='rid'>${update.record_id}</td>
+							<td id='pid'>${update.pid}</td>
 							<td>${update.p_name}</td>
 							<td>${update.p_price}</td>
 							<td>${update.pcount}</td>
 							<td>${update.buy_time}</td>
-							
 							<td>
+							<select name='ts' id='ts'>
+							<option selected>${update.transport_status}</option>
+							<option disabled>======</option>
+							<option value='待出貨'>待出貨</option>
+							<option value='運送中'>運送中</option>
+							<option value='已到貨'>已到貨</option>							
+							</select>
+							</td>
+<%-- 					href="<c:url value='/updatevalue30?rid=${update.record_id}&pid=${update.pid}&ts=${update.transport_status}' />" --%>
+<%--      	  <form:input path="tag" type="text" id="insTag" style="display:none" /> --%>
+							<td>														
+								<a href="<c:url value='/updatevalue30?rid=${update.record_id}&pid=${update.pid}&ts=${update.transport_status}' />" class="edit" title="Edit" data-toggle="tooltip">
+								<i class="material-icons">&#xE254;</i>
+								</a>
+						
+						
+									<a href='#' onclick="if(window.confirm('確定要刪除？')) location.href ='<c:url value='/delete?rid=${update.record_id}&pid=${update.pid}'/>'" class="delete" title="Delete" data-toggle="tooltip">
+									<i class="material-icons">&#xE872;</i>
+									</a>
 							
-							
-								<a href="<c:url value='/updatevalue30?rid=${update.record_id}&pid=${update.pid}' />" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-							
-								<!-- Button -->
-								<button type="button" class="btn bt1" data-toggle="modal" data-target="#staticBackdrop">
-									<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-								</button>
-
-								<!-- Modal -->
-								<div class="modal fade " id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="staticBackdropLabel">刪除</h5>
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-
-												<form class="needs-validation" novalidate>
-
-													你確定要刪除嗎? 不要後悔捏 ! !
-													<div class="modal-footer">
-
-
-														<button type="button" class="btn btn-danger" data-dismiss="modal">確認刪除</button>
-
-														<button type="submit" class="btn btn-primary">取消</button>
-													</div>
-												</form>
-
-											</div>
-
-										</div>
-									</div>
-								</div>
-
 							</td>
 						</tr>
+													
+							
+<%-- 							<form:form method='POST' modelAttribute="updatebean" class='form-horizontal'>	 --%>
+<%-- 							<form:input path="rid" value='${update.record_id}'/> --%>
+<%-- 							<form:input path="pid" value='${update.pid}'/> --%>
+<%-- 							<form:input path="ts" value='123456'/> --%>
+<%-- 							</form:form>					 --%>
 						</c:forEach>														
-						
+							
 					</tbody>
 				</table>
 				<div class="clearfix">
@@ -245,7 +255,8 @@
 				</div>
 			</div>
 		</div>
-
+	
+		<a href="<c:url value='/member/evolution' />" class="edit" title="Edit" data-toggle="tooltip">回上一頁</a>
 
 		
 	</div>   
