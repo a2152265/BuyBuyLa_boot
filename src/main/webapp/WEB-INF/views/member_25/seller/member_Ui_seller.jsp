@@ -225,7 +225,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='' />">
+                    <a href="<c:url value='/products/seller' />">
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">商品管理</span>
                     </a>
