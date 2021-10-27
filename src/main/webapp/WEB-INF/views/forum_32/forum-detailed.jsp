@@ -57,15 +57,35 @@
 					</li>
 				</ul>
 			</div>
-			<form class="d-flex">
-				<input class="form-control me-2" type="search"
-					placeholder="搜尋作者、文章..." aria-label="Search">
-				<button class="btn btn-outline-success" type="submit">Search</button>
-			</form>
 		</div>
 	</nav>
 	
-	<div class="row" style="margin-top: 100px">
+	
+	<div style="margin-left:450px;margin-top:100px"><a href='#'>
+	<img style="width:20px" src="https://cdn-icons.flaticon.com/png/128/1620/premium/1620735.png?token=exp=1635307864~hmac=9424e67cb077c43e95098bc0f110ba19">
+	#${fb.tag}<br><br><br></a>
+	<div>
+	<img src="https://storage.googleapis.com/shopeetw-university/static/avatar.jpg" style="width: 60px; height: 60px; border-radius: 50%;float:left;"> 
+	<span style="margin-left: 15px; font-size:20px">${fb.userName}<br></span>
+	<span style="margin-left: 15px; font-size:20px">${fb.date}</span>
+	</div><br>
+	<h1>${fb.title}</h1>
+	
+						<img id="edit" data-bs-toggle="dropdown" aria-expanded="false"
+							class="dropdown-toggle"
+							style="cursor: pointer; margin-left:700px; width: 50px; height: 50px;"
+							src="https://cdn-icons-png.flaticon.com/128/1827/1827933.png">
+						<ul class="dropdown-menu">
+							<li data-id="${fb.id}" style="cursor: pointer"
+								data-bs-toggle="modal" data-bs-target="#UpdateModal"
+								class="dropdown-item updateDataClass">編輯</li>
+							<li style="cursor: pointer" class="dropdown-item"
+								onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${fb.id}'/>'">刪除</li>
+							<li><a class="dropdown-item" href="#">隱藏此用戶貼文</a></li>
+							<li><a class="dropdown-item" href="#">檢舉</a></li>
+						</ul>
+	</div>
+	<div class="row" style="margin-top: 30px">
 		<div class="col-6 col-md-3" style="margin-left: 150px; width: 260px">
 			<div class="accordion" id="accordionExample">
 				<div class="accordion-item">
@@ -111,123 +131,50 @@
 			</div>
 		</div>
 
+		<div class="col-12 col-md-9 bg-white" style="width: 60%; padding: 20px; margin-left: 50px">
+			<div class="detailed" style="padding:40px">
+				${fb.content}
+				<br><hr><br>
+				<div>
+				<a href="#">
+				<img style="width:40px" src="https://cdn-icons.flaticon.com/png/128/2652/premium/2652197.png?token=exp=1635308939~hmac=ee11ed72734ee75a3938393599f8dd85">
+				讚</a>
+				</div>
+			</div>	
+		</div>
+		
 		<div class="col-12 col-md-9 bg-white"
-			style="width: 60%; padding: 20px; margin-left: 50px">
-			<div>
-				<button type="button" class="btn btn-danger mb-3"
-					data-bs-toggle="modal" data-bs-target="#Modal">發起討論</button>
-				<b>${tag}</b> 
-				<select class="form-select mb-3"
-					aria-label="Default select example"
-					style="width: 150px; display: inline; float: right;">
-					<option value="1">最新</option>
-					<option value="2">最熱門</option>
-				</select>
-			</div>
-			<br>
-			<c:forEach var='content' items='${content}'>
-				<div class="card mx-auto"
-					style="width: 55rem; padding: 15px; margin: 0px;">
+			style="width: 60%; padding: 20px; margin-left: 460px; margin-top:20px">
+			<div class="detailed" style="padding:40px">
+			<span style="font-size:30px">0則留言</span>
+				<br><hr><br>
+				<div>
+				<img src="https://storage.googleapis.com/shopeetw-university/static/avatar.jpg" style="width: 60px; height: 60px; border-radius: 50%;float:left;margin-right:30px"> 
+				<form:form method='POST' modelAttribute="messageBean" class='form-horizontal' enctype="multipart/form-data">
+				<form:textarea path="messageContent" rows="4" cols="60" placeholder="新增留言..." />	
+				<form:input type="text" path="forumId" value="${forumId}" style="display:none" />		
+				<form:input type="text" path="userName" value="廖總" style="display:none" />		
+				<form:input type="text" path="userEmail" value="c123@gmail.com" style="display:none" />		
+				<form:input type="text" path="date" id="messageDate" style="display:none" />
+				<br>
+				<button type="submit" class="btn btn-secondary btn-lg">送出</button>
+				</form:form>
+				
+				</div>
+				<br><br><br>
+				<hr>
+				<c:forEach var='msg' items='${msg}'>
 					<div>
-						<img
-							src="https://storage.googleapis.com/shopeetw-university/static/avatar.jpg"
-							style="width: 50px; height: 50px; border-radius: 50%;"> <span
-							style="margin-left: 15px; font-size: 20px">${content.userName}</span>
-						<img id="edit" data-bs-toggle="dropdown" aria-expanded="false"
-							class="dropdown-toggle"
-							style="cursor: pointer; float: right; width: 30px; height: 30px;"
-							src="https://cdn-icons-png.flaticon.com/128/1827/1827933.png">
-						<ul class="dropdown-menu">
-							<li data-id="${content.id}" style="cursor: pointer"
-								data-bs-toggle="modal" data-bs-target="#UpdateModal"
-								class="dropdown-item updateDataClass">編輯</li>
-							<li style="cursor: pointer" class="dropdown-item"
-								onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${content.id}'/>'">刪除</li>
-							<li><a class="dropdown-item" href="#">隱藏此用戶貼文</a></li>
-							<li><a class="dropdown-item" href="#">檢舉</a></li>
-						</ul>
+					<label style="float:right">${msg.id}樓</label>
+					<img src="https://storage.googleapis.com/shopeetw-university/static/avatar.jpg" style="width: 60px; height: 60px; border-radius: 50%;float:left;"> 
+					<span style="margin-left: 15px; font-size:20px">${msg.userName}<br></span>
+					<span style="margin-left: 15px; font-size:20px">${msg.date}</span>
 					</div>
 					<br>
-					<div class="card-body" style="padding: 0px">
-						<div>
-							<h3>
-								<a href="<c:url value='/detailed' />?id=${content.id}">${content.title}</a>
-							</h3>
-							<div class="box">
-								<div class="card-text ellipsis">${content.content}</div>
-							</div>
-						</div>
-
-						<br>
-						<div>
-							<span style="font-size: 20px">${content.date}</span> <img
-								style="width: 20px; margin-left: 20px"
-								src="https://cdn-icons-png.flaticon.com/128/633/633759.png">
-							<span>0</span> <img style="width: 20px; margin-left: 20px"
-								src="https://cdn-icons-png.flaticon.com/128/739/739286.png">
-							<span>0</span> <img style="width: 20px; margin-left: 20px"
-								src="https://cdn-icons.flaticon.com/png/512/722/premium/722358.png?token=exp=1635284495~hmac=d84e061e39a2802f4976812059654e61">
-							<span>0</span>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
-	</div>
-
-
-	<div class="modal fade" id="Modal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<form:form method='POST' modelAttribute="forumBean"
-				class='form-horizontal' enctype="multipart/form-data">
-				<div class="modal-content">
-					<div class="modal-header">
-					
-					
-					
-					
-						<select style="width: 200px" id="insSelectTag" class="form-select"
-							aria-label="Default select example">
-							<option>官方最新公告區</option>
-							<option>新手賣家發問區</option>
-							<option>賣家閒聊討論區</option>
-						</select>
-						<form:input path="tag" type="text" id="insTag" style="display:none" />
-								
-								
-						<h3 style="margin-left: 150px;" class="modal-title"
-							id="exampleModalLabel">建立貼文</h3>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body insContentBody">
-						<form:input path="userName" type="text" value="廖總"
-							style="display:none" />
-						<div class="mb-3">
-							<form:input type="text" path="date" id="nowDate" style="display:none" />
-							<br>
-							<form:input type="text" path="title" required="true"
-								placeholder="標題" style="font-size: 30px" class="form-control"
-								aria-label="Sizing example input"
-								aria-describedby="inputGroup-sizing-lg" /><br>
-							<form:textarea path="content" class="form-control content"
-								placeholder="請輸入內文" rows="7" id="recipient-name"
-								style="display:none" />
-							<div id="summernote"></div>
-							<div class="mb-3">
-								<form:input style="display:none" class="form-control"
-									path="image" id="insImgBtn" type="file" />
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button id="insSubmit" type="submit" class="btn btn-primary">送出</button>
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">取消</button>
-					</div>
-				</div>
-			</form:form>
+					<p style="margin-left:80px">${msg.messageContent}</p>
+					<hr>
+				</c:forEach>
+			</div>	
 		</div>
 	</div>
 

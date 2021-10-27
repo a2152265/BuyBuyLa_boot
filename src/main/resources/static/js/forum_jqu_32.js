@@ -17,10 +17,11 @@ $(function() {
 	})
 	var date = new Date();
 	const formatDate = (date) => {
-		let formatted_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes()
+		let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes()
 		return formatted_date;
 	}
 	$('#nowDate').val(formatDate(date))
+	$('#messageDate').val(formatDate(date))
 	// 修改
 	$("#updImgBtn").change(function() {
 		var readFile = new FileReader();

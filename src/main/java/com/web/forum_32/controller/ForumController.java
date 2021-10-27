@@ -60,18 +60,7 @@ public class ForumController {
 		return "forum_32/forum";
 	}
 	
-	// 詳細
-	@GetMapping("/detailed")
-	public String detailed(Model model,
-					@RequestParam("id") Integer id) {
-		ForumBean forumBean = forumService.getContentById(id);
-		model.addAttribute("fb",forumBean);
-		model.addAttribute("forumBean", new ForumBean());
-		model.addAttribute("updateForumBean", new ForumBean());
-		model.addAttribute("tag", "所有討論");
-		return "forum_32/forum-detailed";
-	}
-	
+
 	
 	// 官方最新公告區
 	@GetMapping("/announcement") //announcement
