@@ -1,6 +1,7 @@
 package com.web.forum_32.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,20 +50,23 @@ public class ForumService implements IForumService {
 	}
 	
 	@Override
-	public List<ForumBean> getAllContentsByChat() {
-		return forumRepository.findByChat();
-
+	public List<ForumBean> getAllContentsByAnnouncement() {
+		return forumRepository.findAnnouncement();
+	}
+	
+	@Override
+	public List<ForumBean> getAllContentsByNoviceSeller() {
+		return forumRepository.findNoviceSeller();
 	}
 
 	@Override
-	public List<ForumBean> getAllContentsByBox() {
-		return forumRepository.findByBox();
-
+	public List<ForumBean> getAllContentsBySellerChat() {
+		return forumRepository.findSellerChat();
 	}
 
 	@Override
-	public List<ForumBean> getAllContentsByOther() {
-		return forumRepository.findByOrder();
+	public Optional<ForumBean> findContentById(Integer id) {
+		return forumRepository.findById(id);
 	}
 
 

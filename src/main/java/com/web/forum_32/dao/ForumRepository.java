@@ -12,13 +12,13 @@ public interface ForumRepository extends JpaRepository<ForumBean, Integer> {
 	
 	public List<ForumBean> findAllByOrderByIdDesc();
 	
-	@Query(nativeQuery = true, value = "select * from forum_32 where tag='開箱文' order by id desc")
-	public List<ForumBean> findByBox();
+	@Query(nativeQuery = true, value = "select * from forum_32 where tag='官方最新公告區'")
+	public List<ForumBean> findAnnouncement();
 	
-	@Query(nativeQuery = true, value = "select * from forum_32 where tag='忙裡偷閒聊' order by id desc")
-	public List<ForumBean> findByChat();
+	@Query(nativeQuery = true, value = "select * from forum_32 where tag='新手賣家發問區' order by id desc")
+	public List<ForumBean> findNoviceSeller();
 	
-	@Query(nativeQuery = true, value = "select * from forum_32 where tag='其他' order by id desc")
-	public List<ForumBean> findByOrder();
+	@Query(nativeQuery = true, value = "select * from forum_32 where tag='賣家閒聊討論區' order by id desc")
+	public List<ForumBean> findSellerChat();
 	
 }
