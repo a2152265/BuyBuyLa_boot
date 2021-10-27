@@ -11,14 +11,21 @@
 <!-- Jquery JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+	rel="stylesheet" />
 <!-- summernote -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+	rel="stylesheet">
 <!-- css -->
-<link rel='stylesheet' href='${pageContext.request.contextPath}/css/style32.css'>
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/css/style32.css'>
 <!-- js -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src='${pageContext.request.contextPath}/js/forum_upd_32.js'></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript"
+	src='${pageContext.request.contextPath}/js/forum_upd_32.js'></script>
 </head>
 <body class="bg-light">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -49,15 +56,16 @@
 					<li class="nav-item"><a class="nav-link disabled">Disabled</a>
 					</li>
 				</ul>
-				<form class="d-flex">
-					<input class="form-control me-2" type="search" placeholder="搜尋作者、文章..."
-						aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
-				</form>
 			</div>
+			<form class="d-flex">
+				<input class="form-control me-2" type="search"
+					placeholder="搜尋作者、文章..." aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
 		</div>
 	</nav>
-	<div class="row" style="margin-top:100px">
+	
+	<div class="row" style="margin-top: 100px">
 		<div class="col-6 col-md-3" style="margin-left: 150px; width: 260px">
 			<div class="accordion" id="accordionExample">
 				<div class="accordion-item">
@@ -70,11 +78,9 @@
 					<div id="collapseThree" class="accordion-collapse collapse"
 						aria-labelledby="headingThree" data-bs-parent="#accordionExample">
 						<div class="accordion-body">
-							<a href="#" style="text-decoration: none; color: black"><span
+							<a href="<c:url value='/announcement' />"
+								style="text-decoration: none; color: black"><span
 								class="tata">官方最新公告區</span></a>
-							<hr>
-							<a href="#" style="text-decoration: none; color: black"><span
-								class="tata">賣家便利貼</span></a>
 						</div>
 					</div>
 				</div>
@@ -88,65 +94,47 @@
 					<div id="collapseTwo" class="accordion-collapse collapse"
 						aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 						<div class="accordion-body">
-							<a href="#" style="text-decoration: none; color: black"><span
-								class="tata">話題區</span></a>
+							<a href="<c:url value='/forum'/>"
+								style="text-decoration: none; color: black"><span
+								class="tata">所有討論</span></a>
 							<hr>
-							<a href="#" style="text-decoration: none; color: black"><span
+							<a href="<c:url value='/noviceSeller' />"
+								style="text-decoration: none; color: black"><span
 								class="tata">新手賣家發問區</span></a>
 							<hr>
-							<a href="#" style="text-decoration: none; color: black"><span
+							<a href="<c:url value='/sellerChat' />"
+								style="text-decoration: none; color: black"><span
 								class="tata">賣家閒聊討論區</span></a>
-						</div>
-					</div>
-				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingTwo">
-						<button class="accordion-button collapsed" type="button"
-							data-bs-toggle="collapse" data-bs-target="#collapseFour"
-							aria-expanded="false" aria-controls="collapseFour">動態貼文
-						</button>
-					</h2>
-					<div id="collapseFour" class="accordion-collapse collapse"
-						aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<a href="<c:url value="forum"/>"
-								style="text-decoration: none; color: black"><span
-								class="tata">所有文章</span></a>
-							<hr>
-							<a href="<c:url value="chat"/>"
-								style="text-decoration: none; color: black"><span
-								class="tata">閒聊</span></a>
-							<hr>
-							<a href="<c:url value="box"/>"
-								style="text-decoration: none; color: black"><span
-								class="tata">開箱文</span></a>
-							<hr>
-							<a href="<c:url value="other"/>"
-								style="text-decoration: none; color: black"><span
-								class="tata">其他</span></a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		<div class="col-12 col-md-9 bg-white" style=" width:60%;padding: 20px; margin-left:50px">
-		<div>
-		<b>話題區</b>
-		<select class="form-select mb-3" aria-label="Default select example" style="width:130px;display:inline;">
-		  <option value="1">最新</option>
-		  <option value="2">最熱門</option>
-		</select>
-		<button style="float: right;" type="button" class="btn btn-outline-danger mb-3" data-bs-toggle="modal" data-bs-target="#Modal">發起討論</button>
-		</div>
-		<br>
-			
+
+		<div class="col-12 col-md-9 bg-white"
+			style="width: 60%; padding: 20px; margin-left: 50px">
+			<div>
+				<button type="button" class="btn btn-danger mb-3"
+					data-bs-toggle="modal" data-bs-target="#Modal">發起討論</button>
+				<b>${tag}</b> 
+				<select class="form-select mb-3"
+					aria-label="Default select example"
+					style="width: 150px; display: inline; float: right;">
+					<option value="1">最新</option>
+					<option value="2">最熱門</option>
+				</select>
+			</div>
+			<br>
 			<c:forEach var='content' items='${content}'>
-				<div class="card mx-auto" style="width: 57rem; padding: 15px; border: outset;margin:0px;">
+				<div class="card mx-auto"
+					style="width: 55rem; padding: 15px; margin: 0px;">
 					<div>
-						<img src="https://storage.googleapis.com/shopeetw-university/static/avatar.jpg" style="width: 50px; height: 50px; border-radius: 50%;"> 
-						<span style="margin-left:15px;font-size: 20px">${content.userName}</span>
-						<img id="edit" data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle"
+						<img
+							src="https://storage.googleapis.com/shopeetw-university/static/avatar.jpg"
+							style="width: 50px; height: 50px; border-radius: 50%;"> <span
+							style="margin-left: 15px; font-size: 20px">${content.userName}</span>
+						<img id="edit" data-bs-toggle="dropdown" aria-expanded="false"
+							class="dropdown-toggle"
 							style="cursor: pointer; float: right; width: 30px; height: 30px;"
 							src="https://cdn-icons-png.flaticon.com/128/1827/1827933.png">
 						<ul class="dropdown-menu">
@@ -156,26 +144,30 @@
 							<li style="cursor: pointer" class="dropdown-item"
 								onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${content.id}'/>'">刪除</li>
 							<li><a class="dropdown-item" href="#">隱藏此用戶貼文</a></li>
+							<li><a class="dropdown-item" href="#">檢舉</a></li>
 						</ul>
 					</div>
 					<br>
-					<div class="card-body" style="padding:0px">
+					<div class="card-body" style="padding: 0px">
 						<div>
-							<h3><a href="#">${content.title}</a></h3>
+							<h3>
+								<a href="<c:url value='/detailed' />?id=${content.id}">${content.title}</a>
+							</h3>
 							<div class="box">
-							<div class="card-text ellipsis">${content.content}</div>
+								<div class="card-text ellipsis">${content.content}</div>
 							</div>
 						</div>
-						
+
 						<br>
 						<div>
-					<span style="font-size: 20px">${content.date}</span>
-					<img style="width: 20px;margin-left:20px" src="https://cdn-icons-png.flaticon.com/128/633/633759.png">
-					<span>0</span>
-					<img style="width: 20px;margin-left:20px" src="https://cdn-icons-png.flaticon.com/128/739/739286.png">
-					<span>0</span>
-					<img style="width: 20px;margin-left:20px" src="https://cdn-icons.flaticon.com/png/512/722/premium/722358.png?token=exp=1635284495~hmac=d84e061e39a2802f4976812059654e61">	
-					<span>0</span>
+							<span style="font-size: 20px">${content.date}</span> <img
+								style="width: 20px; margin-left: 20px"
+								src="https://cdn-icons-png.flaticon.com/128/633/633759.png">
+							<span>0</span> <img style="width: 20px; margin-left: 20px"
+								src="https://cdn-icons-png.flaticon.com/128/739/739286.png">
+							<span>0</span> <img style="width: 20px; margin-left: 20px"
+								src="https://cdn-icons.flaticon.com/png/512/722/premium/722358.png?token=exp=1635284495~hmac=d84e061e39a2802f4976812059654e61">
+							<span>0</span>
 						</div>
 					</div>
 				</div>
@@ -191,12 +183,20 @@
 				class='form-horizontal' enctype="multipart/form-data">
 				<div class="modal-content">
 					<div class="modal-header">
-						<select style="width:200px" id="insSelectTag" class="form-select" aria-label="Default select example">
-							<option>話題區</option>
+					
+					
+					
+					
+						<select style="width: 200px" id="insSelectTag" class="form-select"
+							aria-label="Default select example">
+							<option>官方最新公告區</option>
 							<option>新手賣家發問區</option>
 							<option>賣家閒聊討論區</option>
 						</select>
-						<h3 style="margin-left:150px;" class="modal-title"
+						<form:input path="tag" type="text" id="insTag" style="display:none" />
+								
+								
+						<h3 style="margin-left: 150px;" class="modal-title"
 							id="exampleModalLabel">建立貼文</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
@@ -207,26 +207,32 @@
 						<div class="mb-3">
 							<form:input type="text" path="date" id="nowDate"
 								style="display:none" />
-							<form:input path="tag" type="text" id="insTag" style="display:none" />
 							<br>
-							<form:input type="text" path="title" required="true" placeholder="標題" style="font-size: 30px" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"/>
-							<form:textarea path="content" class="form-control content" placeholder="請輸入內文" rows="7" id="recipient-name" style="display:none"/> 
+							<form:input type="text" path="title" required="true"
+								placeholder="標題" style="font-size: 30px" class="form-control"
+								aria-label="Sizing example input"
+								aria-describedby="inputGroup-sizing-lg" />
+							<form:textarea path="content" class="form-control content"
+								placeholder="請輸入內文" rows="7" id="recipient-name"
+								style="display:none" />
 							<div id="summernote"></div>
 							<div class="mb-3">
-								<form:input style="display:none" class="form-control" path="image" id="insImgBtn" type="file" /> 
+								<form:input style="display:none" class="form-control"
+									path="image" id="insImgBtn" type="file" />
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button id="insSubmit" type="submit" class="btn btn-primary">送出</button>
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">取消</button>
 					</div>
 				</div>
 			</form:form>
 		</div>
 	</div>
-	
-	
+
+
 	<div class="modal fade" id="UpdateModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -234,18 +240,18 @@
 				class='form-horizontal' enctype="multipart/form-data">
 				<div class="modal-content">
 					<div class="modal-header">
-							<select style="width:200px" id="insSelectTag" class="form-select" aria-label="Default select example">
-								<option>話題區</option>
-								<option>新手賣家發問區</option>
-								<option>賣家閒聊討論區</option>
-							</select>
-						<h3 style="margin-left:150px;" class="modal-title"
+						<select style="width: 200px" id="insSelectTag" class="form-select"
+							aria-label="Default select example">
+							<option>新手賣家發問區</option>
+							<option>賣家閒聊討論區</option>
+						</select>
+						<h3 style="margin-left: 150px;" class="modal-title"
 							id="exampleModalLabel">編輯貼文</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body updContentBody">
-					<form:input id="updid" path="id" type="text" style="display:none" />
+						<form:input id="updid" path="id" type="text" style="display:none" />
 						<form:input path="userName" type="text" value="廖總"
 							style="display:none" />
 						<div class="mb-3">
@@ -254,13 +260,17 @@
 							<form:input path="tag" type="text" id="updTag"
 								style="display:none" />
 							<br>
-							<form:input type="text" required="true" placeholder="標題" path="title" style="font-size: 30px" class="form-control updTitle" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"/>
+							<form:input type="text" required="true" placeholder="標題"
+								path="title" style="font-size: 30px"
+								class="form-control updTitle" aria-label="Sizing example input"
+								aria-describedby="inputGroup-sizing-lg" />
 							<form:textarea path="content" class="form-control updContent"
-								placeholder="請輸入內文" rows="7" id="recipient-name" style="display:none"/> 
+								placeholder="請輸入內文" rows="7" id="recipient-name"
+								style="display:none" />
 							<div id="summernote2"></div>
 							<div class="mb-3">
 								<form:input class="form-control" path="image" id="insImgBtn"
- 									type="file" style="display:none" /> 
+									type="file" style="display:none" />
 							</div>
 						</div>
 					</div>
@@ -275,12 +285,14 @@
 	</div>
 
 
-<!-- jquery -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- jquery -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src='${pageContext.request.contextPath}/js/forum_jqu_32.js'></script>
-<!-- summernote -->
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    <script src='${pageContext.request.contextPath}/js/forum_sum_32.js'></script>
-    
+	<!-- summernote -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+	<script src='${pageContext.request.contextPath}/js/forum_sum_32.js'></script>
+
 </body>
 </html>

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,48 +56,70 @@ public class ForumController {
 		model.addAttribute("content", allList);
 		model.addAttribute("forumBean", new ForumBean());
 		model.addAttribute("updateForumBean", new ForumBean());
+		model.addAttribute("tag", "所有討論");
 		return "forum_32/forum";
 	}
 	
-	// 首頁展示-忙裡偷閒聊
-	@GetMapping("/chat")
+	// 詳細
+	@GetMapping("/detailed")
+	public String detailed(Model model,
+					@RequestParam("id") Integer id) {
+		ForumBean forumBean = forumService.getContentById(id);
+		model.addAttribute("fb",forumBean);
+		model.addAttribute("forumBean", new ForumBean());
+		model.addAttribute("updateForumBean", new ForumBean());
+		model.addAttribute("tag", "所有討論");
+		return "forum_32/forum-detailed";
+	}
+	
+	
+	// 官方最新公告區
+	@GetMapping("/announcement") //announcement
 	public String chat(Model model) {
-		List<ForumBean> chatList = forumService.getAllContentsByChat();
-		if(!chatList.isEmpty()) {
-		model.addAttribute("content", chatList);
+		
+		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
+		
+		if(!announcementList.isEmpty()) {
+		model.addAttribute("content", announcementList);
+		model.addAttribute("tag", "官方最新公告區");
 	}else {
 		List<ForumBean> allList = forumService.getAllContents();
 		model.addAttribute("content", allList);
+		model.addAttribute("tag", "所有討論");
 	}
 		model.addAttribute("forumBean", new ForumBean());
 		model.addAttribute("updateForumBean", new ForumBean());
 		return "forum_32/forum";
 	}
 
-	// 首頁展示-開箱文
-	@GetMapping("/box")
+	// 新手賣家發問區
+	@GetMapping("/noviceSeller")
 	public String box(Model model) {
-		List<ForumBean> boxList = forumService.getAllContentsByBox();
-		if(!boxList.isEmpty()) {
-		model.addAttribute("content", boxList);
+		List<ForumBean> noviceSellerList = forumService.getAllContentsByNoviceSeller();
+		if(!noviceSellerList.isEmpty()) {
+		model.addAttribute("content", noviceSellerList);
+		model.addAttribute("tag", "新手賣家發問區");
 	}else {
 		List<ForumBean> allList = forumService.getAllContents();
 		model.addAttribute("content", allList);
+		model.addAttribute("tag", "所有討論");
 	}
 		model.addAttribute("forumBean", new ForumBean());
 		model.addAttribute("updateForumBean", new ForumBean());
 		return "forum_32/forum";
 	}
 
-	// 首頁展示-其他
-	@GetMapping("/other")
+	// 賣家閒聊討論區
+	@GetMapping("/sellerChat")
 	public String other(Model model) {
-		List<ForumBean> orderList = forumService.getAllContentsByOther();
-			if(!orderList.isEmpty()) {
-			model.addAttribute("content", orderList);
+		List<ForumBean> sellerChatList = forumService.getAllContentsBySellerChat();
+			if(!sellerChatList.isEmpty()) {
+			model.addAttribute("content", sellerChatList);
+			model.addAttribute("tag", "賣家閒聊討論區");
 		}else {
 			List<ForumBean> allList = forumService.getAllContents();
 			model.addAttribute("content", allList);
+			model.addAttribute("tag", "所有討論");
 		}
 		model.addAttribute("forumBean", new ForumBean());
 		model.addAttribute("updateForumBean", new ForumBean());
@@ -121,7 +144,7 @@ public class ForumController {
 	}
 
 	// 新增貼文.編輯
-	@PostMapping({"/forum","/chat","/box"})
+	@PostMapping({"/forum","/noviceSeller","/sellerChat","/announcement"})
 	public String processAddNewFourmForm(@ModelAttribute("updateForumBean") ForumBean updfb,
 			@ModelAttribute("forumBean") ForumBean fb, BindingResult result) {
 		if (updfb.getId() != null) {
@@ -169,6 +192,7 @@ public class ForumController {
 		return "redirect:/forum";
 	}
 	
+
 	// 白名單
 	@InitBinder
 	public void whiteListing(WebDataBinder binder) {

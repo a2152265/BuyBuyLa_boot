@@ -65,7 +65,8 @@ h1 {
 }
 
 b {
-	font-size: 30px
+	font-size: 55px;
+	margin-left:27px;
 }
 .card-text { 
   display: -webkit-box;
@@ -73,8 +74,6 @@ b {
   -webkit-line-clamp: 5;
   overflow: hidden;
 }
-
-
 
 .box {
 width: 800px;

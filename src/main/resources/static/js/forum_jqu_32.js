@@ -33,6 +33,7 @@ $(function() {
 	})
 	$('.updContentBody').on('mouseover', function() {
 		$('#updTag').val($('#updSelectTag option:selected').text())
+		console.log()
 	})
 	var date = new Date();
 	const updFormatDate = (date) => {
@@ -40,6 +41,7 @@ $(function() {
 		return updFormatted_date;
 	}
 	$('#nowUpdDate').val(updFormatDate(date));
-	console.log($('.ellipsis').text())
+	
+	
 	
 })
