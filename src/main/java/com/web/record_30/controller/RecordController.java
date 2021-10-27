@@ -8,13 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.web.record_30.model.RecordBean;
 import com.web.record_30.service.IRecordService;
 
 
 @Controller
+@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" })
 public class RecordController {
 	
 	IRecordService recordservice;
@@ -29,6 +30,7 @@ public class RecordController {
 	
 	@GetMapping({"/user"})
 	public String record(Model model) {
+		System.out.println("************************");
 		 return "record_30/user";
 	}
 	
