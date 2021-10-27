@@ -40,7 +40,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
+						aria-current="page" href="<c:url value='/'/>">Home</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -57,13 +57,24 @@
 					</li>
 				</ul>
 			</div>
+			
 			<form class="d-flex">
-				<input class="form-control me-2" type="search"
-					placeholder="搜尋作者、文章..." aria-label="Search">
-				<button class="btn btn-outline-success" type="submit">Search</button>
+				<input class="form-control me-2 searchText" type="text" placeholder="搜尋文章" aria-label="Search" >
+				<button class="btn btn-outline-success searchBtn" type="button">Search</button>
 			</form>
 		</div>
 	</nav>
+	
+	<ul style="font-size: 30px;margin-left:500px;">
+		<li><a href="<c:url value='/try/add' />">會員註冊</a></li>
+		<li><a href="<c:url value='/try/login' />">會員登入</a></li>
+		<li><a href="<c:url value='/try/logout' />">登出</a></li>
+	</ul>
+	<ul style="font-size: 30px;margin-left:800px;">
+		<li>用戶名稱 : ${loginSession.userName}</li>
+		<li>用戶信箱 : ${loginSession.userEmail}</li>
+	</ul>
+	
 	
 	<div class="row">
 		<div class="col-6 col-md-3" style="margin-left: 150px; width: 260px">
@@ -120,9 +131,9 @@
 							<span class="contentUserName">${content.userName}</span>
 						<img id="edit" data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle editImgg" src="https://cdn-icons-png.flaticon.com/128/1827/1827933.png">
 						<ul class="dropdown-menu">
-							<li data-id="${content.id}" data-bs-toggle="modal" data-bs-target="#UpdateModal" class="dropdown-item updateDataClass">編輯</li>
-							<li style="cursor: pointer" class="dropdown-item"
-								onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${content.id}'/>'">刪除</li>
+<%-- 							<li data-id="${content.id}" data-bs-toggle="modal" data-bs-target="#UpdateModal" class="dropdown-item updateDataClass">編輯</li> --%>
+<!-- 							<li style="cursor: pointer" class="dropdown-item" -->
+<%-- 								onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${content.id}'/>'">刪除</li> --%>
 							<li><a class="dropdown-item" href="#">隱藏此用戶貼文</a></li>
 							<li><a class="dropdown-item" href="#">檢舉</a></li>
 						</ul>
@@ -176,7 +187,7 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body insContentBody">
-						<form:input path="userName" type="text" value="廖總" class="display-none" />
+						<form:input path="userName" type="text" value="${loginSession.userName}" class="display-none" />
 						<div class="mb-3">
 							<form:input type="text" path="date" id="nowDate" class="display-none" />
 							<br>
@@ -220,7 +231,7 @@
 					</div>
 					<div class="modal-body updContentBody">
 						<form:input id="updid" path="id" type="text" class="display-none" />
-						<form:input path="userName" type="text" value="廖總" class="display-none" />
+						<form:input path="userName" type="text" value="${loginSession.userName}" class="display-none" />
 						<div class="mb-3">
 							<form:input type="text" path="date" id="nowUpdDate" class="display-none" />
 							<form:input path="tag" type="text" id="updTag" class="display-none" />

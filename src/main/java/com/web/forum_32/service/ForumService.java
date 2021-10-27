@@ -22,12 +22,6 @@ public class ForumService implements IForumService {
 	public List<ForumBean> getAllContents() {
 		return forumRepository.findAllByOrderByIdDesc();
 	}
-    
-	@Override
-	public ForumBean getContentByUsername(String userName) {
-//		return forumRepository.findByName(userName);
-		return null;
-	}
 
 	@Override
 	public void addContent(ForumBean content) {
@@ -68,6 +62,17 @@ public class ForumService implements IForumService {
 	public Optional<ForumBean> findContentById(Integer id) {
 		return forumRepository.findById(id);
 	}
+
+	@Override
+	public List<ForumBean> findAllByUserName(String userName) {
+		return forumRepository.findAllByUserName(userName);
+	}
+
+	@Override
+	public List<ForumBean> findAllByTitle(String title) {
+		return forumRepository.findAllByTitle(title);
+	}
+
 
 
 	

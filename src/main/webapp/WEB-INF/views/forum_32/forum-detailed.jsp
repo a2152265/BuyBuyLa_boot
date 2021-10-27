@@ -33,7 +33,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
+						aria-current="page" href="<c:url value="/"/>">Home</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -75,8 +75,8 @@
 				data-bs-target="#UpdateModal" class="dropdown-item updateDataClass">編輯</li>
 			<li  class="dropdown-item tata"
 				onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${fb.id}'/>'">刪除</li>
-			<li><a class="dropdown-item" href="#">隱藏此用戶貼文</a></li>
-			<li><a class="dropdown-item" href="#">檢舉</a></li>
+<!-- 			<li><a class="dropdown-item" href="#">隱藏此用戶貼文</a></li> -->
+<!-- 			<li><a class="dropdown-item" href="#">檢舉</a></li> -->
 		</ul>
 	</div>
 	<div class="row mtop30">

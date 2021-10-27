@@ -40,11 +40,8 @@ public class MessageController {
 			ForumBean forumBean = forumService.getContentById(id);
 			model.addAttribute("fb", forumBean);
 		}
-		
-//		List<MessageBean> messageList = messageService.getAllMessage();
 		List<MessageBean> messageList = messageService.getAllMessageById(id);
 		model.addAttribute("msg",messageList);
-		
 		model.addAttribute("forumId", id);
 		model.addAttribute("messageBean", messageBean);
 		model.addAttribute("updateForumBean", new ForumBean());
@@ -53,9 +50,13 @@ public class MessageController {
 
 	// 編輯
 	@PostMapping("/detailed")
-	public String processUpdNewFourmForm(@RequestParam(value = "id", required = false) Integer id,
+	public String processUpdNewFourmForm(@RequestParam("id") Integer id,
 			@ModelAttribute("updateForumBean") ForumBean updfb,
 			@ModelAttribute("messageBean") MessageBean messageBean) {
+		System.out.println("updfb-get==="+updfb.getContent());
+		if(updfb.getContent()!=null) {
+		forumService.update(updfb);
+		}
 		messageService.addMessageContent(messageBean);
 		return "redirect:/detailed?id="+id;
 	}

@@ -65,9 +65,7 @@ public class ForumController {
 	// 官方最新公告區
 	@GetMapping("/announcement") //announcement
 	public String chat(Model model) {
-		
 		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
-		
 		if(!announcementList.isEmpty()) {
 		model.addAttribute("content", announcementList);
 		model.addAttribute("tag", "官方最新公告區");
@@ -118,26 +116,37 @@ public class ForumController {
 	// 編輯貼文
 	@GetMapping(value = "/editURL")
 	@ResponseBody
-	public ForumBean Url(@RequestParam("id") Integer id, @ModelAttribute("updateForumBean") ForumBean f, Model model) {
+	public ForumBean Url(@RequestParam("id") Integer id, @ModelAttribute("updateForumBean") ForumBean updfb, Model model) {
 		ForumBean fb = forumService.getContentById(id);
-		f = new ForumBean(fb.getId(), fb.getUserName(), fb.getUserEmail(), fb.getDate(), fb.getTag(),fb.getTitle(), fb.getContent());
-		return f;
+		updfb = new ForumBean(fb.getId(), fb.getUserName(), fb.getUserEmail(), fb.getDate(), fb.getTag(),fb.getTitle(), fb.getContent());
+		return updfb;
+	}
+	
+	// 搜尋貼文
+	@GetMapping(value = "/search")
+	@ResponseBody
+	public List<ForumBean> searchUrl(@RequestParam("title") String title, Model model) {
+		List<ForumBean> fb = forumService.findAllByTitle(title);
+		model.addAttribute("content", fb);
+		return fb;
 	}
 
 	// 刪除貼文
 	@GetMapping("/delete32")
 	public String deleteContentById(@RequestParam("id") Integer id, Model model) {
-		System.out.println("id=id=id=id=" + id);
 		forumService.delete(id);
 		return "redirect:/forum";
 	}
-
+	
 	// 新增貼文.編輯
 	@PostMapping({"/forum","/noviceSeller","/sellerChat","/announcement"})
-	public String processAddNewFourmForm(@ModelAttribute("updateForumBean") ForumBean updfb,
-			@ModelAttribute("forumBean") ForumBean fb, BindingResult result) {
-		if (updfb.getId() != null) {
-			if (!updfb.getImage().isEmpty()) {
+	public String processAddNewFourmForm(
+			Model model,
+			@ModelAttribute("updateForumBean") ForumBean updfb,
+			@ModelAttribute("forumBean") ForumBean fb, 
+			BindingResult result) {
+			if (updfb.getId() != null) {
+				if (!updfb.getImage().isEmpty()) {
 				MultipartFile image = updfb.getImage();
 				String originalFilename = image.getOriginalFilename();
 				updfb.setFileName(originalFilename);
@@ -185,7 +194,7 @@ public class ForumController {
 	// 白名單
 	@InitBinder
 	public void whiteListing(WebDataBinder binder) {
-		binder.setAllowedFields("title","userName", "userEmail", "tag", "id", "content", "image", "date", "files");
+		binder.setAllowedFields("search","title","userName", "userEmail", "tag", "id", "content", "image", "date", "files");
 	}
 
 	//
