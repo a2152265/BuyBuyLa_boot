@@ -219,7 +219,7 @@
 			</h2>
 		</div>
 			<center>	
-			<a href="<c:url value='/selectLsit' />" class="edit" title="Edit" data-toggle="tooltip">回上一頁</a>
+			<a class="btn btn-outline-secondary" href="<c:url value='/selectLsit' />" style='font-size:20px' role="button">回上一頁</a>
 			</center>
 
 		

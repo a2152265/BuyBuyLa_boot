@@ -8,11 +8,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.web.cart_30.model.BuyerAddress;
 import com.web.cart_30.model.Cart;
 
 import com.web.cart_30.service.CartService;
@@ -96,10 +99,28 @@ public class CartController {
 	}
 	
 	@GetMapping("/check")
-	public String check(Model model) {
+	public String check(@ModelAttribute("loginSession")  membershipInformationBean mb,Model model) {
 		List<Cart> cart = cartService.addToRecord();
-		model.addAttribute("cart", cart);	
+		model.addAttribute("cart", cart);
+		String buyer =mb.getUserEmail();
+		List<BuyerAddress> ba = cartService.selectAllBuyerAddressByBuyer(buyer);
+		System.out.println("**********************");
+		System.out.println(ba.size()+"////////////////////////");
+		model.addAttribute("BuyerAddressList",ba);
+		model.addAttribute("BuyerAddress",new BuyerAddress());
+		
 		 return "cart_30/check";
+	}
+	
+	
+	@PostMapping("/check")
+	public String insertAddress(@ModelAttribute("loginSession")  membershipInformationBean mb ,@ModelAttribute("BuyerAddress") BuyerAddress ba,BindingResult br,Model model) {
+		String account = mb.getUserEmail();
+		ba.setBuyer(account);
+		cartService.insertAddress(ba);
+		List<Cart> cart = cartService.addToRecord();
+		model.addAttribute("cart", cart);
+		 return "redirect:/check";
 	}
 	
 	
@@ -150,9 +171,13 @@ public class CartController {
 		 return "redirect:/products";
 	}
 	
+//	@GetMapping("/insertAddress")
+//	public String goInsertAddress(Model model) {
+//		
+//		 return "cart_30/check";
+//	}
 	
-	
-	
+
 	
 	
 }

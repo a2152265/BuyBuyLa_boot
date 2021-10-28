@@ -100,11 +100,13 @@ public class RecordController {
 		
 	}
 	
-	@GetMapping("/updatevalue30")
-	public String update2(@RequestParam Integer rid,@RequestParam Integer pid,@RequestParam String ts,Model model) {
-
-		recordservice.update(rid, pid, ts);
-		System.out.println("rid = "+ rid+",pid = "+pid+"TS = "+ts+"+++++++++++++++++++++++");
+	@PostMapping("/update30")
+	public String update2(@ModelAttribute("updatebean") RecordBean record,Model model) {
+		int pid =record.getPid();
+		int rid =record.getRecord_id();
+		String transport_status= record.getTransport_status();
+		recordservice.update(rid, pid, transport_status);
+		System.out.println("rid = "+ rid+",pid = "+pid+"TS = "+transport_status+"+++++++++++++++++++++++");
 		
 		return "record_30/update2";
 		

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -199,7 +199,7 @@
 					<tbody>
 						
 					<c:forEach var="update" items="${updateRecord}">
-<%-- 					<form class="needs-validation" id='form1'> --%>
+					<form:form method='POST' modelAttribute="updatebean" class='form-horizontal'>	
 						<tr>
 							<td id='rid'>${update.record_id}</td>
 							<td id='pid'>${update.pid}</td>
@@ -207,23 +207,26 @@
 							<td>${update.p_price}</td>
 							<td>${update.pcount}</td>
 							<td>${update.buy_time}</td>
+					
 							<td>
-							<select name='ts' id='ts'>
+							<form:select path='transport_status' id='ts'>
 							<option selected>${update.transport_status}</option>
 							<option disabled>======</option>
-							<option value='待出貨'>待出貨</option>
-							<option value='運送中'>運送中</option>
-							<option value='已到貨'>已到貨</option>							
-							</select>
+							<form:option value='待出貨'>待出貨</form:option>
+							<form:option value='運送中'>運送中</form:option>
+							<form:option value='已到貨'>已到貨</form:option>							
+							</form:select>
 							</td>
-<%-- 					href="<c:url value='/updatevalue30?rid=${update.record_id}&pid=${update.pid}&ts=${update.transport_status}' />" --%>
-<%--      	  <form:input path="tag" type="text" id="insTag" style="display:none" /> --%>
-							<td>														
+
+							<td>	
+							 <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+							<form:input path="record_id" value='${update.record_id}' style="display:none"/>
+							<form:input path="pid" value='${update.pid}' style="display:none"/>	
+							<button type="submit" class="btn bt1" data-toggle="modal" data-target="#staticBackdrop">										
 								<a href="<c:url value='/updatevalue30?rid=${update.record_id}&pid=${update.pid}&ts=${update.transport_status}' />" class="edit" title="Edit" data-toggle="tooltip">
 								<i class="material-icons">&#xE254;</i>
 								</a>
-						
-						
+							</button>	
 									<a href='#' onclick="if(window.confirm('確定要刪除？')) location.href ='<c:url value='/delete?rid=${update.record_id}&pid=${update.pid}'/>'" class="delete" title="Delete" data-toggle="tooltip">
 									<i class="material-icons">&#xE872;</i>
 									</a>
@@ -232,17 +235,14 @@
 						</tr>
 													
 							
-<%-- 							<form:form method='POST' modelAttribute="updatebean" class='form-horizontal'>	 --%>
-<%-- 							<form:input path="rid" value='${update.record_id}'/> --%>
-<%-- 							<form:input path="pid" value='${update.pid}'/> --%>
-<%-- 							<form:input path="ts" value='123456'/> --%>
-<%-- 							</form:form>					 --%>
+
+						</form:form>				
+						
 						</c:forEach>														
 							
 					</tbody>
 				</table>
 				<div class="clearfix">
-					<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
 					<ul class="pagination">
 						<li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
 						<li class="page-item"><a href="#" class="page-link">1</a></li>
@@ -255,8 +255,9 @@
 				</div>
 			</div>
 		</div>
-	
-		<a href="<c:url value='/member/evolution' />" class="edit" title="Edit" data-toggle="tooltip">回上一頁</a>
+		<center>
+		<a class="btn btn-outline-secondary" href="<c:url value='/member/evolution' />" style='font-size:20px' role="button">返回賣家中心</a>
+		</center>
 
 		
 	</div>   

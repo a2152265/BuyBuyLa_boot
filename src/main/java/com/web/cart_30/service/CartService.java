@@ -2,6 +2,7 @@ package com.web.cart_30.service;
 
 import java.util.List;
 
+import com.web.cart_30.model.BuyerAddress;
 import com.web.cart_30.model.Cart;
 import com.web.record_30.model.RecordBean;
 import com.web.record_30.model.RecordList;
@@ -20,6 +21,8 @@ public interface CartService {
 	public void addRidCount();
 	public void deleteAll();
 	public void addToRecordList(RecordList rl); 
+	public void insertAddress(BuyerAddress address);
 	
+	public List<BuyerAddress> selectAllBuyerAddressByBuyer(String buyer);
 	
 }

@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.web.cart_30.dao.BuyerAddressRepository;
 import com.web.cart_30.dao.CartRepository;
 import com.web.cart_30.dao.RecordListRepository;
 import com.web.cart_30.dao.RidCountRepository;
+import com.web.cart_30.model.BuyerAddress;
 import com.web.cart_30.model.Cart;
 
 import com.web.cart_30.model.RidCount;
@@ -34,17 +36,20 @@ public class CartServiceImpl implements CartService {
 	ProductRepository productRepository;
 	RidCountRepository ridCountRepository;
 	RecordListRepository recordListRepository;
+	BuyerAddressRepository buyerAddressRepository;
+	
 	
 	@Autowired
 	public CartServiceImpl(RecordRepository recordRepository, CartRepository cartRepository,
 			ProductRepository productRepository, RidCountRepository ridCountRepository,
-			RecordListRepository recordListRepository) {
+			RecordListRepository recordListRepository,BuyerAddressRepository buyerAddressRepository) {
 	
 		this.recordRepository = recordRepository;
 		this.cartRepository = cartRepository;
 		this.productRepository = productRepository;
 		this.ridCountRepository = ridCountRepository;
 		this.recordListRepository = recordListRepository;
+		this.buyerAddressRepository=buyerAddressRepository;
 	}
 
 
@@ -177,6 +182,28 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public void addToRecordList(RecordList rl) {
 		recordListRepository.save(rl);
+	}
+
+
+
+
+
+
+
+	@Override
+	public void insertAddress(BuyerAddress address) {
+		buyerAddressRepository.save(address);
+		
+	}
+
+
+
+
+
+	@Override
+	public List<BuyerAddress> selectAllBuyerAddressByBuyer(String buyer) {
+		
+		return buyerAddressRepository.selectAllBuyerAddressByBuyer(buyer);
 	}
 
 
