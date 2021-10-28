@@ -42,7 +42,7 @@
 				<li><a href="campaigns">活動專區</a></li>
 
 
-				<c:if test=" ${loginSession.userEmail != null &&  managerSession.userEmail != null }">
+			  	<c:if test="${loginSession.userEmail != null}">
 					<li><a href="<c:url value='/try/member_Ui' />">會員專區</a></li>
 			    	<li><a href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
 						${loginSession.userEmail}</a></li>

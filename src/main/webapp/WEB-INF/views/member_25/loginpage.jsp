@@ -125,7 +125,6 @@ input {
 	position: absolute;
 	top: 0;
 	height: 100%;
-    right: 0%;
 	transition: all 0.6s ease-in-out;
 }
 
@@ -140,9 +139,9 @@ input {
 }
 
 .sign-up-container {
-
+	left: 0;
 	width: 50%;
-	opacity: 1;
+	opacity: 0;
 	z-index: 1;
 }
 
@@ -168,7 +167,7 @@ input {
 .overlay-container {
 	position: absolute;
 	top: 0;
-	left: 00%;
+	left: 50%;
 	width: 50%;
 	height: 100%;
 	overflow: hidden;
@@ -278,44 +277,43 @@ footer a {
 
 
 
-    <!-- <h2>Weekly Coding Challenge #1: Sign in/up Form</h2> -->
+    <!-- <h2>Weekly Coding Challenge #1: Sign in/up Form</h2>
+<div class="container" id="container"> -->
 	<div class="form-container sign-up-container">
-
-
-
-        <!-- 創立帳號 -->
-		<form:form method='POST' modelAttribute="loginBeanDefault"
-			class='form-horizontal'>
-			<!-- 檔案上傳的標籤一定要有enctype="multipart/form-data -->
-			<h1>建立帳號</h1>
+		<form action="#">
+			<h1>Create Account</h1>
 			<div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
 				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
-			
-            
-            <form:input id="userPhone" path="userPhone" type='text' placeholder="userPhone" cssclass='form-control'  />
-            <br><form:errors path="userPhone" cssClass="error" style="color: red;" />	
-
-            <form:input id="name" path="userEmail" type='text' placeholder="Email" cssclass='form-control'  />
-            <br><form:errors path="userEmail" cssClass="error" style="color: red;" />
-
-            <form:input id="pwd" path="userPwd" type='text' placeholder="Password" cssclass='form-control'  />
-			<br><form:errors path="userPwd" cssClass="error"  style="color: red;" />
-			
-			<form:input id="pwd" path="userPwd1" type='text' placeholder="Password check" cssclass='form-control'  />
-			<br><form:errors path="userPwd1" cssClass="error"  style="color: red;" />
-			
-            <input type="submit" id="submit"  name="submit" value="註冊" class="reg" onclick="return(confirm('確認註冊？'))"  >
-
-		</form:form>
-
+			<span>or use your email for registration</span>
+			<input type="text" placeholder="Name" />
+			<input type="email" placeholder="Email" />
+			<input type="password" placeholder="Password" />
+			<button>Sign Up</button>
+		</form>
 	</div>
-
-
-    
 	<div class="form-container sign-in-container">
+
+        <!-- 登入帳號區 -->
+		<form:form method='POST'   modelAttribute="loginSession"
+							cssClass='row login_form' >
+			<h1>歡迎您 請登入</h1>
+			<div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+			</div>
+		
+            <form:input id="name" path="userEmail" type='text' placeholder="請輸入帳號" cssclass='form-control'  />
+							
+            <form:password id="pwd" path="userPwd"  placeholder="請輸入密碼" cssclass='form-control'  />
+			<a href="#">Forgot your password?</a>
+			<!-- <button>登入</button> -->
+            <a href="<c:url value='/try/index' />"><button type="submit" value="submit" onclick="return(confirm('確認登入？'))"  >登入</button> </a>
+        </form:form>
+
 
 
 	</div>
@@ -327,12 +325,14 @@ footer a {
 				<button class="ghost" id="signIn">Sign In</button>
 			</div>
 			<div class="overlay-panel overlay-right">
-				<h1>已有帳號?</h1>
-				<p>來登入BuyBuyLa</p>
-                <a href="<c:url value='/try/login' />" >登入</a>
+				<h1>還沒有帳號?</h1>
+				<p>來建一個吧 很厲害的</p>
+                <a href="<c:url value='/try/add' />" >註冊</a>
+				<!-- <button class="ghost" id="signUp">註冊</button> -->
 			</div>
 		</div>
 	</div>
+<!-- </div> -->
 
 <footer>
 	<p>
@@ -343,5 +343,23 @@ footer a {
 	</p>
 </footer>
 
+
+
+    <script>
+        const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('container');
+
+signUpButton.addEventListener('click', () => {
+	container.classList.add("right-panel-active");
+});
+
+signInButton.addEventListener('click', () => {
+	container.classList.remove("right-panel-active");
+});
+    </script>
+
+
+    
 </body>
 </html>

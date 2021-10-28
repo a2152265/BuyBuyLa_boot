@@ -26,8 +26,7 @@ public interface MembertRepository extends JpaRepository<membershipInformationBe
 	membershipInformationBean findIdentificationByUserEmail(String userEmail);
 	
 	membershipInformationBean findByUserEmail(String userEmail);
-	//用ID找會員資料 (for 讀取圖片)
-	membershipInformationBean findById(int i);
+	
 	
 	//刪除帳號
 	@Transactional

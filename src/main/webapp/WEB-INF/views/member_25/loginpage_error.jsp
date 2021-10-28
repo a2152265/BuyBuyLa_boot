@@ -306,9 +306,9 @@ footer a {
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 		
-            <form:input id="name" path="userEmail" type='text' placeholder="Email" cssclass='form-control'  />
+            <form:input id="name" path="userEmail" type='text' placeholder="請輸入帳號" cssclass='form-control'  />
 							
-            <form:input id="pwd" path="userPwd" type='text' placeholder="Password" cssclass='form-control'  />
+            <form:password id="pwd" path="userPwd"  placeholder="請輸入密碼" cssclass='form-control'  />
 			<a href="#">Forgot your password?</a>
 			<!-- <button>登入</button> -->
             <a href="<c:url value='/try/index' />"><button type="submit" value="submit" onclick="return(confirm('確認登入？'))"  >登入</button> </a>
@@ -346,6 +346,8 @@ footer a {
 
 
     <script>
+    alert('登入失敗(查無帳號)');
+    
         const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');

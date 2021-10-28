@@ -13,54 +13,12 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <link rel="stylesheet" href="member.css">
     <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
-    
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>賣家中心</title>
+    <title>會員中心</title>
     <style>
-    
-    .button {
-  display: inline-block;
-  border-radius: 4px;
-  background-color: #f4511e;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 28px;
-  padding: 20px;
-  width: 200px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
-}
-
-.button span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-
-.button span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-
-.button:hover span {
-  padding-right: 25px;
-}
-
-.button:hover span:after {
-  opacity: 1;
-  right: 0;
-}
         
 
     </style>
@@ -82,60 +40,38 @@
 
 
 
-        <h1>Welcome ~~      WE Will BuyBuyLA your money</h1>
-        
-        
-  
-
-
-
-
     <div class="container">
-      <span style="font-size:30px;  font-weight:bold;">賣家中心</span>
+      <span style="font-size:30px;  font-weight:bold;">會員專區</span>
       </div>
 
 
 
     <div style="text-align: center;">
     
-        <form:form method='POST' modelAttribute="sellerData"
+        <form:form method='POST' modelAttribute="changePwd"
         class='form-horizontal' enctype="multipart/form-data">
         <!-- 檔案上傳的標籤一定要有enctype="multipart/form-data -->
       
-        <table style="text-align:center;" >
-          <h2 style="text-align: center;">個人資料</h1><br>
-          <span > 您需將資料填寫完成並驗證後，方可使用賣家功能</span><br><br><br>
+        <table style="text-align:center;">
           
-         <tr>
-         您的信箱為 : &nbsp;  
-              ${sellerData.userEmail}
-          </tr>    
+          <span > - 更改密碼</span><br><br><br>
           
           
-          
-           <tr>
-            <td >驗證碼</td>
-            <td> 
-            <label for="verifyCode"></label>
-            <!--驗證碼欄位-->         
-            <form:input id="verifyCode" path="verifyCode" type='text'  style="width: 250px; height: 30px; margin-top:25px; size: 20px;" cssClass="formInput" />
-       
-            <li><a href="<c:url value='/member/verifyBtn' />">發送驗證碼</a></li>  
-            </td> 
-            </tr>
-          
-          
-          
-          
-            
+           <form:password id="pwd" path="userPwd"  style="width: 40%; height:30px; font-size:18px"   placeholder="請輸入舊密碼" cssclass='form-control'  />
+			       
+                    
           </table>
-    
-       <br> <br>
-          <a href="<c:url value='/try/index' />?userEmail= ${sellerData.userEmail} ">
-          <input type="submit" id="submitRewrite" class="button" name="submitRewrite" style="vertical-align:middle "  value="賣家資格驗證"/>
-           </a>
-    
-    </form:form>
+          
+      
+          <p>&nbsp;</p>
+  
+          <input type="submit"  onclick="return(confirm('確認送出？'))"  id="submitRewrite"  name="submitRewrite" 
+          style="text-align: center; font-size: 18x;"  class="button-1"  value="確認"/>
+
+         
+         
+         
+         </form:form>
       
        
        
@@ -151,38 +87,64 @@
   </div>
         <div class="sidebar">
             <div class="profile">
-                <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
+                <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
+                <!-- 讀取圖片 -->
+               <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
                 <h3></h3>
-                <p>Designer</p>
+                <p>${memberUiDefault.userEmail} </p>
             </div>
             <ul>
                 <li>
-                    <a href="<c:url value='/' />" class="active">
+                    <a href="<c:url value='/' />" >
                         <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">Home</span>
+                        <span class="item">回首頁</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='/member/seller_Ui' />"">
+                    <a href="<c:url value='???' />"">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">訂單管理</span>
+                        <span class="item">購買清單</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='???' />"">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">購買紀錄</span>
                     </a>
                 </li>
                 <li>
                     <a href="<c:url value='???' />">
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
-                        <span class="item"> 商品管理</span>
+                        <span class="item">  個人主頁</span>
                     </a>
                 </li>
                 <li>
                     <a href="<c:url value='???' />">
                         <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">數據中心</span>
+                        <span class="item">討論區</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='???' />">
+                        <span class="icon"><i class="fas fa-database"></i></span>
+                        <span class="item">帳號管理</span>
                     </a>
                 </li>
                 
                 <li>
-                    <a href="<c:url value='/try/delete' />" onclick="return(confirm('確認刪除？'))">
+                    <a href="<c:url value='/member/evolution' />">
+                        <span class="icon"><i class="fas fa-database"></i></span>
+                        <span class="item">賣家中心</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='/member/changePwd' />"   class="active">
+                        <span class="icon"><i class="fas fa-chart-line"></i></span>
+                        <span class="item">更改密碼</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='/try/delete' />"  onclick="return(confirm('確認刪除？'))" >
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">刪除會員</span>
                     </a>
@@ -205,6 +167,9 @@
 
 
     <script>
+    
+    alert('更改成功');
+    
           var hamburger = document.querySelector(".hamburger");
   hamburger.addEventListener("click", function(){
     document.querySelector("body").classList.toggle("active");

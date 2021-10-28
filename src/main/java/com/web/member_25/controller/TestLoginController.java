@@ -1,25 +1,16 @@
 package com.web.member_25.controller;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
+
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.rowset.serial.SerialBlob;
 
+import java.lang.Exception;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -27,25 +18,29 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.sql.SQLException;
+import com.web.member_25.func.MemberException;
 import com.web.member_25.func.MemberValidator;
 import com.web.member_25.func.ProcessImage;
 import com.web.member_25.model.membershipInformationBean;
 import com.web.member_25.service.MemberService;
 
 @Controller
-@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" })
+@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData","changePwd" })
 public class TestLoginController {
 
 	MemberService memberService;
@@ -94,7 +89,7 @@ public class TestLoginController {
 		mb.setUserPhone("0912345678");
 		mb.setIdentification("member");
 		model.addAttribute("loginBeanDefault", mb);
-		return "member_25/trySignUpPage";
+		return "member_25/signUpPage";
 	}
 
 	@PostMapping("/try/add")
@@ -111,7 +106,7 @@ public class TestLoginController {
 				System.out.println("有錯誤：" + error);
 			}
 			System.out.println("======================");
-			return "member_25/trySignUpPage";
+			return "member_25/signUpPage";
 		}else {
 			System.out.println("無錯誤-----帳號-------->"+mb.getUserEmail());
 			System.out.println("無錯誤------密碼------->"+mb.getUserPwd());
@@ -133,28 +128,28 @@ public class TestLoginController {
 		if (loginResult ==false) {
 			System.out.println("帳號重複  ----->");
 
-			return "member_25/trySignUpPage";
+			return "member_25/signUpPage_error";
 
 		} else if (loginResult == true) {
 
 			System.out.println("無人使用此帳號 已註冊  ----->");
 			mb.setIdentification("member");
+			
+			
+			
+			
 			memberService.save(mb);
 			return "product_11/products";
 		}
-		return "member_25/trySignUpPage";
-	}
+		return "member_25/signUpPage";
 
+	}
 	@GetMapping("/try/login")
 	public String tryLogin(Model model) {
-
-//			membershipInformationBean mb=new membershipInformationBean();
-//			mb.setUserEmail("");
-//			mb.setUserPwd(""); 
-//			model.addAttribute("loginSession",mb);
-
+		model.addAttribute("beanForVerificationCode", new membershipInformationBean());
 		model.addAttribute("loginSession", new membershipInformationBean());
-		return "member_25/tryLoginPage";
+		model.addAttribute("sellerData", new membershipInformationBean());
+		return "member_25/loginpage";
 	}
 
 	@PostMapping("/try/login")
@@ -179,13 +174,10 @@ public class TestLoginController {
 		userEmail = mb.getUserEmail();
 		userPwd = mb.getUserPwd();
 		System.out.println("登入表單的userEmail ======>" + userEmail);
-		
-		
+	
 		//登入結果   // 0錯誤 1成功 2無帳號 3重複帳號(除了自己+的應該不會出現這個可能)
 		loginResult = memberService.login(userEmail, userPwd);
-		
-		
-		
+	
 		if (loginResult == 1) {
 
 			Boolean isMamber = true;
@@ -201,19 +193,21 @@ public class TestLoginController {
 			mb2.setUserEmail(userEmail);
 			mb2.setUserPwd(userPwd);
 			model.addAttribute("loginSession", mb2);
+			membershipInformationBean mb3 =memberService.findMemberData(mb2.getUserEmail());
+			model.addAttribute("memberUiDefault",mb3);
 			//先建立一個bean
 			model.addAttribute("sellerData", new membershipInformationBean());
-			return "redirect:/products"; // 登入成功
+			return "redirect:/"; // 登入成功
 
 		} else if (loginResult == 2) {
 			System.out.println("查無帳號  ----->");
-			return "member_25/loginFailPage";
+			return "member_25/loginpage_error";
 		} else if (loginResult == 3) {
 			System.out.println("帳號重複  ----->");
-			return "member_25/loginFailPage";
+			return "member_25/loginpage_error";
 		}
 
-		return "member_25/tryLoginPage";
+		return "member_25/loginpage";
 	}
 
 	@RequestMapping("/try/logout")
@@ -255,7 +249,7 @@ public class TestLoginController {
 		System.out.println("getUserPwd --getMemberData2--><--->" + mb2.getUserPwd());
 		model.addAttribute("memberUiDefault", mb2);
 		
-		return "member_25/tryMember_Ui";
+		return "member_25/member_Ui";
 	}
 
 	@PostMapping("/try/member_Ui")
@@ -298,7 +292,7 @@ public class TestLoginController {
 		
 	model.addAttribute("memberData", mb2);	
 		System.out.println("update success");
-		return "member_25/tryMember_Ui";
+		return "member_25/member_Ui";
 	}
 
 	@GetMapping("/try/delete")
@@ -310,22 +304,10 @@ public class TestLoginController {
 		System.out.println("------ 刪除完畢 ------");
 		tologout(session, request, response, sessionStatus);
 		System.out.println("------ 刪除session完畢 ------重新導向中...");
-		return "redirect:/";
+			System.out.println("de---------------------------");
+		return "member_25/alertPage_delete";
 	}
-
 	
-	
-	
-//	
-//	(HttpSession session, HttpServletRequest request, HttpServletResponse response,
-//			SessionStatus sessionStatus) {
-//		session.removeAttribute("loginSession");
-//		session.removeAttribute("memberUiDefault");
-//	
-	
-	
-	
-
 	// 買家進化'
 	@GetMapping("/member/evolution")
 	public String buyerEvolution(@ModelAttribute("loginSession") membershipInformationBean mb, 
@@ -345,6 +327,8 @@ public class TestLoginController {
 		if(!mb2.getIdentification().equals("seller")) {
 
 			System.out.println("---------------未認證會員-----------------");
+//			model.addAttribute("beanForVerificationCode",new membershipInformationBean());
+			model.addAttribute("memberUiDefault",new membershipInformationBean());
 			//包含驗證
 			return "member_25/seller/member_Ui_seller_default";
 		}
@@ -360,6 +344,7 @@ public class TestLoginController {
 			Model model) {
 		membershipInformationBean mb2 = new membershipInformationBean();			
 	mb=memberService.findMemberDataAll(mb.getUserEmail());
+	
 	System.out.println("---------預載已認證賣家中心---------");
 		return "member_25/seller/member_Ui_seller";		
 	}
@@ -385,28 +370,51 @@ public class TestLoginController {
 				@ModelAttribute("beanForVerificationCode") membershipInformationBean vcBean,
 				@ModelAttribute("loginSession") membershipInformationBean loginMb,
 				Model model) {
+			
 			membershipInformationBean mb2 = new membershipInformationBean();
-		System.out.println("----beanForVerificationCode------"+vcBean.getVerificationCode());
-		System.out.println("------sellerData-------"+mb.getVerifyCode());
-			if (vcBean.getVerificationCode()==mb.getVerifyCode().intValue()) {
-				//先撈出DB內所有資料給mb2
-				mb2= memberService.findMemberDataAll(loginMb.getUserEmail());
-				//在把表單的值給mb2
-				mb2.setUserGender(mb.getUserGender());
-				mb2.setUserName(mb.getUserName());
-				mb2.setUserNickname(mb.getUserNickname());
-				mb2.setUserPhone(mb.getUserPhone());
-				mb2.setBirthday(mb.getBirthday());
-				mb2.setAddress(mb.getAddress());
-				mb2.setVerifyCode(null);
+			mb2=memberService.findMemberDataAll(loginMb.getUserEmail());
+	
+			try {
+				System.out.println("------進入驗證馬環節-------");
+				int vcode=vcBean.getVerificationCode();
 				
-				//買家升級賣家
-				mb2.setIdentification("seller");
-				memberService.save(mb2);
-				model.addAttribute("sellerData",mb2);
-				return "member_25/seller/member_Ui_seller_success";		
+				
+				if (vcode==0 || Integer.valueOf(vcode)==null ) {
+//			throw new MemberException("很抱歉"+loginMb.getUserEmail()+ "    我們找不到驗證碼");
+					System.out.println("---未輸入偽證馬---getVerificationCode--------------->"+vcBean.getVerificationCode());
+					return "member_25/seller/member_Ui_seller_error";
+				}
+				
+				System.out.println("----beanForVerificationCode------"+vcBean.getVerificationCode());
+				System.out.println("------sellerData-------"+mb.getVerifyCode());
+				
+					if (vcode==mb.getVerifyCode()) {
+						System.out.println("進入驗證碼確認環節");
+						//先撈出DB內所有資料給mb2
+//						mb2= memberService.findMemberDataAll(loginMb.getUserEmail());
+						//在把表單的值給mb2
+						mb2.setUserGender(mb.getUserGender());
+						mb2.setUserName(mb.getUserName());
+						mb2.setUserNickname(mb.getUserNickname());
+						mb2.setUserPhone(mb.getUserPhone());
+						mb2.setBirthday(mb.getBirthday());
+						mb2.setAddress(mb.getAddress());
+						mb2.setVerifyCode(null);
+						
+						//買家升級賣家
+						mb2.setIdentification("seller");
+						memberService.save(mb2);
+						model.addAttribute("sellerData",mb2);
+						return "member_25/seller/member_Ui_seller_success";		
+					}
+				
+			} catch (Exception e) {
+				System.out.println("驗證碼沒輸入出錯拉");
+				return "member_25/seller/member_Ui_seller_error";
 			}
 			
+		
+			System.out.println("------sellerData--  error    -----"+mb.getVerifyCode());
 			model.addAttribute("byyerData", mb2);
 			return "member_25/seller/member_Ui_seller_error";		
 		}
@@ -465,13 +473,9 @@ public class TestLoginController {
 		}
 		
 	
-	
-	
 	@Autowired
 	JavaMailSender mailSender;
-	// 驗證信測試
 	
-//	@ResponseStatus(value = HttpStatus.OK) //可以用void的方法 但沒啥用
 	@GetMapping("/member/verifyBtn")
 	public String sendEmail(
 			@ModelAttribute("sellerData") membershipInformationBean mb,
@@ -483,7 +487,6 @@ public class TestLoginController {
 		//存已輸入汁值
 		membershipInformationBean mBean = new membershipInformationBean();
 		int VerificationCode = (int) (Math.random()*10000);//產生從[0,10)
-		
 		SimpleMailMessage message =new SimpleMailMessage();
 //		message.setTo(mb.getUserEmail());  //使用者email
 		message.setTo("a2152265@gmail.com");  //測試用我的
@@ -498,52 +501,10 @@ public class TestLoginController {
 		System.out.println("------------------selletData------------------ --->code="+mb.getUserEmail());
 		vtBtn.setVerificationCode(VerificationCode);
 		model.addAttribute("beanForVerificationCode",vtBtn);
-		
-		
-		//存已輸入汁值
-		mBean=mb;
-		System.out.println("----------------?mb.getUserName()------?"+mb.getUserName());
-		model.addAttribute("sellerData",mBean);
-//		return "member_25/seller/member_Ui_seller_default";
+	
 		return "redirect:/member/evolution";
 	}
 	
-	
-	@GetMapping("/member/verifyBtne")
-	public String sendEmailForgetPwd(
-			@ModelAttribute("sellerData") membershipInformationBean mb,
-			@ModelAttribute("loginSession") membershipInformationBean mb2,
-			Model model
-			) {
-		//驗證碼
-		membershipInformationBean vtBtn = new membershipInformationBean();
-		//存已輸入汁值
-		membershipInformationBean mBean = new membershipInformationBean();
-		int VerificationCode = (int) (Math.random()*10000);//產生從[0,10)
-		
-		SimpleMailMessage message =new SimpleMailMessage();
-//		message.setTo(mb.getUserEmail());  //使用者email
-		message.setTo("a2152265@gmail.com");  //測試用我的
-		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
-		message.setText("您好 : "+mb.getUserName()+"/n歡迎光臨BuyByLA  "+"您的驗證碼是:"+VerificationCode);	  
-		mailSender.send(message); 
-		System.out.println("------------------已寄出------------------ --->code="+VerificationCode);
-		System.out.println("------------------已寄出------------------ --->code="+VerificationCode);
-		System.out.println("------------------已寄出------------------ --->code="+VerificationCode);
-
-		System.out.println("------------------loginSession------------------ --->code="+mb2.getUserEmail());
-		System.out.println("------------------selletData------------------ --->code="+mb.getUserEmail());
-		vtBtn.setVerificationCode(VerificationCode);
-		model.addAttribute("beanForVerificationCode",vtBtn);
-		
-		
-		//存已輸入汁值
-		mBean=mb;
-		System.out.println("----------------?mb.getUserName()------?"+mb.getUserName());
-		model.addAttribute("sellerData",mBean);
-//		return "member_25/seller/member_Ui_seller_default";
-		return "redirect:/member/evolution";
-	}
 	
 	@PostMapping("/memberEdit?id={id}")
 	public String edit(
@@ -573,16 +534,216 @@ public class TestLoginController {
 			System.out.println("無錯誤------密碼------->"+mb.getUserPwd());
 	
 		}
-		
-		
-
-		
-		
-		
+			
 		return "member_25/manager/manager_List";
 	}
 	
 	
+	
+	
+	
+	
+	@GetMapping("/manager/edit{id}")
+	public String managerUpdteD(Model model, 
+			@PathVariable(required=false) Integer id) {
+		
+		System.out.println("進入-------GetMapping" );
+		if (id == null) {
+			throw new RuntimeException("請求未提供會員Id");
+		}
+		Optional<membershipInformationBean> optional = memberService.findById(id);
+		if (optional.isPresent()) {
+			System.out.println("----------進入館員修改");
+			membershipInformationBean bean=optional.get();
+			bean.setUserPwd1(bean.getUserPwd());
+			model.addAttribute("memberDataDefault",bean);
+		}
+		return "member_25/manager/manager_edit";
+	}
+	
+	@PostMapping("/manager/edit{id}")
+	public String processmanagerUpdteD(Model model,
+//			@ModelAttribute("memberDataDefault") membershipInformationBean debean, 
+			@ModelAttribute("memberDataDefault") membershipInformationBean bean, 
+			BindingResult result, 
+			@PathVariable(required=false) Integer id) {
+
+		System.out.println("進入-------?PostMapping" );
+		System.out.println("------------------->"+bean.getAddress());
+		System.out.println("------------------->"+bean.getBirthday());
+		System.out.println("------------------->"+bean.getFileName());
+		System.out.println("------------------->"+bean.getIdentification());
+		System.out.println("------------------->"+bean.getUserEmail());
+		Optional<membershipInformationBean> dataBeanD=memberService.findById(id);
+		membershipInformationBean dataBean=dataBeanD.get();
+		System.out.println("databean----  id---->"+dataBean.getId());
+		System.out.println("---------getUserEmail---------->"+dataBean.getUserEmail());
+		dataBean.setUserName(bean.getUserName());
+		dataBean.setUserNickname(bean.getUserNickname());
+		dataBean.setUserPhone(bean.getUserPhone());
+		dataBean.setUserPwd(bean.getUserPwd());
+		dataBean.setAddress(bean.getAddress());
+		dataBean.setUserGender(bean.getUserGender());
+		dataBean.setIdentification(bean.getIdentification());
+		dataBean.setNotes(bean.getNotes());
+		
+//		new MemberValidator().validate(bean, result);
+//
+//		if (result.hasErrors()) {
+//			System.out.println("進入-------?PostMapping-----有錯誤" );
+//			return "member_25/manager/manager_edit";
+//		}
+		System.out.println("沒有錯誤 save完成" + dataBean);
+		memberService.save(dataBean);
+		return "redirect:/manager_Ui";
+	}
+	
+	
+	//更改密碼區
+	@GetMapping("/member/changePwd_check")
+	public String changePwd(Model model ) {
+		model.addAttribute("changePwd",new membershipInformationBean());
+		return "member_25/member_Ui_changePwd_defalut";
+	}
+	
+	@PostMapping("/member/changePwd_check")
+	public String processChangePwd(@ModelAttribute("loginSession") membershipInformationBean bean,
+			@ModelAttribute("changePwd") membershipInformationBean changeBean,
+			Model model ) {
+		membershipInformationBean mBean=memberService.findMemberData(bean.getUserEmail());
+		System.out.println("----changeBean->"+changeBean.getUserPwd());
+		System.out.println("----mBean->"+mBean.getUserPwd());
+		if(mBean.getUserPwd().equals(changeBean.getUserPwd())) {
+			model.addAttribute("changePwd",changeBean);
+			System.out.println("確認舊密碼成功 -->"+changeBean.getUserPwd());
+			return "redirect:/member/changePwd_checkcheck";
+		}
+		System.out.println("確認密碼失敗");
+		return "member_25/member_Ui_changePwd_checkerror";
+	}
+	
+	@GetMapping("/member/changePwd_checkcheck")
+	public String gchangePwdcheck_success(@ModelAttribute("changePwd") membershipInformationBean bean,
+			@ModelAttribute("loginSession") membershipInformationBean loginBean,
+			Model model) {
+		System.out.println("get ------------checkon");
+		return "member_25/member_Ui_changePwd_checkon";
+	}
+	
+	@PostMapping("/member/changePwd_checkcheck")
+	public String changePwdcheck_success(@ModelAttribute("changePwd") membershipInformationBean bean,
+			@ModelAttribute("loginSession") membershipInformationBean loginBean,
+			SessionStatus sessionStatus,
+			Model model) {
+		System.out.println("post ------------checkon");
+		membershipInformationBean mBean=memberService.findMemberData(loginBean.getUserEmail());
+		mBean.setUserPwd(bean.getUserPwd());
+		System.out.println("bean.getUserPwd()---更改密碼完成-------->"+mBean.getUserPwd());
+		memberService.save(mBean);
+		System.out.println("更改密碼完成-------->");
+	
+			sessionStatus.setComplete();
+			System.out.println("已清除 登入狀態");
+		
+		//清除登入狀態
+		return "member_25/alertPage_changePwdsuccess";
+	}
+	
+	
+	
+	
+	
+	//暫時沒用到
+	@PutMapping("/manager/edit{id}")
+	public String save(@ModelAttribute("memberData") membershipInformationBean bean, 
+			BindingResult result, 
+			@PathVariable Integer id
+			) {
+		System.out.println("in @PutMapping, bean=" + bean);
+		System.out.println("in @PutMapping, bean=" + bean);
+		System.out.println("in @PutMapping, bean=" + bean);
+		System.out.println("in @PutMapping, bean=" + bean);
+		System.out.println("in @PutMapping, bean=" + bean);
+		System.out.println("in @PutMapping, bean=" + bean);
+		new MemberValidator().validate(bean, result);
+		if (result.hasErrors()) {
+			//
+			return "member_25/manager/manager_edit";
+		}
+		System.out.println("沒有錯誤 save完成" + bean);
+		memberService.save(bean);
+		return "redirect:/member_25/manager/manager_List";
+	}
+	
+	//管理員刪除資料
+	@DeleteMapping("/manager/edit{id}")
+	public String processManagerDelete(Model model, @PathVariable(required=false) Integer id) {
+		if (id == null) {
+			throw new RuntimeException("請求未提供會員Id");
+		}
+		Optional<membershipInformationBean> optional = memberService.findById(id);
+		if (optional.isPresent()) {
+			membershipInformationBean bean = optional.get();
+			memberService.deleteMemberByPrimaryKey(bean.getId());
+		} else {
+			throw new RuntimeException("會員Id不存在");
+		}
+		
+		return "redirect:/manager_Ui";
+	}
+	//管理員刪除資料
+		@GetMapping("/manager/delete{id}")
+		public String processManagerDelete_outside(Model model, @PathVariable(required=false) Integer id) {
+			if (id == null) {
+				throw new RuntimeException("請求未提供會員Id");
+			}
+			Optional<membershipInformationBean> optional = memberService.findById(id);
+			if (optional.isPresent()) {
+				membershipInformationBean bean = optional.get();
+				memberService.deleteMemberByPrimaryKey(bean.getId());
+			} else {
+				throw new RuntimeException("會員Id不存在");
+			}
+			
+			return "redirect:/manager_Ui";
+		}
+		//管理員刪除資料
+				@PostMapping("/manager/delete{id}")
+				public String processManagerDelete_inside(Model model, @PathVariable(required=false) Integer id) {
+					if (id == null) {
+						throw new RuntimeException("請求未提供會員Id");
+					}
+					Optional<membershipInformationBean> optional = memberService.findById(id);
+					if (optional.isPresent()) { 
+						membershipInformationBean bean = optional.get();
+						memberService.deleteMemberByPrimaryKey(bean.getId());
+					} else {
+						throw new RuntimeException("會員Id不存在");
+					}
+					System.out.println("----------已刪除會員資料");
+					return "redirect:/manager_Ui";
+				}
+		
+//				//錯誤頁面
+//				@ExceptionHandler({MemberException.class,Exception.class,SQLException.class,NullPointerException.class})
+//				public String handleError(HttpServletRequest request,
+//						MemberException exception,Model model) {
+//				
+//					model.addAttribute("exception", exception);
+//					model.addAttribute("url", request.getRequestURL()+"?" + request.getQueryString());
+//					return "MemberErrorPage";
+//				}
+				
+				
+				
+				@GetMapping("/seller/inschan")
+				public String inschan() {
+					return "member_25/seller/member_Ui_seller_inschan";
+				}
+				@GetMapping("/member/inschan")
+				public String member_inschan() {
+					return "member_25/seller/member_Ui_seller_inschan";
+				}
 	
 	
 

@@ -17,16 +17,16 @@ public class MemberValidator implements Validator {
 	private static final Pattern EMAIL_REGEX = Pattern.compile("^[\\w\\d._-]+@[\\w\\d.-]+\\.[\\w\\d]{2,6}$");
 
 
-	MemberService memberService;
-	ServletContext servletContext; // get pic用
-
-	@Autowired
-	public MemberValidator(MemberService memberService, ServletContext servletContext) {
-		this.memberService = memberService;
-		this.servletContext = servletContext;
-	}
-	public  MemberValidator() {
-	}
+//	MemberService memberService;
+//	ServletContext servletContext; // get pic用
+//
+//	@Autowired
+//	public MemberValidator(MemberService memberService, ServletContext servletContext) {
+//		this.memberService = memberService;
+//		this.servletContext = servletContext;
+//	}
+//	public  MemberValidator() {
+//	}
 	
 	
 	@Override
@@ -77,16 +77,21 @@ public class MemberValidator implements Validator {
 			errors.rejectValue("userEmail", "memberBean.userEmail.invalid", "電子郵件地址的格式不正確");
 		}
 		
-		if (member.getUserPhone() != null && member.getUserPhone().length() > 0 && (member.getUserPhone().length() > 11 ) && (member.getUserPhone().length() < 9 )) {
-			errors.rejectValue("userPhone", "memberBean.userPhone.size", "手機不正確");
-		}
+		
 		//帳號判斷
 		if (member.getUserPhone() != null && member.getUserPhone().length() > 0 && (member.getUserPhone().length() > 11 ) && (member.getUserPhone().length() < 9 )) {
 			errors.rejectValue("userPhone", "memberBean.userPhone.size", "手機不正確");
 		}
-		if (memberService.overlappedAccount(member.getUserEmail())==false) {
-			errors.rejectValue("userEmail", "memberBean.userPhone.size", "帳號重複");
-		}
+//		if (memberService.overlappedAccount(member.getUserEmail())==false) {
+//			errors.rejectValue("userEmail", "memberBean.userPhone.size", "帳號重複");
+//		}
+		
+//		if (member.getUserName() != null && member.getUserName().length() < 2 || member.getUserName().length() > 30) {
+//			if (errors.getFieldError("userName") == null) {
+//				errors.rejectValue("userName", "memberBean.userName.size", "姓名欄至少要有兩個字元，最多不得超過30個字元-預設值");
+////				errors.rejectValue("name", "customerBean.name.size", "姓名欄至少要有兩個字元，最多不得超過30個字元-預設值");
+//			}	
+//		}
 
 	}
 

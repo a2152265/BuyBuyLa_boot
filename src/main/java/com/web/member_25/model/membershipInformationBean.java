@@ -46,6 +46,9 @@ public class membershipInformationBean {
 	@Column(name="birthday")
 	String birthday;
 	
+	@Column(name="notes")
+	String notes;
+	
 	//verify 驗證碼
 	@Column(name="verifyCode")
 	Integer verifyCode;
@@ -75,14 +78,11 @@ public class membershipInformationBean {
 		
 		
 		
-		
-		
 
 		public membershipInformationBean(Integer id, String userEmail, String userPhone, String userPwd,
 				String userName, String userNickname, String userGender, String address, String identification,
-				Blob head_shot, String fileName, String birthday, Integer verifyCode, String userPwd1,
+				Blob head_shot, String fileName, String birthday, String notes, Integer verifyCode, String userPwd1,
 				int verificationCode, MultipartFile productImage) {
-			super();
 			this.id = id;
 			this.userEmail = userEmail;
 			this.userPhone = userPhone;
@@ -95,40 +95,12 @@ public class membershipInformationBean {
 			this.head_shot = head_shot;
 			this.fileName = fileName;
 			this.birthday = birthday;
+			this.notes = notes;
 			this.verifyCode = verifyCode;
 			this.userPwd1 = userPwd1;
-			VerificationCode = verificationCode;
-			this.productImage = productImage;
+	
 		}
 
-		public int getVerificationCode() {
-			return VerificationCode;
-		}
-
-		public void setVerificationCode(int verificationCode) {
-			VerificationCode = verificationCode;
-		}
-
-		public String getUserPwd1() {
-			return userPwd1;
-		}
-
-		public void setUserPwd1(String userPwd1) {
-			this.userPwd1 = userPwd1;
-		}
-
-		
-		
-
-		public Integer getVerifyCode() {
-			return verifyCode;
-		}
-
-		public void setVerifyCode(Integer verifyCode) {
-			this.verifyCode = verifyCode;
-		}
-
-		
 		public Integer getId() {
 			return id;
 		}
@@ -224,5 +196,45 @@ public class membershipInformationBean {
 		public void setBirthday(String birthday) {
 			this.birthday = birthday;
 		}
+
+		public String getNotes() {
+			return notes;
+		}
+
+		public void setNotes(String notes) {
+			this.notes = notes;
+		}
+
+		public Integer getVerifyCode() {
+			return verifyCode;
+		}
+
+		public void setVerifyCode(Integer verifyCode) {
+			this.verifyCode = verifyCode;
+		}
+
+		public String getUserPwd1() {
+			return userPwd1;
+		}
+
+		public void setUserPwd1(String userPwd1) {
+			this.userPwd1 = userPwd1;
+		}
+
+		public int getVerificationCode() {
+			return VerificationCode;
+		}
+
+		public void setVerificationCode(int verificationCode) {
+			VerificationCode = verificationCode;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 
 }
