@@ -197,7 +197,7 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body insContentBody">
-						<form:input path="userName" type="text" value="${loginSession.userName}" class="display-none" />
+						<form:input path="userName" type="text" value="${memberUiDefault.userName}" class="display-none" />
 						<div class="mb-3">
 							<form:input type="text" path="date" id="nowDate" class="display-none" />
 							<br>
@@ -284,7 +284,7 @@
               </div>
           </div>
       </div>
-  </section>
+  </section><br><br><br><br><br><br><br><br><br>
   <!--================Blog Area =================-->
 
   <!--================Instagram Area =================-->

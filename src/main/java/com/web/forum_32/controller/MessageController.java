@@ -48,6 +48,13 @@ public class MessageController {
 		model.addAttribute("forumId", id);
 		model.addAttribute("messageBean", messageBean);
 		model.addAttribute("updateForumBean", new ForumBean());
+		
+		List<ForumBean> announcementSize=forumService.getAllContentsByAnnouncement();
+		List<ForumBean> noviceSellerSize=forumService.getAllContentsByNoviceSeller();
+		List<ForumBean> sellerChatSize=forumService.getAllContentsBySellerChat();
+		model.addAttribute("announcementSize",announcementSize.size());
+		model.addAttribute("noviceSellerSize",noviceSellerSize.size());
+		model.addAttribute("sellerChatSize",sellerChatSize.size());
 		return "forum_32/forum-detailed";
 	}
 

@@ -51,5 +51,7 @@ $(function() {
 	if($('.loginsession').html()==null){
 		$('.newFoRuM').attr("disabled","disabled");
 		$('.newFoRuM').css("background","gray");
+		$('.newMessaGe').attr("disabled","disabled");
+		$('.newMessaGe').css("background","gray");
 	}
 })

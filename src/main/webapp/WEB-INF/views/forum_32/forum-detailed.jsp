@@ -308,7 +308,7 @@
 									placeholder="留言"  required="true" />
 							</div>
 
-							<button class="button button-postComment button--active"
+							<button class="button button-postComment button--active newMessaGe"
 								type="submit">發表評論</button>
 						</form:form>
 					</div>
@@ -353,15 +353,15 @@
 							<ul class="list cat-list">
 								<li><a href="#" class="d-flex justify-content-between">
 										<p>官方最新公告</p>
-										<p>37</p>
+										<p>${announcementSize}</p>
 								</a></li>
 								<li><a href="#" class="d-flex justify-content-between">
 										<p>新手賣家發問</p>
-										<p>24</p>
+										<p>${noviceSellerSize}</p>
 								</a></li>
 								<li><a href="#" class="d-flex justify-content-between">
 										<p>賣家閒聊討論</p>
-										<p>59</p>
+										<p>${sellerChatSize}</p>
 								</a></li>
 							</ul>
 							<div class="br"></div>
