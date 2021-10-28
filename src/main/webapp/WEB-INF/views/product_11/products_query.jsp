@@ -12,16 +12,16 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Aroma Shop - Category</title>
 	<link rel="icon" href="img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="../vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="../vendors/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="../vendors/themify-icons/themify-icons.css">
-	<link rel="stylesheet" href="../vendors/linericon/style.css">
-  <link rel="stylesheet" href="../vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="../vendors/owl-carousel/owl.carousel.min.css">
-  <link rel="stylesheet" href="../vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="../vendors/nouislider/nouislider.min.css">
+  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
+	<link rel="stylesheet" href="vendors/linericon/style.css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+  <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
+  <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
 
-  <link rel="stylesheet" href="./../css/productstyle.css">
+  <link rel="stylesheet" href="css/productstyle.css">
 </head>
 <body>
   <!--================ Start Header Menu Area =================-->
@@ -221,8 +221,8 @@
             <div class="row">
               <div class="col-md-6 col-lg-4">
               
-                <div class="card text-center card-product">
               <c:forEach items="${products}" var="product">
+                <div class="card text-center card-product">
                   <div class="card-product__img">
                     <img class="card-img" src="<c:url value='/getPicture/${product.productId}' />" alt="">
                     <ul class="card-product__imgOverlay">
@@ -233,11 +233,11 @@
                   </div>
                   <div class="card-body">
                     <p>Accessories</p>
-                    <h4 class="card-product__title"><a href="#">${product.productName}</a></h4>
+                    <h2 class="card-product__title"><a href="#">${product.productName}</a></h2>
                     <p class="card-product__price">$${product.price}</p>
                   </div>
-                </c:forEach>
                 </div>
+                </c:forEach>
 
               </div>
             </div>
@@ -483,14 +483,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 
-  <script src="../vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="../vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="../vendors/skrollr.min.js"></script>
-  <script src="../vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="../vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="../vendors/nouislider/nouislider.min.js"></script>
-  <script src="../vendors/jquery.ajaxchimp.min.js"></script>
-  <script src="../vendors/mail-script.js"></script>
-  <script src="../js/main.js"></script>
+  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
+  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="vendors/skrollr.min.js"></script>
+  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
+  <script src="vendors/nouislider/nouislider.min.js"></script>
+  <script src="vendors/jquery.ajaxchimp.min.js"></script>
+  <script src="vendors/mail-script.js"></script>
+  <script src="	js/main.js"></script>
 </body>
 </html>
