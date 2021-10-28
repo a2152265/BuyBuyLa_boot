@@ -12,7 +12,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Aroma Shop - Home</title>
+  <title>BuyBuyLa|Home</title>
 	<link rel="icon" href="img/Fevicon.png" type="image/png">
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
@@ -537,7 +537,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="vendors/jquery.ajaxchimp.min.js"></script>
   <script src="vendors/mail-script.js"></script>
   <script src="js/main.js"></script>
-<!--   <script> -->
+<!--   <script> 
 
 //       $(function(){
 //           let index=0;
@@ -597,6 +597,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 //               moveImg()
 //           }
 //       })
-<!--       </script>     -->
+     </script>     -->
 </body>
 </html>
