@@ -183,8 +183,7 @@
 							<option>賣家閒聊討論區</option>
 						</select>
 						<form:input path="tag" type="text" id="insTag" class="display-none" />
-						<h3 class="modal-title"
-							id="exampleModalLabel">建立貼文</h3>
+						<h3 class="modal-title" id="exampleModalLabel" style="margin-left:50px;">建立貼文</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>

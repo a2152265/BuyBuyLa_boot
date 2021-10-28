@@ -79,7 +79,7 @@
                   <td><c:out value="${content.id}" /></td>
                   <td><c:out value="${content.userName}" /></td>
                   <td><c:out value="${content.tag}" /></td>
-                  <td><c:out value="${content.title}" /></td>
+                  <td><a href="<c:url value='/detailed' />?id=${content.id}"><c:out value="${content.title}" /></a></td>
                   <td><c:out value="${content.date}" /></td>
                   <td>
                   <button type="button" class="btn btn-link updateDataClass" data-id="${content.id}" data-bs-toggle="modal" data-bs-target="#UpdateModal">編輯</button>

@@ -132,18 +132,17 @@
 
 <div class="modal fade" id="UpdateModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
+		<div class="modal-dialog modal-lg" style="margin-top:90px">
 			<form:form method='POST' modelAttribute="updateForumBean"
 				class='form-horizontal' enctype="multipart/form-data">
 				<div class="modal-content">
 					<div class="modal-header">
 						<select id="updSelectTag" class="form-select"
 							aria-label="Default select example">
-							<option>新手賣家發問區</option>
-							<option>賣家閒聊討論區</option>
+							<option>新手賣家發問</option>
+							<option>賣家閒聊討論</option>
 						</select>
-						<h3 class="modal-title"
-							id="exampleModalLabel">編輯貼文</h3>
+						<h3 class="modal-title" id="exampleModalLabel">編輯貼文</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
@@ -353,15 +352,15 @@
 							<h4 class="widget_title">標籤分類</h4>
 							<ul class="list cat-list">
 								<li><a href="#" class="d-flex justify-content-between">
-										<p>官方最新公告區</p>
+										<p>官方最新公告</p>
 										<p>37</p>
 								</a></li>
 								<li><a href="#" class="d-flex justify-content-between">
-										<p>新手賣家發問區</p>
+										<p>新手賣家發問</p>
 										<p>24</p>
 								</a></li>
 								<li><a href="#" class="d-flex justify-content-between">
-										<p>賣家閒聊討論區</p>
+										<p>賣家閒聊討論</p>
 										<p>59</p>
 								</a></li>
 							</ul>

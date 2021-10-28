@@ -61,7 +61,13 @@ public class ForumController {
 		model.addAttribute("content", allList);
 		model.addAttribute("forumBean", new ForumBean());
 		model.addAttribute("updateForumBean", new ForumBean());
-		model.addAttribute("tag", "所有討論");
+		
+		List<ForumBean> announcementSize=forumService.getAllContentsByAnnouncement();
+		List<ForumBean> noviceSellerSize=forumService.getAllContentsByNoviceSeller();
+		List<ForumBean> sellerChatSize=forumService.getAllContentsBySellerChat();
+		model.addAttribute("announcementSize",announcementSize.size());
+		model.addAttribute("noviceSellerSize",noviceSellerSize.size());
+		model.addAttribute("sellerChatSize",sellerChatSize.size());
 		return "forum_32/forum";
 	}
 	

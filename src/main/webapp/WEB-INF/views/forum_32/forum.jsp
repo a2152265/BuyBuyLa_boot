@@ -143,12 +143,12 @@
                                           </a>
                                       </li>
                                       <li>
-                                          <a href="#">1.2M Views
+                                          <a href="#">
                                               <i class="lnr lnr-eye"></i>
                                           </a>
                                       </li>
                                       <li>
-                                          <a href="#">06 Comments
+                                          <a href="#">
                                               <i class="lnr lnr-bubble"></i>
                                           </a>
                                       </li>
@@ -177,7 +177,7 @@
                   <div class="blog_right_sidebar">
                       <aside class="single_sidebar_widget post_category_widget">
 <!--          <h4 class="widget_title" data-bs-toggle="modal" data-bs-target="#Modal" style="cursor:pointer;">發起討論</h4> -->
-         <input type="button" value="發起討論" class="widget_title newFoRuM" style="width:295px;border:none;" data-bs-toggle="modal" data-bs-target="#Modal">
+         <input type="button" value="發起討論" class="widget_title newFoRuM" style="width:354px;border:none;" data-bs-toggle="modal" data-bs-target="#Modal">
          <div class="modal fade" id="Modal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg" style="margin-top:90px">
@@ -192,7 +192,7 @@
 							<option>賣家閒聊討論</option>
 						</select>
 						<form:input path="tag" type="text" id="insTag" class="display-none" />
-						<h3 class="" id="exampleModalLabel">建立貼文</h3>
+						<h3 class="modal-title" id="exampleModalLabel">建立貼文</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
@@ -233,20 +233,20 @@
                           <ul class="list cat-list">
                               <li>
                                   <a href="#" class="d-flex justify-content-between">
-                                      <p>官方最新公告區</p>
-                                      <p>37</p>
+                                      <p>官方最新公告</p>
+                                      <p>${announcementSize}</p>
                                   </a>
                               </li>
                               <li>
                                   <a href="#" class="d-flex justify-content-between">
-                                      <p>新手賣家發問區</p>
-                                      <p>24</p>
+                                      <p>新手賣家發問</p>
+                                      <p>${noviceSellerSize}</p>
                                   </a>
                               </li>
                               <li>
                                   <a href="#" class="d-flex justify-content-between">
-                                      <p>賣家閒聊討論區</p>
-                                      <p>59</p>
+                                      <p>賣家閒聊討論</p>
+                                      <p>${sellerChatSize}</p>
                                   </a>
                               </li>
                           </ul>

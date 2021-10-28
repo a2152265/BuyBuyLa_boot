@@ -43,6 +43,8 @@ $(function() {
 	$('#nowUpdDate').val(updFormatDate(date));
 	var f1 = $('.forumUsername').val();
 	var f2 = $('.forumUsername2').html();
+	console.log(f1)
+	console.log(f2)
 	if(f1!=f2){
 		 $(".editIMG").css("display","none");
 	}
