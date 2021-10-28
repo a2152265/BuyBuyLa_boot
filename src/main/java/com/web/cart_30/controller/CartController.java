@@ -8,22 +8,26 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.web.cart_30.model.BuyerAddress;
 import com.web.cart_30.model.Cart;
 
 import com.web.cart_30.service.CartService;
 import com.web.member_25.model.membershipInformationBean;
 import com.web.record_30.model.RecordBean;
+import com.web.record_30.model.RecordList;
 
 
 
 
 @Controller
-@SessionAttributes("cart")
+@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" })
 public class CartController {
 	CartService cartService;
 
@@ -95,15 +99,33 @@ public class CartController {
 	}
 	
 	@GetMapping("/check")
-	public String check(Model model) {
+	public String check(@ModelAttribute("loginSession")  membershipInformationBean mb,Model model) {
 		List<Cart> cart = cartService.addToRecord();
-		model.addAttribute("cart", cart);	
+		model.addAttribute("cart", cart);
+		String buyer =mb.getUserEmail();
+		List<BuyerAddress> ba = cartService.selectAllBuyerAddressByBuyer(buyer);
+		System.out.println("**********************");
+		System.out.println(ba.size()+"////////////////////////");
+		model.addAttribute("BuyerAddressList",ba);
+		model.addAttribute("BuyerAddress",new BuyerAddress());
+		
 		 return "cart_30/check";
 	}
 	
 	
+	@PostMapping("/check")
+	public String insertAddress(@ModelAttribute("loginSession")  membershipInformationBean mb ,@ModelAttribute("BuyerAddress") BuyerAddress ba,BindingResult br,Model model) {
+		String account = mb.getUserEmail();
+		ba.setBuyer(account);
+		cartService.insertAddress(ba);
+		List<Cart> cart = cartService.addToRecord();
+		model.addAttribute("cart", cart);
+		 return "redirect:/check";
+	}
+	
+	
 	@GetMapping("/fin")
-	public String fin(Model model) {
+	public String fin(@ModelAttribute("loginSession") membershipInformationBean mb ,Model model) {
 		List<Cart> cart = cartService.addToRecord();
 		model.addAttribute("cart", cart);	
 		int rc = cartService.getRidCount(1);
@@ -111,7 +133,9 @@ public class CartController {
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		String now = dtf.format(LocalDateTime.now());
+		String account = mb.getUserEmail();
 		System.out.println(now);
+		double totalprice =0;
 		for(Cart c:cart) {
 						
 			rb.setRecord_id(rc);
@@ -119,7 +143,7 @@ public class CartController {
 			rb.setP_name(c.getP_name());
 			rb.setP_price(c.getP_price());
 			rb.setPcount(c.getCount());
-			rb.setBuyer("asd1234");
+			rb.setBuyer(account);
 			rb.setSeller(c.getSeller());
 			rb.setBuy_time(now);
 			rb.setTransport_status("待出貨");
@@ -128,10 +152,15 @@ public class CartController {
 					+ rb.getP_name()+", PRICE = "+rb.getP_price()+", CNT = "+rb.getPcount()
 					+", BUYER = "+rb.getBuyer()+", SELLER = "+rb.getSeller());
 			
+			totalprice+=c.getP_price()*c.getCount();
+			
 			cartService.addToRecord2(rb);
-
+			
 
 		}
+		RecordList  recordList = new RecordList(rc, account, totalprice,now);
+		
+		cartService.addToRecordList(recordList);
 		cartService.addRidCount();
 		 return "cart_30/fin";
 	}
@@ -142,9 +171,13 @@ public class CartController {
 		 return "redirect:/products";
 	}
 	
+//	@GetMapping("/insertAddress")
+//	public String goInsertAddress(Model model) {
+//		
+//		 return "cart_30/check";
+//	}
 	
-	
-	
+
 	
 	
 }

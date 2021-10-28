@@ -94,9 +94,9 @@
                         <span class="item">Home</span>
                     </a>
                 </li>
-                <li>
+                 <li>        
+                    <a href="<c:url value='/update30' />">
 
-                   <a href="<c:url value='/user' />">                          
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">訂單管理</span>
                     </a>
@@ -144,7 +144,11 @@
 
 
     <script>
-   
+    
+    
+    
+    
+    
           var hamburger = document.querySelector(".hamburger");
   hamburger.addEventListener("click", function(){
     document.querySelector("body").classList.toggle("active");
