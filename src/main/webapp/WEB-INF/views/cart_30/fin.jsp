@@ -129,17 +129,7 @@ h2 span {
 </head>
 
 <body>
-<<<<<<< HEAD
-<sql:setDataSource var="snapshot" driver="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-      url="jdbc:sqlserver://MSI\\SQLEXPRESS:1433;databaseName=BuyBuyLa" 
-     user="sa"  password="123123123"/>
-     
-<sql:query
- sql="select * from Cart"
- var="rs" dataSource="${snapshot}" />
-=======
 
->>>>>>> branch 'Dev' of git@github.com:a2152265/BuyBuyLa_boot.git
 		<div id="title" style="background-color:rgb(126, 199, 199);" class="title container">
 			<h1 >購買成功</h1>
 			<div class="search">

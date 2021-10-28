@@ -227,9 +227,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='???' />"">
+                    <a href="<c:url value='/selectLsit' />"">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">購買清單</span>
+                        <span class="item">購買紀錄</span>
                     </a>
                 </li>
                 <li>

@@ -40,25 +40,6 @@
 
 
 
-        <!-- <h1>WE Will BuyBuyLA your money</h1>
-        <h2>Flexbo -> 商品狀態x</h2>
-        <nav>
-            <ul class="flex-nav">
-                <li><a href="#">未付款</a></li>
-                <li><a href="#">已付款</a></li>
-                <li><a href="#">已出貨</a></li>
-                <li><a href="#">運送中</a></li>
-                <li><a href="#">已送達</a></li>
-                <li><a href="#">已完成</a></li>
-                <li><a href="#">取消交易</a></li>
-            </ul>
-        </nav> -->
-        
-  
-
-
-
-
     <div class="container">
       <span style="font-size:30px;  font-weight:bold;">會員專區</span>
       </div>
@@ -67,123 +48,26 @@
 
     <div style="text-align: center;">
     
-        <form:form method='POST' modelAttribute="memberUiDefault"
+        <form:form method='POST' modelAttribute="changePwd"
         class='form-horizontal' enctype="multipart/form-data">
         <!-- 檔案上傳的標籤一定要有enctype="multipart/form-data -->
       
         <table style="text-align:center;">
           
-          <span > - 您可以在這邊做新增、修改、刪除</span><br><br><br>
+          <span > - 更改密碼</span><br><br><br>
           
           
-                    <tr>
-          <td>頭像</td>
-          <td>
-                 <!-- 讀取圖片 -->
-               <img width='150'
-                 src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>" />
-                      <br><br><!-- 上傳圖片 -->
-                     <form:input id="productImage" path="productImage" type='file'   cssClass="button-1"  />
-                       &nbsp;&nbsp;
-         <br><br><br>
-          </td>
-          </tr>
-          
-          
-          
-          
-          
-          <tr>
-            <td >帳號</td>
-
-            <td > 
-             <!--放從DB取出的資料-->         
-             Hi!!! &nbsp;&nbsp;  ${memberUiDefault.userEmail} 
-            <br><br>
-            
-         
-           </td> 
-          </tr>
-
-
-          <tr>
-            <td>暱稱</td>
-            <td> 
-            <label for="userNickname"></label>
-            
-            <form:input id="userNickname" path="userNickname" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
-            <br><br>
-            </td> 
-          </tr>
-          
-          
-          
-          
-          
-          
-           <tr>
-            <td>姓名</td>
-            <td> 
-            <label for="proName"></label>
-           
-            <form:input id="userName" path="userName" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
-            <br><br>
-            </td> 
-          </tr>
-            
-            
-            <tr>
-            <td>手機號碼</td>
-            <td>
-           
-             <form:input id="userPhone" path="userPhone" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
-             <br><br>
-            </td>
-            </tr>
-
-            <tr>
-                <td>生日</td>
-                <td> 
-                <label for="birthday"></label>
-               
-                <form:input id="birthday" path="birthday" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
-                <br><br>
-                </td> 
-              </tr>
-         
-            <tr>
-             <td>性別</td>
-              <td>
-              
-                <label>  <form:radiobutton path="userGender" value="男性" label="男性" /> 
-                  </label> 
-             <label>     <form:radiobutton path="userGender" value="女性" label="女性" /> 
-               </label>  
-               <label>     <form:radiobutton path="userGender" value="其他" label="其他" /> 
-               </label>  <br><br>
-              </td>
-              </tr>
-              
-              
-              
-              <tr>
-            <td>地址</td>
-            <td> 
-            <label for="address"></label>
-           
-            <form:input id="address" path="address" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
-            <br><br>
-            </td> 
-          </tr>
-            
-            
+           <form:password id="pwd" path="userPwd"  style="width: 40%; height:30px; font-size:18px"   placeholder="請輸入舊密碼" cssclass='form-control'  />
+			       
+                    
           </table>
           
       
           <p>&nbsp;</p>
-          <a href="<c:url value='/try/index' />?userEmail= ${memberUiDefault.userEmail} ">
-          <input type="submit" id="submitRewrite"  class="button-1" name="submitRewrite" style="text-align: center; font-size: 18x;"  value="儲存修改"/>
-           </a>
+  
+          <input type="submit"  onclick="return(confirm('確認送出？'))"  id="submitRewrite"  name="submitRewrite" 
+          style="text-align: center; font-size: 18x;"  class="button-1"  value="確認"/>
+
          
          
          
@@ -203,7 +87,7 @@
   </div>
         <div class="sidebar">
             <div class="profile">
-             <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
+                <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
                 <!-- 讀取圖片 -->
                <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
                 <h3></h3>
@@ -211,13 +95,19 @@
             </div>
             <ul>
                 <li>
-                    <a href="<c:url value='/' />" class="active">
+                    <a href="<c:url value='/' />" >
                         <span class="icon"><i class="fas fa-home"></i></span>
                         <span class="item">回首頁</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='/selectLsit'/>">
+                    <a href="<c:url value='???' />"">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">購買清單</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='???' />"">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">購買紀錄</span>
                     </a>
@@ -248,13 +138,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='/member/changePwd_check' />">
+                    <a href="<c:url value='/member/changePwd' />"   class="active">
                         <span class="icon"><i class="fas fa-chart-line"></i></span>
                         <span class="item">更改密碼</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='/try/delete' />"  onclick="return(confirm('確認刪除？'))">
+                    <a href="<c:url value='/try/delete' />"  onclick="return(confirm('確認刪除？'))" >
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">刪除會員</span>
                     </a>
@@ -277,6 +167,9 @@
 
 
     <script>
+    
+    alert('更改成功');
+    
           var hamburger = document.querySelector(".hamburger");
   hamburger.addEventListener("click", function(){
     document.querySelector("body").classList.toggle("active");

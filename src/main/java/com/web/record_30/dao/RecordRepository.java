@@ -12,17 +12,20 @@ import com.web.record_30.model.RecordBean;
 
 public interface RecordRepository extends JpaRepository<RecordBean, Integer> {
 	
-	@Query(nativeQuery = true, value = "select * from Record where buyer=?1 order by record_id")
-    public List<RecordBean> findByRecord(String buyer);
+	@Query(nativeQuery = true, value = "select * from Record where record_id=?1 order by pid")
+    public List<RecordBean> findByRecord(int record_id );
+	
+	@Query(nativeQuery = true, value = "select * from Record where buyer=?1  order by record_id")
+    public List<RecordBean> findByRecords(String buyer );
 	
 	
 	@Modifying
-	@Query(nativeQuery = true, value = "delete from Record  where record_id=?1")
-    public void delete(int record_id);
+	@Query(nativeQuery = true, value = "delete from Record  where record_id=?1 AND pid=?2")
+    public void deleteRecord(int record_id,int pid);
 	
 	@Modifying
-    @Query(nativeQuery = true,value="update Record  set pcount = ?1 where record_id = ?2 AND PID=?3")
-	public void update(Integer pcount,Integer record_id, Integer PID);
+    @Query(nativeQuery = true,value="update Record  set transport_status = ?1 where record_id = ?2 AND PID=?3")
+	public void update(String ts,Integer record_id, Integer PID);
 	
 	@Modifying
     @Query(nativeQuery = true,value="insert into Record (record_id,pid,p_name,p_price,pcount,buyer,seller,buy_time,transport_status)"

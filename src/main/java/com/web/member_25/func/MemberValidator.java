@@ -2,16 +2,33 @@ package com.web.member_25.func;
 
 import java.util.regex.Pattern;
 
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.web.member_25.model.membershipInformationBean;
+import com.web.member_25.service.MemberService;
 
 //Validator兩個方法   support:檢查型別(是不是這個beaN的物件 否就丟例外)   validate:
 public class MemberValidator implements Validator {
 	private static final Pattern EMAIL_REGEX = Pattern.compile("^[\\w\\d._-]+@[\\w\\d.-]+\\.[\\w\\d]{2,6}$");
 
+
+//	MemberService memberService;
+//	ServletContext servletContext; // get pic用
+//
+//	@Autowired
+//	public MemberValidator(MemberService memberService, ServletContext servletContext) {
+//		this.memberService = memberService;
+//		this.servletContext = servletContext;
+//	}
+//	public  MemberValidator() {
+//	}
+	
+	
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return membershipInformationBean.class.isAssignableFrom(clazz);
@@ -60,9 +77,21 @@ public class MemberValidator implements Validator {
 			errors.rejectValue("userEmail", "memberBean.userEmail.invalid", "電子郵件地址的格式不正確");
 		}
 		
+		
+		//帳號判斷
 		if (member.getUserPhone() != null && member.getUserPhone().length() > 0 && (member.getUserPhone().length() > 11 ) && (member.getUserPhone().length() < 9 )) {
 			errors.rejectValue("userPhone", "memberBean.userPhone.size", "手機不正確");
 		}
+//		if (memberService.overlappedAccount(member.getUserEmail())==false) {
+//			errors.rejectValue("userEmail", "memberBean.userPhone.size", "帳號重複");
+//		}
+		
+//		if (member.getUserName() != null && member.getUserName().length() < 2 || member.getUserName().length() > 30) {
+//			if (errors.getFieldError("userName") == null) {
+//				errors.rejectValue("userName", "memberBean.userName.size", "姓名欄至少要有兩個字元，最多不得超過30個字元-預設值");
+////				errors.rejectValue("name", "customerBean.name.size", "姓名欄至少要有兩個字元，最多不得超過30個字元-預設值");
+//			}	
+//		}
 
 	}
 

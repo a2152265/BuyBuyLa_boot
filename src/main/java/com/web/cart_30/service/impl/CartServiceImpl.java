@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.web.cart_30.dao.BuyerAddressRepository;
 import com.web.cart_30.dao.CartRepository;
+import com.web.cart_30.dao.RecordListRepository;
 import com.web.cart_30.dao.RidCountRepository;
+import com.web.cart_30.model.BuyerAddress;
 import com.web.cart_30.model.Cart;
 
 import com.web.cart_30.model.RidCount;
@@ -20,6 +23,7 @@ import com.web.product_11.dao.ProductRepository;
 import com.web.product_11.model.Product;
 import com.web.record_30.dao.RecordRepository;
 import com.web.record_30.model.RecordBean;
+import com.web.record_30.model.RecordList;
 
 
 
@@ -31,16 +35,25 @@ public class CartServiceImpl implements CartService {
 	CartRepository cartRepository;
 	ProductRepository productRepository;
 	RidCountRepository ridCountRepository;
+	RecordListRepository recordListRepository;
+	BuyerAddressRepository buyerAddressRepository;
+	
 	
 	@Autowired
-
-
-	public CartServiceImpl(CartRepository cartRepository, ProductRepository productRepository,RidCountRepository ridCountRepository,RecordRepository recordRepository) {
+	public CartServiceImpl(RecordRepository recordRepository, CartRepository cartRepository,
+			ProductRepository productRepository, RidCountRepository ridCountRepository,
+			RecordListRepository recordListRepository,BuyerAddressRepository buyerAddressRepository) {
+	
+		this.recordRepository = recordRepository;
 		this.cartRepository = cartRepository;
 		this.productRepository = productRepository;
 		this.ridCountRepository = ridCountRepository;
-		this.recordRepository = recordRepository;
+		this.recordListRepository = recordListRepository;
+		this.buyerAddressRepository=buyerAddressRepository;
 	}
+
+
+
 
 
 
@@ -68,6 +81,9 @@ public class CartServiceImpl implements CartService {
 		}
 
 	}
+
+
+
 
 
 
@@ -104,17 +120,13 @@ public class CartServiceImpl implements CartService {
 	@Transactional
 	@Override
 	public List<Cart> addToRecord() {
-//		Session session = factory.getCurrentSession();
-//		List<Cart> cart = new ArrayList<Cart>();
+
 		List<Cart> cart =cartRepository.findAll();
-//		List<Cart> cart = session.createQuery(hql,Cart.class)
-//		.getResultList();		
+	
 		return cart;
 	
 	}
-//	
-//	
-//	
+
 	@Transactional
 	@Override
 	public void addToRecord2(RecordBean rb) {
@@ -167,11 +179,36 @@ public class CartServiceImpl implements CartService {
 
 
 
-//	@Override
-//	public List<Cart> cartList() {
-//		cartRepository.findAll();
-//		return null;
-//	}
+	@Override
+	public void addToRecordList(RecordList rl) {
+		recordListRepository.save(rl);
+	}
+
+
+
+
+
+
+
+	@Override
+	public void insertAddress(BuyerAddress address) {
+		buyerAddressRepository.save(address);
+		
+	}
+
+
+
+
+
+	@Override
+	public List<BuyerAddress> selectAllBuyerAddressByBuyer(String buyer) {
+		
+		return buyerAddressRepository.selectAllBuyerAddressByBuyer(buyer);
+	}
+
+
+
+
 
 
 

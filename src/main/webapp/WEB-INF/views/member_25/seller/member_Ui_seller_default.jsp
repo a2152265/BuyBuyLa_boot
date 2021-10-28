@@ -21,6 +21,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>賣家中心</title>
     <style>
+    
+    .button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
         
 
     </style>
@@ -66,136 +106,36 @@
           <h2 style="text-align: center;">個人資料</h1><br>
           <span > 您需將資料填寫完成並驗證後，方可使用賣家功能</span><br><br><br>
           
-          
-            <tr>
-          <td>頭像</td>
-          <td>
-          
-                 <!-- 讀取圖片 --> 
-               <img width='150'
-                 src="<c:url value='/getPicturefromMember/${sellerData.id}'/>" />
-          &nbsp;&nbsp;<br>
-                 <!-- 上傳圖片 -->             
-                更換頭像&nbsp;<form:input id="productImage" path="productImage" type='file'  cssClass="size:20%;"  />
-          </td>
-          </tr>
- 
-          <tr>
-            <td >帳號</td>
-            <td > 
-             <!--放從DB取出的資料-->         
-             Hi!!! &nbsp;&nbsp;  ${sellerData.userEmail} 
-            <br> 
-            
-         
-           </td> 
-          </tr>
-
-
-          <tr>
-            <td>暱稱</td>
-            <td> 
-            <label for="userNickname"></label>
-            <!--放從DB取出的資料-->         
-              ${sellerData.userNickname} 
-            &nbsp;&nbsp;/&nbsp;&nbsp;
-            <form:input id="userNickname" path="userNickname" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
-            
-            </td> 
-          </tr>
-
-           <tr>
-            <td>姓名</td>
-            <td> 
-            <label for="proName"></label>
-            <!--放從DB取出的資料-->         
-              ${sellerData.userName} 
-            &nbsp;&nbsp;/&nbsp;&nbsp;
-            <form:input id="userName" path="userName" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
-            
-            </td> 
-          </tr>
-            
-            
-            <tr>
-            <td>手機號碼</td>
-            <td>
-             <!--放從DB取出的資料-->         
-              ${sellerData.userPhone} 
-             &nbsp;&nbsp;/&nbsp;&nbsp;  
-             <form:input id="userPhone" path="userPhone" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
-             
-            </td>
-            </tr>
-
-            <tr>
-                <td>生日</td>
-                <td> 
-                <label for="birthday"></label>
-                <!--放從DB取出的資料-->         
-                  ${sellerData.birthday} 
-                &nbsp;&nbsp;/&nbsp;&nbsp;
-                <form:input id="birthday" path="birthday" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
-                
-                </td> 
-              </tr>
-         
-            <tr>
-             <td>性別</td>
-              <td>
-                <!--放從DB取出的資料-->
-                 ${sellerData.userGender} 
-                     &nbsp;&nbsp;/&nbsp;&nbsp; 
-                <label>  <form:radiobutton path="userGender" value="男性" label="男性" /> 
-                  </label> 
-             <label>     <form:radiobutton path="userGender" value="女性" label="女性" /> 
-               </label>  
-               <label>     <form:radiobutton path="userGender" value="其他" label="其他" /> 
-               </label>  
-              </td>
-              </tr>
-              
-              
-              
-              <tr>
-            <td>地址</td>
-            <td> 
-            <label for="address"></label>
-            <!--放從DB取出的資料-->         
-              ${sellerData.address} 
-            &nbsp;&nbsp;/&nbsp;&nbsp;
-            <form:input id="address" path="address" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
-            
-            </td> 
-          </tr>
+         <tr>
+         您的信箱為 : &nbsp;  
+              ${sellerData.userEmail}
+          </tr>    
           
           
           
            <tr>
-            <td>驗證碼</td>
+            <td >驗證碼</td>
             <td> 
             <label for="verifyCode"></label>
             <!--驗證碼欄位-->         
-            <form:input id="verifyCode" path="verifyCode" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
-            &nbsp;&nbsp;/&nbsp;&nbsp;
-           
-          <!--  <li>    <button type="button"><c:url value='/member/verifyBtn' />送出驗證碼   </button> </li> -->
+            <form:input id="verifyCode" path="verifyCode" type='text'  style="width: 250px; height: 30px; margin-top:25px; size: 20px;" cssClass="formInput" />
+       
             <li><a href="<c:url value='/member/verifyBtn' />">發送驗證碼</a></li>  
             </td> 
-          </tr>
-            
+            </tr>
+          
+          
+          
+          
             
           </table>
-          
-      
-          <p>&nbsp;</p>
+    
+       <br> <br>
           <a href="<c:url value='/try/index' />?userEmail= ${sellerData.userEmail} ">
-          <input type="submit" id="submitRewrite" class="submitBtn" name="submitRewrite" style="text-align: center; font-size: 18x;"  value="賣家資格驗證"/>
+          <input type="submit" id="submitRewrite" class="button" name="submitRewrite" style="vertical-align:middle "  value="賣家資格驗證"/>
            </a>
-         
-         
-         
-         </form:form>
+    
+    </form:form>
       
        
        
@@ -223,7 +163,11 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='/user' />">
+
+           
+
+                    <a href="<c:url value='/update30' />">
+
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">訂單管理</span>
                     </a>
@@ -240,20 +184,9 @@
                         <span class="item">數據中心</span>
                     </a>
                 </li>
+                
                 <li>
-                    <a href="<c:url value='/member/seller_Ui' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item">帳號管理</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/member/changePwd' />">
-                        <span class="icon"><i class="fas fa-chart-line"></i></span>
-                        <span class="item">更改密碼</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/try/delete' />">
+                    <a href="<c:url value='/try/delete' />" onclick="return(confirm('確認刪除？'))">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">刪除會員</span>
                     </a>

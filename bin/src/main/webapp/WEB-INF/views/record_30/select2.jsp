@@ -215,6 +215,7 @@ a.button2:hover {
 		
 
 		<div class="wrap">
+		
 			<a href="<c:url value='user' />" class="button" name="return" id="return">返回</a>		
 		</div>
 	</form>

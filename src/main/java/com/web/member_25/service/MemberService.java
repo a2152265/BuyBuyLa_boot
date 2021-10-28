@@ -15,7 +15,7 @@ public interface MemberService {
 
 
 
-	membershipInformationBean findById(int id);
+	Optional<membershipInformationBean> findById(int id);
 
 	void delete(int pk);
 	//更新會員資料(有圖)
@@ -38,10 +38,10 @@ public interface MemberService {
 
 	//刪除帳號
 	void deleteByName(String userEmail);
+	void deleteMemberByPrimaryKey(int id);
 	int findIdByEmail(String userEmail);
 	
-	//用ID找會員資料
-	membershipInformationBean getMemberById(int id);
+	
 	
 	//管理者UI展示會員
 	List<membershipInformationBean> selectAllUsers();
