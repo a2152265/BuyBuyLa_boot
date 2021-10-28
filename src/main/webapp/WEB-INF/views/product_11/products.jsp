@@ -407,29 +407,29 @@
     <!-- ================ Blog section end ================= -->  
 
     <!-- ================ Subscribe section start ================= --> 
-    <section class="subscribe-position">
- <div class="wrap">
-            <a class="slide-arrow" id="slidePrev"><i class="fas fa-arrow-left"></i></a>
-            <a class="slide-arrow right" id="slideNext"><i class="fas fa-arrow-right"></i></a>
-            <ul class="slide-img" id="slide-img">
-                <c:forEach items='${campaignss}' var='campaign'>
-                <li>
-                <a href="<c:url value='${campaign.url}'  /> " target="_blank">
-                <img src="<c:url value='/getCampaignPicture/${campaign.id}' />" alt="">
-                </a>
-                </li>
-          </c:forEach>
-            </ul>
+<!--     <section class="subscribe-position"> -->
+<!--  <div class="wrap"> -->
+<!--             <a class="slide-arrow" id="slidePrev"><i class="fas fa-arrow-left"></i></a> -->
+<!--             <a class="slide-arrow right" id="slideNext"><i class="fas fa-arrow-right"></i></a> -->
+<!--             <ul class="slide-img" id="slide-img"> -->
+<%--                 <c:forEach items='${campaignss}' var='campaign'> --%>
+<!--                 <li> -->
+<%--                 <a href="<c:url value='${campaign.url}'  /> " target="_blank"> --%>
+<%--                 <img src="<c:url value='/getCampaignPicture/${campaign.id}' />" alt=""> --%>
+<!--                 </a> -->
+<!--                 </li> -->
+<%--           </c:forEach> --%>
+<!--             </ul> -->
             
             
-              <ul class="pages" id="pages">
-                <c:forEach var="i" begin="0" end="${campaignsizes-1}">
-                <li></li>
-                </c:forEach>
-            </ul>
+<!--               <ul class="pages" id="pages"> -->
+<%--                 <c:forEach var="i" begin="0" end="${campaignsizes-1}"> --%>
+<!--                 <li></li> -->
+<%--                 </c:forEach> --%>
+<!--             </ul> -->
          
-        </div>
-    </section>
+<!--         </div> -->
+<!--     </section> -->
     <!-- ================ Subscribe section end ================= --> 
 
     
@@ -518,9 +518,9 @@
 			<div class="container">
 				<div class="row d-flex">
 					<p class="col-lg-12 footer-text text-center">
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.</p> -->
 				</div>
 			</div>
 		</div>
@@ -537,66 +537,66 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="vendors/jquery.ajaxchimp.min.js"></script>
   <script src="vendors/mail-script.js"></script>
   <script src="js/main.js"></script>
-  <script>
+<!--   <script> -->
 
-      $(function(){
-          let index=0;
-          let slideMove=0;
-          $('#pages li').eq(0).css('background-color','lightblue')
-          $('#pages li').on('click',function(){
-              // console.log('123')
-              //移動第一張圖
-              // $('#slide-img').css('left','-800px')
-              //移動n張圖 index() 讀取索引值
-              // let index=$(this).index()
-              //區域變數變全域變數
-              index=$(this).index()
-              console.log(index)
-              slideMove=-1000*index;
-              $('#slide-img').css('left',slideMove)
-              $(this).css('background-color','lightblue')
-              .siblings().css('background-color','transparent')
+//       $(function(){
+//           let index=0;
+//           let slideMove=0;
+//           $('#pages li').eq(0).css('background-color','lightblue')
+//           $('#pages li').on('click',function(){
+//               // console.log('123')
+//               //移動第一張圖
+//               // $('#slide-img').css('left','-800px')
+//               //移動n張圖 index() 讀取索引值
+//               // let index=$(this).index()
+//               //區域變數變全域變數
+//               index=$(this).index()
+//               console.log(index)
+//               slideMove=-1000*index;
+//               $('#slide-img').css('left',slideMove)
+//               $(this).css('background-color','lightblue')
+//               .siblings().css('background-color','transparent')
             
-          })
-          let slideCount=$('#slide-img li').length
-          console.log('123')
-          $('#slideNext').on('click',function(){
-              index++;
-              if(index>=slideCount){
-                  index=0;
-              }
-              // slideMove=-800*index;
-              // $('#slide-img').css('left',slideMove)
-              // $('#pages li').eq(index).css('background-color','white')
-              // .siblings().css('background-color','transparent')
-              moveImg()
-          })
-          $('#slidePrev').on('click',function(){
-              index--;
-              if(index<0){
-                  index=slideCount-1;
-              }
-              // slideMove=-800*index;
-              // $('#slide-img').css('left',slideMove)
-              // $('#pages li').eq(index).css('background-color','white')
-              // .siblings().css('background-color','transparent')
-              moveImg()
-          })
-          function moveImg(){
-              slideMove=-1000*index;
-              $('#slide-img').css('left',slideMove)
-              $('#pages li').eq(index).css('background-color','lightblue')
-              .siblings().css('background-color','transparent')
-          }
-          setInterval(autoImg,3000)
-          function autoImg(){
-              index++;
-              if(index>=slideCount){
-                  index=0;
-              }
-              moveImg()
-          }
-      })
-      </script>    
+//           })
+//           let slideCount=$('#slide-img li').length
+//           console.log('123')
+//           $('#slideNext').on('click',function(){
+//               index++;
+//               if(index>=slideCount){
+//                   index=0;
+//               }
+//               // slideMove=-800*index;
+//               // $('#slide-img').css('left',slideMove)
+//               // $('#pages li').eq(index).css('background-color','white')
+//               // .siblings().css('background-color','transparent')
+//               moveImg()
+//           })
+//           $('#slidePrev').on('click',function(){
+//               index--;
+//               if(index<0){
+//                   index=slideCount-1;
+//               }
+//               // slideMove=-800*index;
+//               // $('#slide-img').css('left',slideMove)
+//               // $('#pages li').eq(index).css('background-color','white')
+//               // .siblings().css('background-color','transparent')
+//               moveImg()
+//           })
+//           function moveImg(){
+//               slideMove=-1000*index;
+//               $('#slide-img').css('left',slideMove)
+//               $('#pages li').eq(index).css('background-color','lightblue')
+//               .siblings().css('background-color','transparent')
+//           }
+//           setInterval(autoImg,3000)
+//           function autoImg(){
+//               index++;
+//               if(index>=slideCount){
+//                   index=0;
+//               }
+//               moveImg()
+//           }
+//       })
+<!--       </script>     -->
 </body>
 </html>
