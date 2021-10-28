@@ -4,170 +4,290 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
 
-<%
-response.setContentType("text/html;charset=UTF-8");
-response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
-response.setHeader("Pragma", "no-cache"); // HTTP 1.0
-response.setDateHeader("Expires", -1); // Prevents caching at the proxy server
-%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>會員系統</title>
-<link rel="icon" href="favicon.ico" type="image/x-icon" />
-<style>
-	  body {
-      font-family: "微軟正黑體";
-      background-color: rgb(203, 218, 218);
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-	 h1 {
-      background-color: #f7f7f7;
-      /* 告訴電腦背景顏色 */
-      padding: 18px 0 16px 22px;
-      /* 告訴電腦內距要多大 */
-      border-left: 8px solid #33779e;
-      /* 告訴電腦左邊框要多寬、跟顏色 */
-      color: #333 !important;
-      /* 告訴電腦文字顏色 */
-      width: 300px;
-    }
-     form {
-      background-color: rgb(255, 255, 255, 0.8);
-      margin: 20px auto;
-      max-width: 600px;
-      padding: 80px;
-      /* border-radius: 20px; */
-      box-shadow: 0 10px 10px 0 rgba(177, 175, 175, 0.2);
-    }
-      table {
-      border: 1px solid rgba(147, 156, 165, 0.2);
-      border-radius: 20px;
-      border-collapse: collapse;
-      margin: auto;
-      width: 600px;
-      height: 400px;
-      text-align: center;
-    }
-       input,
-    textarea,
-    select {
-      border: 1px solid rgb(155, 153, 153, 0.4);
-      background-color: rgb(203, 218, 218, 0.2);
-      font-size: 21px;
-    }
-    .leftSide{
-      float: left;
-    }
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員中心</title>
+    <style>
+        
 
-
-</style>
+    </style>
 </head>
 <body>
-  
-<!-- 
-<div style="background-color: rgb(114, 13, 69);">
-  <img src="/project2/image/trademark.png" style="width: 170px; padding-bottom: 0px; margin-bottom: -55px;" alt="tradeMaark">
-  <center>
-    <Input type="text" style="margin-top: -10px; background-color: white; font-size: 33px; width: 780px;"> <input type="submit" style="font-size: 28px;" value="搜尋"></Input> 
-  </center>
-  
-  <hr>
-</div> -->
-
-
- <div class="leftSide">
- <h1 class="p">我的帳戶</h1>
- <a  style="color: red; font-size: 21px;"  href="./MemberUiDelete.jsp">刪除帳號</a><br>
-  <a style="color: red; font-size: 21px;" href="./user.jsp">購買紀錄管理</a>
- 
-</div>
-
-
-
-
-
-
- <div>
-    
-    <form:form method='POST' modelAttribute="loginSessionBean"
-    class='form-horizontal' enctype="multipart/form-data">
-    <!-- 檔案上傳的標籤一定要有enctype="multipart/form-data -->
-
-<table>
- <h2 style="text-align: center;">個人資料</h1><br>
- <span > - 您可以在這邊做新增、修改、刪除</span><br><br><br>
- <tr>
- 	<td>帳號</td>
- 	<td> 
-    <!--放從DB取出的資料-->         
-    <input id="userName" path="userName" type='text' class='inputClass' readonly="readonly" />
-    HI!!! ${loginSessionBean.userEail} 
-
-	</td> 
- </tr>
-  <tr>
- 	<td>姓名</td>
- 	<td> 
- 	<label for="proName"></label>
-   <!--放從DB取出的資料-->         
-  
-   &nbsp;&nbsp;/&nbsp;&nbsp;
    
-   
- 	</td> 
- </tr>
-   
-   
-   <tr>
-   <td>手機號碼</td>
-   <td>
-    <!--放從DB取出的資料-->         
-    
-    &nbsp;&nbsp;/&nbsp;&nbsp;  
-    
-    
-   </td>
-   </tr>
+    <div class="wrapper">
+       <div class="section">
 
-   <tr>
-    <td>性別</td>
-     <td>
-       <!--放從DB取出的資料-->     &nbsp;&nbsp;/&nbsp;&nbsp; 
-       <label>  <input class="option-input radio" type="radio" name="uiGender" id="uiGender "value="男性">  
-       男性</label> 
-    <label>      <input class="option-input radio" type="radio" name="uiGender" id="uiGender "value="男性">
-    女性</label>
-    
+
+
+    <div class="top_navbar">
+      <div class="hamburger">
+        <a href="#">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+    </div>
+
+
+
+        <!-- <h1>WE Will BuyBuyLA your money</h1>
+        <h2>Flexbo -> 商品狀態x</h2>
+        <nav>
+            <ul class="flex-nav">
+                <li><a href="#">未付款</a></li>
+                <li><a href="#">已付款</a></li>
+                <li><a href="#">已出貨</a></li>
+                <li><a href="#">運送中</a></li>
+                <li><a href="#">已送達</a></li>
+                <li><a href="#">已完成</a></li>
+                <li><a href="#">取消交易</a></li>
+            </ul>
+        </nav> -->
         
-     
-     </td>
-     </tr>
-   
-   
- </table>
- 
- <p>&nbsp;</p>
- <input type="submit" id="submitRewrite" class="submitBtn" name="submitRewrite" style="text-align: center; font-size: 18x;"  value="儲存修改"/>
   
 
 
 
-</form:form>
+
+    <div class="container">
+      <span style="font-size:30px;  font-weight:bold;">會員專區</span>
+      </div>
+
+
+
+    <div style="text-align: center;">
+    
+        <form:form method='POST' modelAttribute="memberUiDefault"
+        class='form-horizontal' enctype="multipart/form-data">
+        <!-- 檔案上傳的標籤一定要有enctype="multipart/form-data -->
+      
+        <table style="text-align:center;">
+          
+          <span > - 您可以在這邊做新增、修改、刪除</span><br><br><br>
+          
+          
+                    <tr>
+          <td>頭像</td>
+          <td>
+                 <!-- 讀取圖片 -->
+               <img width='150'
+                 src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>" />
+                      <br><br><!-- 上傳圖片 -->
+                     <form:input id="productImage" path="productImage" type='file'   cssClass="button-1"  />
+                       &nbsp;&nbsp;
+         <br><br><br>
+          </td>
+          </tr>
+          
+          
+          
+          
+          
+          <tr>
+            <td >帳號</td>
+
+            <td > 
+             <!--放從DB取出的資料-->         
+             Hi!!! &nbsp;&nbsp;  ${memberUiDefault.userEmail} 
+            <br><br>
+            
+         
+           </td> 
+          </tr>
+
+
+          <tr>
+            <td>暱稱</td>
+            <td> 
+            <label for="userNickname"></label>
+            
+            <form:input id="userNickname" path="userNickname" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
+            <br><br>
+            </td> 
+          </tr>
+          
+          
+          
+          
+          
+          
+           <tr>
+            <td>姓名</td>
+            <td> 
+            <label for="proName"></label>
+           
+            <form:input id="userName" path="userName" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
+            <br><br>
+            </td> 
+          </tr>
+            
+            
+            <tr>
+            <td>手機號碼</td>
+            <td>
+           
+             <form:input id="userPhone" path="userPhone" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
+             <br><br>
+            </td>
+            </tr>
+
+            <tr>
+                <td>生日</td>
+                <td> 
+                <label for="birthday"></label>
+               
+                <form:input id="birthday" path="birthday" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
+                <br><br>
+                </td> 
+              </tr>
+         
+            <tr>
+             <td>性別</td>
+              <td>
+              
+                <label>  <form:radiobutton path="userGender" value="男性" label="男性" /> 
+                  </label> 
+             <label>     <form:radiobutton path="userGender" value="女性" label="女性" /> 
+               </label>  
+               <label>     <form:radiobutton path="userGender" value="其他" label="其他" /> 
+               </label>  <br><br>
+              </td>
+              </tr>
+              
+              
+              
+              <tr>
+            <td>地址</td>
+            <td> 
+            <label for="address"></label>
+           
+            <form:input id="address" path="address" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
+            <br><br>
+            </td> 
+          </tr>
+            
+            
+          </table>
+          
+      
+          <p>&nbsp;</p>
+          <a href="<c:url value='/try/index' />?userEmail= ${memberUiDefault.userEmail} ">
+          <input type="submit" id="submitRewrite"  class="button-1" name="submitRewrite" style="text-align: center; font-size: 18x;"  value="儲存修改"/>
+           </a>
+         
+         
+         
+         </form:form>
+      
+       
+       
+      
+      
+      
+      
+        </div>
+
+
+
 
   </div>
-  
+        <div class="sidebar">
+            <div class="profile">
+             <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
+                <!-- 讀取圖片 -->
+               <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
+                <h3></h3>
+                <p>${memberUiDefault.userEmail} </p>
+            </div>
+            <ul>
+                <li>
+                    <a href="<c:url value='/' />" class="active">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">回首頁</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='???' />"">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">購買清單</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='???' />"">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">購買紀錄</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='???' />">
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">  個人主頁</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='???' />">
+                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+                        <span class="item">討論區</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='???' />">
+                        <span class="icon"><i class="fas fa-database"></i></span>
+                        <span class="item">帳號管理</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="<c:url value='/member/evolution' />">
+                        <span class="icon"><i class="fas fa-database"></i></span>
+                        <span class="item">賣家中心</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='/member/changePwd_check' />">
+                        <span class="icon"><i class="fas fa-chart-line"></i></span>
+                        <span class="item">更改密碼</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='/try/delete' />"  onclick="return(confirm('確認刪除？'))">
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">刪除會員</span>
+                    </a>
+                </li>
 
- </body>
- </html>
+                <!-- /*減去footer高度*/ -->
+                <li style="min-height: calc(100% - 50px); ">
+                    <a href="<c:url value='/try/delete' />">
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">隱私權政策</span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+        
+    </div>
+
+   
+
+
+    <script>
+          var hamburger = document.querySelector(".hamburger");
+  hamburger.addEventListener("click", function(){
+    document.querySelector("body").classList.toggle("active");
+  })
+    </script>
+ 
+</body>
+</html>

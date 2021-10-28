@@ -34,10 +34,8 @@ public class MemberSerivceImpl_boot implements MemberService{
 
 
 	@Override
-	public membershipInformationBean findById(int id) {
-		membershipInformationBean mb=new membershipInformationBean();
-		mb=membertRepository.findById(id);
-		return mb;
+	public Optional<membershipInformationBean> findById(int id) {
+		return membertRepository.findById(id);
 	}
 
 	@Override
@@ -173,12 +171,7 @@ public class MemberSerivceImpl_boot implements MemberService{
 	}
 
 
-	//讀取圖片
-	@Override
-	public membershipInformationBean getMemberById(int id) {
-		
-		return null;
-	}
+	
 
 	@Override
 	public List<membershipInformationBean> selectAllUsers() {
@@ -191,6 +184,13 @@ public class MemberSerivceImpl_boot implements MemberService{
 		membershipInformationBean mb=new membershipInformationBean();
 		mb=membertRepository.findByUserEmail(userEmail);
 		return mb;
+	}
+
+
+	@Override
+	public void deleteMemberByPrimaryKey(int id) {
+		membertRepository.deleteById(id);
+		
 	}
 
 

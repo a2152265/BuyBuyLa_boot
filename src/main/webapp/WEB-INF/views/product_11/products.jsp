@@ -42,13 +42,23 @@
 				<li><a href="campaigns">活動專區</a></li>
 
 
-				<c:if test="${loginSession.userEmail != null}">
+			  	<c:if test="${loginSession.userEmail != null}">
 					<li><a href="<c:url value='/try/member_Ui' />">會員專區</a></li>
 			    	<li><a href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
 						${loginSession.userEmail}</a></li>
 						
 						<li><a href="<c:url value='/try/logout' />">登出</a></li>
 				</c:if>
+				
+				<c:if test="${managerSession.userEmail != null}">
+					<li><a href="<c:url value='/manager_Ui' />">管理專區</a></li>
+			    	<li><a href="<c:url value='/manager_Ui' />">您好! 管理員 &nbsp;
+						${managerSession.userEmail}</a></li>
+						
+						<li><a href="<c:url value='/try/logout' />">登出</a></li>
+				</c:if>
+				
+				
 				<!--  <li><a href="#">待更新</a></li> -->
 				<li><a href="<c:url value='/cart' />"><i
 						class="fas fa-shopping-cart"></i><i id="ccount"></i> </a></li>

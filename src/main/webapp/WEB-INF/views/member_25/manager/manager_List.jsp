@@ -3,7 +3,6 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -20,12 +19,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>管理中心</title>
-    <style>
-        
-
-    </style>
-
-
+    
+  
 
 <!-- for form css -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -35,17 +30,20 @@
     <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  
+    <!-- 跳出表單 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+   
+  
+  
   <script>
-      $(document).ready(function () {
-          jQuery('#example').DataTable();
-      });
+  $(document).ready(function () {
+      jQuery('#example').DataTable();
+  });
 
+      
 
   </script>
-
-
-
-
 
 
 </head>
@@ -65,33 +63,12 @@
     </div>
 
 
-
-        <!-- <h1>WE Will BuyBuyLA your money</h1>
-        <h2>Flexbo -> 商品狀態x</h2>
-        <nav>
-            <ul class="flex-nav">
-                <li><a href="#">未付款</a></li>
-                <li><a href="#">已付款</a></li>
-                <li><a href="#">已出貨</a></li>
-                <li><a href="#">運送中</a></li>
-                <li><a href="#">已送達</a></li>
-                <li><a href="#">已完成</a></li>
-                <li><a href="#">取消交易</a></li>
-            </ul>
-        </nav> -->
-        
-  
-
-
-
-
-    <div class="container">
+    <div class="container" style="padding: 0px 0px 0px 30px;">
        <span style="font-size: 40px;">會員清單</span>
       </div>
 
 
-
-      <table id="example" class="display" style="width:100%">
+      <table id="example" class="display" style="width:100% ">
         <thead>
             <tr>
                 <th>會員編號</th>
@@ -103,12 +80,10 @@
                 <th>性別</th>
                 <th>地址</th>
                 <th>8.權限</th>
+                <th>備註</th>
                 <th>修改</th>
               </tr>
         </thead>
-
-
-
 
 
 
@@ -127,25 +102,39 @@
                   <td><c:out value="${member.userGender}" /></td>
                   <td><c:out value="${member.address}" /></td>
                   <td><c:out value="${member.identification}" /></td>
-  
-                  
+                  <td><c:out value="${member.notes}" /></td>
+       
                   <td>
-                  <a href="${pageContext.request.contextPath}/memberEdit?id=<c:out value='${member.id}' />">Edit</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp; 
-                    <a href="${pageContext.request.contextPath}/memberDelete?id=<c:out value='${member.id}' />">Delete</a>
-                    </td>                      
-                </tr>
-                 </c:forEach>
+                 
+                
+                <div class="bn">
+                    <!-- Button 修改會員資料 -->
+                    <a href='/BuyBuyla_boot/manager/edit${member.id}'  class="button-1" >修改會員</a>
+                          <a href='/BuyBuyla_boot/manager/delete${member.id}'  onclick="return(confirm('確認刪除？'))"    class="button-1" >刪除會員</a>
+                         
+                                    
+                                    
             
-
-
-
-
+                                    
+                                </div>
+            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                
+                  </td>                      
+                </tr>
+                
+                
+               
+                
+                 </c:forEach>
+          
         </tbody>
-
-
-
-
 
         <tfoot>
             <tr>
@@ -165,17 +154,6 @@
 
 
 
-
-    
-
-
-
-
-
-
-
-
-
   </div>
         <div class="sidebar" style="background: rgb(66, 9, 122);">
             <div class="profile">
@@ -185,13 +163,13 @@
             </div>
             <ul>
                 <li>
-                    <a href="<c:url value='???' />" class="active">
+                    <a href="<c:url value='/' />" >
                         <span class="icon"><i class="fas fa-home"></i></span>
                         <span class="item">Home</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='???' />"">
+                    <a href="<c:url value='/manager_Ui' />" class="active">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">會員資料管理</span>
                     </a>
@@ -240,14 +218,14 @@
         
     </div>
 
-   
-
-
     <script>
+
           var hamburger = document.querySelector(".hamburger");
-  hamburger.addEventListener("click", function(){
-    document.querySelector("body").classList.toggle("active");
-  })
+ 			 hamburger.addEventListener("click", function(){
+  			  document.querySelector("body").classList.toggle("active");
+ 				 })
+  
+  
     </script>
  
 </body>
