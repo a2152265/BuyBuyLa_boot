@@ -57,11 +57,9 @@ public class ForumController {
 	@GetMapping("/forum")
 	public String forum(Model model) {
 		List<ForumBean> allList = forumService.getAllContents();
-		messageService.getAllMessageById(null);
 		model.addAttribute("content", allList);
 		model.addAttribute("forumBean", new ForumBean());
 		model.addAttribute("updateForumBean", new ForumBean());
-		
 		List<ForumBean> announcementSize=forumService.getAllContentsByAnnouncement();
 		List<ForumBean> noviceSellerSize=forumService.getAllContentsByNoviceSeller();
 		List<ForumBean> sellerChatSize=forumService.getAllContentsBySellerChat();
@@ -70,6 +68,74 @@ public class ForumController {
 		model.addAttribute("sellerChatSize",sellerChatSize.size());
 		return "forum_32/forum";
 	}
+	
+	// 官方最新公告
+		@GetMapping("/announcement")
+		public String chat(Model model) {
+			List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
+			if(!announcementList.isEmpty()) {
+			model.addAttribute("content", announcementList);
+		}else {
+			List<ForumBean> allList = forumService.getAllContents();
+			model.addAttribute("content", allList);
+			model.addAttribute("tag", "所有討論");
+		}
+			model.addAttribute("forumBean", new ForumBean());
+			model.addAttribute("updateForumBean", new ForumBean());
+			List<ForumBean> announcementSize=forumService.getAllContentsByAnnouncement();
+			List<ForumBean> noviceSellerSize=forumService.getAllContentsByNoviceSeller();
+			List<ForumBean> sellerChatSize=forumService.getAllContentsBySellerChat();
+			model.addAttribute("announcementSize",announcementSize.size());
+			model.addAttribute("noviceSellerSize",noviceSellerSize.size());
+			model.addAttribute("sellerChatSize",sellerChatSize.size());
+			return "forum_32/forum";
+		}
+
+		// 新手賣家發問
+		@GetMapping("/noviceSeller")
+		public String box(Model model) {
+			List<ForumBean> noviceSellerList = forumService.getAllContentsByNoviceSeller();
+			if(!noviceSellerList.isEmpty()) {
+			model.addAttribute("content", noviceSellerList);
+			model.addAttribute("tag", "新手賣家發問區");
+		}else {
+			List<ForumBean> allList = forumService.getAllContents();
+			model.addAttribute("content", allList);
+			model.addAttribute("tag", "所有討論");
+		}
+			model.addAttribute("forumBean", new ForumBean());
+			model.addAttribute("updateForumBean", new ForumBean());
+			List<ForumBean> announcementSize=forumService.getAllContentsByAnnouncement();
+			List<ForumBean> noviceSellerSize=forumService.getAllContentsByNoviceSeller();
+			List<ForumBean> sellerChatSize=forumService.getAllContentsBySellerChat();
+			model.addAttribute("announcementSize",announcementSize.size());
+			model.addAttribute("noviceSellerSize",noviceSellerSize.size());
+			model.addAttribute("sellerChatSize",sellerChatSize.size());
+			return "forum_32/forum";
+		}
+
+		// 賣家閒聊討論
+		@GetMapping("/sellerChat")
+		public String other(Model model) {
+			List<ForumBean> sellerChatList = forumService.getAllContentsBySellerChat();
+				if(!sellerChatList.isEmpty()) {
+				model.addAttribute("content", sellerChatList);
+				model.addAttribute("tag", "賣家閒聊討論區");
+			}else {
+				List<ForumBean> allList = forumService.getAllContents();
+				model.addAttribute("content", allList);
+				model.addAttribute("tag", "所有討論");
+			}
+			model.addAttribute("forumBean", new ForumBean());
+			model.addAttribute("updateForumBean", new ForumBean());
+			List<ForumBean> announcementSize=forumService.getAllContentsByAnnouncement();
+			List<ForumBean> noviceSellerSize=forumService.getAllContentsByNoviceSeller();
+			List<ForumBean> sellerChatSize=forumService.getAllContentsBySellerChat();
+			model.addAttribute("announcementSize",announcementSize.size());
+			model.addAttribute("noviceSellerSize",noviceSellerSize.size());
+			model.addAttribute("sellerChatSize",sellerChatSize.size());
+			return "forum_32/forum";
+		}
 	
 	// 管理
 	@GetMapping("/manager/forum")
@@ -108,56 +174,7 @@ public class ForumController {
 				forumService.update(updfb);
 		return "redirect:/manager/forum";
 	}
-	// 官方最新公告區
-	@GetMapping("/announcement") //announcement
-	public String chat(Model model) {
-		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
-		if(!announcementList.isEmpty()) {
-		model.addAttribute("content", announcementList);
-		model.addAttribute("tag", "官方最新公告區");
-	}else {
-		List<ForumBean> allList = forumService.getAllContents();
-		model.addAttribute("content", allList);
-		model.addAttribute("tag", "所有討論");
-	}
-		model.addAttribute("forumBean", new ForumBean());
-		model.addAttribute("updateForumBean", new ForumBean());
-		return "forum_32/forum";
-	}
-
-	// 新手賣家發問區
-	@GetMapping("/noviceSeller")
-	public String box(Model model) {
-		List<ForumBean> noviceSellerList = forumService.getAllContentsByNoviceSeller();
-		if(!noviceSellerList.isEmpty()) {
-		model.addAttribute("content", noviceSellerList);
-		model.addAttribute("tag", "新手賣家發問區");
-	}else {
-		List<ForumBean> allList = forumService.getAllContents();
-		model.addAttribute("content", allList);
-		model.addAttribute("tag", "所有討論");
-	}
-		model.addAttribute("forumBean", new ForumBean());
-		model.addAttribute("updateForumBean", new ForumBean());
-		return "forum_32/forum";
-	}
-
-	// 賣家閒聊討論區
-	@GetMapping("/sellerChat")
-	public String other(Model model) {
-		List<ForumBean> sellerChatList = forumService.getAllContentsBySellerChat();
-			if(!sellerChatList.isEmpty()) {
-			model.addAttribute("content", sellerChatList);
-			model.addAttribute("tag", "賣家閒聊討論區");
-		}else {
-			List<ForumBean> allList = forumService.getAllContents();
-			model.addAttribute("content", allList);
-			model.addAttribute("tag", "所有討論");
-		}
-		model.addAttribute("forumBean", new ForumBean());
-		model.addAttribute("updateForumBean", new ForumBean());
-		return "forum_32/forum";
-	}
+	
 
 	// 編輯貼文
 	@GetMapping(value = "/editURL")

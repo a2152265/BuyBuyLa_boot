@@ -43,8 +43,6 @@ $(function() {
 	$('#nowUpdDate').val(updFormatDate(date));
 	var f1 = $('.forumUsername').val();
 	var f2 = $('.forumUsername2').html();
-	console.log(f1)
-	console.log(f2)
 	if(f1!=f2){
 		 $(".editIMG").css("display","none");
 	}
@@ -54,4 +52,5 @@ $(function() {
 		$('.newMessaGe').attr("disabled","disabled");
 		$('.newMessaGe').css("background","gray");
 	}
+	console.log($('.adm').html())
 })

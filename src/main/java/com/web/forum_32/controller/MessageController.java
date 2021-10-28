@@ -48,7 +48,8 @@ public class MessageController {
 		model.addAttribute("forumId", id);
 		model.addAttribute("messageBean", messageBean);
 		model.addAttribute("updateForumBean", new ForumBean());
-		
+		List<ForumBean> allList = forumService.getAllContents();
+		model.addAttribute("content", allList);
 		List<ForumBean> announcementSize=forumService.getAllContentsByAnnouncement();
 		List<ForumBean> noviceSellerSize=forumService.getAllContentsByNoviceSeller();
 		List<ForumBean> sellerChatSize=forumService.getAllContentsBySellerChat();
