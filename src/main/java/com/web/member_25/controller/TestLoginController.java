@@ -139,7 +139,7 @@ public class TestLoginController {
 			
 			
 			memberService.save(mb);
-			return "product_11/products";
+			return "redirect:/";
 		}
 		return "member_25/signUpPage";
 

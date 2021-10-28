@@ -2,6 +2,7 @@ package com.web.product_11.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,7 @@ public class Product implements Serializable {
 	private String productNo;
 	private String fileName;
 	private String seller;
+	private String insertTime;
 	
 	@Transient
 	private MultipartFile productImage;
@@ -37,8 +39,6 @@ public class Product implements Serializable {
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 	
 	
 
@@ -59,6 +59,7 @@ public class Product implements Serializable {
 	}
 
 
+	
 
 
 
@@ -155,9 +156,27 @@ public class Product implements Serializable {
 	}
 
 
-	
+	public String getSeller() {
+		return seller;
+	}
 
-	
-	
+
+
+	public void setSeller(String seller) {
+		this.seller = seller;
+	}
+
+
+
+	public String getInsertTime() {
+		return insertTime;
+	}
+
+
+
+	public void setInsertTime(String insertTime) {
+		this.insertTime = insertTime;
+	}
+
 
 }

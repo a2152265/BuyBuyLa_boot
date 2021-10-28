@@ -94,15 +94,19 @@
                         <span class="item">Home</span>
                     </a>
                 </li>
+
                  <li>        
                     <a href="<c:url value='/update30' />">
+
 
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">訂單管理</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='???' />" class="active">
+
+                    <a href="<c:url value='/products/seller' />">
+
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">商品管理</span>
                     </a>

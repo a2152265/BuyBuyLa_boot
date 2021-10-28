@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -31,12 +32,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.member_25.model.membershipInformationBean;
 import com.web.product_11.model.Product;
 import com.web.product_11.service.ProductService;
 
 @Controller
+@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" })
 public class ProductController {
 
 	ProductService productservice;
@@ -52,7 +56,7 @@ public class ProductController {
 	public ProductController() {
 	}
 
-//顯示所有商品
+	//顯示所有商品
 	@GetMapping("/products")
 	public String list(Model model) {
 
@@ -73,10 +77,22 @@ public class ProductController {
 			
 			
 		}
+		
+	//顯示賣家商品
+		@GetMapping("/products/seller")
+		public String productBySeller(
+				@ModelAttribute("loginSession") membershipInformationBean loginMb,
+				Model model) {
+
+			List<Product> beans = productservice.getProductBySeller(loginMb.getUserEmail());
+			model.addAttribute("sellerproducts", beans);
+			return "product_11/productBySeller";		
+			
+		}
 	
 	
 	
-//個別商品頁面
+	//個別商品頁面
 		@GetMapping("/product")
 		public String getProductById(
 			@RequestParam("id") Integer id, // 查詢字串
@@ -85,6 +101,7 @@ public class ProductController {
 			return "product_11/product";
 		}
 		
+	//商品名稱查詢
 		@RequestMapping("/queryproduct")
 		public String processQueryProduct(
 				@RequestParam("productName") String productName,
@@ -92,11 +109,11 @@ public class ProductController {
 				) {
 			List<Product> bean = productservice.getProductByName(productName);
 			model.addAttribute("products", bean);
-			return "product_11/products_category";
+			return "product_11/products_query";
 			
 		}
 		
-// 新增空白表單
+	// 新增空白表單
 	@GetMapping("/products/add")
 	public String getAddNewProductForm(Model model) {
 		Product p = new Product();
@@ -104,9 +121,10 @@ public class ProductController {
 		return "product_11/addProduct";
 	}
 
-//表單填寫，寫入資料庫
+	//表單填寫，寫入資料庫
 	@PostMapping("/products/add")
-	public String processAddNewProductForm(@ModelAttribute("productBean") Product p, 
+	public String processAddNewProductForm(@ModelAttribute("productBean") Product p,
+			@ModelAttribute("loginSession") membershipInformationBean loginMb,
 			BindingResult result // 父:Errors(表單如有錯誤放置)
 	) {
 		// 判斷是否有不合法欄位
@@ -116,7 +134,8 @@ public class ProductController {
 			// 陣列裡面元素以逗號隔開，並轉成字串
 		}
 		System.out.println("p=" + p);
-
+		
+		if(!p.getProductImage().isEmpty()) {
 		// 於productImage取得照片
 		MultipartFile productImage = p.getProductImage();
 		// 使用者照片檔名
@@ -137,30 +156,43 @@ public class ProductController {
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 			}
 		}
+		   Long timeStamp = System.currentTimeMillis();  //获取当前时间戳
+	       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	       String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp)))); 
 
+	       p.setSeller(loginMb.getUserEmail());
+	       
+	       
+	       p.setInsertTime(sd);
 		// ----------------------------------------
 		productservice.addProduct(p);
-		// ----------------------------------------
-		// 取出副檔名，.png、.jpg
-		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-		// 找到應用系統根目錄 /mvcExercise
-		String rootDirectory = servletContext.getRealPath("/");
-		try {
-			// 在根目錄下建立images資料夾
-			File imageFolder = new File(rootDirectory, "images");
-			if (!imageFolder.exists())
-				imageFolder.mkdirs();
-			File file = new File(imageFolder, "Product_" + p.getProductId() + ext);
-			productImage.transferTo(file);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+		}else {
+			
+			productservice.addProduct(p);
 		}
+		
+		
+		// ----------------------------------------
+//		// 取出副檔名，.png、.jpg
+//		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+//		// 找到應用系統根目錄 /mvcExercise
+//		String rootDirectory = servletContext.getRealPath("/");
+//		try {
+//			// 在根目錄下建立images資料夾
+//			File imageFolder = new File(rootDirectory, "images");
+//			if (!imageFolder.exists())
+//				imageFolder.mkdirs();
+//			File file = new File(imageFolder, "Product_" + p.getProductId() + ext);
+//			productImage.transferTo(file);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+//		}
 
 		return "redirect:/manage/products";
 	}
 
-//獲取類別List
+	//獲取類別List
 	@ModelAttribute("categoryList")
 	public List<String> getCategoryList() {
 		return productservice.getAllCategories();
@@ -168,7 +200,7 @@ public class ProductController {
 	
 
 
-//讀取照片
+	//讀取照片
 		@GetMapping("/getPicture/{productId}")
 		//位元組陣列，回應本體型態byte[]
 		public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer productId) {
@@ -223,7 +255,7 @@ public class ProductController {
 		    return responseEntity;
 		}
 		
-//照片路徑轉換成位元組陣列方法
+	//照片路徑轉換成位元組陣列方法
 		private byte[] toByteArray(String filepath) {
 		    byte[] b = null;
 		    //getRealPath取出在servlet真實路徑
@@ -252,7 +284,7 @@ public class ProductController {
 			return "product_11/products_category";
 		}
 		
-//更新表單
+	//更新表單
 		@GetMapping("/update")
 		public String getUpdateProductForm(@RequestParam("productId") Integer productId, Model model) {
 			Product product = productservice.getProductById(productId);
