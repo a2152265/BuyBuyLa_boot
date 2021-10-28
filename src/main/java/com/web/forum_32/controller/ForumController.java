@@ -36,16 +36,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.service.IForumService;
+import com.web.forum_32.service.IMessageService;
 
 @Controller
 public class ForumController {
 
 	IForumService forumService;
+	IMessageService messageService;
 	ServletContext servletContext;
 
 	@Autowired
-	public ForumController(IForumService forumService, ServletContext servletContext) {
+	public ForumController(IMessageService messageService, IForumService forumService,
+			ServletContext servletContext) {
 		this.forumService = forumService;
+		this.messageService = messageService;
 		this.servletContext = servletContext;
 	}
 
@@ -53,6 +57,7 @@ public class ForumController {
 	@GetMapping("/forum")
 	public String forum(Model model) {
 		List<ForumBean> allList = forumService.getAllContents();
+		messageService.getAllMessageById(null);
 		model.addAttribute("content", allList);
 		model.addAttribute("forumBean", new ForumBean());
 		model.addAttribute("updateForumBean", new ForumBean());
@@ -60,8 +65,44 @@ public class ForumController {
 		return "forum_32/forum";
 	}
 	
-
+	// 管理
+	@GetMapping("/manager/forum")
+	public String forumManager(Model model) {
+		List<ForumBean> allList = forumService.getAllContents();
+		model.addAttribute("content", allList);
+		model.addAttribute("updateManager", new ForumBean());
+		return "forum_32/forum-manager";
+	}
 	
+	// 管理刪除
+	@GetMapping("/manager/delete32")
+	public String deleteById(@RequestParam("id") Integer id, Model model) {
+		forumService.delete(id);
+		return "redirect:/manager/forum";
+	}
+	
+	// 管理編輯
+	@GetMapping(value = "/manager/editManager")
+	@ResponseBody
+	public ForumBean managerUpdUrl(@RequestParam("id") Integer id, 
+			@ModelAttribute("updateManager") ForumBean updfb, 
+			Model model) {
+		System.out.println("id===="+id);
+		ForumBean fb = forumService.getContentById(id);
+		updfb = new ForumBean(fb.getId(), fb.getUserName(), fb.getUserEmail(), fb.getDate(), fb.getTag(),fb.getTitle(), fb.getContent());
+		return updfb;
+	}
+	
+	
+	// 管理編輯
+	@PostMapping("/manager/forum")
+	public String managerForm(
+			Model model,
+			@ModelAttribute("updateManager") ForumBean updfb,
+			BindingResult result) {
+				forumService.update(updfb);
+		return "redirect:/manager/forum";
+	}
 	// 官方最新公告區
 	@GetMapping("/announcement") //announcement
 	public String chat(Model model) {
@@ -116,12 +157,15 @@ public class ForumController {
 	// 編輯貼文
 	@GetMapping(value = "/editURL")
 	@ResponseBody
-	public ForumBean Url(@RequestParam("id") Integer id, @ModelAttribute("updateForumBean") ForumBean updfb, Model model) {
+	public ForumBean Url(@RequestParam("id") Integer id, 
+			@ModelAttribute("updateForumBean") ForumBean updfb, 
+			Model model) {
 		ForumBean fb = forumService.getContentById(id);
 		updfb = new ForumBean(fb.getId(), fb.getUserName(), fb.getUserEmail(), fb.getDate(), fb.getTag(),fb.getTitle(), fb.getContent());
 		return updfb;
 	}
 	
+
 	// 搜尋貼文
 	@GetMapping(value = "/search")
 	@ResponseBody
@@ -194,7 +238,7 @@ public class ForumController {
 	// 白名單
 	@InitBinder
 	public void whiteListing(WebDataBinder binder) {
-		binder.setAllowedFields("search","title","userName", "userEmail", "tag", "id", "content", "image", "date", "files");
+		binder.setAllowedFields("id","content","title", "date",  "tag",   "image", "files","userEmail","userName");
 	}
 
 	//

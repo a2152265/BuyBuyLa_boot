@@ -136,23 +136,23 @@
 
 		<div class="col-12 col-md-9 bg-white w60p20ml460mt20">
 			<div class="detailed">
-				<span class="title-fontsize">0則留言</span> <br>
+				<span class="title-fontsize">${size}則留言</span> <br>
 				<hr>
 				<br>
 				<div>
+					
 					<img src="https://storage.googleapis.com/shopeetw-university/static/avatar.jpg" class="w60h60br50flmr30">
-					<form:form method='POST' modelAttribute="messageBean"
-						class='form-horizontal' enctype="multipart/form-data">
+					<form:form method='POST' modelAttribute="messageBean" class='form-horizontal'> 
 						<form:textarea path="messageContent" rows="4" cols="60"
 							placeholder="新增留言..." />
 						<form:input type="text" path="forumId" value="${forumId}"
-							class="display-none" />
-						<form:input type="text" path="userName" value="廖總"
-							class="display-none" />
-						<form:input type="text" path="userEmail" value="c123@gmail.com"
+ 							class="display-none" /> 
+						<form:input type="text" path="userName" value="廖總" 
+ 							class="display-none" /> 
+ 						<form:input type="text" path="userEmail" value="c123@gmail.com" 
 							class="display-none" />
 						<form:input type="text" path="date" id="messageDate"
-							class="display-none" />
+							class="display-none" /> 
 						<br>
 						<button type="submit" class="btn btn-secondary btn-lg">送出</button>
 					</form:form>
@@ -164,7 +164,7 @@
 				<hr>
 				<c:forEach var='msg' items='${msg}'>
 					<div>
-						<label class="fr">${msg.id}樓</label> <img
+						<label class="fr">#</label> <img
 							src="https://storage.googleapis.com/shopeetw-university/static/avatar.jpg" class="w60h60br50fl">
 						<span class="contentUserName">${msg.userName}<br></span>
 						<span class="contentUserName">${msg.date}</span>
@@ -209,9 +209,8 @@
 								class="form-control updTitle title-fontsize" aria-label="Sizing example input"
 								aria-describedby="inputGroup-sizing-lg" />
 							<br>
-							<form:textarea path="content" class="form-control updContent"
-								placeholder="請輸入內文" rows="7" id="recipient-name"
-								style="display:none" />
+							<form:textarea path="content" class="form-control updContent display-none"
+								placeholder="請輸入內文" rows="7" id="recipient-name" />
 							<div id="summernote2"></div>
 							<div class="mb-3">
 								<form:input class="form-control display-none" path="image" id="insImgBtn" type="file" />

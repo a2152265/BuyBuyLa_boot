@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.model.MessageBean;
 import com.web.forum_32.service.IForumService;
@@ -41,6 +40,7 @@ public class MessageController {
 			model.addAttribute("fb", forumBean);
 		}
 		List<MessageBean> messageList = messageService.getAllMessageById(id);
+		model.addAttribute("size",messageList.size());
 		model.addAttribute("msg",messageList);
 		model.addAttribute("forumId", id);
 		model.addAttribute("messageBean", messageBean);
@@ -53,7 +53,6 @@ public class MessageController {
 	public String processUpdNewFourmForm(@RequestParam("id") Integer id,
 			@ModelAttribute("updateForumBean") ForumBean updfb,
 			@ModelAttribute("messageBean") MessageBean messageBean) {
-		System.out.println("updfb-get==="+updfb.getContent());
 		if(updfb.getContent()!=null) {
 		forumService.update(updfb);
 		}

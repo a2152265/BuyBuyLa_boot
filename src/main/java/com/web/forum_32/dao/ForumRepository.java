@@ -27,4 +27,5 @@ public interface ForumRepository extends JpaRepository<ForumBean, Integer> {
 	@Query(nativeQuery = true, value = "select * from forum_32 where title=:title order by id desc")
 	public List<ForumBean> findAllByTitle(String title);
 	
+	
 }

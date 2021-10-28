@@ -203,7 +203,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='???' />">
+                    <a href="<c:url value='/manager/forum' />">
                         <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
                         <span class="item">討論區</span>
                     </a>

@@ -11,21 +11,14 @@
 <!-- Jquery JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
-	rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 <!-- summernote -->
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
-	rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <!-- css -->
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/css/style32.css'>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/css/style32.css'>
 <!-- js -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript"
-	src='${pageContext.request.contextPath}/js/forum_upd_32.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src='${pageContext.request.contextPath}/js/forum_upd_32.js'></script>
 </head>
 <body class="bg-light">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -69,16 +62,26 @@
 		<li><a href="<c:url value='/try/add' />">會員註冊</a></li>
 		<li><a href="<c:url value='/try/login' />">會員登入</a></li>
 		<li><a href="<c:url value='/try/logout' />">登出</a></li>
-	</ul>
-	<ul style="font-size: 30px;margin-left:800px;">
 		<li>用戶名稱 : ${loginSession.userName}</li>
 		<li>用戶信箱 : ${loginSession.userEmail}</li>
 	</ul>
 	
 	
 	<div class="row">
-		<div class="col-6 col-md-3" style="margin-left: 150px; width: 260px">
+		<div class="col-6 col-md-3 ml150w260">
 			<div class="accordion" id="accordionExample">
+			
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+					<a href="<c:url value='/forum'/>" class="tata-a">
+						<button class="accordion-button collapsed" type="button"
+							data-bs-toggle="collapse" data-bs-target=""
+							aria-expanded="false" aria-controls="">
+							所有討論</button>
+							</a>
+					</h2>
+				</div>
+			
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingThree">
 						<button class="accordion-button collapsed" type="button"
@@ -100,9 +103,9 @@
 					</h2>
 					<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 						<div class="accordion-body">
-							<a href="<c:url value='/forum'/>" class="tata-a">
-							<span class="tata">所有討論</span></a>
-							<hr>
+<%-- 							<a href="<c:url value='/forum'/>" class="tata-a"> --%>
+<!-- 							<span class="tata">所有討論</span></a> -->
+<!-- 							<hr> -->
 							<a href="<c:url value='/noviceSeller' />" class="tata-a">
 							<span class="tata">新手賣家發問區</span></a>
 							<hr>
@@ -153,11 +156,11 @@
 						<div>
 							<span class="date20px">${content.date}</span> 
 							<img class="goodicon" src="https://cdn-icons-png.flaticon.com/128/633/633759.png">
-							<span>0</span> 
+							<span></span> 
 							<img class="goodicon" src="https://cdn-icons-png.flaticon.com/128/739/739286.png">
-							<span>0</span> 
+							<span class="messageSize"></span> 
 							<img class="goodicon" src="https://cdn-icons.flaticon.com/png/512/722/premium/722358.png?token=exp=1635284495~hmac=d84e061e39a2802f4976812059654e61">
-							<span>0</span>
+							<span></span>
 						</div>
 					</div>
 				</div>
@@ -256,12 +259,10 @@
 
 
 	<!-- jquery -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src='${pageContext.request.contextPath}/js/forum_jqu_32.js'></script>
 	<!-- summernote -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	<script src='${pageContext.request.contextPath}/js/forum_sum_32.js'></script>
 
 </body>

@@ -19,15 +19,4 @@
 				}
 			})
 		});
-		$('.searchBtn').click(function(){
-			var searchval=$('.searchText').val();
-			$.ajax({
-				type:"GET",
-				url:"search",
-				data:{"title":searchval},
-				success:function(data){
-					console.log(data);
-				}
-			})
-		})
 	});
