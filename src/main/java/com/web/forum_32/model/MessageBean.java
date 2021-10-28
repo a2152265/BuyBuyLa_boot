@@ -23,20 +23,21 @@ public class MessageBean implements Serializable{
 	private String userEmail;
 	private String messageContent;
 	private String date;
-	
+	private Integer picId;
 	
 	
 	public MessageBean() {
 	}
 	
 	
-	public MessageBean(Integer id, Integer forumId, String userName,String userEmail,String messageContent,String date) {
+	public MessageBean(Integer id, Integer forumId, String userName,String userEmail,String messageContent,String date,Integer picId) {
 		this.id = id;
 		this.forumId = forumId;
 		this.userName = userName;
 		this.userEmail=userEmail;
 		this.messageContent=messageContent;
 		this.date = date;
+		this.picId=picId;
 	}
 
 
@@ -48,6 +49,16 @@ public class MessageBean implements Serializable{
 
 	public void setMessageContent(String messageContent) {
 		this.messageContent = messageContent;
+	}
+
+
+	public Integer getPicId() {
+		return picId;
+	}
+
+
+	public void setPicId(Integer picId) {
+		this.picId = picId;
 	}
 
 

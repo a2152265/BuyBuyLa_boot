@@ -199,7 +199,7 @@
 								<div class="single-comment justify-content-between d-flex">
 									<div class="user justify-content-between d-flex">
 										<div class="thumb">
-											<img src="img/blog/c1.jpg" alt="">
+											<img width='150' src="<c:url value='/getPicturefromMember/${msg.picId}'/>" />
 										</div>
 										<div class="desc">
 											<h5>
@@ -220,14 +220,11 @@
 						<h4>發表評論</h4>
 						<form:form method='POST' modelAttribute="messageBean"
 							class='form-horizontal'>
-							<form:input type="text" path="forumId" value="${forumId}"
-								class="display-none" />
-							<form:input type="text" path="userName" value="廖總"
-								class="display-none" />
-							<form:input type="text" path="userEmail" value="c123@gmail.com"
-								class="display-none" />
-							<form:input type="text" path="date" id="messageDate"
-								class="display-none" />
+							<form:input type="hidden" path="forumId" value="${forumId}" />
+							<form:input type="hidden" path="picId" value="${memberUiDefault.id}" />
+							<form:input type="hidden" path="userName" value="${memberUiDefault.userName}" />
+							<form:input type="hidden" path="userEmail" value="c123@gmail.com" />
+							<form:input type="hidden" path="date" id="messageDate" />
 
 							<div class="form-group form-inline">
 								<div class="form-group col-lg-6 col-md-6 name">
@@ -260,7 +257,7 @@
 						<aside class="single_sidebar_widget search_widget">
 							<div class="input-group">
 								<input type="text" class="form-control"
-									placeholder="Search Posts"> <span
+									placeholder="搜尋文章"> <span
 									class="input-group-btn">
 									<button class="btn btn-default" type="button">
 										<i class="lnr lnr-magnifier"></i>
@@ -271,9 +268,7 @@
 							<div class="br"></div>
 						</aside>
 						<aside class="single_sidebar_widget author_widget">
-							<img style="width: 200px" class="author_img rounded-circle"
-								src="https://storage.googleapis.com/shopeetw-university/static/avatar.jpg"
-								alt="">
+							<img width='150' src="<c:url value='/getPicturefromMember/${fb.picId}'/>" />
 							<h4>${fb.userName}</h4>
 							<p>一般會員</p>
 							<div class="social_icon">

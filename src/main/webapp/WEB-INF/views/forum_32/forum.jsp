@@ -210,6 +210,7 @@
 							<div class="mb-3">
 								<form:input style="display:none" class="form-control"
 									path="image" id="insImgBtn" type="file" />
+								<form:input class="form-control" path="picId" type="hidden" value="${memberUiDefault.id}" />
 							</div>
 						</div>
 					</div>

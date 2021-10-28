@@ -237,7 +237,7 @@ public class ForumController {
 	// 白名單
 	@InitBinder
 	public void whiteListing(WebDataBinder binder) {
-		binder.setAllowedFields("id","content","title", "date",  "tag",   "image", "files","userEmail","userName");
+		binder.setAllowedFields("picId","id","content","title", "date",  "tag",   "image", "files","userEmail","userName");
 	}
 
 	//

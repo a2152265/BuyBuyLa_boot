@@ -30,6 +30,7 @@ public class ForumBean implements Serializable{
 	private Blob coverImage;     // 圖片
 	private String fileName;     // 檔名
 	private String date;         // 時間
+	private Integer picId;
 	
 	@Transient
 	private MultipartFile  image;
@@ -41,7 +42,7 @@ public class ForumBean implements Serializable{
 	public ForumBean() {
 	}
 	
-	public ForumBean(Integer id,String userName,String userEmail,String date,String tag,String title,String content,Blob coverImage,String fileName) {
+	public ForumBean(Integer id,String userName,String userEmail,String date,String tag,String title,String content,Blob coverImage,String fileName,Integer picId) {
 	this.id=id;
 	this.userName=userName;
 	this.userEmail=userEmail;
@@ -68,6 +69,14 @@ public class ForumBean implements Serializable{
 	}
 	
 	
+	public Integer getPicId() {
+		return picId;
+	}
+
+	public void setPicId(Integer picId) {
+		this.picId = picId;
+	}
+
 	public Integer getId() {
 		return id;
 	}
