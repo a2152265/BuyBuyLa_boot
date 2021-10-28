@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.model.MessageBean;
 import com.web.forum_32.service.IForumService;
@@ -40,11 +39,9 @@ public class MessageController {
 			ForumBean forumBean = forumService.getContentById(id);
 			model.addAttribute("fb", forumBean);
 		}
-		
-//		List<MessageBean> messageList = messageService.getAllMessage();
 		List<MessageBean> messageList = messageService.getAllMessageById(id);
+		model.addAttribute("size",messageList.size());
 		model.addAttribute("msg",messageList);
-		
 		model.addAttribute("forumId", id);
 		model.addAttribute("messageBean", messageBean);
 		model.addAttribute("updateForumBean", new ForumBean());
@@ -53,9 +50,12 @@ public class MessageController {
 
 	// 編輯
 	@PostMapping("/detailed")
-	public String processUpdNewFourmForm(@RequestParam(value = "id", required = false) Integer id,
+	public String processUpdNewFourmForm(@RequestParam("id") Integer id,
 			@ModelAttribute("updateForumBean") ForumBean updfb,
 			@ModelAttribute("messageBean") MessageBean messageBean) {
+		if(updfb.getContent()!=null) {
+		forumService.update(updfb);
+		}
 		messageService.addMessageContent(messageBean);
 		return "redirect:/detailed?id="+id;
 	}

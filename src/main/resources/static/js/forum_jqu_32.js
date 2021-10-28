@@ -42,7 +42,4 @@ $(function() {
 		return updFormatted_date;
 	}
 	$('#nowUpdDate').val(updFormatDate(date));
-	
-	
-	
 })
