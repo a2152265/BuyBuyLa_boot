@@ -160,8 +160,9 @@
 					<div class="modal-header">
 						<select id="updSelectTag" class="form-select"
 							aria-label="Default select example">
-							<option>新手賣家發問區</option>
-							<option>賣家閒聊討論區</option>
+							<option>官方最新公告</option>
+							<option>新手賣家發問</option>
+							<option>賣家閒聊討論</option>
 						</select>
 						<h3 class="modal-title"
 							id="exampleModalLabel">編輯貼文</h3>
@@ -170,7 +171,8 @@
 					</div>
 					<div class="modal-body updContentBody">
 						<form:input id="updid" path="id" type="text" style="display:none" />
-						<form:input path="userName" type="text" value="廖總" class="display-none" />
+						<form:input class="picId" path="picId" type="text" style="display:none" />
+						<form:input class="userName" path="userName" type="text" style="display:none" />
 						<div class="mb-3">
 							<form:input type="text" path="date" id="nowUpdDate"
 								class="display-none" />

@@ -94,7 +94,7 @@ public class ForumController {
 			@ModelAttribute("updateManager") ForumBean updfb, 
 			Model model) {
 		ForumBean fb = forumService.getContentById(id);
-		updfb = new ForumBean(fb.getId(), fb.getUserName(), fb.getUserEmail(), fb.getDate(), fb.getTag(),fb.getTitle(), fb.getContent());
+		updfb = new ForumBean(fb.getId(), fb.getUserName(), fb.getUserEmail(), fb.getDate(), fb.getTag(),fb.getTitle(), fb.getContent(),fb.getPicId());
 		return updfb;
 	}
 	
@@ -166,7 +166,7 @@ public class ForumController {
 			@ModelAttribute("updateForumBean") ForumBean updfb, 
 			Model model) {
 		ForumBean fb = forumService.getContentById(id);
-		updfb = new ForumBean(fb.getId(), fb.getUserName(), fb.getUserEmail(), fb.getDate(), fb.getTag(),fb.getTitle(), fb.getContent());
+		updfb = new ForumBean(fb.getId(), fb.getUserName(), fb.getUserEmail(), fb.getDate(), fb.getTag(),fb.getTitle(), fb.getContent(),fb.getPicId());
 		return updfb;
 	}
 	
