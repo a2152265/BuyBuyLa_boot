@@ -25,6 +25,7 @@ public class Campaign implements Serializable {
 	private int id;
 	
 	private String url;
+	private String category;
 	private String name;
 	private String description;
 	private String note;
@@ -50,6 +51,14 @@ public class Campaign implements Serializable {
 		this.date1=date1;
 	}
 
+	
+	@Override
+	public String toString() {
+		return "Campaign [id=" + id + ", url=" + url + ", category=" + category + ", name=" + name + ", description="
+				+ description + ", note=" + note + ", date1=" + date1 + ", coverImage=" + coverImage + ", fileName="
+				+ fileName + ", productImage=" + productImage + "]";
+	}
+
 
 	public Campaign() {
 
@@ -57,6 +66,32 @@ public class Campaign implements Serializable {
 
 
 
+
+
+	public Campaign(int id, String url, String category, String name, String description, String note, String date1,
+			Blob coverImage, String fileName, MultipartFile productImage) {
+		super();
+		this.id = id;
+		this.url = url;
+		this.category = category;
+		this.name = name;
+		this.description = description;
+		this.note = note;
+		this.date1 = date1;
+		this.coverImage = coverImage;
+		this.fileName = fileName;
+		this.productImage = productImage;
+	}
+
+
+	public String getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 
 	public String getDate1() {

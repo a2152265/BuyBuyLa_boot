@@ -1,6 +1,8 @@
 package com.web.celebrations_36.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +13,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -28,13 +31,17 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.celebrations_36.model.Campaign;
 import com.web.celebrations_36.service.CampaignService;
+import com.web.member_25.model.membershipInformationBean;
 
 @Controller
+@SessionAttributes({ "loginSession","campaigns","campaignsize", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" })
 public class CampaignController {
 	
 	CampaignService campaignService;
@@ -70,7 +77,7 @@ public class CampaignController {
 	public String processAddNewProductForm(
 			@ModelAttribute("Campaign") Campaign campaign,
 			BindingResult result 	
-	) { 
+	) throws IOException, SerialException, SQLException { 
 		String[] suppressedFields = result.getSuppressedFields();
 	    if (suppressedFields.length > 0) {
 	        throw new RuntimeException("嘗試傳入不允許的欄位: " + 
@@ -82,6 +89,8 @@ public class CampaignController {
 		String originalFilename = productImage.getOriginalFilename();
 		campaign.setFileName(originalFilename);
 		//  建立Blob物件，交由 Hibernate 寫入資料庫
+		
+		if(!campaign.getProductImage().isEmpty()) {
 		if (productImage != null && !productImage.isEmpty() ) {
 			try {
 				byte[] b = productImage.getBytes();
@@ -106,8 +115,33 @@ public class CampaignController {
 			e.printStackTrace();
 			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 		}
-		
-	    return "redirect:/campaigns";
+		}else if(campaign.getProductImage().isEmpty()){
+			
+			byte[] img = new byte[1024];
+			Blob blob = null;
+			try {
+				InputStream in = new FileInputStream("C:\\Users\\ASUS_NB\\git\\BuyBuyLa_boot\\src\\main\\resources\\static\\NoImage.jpg");
+				ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				 
+				int length;
+				while( (length = in.read(img)) != -1){
+			           
+					bos.write(img, 0, length);
+			    }
+				
+				img = bos.toByteArray();
+				blob = new SerialBlob(img);
+				campaign.setFileName("NoImage2.png");
+				campaign.setCoverImage(blob);
+				campaignService.save(campaign);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+	    return "redirect:/admincampaign";
 	}
 	@InitBinder
 	public void whiteListing(WebDataBinder binder) {
@@ -117,13 +151,14 @@ public class CampaignController {
 	    "description", 
 	    "note", 
 	    "productImage",
-	    "date1"
+	    "date1",
+	    "category"
 	    );
 	}
 	
 	@GetMapping("/getCampaignPicture/{campaignId}")
 	public ResponseEntity<byte[]> getPicture(HttpServletResponse resp, @PathVariable Integer campaignId) {
-	    String filePath = "/resources/images/NoImage.jpg";
+	    String filePath = "/resources/images/NoImage2.jpg";
 
 	    byte[] media = null;
 	    HttpHeaders headers = new HttpHeaders();
@@ -253,7 +288,7 @@ public class CampaignController {
 		
 		}else if(campaign.getProductImage().isEmpty()){
 			System.out.println("*****************************************");
-			campaignService.updateWithoutImg(campaign);
+			campaignService.updateCampaignWithoutImg(id, campaign);
 		}
 	    return "redirect:/admincampaign";
 	}
@@ -263,7 +298,44 @@ public class CampaignController {
 			Model model
 	){
 		System.out.println("id="+id);
-		campaignService.delete(id);
+//		campaignService.delete(id);
+		campaignService.deleteCampaignById(id);
 	    return "redirect:/admincampaign";
 	}
+	
+	@GetMapping("/campaigns/{category}") // 路徑變數{category}
+	public String getProductsByCategory(@PathVariable("category") String category, Model model) {
+		List<Campaign> campaigns = campaignService.getCampaignsByCategory(category);
+		model.addAttribute("campaigns", campaigns);
+		return "celebrations_36/campaigns_category";
+	}
+	
+	
+	@ModelAttribute("categoryList1")
+	public List<String> getCategoryList() {
+		return campaignService.getAllCategories();
+	}
+//	@GetMapping("/campaigns/login") // 路徑變數{category}
+//	public String spinningWheel(@ModelAttribute("loginSession") membershipInformationBean loginMb,Model model) {
+//		if(loginMb.getUserEmail()==null) {
+//			return "member_25/tryLoginPage";
+//		}
+//		model.addAttribute("loginMb", loginMb);
+//		return "celebrations_36/spinningwheel";
+//	}
+
+//	@GetMapping("/campaigns/login")
+//    public ResponseEntity<String> processUserCheckAction(@ModelAttribute("loginSession") membershipInformationBean loginMb){
+//		if(loginMb.getUserEmail()==null) {
+//			return new ResponseEntity<String>(HttpStatus.OK);
+//		}
+//		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+//    }
+//	
+//	@GetMapping("/campaigns/spinningwheel") // 路徑變數{category}
+//	public String spinningWheel(Model model) {
+//		return "celebrations_36/spinningwheel";
+//	}
+	
+	
 }

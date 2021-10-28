@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
   <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
   <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-
+<!--   <link rel='stylesheet' href="css/campaigns.css"  > -->
   <link rel="stylesheet" href="css/productstyle.css">
   <style type="text/css">
 .form__label {
@@ -52,6 +52,77 @@
   -webkit-transform: translateY(-4rem);
   transform: translateY(-4rem);
 }
+ .wrap{
+            width: 1000px;
+            height: 300px;
+            background-color: black;
+            margin:0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-img{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            position: absolute;
+            width: 12000px;
+            /* border: olive 2px solid; */
+            display: flex;
+            left: 0;
+            transition: 0.6s;
+        }
+        .slide-img li{
+            width: 1000px;
+            height: 300px;
+            /* 伸展比例 壓縮比例 額外剩餘比例 */
+            /* flex:1 0 0; */
+        }
+        .slide-img li img{
+            height: 100%;
+            width: 100%;
+            /* 元素內容調整大小比例 */
+            object-fit: cover;
+        }
+        .pages{
+            list-style: none;
+            position: absolute;
+            margin:0;
+            padding: 0;
+            bottom:10px;
+            display: flex;
+            left:0;
+            width: 100%;
+            justify-content: center;
+        }
+        .pages li{
+            border:1px solid #fff;
+            margin: 0 5px;
+            width: 20px;
+            height:20px;
+            border-radius: 50%;
+            cursor:hand;
+        }
+        .slide-arrow{
+            position: absolute;
+            /* background-color: red; */
+            width: 40px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index:1;
+            font-size: 36px;
+            cursor: pointer;
+            color: white;
+            opacity: .6;
+        }
+        .slide-arrow:hover{
+        	color: white;
+            opacity: 1;
+        }
+        .slide-arrow.right{
+            right:0;
+        }
 </style>
 </head>
 <body>
@@ -94,7 +165,7 @@
 <!--                 </ul> -->
 							</li>
 							<li class="nav-item submenu dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                <a href="<c:url value='/campaigns' />" class="nav-link dropdown-toggle" role="button" aria-haspopup="true"
                   aria-expanded="false">活動專區</a>
 <!--                 <ul class="dropdown-menu"> -->
 <!--                   <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li> -->
@@ -337,26 +408,27 @@
 
     <!-- ================ Subscribe section start ================= --> 
     <section class="subscribe-position">
-      <div class="container">
-        <div class="subscribe text-center">
-          <h3 class="subscribe__title">Get Update From Anywhere</h3>
-          <p>Bearing Void gathering light light his eavening unto dont afraid</p>
-          <div id="mc_embed_signup">
-            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe-form form-inline mt-5 pt-1">
-              <div class="form-group ml-sm-auto">
-                <input class="form-control mb-1" type="email" name="EMAIL" placeholder="Enter your email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '" >
-                <div class="info"></div>
-              </div>
-              <button class="button button-subscribe mr-auto mb-1" type="submit">Subscribe Now</button>
-              <div style="position: absolute; left: -5000px;">
-                <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-              </div>
-
-            </form>
-          </div>
-          
+ <div class="wrap">
+            <a class="slide-arrow" id="slidePrev"><i class="fas fa-arrow-left"></i></a>
+            <a class="slide-arrow right" id="slideNext"><i class="fas fa-arrow-right"></i></a>
+            <ul class="slide-img" id="slide-img">
+                <c:forEach items='${campaignss}' var='campaign'>
+                <li>
+                <a href="<c:url value='${campaign.url}'  /> " target="_blank">
+                <img src="<c:url value='/getCampaignPicture/${campaign.id}' />" alt="">
+                </a>
+                </li>
+          </c:forEach>
+            </ul>
+            
+            
+              <ul class="pages" id="pages">
+                <c:forEach var="i" begin="0" end="${campaignsizes-1}">
+                <li></li>
+                </c:forEach>
+            </ul>
+         
         </div>
-      </div>
     </section>
     <!-- ================ Subscribe section end ================= --> 
 
@@ -465,5 +537,66 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="vendors/jquery.ajaxchimp.min.js"></script>
   <script src="vendors/mail-script.js"></script>
   <script src="js/main.js"></script>
+  <script>
+
+      $(function(){
+          let index=0;
+          let slideMove=0;
+          $('#pages li').eq(0).css('background-color','lightblue')
+          $('#pages li').on('click',function(){
+              // console.log('123')
+              //移動第一張圖
+              // $('#slide-img').css('left','-800px')
+              //移動n張圖 index() 讀取索引值
+              // let index=$(this).index()
+              //區域變數變全域變數
+              index=$(this).index()
+              console.log(index)
+              slideMove=-1000*index;
+              $('#slide-img').css('left',slideMove)
+              $(this).css('background-color','lightblue')
+              .siblings().css('background-color','transparent')
+            
+          })
+          let slideCount=$('#slide-img li').length
+          console.log('123')
+          $('#slideNext').on('click',function(){
+              index++;
+              if(index>=slideCount){
+                  index=0;
+              }
+              // slideMove=-800*index;
+              // $('#slide-img').css('left',slideMove)
+              // $('#pages li').eq(index).css('background-color','white')
+              // .siblings().css('background-color','transparent')
+              moveImg()
+          })
+          $('#slidePrev').on('click',function(){
+              index--;
+              if(index<0){
+                  index=slideCount-1;
+              }
+              // slideMove=-800*index;
+              // $('#slide-img').css('left',slideMove)
+              // $('#pages li').eq(index).css('background-color','white')
+              // .siblings().css('background-color','transparent')
+              moveImg()
+          })
+          function moveImg(){
+              slideMove=-1000*index;
+              $('#slide-img').css('left',slideMove)
+              $('#pages li').eq(index).css('background-color','lightblue')
+              .siblings().css('background-color','transparent')
+          }
+          setInterval(autoImg,3000)
+          function autoImg(){
+              index++;
+              if(index>=slideCount){
+                  index=0;
+              }
+              moveImg()
+          }
+      })
+      </script>    
 </body>
 </html>
