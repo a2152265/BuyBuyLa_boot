@@ -73,7 +73,7 @@
 <!--                 </ul> -->
               </li>
               <c:if test="${loginSession.userEmail != null}">
-              <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
+              <li class="nav-item"><a class="nav-link loginsession" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
 						${loginSession.userEmail}</a></li>
 				</c:if>
             </ul>
@@ -176,7 +176,8 @@
               <div class="col-lg-4">
                   <div class="blog_right_sidebar">
                       <aside class="single_sidebar_widget post_category_widget">
-         <h4 class="widget_title" data-bs-toggle="modal" data-bs-target="#Modal" style="cursor:pointer;">發起討論</h4>
+<!--          <h4 class="widget_title" data-bs-toggle="modal" data-bs-target="#Modal" style="cursor:pointer;">發起討論</h4> -->
+         <input type="button" value="發起討論" class="widget_title newFoRuM" style="width:295px;border:none;" data-bs-toggle="modal" data-bs-target="#Modal">
          <div class="modal fade" id="Modal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg" style="margin-top:90px">

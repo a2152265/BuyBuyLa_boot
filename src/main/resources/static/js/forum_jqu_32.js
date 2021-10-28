@@ -33,13 +33,21 @@ $(function() {
 		}
 	})
 	$('.updContentBody').on('mouseover', function() {
-		$('#updTag').val($('#updSelectTag option:selected').text())
-		console.log()
-	})
+		$('#updTag').val($('#updSelectTag option:selected').text());
+	});
 	var date = new Date();
 	const updFormatDate = (date) => {
 		let updFormatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
 		return updFormatted_date;
 	}
 	$('#nowUpdDate').val(updFormatDate(date));
+	var f1 = $('.forumUsername').val();
+	var f2 = $('.forumUsername2').html();
+	if(f1!=f2){
+		 $(".editIMG").css("display","none");
+	}
+	if($('.loginsession').html()==null){
+		$('.newFoRuM').attr("disabled","disabled");
+		$('.newFoRuM').css("background","gray");
+	}
 })

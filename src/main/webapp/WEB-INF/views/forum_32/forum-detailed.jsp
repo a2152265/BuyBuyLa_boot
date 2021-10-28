@@ -85,7 +85,7 @@
 								<!--                   <li class="nav-item"><a class="nav-link" href="tracking-order.html">Tracking</a></li> -->
 								<!--                 </ul> --></li>
 							<c:if test="${loginSession.userEmail != null}">
-								<li class="nav-item"><a class="nav-link"
+								<li class="nav-item"><a class="nav-link loginsession"
 									href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
 										${loginSession.userEmail}</a></li>
 							</c:if>
@@ -130,7 +130,56 @@
 	</section>
 	<!-- ================ end banner area ================= -->
 
-
+<div class="modal fade" id="UpdateModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<form:form method='POST' modelAttribute="updateForumBean"
+				class='form-horizontal' enctype="multipart/form-data">
+				<div class="modal-content">
+					<div class="modal-header">
+						<select id="updSelectTag" class="form-select"
+							aria-label="Default select example">
+							<option>新手賣家發問區</option>
+							<option>賣家閒聊討論區</option>
+						</select>
+						<h3 class="modal-title"
+							id="exampleModalLabel">編輯貼文</h3>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body updContentBody">
+						<form:input id="updid" path="id" type="text" style="display:none" />
+						<form:input path="userName" type="text" value="${memberUiDefault.userName}" class="forumUsername display-none" />
+						<div class="mb-3">
+							<form:input type="text" path="date" id="nowUpdDate"
+								class="display-none" />
+							<form:input path="tag" type="text" id="updTag"
+								class="display-none" />
+							<br>
+							<form:input type="text" required="true" placeholder="標題"
+								path="title"
+								class="form-control updTitle title-fontsize" aria-label="Sizing example input"
+								aria-describedby="inputGroup-sizing-lg" />
+							<br>
+							<form:textarea path="content" class="form-control updContent display-none"
+								placeholder="請輸入內文" rows="7" id="recipient-name" />
+							<form:input class="form-control" path="picId" type="hidden" value="${memberUiDefault.id}" />
+								
+							<div id="summernote2"></div>
+							<div class="mb-3">
+								<form:input class="form-control display-none" path="image" id="insImgBtn" type="file" />
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button id="updSubmit" type="submit" class="btn btn-primary">送出</button>
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</form:form>
+		</div>
+	</div>
 
 	<!--================Blog Area =================-->
 	<section
@@ -146,6 +195,19 @@
 						</div>
 
 						<div class="col-lg-9 col-md-9 blog_details">
+								<div class="editIMG">
+								<img id="edit" data-bs-toggle="dropdown" aria-expanded="false"
+									class="dropdown-toggle editml700w50h50"
+									src="https://cdn-icons-png.flaticon.com/128/1827/1827933.png">
+								<ul class="dropdown-menu">
+									<li data-id="${fb.id}" data-bs-toggle="modal"
+										data-bs-target="#UpdateModal" class="dropdown-item updateDataClass">編輯</li>
+									<li  class="dropdown-item tata"
+										onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${fb.id}'/>'">刪除</li>
+						<!-- 			<li><a class="dropdown-item" href="#">隱藏此用戶貼文</a></li> -->
+						<!-- 			<li><a class="dropdown-item" href="#">檢舉</a></li> -->
+								</ul>
+								</div>
 							<h1>${fb.title}</h1>
 							<br> <br> <br>
 							<p class="excert">${fb.content}</p>
@@ -269,7 +331,7 @@
 						</aside>
 						<aside class="single_sidebar_widget author_widget">
 							<img width='150' src="<c:url value='/getPicturefromMember/${fb.picId}'/>" />
-							<h4>${fb.userName}</h4>
+							<h4 class="forumUsername2">${fb.userName}</h4>
 							<p>一般會員</p>
 							<div class="social_icon">
 								<a href="#"> <i class="fab fa-facebook-f"></i>
