@@ -18,7 +18,7 @@ import com.web.forum_32.model.MessageBean;
 import com.web.forum_32.service.IForumService;
 import com.web.forum_32.service.IMessageService;
 
-@SessionAttributes("memberUiDefault")
+@SessionAttributes({"memberUiDefault"})
 @Controller
 public class MessageController {
 

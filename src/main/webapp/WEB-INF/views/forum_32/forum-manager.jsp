@@ -98,7 +98,7 @@
             </div>
             <ul>
                 <li>
-                    <a href="<c:url value='???' />" class="active">
+                    <a href="<c:url value='/forum' />" class="active">
                         <span class="icon"><i class="fas fa-home"></i></span>
                         <span class="item">Home</span>
                     </a>
