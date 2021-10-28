@@ -87,7 +87,6 @@ public class ForumController {
 	public ForumBean managerUpdUrl(@RequestParam("id") Integer id, 
 			@ModelAttribute("updateManager") ForumBean updfb, 
 			Model model) {
-		System.out.println("id===="+id);
 		ForumBean fb = forumService.getContentById(id);
 		updfb = new ForumBean(fb.getId(), fb.getUserName(), fb.getUserEmail(), fb.getDate(), fb.getTag(),fb.getTitle(), fb.getContent());
 		return updfb;

@@ -1,15 +1,7 @@
 @charset "UTF-8";
 
-nav {
-	text-align: center;
-}
-
-hr {
-	margin: 0.7rem 0;
-}
-
-h1 {
-	display: inline;
+a {
+    text-decoration:none;
 }
 
 .card {
@@ -47,7 +39,7 @@ b {
 }
 
 .box {
-width: 800px;
+width: 500px;
 padding: 10px;
 }
 .ellipsis {
@@ -55,7 +47,7 @@ overflow:hidden;
 white-space: nowrap;
 text-overflow: ellipsis;
 display: -webkit-box;
--webkit-line-clamp: 1;
+-webkit-line-clamp: 3;
 -webkit-box-orient: vertical;
 white-space: normal;
 }
@@ -76,9 +68,6 @@ white-space: normal;
 }
 .cardmx-auto{
 	width: 55rem; padding: 15px; margin: 0px;
-}
-.row{
-	margin-top: 100px;
 }
 .announcement-a{
 	text-decoration: none; color: black;

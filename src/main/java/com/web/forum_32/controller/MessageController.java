@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.model.MessageBean;
 import com.web.forum_32.service.IForumService;
 import com.web.forum_32.service.IMessageService;
 
+@SessionAttributes("memberUiDefault")
 @Controller
 public class MessageController {
 

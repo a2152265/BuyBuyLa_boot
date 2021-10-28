@@ -195,6 +195,7 @@ public class TestLoginController {
 			model.addAttribute("loginSession", mb2);
 			membershipInformationBean mb3 =memberService.findMemberData(mb2.getUserEmail());
 			model.addAttribute("memberUiDefault",mb3);
+			System.out.println("mb3=="+mb3.getUserName());
 			//先建立一個bean
 			model.addAttribute("sellerData", new membershipInformationBean());
 			return "redirect:/"; // 登入成功

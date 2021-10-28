@@ -3,7 +3,7 @@
  */
        $('#summernote').summernote({
         placeholder: '請輸入內文',
-        tabsize: 2,
+        tabsize: 1,
         height: 300,
         toolbar: [
           ['style', ['style']],
