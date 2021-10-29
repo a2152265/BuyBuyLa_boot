@@ -111,8 +111,8 @@
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
 					<div class="owl-carousel owl-theme s_Product_carousel">
- 						<div class="single-prd-item"> -->
- 							<img class="img-fluid" src="<c:url value='/getPicture/${product.productId}'/>" alt=""> -->
+ 						<div class="single-prd-item"> 
+ 							<img class="img-fluid" src="<c:url value='/getPicture/${product.productId}'/>" alt=""> 
  						</div> 
 						<!-- <div class="single-prd-item">
 							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
@@ -136,7 +136,7 @@
 <!--               <label for="qty">Quantity:</label> -->
               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
 							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
-<!-- 							<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty"> -->
+							<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
 							<a class="button primary-btn" href="<c:url value='/additem' />?id=${product.productId}">Add to Cart</a>               
