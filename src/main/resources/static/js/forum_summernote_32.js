@@ -21,7 +21,7 @@
 	  }
       })
       $('#updSubmit').on('click',function(){
-      var markupStr = $('#summernote2').summernote('code');
+      var markupStr = $('#summernote').summernote('code');
     	  $('.updContent').text(markupStr);
       if ($('#summernote').summernote('isEmpty')) {
 		 alert('內容為空');

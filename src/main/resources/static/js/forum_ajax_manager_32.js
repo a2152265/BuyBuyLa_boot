@@ -13,6 +13,7 @@
 				},
 				success:function(data){
 				$('#updid').val(dataid);
+				console.log(data['content']);
 				$('#summernote').summernote('code', data['content']);
 				$('.updTitle').val(data['title']);
 				$('.messageQty').val(data['messageQty']);
