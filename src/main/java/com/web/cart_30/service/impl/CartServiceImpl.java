@@ -59,22 +59,34 @@ public class CartServiceImpl implements CartService {
 
 
 	@Override
-	public void addItemByid(int pid,boolean exists) {
-		System.out.println("serviceqqqqqqqqqqqqqqqqqqqqqqqqq");
+	public void addItemByid(int pid,boolean exists,String buyer) {
+		System.out.println("serviceqqqqqqqqqqqqqqqqqqqqqqqqq");		
 		Optional<Product> product = productRepository.findById(pid);
-		exists = cartRepository.existsById(pid);
+		List<Cart> carta= cartRepository.existsByIdAndBuyer(pid,buyer);
+		if(carta.size()!=0) {
+			System.out.println("****************************");
+			System.out.println(carta);
+			exists =true;
+		}else {
+			System.out.println("****************************");
+			System.out.println(carta);
+			exists=false;
+		}
+		
 		System.out.println("serviceqqqqqqqqqqqqqqqqqqqqqqqqq"+exists);	
+		
+		
 		if(exists!=true) {
 			Cart cart = new Cart(
 					product.get().getProductId(),
 					product.get().getProductName(),
 					product.get().getPrice(),
 					1,
-					"asd123",
+					buyer,
 					product.get().getSerller(),
 					product.get().getCoverImage());
 			cartRepository.save(cart);
-		}else {
+		}else if(exists==true){
 			Optional<Cart> cart =cartRepository.findById(pid);
 			int count = cart.get().getCount()+1;
 			cartRepository.add(count,pid);
@@ -119,9 +131,9 @@ public class CartServiceImpl implements CartService {
 //
 	@Transactional
 	@Override
-	public List<Cart> addToRecord() {
+	public List<Cart> addToRecord(String buyer) {
 
-		List<Cart> cart =cartRepository.findAll();
+		List<Cart> cart =cartRepository.findAllByBuyer(buyer);
 	
 		return cart;
 	
