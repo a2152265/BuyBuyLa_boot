@@ -31,12 +31,6 @@ private static final long serialVersionUID = 1L;
 	
 	
 
-
-
-
-
-
-
 	public RecordBean(Integer id, Integer record_id, Integer pid, String p_name, Double p_price, String buy_time,
 			String buyer, String seller, Integer pcount, String transport_status,String buyeraddress) {
 		

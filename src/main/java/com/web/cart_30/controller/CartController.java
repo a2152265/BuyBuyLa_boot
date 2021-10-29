@@ -27,7 +27,7 @@ import com.web.record_30.model.RecordList;
 
 
 @Controller
-@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" })
+@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" ,"cart"})
 public class CartController {
 	CartService cartService;
 
@@ -130,7 +130,7 @@ public class CartController {
 	
 	
 	@GetMapping("/fin")
-	public String fin(@ModelAttribute("loginSession") membershipInformationBean mb ,Model model) {
+	public String fin(@ModelAttribute("address") String address ,@ModelAttribute("loginSession") membershipInformationBean mb ,Model model) {
 		String buyer=mb.getUserEmail();	
 		List<Cart> cart = cartService.addToRecord(buyer);
 		model.addAttribute("cart", cart);	
@@ -153,6 +153,7 @@ public class CartController {
 			rb.setSeller(c.getSeller());
 			rb.setBuy_time(now);
 			rb.setTransport_status("待出貨");
+			rb.setBuyeraddress(address);
 			System.out.println("****************************************************");
 			System.out.println("***"+rb.getId()+"RID = "+rb.getRecord_id()+", PID = "+rb.getPid()+", NAME = "
 					+ rb.getP_name()+", PRICE = "+rb.getP_price()+", CNT = "+rb.getPcount()
