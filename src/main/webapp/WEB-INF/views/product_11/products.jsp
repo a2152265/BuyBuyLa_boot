@@ -237,7 +237,7 @@
           <img src="img/home/${category}.png" alt="" class="img-fluid">
           <a href="<c:url value='/products/${category}' />" class="hero-carousel__slideOverlay">
             <h3>${category}</h3>
-            <p>Accessories Item</p>
+            <p></p>
           </a>
         </div>
         </c:forEach>
@@ -331,7 +331,7 @@
               </ul>
             </div>
             <div class="card-body">
-              <p>Accessories</p>
+              <p>${product.category}</p>
               <h4 class="card-product__title"><a href="single-product.html">${product.productName}</a></h4>
               <p class="card-product__price">${product.price}</p>
             </div>
