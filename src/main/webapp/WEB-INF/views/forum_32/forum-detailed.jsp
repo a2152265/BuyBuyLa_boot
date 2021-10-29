@@ -135,11 +135,6 @@
 				class='form-horizontal' enctype="multipart/form-data">
 				<div class="modal-content">
 					<div class="modal-header">
-						<select id="updSelectTag" class="form-select"
-							aria-label="Default select example">
-							<option>新手賣家發問</option>
-							<option>賣家閒聊討論</option>
-						</select>
 						<h3 class="modal-title" id="exampleModalLabel">編輯貼文</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
@@ -161,6 +156,11 @@
 						<!-- 結束 -->
 						
 						<div class="mb-3">
+						<select id="updSelectTag" class="form-select"
+							aria-label="Default select example" style="width:200px">
+							<option>新手賣家發問</option>
+							<option>賣家閒聊討論</option>
+						</select>
 							<br>
 							<form:input type="text" required="true" placeholder="標題"
 								path="title"
@@ -496,7 +496,7 @@
 	<script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
 	<script src="vendors/skrollr.min.js"></script>
 	<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-	<!-- 	<script src="vendors/nice-select/jquery.nice-select.min.js"></script> -->
+<!-- 	<script src="vendors/nice-select/jquery.nice-select.min.js"></script> -->
 	<script src="vendors/jquery.ajaxchimp.min.js"></script>
 	<script src="vendors/mail-script.js"></script>
 	<script src="js/main.js"></script>
