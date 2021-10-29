@@ -7,12 +7,9 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -32,7 +29,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.service.IForumService;
@@ -53,7 +49,9 @@ public class ForumController {
 		this.servletContext = servletContext;
 	}
 
-	// 首頁展示
+    /****************************  頁面展示  ****************************/
+	
+	// 首頁
 	@GetMapping("/forum")
 	public String forum(Model model) {
 		List<ForumBean> allList = forumService.getAllContents();
@@ -69,16 +67,15 @@ public class ForumController {
 		return "forum_32/forum";
 	}
 	
-	// 官方最新公告
+	// 首頁 標籤:官方最新公告
 		@GetMapping("/announcement")
-		public String chat(Model model) {
+		public String announcement(Model model) {
 			List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
 			if(!announcementList.isEmpty()) {
 			model.addAttribute("content", announcementList);
 		}else {
 			List<ForumBean> allList = forumService.getAllContents();
 			model.addAttribute("content", allList);
-			model.addAttribute("tag", "所有討論");
 		}
 			model.addAttribute("forumBean", new ForumBean());
 			model.addAttribute("updateForumBean", new ForumBean());
@@ -91,17 +88,15 @@ public class ForumController {
 			return "forum_32/forum";
 		}
 
-		// 新手賣家發問
+		// 首頁 標籤:新手賣家發問
 		@GetMapping("/noviceSeller")
-		public String box(Model model) {
+		public String noviceSeller(Model model) {
 			List<ForumBean> noviceSellerList = forumService.getAllContentsByNoviceSeller();
 			if(!noviceSellerList.isEmpty()) {
 			model.addAttribute("content", noviceSellerList);
-			model.addAttribute("tag", "新手賣家發問區");
 		}else {
 			List<ForumBean> allList = forumService.getAllContents();
 			model.addAttribute("content", allList);
-			model.addAttribute("tag", "所有討論");
 		}
 			model.addAttribute("forumBean", new ForumBean());
 			model.addAttribute("updateForumBean", new ForumBean());
@@ -114,17 +109,15 @@ public class ForumController {
 			return "forum_32/forum";
 		}
 
-		// 賣家閒聊討論
+		// 首頁 標籤:賣家閒聊討論
 		@GetMapping("/sellerChat")
-		public String other(Model model) {
+		public String sellerChat(Model model) {
 			List<ForumBean> sellerChatList = forumService.getAllContentsBySellerChat();
 				if(!sellerChatList.isEmpty()) {
 				model.addAttribute("content", sellerChatList);
-				model.addAttribute("tag", "賣家閒聊討論區");
 			}else {
 				List<ForumBean> allList = forumService.getAllContents();
 				model.addAttribute("content", allList);
-				model.addAttribute("tag", "所有討論");
 			}
 			model.addAttribute("forumBean", new ForumBean());
 			model.addAttribute("updateForumBean", new ForumBean());
@@ -136,8 +129,15 @@ public class ForumController {
 			model.addAttribute("sellerChatSize",sellerChatSize.size());
 			return "forum_32/forum";
 		}
+
+	/**************************  頁面展示結束 ***************************/
 	
-	// 管理
+		
+		
+		
+	/***************************** 後台管理 *****************************/
+	
+	// 後台頁面展示
 	@GetMapping("/manager/forum")
 	public String forumManager(Model model) {
 		List<ForumBean> allList = forumService.getAllContents();
@@ -146,14 +146,14 @@ public class ForumController {
 		return "forum_32/forum-manager";
 	}
 	
-	// 管理刪除
+	// 刪除
 	@GetMapping("/manager/delete32")
 	public String deleteById(@RequestParam("id") Integer id, Model model) {
 		forumService.delete(id);
 		return "redirect:/manager/forum";
 	}
 	
-	// 管理編輯
+	// 編輯
 	@GetMapping(value = "/manager/editManager")
 	@ResponseBody
 	public ForumBean managerUpdUrl(@RequestParam("id") Integer id, 
@@ -164,8 +164,7 @@ public class ForumController {
 		return updfb;
 	}
 	
-	
-	// 管理編輯
+	// 編輯>提交表單
 	@PostMapping("/manager/forum")
 	public String managerForm(
 			Model model,
@@ -175,8 +174,16 @@ public class ForumController {
 		return "redirect:/manager/forum";
 	}
 	
+	/**************************  後臺管理結束 ***************************/
 
-	// 編輯貼文
+	
+	
+	
+	
+	
+	/***************************** 文章CRUD *****************************/
+	
+	// 編輯
 	@GetMapping(value = "/editURL")
 	@ResponseBody
 	public ForumBean Url(@RequestParam("id") Integer id, 
@@ -188,7 +195,7 @@ public class ForumController {
 	}
 	
 
-	// 搜尋貼文
+	// 搜尋
 	@GetMapping(value = "/search")
 	@ResponseBody
 	public List<ForumBean> searchUrl(@RequestParam("title") String title, Model model) {
@@ -197,14 +204,14 @@ public class ForumController {
 		return fb;
 	}
 
-	// 刪除貼文
+	// 刪除
 	@GetMapping("/delete32")
 	public String deleteContentById(@RequestParam("id") Integer id, Model model) {
 		forumService.delete(id);
 		return "redirect:/forum";
 	}
 	
-	// 新增貼文.編輯
+	// 新增.編輯文章 提交表單
 	@PostMapping({"/forum","/noviceSeller","/sellerChat","/announcement"})
 	public String processAddNewFourmForm(
 			Model model,
@@ -256,46 +263,12 @@ public class ForumController {
 		return "redirect:/forum";
 	}
 	
+	/*************************** 文章CRUD結束 ***************************/
 
 	// 白名單
 	@InitBinder
 	public void whiteListing(WebDataBinder binder) {
 		binder.setAllowedFields("picId","id","content","title", "date",  "tag",   "image", "files","userEmail","userName");
-	}
-
-	//
-	@GetMapping("/forwardDemo")
-	public String forward(Model model, HttpServletRequest request) {
-		String uri = request.getRequestURI();
-		model.addAttribute("modelData0", "這是以/forwardDemo送來的請求");
-		model.addAttribute("uri0", uri);
-		return "forward:/anotherFWD";
-	}
-
-	// 被轉發的方法，將與前一個方法共用同一個請求物件
-	@GetMapping("/anotherFWD")
-	public String forwardA(Model model, HttpServletRequest request) {
-		String uri = request.getRequestURI();
-		model.addAttribute("modelData1", "這是以/anotherFWD送來的請求");
-		model.addAttribute("uri1", uri);
-		return "forwardedPage";
-	}
-
-	//
-	@GetMapping("/redirectDemo")
-	public String redirect(Model model, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		String uri = request.getRequestURI();
-		model.addAttribute("modelData2", "這是以/redirectDemo送來的請求，即將通知瀏覽器對" + "新網址發出請求，但瀏覽器不會顯示這樣的訊息");
-		model.addAttribute("uri2", uri);
-		redirectAttributes.addFlashAttribute("modelData3", "這是加在RedirectAttributes" + "物件內的屬性物件，瀏覽器會顯示");
-		redirectAttributes.addFlashAttribute("uri3", uri);
-		return "redirect:/redirectAnother";
-	}
-
-	//
-	@GetMapping("/redirectAnother")
-	public String redirectA(Model model, HttpServletRequest request) {
-		return "redirectedPage";
 	}
 
 	// 首頁顯示圖片

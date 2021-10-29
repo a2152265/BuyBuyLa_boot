@@ -34,7 +34,9 @@ public class MessageController {
 		this.servletContext = servletContext;
 	}
 
-	// 詳細
+	/****************************  文章展示  ****************************/
+	
+	// Detailed
 	@GetMapping("/detailed")
 	public String detailed(Model model, @RequestParam(value = "id", required = false) Integer id,
 			@ModelAttribute("messageBean") MessageBean messageBean) {
@@ -47,9 +49,13 @@ public class MessageController {
 		model.addAttribute("msg",messageList);
 		model.addAttribute("forumId", id);
 		model.addAttribute("messageBean", messageBean);
+		
+		ForumBean fTitle= forumService.getContentById(id);
+		model.addAttribute("fTitle", fTitle.getTitle());
 		model.addAttribute("updateForumBean", new ForumBean());
 		List<ForumBean> allList = forumService.getAllContents();
 		model.addAttribute("content", allList);
+		
 		List<ForumBean> announcementSize=forumService.getAllContentsByAnnouncement();
 		List<ForumBean> noviceSellerSize=forumService.getAllContentsByNoviceSeller();
 		List<ForumBean> sellerChatSize=forumService.getAllContentsBySellerChat();

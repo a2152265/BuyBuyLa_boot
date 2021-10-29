@@ -9,7 +9,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Details</title>
+<title>${fTitle}</title>
+<!-- <title>Details</title> -->
 <link rel="icon" href="img/Fevicon.png" type="image/png">
 <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
@@ -80,10 +81,6 @@
 							<li class="nav-item submenu dropdown"><a href="#"
 								class="nav-link dropdown-toggle" data-toggle="dropdown"
 								role="button" aria-haspopup="true" aria-expanded="false">活動專區</a>
-								<!--                 <ul class="dropdown-menu"> --> <!--                   <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li> -->
-								<!--                   <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li> -->
-								<!--                   <li class="nav-item"><a class="nav-link" href="tracking-order.html">Tracking</a></li> -->
-								<!--                 </ul> --></li>
 							<c:if test="${loginSession.userEmail != null}">
 								<li class="nav-item"><a class="nav-link loginsession"
 									href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
@@ -100,8 +97,6 @@
 									<button type='submit'>
 										<i class="ti-search"></i>
 									</button>
-									<!-- 							<input id="btnAdd" type='submit' -->
-									<!-- 								class='btn btn-primary' /> -->
 
 								</form:form>
 							<li class="nav-item"><button
