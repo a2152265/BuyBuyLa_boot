@@ -64,4 +64,11 @@ public class RecordService implements IRecordService {
 
 	}
 
+
+	@Override
+	public List<RecordBean> getAllSellerRecords(String seller) {
+
+		return recordRepository.findBySellerRecords(seller);
+	}
+
 }

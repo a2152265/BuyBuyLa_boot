@@ -108,11 +108,11 @@
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
-					<h1>Shop Category</h1>
+					<h1>搜尋結果: ${productName}</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Shop Category</li>
+              <li class="breadcrumb-item"><a href="#"></a></li>
+              <li class="breadcrumb-item active" aria-current="page">Shop Search</li>
             </ol>
           </nav>
 				</div>
@@ -226,13 +226,13 @@
                   <div class="card-product__img">
                     <img class="card-img" src="<c:url value='/getPicture/${product.productId}' />" alt="">
                     <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-search"></i></button></li>
-                      <li><button><i class="ti-shopping-cart"></i></button></li>
+                                    <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
+                  <li><button onclick="location.href='<c:url value='/additem' />?id=${product.productId}'"><i class="ti-shopping-cart"></i></button></li>
                       <li><button><i class="ti-heart"></i></button></li>
                     </ul>
                   </div>
                   <div class="card-body">
-                    <p>Accessories</p>
+                    <p>${product.category}</p>
                     <h5 class="card-product__title"><a href="#">${product.productName}</a></h5>
                     <p class="card-product__price">$${product.price}</p>
                   </div>

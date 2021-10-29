@@ -18,6 +18,9 @@ public interface RecordRepository extends JpaRepository<RecordBean, Integer> {
 	@Query(nativeQuery = true, value = "select * from Record where buyer=?1  order by record_id")
     public List<RecordBean> findByRecords(String buyer );
 	
+	@Query(nativeQuery = true, value = "select * from Record where seller=?1  order by record_id")
+    public List<RecordBean> findBySellerRecords(String seller );
+	
 	
 	@Modifying
 	@Query(nativeQuery = true, value = "delete from Record  where record_id=?1 AND pid=?2")

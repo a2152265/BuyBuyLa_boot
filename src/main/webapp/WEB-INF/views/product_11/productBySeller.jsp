@@ -47,7 +47,10 @@
 }
 
 #myTable th, #myTable td {
-  text-align: left; /* Left-align text */
+  text-overflow:ellipsis; 
+  white-space:nowrap;
+  word-wrap:break-word; 
+  text-align: center; /* Left-align text */
   padding: 12px; /* Add padding */
 }
 
@@ -60,6 +63,123 @@
   /* Add a grey background color to the table header and on hover */
   background-color: #f1f1f1;
 }
+ .btn-outline-primary {
+  color:lightblue;
+  background-color: #fff;
+  border-color: lightblue;
+  width:130px;
+  height:50px;
+}
+  .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active:hover{
+  color: #fff;
+  background-color:lightblue;
+  border-color: lightblue;
+}
+
+
+.page-content {
+  position: relative;
+  left: var(--page-header-width);
+  width: calc(100% - var(--page-header-width));
+  min-height: 100vh;
+  padding: 30px;
+  color: var(--page-content-txtColor);
+  background: var(--page-content-bgColor);
+}
+
+.search-and-user {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-column-gap: 50px;
+  align-items: center;
+  background: var(--page-content-bgColor);
+  margin-bottom: 30px;
+}
+
+.search-and-user form {
+  position: relative;
+}
+
+.search-and-user [type="search"] {
+  width: 100%;
+  height: 50px;
+  font-size: 1.5rem;
+  padding-left: 15px;
+  background: var(--page-content-blockColor);
+  color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.search-and-user ::placeholder {
+  color: var(--page-content-txtColor);
+}
+
+.search-and-user form svg {
+  width: 26px;
+  height: 26px;
+  fill: var(--page-content-txtColor);
+}
+
+.search-and-user form button {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+}
+
+.search-and-user .admin-profile {
+  display: flex;
+  align-items: center;
+}
+
+.search-and-user .admin-profile .greeting {
+  margin: 0 10px 0 20px;
+}
+
+.search-and-user .admin-profile svg {
+  width: 30px;
+  height: 30px;
+}
+
+.search-and-user .admin-profile .notifications {
+  position: relative;
+}
+
+.search-and-user .admin-profile .badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -10px;
+  right: -3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 10px;
+  color: var(--white);
+  background: var(--red);
+}
+
+.page-content .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px;
+}
+
+.page-content .grid > article {
+  display: flex;
+  height: 300px;
+  background: var(--page-content-blockColor);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.page-content .grid > article:first-child,
+.page-content .grid > article:last-child {
+  grid-column: 1 / -1;
+}
+
 
 </style>
 </head>
@@ -81,20 +201,6 @@
 
 
         <h1>Welcome ~~      WE Will BuyBuyLA your money</h1>
-<!--         <nav> -->
-<!--             <ul class="flex-nav"> -->
-<!--                 <li><a href="#">未付款</a></li> -->
-<!--                 <li><a href="#">已付款</a></li> -->
-<!--                 <li><a href="#">已出貨</a></li> -->
-<!--                 <li><a href="#">運送中</a></li> -->
-<!--                 <li><a href="#">已送達</a></li> -->
-<!--                 <li><a href="#">已完成</a></li> -->
-<!--                 <li><a href="#">取消交易</a></li> -->
-<!--             </ul> -->
-<!--         </nav> -->
-        
-  
-
 
 
 
@@ -104,49 +210,44 @@
 
 
 
-    <div style="text-align: center;">
-    
-      <a  href="<c:url value='/products/add' />">新增商品</a>
-<table id="myTable" class="display">
-    <thead>
-        <tr>
-    <th style="width:10%;">productId</th>
-    <th style="width:30%;">productName</th>
-    <th style="width:20%;">productImage</th>
-    <th style="width:10%;">price</th>
-    <th style="width:10%;">stock</th>
-    <th style="width:10%;">category</th>
-    <th style="width:10%;">insertTime</th>
-    <th style="width:10%;">update</th>
-    <th style="width:10%;">delete</th>
+  <section class="page-content">
+  <div id="search" style="margin-bottom:30px">
+						<button  type="button" class="btn btn-outline-primary"onclick="location.href ='<c:url value='/products/add' />'">新增商品</button>
+	</div>
+<table id="myTable" class="display" style="width:100%;font-weight:bolder;font-size:20px;" >
+    <thead >
+        <tr >
+    <th style="width:6%;"><i class="fas fa-list-ol"></i>&nbsp商品編號</th>
+    <th style="width:12%;"><i class="fas fa-portrait"></i>&nbsp商品名稱</th>
+    <th style="width:15%;"><i class="fas fa-image"></i>&nbsp圖片</th>
+    <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp商品庫存</th>
+    <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp商品價錢</th>
+    <th style="width:10%;"><i class="far fa-clipboard"></i>&nbsp商品類別</th>
+    <th style="width:20%;"><i class="fas fa-file-alt"></i>&nbsp上傳時間</th>
+    <th style="width:10%;"><i class="fas fa-pencil-alt"></i>&nbsp修改</th>
+    <th style="width:10%;"><i class="fas fa-trash-alt"></i>&nbsp刪除</th>
         </tr>
     </thead>
     <tbody>
     <c:forEach items="${sellerproducts}" var="product">
         <tr>
-           <td>${product.productId}</td>
+    <td>${product.productId}</td>
     <td>${product.productName}</td>
     <td><img width='100' height='100' 
   				   src="<c:url value='/getPicture/${product.productId}' />" /></td>
+  	<td>${product.stock}</td>			   
     <td>${product.price}</td>
-    <td>${product.stock}</td>
     <td>${product.category}</td>
     <td>${product.insertTime}</td>
-   <!-- <td><input type=button onclick="location.href='./update/${product.productId}'" value='update'></td>
-    <td><input type=button onclick="location.href='/delete/${product.productId}'" value='update'></td>-->
-     <td><a id="update" href="<c:url value='/update?productId=${product.productId}' />">update</a></td>
-    <td><a  href="<c:url value='/delete/${product.productId}' />">delete</a></td>
-        </tr>
+    <td><button style="font-size:18px;font-weight:bolder;border: 1px grey solid;border-radius:3px" class="btn" type="button" onclick="location.href ='../update?productId=${product.productId}'" >修&nbsp改</button></td>
+    <td><button style="font-size:18px;font-weight:bolder;border: 1px grey solid;border-radius:3px" class="btn" type="button" onclick="location.href ='../delete/${product.productId}'" >刪&nbsp除</button>
+    </td>
+  </tr>
         </c:forEach>
     </tbody>
 </table>
-       
-      
-      
-      
-      
-        </div>
 
+</section>
 
 
 
@@ -226,6 +327,10 @@
   $(document).ready( function () {
     $('#myTable').DataTable();
 } );
+  
+  
+  
+  
     </script>
  
 </body>

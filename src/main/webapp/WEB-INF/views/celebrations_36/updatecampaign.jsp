@@ -216,6 +216,15 @@
                 <td><label class='' for="description">活動描述:</label></td>
                 <td> <form:textarea id="description" path="description" type='textarea' class='form:input-large' /></td>
             </tr>
+           <tr>
+                   <td> <label class='' for="category">
+                       商品種類
+                    </label></td>
+                   
+                         <td><form:select path="category">
+                            <form:options items="${categoryList1}" />
+                        </form:select></td>
+             </tr>     
             <tr>
                 <td><label class='' for="note">備註:</label></td>
                 <td> <form:textarea id="note" path="note" type='textarea' class='form:input-large' /></td>

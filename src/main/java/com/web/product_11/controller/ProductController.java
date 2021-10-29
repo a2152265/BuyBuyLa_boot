@@ -108,6 +108,7 @@ public class ProductController {
 				Model model
 				) {
 			List<Product> bean = productservice.getProductByName(productName);
+			model.addAttribute("productName", productName);
 			model.addAttribute("products", bean);
 			return "product_11/products_query";
 			
@@ -189,7 +190,7 @@ public class ProductController {
 //			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 //		}
 
-		return "redirect:/manage/products";
+		return "redirect:/products/seller";
 	}
 
 	//獲取類別List
@@ -296,13 +297,17 @@ public class ProductController {
 		public String processUpdateProductForm(
 			
 				@RequestParam("productId") Integer productId,
+				@RequestParam("insertTime") String insertTime,
 				@ModelAttribute("product") Product p,
+				@ModelAttribute("loginSession") membershipInformationBean loginMb,
+				
 				 Model model) {
 			
 			
 				p.setProductId(productId);
+				p.setInsertTime(insertTime);
 				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!p.getProductImage()==="+p.getProductImage());
-				
+				p.setSeller(loginMb.getUserEmail());
 				if(!p.getProductImage().isEmpty()) {
 					
 					
@@ -336,28 +341,9 @@ public class ProductController {
 					System.out.println("-------------------------------");
 				}
 					
-				
-				
-				
-//				// 取出副檔名，.png、.jpg
-//				String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-//				// 找到應用系統根目錄 /mvcExercise
-//				String rootDirectory = servletContext.getRealPath("/");
-//				try {
-//					// 在根目錄下建立images資料夾
-//					File imageFolder = new File(rootDirectory, "images");
-//					if (!imageFolder.exists())
-//						imageFolder.mkdirs();
-//					File file = new File(imageFolder, "Product_" + p.getProductId() + ext);
-//					productImage.transferTo(file);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//					throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-//				}
-				
-				
+			
 		
-			return "redirect:/manage/products";
+			return "redirect:/products/seller";
 		}
 		
 		
@@ -367,7 +353,7 @@ public class ProductController {
 		public String getDeleteProductForm(@PathVariable("productId") Integer productId, Model model) {
 			productservice.deleteProduct(productId);
 			
-			return "redirect:/manage/products";
+			return "redirect:/products/seller";
 		}
 		
 		
