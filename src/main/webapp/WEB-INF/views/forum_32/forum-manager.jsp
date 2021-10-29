@@ -20,7 +20,7 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <!-- js -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src='${pageContext.request.contextPath}/js/forum_manage_ajax_32.js'></script>
+<script type="text/javascript" src='${pageContext.request.contextPath}/js/forum_ajax_manager_32.js'></script>
 
 	<!-- css -->
 	<link rel='stylesheet' href='${pageContext.request.contextPath}/css/style32.css'>
@@ -82,7 +82,7 @@
                   <td><a href="<c:url value='/detailed' />?id=${content.id}"><c:out value="${content.title}" /></a></td>
                   <td><c:out value="${content.date}" /></td>
                   <td>
-                  <button type="button" class="btn btn-link updateDataClass" data-id="${content.id}" data-bs-toggle="modal" data-bs-target="#UpdateModal">編輯</button>
+                  <button type="button" class="btn btn-link updateDataBtn" data-id="${content.id}" data-bs-toggle="modal" data-bs-target="#UpdateModal">編輯</button>
                   <button type="button" class="btn btn-link" onclick="if(window.confirm('確定刪除?')) location.href='<c:url value='/manager/delete32?id=${content.id}'/>' ">刪除</button>
                   </td>                      
                 </tr>
@@ -151,44 +151,49 @@
         </div>
     </div>
     
-  <div class="modal fade" id="UpdateModal" tabindex="-1"
+<div class="modal fade" id="UpdateModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
+		<div class="modal-dialog modal-lg" style="margin-top:90px">
 			<form:form method='POST' modelAttribute="updateManager"
 				class='form-horizontal' enctype="multipart/form-data">
 				<div class="modal-content">
 					<div class="modal-header">
-						<select id="updSelectTag" class="form-select"
-							aria-label="Default select example">
-							<option>官方最新公告</option>
-							<option>新手賣家發問</option>
-							<option>賣家閒聊討論</option>
-						</select>
-						<h3 class="modal-title"
-							id="exampleModalLabel">編輯貼文</h3>
+						<h3 class="modal-title" id="exampleModalLabel">編輯貼文</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body updContentBody">
-						<form:input id="updid" path="id" type="text" style="display:none" />
-						<form:input class="picId" path="picId" type="text" style="display:none" />
-						<form:input class="userName" path="userName" type="text" style="display:none" />
+					
+						<!-- 隱藏 -->
+						<form:input path="id" id="updid" type="hidden" />
+						<form:input path="tag" id="updTag" type="hidden" />
+						<form:textarea path="content" class="updContent display-none" />
+						<form:input path="date" id="nowUpdDate" type="hidden"  />
+						<form:input path="messageQty" class="messageSize" type="hidden" />
+						
+						<form:input path="picId" class="picId" type="hidden" value="${memberUiDefault.id}" />
+						<form:input path="userName" class="userName" type="hidden" value="${memberUiDefault.userName}" />
+						<form:input path="userEmail" class="userEmail" type="hidden" value="${memberUiDefault.userEmail}" />
+						<form:input path="userNickname" class="userNickname" type="hidden" value="${memberUiDefault.userNickname}" />
+<%-- 						<form:input path="Identification" type="hidden" value="${memberUiDefault.Identification}" /> --%>
+						<!-- 結束 -->
+						
 						<div class="mb-3">
-							<form:input type="text" path="date" id="nowUpdDate"
-								class="display-none" />
-							<form:input path="tag" type="text" id="updTag"
-								class="display-none" />
+						<select id="updSelectTag" class="form-select"
+							aria-label="Default select example">							
+							<option>官方最新公告</option>
+							<option>新手賣家發問</option>
+							<option>賣家閒聊討論</option>
+						</select>
 							<br>
 							<form:input type="text" required="true" placeholder="標題"
 								path="title"
 								class="form-control updTitle title-fontsize" aria-label="Sizing example input"
 								aria-describedby="inputGroup-sizing-lg" />
 							<br>
-							<form:textarea path="content" class="form-control updContent"
-								 rows="7" id="recipient-name" style="display:none;" />
-							<div id="summernote2"></div>
+							
+							<div id="summernote"></div>
 							<div class="mb-3">
-								<form:input style="display:none;" class="form-control display-none" path="image" id="insImgBtn" type="file" />
 							</div>
 						</div>
 					</div>

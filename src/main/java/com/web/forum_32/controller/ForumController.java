@@ -140,7 +140,11 @@ public class ForumController {
 	public ForumBean managerUpdUrl(@RequestParam("id") Integer id, @ModelAttribute("updateManager") ForumBean updfb,
 			Model model) {
 		updfb = forumService.getContentById(id);
-		return updfb;
+		ForumBean fb = new ForumBean(updfb.getId(),updfb.getTag(),updfb.getTitle(),
+				updfb.getContent(),updfb.getDate(),updfb.getPicId(),
+				updfb.getUserName(),updfb.getUserEmail(),updfb.getUserNickname(),
+				updfb.getIdentification(),updfb.getMessageQty());
+		return fb;
 	}
 
 	// 編輯>提交表單

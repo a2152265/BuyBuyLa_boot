@@ -195,11 +195,6 @@
 										class='form-horizontal' enctype="multipart/form-data">
 										<div class="modal-content">
 											<div class="modal-header">
-												<select id="insSelectTag" class="form-select"
-													aria-label="Default select example">
-													<option>新手賣家發問</option>
-													<option>賣家閒聊討論</option>
-												</select>
 												<h3 class="modal-title" id="exampleModalLabel">建立貼文</h3>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
@@ -220,6 +215,11 @@
 												<!-- 結束 -->
 
 												<div class="mb-3">
+												<select id="insSelectTag" class="form-select"
+													aria-label="Default select example">
+													<option>新手賣家發問</option>
+													<option>賣家閒聊討論</option>
+												</select>
 													<br>
 													<form:input type="text" path="title" required="true"
 														placeholder="標題" class="form-control title-fontsize"

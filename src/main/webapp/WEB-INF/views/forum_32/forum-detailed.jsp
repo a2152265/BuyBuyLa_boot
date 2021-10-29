@@ -168,7 +168,7 @@
 								aria-describedby="inputGroup-sizing-lg" />
 							<br>
 							
-							<div id="summernote2"></div>
+							<div id="summernote"></div>
 							<div class="mb-3">
 							</div>
 						</div>
