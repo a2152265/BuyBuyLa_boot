@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.web.forum_32.dao.ForumRepository;
@@ -18,13 +21,31 @@ public class ForumService implements IForumService {
 	ForumRepository forumRepository;
 	
 
+	
 	@Override
-	public List<ForumBean> getAllContents() {
+	public List<ForumBean> getAllArticles() {
 		return forumRepository.findAllByOrderByIdDesc();
+	}
+	
+	@Override
+	public List<ForumBean> getPagedArticles(int page, int size) {
+        Page<ForumBean> pageResult = forumRepository.findAll(
+                PageRequest.of(page,  // 查詢的頁數，從0起算
+                                size, // 查詢的每頁筆數
+                                Sort.by("id").descending())); // 依CREATE_TIME欄位降冪排序
+        
+        pageResult.getNumberOfElements(); // 本頁筆數
+        pageResult.getSize();             // 每頁筆數 
+        pageResult.getTotalElements();    // 全部筆數
+        pageResult.getTotalPages();       // 全部頁數
+        
+        List<ForumBean> articleList =  pageResult.getContent();
+    
+        return articleList;
 	}
 
 	@Override
-	public void addContent(ForumBean content) {
+	public void addOrEdit(ForumBean content) {
 		forumRepository.save(content);
 	}
 	
@@ -36,11 +57,6 @@ public class ForumService implements IForumService {
 	@Override
 	public void delete(Integer id) {
 		forumRepository.deleteById(id);
-	}
-
-	@Override
-	public void update(ForumBean fb) {
-		forumRepository.save(fb);
 	}
 	
 	@Override
@@ -72,6 +88,7 @@ public class ForumService implements IForumService {
 	public List<ForumBean> findAllByTitle(String title) {
 		return forumRepository.findAllByTitle(title);
 	}
+
 
 
 

@@ -10,7 +10,7 @@ import com.web.forum_32.model.MessageBean;
 
 public interface MessageRepository extends JpaRepository<MessageBean, Integer>  {
 	
-	@Query(nativeQuery = true, value = "select * from message_32 where forumId=:forumId")
-	public List<MessageBean> findAllByForumId(Integer forumId);
+	@Query(nativeQuery = true, value = "select * from message_32 where messageForumId=:messageForumId")
+	public List<MessageBean> findAllByForumId(Integer messageForumId);
 	
 }
