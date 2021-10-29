@@ -33,7 +33,10 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript"
-	src='${pageContext.request.contextPath}/js/forum_upd_32.js'></script>
+	src='${pageContext.request.contextPath}/js/forum_ajax_32.js'></script>
+<script type="text/javascript"
+	src='${pageContext.request.contextPath}/js/forum_ajax_message_32.js'></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 	<!--================ Start Header Menu Area =================-->
@@ -142,26 +145,31 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body updContentBody">
-						<form:input id="updid" path="id" type="text" style="display:none" />
-						<form:input path="userName" type="text" value="${memberUiDefault.userName}" class="forumUsername display-none" />
+					
+						<!-- 隱藏 -->
+						<form:input path="id" id="updid" type="hidden" />
+						<form:input path="tag" id="updTag" type="hidden" />
+						<form:textarea path="content" class="updContent display-none" />
+						<form:input path="date" id="nowUpdDate" type="hidden"  />
+						<form:input path="messageQty" type="hidden" value="${messageSize}"  />
+						
+						<form:input path="picId" type="hidden" value="${memberUiDefault.id}" />
+						<form:input path="userName" type="hidden" value="${memberUiDefault.userName}" class="forumUsername" />
+						<form:input path="userEmail" type="hidden" value="${memberUiDefault.userEmail}" />
+						<form:input path="userNickname" type="hidden" value="${memberUiDefault.userNickname}" />
+<%-- 						<form:input path="Identification" type="hidden" value="${memberUiDefault.Identification}" /> --%>
+						<!-- 結束 -->
+						
 						<div class="mb-3">
-							<form:input type="text" path="date" id="nowUpdDate"
-								class="display-none" />
-							<form:input path="tag" type="text" id="updTag"
-								class="display-none" />
 							<br>
 							<form:input type="text" required="true" placeholder="標題"
 								path="title"
 								class="form-control updTitle title-fontsize" aria-label="Sizing example input"
 								aria-describedby="inputGroup-sizing-lg" />
 							<br>
-							<form:textarea path="content" class="form-control updContent display-none"
-								placeholder="請輸入內文" rows="7" id="recipient-name" />
-							<form:input class="form-control" path="picId" type="hidden" value="${memberUiDefault.id}" />
-								
+							
 							<div id="summernote2"></div>
 							<div class="mb-3">
-								<form:input class="form-control display-none" path="image" id="insImgBtn" type="file" />
 							</div>
 						</div>
 					</div>
@@ -198,8 +206,6 @@
 										data-bs-target="#UpdateModal" class="dropdown-item updateDataClass">編輯</li>
 									<li  class="dropdown-item tata"
 										onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${fb.id}'/>'">刪除</li>
-						<!-- 			<li><a class="dropdown-item" href="#">隱藏此用戶貼文</a></li> -->
-						<!-- 			<li><a class="dropdown-item" href="#">檢舉</a></li> -->
 								</ul>
 								</div>
 							<h1>${fb.title}</h1>
@@ -248,64 +254,55 @@
 						</div>
 					</div>
 					<div class="comments-area">
-						<h4>${size}則評論</h4>
+						<h4>${messageSize}則評論</h4>
 
 						<c:forEach var='msg' items='${msg}'>
 							<div class="comment-list">
 								<div class="single-comment justify-content-between d-flex">
 									<div class="user justify-content-between d-flex">
 										<div class="thumb">
-											<img width='150' src="<c:url value='/getPicturefromMember/${msg.picId}'/>" />
+											<img style="width:100px;height:100px" src="<c:url value='/getPicturefromMember/${msg.messagePicId}'/>" />
 										</div>
 										<div class="desc">
 											<h5>
-												<a href="#">${msg.userName}</a>
+												<a href="#">${msg.messageUserName}</a>
 											</h5>
-											<p class="date">${msg.date}</p>
+											<p class="date">${msg.messageDate}</p>
 											<p class="comment">${msg.messageContent}</p>
 										</div>
 									</div>
 									<div class="reply-btn">
-										<a href="#" class="btn-reply text-uppercase">回復</a>
+										<a href='#reply'>
+										<button style="border:none;" class="btn-reply text-uppercase reply">回復</button>
+										</a>
 									</div>
 								</div>
 							</div>
 						</c:forEach>
 					</div>
-					<div class="comment-form">
+					<div class="comment-form" id="reply">
 						<h4>發表評論</h4>
-						<form:form method='POST' modelAttribute="messageBean"
-							class='form-horizontal'>
-							<form:input type="hidden" path="forumId" value="${forumId}" />
-							<form:input type="hidden" path="picId" value="${memberUiDefault.id}" />
-							<form:input type="hidden" path="userName" value="${memberUiDefault.userName}" />
-							<form:input type="hidden" path="userEmail" value="c123@gmail.com" />
-							<form:input type="hidden" path="date" id="messageDate" />
-
+						<form id="addMsgForm" enctype="multipart/form-data">
+							<input type="hidden" name="messageForumId" value="${forumId}" >
+							<input type="hidden" name="messagePicId" value="${memberUiDefault.id}" >
+							<input type="hidden" name="messageDate" id="messageDate" >
+							<input type="hidden" name="messageIdentification" >
 							<div class="form-group form-inline">
-								<div class="form-group col-lg-6 col-md-6 name">
-									<input type="text" class="form-control"
-										value="${memberUiDefault.userName}" readonly="readonly">
+							<div class="form-group col-lg-6 col-md-6 name">
+							<input type="text" name="messageUserName" class="form-control" value="${memberUiDefault.userName}" readonly="readonly">
 								</div>
 								<div class="form-group col-lg-6 col-md-6 email">
-									<input type="email" class="form-control" readonly="readonly"
-										placeholder="Enter email address"
-										value="${memberUiDefault.userEmail}">
+							<input type="email" name="messageUserEmail" class="form-control" readonly="readonly"
+										placeholder="Enter email address" 
+										value="${memberUiDefault.userEmail}" >
 								</div>
 							</div>
-<!-- 							<div class="form-group"> -->
-<!-- 								<textarea class="form-control mb-10" rows="5" name="message" -->
-<!-- 									placeholder="Messege" onfocus="this.placeholder = ''" -->
-<!-- 									onblur="this.placeholder = 'Messege'" required="true"></textarea> -->
-<!-- 							</div> -->
 							<div class="form-group">
-								<form:textarea path="messageContent" rows="5" class="form-control mb-10"
-									placeholder="留言"  required="true" />
+							<textarea rows="5" name="messageContent" class="form-control mb-10 messageContent"
+									placeholder="留言"  required="required"></textarea>
 							</div>
-
-							<button class="button button-postComment button--active newMessaGe"
-								type="submit">發表評論</button>
-						</form:form>
+							<button class="button button-postComment button--active messageBtn" type="button">發表評論</button>
+							</form>
 					</div>
 				</div>
 				<div class="col-lg-4">
@@ -363,7 +360,7 @@
 						<aside class="single_sidebar_widget popular_post_widget">
 							<h3 class="widget_title">最新帖子</h3>
 							
-						<c:forEach var='content' items='${content}' begin="1" end ="4">
+						<c:forEach var='content' items='${content}' begin="0" end ="4">
                           <div class="media post_item">
                           <img width='40' src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
                               <div class="media-body">
@@ -506,9 +503,9 @@
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src='${pageContext.request.contextPath}/js/forum_jqu_32.js'></script>
+	<script src='${pageContext.request.contextPath}/js/forum_jquery_32.js'></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	<script src='${pageContext.request.contextPath}/js/forum_sum_32.js'></script>
+	<script src='${pageContext.request.contextPath}/js/forum_summernote_32.js'></script>
 </body>
 </html>

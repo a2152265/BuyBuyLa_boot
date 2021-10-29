@@ -20,7 +20,7 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <!-- js -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src='${pageContext.request.contextPath}/js/forum_manage_upd_32.js'></script>
+<script type="text/javascript" src='${pageContext.request.contextPath}/js/forum_manage_ajax_32.js'></script>
 
 	<!-- css -->
 	<link rel='stylesheet' href='${pageContext.request.contextPath}/css/style32.css'>
@@ -209,14 +209,14 @@
   })
     </script>
     
-    	<!-- jquery -->
+    <!-- jquery -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src='${pageContext.request.contextPath}/js/forum_jqu_32.js'></script>
+	<script src='${pageContext.request.contextPath}/js/forum_jquery_32.js'></script>
 	<!-- summernote -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	<script src='${pageContext.request.contextPath}/js/forum_sum_32.js'></script>
+	<script src='${pageContext.request.contextPath}/js/forum_summernote_32.js'></script>
 
 </body>
 </html>
