@@ -1,6 +1,8 @@
 package com.web.forum_32.model;
 
 import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +20,8 @@ public class ForumBean implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String tag;        
-	private String title;       
+	private String title;
+	@Column(name="content",length = Integer.MAX_VALUE)
 	private String content;      
 	private String date;
 	private Integer messageQty;
