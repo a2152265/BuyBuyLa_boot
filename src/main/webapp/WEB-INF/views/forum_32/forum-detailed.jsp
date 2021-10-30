@@ -259,52 +259,28 @@
 					</div>
 					<div class="comments-area">
 						<h4>${messageSize}則評論</h4>
-						
-						<div id="result"></div>
-						<c:forEach var='msg' items='${msg}' varStatus='status'>
-							<div class="comment-list">
-								<div class="single-comment justify-content-between d-flex">
-									<div class="user justify-content-between d-flex">
-										<div class="thumb">
-											<img style="width: 100px; height: 100px"
-												src="<c:url value='/getPicturefromMember/${msg.messagePicId}'/>" />
-										</div>
-										<div class="desc">
-											<h5>
-												<a href="#">${msg.messageUserName}</a>
-											</h5>
-											<p class="date">${msg.messageDate}</p>
-											<p class="comment">${msg.messageContent}</p>
-										</div>
-									</div>
-									<div class="reply-btn">
-										<a href='#reply'>
-											<button style="border: none;"
-												class="btn-reply text-uppercase reply">回復</button>
-										</a>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
-						
-								<nav class="blog-pagination justify-content-center d-flex">
-									<ul class="pagination">
-										<li class="page-item"><a href="#"
-											class="page-link" aria-label="Previous"> <span
-												aria-hidden="true"> <span
-													class="lnr lnr-chevron-left"></span>
-											</span>
-										</a></li>
-											<li class="page-item">
-												<input type="button" class="page-link pageBtn" style="border:none" value="1">
-											</li>
-										<li class="page-item"><a href="#" class="page-link"
-											aria-label="Next"> <span aria-hidden="true"> <span
-													class="lnr lnr-chevron-right"></span>
-											</span>
-										</a></li>
-									</ul>
-								</nav>
+						<div id="messageResult"></div>
+						<nav class="blog-pagination justify-content-center d-flex" style="padding-bottom:0px" >
+							<ul class="pagination">
+								<li class="page-item"><a href="#" class="page-link"
+									aria-label="Previous"> <span aria-hidden="true"> <span
+											class="lnr lnr-chevron-left"></span>
+									</span>
+								</a></li>
+								
+								<c:forEach items='${msgSize}' varStatus="c" step="4" >
+								<li class="page-item">
+								<input type="button" class="page-link pageBtn" style="border: none" value="${c.count}">
+								</li>
+								</c:forEach>
+								
+								<li class="page-item"><a href="#" class="page-link"
+									aria-label="Next"> <span aria-hidden="true"> <span
+											class="lnr lnr-chevron-right"></span>
+									</span>
+								</a></li>
+							</ul>
+						</nav>
 					</div>
 					<input type="hidden" id="id" value="${forumId}">
 					<div class="comment-form" id="reply">
@@ -399,7 +375,6 @@
 											<h3>${content.title}</h3>
 										</a>
 										<p>${content.date}</p>
-										<!--                                   <p>?小時前</p> -->
 									</div>
 								</div>
 							</c:forEach>

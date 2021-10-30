@@ -55,7 +55,7 @@ public class DetailsController {
 		// 留言展示測試
 		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,page,4);
 		List<MessageBean> msgList = messageService.getAllMessage(id);
-		model.addAttribute("msgTest", msgList);
+		model.addAttribute("msgSize", msgList);
 		model.addAttribute("msg",msgPageList);
 		
 		return "forum_32/forum-detailed";
@@ -64,10 +64,23 @@ public class DetailsController {
 	// Ajax 留言顯示
 	@GetMapping(value = "/message")
 	@ResponseBody
-	public List<MessageBean> pageUrl(@RequestParam("id") Integer id,
+	public List<MessageBean> messageUrl(
+			@RequestParam("id") Integer id,
+			Model model) {
+		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,0,4);
+		return msgPageList;
+	}
+	
+	// Ajax 分頁
+	@GetMapping(value = "/page")
+	@ResponseBody
+	public List<MessageBean> pageUrl(
+			@RequestParam("id") Integer id,
+			@RequestParam("page") Integer page,
 			Model model) {
 		System.out.println("id=="+id);
-		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,0,4);
+		System.out.println("page=="+page);
+		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,page-1,4);
 		return msgPageList;
 	}
 	
