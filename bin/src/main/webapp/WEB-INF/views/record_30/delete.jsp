@@ -102,7 +102,7 @@ input, textarea, select {
 
 	</div>
 	<div>
-	<form:form method='POST' modelAttribute="RecordBean" class='form-horizontal'>
+	<form:form method='POST' modelAttribute="delete" class='form-horizontal'>
 		
 			<input type="hidden" class="inputClass" name="proId" id="proId"
 				value="" />
@@ -115,7 +115,7 @@ input, textarea, select {
 				</tr>
 			</table>
 			<div class="wrap">
-        <a href="<c:url value='delete2' />"><input type="submit" name="delete" class="button" value="確認送出"/></a>
+        <input type="submit" class="button" value="確認送出"/>
         </div>
 	
 		</form:form>
