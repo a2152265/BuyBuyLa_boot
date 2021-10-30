@@ -42,6 +42,22 @@ public class RecordService implements IRecordService {
 		
 	}
 	
+	@Override
+	public void updateRecordListTotalPrice(int record_id, int pid) {
+		RecordBean rb =recordRepository.findByRecordPidAndRid(record_id, pid);
+		double price=rb.getP_price();
+		int count =rb.getPcount();
+		double totalprice =price*count;
+		recordListRepository.updateRecordListTotalPrice(totalprice,record_id);
+		
+	}
+	
+	@Override
+	public void deleteRecordListById(int record_id) {
+		recordListRepository.deleteById(record_id);
+		
+	}
+	
 	@Transactional
 	@Override
 	public void update(int rid,int pid,String ts) {
@@ -70,5 +86,11 @@ public class RecordService implements IRecordService {
 
 		return recordRepository.findBySellerRecords(seller);
 	}
+
+
+	
+
+
+
 
 }
