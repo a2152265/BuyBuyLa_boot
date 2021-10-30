@@ -6,6 +6,8 @@ import com.web.celebrations_36.model.Campaign;
 
 public interface CampaignService {
 	
+	List<String>  getAllCategories();
+	
 	void save(Campaign campaign);
 
 	List<Campaign> findAll();
@@ -13,9 +15,12 @@ public interface CampaignService {
 	Campaign findById(int campaignId);
 
 	void delete(int campaignId);
-
+	//void deleteCampaignById(int campaignId);
+	void deleteCampaignById(int campaignId);
 	void update(Campaign campaign);
 	
-	void updateWithoutImg(Campaign campaign);
+	void updateCampaignWithoutImg(Integer campaignId,Campaign campaign);
+	//獲取類別商品
+	List<Campaign>getCampaignsByCategory(String category);
 }
 

@@ -19,22 +19,50 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	
 	<script>
-	$(document).ready(function(){
-	     $('#update').click(function(e){
-	         e.preventDefault();
-	 //         var formData=new FormData(form);
-	         $.ajax({
-	             url:'updatevalue30',
-	             type:'post',
-	             data:$('#form1').serialize(),
-	             success:function(data){
-	            	 console.log(data);
-// 	                 setTimeout("location.href='insertsuccess'",0)
+	(function(document) {
+		  'use strict';
 
-	            }
-	         })
-	     })
-	 })
+		  // 建立 LightTableFilter
+		  var LightTableFilter = (function(Arr) {
+
+		    var _input;
+
+		    // 資料輸入事件處理函數
+		    function _onInputEvent(e) {
+		      _input = e.target;
+		      var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+		      Arr.forEach.call(tables, function(table) {
+		        Arr.forEach.call(table.tBodies, function(tbody) {
+		          Arr.forEach.call(tbody.rows, _filter);
+		        });
+		      });
+		    }
+
+		    // 資料篩選函數，顯示包含關鍵字的列，其餘隱藏
+		    function _filter(row) {
+		      var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+		      row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+		    }
+
+		    return {
+		      // 初始化函數
+		      init: function() {
+		        var inputs = document.getElementsByClassName('light-table-filter');
+		        Arr.forEach.call(inputs, function(input) {
+		          input.oninput = _onInputEvent;
+		        });
+		      }
+		    };
+		  })(Array.prototype);
+
+		  // 網頁載入完成後，啟動 LightTableFilter
+		  document.addEventListener('readystatechange', function() {
+		    if (document.readyState === 'complete') {
+		      LightTableFilter.init();
+		    }
+		  });
+
+		})(document);
 	</script>
 	<style>
 				body {
@@ -178,12 +206,12 @@
 						<div class="col-sm-4">
 							<div class="search-box">
 								<i class="material-icons">&#xE8B6;</i>
-								<input type="text" class="form-control" placeholder="Search&hellip;">
+									<input type="text" class="light-table-filter form-control" data-table="order-table" placeholder="Search&hellip;">
 							</div>
 						</div>
 					</div>
 				</div>
-				<table class="table table-striped table-hover table-bordered">
+				<table class="table table-striped table-hover table-bordered order-table">
 					<thead>
 						<tr>
 							<th>訂單編號<i class="fa fa-sort"></i></th>

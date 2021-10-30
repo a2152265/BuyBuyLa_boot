@@ -31,6 +31,7 @@ public class Product implements Serializable {
 	private String fileName;
 	private String seller;
 	private String insertTime;
+
 	
 	@Transient
 	private MultipartFile productImage;

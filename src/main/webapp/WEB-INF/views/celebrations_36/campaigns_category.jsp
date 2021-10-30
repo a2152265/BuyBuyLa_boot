@@ -1,29 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet"
     href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<link rel='stylesheet' href="<c:url value='/css/styles.css' />"  type="text/css" />   
-<title>Campaigns</title>
-</head> 
+    <link rel='stylesheet' href="<c:url value='/css/styles.css' />"  type="text/css" />
+<title>Insert title here</title>
+</head>
 <body>
-    <section>
+   <section>
         <div>
             <div class="container" style="text-align: center" >
-                <h1>活動清單</h1>
+                <h1 >產品清單</h1>
             </div>
         </div>
     </section>
+    
+    
 	<div align='center'>
-        <a href="<c:url value='/' />">回首頁</a>&nbsp;&nbsp;
-        
+        <a href="<c:url value='/products' />">回首頁</a>&nbsp;&nbsp;
     </div> 
+    
     <hr style="height:1px;border:none;color:#333;background-color:#333;">
-    <section class="container">
+
+
+        
+   <section class="container">
         <div class="row">
         	<c:forEach items='${campaigns}' var='campaign'>
             <div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
@@ -50,9 +57,5 @@
           </c:forEach>
         </div>
     </section>
-     <div align='center'>
-        <a href="<c:url value='/' />">回首頁</a>
-    </div> 
 </body>
 </html>
-    

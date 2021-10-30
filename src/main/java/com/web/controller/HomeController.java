@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.web.celebrations_36.model.Campaign;
+import com.web.celebrations_36.service.CampaignService;
 import com.web.product_11.model.Product;
 import com.web.product_11.service.ProductService;
 
@@ -16,14 +18,17 @@ import com.web.product_11.service.ProductService;
 public class HomeController {
 	
 	ProductService productservice;
-
+	CampaignService campaignService;
 	ServletContext servletContext;
 
 	@Autowired
-	public HomeController(ProductService productservice, ServletContext servletContext) {
+	public HomeController(ProductService productservice, CampaignService campaignService,
+			ServletContext servletContext) {
 		this.productservice = productservice;
+		this.campaignService = campaignService;
 		this.servletContext = servletContext;
 	}
+	
 
 
 	@GetMapping("/")
@@ -33,6 +38,11 @@ public class HomeController {
 		System.out.println("首頁の商品列表展示中ing.....");
 		model.addAttribute("products", beans);
 		model.addAttribute("categoryList", productservice.getAllCategories());
+		
+		//首頁輪播圖
+		List<Campaign> cambeans = campaignService.findAll();
+		model.addAttribute("campaignss",cambeans);
+		model.addAttribute("campaignsizes",cambeans.size());
 		return "product_11/products";
 	
 	}
