@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.web.forum_32.model.ForumBean;
 
 public interface ForumRepository extends JpaRepository<ForumBean, Integer> {
-	
+//	findUserByNameIsLike
 	
 	public List<ForumBean> findAllByOrderByIdDesc();
 	

@@ -21,23 +21,22 @@ public class MessageService implements IMessageService{
 	public List<MessageBean> getAllMessage(Integer messageForumId) {
 		return messageRepository.findAllByForumId(messageForumId);
 	}
-	
 	@Override
-	public List<MessageBean> getPagedMessages(int page, int size) {
-		Page<MessageBean> pageResult = messageRepository.findAll(
-        PageRequest.of(page,  // 查詢的頁數，從0起算
-                size, // 查詢的每頁筆數
-                Sort.by("createTime").ascending()));
-
-		pageResult.getNumberOfElements(); // 本頁筆數
-		pageResult.getSize();             // 每頁筆數 
-		pageResult.getTotalElements();    // 全部筆數
-		pageResult.getTotalPages();       // 全部頁數
-		
-		List<MessageBean> messageList =  pageResult.getContent();
+	public List<MessageBean> getPagedMessagesByMessageForumId(Integer messageForumId, int page, int size) {
+		Page<MessageBean> pageResult = messageRepository.findByMessageForumId(messageForumId, 
+				        PageRequest.of(page,  // 查詢的頁數，從0起算
+				                size, 			// 查詢的每頁筆數
+				                Sort.by("messageForumId").ascending()));
+						
+						pageResult.getNumberOfElements(); // 本頁筆數
+						pageResult.getSize();             // 每頁筆數 
+						pageResult.getTotalElements();    // 全部筆數
+						pageResult.getTotalPages();       // 全部頁數
+						
+						List<MessageBean> messageList =  pageResult.getContent();
 		return messageList;
 	}
-
+	
 	@Override
 	public MessageBean addMessage(MessageBean mb) {
 		return messageRepository.save(mb);

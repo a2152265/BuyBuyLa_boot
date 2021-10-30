@@ -39,33 +39,43 @@ public class DetailsController {
 	// Detailed
 	@GetMapping("/detailed")
 	public String detailed(Model model, 
-			@RequestParam(value = "id", required = false) Integer id) {
+			@RequestParam(value = "id", required = false) Integer id,
+			@RequestParam(value="page",defaultValue="0") int page) {
 		
-		if (id != null) {
-			ForumBean forumBean = forumService.getContentById(id);
-			model.addAttribute("fb", forumBean);
-		}
 		List<ForumBean> allList = forumService.getAllArticles();
-		ForumBean fTitle= forumService.getContentById(id);
+		model.addAttribute("fb", forumService.getContentById(id));
 		model.addAttribute("content", allList);
 		model.addAttribute("forumId", id);
-		model.addAttribute("fTitle", fTitle.getTitle());
 		model.addAttribute("updateForumBean", new ForumBean());
-		
-		List<MessageBean> msgList = messageService.getAllMessage(id);
-		model.addAttribute("msg",msgList);
-		model.addAttribute("messageSize",messageService.getAllMessage(id).size());
-		
+		model.addAttribute("fTitle", forumService.getContentById(id).getTitle());
+//		List<MessageBean> msgList = messageService.getAllMessage(id);
+//		model.addAttribute("msg",msgList);
 		tagSize(model);
+		
+		// 留言展示測試
+		int messageSize = messageService.getAllMessage(id).size(); 
+		int pageSize= messageSize/3 != 0 ? messageSize/3+1 : messageSize;
+		
+		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,0,3);
+		model.addAttribute("msg",msgPageList);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("messageSize",messageSize);
 		
 		return "forum_32/forum-detailed";
 	}
 	
-	public void tagSize(Model model) {
-		model.addAttribute("announcementSize",forumService.getAllContentsByAnnouncement().size());
-		model.addAttribute("noviceSellerSize",forumService.getAllContentsByNoviceSeller().size());
-		model.addAttribute("sellerChatSize",forumService.getAllContentsBySellerChat().size());
+	// 留言分頁查詢
+	@GetMapping(value = "/page")
+	@ResponseBody
+	public MessageBean pageUrl(@RequestParam("id") Integer id,
+			@RequestParam(value="page",defaultValue="0") int page,
+			Model model) {
+		MessageBean mb = new MessageBean();
+		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,page,4);
+		model.addAttribute("msg",msgPageList);
+		return mb;
 	}
+	
 	
 	// 編輯
 	@PostMapping("/detailed")
@@ -77,7 +87,7 @@ public class DetailsController {
 		return "redirect:/detailed?id="+id;
 	}
 	
-	// 編輯
+	// 編輯塞值
 	@GetMapping(value = "/editURL")
 	@ResponseBody
 	public ForumBean editUrl(@RequestParam("id") Integer id, 
@@ -88,7 +98,6 @@ public class DetailsController {
 				updfb.getContent(),updfb.getDate(),updfb.getPicId(),
 				updfb.getUserName(),updfb.getUserEmail(),updfb.getUserNickname(),
 				updfb.getIdentification(),updfb.getMessageQty());
-		
 		return fb;
 	}
 
@@ -109,5 +118,12 @@ public class DetailsController {
 		forumService.addOrEdit(fb);
 		messageService.addMessage(mb);
 	}
+	
+	public void tagSize(Model model) {
+		model.addAttribute("announcementSize",forumService.getAllContentsByAnnouncement().size());
+		model.addAttribute("noviceSellerSize",forumService.getAllContentsByNoviceSeller().size());
+		model.addAttribute("sellerChatSize",forumService.getAllContentsBySellerChat().size());
+	}
+	
 
 }

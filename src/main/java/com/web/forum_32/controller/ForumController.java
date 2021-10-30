@@ -53,7 +53,6 @@ public class ForumController {
 			model.addAttribute("content", allList);
 		}
 		model.addAttribute("addForumBean", new ForumBean());
-		model.addAttribute("updateForumBean", new ForumBean());
 		
 		Size(model);
 		return "forum_32/forum";
@@ -70,7 +69,6 @@ public class ForumController {
 			model.addAttribute("content", allList);
 		}
 		model.addAttribute("addForumBean", new ForumBean());
-		model.addAttribute("updateForumBean", new ForumBean());
 		
 		Size(model);
 		return "forum_32/forum";
@@ -87,7 +85,6 @@ public class ForumController {
 			model.addAttribute("content", allList);
 		}
 		model.addAttribute("addForumBean", new ForumBean());
-		model.addAttribute("updateForumBean", new ForumBean());
 		
 		Size(model);
 		return "forum_32/forum";
