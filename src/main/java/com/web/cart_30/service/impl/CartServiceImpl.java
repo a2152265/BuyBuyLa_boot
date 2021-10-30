@@ -152,7 +152,9 @@ public class CartServiceImpl implements CartService {
 				rb.getBuyer(),
 				rb.getSeller(),
 				rb.getBuy_time(),
-				rb.getTransport_status());
+				rb.getTransport_status(),
+				rb.getBuyeraddress());
+	
 		
 	}
 

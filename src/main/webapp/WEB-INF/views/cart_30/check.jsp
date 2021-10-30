@@ -320,20 +320,29 @@ h2 span {
         </div>
     </div>
 		
-<%-- 		<form:form method="post" modelAttribute="address" action='fin'> --%>
-<%-- 		<form:input type='text' id='selectval' path='buyerAddress' required="required"//> --%>
+<%-- 		<form id='form1'> --%>
+		<input type='text' id='selectval' name='address' required="required"/>
 		
 		<center>
 
-			<a href="<c:url value='/fin' />"><input type="submit" name="confirm"
-				value="確認送出" class="submit"></a>
+			<input type="button" value="確認送出" class="submit">
 		</center>
-<%-- 		</form:form> --%>
+		
+<%-- 		</form> --%>
 		
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
+	
+	
+	
+	
+	
+	
+	
+	
 		var total = 0;
 		$('.total').each(function() {
 			$(this).html;
@@ -349,12 +358,30 @@ h2 span {
 		
 	$('#addAddress').on('change',function(){
 		var addaddress = $('#addAddress option:selected').text();
-		console.log(addaddress);
+// 		console.log(addaddress);
 		$('#selectval').val(addaddress);
 		})	
 
 
-
+$(".submit").click(function(){		
+// 		var data=$("#form1").serializeArray();
+		var data=$('#selectval').val();
+		console.log(data);
+		$.ajax({
+			type:'get',
+			url:'addaddress',
+			data:{
+				"address":data
+			},
+			
+			success:function(){
+				  setTimeout("location.href='fin'",0)
+			}
+									
+		});		
+		
+		
+	});
 
 
 
