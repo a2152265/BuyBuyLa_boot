@@ -2,6 +2,12 @@
  * 
  */
 $(document).ready(function() {
+	$.ajax({
+		type:"GET",
+		url:"detailed",
+		
+	})
+	
 	$('.messageBtn').click(function(e) {
 		e.preventDefault();
 		var datas = $("#addMsgForm").serializeArray();

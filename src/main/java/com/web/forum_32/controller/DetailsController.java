@@ -54,11 +54,12 @@ public class DetailsController {
 		
 		// 留言展示測試
 		int messageSize = messageService.getAllMessage(id).size(); 
-		int pageSize= messageSize/3 != 0 ? messageSize/3+1 : messageSize;
-		
-		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,0,3);
+//		int pageSize= messageSize/3 != 0 ? messageSize/3+1 : messageSize;
+		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,page,4);
+		List<MessageBean> msgList = messageService.getAllMessage(id);
+		model.addAttribute("msgTest", msgList);
 		model.addAttribute("msg",msgPageList);
-		model.addAttribute("pageSize", pageSize);
+//		model.addAttribute("pageSize", pageSize);
 		model.addAttribute("messageSize",messageSize);
 		
 		return "forum_32/forum-detailed";

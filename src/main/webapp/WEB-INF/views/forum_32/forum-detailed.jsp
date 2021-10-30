@@ -283,18 +283,19 @@
 							<nav class="blog-pagination justify-content-center d-flex">
 		                          <ul class="pagination">
 		                              <li class="page-item">
-		                                  <a href="#" class="page-link" aria-label="Previous">
+		                                  <a href="<c:url value='/detailed'/>?id=${forumId}&page=${status.count-1}" class="page-link" aria-label="Previous">
 		                                      <span aria-hidden="true">
 		                                          <span class="lnr lnr-chevron-left"></span>
 		                                      </span>
 		                                  </a>
 		                              </li>
-		                              <li class="page-item">
-		                                  <a href="<c:url value='/detailed' />?page=0" class="page-link">01</a>
-		                              </li>
-		                              <li class="page-item">
-		                                  <a href="<c:url value='/detailed' />?page=1" class="page-link">02</a>
-		                              </li>
+		                     <c:forEach var='pageSize' items='${msgTest}' varStatus='status' step="4">
+                             <li class="page-item">
+                             	  <a href="#">
+                             	  <button class="page-link pageBtn" style="border:none">${status.count}</button>
+                             	  </a>
+                             </li>
+                             </c:forEach>
 		                              <li class="page-item">
 		                                  <a href="#" class="page-link" aria-label="Next">
 		                                      <span aria-hidden="true">
