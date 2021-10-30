@@ -34,6 +34,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String home0(Model model) {
 		System.out.println("進入首頁La");
+		System.out.println("haha");
 		List<Product> beans = productservice.getAllProducts();
 		System.out.println("首頁の商品列表展示中ing.....");
 		model.addAttribute("products", beans);
