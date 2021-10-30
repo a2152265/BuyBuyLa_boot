@@ -17,32 +17,27 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
 
-<!-- <link -->
-<!-- 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" -->
-<!-- 	rel="stylesheet"> -->
 
+$('#test').on('click',function(){
+	
+	var addaddress = $('#addaddress option:selected').text();
+
+	$('#selectval').val(addaddress);
+})
+
+
+</script>
 
 <title>購物車</title>
 
-
-
-
-<title>購物車</title>
 
 
 <style>
-/* * { */
-/* 	margin: 10px; */
-/* 	padding: 0; */
-/* } */
-
-/* .container { */
-/* 	width: 1200px; */
-/* 	margin: 0 auto; */
-/* } */
 
 h1 {
 	text-align: left;
@@ -199,15 +194,19 @@ h2 span {
     <div class="bn" >
         <!-- Button新增地址 -->
         <div style="text-align:right;">
-        <select style='font-size:20px'>
+        
+        
+        <select id='addAddress' style='font-size:20px'>
         <option selected>Choose...</option>
 		<c:forEach var="rows" items="${BuyerAddressList}">
 	
 			<option>${rows.city}&nbsp;${rows.address}</option>
-			
-	
+				
 		</c:forEach>
 		</select>
+		
+		
+		
 	        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#staticBackdrop">
 	            <a role="button">新增地址</a>
 	        </button>
@@ -327,6 +326,12 @@ h2 span {
             </div>
         </div>
     </div>
+		
+		<input type='text' id='selectval' />
+		
+		<button id='test'>
+		test
+		</button>
 		
 		<center>
 

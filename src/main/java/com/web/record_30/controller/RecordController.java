@@ -89,7 +89,7 @@ public class RecordController {
 		
 		String account = mb.getUserEmail();
 		System.out.println("buyer2 =" +account);		
-		List<RecordBean> list = recordservice.getAllRecords(account);
+		List<RecordBean> list = recordservice.getAllSellerRecords(account);
 		
 		model.addAttribute("updateRecord", list);
         System.out.println("buyer= "+record.getPid());

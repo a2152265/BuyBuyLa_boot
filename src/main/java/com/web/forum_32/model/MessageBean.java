@@ -13,80 +13,101 @@ import javax.persistence.Table;
 public class MessageBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)	
-	private Integer id;
-	
-	private Integer forumId;
-	private String userName;
-	private String userEmail;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer messageId;
+	private Integer messageForumId;
+	private String messageDate;
 	private String messageContent;
-	private String date;
 	
-	
+	// 會員資料
+	private Integer messagePicId;
+	private String messageUserName;
+	private String messageIdentification;
+	private String messageUserEmail;
 	
 	public MessageBean() {
 	}
-	
-	
-	public MessageBean(Integer id, Integer forumId, String userName,String userEmail,String messageContent,String date) {
-		this.id = id;
-		this.forumId = forumId;
-		this.userName = userName;
-		this.userEmail=userEmail;
-		this.messageContent=messageContent;
-		this.date = date;
+
+	public MessageBean(Integer messageId, Integer messageForumId, String messageDate, String messageContent,
+			Integer messagePicId, String messageUserName, String messageIdentification, String messageUserEmail) {
+		this.messageId = messageId;
+		this.messageForumId = messageForumId;
+		this.messageDate = messageDate;
+		this.messageContent = messageContent;
+		this.messagePicId = messagePicId;
+		this.messageUserName = messageUserName;
+		this.messageIdentification = messageIdentification;
+		this.messageUserEmail = messageUserEmail;
 	}
 
+	public Integer getMessageId() {
+		return messageId;
+	}
 
-	
+	public void setMessageId(Integer messageId) {
+		this.messageId = messageId;
+	}
+
+	public Integer getMessageForumId() {
+		return messageForumId;
+	}
+
+	public void setMessageForumId(Integer messageForumId) {
+		this.messageForumId = messageForumId;
+	}
+
+	public String getMessageDate() {
+		return messageDate;
+	}
+
+	public void setMessageDate(String messageDate) {
+		this.messageDate = messageDate;
+	}
+
 	public String getMessageContent() {
 		return messageContent;
 	}
-
 
 	public void setMessageContent(String messageContent) {
 		this.messageContent = messageContent;
 	}
 
+	public Integer getMessagePicId() {
+		return messagePicId;
+	}
 
-	public Integer getId() {
-		return id;
+	public void setMessagePicId(Integer messagePicId) {
+		this.messagePicId = messagePicId;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+	public String getMessageUserName() {
+		return messageUserName;
 	}
-	public Integer getForumId() {
-		return forumId;
+
+	public void setMessageUserName(String messageUserName) {
+		this.messageUserName = messageUserName;
+	}
+
+	public String getMessageIdentification() {
+		return messageIdentification;
+	}
+
+	public void setMessageIdentification(String messageIdentification) {
+		this.messageIdentification = messageIdentification;
+	}
+
+	public String getMessageUserEmail() {
+		return messageUserEmail;
+	}
+
+	public void setMessageUserEmail(String messageUserEmail) {
+		this.messageUserEmail = messageUserEmail;
 	}
 	
 	
-	public String getUserEmail() {
-		return userEmail;
-	}
 
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-
-	public void setForumId(Integer forumId) {
-		this.forumId = forumId;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
 	
 	
 }

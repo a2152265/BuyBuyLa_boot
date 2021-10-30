@@ -7,12 +7,12 @@ import com.web.forum_32.model.ForumBean;
 
 
 public interface IForumService {
-	List<ForumBean> getAllContents();
-	void addContent(ForumBean content);
+	List<ForumBean> getAllArticles();
+	public List<ForumBean> getPagedArticles(int page, int size);
+	void addOrEdit(ForumBean content);
 	public ForumBean getContentById(Integer id);
 	public Optional<ForumBean> findContentById(Integer id);
 	void delete (Integer id);
-	void update (ForumBean fb);
 	List<ForumBean> getAllContentsByAnnouncement();
 	List<ForumBean> getAllContentsByNoviceSeller();
 	List<ForumBean> getAllContentsBySellerChat();

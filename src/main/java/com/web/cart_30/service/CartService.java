@@ -11,11 +11,11 @@ import com.web.record_30.model.RecordList;
 
 
 public interface CartService {
-	public void addItemByid(int pid,boolean exists);
+	public void addItemByid(int pid,boolean exists,String buyer);
 	public void add(int pid);
 	public void sub(int pid);
 	public void deletecart(int pid);
-	public  List<Cart> addToRecord();
+	public  List<Cart> addToRecord(String buyer);
 	public void addToRecord2(RecordBean rb);
 	public int getRidCount(int id);
 	public void addRidCount();

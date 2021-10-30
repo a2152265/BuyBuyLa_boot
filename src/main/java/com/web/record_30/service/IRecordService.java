@@ -11,5 +11,6 @@ public interface IRecordService {
 	void deleteRecord(int record_id,int pid);
 	void update(int rid,int pid,String ts);
 	List<RecordList> getAllRecordList(String buyer);
+	List<RecordBean> getAllSellerRecords(String seller );
 	
 }

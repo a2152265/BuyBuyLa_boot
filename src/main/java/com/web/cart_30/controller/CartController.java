@@ -50,26 +50,28 @@ public class CartController {
 	
 	
 	@GetMapping("/additem")
-	public String additem(@RequestParam Integer id ,Model model) {
+	public String additem(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id ,Model model) {
 		System.out.println("PID cc= "+id);
-	
-		cartService.addItemByid(id,true);
+		String buyer=mb.getUserEmail();
+		cartService.addItemByid(id,true,buyer);
 		return "redirect:/products";
 	}
 	
 	
 	
 	@GetMapping("/cart")
-	public String cart(Model model) {
-	List<Cart> cart = cartService.addToRecord();
-	model.addAttribute("cart", cart);	
-		 return "cart_30/cart";
+	public String cart(@ModelAttribute("loginSession") membershipInformationBean mb,Model model) {
+		String buyer=mb.getUserEmail();	
+		List<Cart> cart = cartService.addToRecord(buyer);
+		model.addAttribute("cart", cart);	
+		 	return "cart_30/cart";
 	}
 	
 	
 	@GetMapping("/deletecart")
-	public String deletecart(@RequestParam Integer id ,Model model) {
-		List<Cart> cart = cartService.addToRecord();
+	public String deletecart(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id ,Model model) {
+		String buyer=mb.getUserEmail();	
+		List<Cart> cart = cartService.addToRecord(buyer);
 		model.addAttribute("cart", cart);	
 		cartService.deletecart(id);
 
@@ -77,9 +79,10 @@ public class CartController {
 	}
 	
 	@GetMapping("/add")
-	public String add(@RequestParam Integer id,Model model) {
+	public String add(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id,Model model) {
 		System.out.println("starttttt===============");
-		List<Cart> cart = cartService.addToRecord();
+		String buyer=mb.getUserEmail();	
+		List<Cart> cart = cartService.addToRecord(buyer);
 		model.addAttribute("cart", cart);
 		cartService.add(id);	
 		System.out.println("===============endddddddddddd");
@@ -88,9 +91,10 @@ public class CartController {
 	}
 	
 	@GetMapping("/sub")
-	public String sub(@RequestParam Integer id,Model model) {
+	public String sub(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id,Model model) {
 		System.out.println("starttttt===============");
-		List<Cart> cart = cartService.addToRecord();
+		String buyer=mb.getUserEmail();	
+		List<Cart> cart = cartService.addToRecord(buyer);
 		model.addAttribute("cart", cart);
 		cartService.sub(id);	
 		System.out.println("===============endddddddddddd");
@@ -100,9 +104,10 @@ public class CartController {
 	
 	@GetMapping("/check")
 	public String check(@ModelAttribute("loginSession")  membershipInformationBean mb,Model model) {
-		List<Cart> cart = cartService.addToRecord();
+		String buyer=mb.getUserEmail();	
+		List<Cart> cart = cartService.addToRecord(buyer);
 		model.addAttribute("cart", cart);
-		String buyer =mb.getUserEmail();
+	
 		List<BuyerAddress> ba = cartService.selectAllBuyerAddressByBuyer(buyer);
 		System.out.println("**********************");
 		System.out.println(ba.size()+"////////////////////////");
@@ -118,7 +123,7 @@ public class CartController {
 		String account = mb.getUserEmail();
 		ba.setBuyer(account);
 		cartService.insertAddress(ba);
-		List<Cart> cart = cartService.addToRecord();
+		List<Cart> cart = cartService.addToRecord(account);
 		model.addAttribute("cart", cart);
 		 return "redirect:/check";
 	}
@@ -126,7 +131,8 @@ public class CartController {
 	
 	@GetMapping("/fin")
 	public String fin(@ModelAttribute("loginSession") membershipInformationBean mb ,Model model) {
-		List<Cart> cart = cartService.addToRecord();
+		String buyer=mb.getUserEmail();	
+		List<Cart> cart = cartService.addToRecord(buyer);
 		model.addAttribute("cart", cart);	
 		int rc = cartService.getRidCount(1);
 		RecordBean rb =new RecordBean();

@@ -4,216 +4,172 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>討論區</title>
-<!-- Jquery JS -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>${fTitle}</title>
+<!-- <title>Details</title> -->
+<link rel="icon" href="img/Fevicon.png" type="image/png">
+<link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="vendors/linericon/style.css">
+<link rel="stylesheet"
+	href="vendors/owl-carousel/owl.theme.default.min.css">
+<link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+<link rel="stylesheet" href="css/productstyle.css">
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-<!-- summernote -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<!-- css -->
-<link rel='stylesheet' href='${pageContext.request.contextPath}/css/style32.css'>
-<!-- js -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src='${pageContext.request.contextPath}/js/forum_upd_32.js'></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+	rel="stylesheet" />
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+	rel="stylesheet">
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/css/style32.css'>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript"
+	src='${pageContext.request.contextPath}/js/forum_ajax_32.js'></script>
+<script type="text/javascript"
+	src='${pageContext.request.contextPath}/js/forum_ajax_message_32.js'></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body class="bg-light">
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">討論區</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="<c:url value="/"/>">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Dropdown </a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
-						</ul></li>
-					<li class="nav-item"><a class="nav-link disabled">Disabled</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+<body>
+	<!--================ Start Header Menu Area =================-->
+	<header class="header_area">
+		<div class="main_menu">
+			<nav class="navbar navbar-expand-lg navbar-light">
+				<div class="container">
+					<a class="navbar-brand logo_h" href="<c:url value='/' />"><img
+						src="img/logo.png" alt=""></a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<div class="collapse navbar-collapse offset"
+						id="navbarSupportedContent">
+						<ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+							<li class="nav-item active"><a class="nav-link"
+								href="<c:url value='/' />">Home</a></li>
+							<li class="nav-item submenu dropdown"><a href="#"
+								class="nav-link dropdown-toggle" data-toggle="dropdown"
+								role="button" aria-haspopup="true" aria-expanded="false">會員</a>
+								<ul class="dropdown-menu">
+									<c:if
+										test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+										<li class="nav-item"><a class="nav-link"
+											href="<c:url value='/try/login' />">會員登入</a></li>
+										<li class="nav-item"><a class="nav-link"
+											href="<c:url value='/try/add' />">會員註冊</a></li>
+									</c:if>
+									<c:if test="${loginSession.userEmail != null}">
+										<li class="nav-item"><a class="nav-link"
+											href="<c:url value='/member/evolution' />">賣家專區</a></li>
+										<li class="nav-item"><a class="nav-link"
+											href="<c:url value='/try/logout' />">會員登出</a></li>
+										<!--                   <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li> -->
+									</c:if>
+								</ul></li>
+							<li class="nav-item submenu dropdown"><a
+								href="<c:url value='/forum' />" class="nav-link dropdown-toggle"
+								role="button" aria-haspopup="true" aria-expanded="false">討論區</a>
+							</li>
+							<li class="nav-item submenu dropdown"><a href="#"
+								class="nav-link dropdown-toggle" data-toggle="dropdown"
+								role="button" aria-haspopup="true" aria-expanded="false">活動專區</a>
+							<c:if test="${loginSession.userEmail != null}">
+								<li class="nav-item"><a class="nav-link loginsession"
+									href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
+										${loginSession.userEmail}</a></li>
+							</c:if>
+						</ul>
 
+						<ul class="nav-shop">
+							<li class="nav-item"><form:form method='POST'
+									action="./queryproduct" class='form-horizontal'>
 
-	<div class="ml450mt100">
-		<a href='#'><img class="w20" src="https://cdn-icons.flaticon.com/png/128/1620/premium/1620735.png?token=exp=1635307864~hmac=9424e67cb077c43e95098bc0f110ba19">
-			#${fb.tag}<br>
-		<br>
-		<br></a>
-		<div>
-			<img src="https://storage.googleapis.com/shopeetw-university/static/avatar.jpg"
-				class="w60h60br50fl">
-			<span class="contentUserName">${fb.userName}<br></span>
-			<span class="contentUserName">${fb.date}</span>
-		</div>
-		<br>
-		<h1>${fb.title}</h1>
-		<img id="edit" data-bs-toggle="dropdown" aria-expanded="false"
-			class="dropdown-toggle editml700w50h50"
-			src="https://cdn-icons-png.flaticon.com/128/1827/1827933.png">
-		<ul class="dropdown-menu">
-			<li data-id="${fb.id}" data-bs-toggle="modal"
-				data-bs-target="#UpdateModal" class="dropdown-item updateDataClass">編輯</li>
-			<li  class="dropdown-item tata"
-				onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${fb.id}'/>'">刪除</li>
-<!-- 			<li><a class="dropdown-item" href="#">隱藏此用戶貼文</a></li> -->
-<!-- 			<li><a class="dropdown-item" href="#">檢舉</a></li> -->
-		</ul>
-	</div>
-	<div class="row mtop30">
-		<div class="col-6 col-md-3 ml150w260">
-			<div class="accordion" id="accordionExample">
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingThree">
-						<button class="accordion-button collapsed" type="button"
-							data-bs-toggle="collapse" data-bs-target="#collapseThree"
-							aria-expanded="false" aria-controls="collapseThree">
-							官方資訊區</button>
-					</h2>
-					<div id="collapseThree" class="accordion-collapse collapse"
-						aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<a href="<c:url value='/announcement' />" class="announcement-a">
-								<span class="tata">官方最新公告區</span></a>
-						</div>
+									<input name="productName" id="productName" type='text'
+										class='form:input-large' />
+									<button type='submit'>
+										<i class="ti-search"></i>
+									</button>
+
+								</form:form>
+							<li class="nav-item"><button
+									onclick="location.href='<c:url value='/cart' />'">
+									<i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span>
+								</button></li>
+						</ul>
 					</div>
 				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingTwo">
-						<button class="accordion-button collapsed" type="button"
-							data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-							aria-expanded="false" aria-controls="collapseTwo">賣家討論區
-						</button>
-					</h2>
-					<div id="collapseTwo" class="accordion-collapse collapse"
-						aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-							<a href="<c:url value='/forum'/>" class="announcement-a">
-								<span class="tata">所有討論</span></a>
-							<hr>
-							<a href="<c:url value='/noviceSeller' />" class="announcement-a">
-								<span class="tata">新手賣家發問區</span></a>
-							<hr>
-							<a href="<c:url value='/sellerChat' />" class="announcement-a">
-								<span class="tata">賣家閒聊討論區</span></a>
-						</div>
-					</div>
+			</nav>
+		</div>
+	</header>
+	<!--================ End Header Menu Area =================-->
+
+
+	<!-- ================ start banner area ================= -->
+	<section class="blog-banner-area" id="blog">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Details</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb"></nav>
 				</div>
 			</div>
 		</div>
+	</section>
+	<!-- ================ end banner area ================= -->
 
-		<div class="col-12 col-md-9 bg-white content-content">
-			<div class="detailed">
-				${fb.content} <br>
-				<hr>
-				<br>
-				<div>
-					<a href="#"> <img class="w40" src="https://cdn-icons.flaticon.com/png/128/2652/premium/2652197.png?token=exp=1635308939~hmac=ee11ed72734ee75a3938393599f8dd85">
-						讚
-					</a>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-12 col-md-9 bg-white w60p20ml460mt20">
-			<div class="detailed">
-				<span class="title-fontsize">${size}則留言</span> <br>
-				<hr>
-				<br>
-				<div>
-					
-					<img src="https://storage.googleapis.com/shopeetw-university/static/avatar.jpg" class="w60h60br50flmr30">
-					<form:form method='POST' modelAttribute="messageBean" class='form-horizontal'> 
-						<form:textarea path="messageContent" rows="4" cols="60"
-							placeholder="新增留言..." />
-						<form:input type="text" path="forumId" value="${forumId}"
- 							class="display-none" /> 
-						<form:input type="text" path="userName" value="廖總" 
- 							class="display-none" /> 
- 						<form:input type="text" path="userEmail" value="c123@gmail.com" 
-							class="display-none" />
-						<form:input type="text" path="date" id="messageDate"
-							class="display-none" /> 
-						<br>
-						<button type="submit" class="btn btn-secondary btn-lg">送出</button>
-					</form:form>
-
-				</div>
-				<br>
-				<br>
-				<br>
-				<hr>
-				<c:forEach var='msg' items='${msg}'>
-					<div>
-						<label class="fr">#</label> <img
-							src="https://storage.googleapis.com/shopeetw-university/static/avatar.jpg" class="w60h60br50fl">
-						<span class="contentUserName">${msg.userName}<br></span>
-						<span class="contentUserName">${msg.date}</span>
-					</div>
-					<br>
-					<p class="ml80">${msg.messageContent}</p>
-					<hr>
-				</c:forEach>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="modal fade" id="UpdateModal" tabindex="-1"
+<div class="modal fade" id="UpdateModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
+		<div class="modal-dialog modal-lg" style="margin-top:90px">
 			<form:form method='POST' modelAttribute="updateForumBean"
 				class='form-horizontal' enctype="multipart/form-data">
 				<div class="modal-content">
 					<div class="modal-header">
-						<select id="updSelectTag" class="form-select"
-							aria-label="Default select example">
-							<option>新手賣家發問區</option>
-							<option>賣家閒聊討論區</option>
-						</select>
-						<h3 class="modal-title"
-							id="exampleModalLabel">編輯貼文</h3>
+						<h3 class="modal-title" id="exampleModalLabel">編輯貼文</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body updContentBody">
-						<form:input id="updid" path="id" type="text" style="display:none" />
-						<form:input path="userName" type="text" value="廖總" class="display-none" />
+					
+						<!-- 隱藏 -->
+						<form:input path="id" id="updid" type="hidden" />
+						<form:input path="tag" id="updTag" type="hidden" />
+						<form:textarea path="content" class="updContent display-none" />
+						<form:input path="date" id="nowUpdDate" type="hidden"  />
+						<form:input path="messageQty" type="hidden" value="${messageSize}"  />
+						
+						<form:input path="picId" type="hidden" value="${memberUiDefault.id}" />
+						<form:input path="userName" type="hidden" value="${memberUiDefault.userName}" class="forumUsername" />
+						<form:input path="userEmail" type="hidden" value="${memberUiDefault.userEmail}" />
+						<form:input path="userNickname" type="hidden" value="${memberUiDefault.userNickname}" />
+<%-- 						<form:input path="Identification" type="hidden" value="${memberUiDefault.Identification}" /> --%>
+						<!-- 結束 -->
+						
 						<div class="mb-3">
-							<form:input type="text" path="date" id="nowUpdDate"
-								class="display-none" />
-							<form:input path="tag" type="text" id="updTag"
-								class="display-none" />
+						<select id="updSelectTag" class="form-select"
+							aria-label="Default select example" style="width:200px">
+							<option>新手賣家發問</option>
+							<option>賣家閒聊討論</option>
+						</select>
 							<br>
 							<form:input type="text" required="true" placeholder="標題"
 								path="title"
 								class="form-control updTitle title-fontsize" aria-label="Sizing example input"
 								aria-describedby="inputGroup-sizing-lg" />
 							<br>
-							<form:textarea path="content" class="form-control updContent display-none"
-								placeholder="請輸入內文" rows="7" id="recipient-name" />
-							<div id="summernote2"></div>
+							
+							<div id="summernote"></div>
 							<div class="mb-3">
-								<form:input class="form-control display-none" path="image" id="insImgBtn" type="file" />
 							</div>
 						</div>
 					</div>
@@ -227,15 +183,329 @@
 		</div>
 	</div>
 
+	<!--================Blog Area =================-->
+	<section
+		class="blog_area single-post-area py-80px section-margin--small">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 posts-list">
+					<div class="single-post row">
+						<div class="col-lg-12">
+							<div class="feature-img">
+								<img class="img-fluid" src="img/blog/feature-img1.jpg" alt="">
+							</div>
+						</div>
 
-	<!-- jquery -->
+						<div class="col-lg-9 col-md-9 blog_details">
+								<div class="editIMG">
+								<img id="edit" data-bs-toggle="dropdown" aria-expanded="false"
+									class="dropdown-toggle editml700w50h50"
+									src="https://cdn-icons-png.flaticon.com/128/1827/1827933.png">
+								<ul class="dropdown-menu">
+									<li data-id="${fb.id}" data-bs-toggle="modal"
+										data-bs-target="#UpdateModal" class="dropdown-item updateDataClass">編輯</li>
+									<li  class="dropdown-item tata"
+										onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${fb.id}'/>'">刪除</li>
+								</ul>
+								</div>
+							<h1>${fb.title}</h1>
+							<br> <br> <br>
+							<p class="excert">${fb.content}</p>
+						</div>
+					</div>
+					<div class="navigation-area">
+						<div class="row">
+							<div
+								class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+								<div class="thumb">
+									<a href="#"> <img class="img-fluid" src="img/blog/prev.jpg"
+										alt="">
+									</a>
+								</div>
+								<div class="arrow">
+									<a href="#"> <span class="lnr text-white lnr-arrow-left"></span>
+									</a>
+								</div>
+								<div class="detials">
+									<p>上一篇</p>
+									<a href="#">
+										<h4>Space The Final Frontier</h4>
+									</a>
+								</div>
+							</div>
+							<div
+								class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+								<div class="detials">
+									<p>下一篇</p>
+									<a href="#">
+										<h4>Telescopes 101</h4>
+									</a>
+								</div>
+								<div class="arrow">
+									<a href="#"> <span class="lnr text-white lnr-arrow-right"></span>
+									</a>
+								</div>
+								<div class="thumb">
+									<a href="#"> <img class="img-fluid" src="img/blog/next.jpg"
+										alt="">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="comments-area">
+						<h4>${messageSize}則評論</h4>
+
+						<c:forEach var='msg' items='${msg}'>
+							<div class="comment-list">
+								<div class="single-comment justify-content-between d-flex">
+									<div class="user justify-content-between d-flex">
+										<div class="thumb">
+											<img style="width:100px;height:100px" src="<c:url value='/getPicturefromMember/${msg.messagePicId}'/>" />
+										</div>
+										<div class="desc">
+											<h5>
+												<a href="#">${msg.messageUserName}</a>
+											</h5>
+											<p class="date">${msg.messageDate}</p>
+											<p class="comment">${msg.messageContent}</p>
+										</div>
+									</div>
+									<div class="reply-btn">
+										<a href='#reply'>
+										<button style="border:none;" class="btn-reply text-uppercase reply">回復</button>
+										</a>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+					<div class="comment-form" id="reply">
+						<h4>發表評論</h4>
+						<form id="addMsgForm" enctype="multipart/form-data">
+							<input type="hidden" name="messageForumId" value="${forumId}" >
+							<input type="hidden" name="messagePicId" value="${memberUiDefault.id}" >
+							<input type="hidden" name="messageDate" id="messageDate" >
+							<input type="hidden" name="messageIdentification" >
+							<div class="form-group form-inline">
+							<div class="form-group col-lg-6 col-md-6 name">
+							<input type="text" name="messageUserName" class="form-control" value="${memberUiDefault.userName}" readonly="readonly">
+								</div>
+								<div class="form-group col-lg-6 col-md-6 email">
+							<input type="email" name="messageUserEmail" class="form-control" readonly="readonly"
+										placeholder="Enter email address" 
+										value="${memberUiDefault.userEmail}" >
+								</div>
+							</div>
+							<div class="form-group">
+							<textarea rows="5" name="messageContent" class="form-control mb-10 messageContent"
+									placeholder="留言"  required="required"></textarea>
+							</div>
+							<button class="button button-postComment button--active messageBtn" type="button">發表評論</button>
+							</form>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="blog_right_sidebar">
+						<aside class="single_sidebar_widget author_widget">
+							<img width='150' src="<c:url value='/getPicturefromMember/${fb.picId}'/>" />
+							<h4 class="forumUsername2">${fb.userName}</h4>
+							<p>一般會員</p>
+							<div class="social_icon">
+								<a href="#"> <i class="fab fa-facebook-f"></i>
+								</a> <a href="#"> <i class="fab fa-twitter"></i>
+								</a> <a href="#"> <i class="fab fa-github"></i>
+								</a> <a href="#"> <i class="fab fa-behance"></i>
+								</a>
+							</div>
+							<div class="br"></div>
+						</aside>
+
+						<aside class="single_sidebar_widget ads_widget">
+							<a href="#"> <img class="img-fluid" src="img/blog/add.jpg"
+								alt="">
+							</a>
+							<div class="br"></div>
+						</aside>
+						<aside class="single_sidebar_widget post_category_widget">
+							<h4 class="widget_title">標籤分類</h4>
+                          <ul class="list cat-list">
+                              <li>
+                                  <a href="<c:url value='/forum' />" class="d-flex justify-content-between">
+                                      <p>所有討論</p>
+                                      <p>${announcementSize+noviceSellerSize+sellerChatSize}</p>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a href="<c:url value='/announcement' />" class="d-flex justify-content-between">
+                                      <p>官方最新公告</p>
+                                      <p>${announcementSize}</p>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a href="<c:url value='/noviceSeller' />" class="d-flex justify-content-between">
+                                      <p>新手賣家發問</p>
+                                      <p>${noviceSellerSize}</p>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a href="<c:url value='/sellerChat' />" class="d-flex justify-content-between">
+                                      <p>賣家閒聊討論</p>
+                                      <p>${sellerChatSize}</p>
+                                  </a>
+                              </li>
+                          </ul>
+							<div class="br"></div>
+						</aside>
+						<aside class="single_sidebar_widget popular_post_widget">
+							<h3 class="widget_title">最新帖子</h3>
+							
+						<c:forEach var='content' items='${content}' begin="0" end ="4">
+                          <div class="media post_item">
+                          <img width='40' src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+                              <div class="media-body">
+                                  <a href="single-blog.html">
+                                      <h3>${content.title}</h3>
+                                  </a>
+                                  <p>${content.date}</p>
+<!--                                   <p>?小時前</p> -->
+                              </div>
+                          </div>
+                          </c:forEach>
+							
+							<div class="br"></div>
+						</aside>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section><br><br><br><br><br><br><br><br><br>
+	<!--================Blog Area =================-->
+
+
+	<!--================Instagram Area =================-->
+	<section class="instagram_area">
+		<div class="container box_1620">
+			<div class="insta_btn">
+				<a class="btn theme_btn" href="#">Follow us on instagram</a>
+			</div>
+			<div class="instagram_image row m0">
+				<a href="#"><img src="img/instagram/ins-1.jpg" alt=""></a> <a
+					href="#"><img src="img/instagram/ins-2.jpg" alt=""></a> <a
+					href="#"><img src="img/instagram/ins-3.jpg" alt=""></a> <a
+					href="#"><img src="img/instagram/ins-4.jpg" alt=""></a> <a
+					href="#"><img src="img/instagram/ins-5.jpg" alt=""></a> <a
+					href="#"><img src="img/instagram/ins-6.jpg" alt=""></a>
+			</div>
+		</div>
+	</section>
+	<!--================End Instagram Area =================-->
+
+
+	<!--================ Start footer Area  =================-->
+	<footer>
+		<div class="footer-area">
+			<div class="container">
+				<div class="row section_gap">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title large_title">Our Mission</h4>
+							<p>So seed seed green that winged cattle in. Gathering thing
+								made fly you're no divided deep moved us lan Gathering thing us
+								land years living.</p>
+							<p>So seed seed green that winged cattle in. Gathering thing
+								made fly you're no divided deep moved</p>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Quick Links</h4>
+							<ul class="list">
+								<li><a href="#">Home</a></li>
+								<li><a href="#">Shop</a></li>
+								<li><a href="#">Blog</a></li>
+								<li><a href="#">Product</a></li>
+								<li><a href="#">Brand</a></li>
+								<li><a href="#">Contact</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget instafeed">
+							<h4 class="footer_title">Gallery</h4>
+							<ul class="list instafeed d-flex flex-wrap">
+								<li><img src="img/gallery/r1.jpg" alt=""></li>
+								<li><img src="img/gallery/r2.jpg" alt=""></li>
+								<li><img src="img/gallery/r3.jpg" alt=""></li>
+								<li><img src="img/gallery/r5.jpg" alt=""></li>
+								<li><img src="img/gallery/r7.jpg" alt=""></li>
+								<li><img src="img/gallery/r8.jpg" alt=""></li>
+							</ul>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Contact Us</h4>
+							<div class="ml-40">
+								<p class="sm-head">
+									<span class="fa fa-location-arrow"></span> Head Office
+								</p>
+								<p>123, Main Street, Your City</p>
+
+								<p class="sm-head">
+									<span class="fa fa-phone"></span> Phone Number
+								</p>
+								<p>
+									+123 456 7890 <br> +123 456 7890
+								</p>
+
+								<p class="sm-head">
+									<span class="fa fa-envelope"></span> Email
+								</p>
+								<p>
+									free@infoexample.com <br> www.infoexample.com
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row d-flex">
+					<p class="col-lg-12 footer-text text-center">
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						Copyright &copy;
+						<script>document.write(new Date().getFullYear());</script>
+						All rights reserved | This template is made with <i
+							class="fa fa-heart" aria-hidden="true"></i> by <a
+							href="https://colorlib.com" target="_blank">Colorlib</a>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--================ End footer Area  =================-->
+
+
+
+	<script src="vendors/jquery/jquery-3.2.1.min.js"></script>
+	<script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="vendors/skrollr.min.js"></script>
+	<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+<!-- 	<script src="vendors/nice-select/jquery.nice-select.min.js"></script> -->
+	<script src="vendors/jquery.ajaxchimp.min.js"></script>
+	<script src="vendors/mail-script.js"></script>
+	<script src="js/main.js"></script>
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src='${pageContext.request.contextPath}/js/forum_jqu_32.js'></script>
-	<!-- summernote -->
+	<script src='${pageContext.request.contextPath}/js/forum_jquery_32.js'></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	<script src='${pageContext.request.contextPath}/js/forum_sum_32.js'></script>
-
+	<script src='${pageContext.request.contextPath}/js/forum_summernote_32.js'></script>
 </body>
 </html>
