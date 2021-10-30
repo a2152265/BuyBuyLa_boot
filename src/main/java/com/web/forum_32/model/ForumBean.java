@@ -19,8 +19,8 @@ public class ForumBean implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String tag;        
-	private String title;     
+	private String tag;
+	private String title;
 	@Column(name="content",length = Integer.MAX_VALUE)
 	private String content;      
 	private String date;

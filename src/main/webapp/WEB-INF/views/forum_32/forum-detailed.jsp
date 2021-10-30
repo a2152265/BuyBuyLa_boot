@@ -256,7 +256,7 @@
 					<div class="comments-area">
 						<h4>${messageSize}則評論</h4>
 
-						<c:forEach var='msg' items='${msg}'>
+						<c:forEach var='msg' items='${msg}' varStatus='status'>
 							<div class="comment-list">
 								<div class="single-comment justify-content-between d-flex">
 									<div class="user justify-content-between d-flex">
@@ -278,6 +278,33 @@
 									</div>
 								</div>
 							</div>
+							
+							<c:if test="${status.last}" > 
+							<nav class="blog-pagination justify-content-center d-flex">
+		                          <ul class="pagination">
+		                              <li class="page-item">
+		                                  <a href="#" class="page-link" aria-label="Previous">
+		                                      <span aria-hidden="true">
+		                                          <span class="lnr lnr-chevron-left"></span>
+		                                      </span>
+		                                  </a>
+		                              </li>
+		                              <li class="page-item">
+		                                  <a href="<c:url value='/detailed' />?page=0" class="page-link">01</a>
+		                              </li>
+		                              <li class="page-item">
+		                                  <a href="<c:url value='/detailed' />?page=1" class="page-link">02</a>
+		                              </li>
+		                              <li class="page-item">
+		                                  <a href="#" class="page-link" aria-label="Next">
+		                                      <span aria-hidden="true">
+		                                          <span class="lnr lnr-chevron-right"></span>
+		                                      </span>
+		                                  </a>
+		                              </li>
+		                          </ul>
+		                      </nav>
+							</c:if>
 						</c:forEach>
 					</div>
 					<div class="comment-form" id="reply">
@@ -299,10 +326,11 @@
 							</div>
 							<div class="form-group">
 							<textarea rows="5" name="messageContent" class="form-control mb-10 messageContent"
-									placeholder="留言"  required="required"></textarea>
+									placeholder="留言" ></textarea>
 							</div>
 							<button class="button button-postComment button--active messageBtn" type="button">發表評論</button>
 							</form>
+							
 					</div>
 				</div>
 				<div class="col-lg-4">

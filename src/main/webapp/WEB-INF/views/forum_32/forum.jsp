@@ -22,6 +22,7 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
@@ -308,7 +309,6 @@
 	<br>
 	<br>
 	<!--================Blog Area =================-->
-
 	<!--================Instagram Area =================-->
 	<section class="instagram_area">
 		<div class="container box_1620">
