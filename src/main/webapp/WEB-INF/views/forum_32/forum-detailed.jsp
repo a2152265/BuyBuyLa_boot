@@ -242,7 +242,7 @@
 								<div class="detials">
 									<p>下一篇</p>
 									<a href="#">
-										<h4>${after.title}</h4>
+										<h4>${after.title}${fail}</h4>
 									</a>
 								</div>
 								<div class="arrow">

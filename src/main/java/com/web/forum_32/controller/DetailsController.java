@@ -42,14 +42,12 @@ public class DetailsController {
 		List<ForumBean> articlesList = forumService.getAllArticles();
 		for (int i = 0; i < articlesList.size(); i++) {
 			if (id == articlesList.get(i).getId()) {
-				if(i>0) {
-				Integer previousId = articlesList.get(i + 1).getId();
-				ForumBean previous = forumService.getContentById(previousId);
-				model.addAttribute("previous", previous);
-				}else if (i==0) {
-					Integer previousId = articlesList.get(i).getId();
+				if (i + 1 < articlesList.size()) {
+					Integer previousId = articlesList.get(i + 1).getId();
 					ForumBean previous = forumService.getContentById(previousId);
 					model.addAttribute("previous", previous);
+				} else {
+					model.addAttribute("previous", "");
 				}
 			}
 		}
