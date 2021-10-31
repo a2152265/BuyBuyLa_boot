@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -118,16 +116,18 @@ public class ForumController {
 
 	// 後台頁面展示
 	@GetMapping("/manager/forum")
-	public String forumManager(Model model) {
+	public String managerForumView(Model model) {
 		List<ForumBean> allList = forumService.getAllArticles();
 		model.addAttribute("content", allList);
-		model.addAttribute("updateManager", new ForumBean());
+		model.addAttribute("managerEditForumContentBean", new ForumBean());
 		return "forum_32/forum-manager";
 	}
 
 	// 刪除
 	@GetMapping("/manager/delete32")
-	public String deleteById(@RequestParam("id") Integer id, Model model) {
+	public String deleteById(
+			@RequestParam("id") Integer id, 
+			Model model) {
 		forumService.delete(id);
 		return "redirect:/manager/forum";
 	}
@@ -135,7 +135,9 @@ public class ForumController {
 	// 編輯
 	@GetMapping(value = "/manager/editManager")
 	@ResponseBody
-	public ForumBean managerUpdUrl(@RequestParam("id") Integer id, @ModelAttribute("updateManager") ForumBean updfb,
+	public ForumBean managerEdit(
+			@RequestParam("id") Integer id, 
+			@ModelAttribute("managerEditForumContentBean") ForumBean updfb,
 			Model model) {
 		updfb = forumService.getContentById(id);
 		ForumBean fb = new ForumBean(updfb.getId(),updfb.getTag(),updfb.getTitle(),
@@ -147,7 +149,7 @@ public class ForumController {
 
 	// 編輯>提交表單
 	@PostMapping("/manager/forum")
-	public String managerForm(Model model, @ModelAttribute("updateManager") ForumBean updfb, BindingResult result) {
+	public String managerEdit(Model model, @ModelAttribute("updateManager") ForumBean updfb, BindingResult result) {
 		forumService.addOrEdit(updfb);
 		return "redirect:/manager/forum";
 	}
@@ -155,11 +157,5 @@ public class ForumController {
 	/************************** 後臺管理結束 ***************************/
 
 
-	// 白名單
-	@InitBinder
-	public void whiteListing(WebDataBinder binder) {
-		binder.setAllowedFields( "id","picId", "content", "title", "date", "tag", "userEmail",
-				"userName");
-	}
 
 }

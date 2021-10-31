@@ -6,14 +6,14 @@ $(document).ready(function() {
 		var dataid = $(this).data('id');
 		$.ajax({
 			type: "GET",
-			url: "editURL",
+			url: "editIntoVal",
 			data: {
 				"id": dataid
 			},
 			success: function(data) {
 				$('#updid').val(data['id']);
 				$('#summernote').summernote('code', data['content']);
-				$('.updTitle').val(data['title']);
+				$('.title-fontsize').val(data['title']);
 
 				$('.updContentBody').on('mouseover', function() {
 					$('#updTag').val($('#updSelectTag option:selected').text());
