@@ -60,7 +60,18 @@ public class RecordController {
 		return "record_30/select";	
 	}
 	
-	
+	//查購物紀錄細項	
+		@GetMapping("/selectbuyer")
+	    public String selectBuyerInfo(@RequestParam String buyer,Model model) {		
+			membershipInformationBean mb=new membershipInformationBean();
+			
+			System.out.println("buyer2 =" +buyer);		
+//			List<RecordBean> list = recordservice.getAllRecord(buyer);
+//			model.addAttribute("select", list);
+
+			return "record_30/select2";
+	    }
+
 	
 	
 //	@GetMapping("/delete")

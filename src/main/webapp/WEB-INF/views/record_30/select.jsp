@@ -176,7 +176,7 @@
 			<div class="table-wrapper">
 				<div class="table-title">
 					<div class="row">
-						<div class="col-sm-8"><h2>Customer <b>Details</b></h2></div>
+						<div class="col-sm-8"><h2> <b>購物紀錄</b></h2></div>
 <!-- 						<div class="col-sm-4"> -->
 <!-- 							<div class="search-box"> -->
 <!-- 								<i class="material-icons">&#xE8B6;</i> -->

@@ -174,16 +174,17 @@ h2 span {
 					<td><img width='150'src="<c:url value='/getPicture/${row.pid}' />" /></td>
 					<td>${row.p_name}</td>
 					<td>
-<%-- 					 <input type='text' class='sub' name='sub' value='${row.pid}'/> --%>
-					<a href="<c:url value='/sub' />?id=${row.pid}"><button class="down">-</button></a>
+<%-- 					<a href="<c:url value='/sub' />?id=${row.pid}"> </a>--%>
+					<button class="down"  value='${row.pid}'>-</button>
 					<input type="text" value="${row.count}" readonly="readonly" />
-					<a href="<c:url value='/add' />?id=${row.pid}">
-					<button class="up">+</button></a>
+<%-- 					<a href="<c:url value='/add' />?id=${row.pid}"></a> --%>
+					<button class="up" value='${row.pid}'>+</button>
 					</td>
 					<td>NT<span>${row.p_price}</span></td>
 					<td>NT<span class="total">${row.count*row.p_price}</span></td>
 					<td>
-						<a href="<c:url value='/deletecart' />?id=${row.pid}"><button>刪除</button></a>
+						<a href="<c:url value='/deletecart' />?id=${row.pid}"></a>
+						<button class='deletecart' value='${row.pid}'>刪除</button>
 					</td>
 				</tr>
 			
@@ -212,7 +213,7 @@ h2 span {
 	
 	$(".down").click(function(){		
 //		var data=$("#form1").serializeArray();
-	var data=$('.sub').val();
+	var data=$(this).val();
 	console.log(data+"************************");
 	$.ajax({
 		type:'get',
@@ -225,10 +226,46 @@ h2 span {
 			 console.log("77777777")
 		}
 								
-	});		
-	
-	
+	});			
 });
+
+	
+	$(".up").click(function(){		
+//		var data=$("#form1").serializeArray();
+	var data=$(this).val();
+	console.log(data+"************************");
+	$.ajax({
+		type:'get',
+		url:'add',
+		data:{
+			"id":data
+		},
+		
+		success:function(){
+			 console.log("77777777")
+		}
+								
+	});			
+});
+	
+	$(".deletecart").click(function(){		
+//		var data=$("#form1").serializeArray();
+	var data=$(this).val();
+	console.log(data+"************************");
+	$.ajax({
+		type:'get',
+		url:'deletecart',
+		data:{
+			"id":data
+		},
+		
+		success:function(){
+			 console.log("77777777")
+		}
+								
+	});			
+});
+
 
 	
 	

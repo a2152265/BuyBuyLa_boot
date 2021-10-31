@@ -154,8 +154,7 @@ public class CartServiceImpl implements CartService {
 				rb.getBuy_time(),
 				rb.getTransport_status(),
 				rb.getBuyeraddress());
-	
-		
+
 	}
 
 	@Transactional

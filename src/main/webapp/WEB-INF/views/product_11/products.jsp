@@ -195,7 +195,7 @@
               
               <!-- 購物車顯示數量在這裡改 -->
               
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
+              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>3</span></button> </li>
 <!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
             </ul>
           </div>
@@ -276,10 +276,15 @@
                 <img class="card-img" src="<c:url value='/getPicture/${product.productId}' />" alt="">
                 <ul class="card-product__imgOverlay">
                   <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
-<%--                   <input type='text' class='pid' name='address' value='${product.productId}'/> --%>
                  
-<!--                   <li><button class='additem' ><i class="ti-shopping-cart"></i></button></li> -->
-                  <li><button onclick="location.href='<c:url value='/additem' />?id=${product.productId}'"><i class="ti-shopping-cart"></i></button></li>
+
+                  <input type='hidden' class='pid' name='address' value='${product.productId}'/>
+                 
+                  <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>
+                                
+       
+
+<%--                   <li><button onclick="location.href='<c:url value='/additem' />?id=${product.productId}'"><i class="ti-shopping-cart"></i></button></li> --%>
            
                   <li><button><i class="ti-heart"></i></button></li>
                 </ul>
@@ -606,28 +611,44 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
      
 <!--  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<c:forEach var="row" items="${cart}">
+<span class="count"  style="display:none"> ${row.count}</span>
+
+</c:forEach>
+
 <script>
-// $(".additem").click(function(){		
-// //		var data=$("#form1").serializeArray();
-// 	var data=$('.pid').val();
-// 	console.log(data+"************************");
-// 	$.ajax({
-// 		type:'get',
-// 		url:'additem',
-// 		data:{
-// 			"id":data
-// 		},
+
+
+
+$(".additem").click(function(){		
+//		var data=$("#form1").serializeArray();
+	var data=$(this).val();
+	console.log(data+"************************");
+	$.ajax({
+		type:'get',
+		url:'additem',
+		data:{
+			"id":data
+		},
 		
-// 		success:function(){
-// 			 console.log("77777777")
-// 		}
+		success:function(){
+			 console.log("77777777")
+		}
 								
-// 	});		
+	});		
 	
 	
 });
 
+var count=0;
+$('.count').each(function(){
+	$(this).html;
+	var a = parseInt($(this).html());
+	count=count+a
 
+	})
+
+$('#ccount').html(count)
 
 
 </script>

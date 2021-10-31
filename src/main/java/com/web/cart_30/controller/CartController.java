@@ -39,14 +39,14 @@ public class CartController {
 	}
 
 
-	@GetMapping("/test")
-	public String home(
-//			@ModelAttribute("loginSession") membershipInformationBean mb,
-			Model model) {
-
-		 return "product_11/products";
-		 
-	}
+//	@GetMapping("/test")
+//	public String home(
+////			@ModelAttribute("loginSession") membershipInformationBean mb,
+//			Model model) {
+//
+//		 return "product_11/products";
+//		 
+//	}
 	
 	
 	
@@ -65,7 +65,7 @@ public class CartController {
 		String buyer=mb.getUserEmail();	
 		List<Cart> cart = cartService.addToRecord(buyer);
 		model.addAttribute("cart", cart);	
-		 	return "cart_30/cart";
+		 	return "cart_30/cart2";
 	}
 	
 	
@@ -115,7 +115,7 @@ public class CartController {
 		model.addAttribute("BuyerAddressList",ba);
 		model.addAttribute("BuyerAddress",new BuyerAddress());
 		
-		 return "cart_30/check";
+		 return "cart_30/check2";
 	}
 	
 	
@@ -134,14 +134,14 @@ public class CartController {
 	public void addaddress(@RequestParam("address")String address, @ModelAttribute("loginSession") membershipInformationBean mb ) {
 		String buyer=mb.getUserEmail();	
 		List<Cart> cart = cartService.addToRecord(buyer);	
-		int rc = cartService.getRidCount(1);
-		RecordBean rb =new RecordBean();
+		Integer rc = cartService.getRidCount(1);
+		RecordBean rb=new RecordBean();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		String now = dtf.format(LocalDateTime.now());
 		double totalprice =0;
 		System.out.println(address+"////////////////////");
 		for(Cart c:cart) {
-//			rb.setId(null);		
+			
 			rb.setRecord_id(rc);
 			rb.setPid(c.getPid());
 			rb.setP_name(c.getP_name());
@@ -164,7 +164,7 @@ public class CartController {
 			
 
 		}
-		RecordList  recordList = new RecordList(rc, buyer, totalprice,now);
+		RecordList  recordList = new RecordList(rc, buyer, totalprice,now,address);
 		
 		cartService.addToRecordList(recordList);
 		cartService.addRidCount();
@@ -181,42 +181,7 @@ public class CartController {
 		String buyer=mb.getUserEmail();	
 		List<Cart> cart = cartService.addToRecord(buyer);
 		model.addAttribute("cart", cart);	
-//		int rc = cartService.getRidCount(1);
-//		RecordBean rb =new RecordBean();
-//		
-//		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//		String now = dtf.format(LocalDateTime.now());
-//		String account = mb.getUserEmail();
-//		System.out.println(now);
-//		double totalprice =0;
-//		for(Cart c:cart) {
-//						
-//			rb.setRecord_id(rc);
-//			rb.setPid(c.getPid());
-//			rb.setP_name(c.getP_name());
-//			rb.setP_price(c.getP_price());
-//			rb.setPcount(c.getCount());
-//			rb.setBuyer(account);
-//			rb.setSeller(c.getSeller());
-//			rb.setBuy_time(now);
-//			rb.setTransport_status("待出貨");
-//			rb.setBuyeraddress(address);
-//			System.out.println("****************************************************");
-//			System.out.println("***"+rb.getId()+"RID = "+rb.getRecord_id()+", PID = "+rb.getPid()+", NAME = "
-//					+ rb.getP_name()+", PRICE = "+rb.getP_price()+", CNT = "+rb.getPcount()
-//					+", BUYER = "+rb.getBuyer()+", SELLER = "+rb.getSeller());
-//			
-//			totalprice+=c.getP_price()*c.getCount();
-//			
-//			cartService.addToRecord2(rb);
-//			
-//
-//		}
-//		RecordList  recordList = new RecordList(rc, account, totalprice,now);
-//		
-//		cartService.addToRecordList(recordList);
-//		cartService.addRidCount();
-		 return "cart_30/fin";
+		 return "cart_30/fin2";
 	}
 	
 	@GetMapping("/removeAllCart")
