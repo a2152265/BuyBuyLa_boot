@@ -22,7 +22,8 @@ public class MessageService implements IMessageService{
 		return messageRepository.findAllByForumId(messageForumId);
 	}
 	@Override
-	public List<MessageBean> getPagedMessagesByMessageForumId(Integer messageForumId, int page, int size) {
+	public List<MessageBean> getPagedMessagesByMessageForumId(
+			Integer messageForumId, int page, int size) {
 		Page<MessageBean> pageResult = messageRepository.findByMessageForumId(messageForumId, 
 				        PageRequest.of(page,  // 查詢的頁數，從0起算
 				                size, 			// 查詢的每頁筆數

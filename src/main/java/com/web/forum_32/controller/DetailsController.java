@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.model.MessageBean;
 import com.web.forum_32.service.IForumService;
@@ -39,8 +40,7 @@ public class DetailsController {
 	// Detailed
 	@GetMapping("/detailed")
 	public String detailed(Model model, 
-			@RequestParam(value = "id", required = false) Integer id,
-			@RequestParam(value="page",defaultValue="0") int page) {
+			@RequestParam(value = "id", required = false) Integer id) {
 		
 		List<ForumBean> allList = forumService.getAllArticles();
 		model.addAttribute("fb", forumService.getContentById(id));
@@ -51,12 +51,8 @@ public class DetailsController {
 		int messageSize = messageService.getAllMessage(id).size(); 
 		model.addAttribute("messageSize",messageSize);
 		tagSize(model);
-		
-		// 留言展示測試
-		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,page,4);
 		List<MessageBean> msgList = messageService.getAllMessage(id);
 		model.addAttribute("msgSize", msgList);
-		model.addAttribute("msg",msgPageList);
 		
 		return "forum_32/forum-detailed";
 	}
@@ -66,21 +62,20 @@ public class DetailsController {
 	@ResponseBody
 	public List<MessageBean> messageUrl(
 			@RequestParam("id") Integer id,
+			@RequestParam("page") Integer page,
 			Model model) {
-		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,0,4);
+		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,page,4);
 		return msgPageList;
 	}
 	
 	// Ajax 分頁
-	@GetMapping(value = "/page")
+	@GetMapping({"/page","/pageLeft","/pageRight"})
 	@ResponseBody
 	public List<MessageBean> pageUrl(
 			@RequestParam("id") Integer id,
 			@RequestParam("page") Integer page,
 			Model model) {
-		System.out.println("id=="+id);
-		System.out.println("page=="+page);
-		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,page-1,4);
+		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,page,4);
 		return msgPageList;
 	}
 	

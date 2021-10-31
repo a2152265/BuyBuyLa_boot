@@ -10,13 +10,16 @@ $(document).ready(function() {
 			"id": forumId
 		},
 		success: function() {
+			var page = 0;
 			$.ajax({
 				type: "get",
 				url: "message",
 				data: {
-					"id": forumId
+					"id": forumId,
+					"page": page
 				},
 				success: function(data) {
+					$('.pages').text(page + 1);
 					$('#messageResult').html('');
 					for (i = 0; i < data.length; i++) {
 						$('#messageResult').append(
@@ -40,7 +43,8 @@ $(document).ready(function() {
 					}
 					$('.pageBtn').click(function(e) {
 						e.preventDefault();
-						var page = $(this).val();
+						var page = $(this).val() - 1;
+						$('.pages').text(page + 1);
 						$('#messageResult').html('');
 						$.ajax({
 							type: "get",
@@ -50,6 +54,7 @@ $(document).ready(function() {
 								"page": page
 							},
 							success: function(data) {
+								$('#messageResult').html('');
 								for (i = 0; i < data.length; i++) {
 									$('#messageResult').append(
 										"<div class='comment-list'>" +
@@ -62,12 +67,85 @@ $(document).ready(function() {
 										"<h5><a href='#'>" + data[i]['messageUserName'] + "</a></h5>" +
 										"<p class='date'>" + data[i]['messageDate'] + "</p>" +
 										"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
-										"</div>" + "</div>" +
-										"<div class='reply-btn'>" +
-										"<a href='#reply'>" +
-										"<button style='border: none;' class='btn-reply text-uppercase reply'>回復</button>" +
-										"</a>" +
-										"</div>" + "</div>" + "</div>"
+										"</div>" + "</div>" + "</div>" + "</div>"
+
+									)
+								}
+							}
+						})
+					})
+					$('.leftBtn').click(function(e) {
+						e.preventDefault();
+						var page = $('.pages').text();
+						if (page != 1) {
+							$('.pages').text(parseInt(page) - 1);
+						} else {
+							return false;
+						};
+						var page = parseInt($('.pages').text());
+						$('#messageResult').html('');
+						$.ajax({
+							type: "get",
+							url: "pageLeft",
+							data: {
+								"id": forumId,
+								"page": page-1
+							},
+							success: function(data) {
+								$('#messageResult').html('');
+								for (i = 0; i < data.length; i++) {
+									$('#messageResult').append(
+										"<div class='comment-list'>" +
+										"<div class='single-comment justify-content-between d-flex'>" +
+										"<div class='user justify-content-between d-flex'>" +
+										"<div class='thumb'>" +
+										"<img style='width: 100px; height: 100px' src='/BuyBuyla_boot/getPicturefromMember/" + data[i]['messagePicId'] + "'>" +
+										"</div>" +
+										"<div class='desc'>" +
+										"<h5><a href='#'>" + data[i]['messageUserName'] + "</a></h5>" +
+										"<p class='date'>" + data[i]['messageDate'] + "</p>" +
+										"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
+										"</div>" + "</div>" + "</div>" + "</div>"
+
+									)
+								}
+							}
+						})
+					})
+					$('.rightBtn').click(function(e) {
+						e.preventDefault();
+						var page = $('.pages').text();
+						var len = $('.pageBtn').length;
+						if (page < len) {
+							$('.pages').text(parseInt(page) + 1);
+						} else {
+							return false;
+						};
+						var page = parseInt($('.pages').text());
+						$('#messageResult').html('');
+						$.ajax({
+							type: "get",
+							url: "pageRight",
+							data: {
+								"id": forumId,
+								"page": page-1
+							},
+							success: function(data) {
+								$('#messageResult').html('');
+								for (i = 0; i < data.length; i++) {
+									$('#messageResult').append(
+										"<div class='comment-list'>" +
+										"<div class='single-comment justify-content-between d-flex'>" +
+										"<div class='user justify-content-between d-flex'>" +
+										"<div class='thumb'>" +
+										"<img style='width: 100px; height: 100px' src='/BuyBuyla_boot/getPicturefromMember/" + data[i]['messagePicId'] + "'>" +
+										"</div>" +
+										"<div class='desc'>" +
+										"<h5><a href='#'>" + data[i]['messageUserName'] + "</a></h5>" +
+										"<p class='date'>" + data[i]['messageDate'] + "</p>" +
+										"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
+										"</div>" + "</div>" + "</div>" + "</div>"
+
 									)
 								}
 							}
