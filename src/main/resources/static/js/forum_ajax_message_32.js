@@ -20,27 +20,7 @@ $(document).ready(function() {
 				},
 				success: function(data) {
 					$('.pages').text(page + 1);
-					$('#messageResult').html('');
-					for (i = 0; i < data.length; i++) {
-						$('#messageResult').append(
-							"<div class='comment-list'>" +
-							"<div class='single-comment justify-content-between d-flex'>" +
-							"<div class='user justify-content-between d-flex'>" +
-							"<div class='thumb'>" +
-							"<img style='width: 100px; height: 100px' src='/BuyBuyla_boot/getPicturefromMember/" + data[i]['messagePicId'] + "'>" +
-							"</div>" +
-							"<div class='desc'>" +
-							"<h5><a href='#'>" + data[i]['messageUserName'] + "</a></h5>" +
-							"<p class='date'>" + data[i]['messageDate'] + "</p>" +
-							"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
-							"</div>" + "</div>" +
-							"<div class='reply-btn'>" +
-							"<a href='#reply'>" +
-							"<button style='border: none;' class='btn-reply text-uppercase reply'>回復</button>" +
-							"</a>" +
-							"</div>" + "</div>" + "</div>"
-						)
-					}
+					showMessage(data);
 					$('.pageBtn').click(function(e) {
 						e.preventDefault();
 						var page = $(this).val() - 1;
@@ -54,23 +34,7 @@ $(document).ready(function() {
 								"page": page
 							},
 							success: function(data) {
-								$('#messageResult').html('');
-								for (i = 0; i < data.length; i++) {
-									$('#messageResult').append(
-										"<div class='comment-list'>" +
-										"<div class='single-comment justify-content-between d-flex'>" +
-										"<div class='user justify-content-between d-flex'>" +
-										"<div class='thumb'>" +
-										"<img style='width: 100px; height: 100px' src='/BuyBuyla_boot/getPicturefromMember/" + data[i]['messagePicId'] + "'>" +
-										"</div>" +
-										"<div class='desc'>" +
-										"<h5><a href='#'>" + data[i]['messageUserName'] + "</a></h5>" +
-										"<p class='date'>" + data[i]['messageDate'] + "</p>" +
-										"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
-										"</div>" + "</div>" + "</div>" + "</div>"
-
-									)
-								}
+								showMessage(data);
 							}
 						})
 					})
@@ -89,26 +53,10 @@ $(document).ready(function() {
 							url: "pageLeft",
 							data: {
 								"id": forumId,
-								"page": page-1
+								"page": page - 1
 							},
 							success: function(data) {
-								$('#messageResult').html('');
-								for (i = 0; i < data.length; i++) {
-									$('#messageResult').append(
-										"<div class='comment-list'>" +
-										"<div class='single-comment justify-content-between d-flex'>" +
-										"<div class='user justify-content-between d-flex'>" +
-										"<div class='thumb'>" +
-										"<img style='width: 100px; height: 100px' src='/BuyBuyla_boot/getPicturefromMember/" + data[i]['messagePicId'] + "'>" +
-										"</div>" +
-										"<div class='desc'>" +
-										"<h5><a href='#'>" + data[i]['messageUserName'] + "</a></h5>" +
-										"<p class='date'>" + data[i]['messageDate'] + "</p>" +
-										"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
-										"</div>" + "</div>" + "</div>" + "</div>"
-
-									)
-								}
+								showMessage(data);
 							}
 						})
 					})
@@ -128,29 +76,32 @@ $(document).ready(function() {
 							url: "pageRight",
 							data: {
 								"id": forumId,
-								"page": page-1
+								"page": page - 1
 							},
 							success: function(data) {
-								$('#messageResult').html('');
-								for (i = 0; i < data.length; i++) {
-									$('#messageResult').append(
-										"<div class='comment-list'>" +
-										"<div class='single-comment justify-content-between d-flex'>" +
-										"<div class='user justify-content-between d-flex'>" +
-										"<div class='thumb'>" +
-										"<img style='width: 100px; height: 100px' src='/BuyBuyla_boot/getPicturefromMember/" + data[i]['messagePicId'] + "'>" +
-										"</div>" +
-										"<div class='desc'>" +
-										"<h5><a href='#'>" + data[i]['messageUserName'] + "</a></h5>" +
-										"<p class='date'>" + data[i]['messageDate'] + "</p>" +
-										"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
-										"</div>" + "</div>" + "</div>" + "</div>"
-
-									)
-								}
+								showMessage(data);
 							}
 						})
 					})
+					function showMessage(data) {
+						$('#messageResult').html('');
+						for (i = 0; i < data.length; i++) {
+							$('#messageResult').append(
+								"<div class='comment-list'>" +
+								"<div class='single-comment justify-content-between d-flex'>" +
+								"<div class='user justify-content-between d-flex'>" +
+								"<div class='thumb'>" +
+								"<img style='width: 100px; height: 100px' src='/BuyBuyla_boot/getPicturefromMember/" + data[i]['messagePicId'] + "'>" +
+								"</div>" +
+								"<div class='desc'>" +
+								"<h5><a href='#'>" + data[i]['messageUserName'] + "</a></h5>" +
+								"<p class='date'>" + data[i]['messageDate'] + "</p>" +
+								"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
+								"</div>" + "</div>" + "</div>" + "</div>"
+
+							)
+						}
+					}
 				}
 			})
 		}
