@@ -31,7 +31,7 @@ public class Product implements Serializable {
 	private String fileName;
 	private String seller;
 	private String insertTime;
-
+	private String status;
 	
 	@Transient
 	private MultipartFile productImage;
@@ -180,4 +180,17 @@ public class Product implements Serializable {
 	}
 
 
+
+	public String getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	
+	
 }

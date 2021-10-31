@@ -53,35 +53,28 @@ body{
 }
 
 
-
-
 </style>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-
-<button  onClick="batch_up()" >上架</button>
+<a  href="<c:url value='/products/add' />">新增商品</a>
 <table id="myTable" class="display">
     <thead>
         <tr>
     <th style="width:10%;">productId</th>
-    <th style="width:20%;">productName</th>
+    <th style="width:30%;">productName</th>
     <th style="width:20%;">productImage</th>
     <th style="width:10%;">price</th>
     <th style="width:10%;">stock</th>
     <th style="width:10%;">category</th>
     <th style="width:10%;">insertTime</th>
-    <th style="width:20%;"><input type="checkbox" value="" name="selectall"></th>
+    <th style="width:10%;">update</th>
+    <th style="width:10%;">delete</th>
         </tr>
     </thead>
     <tbody>
     <c:forEach items="${products}" var="product">
         <tr>
-           <td id="id">${product.productId}</td>
+           <td>${product.productId}</td>
     <td>${product.productName}</td>
     <td><img width='100' height='100' 
   				   src="<c:url value='/getPicture/${product.productId}' />" /></td>
@@ -89,11 +82,10 @@ body{
     <td>${product.stock}</td>
     <td>${product.category}</td>
     <td>${product.insertTime}</td>
- 	
- 	
-     <td>
-       <input id="" type="checkbox" name="checkbox" id="checkbox" value="${product.productId}"/>
-     </td>
+   <!-- <td><input type=button onclick="location.href='./update/${product.productId}'" value='update'></td>
+    <td><input type=button onclick="location.href='/delete/${product.productId}'" value='update'></td>-->
+     <td><a id="update" href="<c:url value='/update?productId=${product.productId}' />">update</a></td>
+    <td><a  href="<c:url value='/delete/${product.productId}' />">delete</a></td>
         </tr>
         </c:forEach>
     </tbody>
@@ -104,52 +96,9 @@ body{
 <script>
 
 
-	
-	$('input:checkbox[name="selectall"]').click(function(){
-		 if($(this).is(':checked')){
-		     $('input:checkbox').each(function(){
-		    $(this).prop("checked",true);
-		  });
-		    }else{
-		      $('input:checkbox').each(function(){
-		    $(this).prop("checked",false);
-		  });
-		    }
-		 });
-	      
-	
-	  function batch_up() {
-		    var ids = '';
-		    $('input:checkbox').each(function(){
-		      if(this.checked == true){
-		        ids += this.value + ',';
-		      }
-		    });
-
-		      $.ajax({
-		        type: 'post',
-		        url: 'launched',
-		        data: {"ids": ids},
-		        dataType: 'json',
-		        success: function (data) {
-		          if (data.code == 200) {
-		            $(obj).parents("tr").remove();
-		            layer.msg(data.message, {icon: 1, time: 1000});
-		          } else {
-		            layer.msg(data.message, {icon: 2, time: 3000});
-		          }
-		        },
-		        error: function (data) {
-		          console.log(data.msg);
-		        },
-		      });
-		   
-		  }
-	      
-
-	
-	
-	
+$(document).ready( function () {
+    $('#myTable').DataTable();
+} );
  
 	
 

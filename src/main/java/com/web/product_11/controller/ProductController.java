@@ -74,8 +74,25 @@ public class ProductController {
 			List<Product> beans = productservice.getAllProducts();
 			model.addAttribute("products", beans);
 			return "product_11/manage/products";
+					
+		}
+		
+	//商品上架
+		@PostMapping("/manage/launched")
+		public ResponseEntity<Product> productlaunched(
+				Model model,
+				 @RequestParam("ids") String [] ids) {
+			System.out.println("id" +ids[0]+ids[1]);
+			for(String id:ids) {
+				
+				
+			}
+			int idd=0;
+		
+			productservice.updateProductStatus("上架中",idd);
 			
-			
+			return new ResponseEntity<Product>(HttpStatus.OK) ;
+					
 		}
 		
 	//顯示賣家商品
@@ -86,12 +103,11 @@ public class ProductController {
 
 			List<Product> beans = productservice.getProductBySeller(loginMb.getUserEmail());
 			model.addAttribute("sellerproducts", beans);
-			return "product_11/productBySeller";		
+			return "product_11/seller/productBySeller";		
 			
 		}
 	
-	
-	
+
 	//個別商品頁面
 		@GetMapping("/product")
 		public String getProductById(
@@ -136,6 +152,18 @@ public class ProductController {
 		}
 		System.out.println("p=" + p);
 		
+		//新增商品時間戳記
+		   Long timeStamp = System.currentTimeMillis();  //获取当前时间戳
+	       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	       String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp)))); 
+	       p.setInsertTime(sd);
+	       //獲取賣家帳號
+	       p.setSeller(loginMb.getUserEmail());
+	       
+	       //商品狀態
+	       p.setStatus("待審核");
+		
+
 		if(!p.getProductImage().isEmpty()) {
 		// 於productImage取得照片
 		MultipartFile productImage = p.getProductImage();
@@ -157,16 +185,9 @@ public class ProductController {
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 			}
 		}
-		   Long timeStamp = System.currentTimeMillis();  //获取当前时间戳
-	       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	       String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp)))); 
-
-	       p.setSeller(loginMb.getUserEmail());
+		
 	       
-	       
-	       p.setInsertTime(sd);
-		// ----------------------------------------
-		productservice.addProduct(p);
+	       productservice.addProduct(p);
 		}else {
 			
 			productservice.addProduct(p);
@@ -308,6 +329,8 @@ public class ProductController {
 				p.setInsertTime(insertTime);
 				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!p.getProductImage()==="+p.getProductImage());
 				p.setSeller(loginMb.getUserEmail());
+			       //商品狀態
+			       p.setStatus("待審核");
 				if(!p.getProductImage().isEmpty()) {
 					
 					
@@ -365,10 +388,6 @@ public class ProductController {
 				"productImage");
 	}
 
-//
-//	@GetMapping({"/","index.html"}) //請求路徑
-//	public String index000() {
-//		return "index";   //視圖邏輯名稱， /WEB-INF/views/index.jsp
-//	}
+
 	
 }

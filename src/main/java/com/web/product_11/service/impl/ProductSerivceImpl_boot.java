@@ -74,4 +74,12 @@ public class ProductSerivceImpl_boot implements ProductService{
 		return productRepositoryDao.findBySeller(seller);
 	}
 
+	@Override
+	public void updateProductStatus(String status,int productId) {
+		productRepositoryDao.updateProductStatus(status, productId);
+		
+	}
+
+
+
 }

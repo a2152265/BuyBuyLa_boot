@@ -30,6 +30,9 @@ public interface ProductService {
 		//更新商品(無照片)
 		void updateProductNoImg(Integer productId,Product product);
 		
+		//更新商品狀態
+		void updateProductStatus(String status,int productId);
+		
 		//刪除商品
 		void  deleteProduct(int productId);
 		
