@@ -131,7 +131,7 @@
 	<div class="modal fade" id="UpdateModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg" style="margin-top: 90px">
-			<form:form method='POST' modelAttribute="updateForumBean"
+			<form:form method='POST' modelAttribute="editForumContent"
 				class='form-horizontal' enctype="multipart/form-data">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -156,7 +156,7 @@
 							value="${memberUiDefault.userEmail}" />
 						<form:input path="userNickname" type="hidden"
 							value="${memberUiDefault.userNickname}" />
-						<%-- 						<form:input path="Identification" type="hidden" value="${memberUiDefault.Identification}" /> --%>
+						<form:input path="Identification" type="hidden" value="${memberUiDefault.identification}" />
 						<!-- 結束 -->
 
 						<div class="mb-3">
@@ -167,7 +167,7 @@
 						</select>
 							<br>
 							<form:input type="text" required="true" placeholder="標題"
-								path="title" class="form-control updTitle title-fontsize"
+								path="title" class="form-control title-fontsize"
 								aria-label="Sizing example input"
 								aria-describedby="inputGroup-sizing-lg" />
 							<br>
@@ -201,20 +201,20 @@
 
 						<div class="col-lg-9 col-md-9 blog_details">
 							<div class="editIMG">
-								<img id="edit" data-bs-toggle="dropdown" aria-expanded="false"
-									class="dropdown-toggle editml700w50h50"
+								<img data-bs-toggle="dropdown" aria-expanded="false"
+									class="dropdown-toggle ml700w50h50tf11"
 									src="https://cdn-icons-png.flaticon.com/128/1827/1827933.png">
 								<ul class="dropdown-menu">
-									<li data-id="${fb.id}" data-bs-toggle="modal"
+									<li data-id="${forumContent.id}" data-bs-toggle="modal"
 										data-bs-target="#UpdateModal"
 										class="dropdown-item updateDataClass">編輯</li>
 									<li class="dropdown-item tata"
-										onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${fb.id}'/>'">刪除</li>
+										onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${forumContent.id}'/>'">刪除</li>
 								</ul>
 							</div>
-							<h1>${fb.title}</h1>
+							<h1>${forumContent.title}</h1>
 							<br> <br> <br>
-							<p class="excert">${fb.content}</p>
+							<p class="excert">${forumContent.content}</p>
 						</div>
 					</div>
 					<div class="navigation-area">
@@ -233,7 +233,7 @@
 								<div class="detials">
 									<p>上一篇</p>
 									<a href="#">
-										<h4>Space The Final Frontier</h4>
+										<h4>${previous.title}</h4>
 									</a>
 								</div>
 							</div>
@@ -242,7 +242,7 @@
 								<div class="detials">
 									<p>下一篇</p>
 									<a href="#">
-										<h4>Telescopes 101</h4>
+										<h4>${after.title}${fail}</h4>
 									</a>
 								</div>
 								<div class="arrow">
@@ -257,7 +257,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="comments-area" style="width:794px;height:750px;">
+					<div class="comments-area">
 						<h4>${messageSize}則評論</h4>
 						<div id="messageResult"></div>
 						<input type="hidden" id="id" value="${forumId}">
@@ -276,7 +276,7 @@
 								</li>
 								</c:forEach>
 								<li class="page-item rightBtn"><a class="page-link"
-									aria-label="Next"> <span aria-hidden="true"> <span
+									aria-label="Next"> <span aria-hidden="true"><span
 											class="lnr lnr-chevron-right"></span>
 									</span>
 								</a></li>
@@ -294,12 +294,12 @@
 							<div class="form-group form-inline">
 								<div class="form-group col-lg-6 col-md-6 name">
 									<input type="text" name="messageUserName" class="form-control"
-										value="${memberUiDefault.userName}" readonly="readonly">
+										value="${memberUiDefault.userName}" placeholder="Guest" readonly="readonly">
 								</div>
 								<div class="form-group col-lg-6 col-md-6 email">
 									<input type="email" name="messageUserEmail"
 										class="form-control" readonly="readonly"
-										placeholder="Enter email address"
+										placeholder="Email address"
 										value="${memberUiDefault.userEmail}">
 								</div>
 							</div>
@@ -309,7 +309,7 @@
 							</div>
 							<button
 								class="button button-postComment button--active messageBtn"
-								type="button">發表評論</button>
+								type="button" style="border:none">發表評論</button>
 						</form>
 
 					</div>
@@ -318,8 +318,8 @@
 					<div class="blog_right_sidebar">
 						<aside class="single_sidebar_widget author_widget">
 							<img width='150'
-								src="<c:url value='/getPicturefromMember/${fb.picId}'/>" />
-							<h4 class="forumUsername2">${fb.userName}</h4>
+								src="<c:url value='/getPicturefromMember/${forumContent.picId}'/>" />
+							<h4 class="forumUsername2">${forumContent.userName}</h4>
 							<p>一般會員</p>
 							<div class="social_icon">
 								<a href="#"> <i class="fab fa-facebook-f"></i>

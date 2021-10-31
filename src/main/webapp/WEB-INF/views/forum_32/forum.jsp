@@ -158,7 +158,7 @@
 											<li><a href="#">${content.date} <i
 													class="lnr lnr-calendar-full"></i>
 											</a></li>
-											<li><a href="#">123 <i class="lnr lnr-eye"></i>
+											<li><a href="#">${content.viewQty}<i class="lnr lnr-eye"></i>
 											</a></li>
 											<li><a href="#">${content.messageQty}<i class="lnr lnr-bubble"></i>
 											</a></li>
@@ -170,7 +170,7 @@
 										<div class="blog_details">
 											<h2>${content.title}</h2>
 											<div class="box">
-												<div class="card-text ellipsis">${content.content}</div>
+												<div class="ellipsis"><p>${content.content}</p></div>
 											</div>
 											<a class="button button-blog"
 												href="<c:url value='/detailed' />?id=${content.id}">View
@@ -206,7 +206,8 @@
 												<form:input path="tag" type="hidden" id="insTag" />
 												<form:textarea path="content" class="content display-none" />
 												<form:input path="date" type="hidden" id="nowDate" />
-												<form:input path="messageQty" type="hidden"  />
+												<form:input path="messageQty" type="hidden" />
+												<form:input path="viewQty" type="hidden" />
 												
 												<form:input path="picId" class="form-control" type="hidden" value="${memberUiDefault.id}" />
 												<form:input path="userName" type="hidden" value="${memberUiDefault.userName}" />

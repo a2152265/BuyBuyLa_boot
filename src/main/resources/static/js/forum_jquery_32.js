@@ -25,7 +25,8 @@ $(function() {
 		$('.newFoRuM').attr("disabled","disabled");
 		$('.newFoRuM').css("background","gray");
 		$('.messageBtn').attr("disabled","disabled");
-		$('.messageBtn').css("background","gray");
+		$('.messageBtn').css({"background":"gray"});
+		$('.messageContent').attr("disabled","disabled");
 	}
 	$('.reply').on('click',function(){
 		console.log($('.desc').html())
