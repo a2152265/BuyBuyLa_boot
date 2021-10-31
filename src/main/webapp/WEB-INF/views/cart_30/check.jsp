@@ -320,28 +320,21 @@ h2 span {
         </div>
     </div>
 		
-<%-- 		<form id='form1'> --%>
-		<input type='text' id='selectval' name='address' required="required"/>
+
+		<input type='hidden' id='selectval' name='address' required="required"/>
 		
 		<center>
 
 			<input type="button" value="確認送出" class="submit">
 		</center>
 		
-<%-- 		</form> --%>
+
 		
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script>
-	
-	
-	
-	
-	
-	
-	
+	<script>							
 	
 		var total = 0;
 		$('.total').each(function() {

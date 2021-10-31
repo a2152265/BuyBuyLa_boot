@@ -276,7 +276,11 @@
                 <img class="card-img" src="<c:url value='/getPicture/${product.productId}' />" alt="">
                 <ul class="card-product__imgOverlay">
                   <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
+<%--                   <input type='text' class='pid' name='address' value='${product.productId}'/> --%>
+                 
+<!--                   <li><button class='additem' ><i class="ti-shopping-cart"></i></button></li> -->
                   <li><button onclick="location.href='<c:url value='/additem' />?id=${product.productId}'"><i class="ti-shopping-cart"></i></button></li>
+           
                   <li><button><i class="ti-heart"></i></button></li>
                 </ul>
               </div>
@@ -598,5 +602,37 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 //           }
 //       })
      </script>     -->
+     
+     
+<!--  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+<script>
+// $(".additem").click(function(){		
+// //		var data=$("#form1").serializeArray();
+// 	var data=$('.pid').val();
+// 	console.log(data+"************************");
+// 	$.ajax({
+// 		type:'get',
+// 		url:'additem',
+// 		data:{
+// 			"id":data
+// 		},
+		
+// 		success:function(){
+// 			 console.log("77777777")
+// 		}
+								
+// 	});		
+	
+	
+});
+
+
+
+
+</script>
+	
+
+
 </body>
 </html>

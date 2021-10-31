@@ -173,7 +173,13 @@ h2 span {
 				<tr>
 					<td><img width='150'src="<c:url value='/getPicture/${row.pid}' />" /></td>
 					<td>${row.p_name}</td>
-					<td><a href="<c:url value='/sub' />?id=${row.pid}"><button class="down">-</button></a><input type="text" value="${row.count}" readonly="readonly" /><a href="<c:url value='/add' />?id=${row.pid}"><button class="up">+</button></a></td>
+					<td>
+<%-- 					 <input type='text' class='sub' name='sub' value='${row.pid}'/> --%>
+					<a href="<c:url value='/sub' />?id=${row.pid}"><button class="down">-</button></a>
+					<input type="text" value="${row.count}" readonly="readonly" />
+					<a href="<c:url value='/add' />?id=${row.pid}">
+					<button class="up">+</button></a>
+					</td>
 					<td>NT<span>${row.p_price}</span></td>
 					<td>NT<span class="total">${row.count*row.p_price}</span></td>
 					<td>
@@ -200,8 +206,32 @@ h2 span {
 				value="我要結帳" class="submit"></a>
 		</center>
 	</div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
+	
+	$(".down").click(function(){		
+//		var data=$("#form1").serializeArray();
+	var data=$('.sub').val();
+	console.log(data+"************************");
+	$.ajax({
+		type:'get',
+		url:'sub',
+		data:{
+			"id":data
+		},
+		
+		success:function(){
+			 console.log("77777777")
+		}
+								
+	});		
+	
+	
+});
+
+	
+	
 	
 	var total=0;
 	$('.total').each(function(){
@@ -212,6 +242,7 @@ h2 span {
 		})
 	
 	$('#totalPrice').html(total)
+	
 	</script>
 	
 </body>
