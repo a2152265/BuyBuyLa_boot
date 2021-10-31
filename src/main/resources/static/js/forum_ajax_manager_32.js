@@ -14,7 +14,7 @@
 				success:function(data){
 				$('#updid').val(dataid);
 				$('#summernote').summernote('code', data['content']);
-				$('.updTitle').val(data['title']);
+				$('.title-fontsize').val(data['title']);
 				$('.messageQty').val(data['messageQty']);
 				$('.userNickname').val(data['userNickname']);
 				$('.userEmail').val(data['userEmail']);

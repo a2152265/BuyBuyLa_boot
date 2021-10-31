@@ -188,7 +188,7 @@
 							<br>
 							<form:input type="text" required="true" placeholder="標題"
 								path="title"
-								class="form-control updTitle title-fontsize" aria-label="Sizing example input"
+								class="form-control title-fontsize" aria-label="Sizing example input"
 								aria-describedby="inputGroup-sizing-lg" />
 							<br>
 							

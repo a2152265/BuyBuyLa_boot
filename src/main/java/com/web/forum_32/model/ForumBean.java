@@ -25,6 +25,7 @@ public class ForumBean implements Serializable{
 	private String content;      
 	private String date;
 	private Integer messageQty;
+	private Integer viewQty;
 	
 	// 會員資料
 	private Integer picId;
@@ -37,7 +38,7 @@ public class ForumBean implements Serializable{
 	}
 
 	public ForumBean(Integer id, String tag, String title, String content, String date, Integer picId, String userName,
-			String userEmail, String userNickname, String identification,Integer messageQty) {
+			String userEmail, String userNickname, String identification,Integer messageQty,Integer viewQty) {
 		this.id = id;
 		this.tag = tag;
 		this.title = title;
@@ -49,6 +50,7 @@ public class ForumBean implements Serializable{
 		this.userNickname = userNickname;
 		this.identification = identification;
 		this.messageQty=messageQty;
+		this.viewQty=viewQty;
 	}
 
 	public Integer getPicId() {
@@ -138,5 +140,14 @@ public class ForumBean implements Serializable{
 	public void setMessageQty(Integer messageQty) {
 		this.messageQty = messageQty;
 	}
+
+	public Integer getViewQty() {
+		return viewQty;
+	}
+
+	public void setViewQty(Integer viewQty) {
+		this.viewQty = viewQty;
+	}
+	
 	
 }

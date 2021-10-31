@@ -99,14 +99,15 @@ public class ForumController {
 	
 					/* 文章CRUD */
 	
-	// 新增.編輯文章 提交表單
+	// 新增 提交表單
 	@PostMapping({ "/forum", "/noviceSeller", "/sellerChat", "/announcement" })
 	public String processAddNewFourmForm(Model model,
 			@ModelAttribute("addForumBean") ForumBean fb, 
 			BindingResult result) {
 			fb.setMessageQty(0);
+			fb.setViewQty(0);
 			forumService.addOrEdit(fb);
-		return "redirect:/forum";
+		return "redirect:/detailed?id="+fb.getId();
 	}
 	
 					/* CRUD結束 */
@@ -140,7 +141,7 @@ public class ForumController {
 		ForumBean fb = new ForumBean(updfb.getId(),updfb.getTag(),updfb.getTitle(),
 				updfb.getContent(),updfb.getDate(),updfb.getPicId(),
 				updfb.getUserName(),updfb.getUserEmail(),updfb.getUserNickname(),
-				updfb.getIdentification(),updfb.getMessageQty());
+				updfb.getIdentification(),updfb.getMessageQty(),updfb.getViewQty());
 		return fb;
 	}
 

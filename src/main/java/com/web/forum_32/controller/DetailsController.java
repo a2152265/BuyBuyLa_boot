@@ -100,7 +100,7 @@ public class DetailsController {
 		ForumBean fb = new ForumBean(updfb.getId(),updfb.getTag(),updfb.getTitle(),
 				updfb.getContent(),updfb.getDate(),updfb.getPicId(),
 				updfb.getUserName(),updfb.getUserEmail(),updfb.getUserNickname(),
-				updfb.getIdentification(),updfb.getMessageQty());
+				updfb.getIdentification(),updfb.getMessageQty(),updfb.getViewQty());
 		return fb;
 	}
 

@@ -167,7 +167,7 @@
 						<div class="mb-3">
 							<br>
 							<form:input type="text" required="true" placeholder="標題"
-								path="title" class="form-control updTitle title-fontsize"
+								path="title" class="form-control title-fontsize"
 								aria-label="Sizing example input"
 								aria-describedby="inputGroup-sizing-lg" />
 							<br>
@@ -201,8 +201,8 @@
 
 						<div class="col-lg-9 col-md-9 blog_details">
 							<div class="editIMG">
-								<img id="edit" data-bs-toggle="dropdown" aria-expanded="false"
-									class="dropdown-toggle editml700w50h50"
+								<img data-bs-toggle="dropdown" aria-expanded="false"
+									class="dropdown-toggle ml700w50h50tf11"
 									src="https://cdn-icons-png.flaticon.com/128/1827/1827933.png">
 								<ul class="dropdown-menu">
 									<li data-id="${fb.id}" data-bs-toggle="modal"
@@ -294,12 +294,12 @@
 							<div class="form-group form-inline">
 								<div class="form-group col-lg-6 col-md-6 name">
 									<input type="text" name="messageUserName" class="form-control"
-										value="${memberUiDefault.userName}" readonly="readonly">
+										value="${memberUiDefault.userName}" placeholder="Guest" readonly="readonly">
 								</div>
 								<div class="form-group col-lg-6 col-md-6 email">
 									<input type="email" name="messageUserEmail"
 										class="form-control" readonly="readonly"
-										placeholder="Enter email address"
+										placeholder="Email address"
 										value="${memberUiDefault.userEmail}">
 								</div>
 							</div>
@@ -309,7 +309,7 @@
 							</div>
 							<button
 								class="button button-postComment button--active messageBtn"
-								type="button">發表評論</button>
+								type="button" style="border:none">發表評論</button>
 						</form>
 
 					</div>
