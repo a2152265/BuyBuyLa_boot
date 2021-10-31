@@ -74,7 +74,7 @@ public class TestLoginController {
 	@PostMapping("/try/index")
 	public String processIndex(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
 		System.out.println("有進到POST Index哦-------->UserEmail " + mb.getUserEmail());
-		System.out.println("有進到POST Index哦-------->");
+	
 
 		return "cart_30/TotalHome";
 	}
