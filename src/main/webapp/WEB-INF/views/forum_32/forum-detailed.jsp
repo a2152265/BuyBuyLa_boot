@@ -257,32 +257,32 @@
 							</div>
 						</div>
 					</div>
-					<div class="comments-area">
+					<div class="comments-area" style="width:794px;height:750px;">
 						<h4>${messageSize}則評論</h4>
 						<div id="messageResult"></div>
+						<input type="hidden" id="id" value="${forumId}">
+					</div>
 						<nav class="blog-pagination justify-content-center d-flex" style="padding-bottom:0px" >
 							<ul class="pagination">
-								<li class="page-item"><a href="#" class="page-link"
-									aria-label="Previous"> <span aria-hidden="true"> <span
-											class="lnr lnr-chevron-left"></span>
-									</span>
+								<li class="page-item leftBtn">
+								<a class="page-link" aria-label="Previous"> 
+								<span aria-hidden="true"> 
+								<span class="lnr lnr-chevron-left"></span>
+								</span>
 								</a></li>
-								
 								<c:forEach items='${msgSize}' varStatus="c" step="4" >
 								<li class="page-item">
 								<input type="button" class="page-link pageBtn" style="border: none" value="${c.count}">
 								</li>
 								</c:forEach>
-								
-								<li class="page-item"><a href="#" class="page-link"
+								<li class="page-item rightBtn"><a class="page-link"
 									aria-label="Next"> <span aria-hidden="true"> <span
 											class="lnr lnr-chevron-right"></span>
 									</span>
 								</a></li>
 							</ul>
 						</nav>
-					</div>
-					<input type="hidden" id="id" value="${forumId}">
+					<div style="text-align: center;">第<label class="pages"></label>頁</div>
 					<div class="comment-form" id="reply">
 						<h4>發表評論</h4>
 						<form id="addMsgForm" enctype="multipart/form-data">
