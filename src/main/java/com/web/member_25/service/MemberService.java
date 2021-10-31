@@ -52,6 +52,10 @@ public interface MemberService {
 	
 //	//前置下拉選單 
 //	List<membershipInformationBean>  getIdentificationList();
+	
+	//測試security的登入
+	int loginByEmail(String userEmail);
+	
 
 
 }

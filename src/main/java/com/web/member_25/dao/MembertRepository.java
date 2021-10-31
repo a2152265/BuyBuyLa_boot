@@ -82,6 +82,11 @@ public interface MembertRepository extends JpaRepository<membershipInformationBe
 	
 	
 	
+	//security登入測試   //select membershipInformationBean where UserEmail=XX and UserPwd=XXX
+//		int findByUserEmail(String userEmail);
+	
+	
+	
 //	@Modifying
 //	@Query("update User u set u.firstname = ?1, u.lastname = ?2 where u.id = ?3")
 //	void setUserInfoById(String firstname, String lastname, Integer userId);
