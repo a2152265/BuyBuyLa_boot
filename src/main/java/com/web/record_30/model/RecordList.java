@@ -12,17 +12,18 @@ public class RecordList {
 	private String buyer;
 	private Double totalprice;
 	private String buy_time;
-	
+	private String buyeraddress;
 	
 	public RecordList() {
 	
 	}
 
-	public RecordList(Integer record_id, String buyer, Double totalprice, String buy_time) {
+	public RecordList(Integer record_id, String buyer, Double totalprice, String buy_time,String buyeraddress) {
 		this.record_id = record_id;
 		this.buyer = buyer;
 		this.totalprice = totalprice;
 		this.buy_time = buy_time;
+		this.buyeraddress=buyeraddress;
 	}
 
 	public Integer getRecord_id() {
@@ -36,6 +37,14 @@ public class RecordList {
 
 
 
+
+	public String getBuyeraddress() {
+		return buyeraddress;
+	}
+
+	public void setBuyeraddress(String buyeraddress) {
+		this.buyeraddress = buyeraddress;
+	}
 
 	public String getBuyer() {
 		return buyer;

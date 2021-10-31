@@ -139,7 +139,9 @@
 							<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
-							<a class="button primary-btn" href="<c:url value='/additem' />?id=${product.productId}">Add to Cart</a>               
+<%-- 							<a class="button primary-btn" href="<c:url value='/additem' />?id=${product.productId}">Add to Cart</a>  --%>
+							<input type='hidden' class='pid' name='address' value='${product.productId}'/>
+							<a class="button primary-btn additem" href="#">Add to Cart</a>                             
 						</div>
 						<div class="card_area d-flex align-items-center">
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
@@ -672,5 +674,34 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="vendors/jquery.ajaxchimp.min.js"></script>
   <script src="vendors/mail-script.js"></script>
   <script src="js/main.js"></script>
+  
+  
+  <script>
+$(".additem").click(function(){		
+//		var data=$("#form1").serializeArray();
+	var data=$('.pid').val();
+	console.log(data+"************************");
+	$.ajax({
+		type:'get',
+		url:'additem',
+		data:{
+			"id":data
+		},
+		
+		success:function(){
+			 console.log("77777777")
+		}
+								
+	});		
+	
+	
+});
+
+
+
+
+</script>
+  
+  
 </body>
 </html>

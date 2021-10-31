@@ -324,10 +324,10 @@ footer a {
 				<p>To keep connected with us please login with your personal info</p>
 				<button class="ghost" id="signIn">Sign In</button>
 			</div>
-			<div class="overlay-panel overlay-right">
+			<div class="overlay-panel overlay-right" style="background-color: rgb(9, 9, 121);">
 				<h1>還沒有帳號?</h1>
 				<p>來建一個吧 很厲害的</p>
-                <a href="<c:url value='/try/add' />" >註冊</a>
+                <a href="<c:url value='/try/add' />"  style="color: white;">註冊</a>
 				<!-- <button class="ghost" id="signUp">註冊</button> -->
 			</div>
 		</div>

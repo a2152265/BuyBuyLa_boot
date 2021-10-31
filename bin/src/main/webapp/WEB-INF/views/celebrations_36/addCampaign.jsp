@@ -184,7 +184,7 @@
 		<tbody>
 			
 			<div class="im" style="margin-bottom:80px">
-				<img src="https://unsplash.com/photos/8pb7Hq539Zw?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink" width="150" height="150" alt="封面圖片" >
+				<img src="<c:url value='/images/image.jpg' />" width="150" height="150" alt="封面圖片" >
 			</div>
             <tr>
                 <td><label  for="productImage">
@@ -209,7 +209,20 @@
                             class='form:input-large' /></td>
             </tr>
 
-
+			<tr>
+                <td><label  for='category'>
+						商品種類:          
+					</label>
+					</td>
+                		<td>        
+                		<form:select path="category">
+                            <form:option value="折價券"></form:option>
+                            <form:option value="特惠商品"></form:option>
+                            <form:option value="購物金"></form:option>
+                       
+                        </form:select>
+                        </td>
+            </tr>
 
             <tr>
                 <td> <label   for='url'>

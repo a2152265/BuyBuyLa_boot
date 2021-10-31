@@ -1,0 +1,71 @@
+ .wrap{
+            width: 1000px;
+            height: 300px;
+            background-color: black;
+            margin:0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-img{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            position: absolute;
+            width: 12000px;
+            /* border: olive 2px solid; */
+            display: flex;
+            left: 0;
+            transition: 0.6s;
+        }
+        .slide-img li{
+            width: 1000px;
+            height: 300px;
+            /* 伸展比例 壓縮比例 額外剩餘比例 */
+            /* flex:1 0 0; */
+        }
+        .slide-img li img{
+            height: 100%;
+            width: 100%;
+            /* 元素內容調整大小比例 */
+            object-fit: cover;
+        }
+        .pages{
+            list-style: none;
+            position: absolute;
+            margin:0;
+            padding: 0;
+            bottom:10px;
+            display: flex;
+            left:0;
+            width: 100%;
+            justify-content: center;
+        }
+        .pages li{
+            border:1px solid #fff;
+            margin: 0 5px;
+            width: 20px;
+            height:20px;
+            border-radius: 50%;
+            cursor:hand;
+        }
+        .slide-arrow{
+            position: absolute;
+            /* background-color: red; */
+            width: 40px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index:1;
+            font-size: 36px;
+            cursor: pointer;
+            color: white;
+            opacity: .6;
+        }
+        .slide-arrow:hover{
+        	color: white;
+            opacity: 1;
+        }
+        .slide-arrow.right{
+            right:0;
+        }

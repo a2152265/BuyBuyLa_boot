@@ -35,6 +35,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.cart_30.model.Cart;
+import com.web.cart_30.service.CartService;
 import com.web.member_25.model.membershipInformationBean;
 import com.web.product_11.model.Product;
 import com.web.product_11.service.ProductService;
@@ -45,12 +47,14 @@ public class ProductController {
 
 	ProductService productservice;
 	ServletContext servletContext;
+	CartService cartService;
 
 	@Autowired
-	public ProductController(ProductService productservice, ServletContext servletContext) {
-		super();
+	public ProductController(ProductService productservice, ServletContext servletContext,CartService cartService) {
+	
 		this.productservice = productservice;
 		this.servletContext = servletContext;
+		this.cartService = cartService;
 	}
 
 	public ProductController() {

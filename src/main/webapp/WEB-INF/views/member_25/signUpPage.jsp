@@ -326,7 +326,7 @@ footer a {
 				<p>To keep connected with us please login with your personal info</p>
 				<button class="ghost" id="signIn">Sign In</button>
 			</div>
-			<div class="overlay-panel overlay-right">
+			<div class="overlay-panel overlay-right"  style="background-color: rgb(9, 9, 121);">
 				<h1>已有帳號?</h1>
 				<p>來登入BuyBuyLa</p>
                 <a href="<c:url value='/try/login' />" >登入</a>
