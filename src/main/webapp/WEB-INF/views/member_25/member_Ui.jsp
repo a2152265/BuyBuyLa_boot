@@ -14,7 +14,10 @@
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
-    <meta charset="UTF-8">
+    <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
+	
+    <link rel="stylesheet" href="member.css">
+	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員中心</title>
@@ -23,14 +26,14 @@
 
     </style>
 </head>
-<body>
+<body style="background-color: rgb(220, 220, 241);">
    
     <div class="wrapper">
        <div class="section">
 
 
 
-    <div class="top_navbar">
+    <div class="top_navbar" style="background-color: rgb(70, 70, 228);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -59,7 +62,7 @@
 
 
 
-    <div class="container">
+    <div class="container" >
       <span style="font-size:30px;  font-weight:bold;">會員專區</span>
       </div>
 
@@ -83,7 +86,7 @@
                <img width='150'
                  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>" />
                       <br><br><!-- 上傳圖片 -->
-                     <form:input id="productImage" path="productImage" type='file'   cssClass="button-1"  />
+                     <form:input id="productImage" path="productImage" type='file' style="background-color: rgb(47, 47, 223);"  cssClass="button-1"  />
                        &nbsp;&nbsp;
          <br><br><br>
           </td>
@@ -182,7 +185,7 @@
       
           <p>&nbsp;</p>
           <a href="<c:url value='/try/index' />?userEmail= ${memberUiDefault.userEmail} ">
-          <input type="submit" id="submitRewrite"  class="button-1" name="submitRewrite" style="text-align: center; font-size: 18x;"  value="儲存修改"/>
+          <input type="submit" id="submitRewrite"  class="button-1" name="submitRewrite" style="text-align: center; font-size: 18x; background-color: rgb(47, 47, 223);"  value="儲存修改"/>
            </a>
          
          
@@ -201,7 +204,7 @@
 
 
   </div>
-        <div class="sidebar">
+        <div class="sidebar" style="background-color: rgb(70, 70, 228);">
             <div class="profile">
              <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
                 <!-- 讀取圖片 -->

@@ -130,14 +130,14 @@ $(document).ready(function () {
 
 
 </head>
-<body>
+<body style="background-color: rgb(225, 219, 241);">
    
     <div class="wrapper">
        <div class="section">
 
 
 
-    <div class="top_navbar" style="background: rgb(61, 27, 75);">
+    <div class="top_navbar" style="background: rgb(44, 8, 80);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -290,7 +290,7 @@ $(document).ready(function () {
 
 
   </div>
-        <div class="sidebar" style="background: rgb(66, 9, 122);">
+        <div class="sidebar" style="background: rgb(44, 8, 80);">
             <div class="profile">
                 <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
                 <h3></h3>

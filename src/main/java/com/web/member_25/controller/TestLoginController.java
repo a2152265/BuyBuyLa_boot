@@ -187,6 +187,7 @@ public class TestLoginController {
 				mb2.setUserEmail(userEmail);
 				mb2.setUserPwd(userPwd);
 				model.addAttribute("managerSession", mb2);
+				model.addAttribute("memberUiDefault", mb2);
 				return "redirect:/manager_Ui";
 			}
 			System.out.println("登入成功 userEmail  ----->" + userEmail);
@@ -457,6 +458,8 @@ public class TestLoginController {
 		model.addAttribute("member", new membershipInformationBean());
 		model.addAttribute("memberEdit", new membershipInformationBean());
 		System.out.println("---------------展示會員資料----------------");
+		model.addAttribute("managerSession", memberList);
+		
 		
 		return "member_25/manager/manager_List";
 	}

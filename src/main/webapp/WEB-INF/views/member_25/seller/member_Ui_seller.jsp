@@ -25,14 +25,14 @@
 
     </style>
 </head>
-<body>
+<body style="background-color: rgb(214, 214, 238);">
    
     <div class="wrapper">
        <div class="section">
 
 
 
-    <div class="top_navbar">
+    <div class="top_navbar" style="background-color: rgb(11, 11, 110);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -44,7 +44,7 @@
 
         <h1>Welcome ~~      WE Will BuyBuyLA your money</h1>
         <nav>
-            <ul class="flex-nav">
+            <ul class="flex-nav" style="background-color: rgb(163, 163, 230);">
                 <li><a href="#">未付款</a></li>
                 <li><a href="#">已付款</a></li>
                 <li><a href="#">已出貨</a></li>
@@ -81,7 +81,7 @@
 
 
   </div>
-        <div class="sidebar">
+        <div class="sidebar" style="background-color: rgb(11, 11, 110);">
             <div class="profile">
                 <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
                 <h3></h3>

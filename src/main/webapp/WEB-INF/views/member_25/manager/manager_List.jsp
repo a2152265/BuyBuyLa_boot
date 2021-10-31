@@ -47,14 +47,14 @@
 
 
 </head>
-<body>
+<body style="background-color: rgb(225, 219, 241);">
    
     <div class="wrapper">
        <div class="section">
 
 
 
-    <div class="top_navbar" style="background: rgb(61, 27, 75);">
+    <div class="top_navbar" style="background: rgb(44, 8, 80);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -155,11 +155,14 @@
 
 
   </div>
-        <div class="sidebar" style="background: rgb(66, 9, 122);">
+        <div class="sidebar" style="background: rgb(44, 8, 80);">
             <div class="profile">
-                <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
+      
+                <!-- 讀取圖片 -->
+               <img src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>" />
+    
                 <h3></h3>
-                <p>Designer</p>
+                <p>您好! &nbsp; 管理員${loginSession.userEmail}</p>
             </div>
             <ul>
                 <li>
