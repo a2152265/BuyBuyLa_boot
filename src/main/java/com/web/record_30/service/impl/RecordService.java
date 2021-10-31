@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.web.cart_30.dao.RecordListRepository;
+import com.web.member_25.dao.MembertRepository;
+import com.web.member_25.model.membershipInformationBean;
 import com.web.record_30.dao.RecordRepository;
 import com.web.record_30.model.RecordBean;
 import com.web.record_30.model.RecordList;
@@ -15,13 +17,15 @@ import com.web.record_30.service.IRecordService;
 @Service
 public class RecordService implements IRecordService {
 
-//	IRecordDao recordDao;
+//	IRecordDao recordDao;@Autowired
+	MembertRepository membertRepository;
 	RecordRepository recordRepository;
 	RecordListRepository recordListRepository;
 	@Autowired
-	public RecordService(RecordRepository recordRepository,RecordListRepository recordListRepository) {
+	public RecordService(RecordRepository recordRepository,RecordListRepository recordListRepository,MembertRepository membertRepository) {
 		this.recordRepository = recordRepository;
 		this.recordListRepository=recordListRepository;
+		this.membertRepository=membertRepository;
 	}
 
 
@@ -85,6 +89,13 @@ public class RecordService implements IRecordService {
 	public List<RecordBean> getAllSellerRecords(String seller) {
 
 		return recordRepository.findBySellerRecords(seller);
+	}
+
+
+	@Override
+	public membershipInformationBean getBuyerInfo(String buyer) {
+		
+		return membertRepository.findByUserEmail(buyer);
 	}
 
 

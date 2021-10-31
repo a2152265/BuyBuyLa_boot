@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -129,6 +131,11 @@ public class CartController {
 		 return "redirect:/check";
 	}
 	
+	
+	@Autowired
+	JavaMailSender mailSender;
+	
+	
 	@GetMapping("/addaddress")
 	@ResponseBody
 	public void addaddress(@RequestParam("address")String address, @ModelAttribute("loginSession") membershipInformationBean mb ) {
@@ -165,7 +172,13 @@ public class CartController {
 
 		}
 		RecordList  recordList = new RecordList(rc, buyer, totalprice,now,address);
+		SimpleMailMessage message =new SimpleMailMessage();
+		message.setTo(buyer);
+		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
+		message.setText("您在BuyBuyLA 線上商城購買成功");
 		
+		mailSender.send(message); 
+		System.out.println("------------------已寄出------------------ --->");
 		cartService.addToRecordList(recordList);
 		cartService.addRidCount();
 		
@@ -186,7 +199,9 @@ public class CartController {
 	
 	@GetMapping("/removeAllCart")
 	public String removeAllCart(Model model) {
+		
 		cartService.deleteAll();
+		
 		 return "redirect:/products";
 	}
 	
