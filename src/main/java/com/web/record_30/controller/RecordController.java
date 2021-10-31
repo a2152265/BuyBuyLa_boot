@@ -37,7 +37,7 @@ public class RecordController {
 	
 	
 
-	
+//查購物紀錄細項	
 	@GetMapping("/select")
     public String getAddNewMemberForm1(@RequestParam Integer id,Model model) {		
 
@@ -49,7 +49,7 @@ public class RecordController {
 		return "record_30/select2";
     }
 
-	
+//查詢購物紀錄	
 	@GetMapping("/selectLsit")
 	public String list(@ModelAttribute("loginSession") membershipInformationBean mb ,Model model) {
 //		String buyer= record.getBuyer();
@@ -60,7 +60,16 @@ public class RecordController {
 		return "record_30/select";	
 	}
 	
-	
+	//查購物紀錄細項	
+		@GetMapping("/selectbuyer")
+	    public String selectBuyerInfo(@RequestParam String buyer,Model model) {		
+			membershipInformationBean mb=new membershipInformationBean();
+			mb=recordservice.getBuyerInfo(buyer);		
+			System.out.println("======================================");		
+			System.out.println(mb.getUserName()+","+mb.getUserGender()+","+mb.getUserPhone()+","+mb.getUserEmail());
+			return "record_30/select2";
+	    }
+
 	
 	
 //	@GetMapping("/delete")
@@ -70,18 +79,27 @@ public class RecordController {
 //		
 //	}
 	
+//賣家刪掉單筆商品賣出紀錄
 	@GetMapping("/delete")
 	public String delete2(@RequestParam Integer rid,@RequestParam Integer pid ,Model model) {
-
+		
+	
+		
 		System.out.println("rid2 =" +rid);	
+		recordservice.updateRecordListTotalPrice(rid, pid);
 		recordservice.deleteRecord(rid,pid);
+		List<RecordBean> list = recordservice.getAllRecord(rid);
+		if(list.size()==0) {
+			recordservice.deleteRecordListById(rid);
+		}
+		
 		return "record_30/delete2";
 		
 	}
 	
 	
 	
-	
+//賣家更改單筆商品出貨狀態
 	@GetMapping("/update30")
 	public String update(@ModelAttribute("loginSession") membershipInformationBean mb,@ModelAttribute("updatebean") RecordBean record ,Model model ) {
 		RecordBean recordBean =new RecordBean();
@@ -94,10 +112,6 @@ public class RecordController {
 		model.addAttribute("updateRecord", list);
         System.out.println("buyer= "+record.getPid());
         
-//		recordBean.setRecord_id(20);;
-//		recordBean.setPid(2);
-//		recordBean.setPcount(100);
-//		System.out.println("rid = "+ recordBean.getRecord_id()+",pid = "+recordBean.getPid()+",cnt = "+recordBean.getPcount());
 		return "record_30/update";
 		
 	}
@@ -114,11 +128,7 @@ public class RecordController {
 		
 	}
 	
-	@GetMapping("/selectBydate")
-	public String selectBydate() {
-		return "record_30/user";
-	}
-	
+
 	
 
 }

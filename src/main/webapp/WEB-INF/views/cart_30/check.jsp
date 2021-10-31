@@ -19,19 +19,8 @@
 
  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
 
 
-$('#test').on('click',function(){
-	
-	var addaddress = $('#addaddress option:selected').text();
-
-	$('#selectval').val(addaddress);
-})
-
-
-</script>
 
 <title>購物車</title>
 
@@ -138,10 +127,14 @@ h2 span {
 	font-size: 20px;
 }
 </style>
+
 </head>
 
 <body>
 
+		
+	
+	
 
 
 	<div class="container">
@@ -327,22 +320,22 @@ h2 span {
         </div>
     </div>
 		
-		<input type='text' id='selectval' />
-		
-		<button id='test'>
-		test
-		</button>
+
+		<input type='hidden' id='selectval' name='address' required="required"/>
 		
 		<center>
 
-			<a href="<c:url value='/fin' />"><input type="submit" name="confirm"
-				value="確認送出" class="submit"></a>
+			<input type="button" value="確認送出" class="submit">
 		</center>
+		
+
 		
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>							
+	
 		var total = 0;
 		$('.total').each(function() {
 			$(this).html;
@@ -352,6 +345,40 @@ h2 span {
 		})
 
 		$('#totalPrice').html(total)
+		
+		
+		
+		
+	$('#addAddress').on('change',function(){
+		var addaddress = $('#addAddress option:selected').text();
+// 		console.log(addaddress);
+		$('#selectval').val(addaddress);
+		})	
+
+
+$(".submit").click(function(){		
+// 		var data=$("#form1").serializeArray();
+		var data=$('#selectval').val();
+		console.log(data);
+		$.ajax({
+			type:'get',
+			url:'addaddress',
+			data:{
+				"address":data
+			},
+			
+			success:function(){
+				  setTimeout("location.href='fin'",0)
+			}
+									
+		});		
+		
+		
+	});
+
+
+
+
 	</script>
 
 </body>
