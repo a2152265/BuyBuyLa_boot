@@ -154,7 +154,7 @@
 <div class="modal fade" id="UpdateModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg" style="margin-top:90px">
-			<form:form method='POST' modelAttribute="updateManager"
+			<form:form method='POST' modelAttribute="managerEditForumContentBean"
 				class='form-horizontal' enctype="multipart/form-data">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -188,7 +188,7 @@
 							<br>
 							<form:input type="text" required="true" placeholder="標題"
 								path="title"
-								class="form-control updTitle title-fontsize" aria-label="Sizing example input"
+								class="form-control title-fontsize" aria-label="Sizing example input"
 								aria-describedby="inputGroup-sizing-lg" />
 							<br>
 							

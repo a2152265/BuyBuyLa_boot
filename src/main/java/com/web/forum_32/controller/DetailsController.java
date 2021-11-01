@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.model.MessageBean;
 import com.web.forum_32.service.IForumService;
@@ -25,80 +26,78 @@ public class DetailsController {
 	ServletContext servletContext;
 
 	@Autowired
-	public DetailsController(
-			IForumService forumService,
-			IMessageService messageService,
+	public DetailsController(IForumService forumService, IMessageService messageService,
 			ServletContext servletContext) {
 		this.forumService = forumService;
 		this.messageService = messageService;
 		this.servletContext = servletContext;
 	}
 
-	/****************************  文章展示  ****************************/
-	
+	/**************************** 文章展示 ****************************/
+
 	// Detailed
 	@GetMapping("/detailed")
-	public String detailed(Model model, 
-			@RequestParam(value = "id", required = false) Integer id,
-			@RequestParam(value="page",defaultValue="0") int page) {
-		
-		List<ForumBean> allList = forumService.getAllArticles();
-		model.addAttribute("fb", forumService.getContentById(id));
-		model.addAttribute("content", allList);
+	public String detailedView(Model model, @RequestParam(value = "id", required = false) Integer id) {
+
+		List<ForumBean> articlesList = forumService.getAllArticles();
+		for (int i = 0; i < articlesList.size(); i++) {
+			if (id == articlesList.get(i).getId()) {
+				if (i + 1 < articlesList.size()) {
+					Integer previousId = articlesList.get(i + 1).getId();
+					ForumBean previous = forumService.getContentById(previousId);
+					model.addAttribute("previous", previous);
+				} else {
+					model.addAttribute("previous", "");
+				}
+			}
+		}
+
+		model.addAttribute("forumContent", forumService.getContentById(id));
+		model.addAttribute("content", forumService.getAllArticles());
 		model.addAttribute("forumId", id);
-		model.addAttribute("updateForumBean", new ForumBean());
+		model.addAttribute("editForumContent", new ForumBean());
 		model.addAttribute("fTitle", forumService.getContentById(id).getTitle());
-//		List<MessageBean> msgList = messageService.getAllMessage(id);
-//		model.addAttribute("msg",msgList);
+		model.addAttribute("messageSize", messageService.getAllMessage(id).size());
+		model.addAttribute("msgSize", messageService.getAllMessage(id));
 		tagSize(model);
-		
-		// 留言展示測試
-		int messageSize = messageService.getAllMessage(id).size(); 
-		int pageSize= messageSize/3 != 0 ? messageSize/3+1 : messageSize;
-		
-		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,0,3);
-		model.addAttribute("msg",msgPageList);
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("messageSize",messageSize);
-		
+
 		return "forum_32/forum-detailed";
 	}
-	
-	// 留言分頁查詢
-	@GetMapping(value = "/page")
+
+	// Ajax 留言顯示
+	@GetMapping(value = "/message")
 	@ResponseBody
-	public MessageBean pageUrl(@RequestParam("id") Integer id,
-			@RequestParam(value="page",defaultValue="0") int page,
+	public List<MessageBean> messageView(@RequestParam("id") Integer id, @RequestParam("page") Integer page,
 			Model model) {
-		MessageBean mb = new MessageBean();
-		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id,page,4);
-		model.addAttribute("msg",msgPageList);
-		return mb;
+		List<MessageBean> msgPageList = messageService.getPagedMessagesByMessageForumId(id, page, 4);
+		return msgPageList;
 	}
-	
-	
+
+	// Ajax 分頁
+	@GetMapping({ "/page", "/pageLeft", "/pageRight" })
+	@ResponseBody
+	public List<MessageBean> pageMove(@RequestParam("id") Integer id, @RequestParam("page") Integer page, Model model) {
+		return messageService.getPagedMessagesByMessageForumId(id, page, 4);
+	}
+
 	// 編輯
 	@PostMapping("/detailed")
-	public String processUpdNewFourmForm(@RequestParam("id") Integer id,
-			@ModelAttribute("updateForumBean") ForumBean updfb) {
-		if(updfb.getContent()!=null) {
-		forumService.addOrEdit(updfb);
+	public String editDedailed(@RequestParam("id") Integer id, @ModelAttribute("editForumContent") ForumBean updfb) {
+		if (updfb.getContent() != null) {
+			forumService.addOrEdit(updfb);
 		}
-		return "redirect:/detailed?id="+id;
+		return "redirect:/detailed?id=" + id;
 	}
-	
+
 	// 編輯塞值
-	@GetMapping(value = "/editURL")
+	@GetMapping(value = "/editIntoVal")
 	@ResponseBody
-	public ForumBean editUrl(@RequestParam("id") Integer id, 
-			@ModelAttribute("updateForumBean") ForumBean updfb,
-			Model model) {
+	public ForumBean editIntoVal(@RequestParam("id") Integer id,
+			@ModelAttribute("managerEditForumContent") ForumBean updfb, Model model) {
 		updfb = forumService.getContentById(id);
-		ForumBean fb = new ForumBean(updfb.getId(),updfb.getTag(),updfb.getTitle(),
-				updfb.getContent(),updfb.getDate(),updfb.getPicId(),
-				updfb.getUserName(),updfb.getUserEmail(),updfb.getUserNickname(),
-				updfb.getIdentification(),updfb.getMessageQty());
-		return fb;
+		return new ForumBean(updfb.getId(), updfb.getTag(), updfb.getTitle(), updfb.getContent(), updfb.getDate(),
+				updfb.getPicId(), updfb.getUserName(), updfb.getUserEmail(), updfb.getUserNickname(),
+				updfb.getIdentification(), updfb.getMessageQty(), updfb.getViewQty());
 	}
 
 	// 刪除
@@ -107,23 +106,22 @@ public class DetailsController {
 		forumService.delete(id);
 		return "redirect:/forum";
 	}
-	
+
 	// 發表評論
 	@PostMapping(value = "/addMessage")
 	@ResponseBody
 	public void addMessage(MessageBean mb) {
 		Integer forumId = mb.getMessageForumId();
-		ForumBean fb= forumService.getContentById(forumId);
-		fb.setMessageQty(messageService.getAllMessage(forumId).size()+1);
+		ForumBean fb = forumService.getContentById(forumId);
+		fb.setMessageQty(messageService.getAllMessage(forumId).size() + 1);
 		forumService.addOrEdit(fb);
 		messageService.addMessage(mb);
 	}
-	
+
 	public void tagSize(Model model) {
-		model.addAttribute("announcementSize",forumService.getAllContentsByAnnouncement().size());
-		model.addAttribute("noviceSellerSize",forumService.getAllContentsByNoviceSeller().size());
-		model.addAttribute("sellerChatSize",forumService.getAllContentsBySellerChat().size());
+		model.addAttribute("announcementSize", forumService.getAllContentsByAnnouncement().size());
+		model.addAttribute("noviceSellerSize", forumService.getAllContentsByNoviceSeller().size());
+		model.addAttribute("sellerChatSize", forumService.getAllContentsBySellerChat().size());
 	}
-	
 
 }

@@ -84,11 +84,11 @@
 							<li class="nav-item submenu dropdown"><a href="#"
 								class="nav-link dropdown-toggle" data-toggle="dropdown"
 								role="button" aria-haspopup="true" aria-expanded="false">活動專區</a>
-							<c:if test="${loginSession.userEmail != null}">
-								<li class="nav-item"><a class="nav-link loginsession"
-									href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
-										${loginSession.userEmail}</a></li>
-							</c:if>
+								<c:if test="${loginSession.userEmail != null}">
+									<li class="nav-item"><a class="nav-link loginsession"
+										href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
+											${loginSession.userEmail}</a></li>
+								</c:if>
 						</ul>
 
 						<ul class="nav-shop">
@@ -128,10 +128,10 @@
 	</section>
 	<!-- ================ end banner area ================= -->
 
-<div class="modal fade" id="UpdateModal" tabindex="-1"
+	<div class="modal fade" id="UpdateModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg" style="margin-top:90px">
-			<form:form method='POST' modelAttribute="updateForumBean"
+		<div class="modal-dialog modal-lg" style="margin-top: 90px">
+			<form:form method='POST' modelAttribute="editForumContent"
 				class='form-horizontal' enctype="multipart/form-data">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -140,21 +140,25 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body updContentBody">
-					
+
 						<!-- 隱藏 -->
 						<form:input path="id" id="updid" type="hidden" />
 						<form:input path="tag" id="updTag" type="hidden" />
 						<form:textarea path="content" class="updContent display-none" />
-						<form:input path="date" id="nowUpdDate" type="hidden"  />
-						<form:input path="messageQty" type="hidden" value="${messageSize}"  />
-						
-						<form:input path="picId" type="hidden" value="${memberUiDefault.id}" />
-						<form:input path="userName" type="hidden" value="${memberUiDefault.userName}" class="forumUsername" />
-						<form:input path="userEmail" type="hidden" value="${memberUiDefault.userEmail}" />
-						<form:input path="userNickname" type="hidden" value="${memberUiDefault.userNickname}" />
-<%-- 						<form:input path="Identification" type="hidden" value="${memberUiDefault.Identification}" /> --%>
+						<form:input path="date" id="nowUpdDate" type="hidden" />
+						<form:input path="messageQty" type="hidden" value="${messageSize}" />
+
+						<form:input path="picId" type="hidden"
+							value="${memberUiDefault.id}" />
+						<form:input path="userName" type="hidden"
+							value="${memberUiDefault.userName}" class="forumUsername" />
+						<form:input path="userEmail" type="hidden"
+							value="${memberUiDefault.userEmail}" />
+						<form:input path="userNickname" type="hidden"
+							value="${memberUiDefault.userNickname}" />
+						<form:input path="Identification" type="hidden" value="${memberUiDefault.identification}" />
 						<!-- 結束 -->
-						
+
 						<div class="mb-3">
 						<select id="updSelectTag" class="form-select"
 							aria-label="Default select example" style="width:200px">
@@ -163,14 +167,13 @@
 						</select>
 							<br>
 							<form:input type="text" required="true" placeholder="標題"
-								path="title"
-								class="form-control updTitle title-fontsize" aria-label="Sizing example input"
+								path="title" class="form-control title-fontsize"
+								aria-label="Sizing example input"
 								aria-describedby="inputGroup-sizing-lg" />
 							<br>
-							
+
 							<div id="summernote"></div>
-							<div class="mb-3">
-							</div>
+							<div class="mb-3"></div>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -197,20 +200,21 @@
 						</div>
 
 						<div class="col-lg-9 col-md-9 blog_details">
-								<div class="editIMG">
-								<img id="edit" data-bs-toggle="dropdown" aria-expanded="false"
-									class="dropdown-toggle editml700w50h50"
+							<div class="editIMG">
+								<img data-bs-toggle="dropdown" aria-expanded="false"
+									class="dropdown-toggle ml700w50h50tf11"
 									src="https://cdn-icons-png.flaticon.com/128/1827/1827933.png">
 								<ul class="dropdown-menu">
-									<li data-id="${fb.id}" data-bs-toggle="modal"
-										data-bs-target="#UpdateModal" class="dropdown-item updateDataClass">編輯</li>
-									<li  class="dropdown-item tata"
-										onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${fb.id}'/>'">刪除</li>
+									<li data-id="${forumContent.id}" data-bs-toggle="modal"
+										data-bs-target="#UpdateModal"
+										class="dropdown-item updateDataClass">編輯</li>
+									<li class="dropdown-item tata"
+										onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${forumContent.id}'/>'">刪除</li>
 								</ul>
-								</div>
-							<h1>${fb.title}</h1>
+							</div>
+							<h1>${forumContent.title}</h1>
 							<br> <br> <br>
-							<p class="excert">${fb.content}</p>
+							<p class="excert">${forumContent.content}</p>
 						</div>
 					</div>
 					<div class="navigation-area">
@@ -229,7 +233,7 @@
 								<div class="detials">
 									<p>上一篇</p>
 									<a href="#">
-										<h4>Space The Final Frontier</h4>
+										<h4>${previous.title}</h4>
 									</a>
 								</div>
 							</div>
@@ -238,7 +242,7 @@
 								<div class="detials">
 									<p>下一篇</p>
 									<a href="#">
-										<h4>Telescopes 101</h4>
+										<h4>${after.title}${fail}</h4>
 									</a>
 								</div>
 								<div class="arrow">
@@ -255,89 +259,67 @@
 					</div>
 					<div class="comments-area">
 						<h4>${messageSize}則評論</h4>
-
-						<c:forEach var='msg' items='${msg}' varStatus='status'>
-							<div class="comment-list">
-								<div class="single-comment justify-content-between d-flex">
-									<div class="user justify-content-between d-flex">
-										<div class="thumb">
-											<img style="width:100px;height:100px" src="<c:url value='/getPicturefromMember/${msg.messagePicId}'/>" />
-										</div>
-										<div class="desc">
-											<h5>
-												<a href="#">${msg.messageUserName}</a>
-											</h5>
-											<p class="date">${msg.messageDate}</p>
-											<p class="comment">${msg.messageContent}</p>
-										</div>
-									</div>
-									<div class="reply-btn">
-										<a href='#reply'>
-										<button style="border:none;" class="btn-reply text-uppercase reply">回復</button>
-										</a>
-									</div>
-								</div>
-							</div>
-							
-							<c:if test="${status.last}" > 
-							<nav class="blog-pagination justify-content-center d-flex">
-		                          <ul class="pagination">
-		                              <li class="page-item">
-		                                  <a href="#" class="page-link" aria-label="Previous">
-		                                      <span aria-hidden="true">
-		                                          <span class="lnr lnr-chevron-left"></span>
-		                                      </span>
-		                                  </a>
-		                              </li>
-		                              <li class="page-item">
-		                                  <a href="<c:url value='/detailed' />?page=0" class="page-link">01</a>
-		                              </li>
-		                              <li class="page-item">
-		                                  <a href="<c:url value='/detailed' />?page=1" class="page-link">02</a>
-		                              </li>
-		                              <li class="page-item">
-		                                  <a href="#" class="page-link" aria-label="Next">
-		                                      <span aria-hidden="true">
-		                                          <span class="lnr lnr-chevron-right"></span>
-		                                      </span>
-		                                  </a>
-		                              </li>
-		                          </ul>
-		                      </nav>
-							</c:if>
-						</c:forEach>
+						<div id="messageResult"></div>
+						<input type="hidden" id="id" value="${forumId}">
 					</div>
+						<nav class="blog-pagination justify-content-center d-flex" style="padding-bottom:0px" >
+							<ul class="pagination">
+								<li class="page-item leftBtn">
+								<a class="page-link" aria-label="Previous"> 
+								<span aria-hidden="true"> 
+								<span class="lnr lnr-chevron-left"></span>
+								</span>
+								</a></li>
+								<c:forEach items='${msgSize}' varStatus="c" step="4" >
+								<li class="page-item">
+								<input type="button" class="page-link pageBtn" style="border: none" value="${c.count}">
+								</li>
+								</c:forEach>
+								<li class="page-item rightBtn"><a class="page-link"
+									aria-label="Next"> <span aria-hidden="true"><span
+											class="lnr lnr-chevron-right"></span>
+									</span>
+								</a></li>
+							</ul>
+						</nav>
+					<div style="text-align: center;">第<label class="pages"></label>頁</div>
 					<div class="comment-form" id="reply">
 						<h4>發表評論</h4>
 						<form id="addMsgForm" enctype="multipart/form-data">
-							<input type="hidden" name="messageForumId" value="${forumId}" >
-							<input type="hidden" name="messagePicId" value="${memberUiDefault.id}" >
-							<input type="hidden" name="messageDate" id="messageDate" >
-							<input type="hidden" name="messageIdentification" >
+							<input type="hidden" name="messageForumId" value="${forumId}">
+							<input type="hidden" name="messagePicId"
+								value="${memberUiDefault.id}"> <input type="hidden"
+								name="messageDate" id="messageDate"> <input
+								type="hidden" name="messageIdentification">
 							<div class="form-group form-inline">
-							<div class="form-group col-lg-6 col-md-6 name">
-							<input type="text" name="messageUserName" class="form-control" value="${memberUiDefault.userName}" readonly="readonly">
+								<div class="form-group col-lg-6 col-md-6 name">
+									<input type="text" name="messageUserName" class="form-control"
+										value="${memberUiDefault.userName}" placeholder="Guest" readonly="readonly">
 								</div>
 								<div class="form-group col-lg-6 col-md-6 email">
-							<input type="email" name="messageUserEmail" class="form-control" readonly="readonly"
-										placeholder="Enter email address" 
-										value="${memberUiDefault.userEmail}" >
+									<input type="email" name="messageUserEmail"
+										class="form-control" readonly="readonly"
+										placeholder="Email address"
+										value="${memberUiDefault.userEmail}">
 								</div>
 							</div>
 							<div class="form-group">
-							<textarea rows="5" name="messageContent" class="form-control mb-10 messageContent"
-									placeholder="留言" ></textarea>
+								<textarea rows="5" name="messageContent"
+									class="form-control mb-10 messageContent" placeholder="留言"></textarea>
 							</div>
-							<button class="button button-postComment button--active messageBtn" type="button">發表評論</button>
-							</form>
-							
+							<button
+								class="button button-postComment button--active messageBtn"
+								type="button" style="border:none">發表評論</button>
+						</form>
+
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="blog_right_sidebar">
 						<aside class="single_sidebar_widget author_widget">
-							<img width='150' src="<c:url value='/getPicturefromMember/${fb.picId}'/>" />
-							<h4 class="forumUsername2">${fb.userName}</h4>
+							<img width='150'
+								src="<c:url value='/getPicturefromMember/${forumContent.picId}'/>" />
+							<h4 class="forumUsername2">${forumContent.userName}</h4>
 							<p>一般會員</p>
 							<div class="social_icon">
 								<a href="#"> <i class="fab fa-facebook-f"></i>
@@ -357,57 +339,62 @@
 						</aside>
 						<aside class="single_sidebar_widget post_category_widget">
 							<h4 class="widget_title">標籤分類</h4>
-                          <ul class="list cat-list">
-                              <li>
-                                  <a href="<c:url value='/forum' />" class="d-flex justify-content-between">
-                                      <p>所有討論</p>
-                                      <p>${announcementSize+noviceSellerSize+sellerChatSize}</p>
-                                  </a>
-                              </li>
-                              <li>
-                                  <a href="<c:url value='/announcement' />" class="d-flex justify-content-between">
-                                      <p>官方最新公告</p>
-                                      <p>${announcementSize}</p>
-                                  </a>
-                              </li>
-                              <li>
-                                  <a href="<c:url value='/noviceSeller' />" class="d-flex justify-content-between">
-                                      <p>新手賣家發問</p>
-                                      <p>${noviceSellerSize}</p>
-                                  </a>
-                              </li>
-                              <li>
-                                  <a href="<c:url value='/sellerChat' />" class="d-flex justify-content-between">
-                                      <p>賣家閒聊討論</p>
-                                      <p>${sellerChatSize}</p>
-                                  </a>
-                              </li>
-                          </ul>
+							<ul class="list cat-list">
+								<li><a href="<c:url value='/forum' />"
+									class="d-flex justify-content-between">
+										<p>所有討論</p>
+										<p>${announcementSize+noviceSellerSize+sellerChatSize}</p>
+								</a></li>
+								<li><a href="<c:url value='/announcement' />"
+									class="d-flex justify-content-between">
+										<p>官方最新公告</p>
+										<p>${announcementSize}</p>
+								</a></li>
+								<li><a href="<c:url value='/noviceSeller' />"
+									class="d-flex justify-content-between">
+										<p>新手賣家發問</p>
+										<p>${noviceSellerSize}</p>
+								</a></li>
+								<li><a href="<c:url value='/sellerChat' />"
+									class="d-flex justify-content-between">
+										<p>賣家閒聊討論</p>
+										<p>${sellerChatSize}</p>
+								</a></li>
+							</ul>
 							<div class="br"></div>
 						</aside>
 						<aside class="single_sidebar_widget popular_post_widget">
 							<h3 class="widget_title">最新帖子</h3>
-							
-						<c:forEach var='content' items='${content}' begin="0" end ="4">
-                          <div class="media post_item">
-                          <img width='40' src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
-                              <div class="media-body">
-                                  <a href="single-blog.html">
-                                      <h3>${content.title}</h3>
-                                  </a>
-                                  <p>${content.date}</p>
-<!--                                   <p>?小時前</p> -->
-                              </div>
-                          </div>
-                          </c:forEach>
-							
+
+							<c:forEach var='content' items='${content}' begin="0" end="4">
+								<div class="media post_item">
+									<img width='40'
+										src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+									<div class="media-body">
+										<a href="single-blog.html">
+											<h3>${content.title}</h3>
+										</a>
+										<p>${content.date}</p>
+									</div>
+								</div>
+							</c:forEach>
+
 							<div class="br"></div>
 						</aside>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section><br><br><br><br><br><br><br><br><br>
+	</section>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<!--================Blog Area =================-->
 
 
@@ -534,6 +521,7 @@
 	<script src='${pageContext.request.contextPath}/js/forum_jquery_32.js'></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	<script src='${pageContext.request.contextPath}/js/forum_summernote_32.js'></script>
+	<script
+		src='${pageContext.request.contextPath}/js/forum_summernote_32.js'></script>
 </body>
 </html>
