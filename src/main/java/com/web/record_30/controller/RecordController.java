@@ -64,10 +64,11 @@ public class RecordController {
 		@GetMapping("/selectbuyer")
 	    public String selectBuyerInfo(@RequestParam String buyer,Model model) {		
 			membershipInformationBean mb=new membershipInformationBean();
-			mb=recordservice.getBuyerInfo(buyer);		
+			mb=recordservice.getBuyerInfo(buyer);
+			model.addAttribute("member",mb);
 			System.out.println("======================================");		
 			System.out.println(mb.getUserName()+","+mb.getUserGender()+","+mb.getUserPhone()+","+mb.getUserEmail());
-			return "record_30/select2";
+			return "record_30/buyerInfo";
 	    }
 
 	
