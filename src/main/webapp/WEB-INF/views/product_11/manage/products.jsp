@@ -119,28 +119,31 @@ body{
 	      
 	
 	  function batch_up() {
-		    var ids = '';
+		    var productId = '';
 		    $('input:checkbox').each(function(){
 		      if(this.checked == true){
-		        ids += this.value + ',';
+		    	  productId += this.value + ',';
 		      }
+		      console.log(productId);
 		    });
 
 		      $.ajax({
 		        type: 'post',
 		        url: 'launched',
-		        data: {"ids": ids},
-		        dataType: 'json',
-		        success: function (data) {
-		          if (data.code == 200) {
-		            $(obj).parents("tr").remove();
-		            layer.msg(data.message, {icon: 1, time: 1000});
-		          } else {
-		            layer.msg(data.message, {icon: 2, time: 3000});
-		          }
+		        data: {"productIds": productId},
+		        success: function (data, textStatus, xhr) {
+		          if (xhr.status == 200) {
+		        	 console.log("!!!!!!!!!");
+		          } 
 		        },
-		        error: function (data) {
-		          console.log(data.msg);
+		        error: function (xhr, status) {
+		        	console.log(xhr.status);
+		        	 swal.fire({
+		                 icon: 'success',
+		                 title: '新增成功',
+		                 showConfirmButton: false,
+		                 timer: 1000
+		               })
 		        },
 		      });
 		   

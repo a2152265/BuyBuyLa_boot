@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -79,19 +80,18 @@ public class ProductController {
 		
 	//商品上架
 		@PostMapping("/manage/launched")
-		public ResponseEntity<Product> productlaunched(
+		public ResponseEntity<String> productlaunched(
 				Model model,
-				 @RequestParam("ids") String [] ids) {
-			System.out.println("id" +ids[0]+ids[1]);
-			for(String id:ids) {
-				
+				 @RequestParam("productIds") String productIds) {
+			String[] productIds_line = productIds.split(",");
+			
+			for(int i=0;i<productIds_line.length;i++) {
+				int pId = Integer.parseInt(productIds_line[i]);
+				productservice.updateProductStatus("上架中",pId);
 				
 			}
-			int idd=0;
-		
-			productservice.updateProductStatus("上架中",idd);
-			
-			return new ResponseEntity<Product>(HttpStatus.OK) ;
+
+			return new ResponseEntity<String>(HttpStatus.OK) ;
 					
 		}
 		
