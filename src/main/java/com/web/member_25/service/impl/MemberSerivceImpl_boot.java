@@ -194,6 +194,13 @@ public class MemberSerivceImpl_boot implements MemberService{
 	}
 
 
+	@Override
+	public int loginByEmail(String userEmail) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 	
 
 }
