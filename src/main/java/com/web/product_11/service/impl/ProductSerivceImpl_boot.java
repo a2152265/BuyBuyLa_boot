@@ -61,7 +61,7 @@ public class ProductSerivceImpl_boot implements ProductService{
 	@Override
 	public void updateProductNoImg(Integer productId, Product product) {
 	
-		productRepositoryDao.updateProductNoImg(product.getProductName(), product.getPrice(), product.getCategory(),product.getInsertTime(), product.getStock(), product.getProductNo(), productId);
+		productRepositoryDao.updateProductNoImg(product.getProductName(), product.getPrice(), product.getCategory(),product.getInsertTime(), product.getStock(), product.getProductNo(),product.getStatus(), productId);
 	}
 
 	@Override
@@ -79,6 +79,15 @@ public class ProductSerivceImpl_boot implements ProductService{
 		productRepositoryDao.updateProductStatus(status, productId);
 		
 	}
+
+	@Override
+	public List<Product> findByStatus() {
+		return productRepositoryDao.findByStatus();
+	}
+
+
+
+
 
 
 

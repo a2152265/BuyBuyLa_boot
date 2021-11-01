@@ -21,6 +21,9 @@ public interface ProductService {
 		//ID查詢商品
 		Product getProductById(int productId);
 		
+		//狀態查詢商品
+		List<Product> findByStatus();
+		
 		//新增商品
 		void  addProduct(Product product);
 		

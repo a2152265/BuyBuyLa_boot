@@ -68,11 +68,11 @@ public class ProductController {
 		
 	}
 	
-	//管理頁面-商品
+	//管理頁面-商品(只顯示未審核商品)
 		@GetMapping("/manage/products")
 		public String managelist(Model model) {
 
-			List<Product> beans = productservice.getAllProducts();
+			List<Product> beans = productservice.findByStatus();
 			model.addAttribute("products", beans);
 			return "product_11/manage/products";
 					

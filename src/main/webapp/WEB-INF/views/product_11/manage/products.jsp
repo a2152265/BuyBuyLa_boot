@@ -133,17 +133,18 @@ body{
 		        data: {"productIds": productId},
 		        success: function (data, textStatus, xhr) {
 		          if (xhr.status == 200) {
-		        	 console.log("!!!!!!!!!");
+		        	 swal.fire({
+		                 icon: 'success',
+		                 title: '上架成功',
+		                 showConfirmButton: false,
+		                 timer: 1000
+		               })
+		        	 setTimeout("location.href='./products';", 1000);  
 		          } 
 		        },
 		        error: function (xhr, status) {
 		        	console.log(xhr.status);
-		        	 swal.fire({
-		                 icon: 'success',
-		                 title: '新增成功',
-		                 showConfirmButton: false,
-		                 timer: 1000
-		               })
+		        	
 		        },
 		      });
 		   
