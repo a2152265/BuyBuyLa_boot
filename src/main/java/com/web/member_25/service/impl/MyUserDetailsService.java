@@ -38,8 +38,10 @@ public class MyUserDetailsService implements UserDetailsService{
 		
 		//在這裡加上去DB找出帳密的方法 -> 我的memberService
 		int loginResult = 0; 
+		System.out.println("security 帳號為----->"+s);
 		//登入結果   // 0錯誤 1成功 2無帳號 3重複帳號(除了自己+的應該不會出現這個可能)
 		loginResult = memberService.loginByEmail(s);
+		
 		
 		if (loginResult==0||loginResult==2||loginResult==3) {  //認證失敗時
 			throw new UsernameNotFoundException("用戶不存在");
@@ -47,8 +49,8 @@ public class MyUserDetailsService implements UserDetailsService{
 		//成功就去挖資料
 		membershipInformationBean mb=memberService.findMemberDataAll(s);
 		
-		//加上配置
-		List<GrantedAuthority> auths=AuthorityUtils.commaSeparatedStringToAuthorityList("role");
+		//加上配置 加上member的權限腳色  ----------->當前用戶
+		List<GrantedAuthority> auths=AuthorityUtils.commaSeparatedStringToAuthorityList("member,ROLE_member");
 		//認證成功返回 email 和pwd
 		return new User(mb.getUserEmail(),new BCryptPasswordEncoder().encode(mb.getUserPwd()),auths);
 	}

@@ -306,13 +306,20 @@ footer a {
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 		
-            <form:input id="name" path="userEmail" type='text' placeholder="請輸入帳號" cssclass='form-control'  />
+            <form:input id="username" name="username" path="userEmail" type='text' placeholder="請輸入帳號" cssclass='form-control'  />
 							
-            <form:password id="pwd" path="userPwd"  placeholder="請輸入密碼" cssclass='form-control'  />
+            <form:password id="password" name="password" path="userPwd"  placeholder="請輸入密碼" cssclass='form-control'  />
 			<a href="#">Forgot your password?</a>
 			<!-- <button>登入</button> -->
             <a href="<c:url value='/try/index' />"><button type="submit" value="submit" onclick="return(confirm('確認登入？'))"  >登入</button> </a>
         </form:form>
+        
+        <form action="/user/login" method="post">
+      帳號: <input type="text" name="username">
+      密碼: <input type="text" name="password"><br>
+      <input type="submit" value="login">
+    </form>
+        
 
 
 
