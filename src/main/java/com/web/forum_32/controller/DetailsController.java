@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.model.MessageBean;
 import com.web.forum_32.service.IForumService;
@@ -47,7 +46,15 @@ public class DetailsController {
 					ForumBean previous = forumService.getContentById(previousId);
 					model.addAttribute("previous", previous);
 				} else {
-					model.addAttribute("previous", "");
+					model.addAttribute("previousFail","previousFail");
+				}
+				
+				if (i > 0) {
+					Integer afterId = articlesList.get(i-1).getId();
+					ForumBean after = forumService.getContentById(afterId);
+					model.addAttribute("after", after);
+				} else {
+					model.addAttribute("afterFail","afterFail");
 				}
 			}
 		}
@@ -93,11 +100,11 @@ public class DetailsController {
 	@GetMapping(value = "/editIntoVal")
 	@ResponseBody
 	public ForumBean editIntoVal(@RequestParam("id") Integer id,
-			@ModelAttribute("managerEditForumContent") ForumBean updfb, Model model) {
-		updfb = forumService.getContentById(id);
-		return new ForumBean(updfb.getId(), updfb.getTag(), updfb.getTitle(), updfb.getContent(), updfb.getDate(),
-				updfb.getPicId(), updfb.getUserName(), updfb.getUserEmail(), updfb.getUserNickname(),
-				updfb.getIdentification(), updfb.getMessageQty(), updfb.getViewQty());
+			@ModelAttribute("managerEditForumContent") ForumBean editBean, Model model) {
+		editBean = forumService.getContentById(id);
+		return new ForumBean(editBean.getId(), editBean.getTag(), editBean.getTitle(), editBean.getContent(), editBean.getDate(),
+				editBean.getPicId(), editBean.getUserName(), editBean.getUserEmail(), editBean.getUserNickname(),
+				editBean.getIdentification(), editBean.getMessageQty(), editBean.getViewQty(),editBean.getTopArticle());
 	}
 
 	// 刪除

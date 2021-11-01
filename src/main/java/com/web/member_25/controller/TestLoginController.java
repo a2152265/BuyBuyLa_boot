@@ -186,6 +186,8 @@ public class TestLoginController {
 			if (isMamber == false) {
 				mb2.setUserEmail(userEmail);
 				mb2.setUserPwd(userPwd);
+				mb2.setIdentification("manager");
+				mb2.setUserName("管理員");
 				model.addAttribute("managerSession", mb2);
 				return "redirect:/manager_Ui";
 			}

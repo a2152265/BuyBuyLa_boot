@@ -7,7 +7,10 @@ import com.web.forum_32.model.ForumBean;
 
 
 public interface IForumService {
+	
+	List<ForumBean> getAllTopArticles();
 	List<ForumBean> getAllArticles();
+	
 	public List<ForumBean> getPagedArticles(int page, int size);
 	void addOrEdit(ForumBean content);
 	public ForumBean getContentById(Integer id);
@@ -16,6 +19,4 @@ public interface IForumService {
 	List<ForumBean> getAllContentsByAnnouncement();
 	List<ForumBean> getAllContentsByNoviceSeller();
 	List<ForumBean> getAllContentsBySellerChat();
-	List<ForumBean> findAllByTitle(String title);
-	List<ForumBean> findAllByUserName(String userName);
 }

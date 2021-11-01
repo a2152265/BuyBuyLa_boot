@@ -4,7 +4,7 @@
        $('#summernote').summernote({
         placeholder: '請輸入內文',
         tabsize: 1,
-        height: 350,
+        height: 200,
         toolbar: [
           ['font', ['bold', 'underline', 'clear']],
           ['color', ['color']],

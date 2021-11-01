@@ -8,18 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import com.web.forum_32.model.ForumBean;
 
 public interface ForumRepository extends JpaRepository<ForumBean, Integer> {
-//	findUserByNameIsLike
 	
-	public List<ForumBean> findAllByOrderByIdDesc();
+	// 文章顯示
+	public List<ForumBean> findByTopArticleLikeOrderByIdDesc(String top);
+
 	
-	@Query(nativeQuery = true, value = "select * from forum_32 where tag='官方最新公告'")
-	public List<ForumBean> findAnnouncement();
-	
-	@Query(nativeQuery = true, value = "select * from forum_32 where tag='新手賣家發問' order by id desc")
-	public List<ForumBean> findNoviceSeller();
-	
-	@Query(nativeQuery = true, value = "select * from forum_32 where tag='賣家閒聊討論' order by id desc")
-	public List<ForumBean> findSellerChat();
+	public List<ForumBean> findByTagLikeOrderById(String tag);
 	
 	@Query(nativeQuery = true, value = "select * from forum_32 where userName=:userName order by id desc")
 	public List<ForumBean> findAllByUserName(String userName);

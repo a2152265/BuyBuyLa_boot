@@ -121,7 +121,7 @@
 
 
 	<!-- ================ start banner area ================= -->
-	<section class="blog-banner-area" id="blog">
+	<section class="blog-banner-area" id="blog" style="height:120px">
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
@@ -144,23 +144,25 @@
 				<div class="col-lg-8">
 					<div class="blog_left_sidebar">
 
-						<c:forEach var='content' items='${content}'>
-							<article class="row blog_item">
+						<c:forEach var='topArticles' items='${topArticles}' >
+							<article class="row blog_item" style="margin:0px;">
 								<div class="col-md-3">
 									<div class="blog_info text-right">
 										<div class="post_tag">
-											<a href="#">${content.tag}</a>
+											<a href="#">${topArticles.tag}</a>
 										</div>
-										<ul class="blog_meta list" style="padding:0;width:200px">
-											<li><a href="#">${content.userName} <i
+										<ul class="blog_meta list" style="padding: 0; width: 200px">
+											<li><a href="#">${topArticles.userName} <i
 													class="lnr lnr-user"></i>
 											</a></li>
-											<li><a href="#">${content.date} <i
+											<li><a href="#">${topArticles.date} <i
 													class="lnr lnr-calendar-full"></i>
 											</a></li>
-											<li><a href="#">${content.viewQty}<i class="lnr lnr-eye"></i>
+											<li><a href="#">${topArticles.viewQty}<i
+													class="lnr lnr-eye"></i>
 											</a></li>
-											<li><a href="#">${content.messageQty}<i class="lnr lnr-bubble"></i>
+											<li><a href="#">${topArticles.messageQty}<i
+													class="lnr lnr-bubble"></i>
 											</a></li>
 										</ul>
 									</div>
@@ -168,12 +170,51 @@
 								<div class="col-md-9">
 									<div class="blog_post">
 										<div class="blog_details">
-											<h2>${content.title}</h2>
+											<h2 style="background-color:beige;">${topArticles.title}</h2>
 											<div class="box">
-												<div class="ellipsis"><p>${content.content}</p></div>
+												<div class="ellipsis">${topArticles.content}</div>
 											</div>
 											<a class="button button-blog"
-												href="<c:url value='/detailed' />?id=${content.id}">View
+												href="<c:url value='/detailed' />?id=${topArticles.id}">View
+												More</a>
+										</div>
+									</div>
+								</div>
+							</article>
+						</c:forEach>
+						
+						<c:forEach var='Articles' items='${Articles}' >
+							<article class="row blog_item" style="margin:0px">
+								<div class="col-md-3">
+									<div class="blog_info text-right">
+										<div class="post_tag">
+											<a href="#">${Articles.tag}</a>
+										</div>
+										<ul class="blog_meta list" style="padding: 0; width: 200px">
+											<li><a href="#">${Articles.userName} <i
+													class="lnr lnr-user"></i>
+											</a></li>
+											<li><a href="#">${Articles.date} <i
+													class="lnr lnr-calendar-full"></i>
+											</a></li>
+											<li><a href="#">${Articles.viewQty}<i
+													class="lnr lnr-eye"></i>
+											</a></li>
+											<li><a href="#">${Articles.messageQty}<i
+													class="lnr lnr-bubble"></i>
+											</a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="col-md-9">
+									<div class="blog_post">
+										<div class="blog_details">
+											<h2>${Articles.title}</h2>
+											<div class="box">
+												<div class="ellipsis">${Articles.content}</div>
+											</div>
+											<a class="button button-blog"
+												href="<c:url value='/detailed' />?id=${Articles.id}">View
 												More</a>
 										</div>
 									</div>
@@ -202,27 +243,31 @@
 											</div>
 											<div class="modal-body insContentBody">
 
-												<!-- 隱藏 -->
+												<!-- 發文 -->
 												<form:input path="tag" type="hidden" id="insTag" />
 												<form:textarea path="content" class="content display-none" />
 												<form:input path="date" type="hidden" id="nowDate" />
 												<form:input path="messageQty" type="hidden" />
 												<form:input path="viewQty" type="hidden" />
-												
-												<form:input path="picId" class="form-control" type="hidden" value="${memberUiDefault.id}" />
-												<form:input path="userName" type="hidden" value="${memberUiDefault.userName}" />
-												<form:input path="userEmail" type="hidden" value="${memberUiDefault.userEmail}" />
-												<form:input path="userNickname" type="hidden" value="${memberUiDefault.userNickname}" />
-<%-- 												<form:input path="Identification" type="hidden" value="${memberUiDefault.Identification}" /> --%>
+
+												<form:input path="picId" class="form-control" type="hidden"
+													value="${memberUiDefault.id}" />
+												<form:input path="userName" type="hidden"
+													value="${memberUiDefault.userName}${managerSession.userName}" />
+												<form:input path="userEmail" type="hidden"
+													value="${memberUiDefault.userEmail}" />
+												<form:input path="userNickname" type="hidden"
+													value="${memberUiDefault.userNickname}" />
+												<form:input path="Identification" type="hidden" value="${managerSession.identification}" />
+												<form:input path="topArticle" type="hidden" value="general" />
 												<!-- 結束 -->
 
 												<div class="mb-3">
-												<select id="insSelectTag" class="form-select"
-													aria-label="Default select example">
-													<option>新手賣家發問</option>
-													<option>賣家閒聊討論</option>
-												</select>
-													<br>
+													<select id="insSelectTag" class="form-select"
+														aria-label="Default select example">
+														<option>新手賣家發問</option>
+														<option>賣家閒聊討論</option>
+													</select> <br>
 													<form:input type="text" path="title" required="true"
 														placeholder="標題" class="form-control title-fontsize"
 														aria-label="Sizing example input"
@@ -434,7 +479,8 @@
 	<!-- summernote -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	<script src='${pageContext.request.contextPath}/js/forum_summernote_32.js'></script>
+	<script
+		src='${pageContext.request.contextPath}/js/forum_summernote_32.js'></script>
 
 </body>
 </html>

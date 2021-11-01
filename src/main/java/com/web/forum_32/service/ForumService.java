@@ -20,11 +20,14 @@ public class ForumService implements IForumService {
 	@Autowired
 	ForumRepository forumRepository;
 	
-
+	@Override
+	public List<ForumBean> getAllTopArticles() {
+		return forumRepository.findByTopArticleLikeOrderByIdDesc("置頂");
+	}
 	
 	@Override
 	public List<ForumBean> getAllArticles() {
-		return forumRepository.findAllByOrderByIdDesc();
+		return forumRepository.findByTopArticleLikeOrderByIdDesc("general");
 	}
 	
 	@Override
@@ -60,34 +63,25 @@ public class ForumService implements IForumService {
 	}
 	
 	@Override
-	public List<ForumBean> getAllContentsByAnnouncement() {
-		return forumRepository.findAnnouncement();
-	}
-	
-	@Override
-	public List<ForumBean> getAllContentsByNoviceSeller() {
-		return forumRepository.findNoviceSeller();
-	}
-
-	@Override
-	public List<ForumBean> getAllContentsBySellerChat() {
-		return forumRepository.findSellerChat();
-	}
-
-	@Override
 	public Optional<ForumBean> findContentById(Integer id) {
 		return forumRepository.findById(id);
 	}
 
 	@Override
-	public List<ForumBean> findAllByUserName(String userName) {
-		return forumRepository.findAllByUserName(userName);
+	public List<ForumBean> getAllContentsByAnnouncement() {
+		return forumRepository.findByTagLikeOrderById("官方最新公告");
 	}
 
 	@Override
-	public List<ForumBean> findAllByTitle(String title) {
-		return forumRepository.findAllByTitle(title);
+	public List<ForumBean> getAllContentsByNoviceSeller() {
+		return forumRepository.findByTagLikeOrderById("新手賣家發問");
 	}
+
+	@Override
+	public List<ForumBean> getAllContentsBySellerChat() {
+		return forumRepository.findByTagLikeOrderById("賣家閒聊討論");
+	}
+
 
 
 

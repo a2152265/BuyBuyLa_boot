@@ -220,38 +220,39 @@
 					<div class="navigation-area">
 						<div class="row">
 							<div
-								class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+								class="previousBlock col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
 								<div class="thumb">
-									<a href="#"> <img class="img-fluid" src="img/blog/prev.jpg"
-										alt="">
+									<a href="<c:url value="/detailed" />?id=${previous.id}"> 
+									<img class="img-fluid" style="width:60px;height:60px;" src="<c:url value='/getPicturefromMember/${previous.picId}'/>" >
 									</a>
 								</div>
 								<div class="arrow">
-									<a href="#"> <span class="lnr text-white lnr-arrow-left"></span>
+									<a href="<c:url value="/detailed" />?id=${previous.id}"> <span class="lnr text-white lnr-arrow-left"></span>
 									</a>
 								</div>
 								<div class="detials">
 									<p>上一篇</p>
-									<a href="#">
-										<h4>${previous.title}</h4>
+									<a href="<c:url value="/detailed" />?id=${previous.id}">
+										<h4 class="previousFail">${previous.title}${previousFail}</h4>
 									</a>
 								</div>
 							</div>
 							<div
-								class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+								class="afterBlock col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
 								<div class="detials">
 									<p>下一篇</p>
-									<a href="#">
-										<h4>${after.title}${fail}</h4>
+									<a href="<c:url value="/detailed" />?id=${after.id}">
+										<h4 class="afterFail">${after.title}${afterFail}</h4>
 									</a>
 								</div>
 								<div class="arrow">
-									<a href="#"> <span class="lnr text-white lnr-arrow-right"></span>
+									<a href="<c:url value="/detailed" />?id=${after.id}"> <span class="lnr text-white lnr-arrow-right"></span>
 									</a>
 								</div>
 								<div class="thumb">
-									<a href="#"> <img class="img-fluid" src="img/blog/next.jpg"
-										alt="">
+									<a href="<c:url value="/detailed" />?id=${after.id}"> 
+								<img class="img-fluid" style="width:60px;height:60px;" src="<c:url value='/getPicturefromMember/${after.picId}'/>" >
+
 									</a>
 								</div>
 							</div>

@@ -28,15 +28,19 @@ public class ForumController {
 
 	/**************************** 頁面展示 ****************************/
 	
+	public void allArticles(Model model) {
+		List<ForumBean> getAllTopArticles = forumService.getAllTopArticles();
+		List<ForumBean> getAllArticles = forumService.getAllArticles();
+		model.addAttribute("topArticles", getAllTopArticles);
+		model.addAttribute("Articles", getAllArticles);
+	}
+	
 	// 首頁
 	@GetMapping("/forum")
 	public String forum(Model model) {
-		List<ForumBean> allList = forumService.getAllArticles();
-		model.addAttribute("content", allList);
+		allArticles(model);
 		model.addAttribute("addForumBean", new ForumBean());
-
 		Size(model);
-
 		return "forum_32/forum";
 	}
 
@@ -45,10 +49,9 @@ public class ForumController {
 	public String announcement(Model model) {
 		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
 		if (!announcementList.isEmpty()) {
-			model.addAttribute("content", announcementList);
+			model.addAttribute("Articles", announcementList);
 		} else {
-			List<ForumBean> allList = forumService.getAllArticles();
-			model.addAttribute("content", allList);
+			allArticles(model);
 		}
 		model.addAttribute("addForumBean", new ForumBean());
 		
@@ -61,10 +64,9 @@ public class ForumController {
 	public String noviceSeller(Model model) {
 		List<ForumBean> noviceSellerList = forumService.getAllContentsByNoviceSeller();
 		if (!noviceSellerList.isEmpty()) {
-			model.addAttribute("content", noviceSellerList);
+			model.addAttribute("Articles", noviceSellerList);
 		} else {
-			List<ForumBean> allList = forumService.getAllArticles();
-			model.addAttribute("content", allList);
+			allArticles(model);
 		}
 		model.addAttribute("addForumBean", new ForumBean());
 		
@@ -77,10 +79,9 @@ public class ForumController {
 	public String sellerChat(Model model) {
 		List<ForumBean> sellerChatList = forumService.getAllContentsBySellerChat();
 		if (!sellerChatList.isEmpty()) {
-			model.addAttribute("content", sellerChatList);
+			model.addAttribute("Articles", sellerChatList);
 		} else {
-			List<ForumBean> allList = forumService.getAllArticles();
-			model.addAttribute("content", allList);
+			allArticles(model);
 		}
 		model.addAttribute("addForumBean", new ForumBean());
 		
@@ -137,14 +138,14 @@ public class ForumController {
 	@ResponseBody
 	public ForumBean managerEdit(
 			@RequestParam("id") Integer id, 
-			@ModelAttribute("managerEditForumContentBean") ForumBean updfb,
+			@ModelAttribute("managerEditForumContentBean") ForumBean editBean,
 			Model model) {
-		updfb = forumService.getContentById(id);
-		ForumBean fb = new ForumBean(updfb.getId(),updfb.getTag(),updfb.getTitle(),
-				updfb.getContent(),updfb.getDate(),updfb.getPicId(),
-				updfb.getUserName(),updfb.getUserEmail(),updfb.getUserNickname(),
-				updfb.getIdentification(),updfb.getMessageQty(),updfb.getViewQty());
-		return fb;
+		editBean = forumService.getContentById(id);
+		ForumBean data = new ForumBean(editBean.getId(),editBean.getTag(),editBean.getTitle(),
+				editBean.getContent(),editBean.getDate(),editBean.getPicId(),
+				editBean.getUserName(),editBean.getUserEmail(),editBean.getUserNickname(),
+				editBean.getIdentification(),editBean.getMessageQty(),editBean.getViewQty(),editBean.getTopArticle());
+		return data;
 	}
 
 	// 編輯>提交表單

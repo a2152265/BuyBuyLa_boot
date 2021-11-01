@@ -3,6 +3,14 @@
  */
 $(function() {
 	// 發起討論
+	var previousfail=$('.previousFail').html();
+	var afterFail=$('.afterFail').html();
+	if(previousfail=='previousFail'){
+		$('.previousBlock').css('visibility','hidden');
+	}
+	if(afterFail=='afterFail'){
+		$('.afterBlock').css('visibility','hidden');
+	}
 	$('.insContentBody').on('mouseover', function() {
 		$('#insTag').val($('#insSelectTag option:selected').text())
 	})

@@ -138,11 +138,6 @@ h2 span {
 </head>
 
 <body>
-
-
-
-
- 
 	<div class="container">
 		<div id="title" class="title">
 			<h1>購物車</h1>
