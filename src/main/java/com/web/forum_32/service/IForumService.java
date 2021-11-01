@@ -1,21 +1,19 @@
 package com.web.forum_32.service;
 
 import java.util.List;
-import java.util.Optional;
-
 import com.web.forum_32.model.ForumBean;
 
 
 public interface IForumService {
 	
-	List<ForumBean> getAllTopArticles();
-	List<ForumBean> getAllArticles();
 	
-	public List<ForumBean> getPagedArticles(int page, int size);
+	List<ForumBean> getAll();
+	List<ForumBean> getAllArticles(int page, int size);
+	
 	void addOrEdit(ForumBean content);
-	public ForumBean getContentById(Integer id);
-	public Optional<ForumBean> findContentById(Integer id);
 	void delete (Integer id);
+	public ForumBean getContentById(Integer id);
+	
 	List<ForumBean> getAllContentsByAnnouncement();
 	List<ForumBean> getAllContentsByNoviceSeller();
 	List<ForumBean> getAllContentsBySellerChat();

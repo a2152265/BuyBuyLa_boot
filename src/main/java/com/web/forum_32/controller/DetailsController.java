@@ -38,7 +38,7 @@ public class DetailsController {
 	@GetMapping("/detailed")
 	public String detailedView(Model model, @RequestParam(value = "id", required = false) Integer id) {
 
-		List<ForumBean> articlesList = forumService.getAllArticles();
+		List<ForumBean> articlesList = forumService.getAll();
 		for (int i = 0; i < articlesList.size(); i++) {
 			if (id == articlesList.get(i).getId()) {
 				if (i + 1 < articlesList.size()) {
@@ -60,7 +60,7 @@ public class DetailsController {
 		}
 
 		model.addAttribute("forumContent", forumService.getContentById(id));
-		model.addAttribute("content", forumService.getAllArticles());
+		model.addAttribute("content", forumService.getAll());
 		model.addAttribute("forumId", id);
 		model.addAttribute("editForumContent", new ForumBean());
 		model.addAttribute("fTitle", forumService.getContentById(id).getTitle());

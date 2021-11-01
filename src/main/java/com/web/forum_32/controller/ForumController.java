@@ -28,18 +28,28 @@ public class ForumController {
 
 	/**************************** 頁面展示 ****************************/
 	
-	public void allArticles(Model model) {
-		List<ForumBean> getAllTopArticles = forumService.getAllTopArticles();
-		List<ForumBean> getAllArticles = forumService.getAllArticles();
-		model.addAttribute("topArticles", getAllTopArticles);
+	public void allArticles(Model model,Integer pages) {
+		List<ForumBean> getAllArticles = forumService.getAllArticles(pages, 5);
+		model.addAttribute("getAllArticles", getAllArticles);
 		model.addAttribute("Articles", getAllArticles);
+		model.addAttribute("forumSize", forumService.getAll());
+		model.addAttribute("addForumBean", new ForumBean());
 	}
 	
 	// 首頁
 	@GetMapping("/forum")
 	public String forum(Model model) {
-		allArticles(model);
-		model.addAttribute("addForumBean", new ForumBean());
+		
+		allArticles(model,0);
+		Size(model);
+		return "forum_32/forum";
+	}
+	// 分頁
+	@GetMapping("/forumPage")
+	public String forumPage(
+			@RequestParam("page") Integer page,
+			Model model) {
+		allArticles(model,page-1);
 		Size(model);
 		return "forum_32/forum";
 	}
@@ -50,10 +60,10 @@ public class ForumController {
 		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
 		if (!announcementList.isEmpty()) {
 			model.addAttribute("Articles", announcementList);
+			model.addAttribute("addForumBean", new ForumBean());
 		} else {
-			allArticles(model);
+			allArticles(model,0);
 		}
-		model.addAttribute("addForumBean", new ForumBean());
 		
 		Size(model);
 		return "forum_32/forum";
@@ -66,7 +76,7 @@ public class ForumController {
 		if (!noviceSellerList.isEmpty()) {
 			model.addAttribute("Articles", noviceSellerList);
 		} else {
-			allArticles(model);
+			allArticles(model,0);
 		}
 		model.addAttribute("addForumBean", new ForumBean());
 		
@@ -81,7 +91,7 @@ public class ForumController {
 		if (!sellerChatList.isEmpty()) {
 			model.addAttribute("Articles", sellerChatList);
 		} else {
-			allArticles(model);
+			allArticles(model,0);
 		}
 		model.addAttribute("addForumBean", new ForumBean());
 		
@@ -118,7 +128,7 @@ public class ForumController {
 	// 後台頁面展示
 	@GetMapping("/manager/forum")
 	public String managerForumView(Model model) {
-		List<ForumBean> allList = forumService.getAllArticles();
+		List<ForumBean> allList = forumService.getAll();
 		model.addAttribute("content", allList);
 		model.addAttribute("managerEditForumContentBean", new ForumBean());
 		return "forum_32/forum-manager";
@@ -156,7 +166,4 @@ public class ForumController {
 	}
 
 	/************************** 後臺管理結束 ***************************/
-
-
-
 }

@@ -1,7 +1,6 @@
 package com.web.forum_32.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,22 +20,17 @@ public class ForumService implements IForumService {
 	ForumRepository forumRepository;
 	
 	@Override
-	public List<ForumBean> getAllTopArticles() {
-		return forumRepository.findByTopArticleLikeOrderByIdDesc("置頂");
+	public List<ForumBean> getAll() {
+		return forumRepository.findAll();
 	}
-	
+
 	@Override
-	public List<ForumBean> getAllArticles() {
-		return forumRepository.findByTopArticleLikeOrderByIdDesc("general");
-	}
-	
-	@Override
-	public List<ForumBean> getPagedArticles(int page, int size) {
+	public List<ForumBean> getAllArticles(int page, int size) {
         Page<ForumBean> pageResult = forumRepository.findAll(
                 PageRequest.of(page,  // 查詢的頁數，從0起算
                                 size, // 查詢的每頁筆數
-                                Sort.by("id").descending())); // 依CREATE_TIME欄位降冪排序
-        
+                                Sort.by("topArticle").descending().and(Sort.by("id").descending())
+                                )); // 依CREATE_TIME欄位降冪排序
         pageResult.getNumberOfElements(); // 本頁筆數
         pageResult.getSize();             // 每頁筆數 
         pageResult.getTotalElements();    // 全部筆數
@@ -62,10 +56,6 @@ public class ForumService implements IForumService {
 		forumRepository.deleteById(id);
 	}
 	
-	@Override
-	public Optional<ForumBean> findContentById(Integer id) {
-		return forumRepository.findById(id);
-	}
 
 	@Override
 	public List<ForumBean> getAllContentsByAnnouncement() {

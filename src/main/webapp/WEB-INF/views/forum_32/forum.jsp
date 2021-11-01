@@ -121,7 +121,7 @@
 
 
 	<!-- ================ start banner area ================= -->
-	<section class="blog-banner-area" id="blog" style="height:120px">
+	<section class="blog-banner-area" id="blog" style="height: 120px">
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
@@ -143,48 +143,8 @@
 			<div class="row">
 				<div class="col-lg-8">
 					<div class="blog_left_sidebar">
-
-						<c:forEach var='topArticles' items='${topArticles}' >
-							<article class="row blog_item" style="margin:0px;">
-								<div class="col-md-3">
-									<div class="blog_info text-right">
-										<div class="post_tag">
-											<a href="#">${topArticles.tag}</a>
-										</div>
-										<ul class="blog_meta list" style="padding: 0; width: 200px">
-											<li><a href="#">${topArticles.userName} <i
-													class="lnr lnr-user"></i>
-											</a></li>
-											<li><a href="#">${topArticles.date} <i
-													class="lnr lnr-calendar-full"></i>
-											</a></li>
-											<li><a href="#">${topArticles.viewQty}<i
-													class="lnr lnr-eye"></i>
-											</a></li>
-											<li><a href="#">${topArticles.messageQty}<i
-													class="lnr lnr-bubble"></i>
-											</a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="col-md-9">
-									<div class="blog_post">
-										<div class="blog_details">
-											<h2 style="background-color:beige;">${topArticles.title}</h2>
-											<div class="box">
-												<div class="ellipsis">${topArticles.content}</div>
-											</div>
-											<a class="button button-blog"
-												href="<c:url value='/detailed' />?id=${topArticles.id}">View
-												More</a>
-										</div>
-									</div>
-								</div>
-							</article>
-						</c:forEach>
-						
-						<c:forEach var='Articles' items='${Articles}' >
-							<article class="row blog_item" style="margin:0px">
+						<c:forEach var='Articles' items='${Articles}'>
+							<article class="row blog_item" style="margin: 0px">
 								<div class="col-md-3">
 									<div class="blog_info text-right">
 										<div class="post_tag">
@@ -221,7 +181,30 @@
 								</div>
 							</article>
 						</c:forEach>
-
+						<nav class="blog-pagination justify-content-center d-flex">
+							<ul class="pagination">
+								<li class="page-item"><a href="#" class="page-link"
+									aria-label="Previous"> <span aria-hidden="true"> <span
+											class="lnr lnr-chevron-left"></span>
+									</span>
+								</a>
+								</li>
+								
+								<c:forEach items="${forumSize}" var="forumSize" varStatus="c" step="5">
+								<li class="page-item">
+								<a href="<c:url value="forumPage" />?page=${c.count}">
+								<input type="button" class="page-link forumPageBtn" style="border: none" value="${c.count}">
+								</a>
+								</li>
+								</c:forEach>
+								
+								<li class="page-item"><a href="#" class="page-link"
+									aria-label="Next"> <span aria-hidden="true"> <span
+											class="lnr lnr-chevron-right"></span>
+									</span>
+								</a></li>
+							</ul>
+						</nav>
 					</div>
 				</div>
 				<div class="col-lg-4">
@@ -258,7 +241,8 @@
 													value="${memberUiDefault.userEmail}" />
 												<form:input path="userNickname" type="hidden"
 													value="${memberUiDefault.userNickname}" />
-												<form:input path="Identification" type="hidden" value="${managerSession.identification}" />
+												<form:input path="Identification" type="hidden"
+													value="${managerSession.identification}" />
 												<form:input path="topArticle" type="hidden" value="general" />
 												<!-- 結束 -->
 

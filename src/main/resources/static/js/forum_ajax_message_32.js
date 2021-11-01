@@ -21,7 +21,10 @@ $(document).ready(function() {
 				success: function(data) {
 					$('.pages').text(page + 1);
 					showMessage(data);
+					$('.pageBtn').parent().eq(0).addClass("active");
 					$('.pageBtn').click(function(e) {
+					$(this).parent().addClass("active");
+					$(this).parent().siblings().removeClass("active");
 						e.preventDefault();
 						var page = $(this).val() - 1;
 						$('.pages').text(page + 1);
