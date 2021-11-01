@@ -19,4 +19,16 @@ public interface IRecordService {
 	List<RecordBean> getAllSellerRecords(String seller );
 	
 	membershipInformationBean getBuyerInfo(String buyer);
+	
+	
+	//以下為管理者功能	
+	List<RecordList> getAllMemberRecord();
+	
+	void deleteRecordList(int rid);
+	
+	RecordList getRecordByRid(int rid);
+	
+	void updateRecordList(RecordList recordList);
+	
+	
 }

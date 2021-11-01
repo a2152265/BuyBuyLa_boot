@@ -56,7 +56,7 @@ public class CartController {
 	public String additem(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id ,Model model) {
 		System.out.println("PID cc= "+id);
 		String buyer=mb.getUserEmail();
-		cartService.addItemByid(id,true,buyer);
+		cartService.addItemByid(id,buyer);
 		return "redirect:/products";
 	}
 	
@@ -76,7 +76,7 @@ public class CartController {
 		String buyer=mb.getUserEmail();	
 		List<Cart> cart = cartService.addToRecord(buyer);
 		model.addAttribute("cart", cart);	
-		cartService.deletecart(id);
+		cartService.deletecart(id,buyer);
 
 		 return "redirect:/cart";
 	}
@@ -87,7 +87,7 @@ public class CartController {
 		String buyer=mb.getUserEmail();	
 		List<Cart> cart = cartService.addToRecord(buyer);
 		model.addAttribute("cart", cart);
-		cartService.add(id);	
+		cartService.add(id,buyer);	
 		System.out.println("===============endddddddddddd");
 	
 		 return "redirect:/cart";
@@ -99,7 +99,7 @@ public class CartController {
 		String buyer=mb.getUserEmail();	
 		List<Cart> cart = cartService.addToRecord(buyer);
 		model.addAttribute("cart", cart);
-		cartService.sub(id);	
+		cartService.sub(id,buyer);	
 		System.out.println("===============endddddddddddd");
 	
 		 return "redirect:/cart";
@@ -171,7 +171,7 @@ public class CartController {
 			
 
 		}
-		RecordList  recordList = new RecordList(rc, buyer, totalprice,now,address);
+		RecordList  recordList = new RecordList(rc, buyer, totalprice,now,address,"未付款","待出貨");
 		SimpleMailMessage message =new SimpleMailMessage();
 		message.setTo(buyer);
 		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
@@ -197,20 +197,17 @@ public class CartController {
 		 return "cart_30/fin2";
 	}
 	
+	
 	@GetMapping("/removeAllCart")
-	public String removeAllCart(Model model) {
-		
-		cartService.deleteAll();
-		
+	public String removeAllCart(@ModelAttribute("loginSession") membershipInformationBean mb,Model model) {
+		String buyer = mb.getUserEmail();
+		System.out.println("start**************");
+		cartService.deleteAll(buyer);
+		System.out.println("end**************");
 		 return "redirect:/products";
 	}
 	
-//	@GetMapping("/insertAddress")
-//	public String goInsertAddress(Model model) {
-//		
-//		 return "cart_30/check";
-//	}
-	
+
 
 	
 	

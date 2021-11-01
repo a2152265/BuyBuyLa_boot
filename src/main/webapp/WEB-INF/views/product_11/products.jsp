@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
 <!--   <link rel='stylesheet' href="css/campaigns.css"  > -->
   <link rel="stylesheet" href="css/productstyle.css">
+  
   <style type="text/css">
 .form__label {
   font-family: 'Roboto', sans-serif;
@@ -190,8 +191,9 @@
             
               
               <!-- 購物車顯示數量在這裡改 -->
-              
+    
               <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>3</span></button> </li>
+
 <!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
             </ul>
           </div>
@@ -611,16 +613,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <span class="count"  style="display:none"> ${row.count}</span>
 
 </c:forEach>
-
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>   -->
 <script>
 
 
-
+var count=0;
+// const MySwal = withReactContent(Swal)
 $(".additem").click(function(){		
-//		var data=$("#form1").serializeArray();
+
 	var data=$(this).val();
-	console.log(data+"************************");
-	$.ajax({
+		$.ajax({
 		type:'get',
 		url:'additem',
 		data:{
@@ -628,7 +630,20 @@ $(".additem").click(function(){
 		},
 		
 		success:function(){
-			 console.log("77777777")
+			
+			
+
+			alert("已加入購物車");
+
+// 			await MySwal.fire({
+// 			  title: <strong>Good job!</strong>,
+// 			  html: <i>You clicked the button!</i>,
+// 			  icon: 'success'
+// 			})
+
+// 			count=count+1;
+// 			console.log(count);
+			
 		}
 								
 	});		
@@ -636,7 +651,6 @@ $(".additem").click(function(){
 	
 });
 
-var count=0;
 $('.count').each(function(){
 	$(this).html;
 	var a = parseInt($(this).html());

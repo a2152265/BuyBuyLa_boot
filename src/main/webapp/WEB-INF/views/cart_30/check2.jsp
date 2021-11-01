@@ -188,7 +188,7 @@
  	<select id='addAddress' style='font-size:20px'>
         <option selected>Choose...</option>
 		<c:forEach var="rows" items="${BuyerAddressList}">	
-			<option>${rows.city}&nbsp;${rows.address}</option>			
+			<option>${rows.city}${rows.address}</option>			
 		</c:forEach>
 		</select>
 		

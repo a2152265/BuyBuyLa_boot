@@ -184,13 +184,13 @@
     <table id="example" class="display" style="width:100%">
        	<thead>
 						<tr>
-							<th>訂單編號<i class="fa fa-sort"></i></th>
-							<th>商品編號</th>
-							<th>商品名稱</th>
-							<th>商品單價</th>
-							<th>訂購數量</th>
+							<th>訂單編號<i class="fa fa-sort"></i></th>	
+							<th>訂單總價</th>						
 							<th>購買時間</th>
+							<th>買家資訊</th>
+							<th>取貨地址</th>							
 							<th>出貨狀況</th>
+							<th>付款狀況</th>
 							<th>編輯資料</th>
 						</tr>
 					</thead>
@@ -198,45 +198,33 @@
 			int i = 0;
 			%>
 <tbody>
-    	<c:forEach var="update" items="${updateRecord}">
-<%-- 					<form:form method='POST' modelAttribute="updatebean" class='form-horizontal'>	 --%>
+    	<c:forEach var="manage" items="${allreocrd}">
 						<tr>
-							<td id='rid'>${update.record_id}</td>
-							<td id='pid'>${update.pid}</td>
-							<td>${update.p_name}</td>
-							<td>${update.p_price}</td>
-							<td>${update.pcount}</td>
-							<td>${update.buy_time}</td>
-					
-							<td>
-							<select path='transport_status' id='ts'>
-							<option selected>${update.transport_status}</option>
-							<option disabled>======</option>
-<!-- 							<option value='待出貨' disabled>待出貨</option> -->
-							<option value='運送中'>運送中</option>
-<%-- 							<form:option value='已到貨'>已到貨</form:option>							 --%>
-							</select>
-							</td>
+							<td id='rid'>${manage.record_id}</td>			
+							<td>${manage.totalprice}</td>
+							<td>${manage.buy_time}</td>
+							<td>${manage.buyer}</td>
+							<td>${manage.buyeraddress}</td>
+							<td>${manage.pay_status}</td>
+							<td>${manage.transport_status}</td>
 
-							<td>	
-							 <a href="<c:url value='/selectbuyer?buyer=${update.buyer}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-<%-- 							<form:input path="record_id" value='${update.record_id}' style="display:none"/> --%>
-<%-- 							<form:input path="pid" value='${update.pid}' style="display:none"/>	 --%>
-<!-- 							<button type="submit" class="btn bt1" data-toggle="modal" data-target="#staticBackdrop">										 -->
-								<a href="<c:url value='/updatevalue30?rid=${update.record_id}&pid=${update.pid}&ts=運送中' />" class="edit" title="Edit" data-toggle="tooltip">
+							<td>
+							 <a href="<c:url value='/selectbuyer?buyer=${manage.buyer}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+							
+								<a href="<c:url value='/updateRecordList?rid=${manage.record_id}'/>" class="edit" title="Edit" data-toggle="tooltip">
 								<i class="material-icons">&#xE254;</i>
 								</a>
-<!-- 							</button>	 -->
-									<a href='#' onclick="if(window.confirm('確定要刪除？')) location.href ='<c:url value='/delete?rid=${update.record_id}&pid=${update.pid}'/>'" class="delete" title="Delete" data-toggle="tooltip">
+					
+									<a href='#' onclick="if(window.confirm('確定要刪除？')) location.href ='<c:url value='/deleteRecordList?rid=${manage.record_id}'/>'" class="delete" title="Delete" data-toggle="tooltip">
 									<i class="material-icons">&#xE872;</i>
 									</a>
-							
+								
 							</td>
 						</tr>
 													
 							
 
-<%-- 						</form:form>				 --%>
+
 						
 						</c:forEach>	
 					</tbody>

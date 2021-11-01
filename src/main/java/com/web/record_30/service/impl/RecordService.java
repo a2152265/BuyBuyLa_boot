@@ -98,6 +98,36 @@ public class RecordService implements IRecordService {
 		return membertRepository.findByUserEmail(buyer);
 	}
 
+//
+	
+	//以下為管理者功能
+	@Override
+	public List<RecordList> getAllMemberRecord() {
+	
+		return recordListRepository.findAll();
+	}
+
+
+	@Override
+	public void deleteRecordList(int rid) {
+		recordListRepository.deleteById(rid);
+		
+	}
+
+
+	@Override
+	public RecordList getRecordByRid(int rid) {
+		
+		return recordListRepository.getById(rid);
+	}
+
+
+	@Override
+	public void updateRecordList(RecordList recordList) {
+		recordListRepository.save(recordList);
+		
+	}
+
 
 	
 
