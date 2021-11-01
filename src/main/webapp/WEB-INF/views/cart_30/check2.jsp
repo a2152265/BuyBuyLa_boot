@@ -237,7 +237,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="validationCustom02">城市:</label>
-                                <form:select path='city' class="custom-select mr-sm-2" id="inlineFormCustomSelect" required="required">
+<!--                                 <select class="form-select form-select-lg mb-3" > -->
+                                <form:select path='city' class="custom-select mr-sm-2" aria-label=".form-select-lg example" id="inlineFormCustomSelect" required="required">
                                     <option selected>Choose...</option>
                                     <form:option value="臺北市">臺北市</form:option>
                                     <form:option value="新北市">新北市</form:option>
