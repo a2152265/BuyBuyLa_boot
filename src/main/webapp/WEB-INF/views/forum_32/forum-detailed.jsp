@@ -113,7 +113,8 @@
 		</div>
 	</header>
 	<!--================ End Header Menu Area =================-->
-
+	
+	<input type="hidden" class="messageUserEmail" value="${loginSession.userEmail}">
 
 	<!-- ================ start banner area ================= -->
 	<section class="blog-banner-area" id="blog">
@@ -344,12 +345,17 @@
 								<li><a href="<c:url value='/forum' />"
 									class="d-flex justify-content-between">
 										<p>所有討論</p>
-										<p>${announcementSize+noviceSellerSize+sellerChatSize}</p>
+										<p>${allSize}</p>
 								</a></li>
 								<li><a href="<c:url value='/announcement' />"
 									class="d-flex justify-content-between">
 										<p>官方最新公告</p>
 										<p>${announcementSize}</p>
+								</a></li>
+								<li><a href="<c:url value='/featured' />"
+									class="d-flex justify-content-between">
+										<p>社團精選話題</p>
+										<p>${featuredSize}</p>
 								</a></li>
 								<li><a href="<c:url value='/noviceSeller' />"
 									class="d-flex justify-content-between">
@@ -365,9 +371,26 @@
 							<div class="br"></div>
 						</aside>
 						<aside class="single_sidebar_widget popular_post_widget">
+							<h3 class="widget_title">精選話題</h3>
+
+							<c:forEach var='content' items='${tagFeatured}' begin="0" end="2">
+								<div class="media post_item">
+									<img width='40'
+										src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+									<div class="media-body">
+										<a href="single-blog.html">
+											<h3>${content.title}</h3>
+										</a>
+										<p>${content.date}</p>
+									</div>
+								</div>
+							</c:forEach>
+							<div class="br"></div>
+						</aside>
+						<aside class="single_sidebar_widget popular_post_widget">
 							<h3 class="widget_title">最新帖子</h3>
 
-							<c:forEach var='content' items='${content}' begin="0" end="4">
+							<c:forEach var='content' items='${getAll}' begin="0" end="2">
 								<div class="media post_item">
 									<img width='40'
 										src="<c:url value='/getPicturefromMember/${content.picId}'/>" />

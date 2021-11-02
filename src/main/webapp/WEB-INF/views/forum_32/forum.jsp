@@ -190,7 +190,7 @@
 								</a>
 								</li>
 								
-								<c:forEach items="${forumSize}" var="forumSize" varStatus="c" step="5">
+								<c:forEach items="${getAll}" var="getAll" varStatus="c" step="5">
 								<li class="page-item">
 								<a href="<c:url value="forumPage" />?page=${c.count}">
 								<input type="button" class="page-link forumPageBtn" style="border: none" value="${c.count}">
@@ -309,7 +309,7 @@
 						<aside class="single_sidebar_widget popular_post_widget">
 							<h3 class="widget_title">精選話題</h3>
 
-							<c:forEach var='content' items='${forumSize}' begin="0" end="2">
+							<c:forEach var='content' items='${tagFeatured}' begin="0" end="2">
 								<div class="media post_item">
 									<img width='40'
 										src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
@@ -326,7 +326,7 @@
 						<aside class="single_sidebar_widget popular_post_widget">
 							<h3 class="widget_title">最新帖子</h3>
 
-							<c:forEach var='content' items='${forumSize}' begin="0" end="2">
+							<c:forEach var='content' items='${getAll}' begin="0" end="2">
 								<div class="media post_item">
 									<img width='40'
 										src="<c:url value='/getPicturefromMember/${content.picId}'/>" />

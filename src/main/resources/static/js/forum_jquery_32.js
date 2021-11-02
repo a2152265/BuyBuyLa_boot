@@ -36,7 +36,5 @@ $(function() {
 		$('.messageBtn').css({"background":"gray"});
 		$('.messageContent').attr("disabled","disabled");
 	}
-	$('.reply').on('click',function(){
-		console.log($('.desc').html())
-	})
+
 })

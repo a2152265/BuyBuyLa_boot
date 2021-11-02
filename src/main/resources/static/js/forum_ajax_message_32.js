@@ -95,7 +95,7 @@ $(document).ready(function() {
 								title: '錯誤',
 								text: '內容為空!',
 								showConfirmButton: false,
-								timer: 1300
+								timer: 1000
 							})
 							return false;
 						}
@@ -108,9 +108,9 @@ $(document).ready(function() {
 									icon: 'success',
 									title: '新增留言成功',
 									showConfirmButton: false,
-									timer: 1300
+									timer: 1000
 								});
-							setTimeout(function(){history.go(0)}, 1300);
+							setTimeout(function(){history.go(0)}, 1000);
 							}
 						})
 					});
@@ -128,10 +128,20 @@ $(document).ready(function() {
 								"<h5><a href='#'>" + data[i]['messageUserName'] + "</a></h5>" +
 								"<p class='date'>" + data[i]['messageDate'] + "</p>" +
 								"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
-								"</div>" + "</div>" + "</div>" + "</div>"
-
-							)
+								"</div>" + 
+								"</div>" + 
+								"<div class='editBtn'><img style='cursor:pointer;width:30px;height:30px;' src='https://cdn-icons.flaticon.com/png/512/2311/premium/2311523.png?token=exp=1635851763~hmac=dd6163c12d7c6a8d0b50bbea674800ac'></div>"+
+								"</div>" + 
+								"</div>")
 						}
+						$('.single-comment').each(function(i,n){
+								var userUserEmail = $('.messageUserEmail').val();
+								var messageEmail = $(this).find('p').next().html();
+								if(messageEmail!=userUserEmail){
+									$(this).find('.editBtn').css('display','none');
+								}
+								$('.editBtn')
+						})
 					}
 				}
 			})

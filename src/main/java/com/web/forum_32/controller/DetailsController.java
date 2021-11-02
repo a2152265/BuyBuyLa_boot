@@ -60,7 +60,8 @@ public class DetailsController {
 		}
 
 		model.addAttribute("forumContent", forumService.getContentById(id));
-		model.addAttribute("content", forumService.getAll());
+		model.addAttribute("getAll", forumService.getAll());
+		model.addAttribute("tagFeatured", forumService.getAllByTag("社團精選話題"));
 		model.addAttribute("forumId", id);
 		model.addAttribute("editForumContent", new ForumBean());
 		model.addAttribute("fTitle", forumService.getContentById(id).getTitle());
@@ -126,9 +127,11 @@ public class DetailsController {
 	}
 
 	public void tagSize(Model model) {
-//		model.addAttribute("announcementSize", forumService.getAllContentsByAnnouncement().size());
-//		model.addAttribute("noviceSellerSize", forumService.getAllContentsByNoviceSeller().size());
-//		model.addAttribute("sellerChatSize", forumService.getAllContentsBySellerChat().size());
+		model.addAttribute("allSize", forumService.getAll().size());
+		model.addAttribute("announcementSize",forumService.getAllByTag("官方最新公告").size());
+		model.addAttribute("featuredSize",forumService.getAllByTag("社團精選話題").size());
+		model.addAttribute("noviceSellerSize",forumService.getAllByTag("新手賣家發問").size());
+		model.addAttribute("sellerChatSize",forumService.getAllByTag("賣家閒聊討論").size());
 	}
 
 }
