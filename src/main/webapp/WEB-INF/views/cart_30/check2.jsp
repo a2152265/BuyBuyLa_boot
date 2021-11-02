@@ -34,7 +34,7 @@
  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <title>購物車</title>
 
@@ -428,7 +428,28 @@
 
 
 $(".submit").click(function(){		
-// 		var data=$("#form1").serializeArray();
+		  let timerInterval
+		  Swal.fire({
+		  title: '交易處理中 ! !',
+		  html: '請耐心等候 :)',
+		  timer: 12000,
+		  timerProgressBar: true,
+		  didOpen: () => {
+		    Swal.showLoading()
+		    const b = Swal.getHtmlContainer().querySelector('b')
+		    timerInterval = setInterval(() => {
+		      b.textContent = Swal.getTimerLeft()
+		    }, 100)
+		  },
+		  willClose: () => {
+		    clearInterval(timerInterval)
+		  }
+		}).then((result) => {
+		  /* Read more about handling dismissals below */
+		  if (result.dismiss === Swal.DismissReason.timer) {
+		    console.log('I was closed by the timer')
+		  }
+		})
 		var data=$('#selectval').val();
 		console.log(data);
 		$.ajax({
@@ -439,6 +460,7 @@ $(".submit").click(function(){
 			},
 			
 			success:function(){
+				
 				  setTimeout("location.href='fin'",0)
 			}
 									
@@ -446,9 +468,8 @@ $(".submit").click(function(){
 		
 		
 	});
-
-
-
+		
+	
 
 	</script>
 

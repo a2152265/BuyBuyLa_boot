@@ -81,15 +81,29 @@ public class CartController {
 		 return "redirect:/cart";
 	}
 	
+//	@GetMapping("/add")
+//	public Integer add(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id,Model model) {
+//		System.out.println("starttttt===============");
+//		String buyer=mb.getUserEmail();	
+//		List<Cart> cart = cartService.addToRecord(buyer);
+//		model.addAttribute("cart", cart);
+//		int cnt =cartService.add(id,buyer);	
+//
+//		System.out.println("===============endddddddddddd");
+//		System.out.println(cnt);
+//		 return cnt;
+//	}
+//	
 	@GetMapping("/add")
 	public String add(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id,Model model) {
 		System.out.println("starttttt===============");
 		String buyer=mb.getUserEmail();	
 		List<Cart> cart = cartService.addToRecord(buyer);
 		model.addAttribute("cart", cart);
-		cartService.add(id,buyer);	
+		int cnt =cartService.add(id,buyer);	
+
 		System.out.println("===============endddddddddddd");
-	
+		System.out.println(cnt);
 		 return "redirect:/cart";
 	}
 	
@@ -209,6 +223,25 @@ public class CartController {
 	
 
 
-	
+	// 使用者地址管理
+		@GetMapping("/addressLsit")
+		public String addressLsit(@ModelAttribute("loginSession") membershipInformationBean mb,Model model) {
+			String buyer = mb.getUserEmail();
+			List<BuyerAddress> address = cartService.selectAllBuyerAddressByBuyer(buyer);
+			model.addAttribute("buyer",buyer);
+			model.addAttribute("address",address);
+			return "cart_30/address/addressList";
+		}
+		
+		@GetMapping("/deleteAddress")
+		public String deleteAddress(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam int aid,Model model) {
+			cartService.deleteAddress(aid);
+			String buyer = mb.getUserEmail();
+			List<BuyerAddress> address = cartService.selectAllBuyerAddressByBuyer(buyer);
+			model.addAttribute("buyer",buyer);
+			model.addAttribute("address",address);
+
+			return "cart_30/address/addressList";
+		}
 	
 }

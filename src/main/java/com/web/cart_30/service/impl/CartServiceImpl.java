@@ -95,10 +95,12 @@ public class CartServiceImpl implements CartService {
 
 
 	@Override
-	public void add(int pid,String buyer) {
+	public int add(int pid,String buyer) {
 		Cart cart= cartRepository.existsByIdAndBuyer(pid,buyer);
 		int count = cart.getCount()+1;
 		cartRepository.add(count,pid);
+		
+		return count;
 		
 	}
 
@@ -214,6 +216,17 @@ public class CartServiceImpl implements CartService {
 	public List<BuyerAddress> selectAllBuyerAddressByBuyer(String buyer) {
 		
 		return buyerAddressRepository.selectAllBuyerAddressByBuyer(buyer);
+	}
+
+
+
+
+
+
+	@Transactional
+	@Override
+	public void deleteAddress(int aid) {
+		buyerAddressRepository.deleteById(aid);		
 	}
 
 

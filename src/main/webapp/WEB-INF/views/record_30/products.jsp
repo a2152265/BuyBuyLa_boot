@@ -23,6 +23,11 @@
 <!--   <link rel='stylesheet' href="css/campaigns.css"  > -->
   <link rel="stylesheet" href="css/productstyle.css">
   
+<!-- <script src="sweetalert2.min.js"></script> -->
+<!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
+<!-- <script src="sweetalert2.all.min.js"></script> -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <style type="text/css">
 .form__label {
   font-family: 'Roboto', sans-serif;
@@ -613,7 +618,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <span class="count"  style="display:none"> ${row.count}</span>
 
 </c:forEach>
-<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>   -->
+
+
+	
 <script>
 
 
@@ -630,20 +637,18 @@ $(".additem").click(function(){
 		},
 		
 		success:function(){
-			
+	
+
+			Swal.fire({
+				  position:'center',
+				  icon: 'success',
+				  title: '已加入購物車',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
 			
 
-			alert("已加入購物車");
 
-// 			await MySwal.fire({
-// 			  title: <strong>Good job!</strong>,
-// 			  html: <i>You clicked the button!</i>,
-// 			  icon: 'success'
-// 			})
-
-// 			count=count+1;
-// 			console.log(count);
-			
 		}
 								
 	});		
@@ -662,8 +667,6 @@ $('#ccount').html(count)
 
 
 </script>
-	
-
 
 </body>
 </html>

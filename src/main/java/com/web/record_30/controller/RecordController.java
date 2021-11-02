@@ -62,7 +62,7 @@ public class RecordController {
 		return "record_30/select";	
 	}
 	
-	//查購物紀錄細項	
+	//查買家資料	
 		@GetMapping("/selectbuyer")
 	    public String selectBuyerInfo(@RequestParam String buyer,Model model) {		
 			membershipInformationBean mb=new membershipInformationBean();
@@ -152,6 +152,8 @@ public class RecordController {
 		return "record_30/update2";
 		
 	}
+	
+
 	
 ////////////////////////////////////////////////////////////
 	
