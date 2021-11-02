@@ -287,7 +287,13 @@
               </div>
               <div class="card-body">
                 <p>${product.category}</p>
-                <h4 class="card-product__title"><a href="single-product.html">${product.productName}</a></h4>
+                <h4 class="card-product__title"><a style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;" href="single-product.html">${product.productName}</a></h4>
                 <p class="card-product__price">${product.price}</p>
               </div>
             </div>
@@ -327,7 +333,7 @@
           
           <c:forEach items="${products}" var="product">
           <div class="card text-center card-product">
-            <div class="card-product__img">
+            <div  class="card-product__img">
               <img width="243.61" height="255" class="img-fluid" src="<c:url value='/getPicture/${product.productId}' />" alt="">
               <ul class="card-product__imgOverlay">
                                 <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
@@ -346,7 +352,13 @@
             </div>
             <div class="card-body">
               <p>${product.category}</p>
-              <h4 class="card-product__title"><a href="single-product.html">${product.productName}</a></h4>
+              <h4 class="card-product__title"><a style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;" href="single-product.html">${product.productName}</a></h4>
               <p class="card-product__price">${product.price}</p>
             </div>
           </div>

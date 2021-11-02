@@ -19,6 +19,7 @@ import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.service.IForumService;
 import com.web.member_25.model.membershipInformationBean;
 import com.web.product_11.model.Product;
+import com.web.product_11.service.ProductCommentService;
 import com.web.product_11.service.ProductService;
 
 @Controller
@@ -26,15 +27,19 @@ import com.web.product_11.service.ProductService;
 public class HomeController {
 	
 	ProductService productservice;
+	ProductCommentService productCommentService;
 	CampaignService campaignService;
 	ServletContext servletContext;
 	CartService cartService;
 	IForumService forumService;
 	
+	
 	@Autowired
-	public HomeController(ProductService productservice, CampaignService campaignService, ServletContext servletContext,
-			CartService cartService, IForumService forumService) {
+	public HomeController(ProductService productservice, ProductCommentService productCommentService,
+			CampaignService campaignService, ServletContext servletContext, CartService cartService,
+			IForumService forumService) {
 		this.productservice = productservice;
+		this.productCommentService = productCommentService;
 		this.campaignService = campaignService;
 		this.servletContext = servletContext;
 		this.cartService = cartService;
@@ -72,6 +77,7 @@ public class HomeController {
 	
 	}
 	
+
 
 
 	@GetMapping("/adminHome")

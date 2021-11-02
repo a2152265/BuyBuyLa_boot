@@ -19,6 +19,7 @@
 
   <link rel="stylesheet" href="css/productstyle.css">
   <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 	<!--================ Start Header Menu Area =================-->
@@ -134,11 +135,12 @@
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
+						<input id="productId" type="hidden" value="${product.productId}" />
 						<h3>${product.productName}</h3>
 						<h2>$${product.price}</h2>
 						<ul class="list">
-							<li><a class="active" href="<c:url value='/products/${product.category}' />"><span>Category</span> ${product.category}</a></li>
-<!-- 							<li><a href="#"><span>Availibility</span> : In Stock</a></li> -->
+							<li><a class="active" href="<c:url value='/products/${product.category}' />"><span>產品分類</span> ${product.category}</a></li>
+							<li><a href="javascript:;"><span>庫存量</span>${product.stock}</a></li>
 						</ul>
 						<br>
 <%-- 						<p>${product.productInfo}</p> --%>
@@ -376,13 +378,14 @@
 								</div>
 							</div>
 							<div class="review_list">
+								<c:forEach var='productComment' items='${productComment}'>
 								<div class="review_item">
 									<div class="media">
 										<div class="d-flex">
 											<img src="img/product/review-1.png" alt="">
 										</div>
 										<div class="media-body">
-											<h4>Blake Ruiz</h4>
+											<h4>${productComment.userEmail}</h4>
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
@@ -390,49 +393,15 @@
 											<i class="fa fa-star"></i>
 										</div>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
+									<p>${productComment.content}</p>
+									<p>${productComment.commentTime}</p>
 								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-3.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
+								
+							        </c:forEach>
+							
 							</div>
 						</div>
-<!-- 						討論評論 -->
+<!-- 						留言評論 -->
 						<div class="col-lg-6">
 							<div class="review_box">
 								<h4>Add a Review</h4>
@@ -445,21 +414,21 @@
 									<li><a href="#"><i class="fa fa-star"></i></a></li>
 								</ul>
 								<p>Outstanding</p>
-                <form action="#/" class="form-contact form-review mt-3">
+                <form class="form-contact form-review mt-3">
                   <div class="form-group">
-                    <input class="form-control" name="name" type="text" placeholder="Enter your name" required>
+                    <input class="form-control" id="userEmail" name="userEmail" type="text" value="${loginSession.userEmail}"   readonly>
                   </div>
+	<!--                   <div class="form-group"> -->
+	<!--                     <input class="form-control" name="email" type="email" placeholder="Enter email address" required> -->
+	<!--                   </div> -->
+	<!--                   <div class="form-group"> -->
+	<!--                     <input class="form-control" name="subject" type="text" placeholder="Enter Subject"> -->
+	<!--                   </div> -->
                   <div class="form-group">
-                    <input class="form-control" name="email" type="email" placeholder="Enter email address" required>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control" name="subject" type="text" placeholder="Enter Subject">
-                  </div>
-                  <div class="form-group">
-                    <textarea class="form-control different-control w-100" name="textarea" id="textarea" cols="30" rows="5" placeholder="Enter Message"></textarea>
+                    <textarea id="content" class="form-control different-control w-100" name="content" id="textarea" cols="30" rows="5" placeholder="Enter Message"></textarea>
                   </div>
                   <div class="form-group text-center text-md-right mt-3">
-                    <button type="submit" class="button button--active button-review">Submit Now</button>
+                    <button id="comment" type="button" class="button button--active button-review">Submit Now</button>
                   </div>
                 </form>
 							</div>
@@ -708,6 +677,53 @@ $(".additem").click(function(){
 	});		
 	
 	
+});
+
+$('#comment').click(function() {
+    
+    
+    var postData = new FormData($("#form")[0]);
+     let userEmail= $('#userEmail').val();
+     let content= $('#content').val();
+     let productId= $('#productId').val();
+  
+    postData.append('userEmail', userEmail);
+    postData.append('content', content);
+    postData.append('productId', productId);
+    
+
+    
+    $.ajax({
+      url: "comment",
+      type: "POST",
+      data: postData,
+      cache:false,
+      //編碼設定
+      processData: false, 
+      contentType: false,
+      success: function (data, textStatus, xhr) {
+        console.log(data);
+        console.log(textStatus);
+        console.log(xhr.status);
+        if (xhr.status == 200) {
+			
+         
+        }
+      },
+      error: function (xhr, status) {
+        console.log(xhr.status);
+        console.log(status);
+        swal.fire({
+            icon: 'success',
+            title: '您已對此商品評論，謝謝您',
+            showConfirmButton: false,
+            timer: 2000
+          })
+      }
+    });
+
+
+
 });
 
 
