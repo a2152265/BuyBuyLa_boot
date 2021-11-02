@@ -122,7 +122,7 @@
 	<br>	<br>	<br>	<br>	<br>
 	
 			<center>
-			<a class="btn btn-outline-secondary" href="<c:url value='/try/member_Ui' />" style='font-size:20px' role="button">回上一頁</a>
+			<a class="btn btn-outline-secondary" href="<c:url value='/update30' />" style='font-size:20px' role="button">回上一頁</a>
 			
 				
 			</center>
