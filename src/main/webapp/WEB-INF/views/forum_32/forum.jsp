@@ -121,7 +121,7 @@
 
 
 	<!-- ================ start banner area ================= -->
-	<section class="blog-banner-area" id="blog" style="height: 120px">
+	<section class="blog-banner-area" id="blog">
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
@@ -183,7 +183,7 @@
 						</c:forEach>
 						<nav class="blog-pagination justify-content-center d-flex">
 							<ul class="pagination">
-								<li class="page-item"><a href="#" class="page-link"
+								<li class="page-item"><a href="<c:url value="/forumPageLeft" />?page=${leftPage}" class="page-link"
 									aria-label="Previous"> <span aria-hidden="true"> <span
 											class="lnr lnr-chevron-left"></span>
 									</span>
@@ -198,7 +198,7 @@
 								</li>
 								</c:forEach>
 								
-								<li class="page-item"><a href="#" class="page-link"
+								<li class="page-item"><a href="<c:url value="/forumPageRight" />?page=${rightPage}" class="page-link"
 									aria-label="Next"> <span aria-hidden="true"> <span
 											class="lnr lnr-chevron-right"></span>
 									</span>
@@ -287,6 +287,11 @@
 										<p>官方最新公告</p>
 										<p>${announcementSize}</p>
 								</a></li>
+								<li><a href="<c:url value='/sellerChat' />"
+									class="d-flex justify-content-between">
+										<p>社團精選話題</p>
+										<p>${sellerChatSize}</p>
+								</a></li>
 								<li><a href="<c:url value='/noviceSeller' />"
 									class="d-flex justify-content-between">
 										<p>新手賣家發問</p>
@@ -301,9 +306,27 @@
 							<div class="br"></div>
 						</aside>
 						<aside class="single_sidebar_widget popular_post_widget">
+							<h3 class="widget_title">精選話題</h3>
+
+							<c:forEach var='content' items='${forumSize}' begin="0" end="2">
+								<div class="media post_item">
+									<img width='40'
+										src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+									<div class="media-body">
+										<a href="single-blog.html">
+											<h3>${content.title}</h3>
+										</a>
+										<p>${content.date}</p>
+										<!--                                   <p>?小時前</p> -->
+									</div>
+								</div>
+							</c:forEach>
+							<div class="br"></div>
+						</aside>
+						<aside class="single_sidebar_widget popular_post_widget">
 							<h3 class="widget_title">最新帖子</h3>
 
-							<c:forEach var='content' items='${content}' begin="0" end="4">
+							<c:forEach var='content' items='${forumSize}' begin="0" end="2">
 								<div class="media post_item">
 									<img width='40'
 										src="<c:url value='/getPicturefromMember/${content.picId}'/>" />

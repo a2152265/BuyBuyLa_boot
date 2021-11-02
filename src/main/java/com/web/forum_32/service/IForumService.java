@@ -9,6 +9,7 @@ public interface IForumService {
 	
 	List<ForumBean> getAll();
 	List<ForumBean> getAllArticles(int page, int size);
+	List<ForumBean> findUserNameContaining(String userName);
 	
 	void addOrEdit(ForumBean content);
 	void delete (Integer id);

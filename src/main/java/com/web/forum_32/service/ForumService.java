@@ -21,7 +21,7 @@ public class ForumService implements IForumService {
 	
 	@Override
 	public List<ForumBean> getAll() {
-		return forumRepository.findAll();
+		return forumRepository.findByOrderById();
 	}
 
 	@Override
@@ -70,6 +70,11 @@ public class ForumService implements IForumService {
 	@Override
 	public List<ForumBean> getAllContentsBySellerChat() {
 		return forumRepository.findByTagLikeOrderById("賣家閒聊討論");
+	}
+
+	@Override
+	public List<ForumBean> findUserNameContaining(String userName) {
+		return forumRepository.findByUserNameContaining(userName);
 	}
 
 

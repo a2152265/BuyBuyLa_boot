@@ -14,9 +14,10 @@ public interface ForumRepository extends JpaRepository<ForumBean, Integer> {
 	
 	// 分頁全查詢
 	public Page<ForumBean> findAll(Pageable pageable);
-	// 全查詢
-	public List<ForumBean> findAll();
-	
+	// 按照最新查詢
+	public List<ForumBean> findByOrderById();
+	// 作者關鍵字搜尋
+	public List<ForumBean> findByUserNameContaining(String userName);
 	// 標籤分類
 	public List<ForumBean> findByTagLikeOrderById(String tag);
 	

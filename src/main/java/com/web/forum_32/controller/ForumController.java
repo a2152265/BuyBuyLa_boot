@@ -38,17 +38,31 @@ public class ForumController {
 	
 	// 首頁
 	@GetMapping("/forum")
-	public String forum(Model model) {
-		
+	public String forum(Model model,
+			@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
+		model.addAttribute("page",1);
 		allArticles(model,0);
 		Size(model);
 		return "forum_32/forum";
 	}
 	// 分頁
-	@GetMapping("/forumPage")
+	@GetMapping({"/forumPage","/forumPageLeft","/forumPageRight"})
 	public String forumPage(
 			@RequestParam("page") Integer page,
 			Model model) {
+		Integer leftPage=page;
+		Integer rightPage=page;
+		
+		if(leftPage-1==0) {
+			model.addAttribute("leftPage",page);
+		}else {
+			model.addAttribute("leftPage",leftPage-1);
+		}
+		if(rightPage>forumService.getAll().size()/5) {
+			model.addAttribute("rightPage",rightPage);
+		}else {
+			model.addAttribute("rightPage",rightPage+1);
+		}
 		allArticles(model,page-1);
 		Size(model);
 		return "forum_32/forum";
@@ -75,9 +89,7 @@ public class ForumController {
 		List<ForumBean> noviceSellerList = forumService.getAllContentsByNoviceSeller();
 		if (!noviceSellerList.isEmpty()) {
 			model.addAttribute("Articles", noviceSellerList);
-		} else {
-			allArticles(model,0);
-		}
+		} 
 		model.addAttribute("addForumBean", new ForumBean());
 		
 		Size(model);
@@ -90,8 +102,6 @@ public class ForumController {
 		List<ForumBean> sellerChatList = forumService.getAllContentsBySellerChat();
 		if (!sellerChatList.isEmpty()) {
 			model.addAttribute("Articles", sellerChatList);
-		} else {
-			allArticles(model,0);
 		}
 		model.addAttribute("addForumBean", new ForumBean());
 		
