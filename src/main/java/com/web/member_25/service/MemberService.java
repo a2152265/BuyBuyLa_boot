@@ -49,6 +49,11 @@ public interface MemberService {
 
 	membershipInformationBean findMemberData(String userEmail);
 
+
+
+
+	int loginByEmail(String userEmail);
+
 	
 //	//前置下拉選單 
 //	List<membershipInformationBean>  getIdentificationList();

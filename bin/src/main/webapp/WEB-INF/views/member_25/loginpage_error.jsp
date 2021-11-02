@@ -311,7 +311,7 @@ footer a {
             <form:password id="pwd" path="userPwd"  placeholder="請輸入密碼" cssclass='form-control'  />
 			<a href="#">Forgot your password?</a>
 			<!-- <button>登入</button> -->
-            <a href="<c:url value='/try/index' />"><button type="submit" value="submit" onclick="return(confirm('確認登入？'))"  >登入</button> </a>
+            <a href="<c:url value='/try/index' />"><button type="submit" value="submit"  >登入</button> </a>
         </form:form>
 
 

@@ -309,9 +309,11 @@ footer a {
             <form:input id="name" path="userEmail" type='text' placeholder="請輸入帳號" cssclass='form-control'  />
 							
             <form:password id="pwd" path="userPwd"  placeholder="請輸入密碼" cssclass='form-control'  />
+			  <input id="onejan" type="button" value="一键输入用户名" >  <br>
 			<a href="#">Forgot your password?</a>
 			<!-- <button>登入</button> -->
-            <a href="<c:url value='/try/index' />"><button type="submit" value="submit" onclick="return(confirm('確認登入？'))"  >登入</button> </a>
+            <a href="<c:url value='/try/index' />"><button type="submit" value="submit" style="background-color: rgb(9, 9, 121);" onclick="return(confirm('確認登入？'))"  >登入</button> </a>
+          
         </form:form>
 
 
@@ -346,6 +348,19 @@ footer a {
 
 
     <script>
+    
+    // 1 jan input
+    let demoBTN = document.getElementById('onejan')
+    demoBTN.onclick = function(){
+    document.getElementById("name").setAttribute('value','a2152265@gmail.com');
+    document.getElementById("pwd").setAttribute('value','a2152265@gmail.com');               
+   console.log("YAA");
+    };
+    
+    
+    
+    
+    
         const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');

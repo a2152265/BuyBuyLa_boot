@@ -307,6 +307,8 @@ footer a {
 			<form:password id="pwd" path="userPwd1"  placeholder="確認密碼" cssclass='form-control'  />
 			<form:errors path="userPwd1" cssClass="error"  style="color: red;" />
 			
+			<input id="onejan" type="button" value="一键输入註冊資料" class="reg" > 
+        
             <input type="submit" id="submit"  name="submit" value="註冊" class="reg" onclick="return(confirm('確認註冊？'))"  >
 
 		</form:form>
@@ -329,7 +331,7 @@ footer a {
 			<div class="overlay-panel overlay-right"  style="background-color: rgb(9, 9, 121);">
 				<h1>已有帳號?</h1>
 				<p>來登入BuyBuyLa</p>
-                <a href="<c:url value='/try/login' />" >登入</a>
+                <a href="<c:url value='/try/login' />" style="color: white;"  >登入</a>
 			</div>
 		</div>
 	</div>
@@ -345,8 +347,16 @@ footer a {
 
 
 <script>
-    
-    </script>
+            // 1 jan input
+               let demoBTN = document.getElementById('onejan')
+
+               demoBTN.onclick = function(){
+                document.getElementById("userPhone").setAttribute('value','0921212121');
+                document.getElementById("userEmail").setAttribute('value','a2152265@gmail.com');               
+                document.getElementById("pwd").setAttribute('value','a2152265@gmail.com');          
+                console.log("YAA");
+                 };
+       </script>
 
 </body>
 </html>

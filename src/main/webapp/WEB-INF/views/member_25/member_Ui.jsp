@@ -16,6 +16,12 @@
     <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
     <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
 	
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    
     <link rel="stylesheet" href="member.css">
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,14 +32,14 @@
 
     </style>
 </head>
-<body style="background-color: rgb(220, 220, 241);">
+<body >
    
-    <div class="wrapper">
+    <div class="wrapper" >
        <div class="section">
 
 
 
-    <div class="top_navbar" style="background-color: rgb(70, 70, 228);">
+    <div class="top_navbar" style="background-color: rgb(51, 63, 177);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -68,143 +74,132 @@
 
 
 
-    <div style="text-align: center;">
     
-        <form:form method='POST' modelAttribute="memberUiDefault"
-        class='form-horizontal' enctype="multipart/form-data">
-        <!-- 檔案上傳的標籤一定要有enctype="multipart/form-data -->
-      
-        <table style="text-align:center;">
-          
-          <span > - 您可以在這邊做新增、修改、刪除</span><br><br><br>
-          
-          
-                    <tr>
-          <td>頭像</td>
-          <td>
-                 <!-- 讀取圖片 -->
-               <img width='150'
-                 src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>" />
-                      <br><br><!-- 上傳圖片 -->
-                     <form:input id="productImage" path="productImage" type='file' style="background-color: rgb(47, 47, 223);"  cssClass="button-1"  />
-                       &nbsp;&nbsp;
-         <br><br><br>
-          </td>
-          </tr>
-          
-          
-          
-          
-          
-          <tr>
-            <td >帳號</td>
 
-            <td > 
-             <!--放從DB取出的資料-->         
-             Hi!!! &nbsp;&nbsp;  ${memberUiDefault.userEmail} 
-            <br><br>
-            
          
-           </td> 
-          </tr>
+                  <div class="card text-black" style="border-radius: 25px;">
+                    <div class="card-body p-md-5">
+                      <div class="row justify-content-center">
+                        <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+          
+                          <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"> 修改會員資料 </p>
+                            <!-- 修改表單開始 -->
+                          <form:form method='POST' modelAttribute="memberUiDefault"
+                          class="mx-1 mx-md-4" enctype="multipart/form-data">
+                       
 
+                          <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-user fa-lg me-3 fa-fw"  style="margin-bottom: 10px; " ></i>
+                            <div class="form-outline flex-fill mb-0">
+                               &nbsp; Hi!!! &nbsp;&nbsp;  ${memberUiDefault.userEmail} 
+                              <label class="form-label" for="form3Example1c">帳號</label>
+                            </div>
+                          </div>
+          
+                            <div class="d-flex flex-row align-items-center mb-4">
+                              <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                              <div class="form-outline flex-fill mb-0">
+                             <form:input id="userNickname" path="userNickname" type="text"  class="form-control" placeholder="暱稱" />
+                                 </div>
+                            </div>
+          
+                            <div class="d-flex flex-row align-items-center mb-4">
+                              <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                              <div class="form-outline flex-fill mb-0">
+                                <form:input id="userName" path="userName" class="form-control" type='text'  placeholder="姓名" />
+                                  </div>
+                            </div>
+          
+                            <div class="d-flex flex-row align-items-center mb-4">
+                              <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
+                              <div class="form-outline flex-fill mb-0">
+                                <form:input id="userPhone" path="userPhone" type='text' class="form-control"  placeholder="手機"  />
+                                </div>
+                            </div>
+          
+                            <div class="d-flex flex-row align-items-center mb-4">
+                              <i class="fas fa-birthday-cake fa-lg me-3 fa-fw"></i>
+                              <div class="form-outline flex-fill mb-0">
+                                <form:input id="birthday" path="birthday" type='text' class="form-control"  placeholder="生日"  />
+                                 </div>
+                            </div>                       
 
-          <tr>
-            <td>暱稱</td>
-            <td> 
-            <label for="userNickname"></label>
-            
-            <form:input id="userNickname" path="userNickname" type='text'  style="width: 250px; height: 30px;" cssClass="formInput" />
-            <br><br>
-            </td> 
-          </tr>
-          
-          
-          
-          
-          
-          
-           <tr>
-            <td>姓名</td>
-            <td> 
-            <label for="proName"></label>
-           
-            <form:input id="userName" path="userName" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
-            <br><br>
-            </td> 
-          </tr>
-            
-            
-            <tr>
-            <td>手機號碼</td>
-            <td>
-           
-             <form:input id="userPhone" path="userPhone" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
-             <br><br>
-            </td>
-            </tr>
+                              <div class="d-flex flex-row align-items-center mb-4">
+                                <i class="fas fa-Genderless fa-lg me-3 fa-fw"></i>
+                                <div class="form-outline flex-fill mb-0">
+                                    <label>  <form:radiobutton id="userGender" path="userGender" value="男性" label="男性" /> 
+                                    </label> 
+                               <label>     <form:radiobutton id="userGender" path="userGender" value="女性" label="女性" /> 
+                                 </label>  
+                                 <label>     <form:radiobutton id="userGender" path="userGender" value="其他" label="其他" /> 
+                                 </label>
+                                   </div>
+                              </div>
 
-            <tr>
-                <td>生日</td>
-                <td> 
-                <label for="birthday"></label>
+                              <div class="d-flex flex-row align-items-center mb-4">
+                                <i class="fas fa-Genderless fa-lg me-3 fa-fw"></i>
+                                <div class="form-outline flex-fill mb-0">
+                                  <form:input id="address" path="address" type='text' class="form-control" placeholder="地址" />
+                                   </div>
+                              </div>
+          
+                            
+          
+                            <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                              <input type="submit" id="submitRewrite" name="submitRewrite" class="btn btn-primary btn-lg" value="送出修改">
+                            </div>
+
+                            <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                <input type="button" id="onejan" name="submitRewrite" class="btn btn-primary btn-lg" value="一鍵輸入">
+                              </div>
+          
+          
+                        </div>
+                        
+                        
+            
+                 <!-- 讀取圖片 --> 
+               <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>" 
+                   class="img-fluid" alt="Sample image"  style="width: 50%;  height:50%;" />
+         
+                        <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+          
+
+                            
+                    <!-- 上傳圖片 -->
+                   	<form>
+                      <div class="custom-file" style="width: 250px;">
+                        <form:input type="file"  path="productImage" class="custom-file-input" id="productImage"  />
+                        <br><br> <label class="custom-file-label" for="customFile">選擇大頭貼</label> 
+                      </div>
+						</form>
+
+                    </form:form> 
+
+                          <!-- <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-registration/draw1.png" class="img-fluid" alt="Sample image"> -->
+          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                
-                <form:input id="birthday" path="birthday" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
-                <br><br>
-                </td> 
-              </tr>
-         
-            <tr>
-             <td>性別</td>
-              <td>
-              
-                <label>  <form:radiobutton path="userGender" value="男性" label="男性" /> 
-                  </label> 
-             <label>     <form:radiobutton path="userGender" value="女性" label="女性" /> 
-               </label>  
-               <label>     <form:radiobutton path="userGender" value="其他" label="其他" /> 
-               </label>  <br><br>
-              </td>
-              </tr>
-              
-              
-              
-              <tr>
-            <td>地址</td>
-            <td> 
-            <label for="address"></label>
-           
-            <form:input id="address" path="address" type='text'  style="width: 250px; height: 30px;"  cssClass="formInput" />
-            <br><br>
-            </td> 
-          </tr>
-            
-            
-          </table>
-          
-      
-          <p>&nbsp;</p>
-          <a href="<c:url value='/try/index' />?userEmail= ${memberUiDefault.userEmail} ">
-          <input type="submit" id="submitRewrite"  class="button-1" name="submitRewrite" style="text-align: center; font-size: 18x; background-color: rgb(47, 47, 223);"  value="儲存修改"/>
-           </a>
-         
-         
-         
-         </form:form>
+
+       
       
        
        
       
       
       
-      
-        </div>
+        
+        
+        
 
 
 
 
   </div>
-        <div class="sidebar" style="background-color: rgb(70, 70, 228);">
+        <div class="sidebar" style="background-color: rgb(51, 63, 177);">
             <div class="profile">
              <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
                 <!-- 讀取圖片 -->
@@ -280,10 +275,32 @@
 
 
     <script>
+    // 1 jan input
+    let demoBTN = document.getElementById('onejan')
+    demoBTN.onclick = function(){
+    document.getElementById("userNickname").setAttribute('value','pop貓');
+    document.getElementById("userName").setAttribute('value','李小貓');               
+    document.getElementById("userPhone").setAttribute('value','0912345678'); 
+    document.getElementById("birthday").setAttribute('value','1997-04-26'); 
+    document.getElementById("userGender").setAttribute('label','男性'); 
+    document.getElementById("address").setAttribute('value','桃園市中壢區中大路300號'); 
+    console.log("YAA");
+    };
+    
+    
+    
+    
           var hamburger = document.querySelector(".hamburger");
   hamburger.addEventListener("click", function(){
     document.querySelector("body").classList.toggle("active");
   })
+
+
+  // Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
     </script>
  
 </body>

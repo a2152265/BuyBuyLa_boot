@@ -105,7 +105,7 @@
 
 
   </div>
-        <div class="sidebar">
+        <div class="sidebar" style="background-color: rgb(51, 63, 177);">
             <div class="profile">
                 <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
                 <!-- 讀取圖片 -->
