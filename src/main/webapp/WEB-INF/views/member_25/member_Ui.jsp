@@ -4,7 +4,7 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -195,10 +195,11 @@
         
         
 
+	
 
 
-
-  </div>
+ 
+<div>
         <div class="sidebar" style="background-color: rgb(51, 63, 177);">
             <div class="profile">
              <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
@@ -259,10 +260,17 @@
                 </li>
 
                 <!-- /*減去footer高度*/ -->
-                <li style="min-height: calc(100% - 50px); ">
-                    <a href="<c:url value='/try/delete' />">
+                <li>
+                    <a href="<c:url value='/member/inschan' />">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">隱私權政策</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">登出</span>
                     </a>
                 </li>
                 
@@ -270,7 +278,6 @@
         </div>
         
     </div>
-
    
 
 

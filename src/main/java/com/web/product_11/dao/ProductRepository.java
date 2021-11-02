@@ -24,12 +24,20 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	List<Product> getProductsByCategory(String category);
 
 	Product findByProductId(int productId);
-
+	
+	@Query("from Product p where p.status='待審核'")
+	List<Product> findByStatus();
+	
 	@Transactional
 	@Modifying
-	@Query("update Product set productName=:name,price=:price,category=:category,insertTime=:insertTime,stock=:stock,productNo=:no where productId=:id")
-	void updateProductNoImg(@Param("name") String name,@Param("price") Double price,@Param("category")String category,@Param("insertTime")String insertTime,@Param("stock")Integer stock,@Param("no") String no,@Param("id")Integer id);
+	@Query("update Product set productName=:name,price=:price,category=:category,insertTime=:insertTime,stock=:stock,productNo=:no,status=:status where productId=:id")
+	void updateProductNoImg(@Param("name") String name,@Param("price") Double price,@Param("category")String category,@Param("insertTime")String insertTime,@Param("stock")Integer stock,@Param("no") String no,@Param("status") String status,@Param("id")Integer id);
 	
 	List<Product> findBySeller(String seller);
+	
+	@Transactional
+	@Modifying
+	@Query("update Product set status=:status where productId=:id")
+	void updateProductStatus(String status,int id);
 	
 }

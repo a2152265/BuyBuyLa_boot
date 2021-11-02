@@ -224,6 +224,7 @@
     <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp商品價錢</th>
     <th style="width:10%;"><i class="far fa-clipboard"></i>&nbsp商品類別</th>
     <th style="width:20%;"><i class="fas fa-file-alt"></i>&nbsp上傳時間</th>
+    <th style="width:20%;"><i class="fas fa-file-alt"></i>&nbsp商品狀態</th>
     <th style="width:10%;"><i class="fas fa-pencil-alt"></i>&nbsp修改</th>
     <th style="width:10%;"><i class="fas fa-trash-alt"></i>&nbsp刪除</th>
         </tr>
@@ -239,6 +240,7 @@
     <td>${product.price}</td>
     <td>${product.category}</td>
     <td>${product.insertTime}</td>
+    <td>${product.status}</td>
     <td><button style="font-size:18px;font-weight:bolder;border: 1px grey solid;border-radius:3px" class="btn" type="button" onclick="location.href ='../update?productId=${product.productId}'" >修&nbsp改</button></td>
     <td><button style="font-size:18px;font-weight:bolder;border: 1px grey solid;border-radius:3px" class="btn" type="button" onclick="location.href ='../delete/${product.productId}'" >刪&nbsp除</button>
     </td>
@@ -324,9 +326,29 @@
     document.querySelector("body").classList.toggle("active");
   })
   
-  $(document).ready( function () {
-    $('#myTable').DataTable();
-} );
+  $('#myTable').DataTable({
+     "language": {
+     "processing": "處理中...",
+     "loadingRecords": "載入中...",
+     "lengthMenu": "顯示 _MENU_ 項結果",
+     "zeroRecords": "沒有符合的結果",
+     "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+     "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+     "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+     "infoPostFix": "",
+     "search": "搜尋:",
+     "paginate": {
+         "first": "第一頁",
+         "previous": "上一頁",
+         "next": "下一頁",
+         "last": "最後一頁"
+     },
+     "aria": {
+         "sortAscending": ": 升冪排列",
+         "sortDescending": ": 降冪排列"
+     }
+ }
+});;
   
   
   

@@ -25,14 +25,14 @@
 
     </style>
 </head>
-<body>
+<body style="background-color: rgb(214, 214, 238);">
    
     <div class="wrapper">
        <div class="section">
 
 
 
-    <div class="top_navbar">
+    <div class="top_navbar" style="background-color: rgb(1, 1, 112);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -44,7 +44,7 @@
 
         <h1>Welcome ~~      WE Will BuyBuyLA your money</h1>
         <nav>
-            <ul class="flex-nav">
+            <ul class="flex-nav" style="background-color: rgb(163, 163, 230);">
                 <li><a href="#">未付款</a></li>
                 <li><a href="#">已付款</a></li>
                 <li><a href="#">已出貨</a></li>
@@ -81,17 +81,19 @@
 
 
   </div>
-        <div class="sidebar">
+        <div class="sidebar"  style="background-color: rgb(1, 1, 112);">
             <div class="profile">
-                <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
-                <h3></h3>
-                <p>Designer</p>
-            </div>
+                <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
+                   <!-- 讀取圖片 -->
+                  <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
+                   <h3></h3>
+                   <p>${memberUiDefault.userEmail} </p>
+               </div>
             <ul>
                 <li>
                     <a href="<c:url value='/' />" >
                         <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">Home</span>
+                        <span class="item">回首頁</span>
                     </a>
                 </li>
 
@@ -106,7 +108,6 @@
                 <li>
 
                     <a href="<c:url value='/products/seller' />">
-
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">商品管理</span>
                     </a>
@@ -133,9 +134,16 @@
 
                 <!-- /*減去footer高度*/ -->
                 <li style="min-height: calc(100% - 50px); ">
-                    <a href="<c:url value='/try/delete' />">
+                    <a href="<c:url value='/member/inschan_on' />">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">隱私權政策</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">登出</span>
                     </a>
                 </li>
                 
@@ -148,6 +156,7 @@
 
 
     <script>
+    
     
     alert('認證成功 祝您財運滾滾來~');
     

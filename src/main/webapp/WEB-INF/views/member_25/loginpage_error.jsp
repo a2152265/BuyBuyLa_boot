@@ -312,7 +312,7 @@ footer a {
 			  <input id="onejan" type="button" value="一键输入用户名" >  <br>
 			<a href="#">Forgot your password?</a>
 			<!-- <button>登入</button> -->
-            <a href="<c:url value='/try/index' />"><button type="submit" value="submit" style="background-color: rgb(9, 9, 121);" onclick="return(confirm('確認登入？'))"  >登入</button> </a>
+            <a href="<c:url value='/try/index' />"><button type="submit" value="submit" style="background-color: rgb(9, 9, 121);"  >登入</button> </a>
           
         </form:form>
 

@@ -21,6 +21,9 @@ public interface ProductService {
 		//ID查詢商品
 		Product getProductById(int productId);
 		
+		//狀態查詢商品
+		List<Product> findByStatus();
+		
 		//新增商品
 		void  addProduct(Product product);
 		
@@ -29,6 +32,9 @@ public interface ProductService {
 		
 		//更新商品(無照片)
 		void updateProductNoImg(Integer productId,Product product);
+		
+		//更新商品狀態
+		void updateProductStatus(String status,int productId);
 		
 		//刪除商品
 		void  deleteProduct(int productId);

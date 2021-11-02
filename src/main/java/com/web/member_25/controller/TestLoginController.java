@@ -246,8 +246,6 @@ public class TestLoginController {
 			System.out.println("------登入後預載預設圖片------");
 		}
 		
-		
-
 		System.out.println("getUserEmail --getMemberData2--><--->" + mb2.getUserEmail());
 		System.out.println("getUserPwd --getMemberData2--><--->" + mb2.getUserPwd());
 		model.addAttribute("memberUiDefault", mb2);
@@ -330,13 +328,12 @@ public class TestLoginController {
 		if(!mb2.getIdentification().equals("seller")) {
 
 			System.out.println("---------------未認證會員-----------------");
-//			model.addAttribute("beanForVerificationCode",new membershipInformationBean());
-			model.addAttribute("memberUiDefault",new membershipInformationBean());
+			model.addAttribute("memberUiDefault",mb2);
 			//包含驗證
 			return "member_25/seller/member_Ui_seller_default";
 		}
 		System.out.println("---------準備進入已認證賣家中心---------");
-//		return "member_25/seller/member_Ui_seller";
+		model.addAttribute("memberUiDefault",mb2);
 		return "redirect:/member/seller_Ui_v";
 	}
 	//已認證賣家UI
@@ -349,22 +346,9 @@ public class TestLoginController {
 	mb=memberService.findMemberDataAll(mb.getUserEmail());
 	
 	System.out.println("---------預載已認證賣家中心---------");
+	model.addAttribute("memberUiDefault",mb);
 		return "member_25/seller/member_Ui_seller";		
 	}
-	//已認證賣家UI - 更新基本資料
-	@PostMapping("/member/seller_Ui_v")
-	public String processBuyerEvolution(@ModelAttribute("sellerData") membershipInformationBean mb, Model model) {
-		membershipInformationBean mb2 = new membershipInformationBean();
-		System.out.println("---------已認證賣家中心更新資料---------");
-		memberService.save(mb);
-		System.out.println("---------已認證賣家中心更新資料完畢---------");
-		model.addAttribute("sellerData", mb);
-		return "member_25/seller/member_Ui_seller";
-	}
-	
-	
-	
-	
 	
 	// 買家進化_ 驗證碼升級ing
 		@PostMapping("/member/evolution")
@@ -408,6 +392,7 @@ public class TestLoginController {
 						mb2.setIdentification("seller");
 						memberService.save(mb2);
 						model.addAttribute("sellerData",mb2);
+						model.addAttribute("memberUiDefault",mb2);
 						return "member_25/seller/member_Ui_seller_success";		
 					}
 				
@@ -419,6 +404,7 @@ public class TestLoginController {
 		
 			System.out.println("------sellerData--  error    -----"+mb.getVerifyCode());
 			model.addAttribute("byyerData", mb2);
+			model.addAttribute("memberUiDefault",mb2);
 			return "member_25/seller/member_Ui_seller_error";		
 		}
 		// 買家進化_認證升級2
@@ -433,6 +419,7 @@ public class TestLoginController {
 			
 			mb2 = memberService.findMemberDataAll(mb.getUserEmail());
 			model.addAttribute("sellerData", mb2);
+			model.addAttribute("memberUiDefault",mb2);
 			
 			
 			if(!mb2.getIdentification().equals("seller")) {
@@ -785,12 +772,23 @@ public class TestLoginController {
 				
 				
 				@GetMapping("/seller/inschan")
-				public String inschan() {
+				public String inschan(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
+					membershipInformationBean mBean=memberService.findMemberData(mb.getUserEmail());
+					model.addAttribute("memberUiDefault",mBean);
 					return "member_25/seller/member_Ui_seller_inschan";
 				}
+				@GetMapping("/seller/inschan_on")
+				public String seller_inschan_on(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
+					membershipInformationBean mBean=memberService.findMemberData(mb.getUserEmail());
+					model.addAttribute("memberUiDefault",mBean);
+					return "member_25/seller/member_Ui_seller_inschan_on";
+				}
+				
 				@GetMapping("/member/inschan")
-				public String member_inschan() {
-					return "member_25/seller/member_Ui_seller_inschan";
+				public String member_inschan(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
+					membershipInformationBean mBean=memberService.findMemberData(mb.getUserEmail());
+					model.addAttribute("memberUiDefault",mBean);
+					return "member_25/member_Ui_inschan";
 				}
 	
 	

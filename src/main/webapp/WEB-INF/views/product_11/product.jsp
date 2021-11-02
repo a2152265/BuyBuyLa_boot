@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
 
   <link rel="stylesheet" href="css/productstyle.css">
+  <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
 </head>
 <body>
 	<!--================ Start Header Menu Area =================-->
@@ -146,6 +147,8 @@
 						<div class="card_area d-flex align-items-center">
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+						<div class="line-it-button" data-lang="zh_Hant" data-type="share-a" data-ver="3" data-url="http://localhost:8080/BuyBuyla_boot/product?id=${product.productId}" data-color="grey" data-size="small" data-count="true" style="display: none;">
+						</div>
 						</div>
 					</div>
 				</div>

@@ -25,14 +25,14 @@
 
     </style>
 </head>
-<body>
+<body style="background-color: rgb(230, 230, 235);">
    
     <div class="wrapper">
        <div class="section">
 
 
 
-    <div class="top_navbar"  style="background-color: rgb(87, 87, 121);">
+    <div class="top_navbar" style="background-color: rgb(51, 63, 177);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -117,7 +117,7 @@ Cookie 是網站在您瀏覽網頁時，儲存在您電腦中的資料，讓網�
 
 
   </div>
-        <div class="sidebar"  style="background-color: rgb(87, 87, 121);">
+        <div class="sidebar" style="background-color: rgb(51, 63, 177);">
             <div class="profile">
              <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
                 <!-- 讀取圖片 -->
@@ -160,8 +160,8 @@ Cookie 是網站在您瀏覽網頁時，儲存在您電腦中的資料，讓網�
                 </li>
 
                 <!-- /*減去footer高度*/ -->
-                <li style="min-height: calc(100% - 50px); " >
-                    <a href="<c:url value='/seller/inschan' />"  class="active" >
+                <li>
+                    <a href="<c:url value='/member/inschan' />"  class="active" >
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">隱私權政策</span>
                     </a>
