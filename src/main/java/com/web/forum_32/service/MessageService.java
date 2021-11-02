@@ -28,7 +28,7 @@ public class MessageService implements IMessageService{
 				messageForumId, 
 				        PageRequest.of(page,  // 查詢的頁數，從0起算
 				                size, 			// 查詢的每頁筆數
-				                Sort.by("messageForumId").ascending()));
+				                Sort.by("messageId").descending()));
 						
 						pageResult.getNumberOfElements(); // 本頁筆數
 						pageResult.getSize();             // 每頁筆數 
@@ -42,6 +42,15 @@ public class MessageService implements IMessageService{
 	@Override
 	public MessageBean addMessage(MessageBean mb) {
 		return messageRepository.save(mb);
+	}
+	@Override
+	public void delete(Integer id) {
+		messageRepository.deleteById(id);
+		
+	}
+	@Override
+	public MessageBean getById(Integer id) {
+		return messageRepository.getById(id);
 	}
 
 }

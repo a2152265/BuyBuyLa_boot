@@ -23,8 +23,8 @@ $(document).ready(function() {
 					showMessage(data);
 					$('.pageBtn').parent().eq(0).addClass("active");
 					$('.pageBtn').click(function(e) {
-					$(this).parent().addClass("active");
-					$(this).parent().siblings().removeClass("active");
+						$(this).parent().addClass("active");
+						$(this).parent().siblings().removeClass("active");
 						e.preventDefault();
 						var page = $(this).val() - 1;
 						$('.pages').text(page + 1);
@@ -110,7 +110,7 @@ $(document).ready(function() {
 									showConfirmButton: false,
 									timer: 1000
 								});
-							setTimeout(function(){history.go(0)}, 1000);
+								setTimeout(function() { history.go(0) }, 1000);
 							}
 						})
 					});
@@ -125,22 +125,78 @@ $(document).ready(function() {
 								"<img style='width: 100px; height: 100px' src='/BuyBuyla_boot/getPicturefromMember/" + data[i]['messagePicId'] + "'>" +
 								"</div>" +
 								"<div class='desc'>" +
-								"<h5><a href='#'>" + data[i]['messageUserName'] + "</a></h5>" +
+								"<input class='messageId' type='hidden' value='"+data[i]['messageId']+"'>"+
+								"<h5><a href='#' class='messageName'>" + data[i]['messageUserName'] + "</a></h5>" +
 								"<p class='date'>" + data[i]['messageDate'] + "</p>" +
 								"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
-								"</div>" + 
-								"</div>" + 
-								"<div class='editBtn'><img style='cursor:pointer;width:30px;height:30px;' src='https://cdn-icons.flaticon.com/png/512/2311/premium/2311523.png?token=exp=1635851763~hmac=dd6163c12d7c6a8d0b50bbea674800ac'></div>"+
-								"</div>" + 
-								"</div>")
+								"</div>" +
+								"</div>" +
+								"<div class='editBtn dropdown'>" +
+								"<img  id='dropdownMenuButton1' data-bs-toggle='dropdown' style='cursor:pointer;width:30px;height:30px;' src='https://cdn-icons.flaticon.com/png/512/2311/premium/2311523.png?token=exp=1635851763~hmac=dd6163c12d7c6a8d0b50bbea674800ac'>" +
+								"<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton1'>" +
+								"<li><a class='dropdown-item editMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#editMessageBtn'>編輯</a></li>" +
+								"<li><a class='dropdown-item delMessageContent' style='cursor:pointer;'>刪除</a></li></ul>" +
+								"</div>" +
+								"</div>" +
+								"</div>"
+								)
 						}
-						$('.single-comment').each(function(i,n){
-								var userUserEmail = $('.messageUserEmail').val();
-								var messageEmail = $(this).find('p').next().html();
-								if(messageEmail!=userUserEmail){
-									$(this).find('.editBtn').css('display','none');
-								}
-								$('.editBtn')
+						$('.single-comment').each(function(i, n) {
+							var messageUserName = $('.messageUserName').val();
+							var messageName = $(this).find('.messageName').html();
+							if (messageName != messageUserName) {
+								$(this).find('.editBtn').css('display', 'none');
+							}
+							var editBtn = $(this).find('.editMessageContent');
+							var delBtn = $(this).find('.delMessageContent');
+							var messageId=$(this).find('.messageId').val();
+							editBtn.click(function(){
+								$('.editMessageId').val(messageId);
+								$.ajax({
+									type:"get",
+									url:"editMessage",
+									data:{"id":messageId},
+									success:function(data){
+										console.log(data);
+										$('.editMessageDate').val(data['messageDate']);
+										$('.editMessageForumId').val(data['messageForumId']);
+										$('.editMessageIdentification').val(data['messageIdentification']);
+										$('.editMessagePicId').val(data['messagePicId']);
+										$('.editMessageUserName').val(data['messageUserName']);
+										$('.editMessageUserEmail').val(data['messageUserEmail']);
+										$('.editMessageContent').val(data['messageContent']);
+									}
+								})
+							})
+							delBtn.click(function() {
+								Swal.fire({
+									title: '確定?',
+									text: "你想要刪除這筆留言!",
+									icon: 'warning',
+									showCancelButton: true,
+									confirmButtonColor: '#3085d6',
+									cancelButtonColor: '#d33',
+									confirmButtonText: '確定!'
+								}).then((result) => {
+									if (result.isConfirmed) {
+										Swal.fire(
+											'Deleted!',
+											'刪除成功.',
+											'success'
+										)
+										$.ajax({
+											type:'get',
+											url:'deleteMessage',
+											data:{
+												'id':messageId
+											},
+											success:function(){
+											}
+										})
+												setTimeout(function() { history.go(0) }, 1000);
+									}
+								})
+							})
 						})
 					}
 				}

@@ -10,5 +10,6 @@ public interface IMessageService {
 	List<MessageBean> getAllMessage(Integer messageForumId);
 	List<MessageBean> getPagedMessagesByMessageForumId(Integer messageForumId, int page,int size);
 	MessageBean addMessage(MessageBean mb);
-
+	void delete(Integer id);
+	public MessageBean getById(Integer id) ;
 }
