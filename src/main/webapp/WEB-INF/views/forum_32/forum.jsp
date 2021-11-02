@@ -281,17 +281,17 @@
 								<li><a href="<c:url value='/forum' />"
 									class="d-flex justify-content-between">
 										<p>所有討論</p>
-										<p>${announcementSize+noviceSellerSize+sellerChatSize}</p>
+										<p>${allSize}</p>
 								</a></li>
 								<li><a href="<c:url value='/announcement' />"
 									class="d-flex justify-content-between">
 										<p>官方最新公告</p>
 										<p>${announcementSize}</p>
 								</a></li>
-								<li><a href="<c:url value='/sellerChat' />"
+								<li><a href="<c:url value='/featured' />"
 									class="d-flex justify-content-between">
 										<p>社團精選話題</p>
-										<p>${sellerChatSize}</p>
+										<p>${featuredSize}</p>
 								</a></li>
 								<li><a href="<c:url value='/noviceSeller' />"
 									class="d-flex justify-content-between">

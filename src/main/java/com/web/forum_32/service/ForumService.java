@@ -81,6 +81,11 @@ public class ForumService implements IForumService {
 		return forumRepository.findByUserNameContaining(userName);
 	}
 
+	@Override
+	public List<ForumBean> getAllByTag(String tag) {
+		return forumRepository.findByTag(tag);
+	}
+
 
 
 

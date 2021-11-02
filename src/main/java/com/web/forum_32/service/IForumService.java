@@ -18,6 +18,7 @@ public interface IForumService {
 	
 	// 標籤分類
 	List<ForumBean> getAllByTag(String tag,int page, int size);
+	List<ForumBean> getAllByTag(String tag);
 //	List<ForumBean> getAllContentsByNoviceSeller(String tag,int page, int size);
 //	List<ForumBean> getAllContentsBySellerChat(String tag,int page, int size);
 //	List<ForumBean> getAllContentsByFeatured(String tag,int page, int size);

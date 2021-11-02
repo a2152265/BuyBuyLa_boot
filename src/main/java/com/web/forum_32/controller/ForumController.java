@@ -72,8 +72,7 @@ public class ForumController {
 	// 首頁 標籤:官方最新公告
 	@GetMapping("/announcement")
 	public String announcement(Model model) {
-		List<ForumBean> announcementList = forumService.getAllByTag("", 0, 999);
-		System.out.println("test="+announcementList.size());
+		List<ForumBean> announcementList = forumService.getAllByTag("官方最新公告", 0, 5);
 		if (!announcementList.isEmpty()) {
 			model.addAttribute("Articles", announcementList);
 			model.addAttribute("addForumBean", new ForumBean());
@@ -126,16 +125,18 @@ public class ForumController {
 //	}
 	
 	public void Size(Model model) {
-//		model.addAttribute("announcementSize",forumService.getAllContentsByAnnouncement().size());
-//		model.addAttribute("noviceSellerSize",forumService.getAllContentsByNoviceSeller().size());
-//		model.addAttribute("sellerChatSize",forumService.getAllContentsBySellerChat().size());
+		model.addAttribute("allSize", forumService.getAll().size());
+		model.addAttribute("announcementSize",forumService.getAllByTag("官方最新公告").size());
+		model.addAttribute("featuredSize",forumService.getAllByTag("社團精選話題").size());
+		model.addAttribute("noviceSellerSize",forumService.getAllByTag("新手賣家發問").size());
+		model.addAttribute("sellerChatSize",forumService.getAllByTag("賣家閒聊討論").size());
 	}
 	
 	
 					/* 文章CRUD */
 	
 	// 新增 提交表單
-	@PostMapping({ "/forum", "/noviceSeller", "/sellerChat", "/announcement" })
+	@PostMapping({ "/forum","featuredSize", "/noviceSeller", "/sellerChat", "/announcement" })
 	public String processAddNewFourmForm(Model model,
 			@ModelAttribute("addForumBean") ForumBean fb, 
 			BindingResult result) {
