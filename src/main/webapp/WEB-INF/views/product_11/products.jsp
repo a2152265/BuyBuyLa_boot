@@ -191,7 +191,7 @@
               
               <!-- 購物車顯示數量在這裡改 -->
               
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>3</span></button> </li>
+              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
 <!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
             </ul>
           </div>
@@ -259,17 +259,17 @@
     <section class="section-margin calc-60px">
       <div class="container">
         <div class="section-intro pb-60px">
-          <p>Popular Product</p>
-          <h2>BuyBuy <span class="section-intro__style">Product</span></h2>
+          <p>New Products</p>
+          <h2>New <span class="section-intro__style">Products</span></h2>
         </div>
         
         <div class="row">
         
-        <c:forEach items="${products}" var="product">
+        <c:forEach items="${ascProduct}" var="product">
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
-                <img class="card-img" src="<c:url value='/getPicture/${product.productId}' />" alt="">
+                <img  width="243.61" height="255" class="card-img" src="<c:url value='/getPicture/${product.productId}' />" alt="">
                 <ul class="card-product__imgOverlay">
                   <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
                  
@@ -328,11 +328,20 @@
           <c:forEach items="${products}" var="product">
           <div class="card text-center card-product">
             <div class="card-product__img">
-              <img class="img-fluid" src="<c:url value='/getPicture/${product.productId}' />" alt="">
+              <img width="243.61" height="255" class="img-fluid" src="<c:url value='/getPicture/${product.productId}' />" alt="">
               <ul class="card-product__imgOverlay">
-                <li><button><i class="ti-search"></i></button></li>
-                <li><button><i class="ti-shopping-cart"></i></button></li>
-                <li><button><i class="ti-heart"></i></button></li>
+                                <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
+                 
+
+                  <input type='hidden' class='pid' name='address' value='${product.productId}'/>
+                 
+                  <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>
+                                
+       
+
+<%--                   <li><button onclick="location.href='<c:url value='/additem' />?id=${product.productId}'"><i class="ti-shopping-cart"></i></button></li> --%>
+           
+                  <li><button><i class="ti-heart"></i></button></li>
               </ul>
             </div>
             <div class="card-body">
@@ -348,67 +357,36 @@
     <!-- ================ Best Selling item  carousel end ================= --> 
 
     <!-- ================ Blog section start ================= -->  
-<!--     <section class="blog"> -->
-<!--       <div class="container"> -->
-<!--         <div class="section-intro pb-60px"> -->
-<!--           <p>Popular Item in the market</p> -->
-<!--           <h2>Latest <span class="section-intro__style">News</span></h2> -->
-<!--         </div> -->
+    <section class="blog">
+      <div class="container">
+        <div class="section-intro pb-60px">
+          <p>Popular Item in the market</p>
+          <h2>Latest <span class="section-intro__style">News</span></h2>
+        </div>
 
-<!--         <div class="row"> -->
-<!--           <div class="col-md-6 col-lg-4 mb-4 mb-lg-0"> -->
-<!--             <div class="card card-blog"> -->
-<!--               <div class="card-blog__img"> -->
-<!--                 <img class="card-img rounded-0" src="img/blog/blog1.png" alt=""> -->
-<!--               </div> -->
-<!--               <div class="card-body"> -->
-<!--                 <ul class="card-blog__info"> -->
-<!--                   <li><a href="#">By Admin</a></li> -->
-<!--                   <li><a href="#"><i class="ti-comments-smiley"></i> 2 Comments</a></li> -->
-<!--                 </ul> -->
-<!--                 <h4 class="card-blog__title"><a href="single-blog.html">The Richland Center Shooping News and weekly shooper</a></h4> -->
-<!--                 <p>Let one fifth i bring fly to divided face for bearing divide unto seed. Winged divided light Forth.</p> -->
-<!--                 <a class="card-blog__link" href="#">Read More <i class="ti-arrow-right"></i></a> -->
-<!--               </div> -->
-<!--             </div> -->
-<!--           </div> -->
+        <div class="row">
+         <c:forEach items="${announcementList}" var="announcementList">
+          <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+            <div class="card card-blog">
+              <div class="card-blog__img">
+                <img class="card-img rounded-0" src="img/blog/blog1.png" alt="">
+              </div>
+              <div class="card-body">
+                <ul class="card-blog__info">
+                  <li><a href="#">${announcementList.tag}</a></li>
+                  <li><a href="#"><i class="ti-comments-smiley"></i> ${announcementList.messageQty} Comments</a></li>
+                </ul>
+                <h4 class="card-blog__title"><a href="single-blog.html"></a>${announcementList.title}</h4>
+                <p>${announcementList.content}</p>
+                <a class="card-blog__link" href="#">Read More <i class="ti-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+		</c:forEach>
 
-<!--           <div class="col-md-6 col-lg-4 mb-4 mb-lg-0"> -->
-<!--             <div class="card card-blog"> -->
-<!--               <div class="card-blog__img"> -->
-<!--                 <img class="card-img rounded-0" src="img/blog/blog2.png" alt=""> -->
-<!--               </div> -->
-<!--               <div class="card-body"> -->
-<!--                 <ul class="card-blog__info"> -->
-<!--                   <li><a href="#">By Admin</a></li> -->
-<!--                   <li><a href="#"><i class="ti-comments-smiley"></i> 2 Comments</a></li> -->
-<!--                 </ul> -->
-<!--                 <h4 class="card-blog__title"><a href="single-blog.html">The Shopping News also offers top-quality printing services</a></h4> -->
-<!--                 <p>Let one fifth i bring fly to divided face for bearing divide unto seed. Winged divided light Forth.</p> -->
-<!--                 <a class="card-blog__link" href="#">Read More <i class="ti-arrow-right"></i></a> -->
-<!--               </div> -->
-<!--             </div> -->
-<!--           </div> -->
-
-<!--           <div class="col-md-6 col-lg-4 mb-4 mb-lg-0"> -->
-<!--             <div class="card card-blog"> -->
-<!--               <div class="card-blog__img"> -->
-<!--                 <img class="card-img rounded-0" src="img/blog/blog3.png" alt=""> -->
-<!--               </div> -->
-<!--               <div class="card-body"> -->
-<!--                 <ul class="card-blog__info"> -->
-<!--                   <li><a href="#">By Admin</a></li> -->
-<!--                   <li><a href="#"><i class="ti-comments-smiley"></i> 2 Comments</a></li> -->
-<!--                 </ul> -->
-<!--                 <h4 class="card-blog__title"><a href="single-blog.html">Professional design staff and efficient equipment you’ll find we offer</a></h4> -->
-<!--                 <p>Let one fifth i bring fly to divided face for bearing divide unto seed. Winged divided light Forth.</p> -->
-<!--                 <a class="card-blog__link" href="#">Read More <i class="ti-arrow-right"></i></a> -->
-<!--               </div> -->
-<!--             </div> -->
-<!--           </div> -->
-<!--         </div> -->
-<!--       </div> -->
-<!--     </section> -->
+        </div>
+      </div>
+    </section>
     <!-- ================ Blog section end ================= -->  
 
     <!-- ================ Subscribe section start ================= --> 

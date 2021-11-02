@@ -32,6 +32,7 @@ public class Product implements Serializable {
 	private String seller;
 	private String insertTime;
 	private String status;
+	private Integer sales;
 	
 	@Transient
 	private MultipartFile productImage;
@@ -189,6 +190,18 @@ public class Product implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+
+
+	public Integer getSales() {
+		return sales;
+	}
+
+
+
+	public void setSales(Integer sales) {
+		this.sales = sales;
 	}
 
 	

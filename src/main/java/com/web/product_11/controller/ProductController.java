@@ -32,11 +32,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.web.cart_30.model.Cart;
 import com.web.cart_30.service.CartService;
 import com.web.member_25.model.membershipInformationBean;
 import com.web.product_11.model.Product;
@@ -63,7 +61,7 @@ public class ProductController {
 
 	//顯示所有商品
 	@GetMapping("/products")
-	public String list(Model model) {
+	public String productList(Model model) {
 
 		List<Product> beans = productservice.getAllProducts();
 		model.addAttribute("products", beans);
@@ -71,6 +69,8 @@ public class ProductController {
 		
 		
 	}
+	
+	
 	
 	//管理頁面-商品(只顯示未審核商品)
 		@GetMapping("/manage/products")

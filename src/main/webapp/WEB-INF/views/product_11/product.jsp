@@ -26,7 +26,7 @@
     <div class="main_menu">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+          <a class="navbar-brand logo_h" href="<c:url value='/' />"><img src="img/logo.png" alt=""></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="icon-bar"></span>
@@ -35,7 +35,7 @@
           </button>
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item"><a class="nav-link" href="<c:url value='/' />">Home</a></li>
+              <li class="nav-item active"><a class="nav-link" href="<c:url value='/' />">Home</a></li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">會員</a>
@@ -45,23 +45,18 @@
                   	   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/add' />">會員註冊</a></li>
                </c:if>
                <c:if test="${loginSession.userEmail != null}">
-                  <li class="nav-item"><a class="nav-link" href="<c:url value='/member/evolution' />">會員專區</a></li>
+                  <li class="nav-item"><a class="nav-link" href="<c:url value='/member/evolution' />">賣家專區</a></li>
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
-<!--                   <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li> -->
 <!--                   <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li> -->
                 </c:if>
                 </ul>
 							</li>
               <li class="nav-item submenu dropdown">
-                <a href="campaigns" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                <a href="<c:url value='/forum' />" class="nav-link dropdown-toggle"  role="button" aria-haspopup="true"
                   aria-expanded="false">討論區</a>
-<!--                 <ul class="dropdown-menu"> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="blog.html"></a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li> -->
-<!--                 </ul> -->
 							</li>
 							<li class="nav-item submenu dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                <a href="<c:url value='/campaigns' />" class="nav-link dropdown-toggle" role="button" aria-haspopup="true"
                   aria-expanded="false">活動專區</a>
 <!--                 <ul class="dropdown-menu"> -->
 <!--                   <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li> -->
@@ -76,8 +71,22 @@
             </ul>
 
             <ul class="nav-shop">
-              <li class="nav-item"><button><i class="ti-search"></i></button></li>
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
+           <li class="nav-item" ><form:form method='POST' action="./queryproduct"
+						class='form-horizontal'>
+				
+							<input name="productName" id="productName" type='text'
+								class='form:input-large'/>
+							<button type='submit' ><i class="ti-search" ></i></button>
+<!-- 							<input id="btnAdd" type='submit' -->
+<!-- 								class='btn btn-primary' /> -->
+				
+				</form:form>
+              
+            
+              
+              <!-- 購物車顯示數量在這裡改 -->
+              
+              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>3</span></button> </li>
 <!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
             </ul>
           </div>
@@ -137,7 +146,7 @@
 <!--               <label for="qty">Quantity:</label> -->
               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
 							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
-							<input type="text" name="qty" id="sst" size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
+							<input type="number" name="qty" id="sst" min="1" max="${product.stock}"  size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
 <%-- 							<a class="button primary-btn" href="<c:url value='/additem' />?id=${product.productId}">Add to Cart</a>  --%>
@@ -423,6 +432,7 @@
 								</div>
 							</div>
 						</div>
+<!-- 						討論評論 -->
 						<div class="col-lg-6">
 							<div class="review_box">
 								<h4>Add a Review</h4>

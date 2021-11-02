@@ -11,6 +11,10 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" -->
+<!--     integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" -->
+<!--     crossorigin="anonymous"></script> -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
 body{
 
@@ -38,7 +42,10 @@ body{
 }
 
 #myTable th, #myTable td {
-  text-align: left; /* Left-align text */
+  text-overflow:ellipsis; 
+  white-space:nowrap;
+  word-wrap:break-word; 
+  text-align: center; /* Left-align text */
   padding: 12px; /* Add padding */
 }
 
@@ -51,21 +58,30 @@ body{
   /* Add a grey background color to the table header and on hover */
   background-color: #f1f1f1;
 }
+ .btn-outline-primary {
+  color:lightblue;
+  background-color: #fff;
+  border-color: lightblue;
+  width:130px;
+  height:50px;
+}
+  .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active:hover{
+  color: #fff;
+  background-color:lightblue;
+  border-color: lightblue;
+}
 
 
 
 
 </style>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
 
 <button  onClick="batch_up()" >上架</button>
-<table id="myTable" class="display">
+<table id="myTable" class="display"  >
+
     <thead>
         <tr>
     <th style="width:10%;">productId</th>
@@ -103,7 +119,32 @@ body{
 
 <script>
 
-
+$(document).ready( function () {
+	
+    $('#myTable').DataTable({
+     "language": {
+     "processing": "處理中...",
+     "loadingRecords": "載入中...",
+     "lengthMenu": "顯示 _MENU_ 項結果",
+     "zeroRecords": "沒有符合的結果",
+     "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+     "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+     "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+     "infoPostFix": "",
+     "search": "搜尋:",
+     "paginate": {
+         "first": "第一頁",
+         "previous": "上一頁",
+         "next": "下一頁",
+         "last": "最後一頁"
+     },
+     "aria": {
+         "sortAscending": ": 升冪排列",
+         "sortDescending": ": 降冪排列"
+     }
+ }
+});
+})
 	
 	$('input:checkbox[name="selectall"]').click(function(){
 		 if($(this).is(':checked')){
@@ -151,8 +192,7 @@ body{
 		  }
 	      
 
-	
-	
+
 	
  
 	
