@@ -6,16 +6,19 @@ import com.web.forum_32.model.ForumBean;
 
 public interface IForumService {
 	
-	
+	// 首頁展示
 	List<ForumBean> getAll();
 	List<ForumBean> getAllArticles(int page, int size);
-	List<ForumBean> findUserNameContaining(String userName);
 	
+	// CRUD
+	List<ForumBean> findUserNameContaining(String userName);
+	public ForumBean getContentById(Integer id);
 	void addOrEdit(ForumBean content);
 	void delete (Integer id);
-	public ForumBean getContentById(Integer id);
 	
-	List<ForumBean> getAllContentsByAnnouncement();
-	List<ForumBean> getAllContentsByNoviceSeller();
-	List<ForumBean> getAllContentsBySellerChat();
+	// 標籤分類
+	List<ForumBean> getAllByTag(String tag,int page, int size);
+//	List<ForumBean> getAllContentsByNoviceSeller(String tag,int page, int size);
+//	List<ForumBean> getAllContentsBySellerChat(String tag,int page, int size);
+//	List<ForumBean> getAllContentsByFeatured(String tag,int page, int size);
 }

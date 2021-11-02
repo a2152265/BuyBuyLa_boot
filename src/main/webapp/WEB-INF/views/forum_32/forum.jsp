@@ -181,7 +181,7 @@
 								</div>
 							</article>
 						</c:forEach>
-						<nav class="blog-pagination justify-content-center d-flex">
+						<nav class="blog-pagination justify-content-center d-flex" style="padding-bottom:0px">
 							<ul class="pagination">
 								<li class="page-item"><a href="<c:url value="/forumPageLeft" />?page=${leftPage}" class="page-link"
 									aria-label="Previous"> <span aria-hidden="true"> <span
@@ -205,6 +205,7 @@
 								</a></li>
 							</ul>
 						</nav>
+						<div style="text-align: center;">第<label class="pages">${page}</label>頁</div>
 					</div>
 				</div>
 				<div class="col-lg-4">
@@ -317,7 +318,6 @@
 											<h3>${content.title}</h3>
 										</a>
 										<p>${content.date}</p>
-										<!--                                   <p>?小時前</p> -->
 									</div>
 								</div>
 							</c:forEach>
@@ -335,7 +335,6 @@
 											<h3>${content.title}</h3>
 										</a>
 										<p>${content.date}</p>
-										<!--                                   <p>?小時前</p> -->
 									</div>
 								</div>
 							</c:forEach>

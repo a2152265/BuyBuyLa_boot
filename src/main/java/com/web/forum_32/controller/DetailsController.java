@@ -126,9 +126,9 @@ public class DetailsController {
 	}
 
 	public void tagSize(Model model) {
-		model.addAttribute("announcementSize", forumService.getAllContentsByAnnouncement().size());
-		model.addAttribute("noviceSellerSize", forumService.getAllContentsByNoviceSeller().size());
-		model.addAttribute("sellerChatSize", forumService.getAllContentsBySellerChat().size());
+//		model.addAttribute("announcementSize", forumService.getAllContentsByAnnouncement().size());
+//		model.addAttribute("noviceSellerSize", forumService.getAllContentsByNoviceSeller().size());
+//		model.addAttribute("sellerChatSize", forumService.getAllContentsBySellerChat().size());
 	}
 
 }

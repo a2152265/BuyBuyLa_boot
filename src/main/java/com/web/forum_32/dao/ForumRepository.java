@@ -19,7 +19,7 @@ public interface ForumRepository extends JpaRepository<ForumBean, Integer> {
 	// 作者關鍵字搜尋
 	public List<ForumBean> findByUserNameContaining(String userName);
 	// 標籤分類
-	public List<ForumBean> findByTagLikeOrderById(String tag);
+	public Page<ForumBean> findByTagContaining(String tag,Pageable pageable);
 	
 	
 	

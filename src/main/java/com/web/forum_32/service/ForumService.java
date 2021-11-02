@@ -40,6 +40,24 @@ public class ForumService implements IForumService {
     
         return articleList;
 	}
+	@Override
+	public List<ForumBean> getAllByTag(
+			String tag,int page, int size) {
+		Page<ForumBean> pageResult = forumRepository.findByTagContaining(
+				tag,
+				PageRequest.of(page,  // 查詢的頁數，從0起算
+						size, // 查詢的每頁筆數
+						Sort.by("topArticle").descending().and(Sort.by("id").descending())
+						)); // 依CREATE_TIME欄位降冪排序
+		pageResult.getNumberOfElements(); // 本頁筆數
+		pageResult.getSize();             // 每頁筆數 
+		pageResult.getTotalElements();    // 全部筆數
+		pageResult.getTotalPages();       // 全部頁數
+		
+		List<ForumBean> articleList =  pageResult.getContent();
+		
+		return articleList;
+	}
 
 	@Override
 	public void addOrEdit(ForumBean content) {
@@ -57,20 +75,6 @@ public class ForumService implements IForumService {
 	}
 	
 
-	@Override
-	public List<ForumBean> getAllContentsByAnnouncement() {
-		return forumRepository.findByTagLikeOrderById("官方最新公告");
-	}
-
-	@Override
-	public List<ForumBean> getAllContentsByNoviceSeller() {
-		return forumRepository.findByTagLikeOrderById("新手賣家發問");
-	}
-
-	@Override
-	public List<ForumBean> getAllContentsBySellerChat() {
-		return forumRepository.findByTagLikeOrderById("賣家閒聊討論");
-	}
 
 	@Override
 	public List<ForumBean> findUserNameContaining(String userName) {
