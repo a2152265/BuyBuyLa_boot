@@ -211,7 +211,17 @@ public class RecordController {
 	@GetMapping("/recordanalyze")
 	public String recordanalyze(Model model) {
 		Double female = recordservice.findFemaleRecord();
-		
+		Double male = recordservice.findMaleRecord();
+		Double pet = recordservice.findPetRecord();
+		Double fit = recordservice.findFitRecord();
+		Double other = recordservice.findOtherRecord();
+		System.out.println("00000000000000000000000000000000000");
+		System.out.println(female+","+male+","+pet+","+fit+","+other);
+		model.addAttribute("female",female);
+		model.addAttribute("male",male);
+		model.addAttribute("pet",pet);
+		model.addAttribute("fit",fit);
+		model.addAttribute("other",other);
 			return "record_30/manage/recordAnalyze";
 	}
 	
