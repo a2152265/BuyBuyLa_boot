@@ -1,5 +1,5 @@
 /**
- * 
+ * 		留言管理
  */
 $(document).ready(function() {
 	var forumId = $('#id').val();

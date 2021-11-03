@@ -35,7 +35,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript"
 	src='${pageContext.request.contextPath}/js/forum_ajax_32.js'></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 	<!--================ Start Header Menu Area =================-->

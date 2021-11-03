@@ -2,6 +2,17 @@
  * 
  */
 $(document).ready(function() {
+	
+	// 管理員  發起公告  置頂設定
+	$("#insFlexCheckDefault").click(function() {
+		if ($(this).prop("checked")) {
+		$('.insTopArticle').val('top')
+		} else {
+		$('.insTopArticle').val('general')
+	}
+	});
+	
+	// 管理員  編輯
 	$('.updateDataBtn').click(function(e)  
 		{
 			e.preventDefault();
@@ -23,6 +34,7 @@ $(document).ready(function() {
 					$('.topArticle').val(data['topArticle']);
 					$('.editMessageQty').val(data['messageQty'])
 					$('.editViewQty').val(data['viewQty'])
+					
 					if ($('.topArticle').val() == 'top') {
 						$('.form-check-input').attr("checked", "checked");
 					} else {
@@ -36,7 +48,6 @@ $(document).ready(function() {
 						}
 					});
 
-
 					$('.updContentBody').on('mouseover', function() {
 						$('#updTag').val($('#updSelectTag option:selected').text());
 					});
@@ -49,4 +60,10 @@ $(document).ready(function() {
 				}
 			})
 		});
+		
+		$('.managerCrudBtn').click(function(){
+			
+			
+		})
+		
 });

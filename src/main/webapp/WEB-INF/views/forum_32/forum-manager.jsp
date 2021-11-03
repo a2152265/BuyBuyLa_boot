@@ -27,6 +27,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript"
 	src='${pageContext.request.contextPath}/js/forum_ajax_manager_32.js'></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- css -->
 <link rel='stylesheet'
@@ -78,62 +79,75 @@
 				<div>
 					<button type="button" class="btn btn-primary"
 						data-bs-toggle="modal" data-bs-target="#ManagerModal">發起公告</button>
-								<div class="modal fade" id="ManagerModal" tabindex="-1"
-								aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-lg" style="margin-top: 90px">
-									<form:form method='POST' modelAttribute="managerAddForumContentBean"
-										class='form-horizontal' enctype="multipart/form-data">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h3 class="modal-title" id="exampleModalLabel">發起公告</h3>
-												<button type="button" class="btn-close"
-													data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body insContentBody">
+					<div class="modal fade" id="ManagerModal" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-lg" style="margin-top: 90px">
+							<form:form method='POST'
+								modelAttribute="managerAddForumContentBean"
+								class='form-horizontal' enctype="multipart/form-data">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h3 class="modal-title" id="exampleModalLabel">發起公告</h3>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body insContentBody">
 
-												<!-- 發文 -->
-												<form:input path="tag" type="hidden" id="insTag" />
-												<form:textarea path="content" class="content display-none" />
-												<form:input path="date" type="hidden" id="nowDate" />
-												<form:input path="messageQty" type="hidden" />
-												<form:input path="viewQty" type="hidden" />
+										<!-- 發起公告 -->
+										<form:input path="tag" type="hidden" id="insTag" />
+										<form:textarea path="content"
+											class="managerAddContent display-none" />
+										<form:input path="date" type="hidden" id="nowDate" />
+										<form:input path="messageQty" type="hidden" value="0" />
+										<form:input path="viewQty" type="hidden" value="0" />
 
-												<form:input path="picId" class="form-control" type="hidden"
-													value="${memberUiDefault.id}" />
-												<form:input path="userName" type="hidden"
-													value="${memberUiDefault.userName}${managerSession.userName}" />
-												<form:input path="userEmail" type="hidden"
-													value="${memberUiDefault.userEmail}" />
-												<form:input path="userNickname" type="hidden"
-													value="${memberUiDefault.userNickname}" />
-												<form:input path="Identification" type="hidden"
-													value="${managerSession.identification}" />
-												<form:input path="topArticle" type="hidden" value="general" />
-												<!-- 結束 -->
+										<form:input path="picId" class="form-control" type="hidden"
+											value="${memberUiDefault.id}" />
+										<form:input path="userName" type="hidden"
+											value="${memberUiDefault.userName}${managerSession.userName}" />
+										<form:input path="userEmail" type="hidden"
+											value="${memberUiDefault.userEmail}" />
+										<form:input path="userNickname" type="hidden"
+											value="${memberUiDefault.userNickname}" />
+										<form:input path="Identification" type="hidden"
+											value="${managerSession.identification}" />
+										<form:input path="topArticle" type="hidden"
+											class="insTopArticle" value="general" />
+										<!-- 結束 -->
 
-												<div class="mb-3">
-													<select id="insSelectTag" class="form-select"
-														aria-label="Default select example">
-														<option>官方最新公告</option>
-													</select> <br>
-													<form:input type="text" path="title" required="true"
-														placeholder="標題" class="form-control title-fontsize"
-														aria-label="Sizing example input"
-														aria-describedby="inputGroup-sizing-lg" />
-													<br>
-													<div id="summernote2"></div>
-													<div class="mb-3"></div>
+										<div class="mb-3">
+											<div style="display: flex">
+												<select id="insSelectTag" class="form-select"
+													aria-label="Default select example">
+													<option>官方最新公告</option>
+												</select>
+												<div class="form-check"
+													style="margin-top: 6px; margin-left: 400px">
+													<input class="form-check-input" type="checkbox"
+														id="insFlexCheckDefault"> <label
+														class="form-check-label" for="flexCheckDefault">
+														置頂 </label>
 												</div>
 											</div>
-											<div class="modal-footer">
-												<button id="insSubmit" type="submit" class="btn btn-primary">送出</button>
-												<button type="button" class="btn btn-secondary"
-													data-bs-dismiss="modal">取消</button>
-											</div>
+											<br>
+											<form:input type="text" path="title" required="true"
+												placeholder="標題" class="form-control title-fontsize"
+												aria-label="Sizing example input" value="[公告]  "
+												aria-describedby="inputGroup-sizing-lg" />
+											<br>
+											<div id="managerAddSummernote"></div>
 										</div>
-									</form:form>
+									</div>
+									<div class="modal-footer">
+										<button id="managerInsSubmit" type="submit"
+											class="btn btn-primary">送出</button>
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">取消</button>
+									</div>
 								</div>
-							</div>
+							</form:form>
+						</div>
+					</div>
 				</div>
 			</div>
 			<table id="example" class="display" style="width: 100%">
@@ -143,7 +157,7 @@
 						<th>會員名稱</th>
 						<th>標籤</th>
 						<th>標題</th>
-						<th>發表時間</th>
+						<th>時間</th>
 						<th>管理</th>
 					</tr>
 				</thead>
@@ -157,12 +171,79 @@
 										value="${content.title}" /></a></td>
 							<td><c:out value="${content.date}" /></td>
 							<td>
-								<button type="button" class="btn btn-link updateDataBtn"
+							
+								<!-- 留言管理 -->
+								
+								<button class="btn btn-primary managerCrudBtn" data-bs-toggle="modal"
+									data-bs-target="#managerMessage">留言管理</button> 
+									
+								<!-- Modal -->
+								
+								<div class="modal fade" id="managerMessage" tabindex="-1"
+									aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-xl">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel" style="margin-left:450px">莫名其妙被給了一顆星</h5>
+												<button type="button" class="btn-close"
+													data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+											
+											<table id="example" class="display" style="width: 100%">
+												<thead>
+													<tr>
+														<th>會員編號</th>
+														<th>會員名稱</th>
+														<th>會員信箱</th>
+														<th>留言內容</th>
+														<th>時間</th>
+														<th>管理</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>5</td>
+														<td>愛刺人的蝦丸子</td>
+														<td>a123@gmail.com</td>
+														<td>讚</td>
+														<td>2021-11-02 12:51:32</td>
+														<td>
+															<button class="btn btn-primary">刪除</button>
+														</td>
+													</tr>
+													<tr>
+														<td>13</td>
+														<td>廖總經理</td>
+														<td>b123@gmail.com</td>
+														<td>好餓喔</td>
+														<td>2021-11-02 20:32:01</td>
+														<td>
+															<button class="btn btn-primary">刪除</button>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+											
+											
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+
+								<button type="button" class="btn btn-primary updateDataBtn"
 									data-id="${content.id}" data-bs-toggle="modal"
 									data-bs-target="#UpdateModal">編輯</button>
 								<div class="modal fade" id="UpdateModal" tabindex="-1"
 									aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-xl" >
+									<div class="modal-dialog modal-lg">
 										<form:form method='POST'
 											modelAttribute="managerEditForumContentBean"
 											class='form-horizontal' enctype="multipart/form-data">
@@ -179,11 +260,12 @@
 													<form:textarea path="content"
 														class="updContent display-none" />
 													<form:input path="date" id="nowUpdDate" type="hidden" />
-													
+
 													<form:input path="messageQty" class="editMessageQty"
 														type="hidden" />
-													<form:input path="viewQty" class="editViewQty" type="hidden" />
-													
+													<form:input path="viewQty" class="editViewQty"
+														type="hidden" />
+
 													<form:input path="picId" class="picId" type="hidden"
 														value="${memberUiDefault.id}" />
 													<form:input path="userName" class="userName" type="hidden"
@@ -194,24 +276,26 @@
 														type="hidden" value="${memberUiDefault.userNickname}" />
 													<form:input path="Identification" type="hidden"
 														value="${memberUiDefault.identification}" />
-													<form:input path="topArticle" class="topArticle"  type="hidden" />
+													<form:input path="topArticle" class="topArticle"
+														type="hidden" />
 													<!-- 結束 -->
 													<div class="mb-3">
-													<div style="display:flex;">
-														<select id="updSelectTag" class="form-select"
-															aria-label="Default select example">
-															<option>社團精選話題</option>
-															<option>官方最新公告</option>
-															<option>新手賣家發問</option>
-															<option>賣家閒聊討論</option>
-														</select> 
-														<div class="form-check" style="margin-top:6px;margin-left:400px">
-														  <input class="form-check-input" type="checkbox" id="flexCheckDefault">
-														  <label class="form-check-label" for="flexCheckDefault">
-														   	置頂
-														  </label>
-														  
-														</div>
+														<div style="display: flex;">
+															<select id="updSelectTag" class="form-select"
+																aria-label="Default select example">
+																<option>社團精選話題</option>
+																<option>官方最新公告</option>
+																<option>新手賣家發問</option>
+																<option>賣家閒聊討論</option>
+															</select>
+															<div class="form-check"
+																style="margin-top: 6px; margin-left: 400px">
+																<input class="form-check-input" type="checkbox"
+																	id="flexCheckDefault"> <label
+																	class="form-check-label" for="flexCheckDefault">
+																	置頂 </label>
+
+															</div>
 														</div>
 														<br>
 														<form:input type="text" required="true" placeholder="標題"
@@ -234,7 +318,7 @@
 										</form:form>
 									</div>
 								</div>
-								<button type="button" class="btn btn-link"
+								<button type="button" class="btn btn-primary"
 									onclick="if(window.confirm('確定刪除?')) location.href='<c:url value='/manager/delete32?id=${content.id}'/>' ">刪除</button>
 							</td>
 						</tr>
