@@ -440,13 +440,14 @@ public class TestLoginController {
 
 	// 管理者介面專用 - 展示會員資料
 	@RequestMapping("/manager_Ui")
-	public String list(Model model) {
+	public String list(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
 		List<membershipInformationBean> memberList = memberService.selectAllUsers();
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("member", new membershipInformationBean());
 		model.addAttribute("memberEdit", new membershipInformationBean());
 		System.out.println("---------------展示會員資料----------------");
 		model.addAttribute("managerSession", memberList);
+		model.addAttribute("memberUiDefault",memberService.findMemberData(mb.getUserEmail()));
 		
 		
 		return "member_25/manager/manager_List";
