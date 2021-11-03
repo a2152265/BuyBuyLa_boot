@@ -48,6 +48,7 @@ public class ForumController {
 		model.addAttribute("Articles", getAllArticles);
 		model.addAttribute("tagFeatured", forumService.getAllByTag("社團精選話題"));
 		model.addAttribute("getAll", forumService.getAll());
+		model.addAttribute("getAllOrderByIdDesc", forumService.getAllOrderByIdDesc());
 		model.addAttribute("addForumBean", new ForumBean());
 		
 	}

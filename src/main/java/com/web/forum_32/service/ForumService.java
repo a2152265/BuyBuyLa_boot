@@ -86,6 +86,11 @@ public class ForumService implements IForumService {
 		return forumRepository.findByTag(tag);
 	}
 
+	@Override
+	public List<ForumBean> getAllOrderByIdDesc() {
+		return forumRepository.findByOrderByIdDesc();
+	}
+
 
 
 

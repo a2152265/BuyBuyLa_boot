@@ -8,6 +8,7 @@ public interface IForumService {
 	
 	// 首頁展示
 	List<ForumBean> getAll();
+	List<ForumBean> getAllOrderByIdDesc();
 	List<ForumBean> getAllArticles(int page, int size);
 	
 	// CRUD

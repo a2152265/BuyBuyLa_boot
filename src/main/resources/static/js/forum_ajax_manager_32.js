@@ -67,20 +67,36 @@ $(document).ready(function() {
 			url: "findAllMessage",
 			data: { "id": messageForumId },
 			success: function(datas) {
-				console.log(datas);
 				$('#messageResult').html('');
 				for (i = 0; i < datas.length; i++) {
 					$('#messageResult').append(
 						"<tr>" +
-						"<td>" + datas[i]['messageId'] + "</td>" +
+						"<td class='managerDelId'>" + datas[i]['messageId'] + "</td>" +
 						"<td>" + datas[i]['messageUserName'] + "</td>" +
 						"<td>" + datas[i]['messageUserEmail'] + "</td>" +
 						"<td>" + datas[i]['messageContent'] + "</td>" +
 						"<td>" + datas[i]['messageDate'] + "</td>" +
-						"<td><button class='btn btn-primary'>刪除</button></td>"+
+						"<td><button class='btn btn-primary managerDeleteBtn'>刪除</button></td>"+
 						"</tr>"
 					)
 				}
+				$('.managerDeleteBtn').click(function(){
+					var delMessageId = $(this).parent().prev().prev().prev().prev().prev().html();
+					$.ajax({
+						type:"get",
+						url:"deleteMessageById",
+						data:{"id":delMessageId},
+						success:function(){
+								Swal.fire({
+									icon: 'success',
+									title: '刪除留言成功',
+									showConfirmButton: false,
+									timer: 1000
+								});
+								setTimeout(function() { history.go(0) }, 1000);
+						}
+					})
+				})
 			}
 		})
 

@@ -89,6 +89,13 @@ public class ManagerController {
 		}
 		return messageList;
 	}
+	
+	// 刪除評論
+	@GetMapping(value = "/manager/deleteMessageById")
+	@ResponseBody
+	public void deleteMessageById(@RequestParam("id") Integer id) {
+		messageService.delete(id);
+	}
 
 	/************************** 後臺管理結束 ***************************/
 }
