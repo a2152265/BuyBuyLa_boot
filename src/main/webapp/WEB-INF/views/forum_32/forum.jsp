@@ -35,6 +35,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript"
 	src='${pageContext.request.contextPath}/js/forum_ajax_32.js'></script>
+	<script src='${pageContext.request.contextPath}/js/forum_keyInput_32.js'></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body style="background-color: #f7f7f7">
@@ -202,7 +203,7 @@
 					<div class="blog_right_sidebar">
 						<aside class="single_sidebar_widget search_widget">
 							<div class="input-group">
-								<input type="text" class="form-control" placeholder="搜尋作者">
+								<input type="text" class="form-control searchUserName" placeholder="搜尋作者">
 								<span class="input-group-btn">
 									<button class="btn btn-default" type="button">
 										<i class="lnr lnr-magnifier"></i>
@@ -239,7 +240,7 @@
 												<form:input path="date" type="hidden" id="nowDate" />
 												<form:input path="messageQty" type="hidden" />
 												<form:input path="viewQty" type="hidden" />
-
+												<form:input path="identification" type="hidden" value="member" />
 												<form:input path="picId" class="form-control" type="hidden"
 													value="${memberUiDefault.id}" />
 												<form:input path="userName" type="hidden"
@@ -258,45 +259,28 @@
 														aria-label="Default select example">
 														<option>新手賣家發問</option>
 														<option>賣家閒聊討論</option>
-													</select><br><br><br>
+													</select><br><br>
 													<form:input type="text" path="title" required="true"
-														placeholder="標題" class="form-control title-fontsize"
+														placeholder="標題" class="form-control title-fontsize titleKeyInput"
 														aria-label="Sizing example input"
 														aria-describedby="inputGroup-sizing-lg" />
 													<br>
 													<div id="summernote"></div>
-													<div class="mb-3"></div>
 												</div>
 											</div>
 											<div class="modal-footer">
 												<button id="insSubmit" type="submit" class="btn btn-primary">送出</button>
 												<button type="button" class="btn btn-secondary"
 													data-bs-dismiss="modal">取消</button>
+												<button class="addNewForumKeyInput" type="button">一鍵輸入</button>
 											</div>
 										</div>
 									</form:form>
 								</div>
 							</div>
 						</aside>
-						<aside class="single_sidebar_widget popular_post_widget">
-							<h3 class="widget_title">熱門文章</h3>
-
-							<c:forEach var='content' items='${tagFeatured}' begin="0" end="2">
-								<div class="media post_item">
-									<img width='50'
-										src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
-									<div class="media-body">
-										<a href="single-blog.html">
-											<h3>${content.title}</h3>
-										</a>
-										<p>${content.date}</p>
-									</div>
-								</div>
-							</c:forEach>
-							<div class="br"></div>
-						</aside>
 						<aside class="single_sidebar_widget post_category_widget">
-							<h4 class="widget_title">標籤分類</h4>
+							<h4 class="widget_title">標籤</h4>
 							<ul class="list cat-list">
 								<li><a href="<c:url value='/forum' />"
 									class="d-flex justify-content-between">
@@ -324,6 +308,22 @@
 										<p>${sellerChatSize}</p>
 								</a></li>
 							</ul>
+							<div class="br"></div>
+						</aside>
+						<aside class="single_sidebar_widget popular_post_widget">
+							<h3 class="widget_title">熱門文章</h3>
+							<c:forEach var='content' items='${getAllHot}' begin="0" end="3">
+								<div class="media post_item">
+									<img width='50'
+										src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+									<div class="media-body">
+										<a href="single-blog.html">
+											<h3>${content.title}</h3>
+										</a>
+										<p>${content.date}</p>
+									</div>
+								</div>
+							</c:forEach>
 							<div class="br"></div>
 						</aside>
 						<aside class="single_sidebar_widget popular_post_widget">
@@ -356,8 +356,8 @@
 						    <li class="breadcrumb-item active" aria-current="page">${Breadcrumb}</li>
 						  </ol>
 						  	<select class="right small">
-						    <option>最新</option>
-						    <option>最熱門</option>
+						    <option class="new">最新</option>
+						    <option class="hot">最熱門</option>
 						    </select>
 <!-- 						  		<input type="button" value="發起討論" class="widget_title btn-primary newFoRuM" -->
 <!-- 								style="width: 154px; border: none;" data-bs-toggle="modal" -->
@@ -389,11 +389,11 @@
 												More</a><br><br> <span style="color: #00BFA5; font-size: 14px">${Articles.tag}</span>
 											<span><a><img
 													style="width: 15px; margin-left: 30px"
-													src="https://cdn-icons-png.flaticon.com/128/2462/2462844.png">
+													src="img/forum/speech-bubble.png">
 													<span style="font-size: 14px; margin-left: 5px;">${Articles.messageQty}
 														Comments</span></a></span> <span><a><img
 													style="width: 15px; margin-left: 10px"
-													src="https://cdn-icons-png.flaticon.com/512/159/159604.png">
+													src="img/forum/eye.png">
 													<span style="font-size: 14px; margin-left: 5px;">${Articles.viewQty}
 														Views</span></a></span>
 											<hr>

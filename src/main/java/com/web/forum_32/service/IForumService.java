@@ -11,11 +11,16 @@ public interface IForumService {
 	List<ForumBean> getAllOrderByIdDesc();
 	List<ForumBean> getAllArticles(int page, int size);
 	
+	
 	// CRUD
 	List<ForumBean> findUserNameContaining(String userName);
 	public ForumBean getContentById(Integer id);
 	void addOrEdit(ForumBean content);
 	void delete (Integer id);
+	
+	//
+	// 熱門文章
+	List<ForumBean> findByOrderByViewQtyDesc();
 	
 	// 標籤分類
 	List<ForumBean> getAllByTag(String tag,int page, int size);

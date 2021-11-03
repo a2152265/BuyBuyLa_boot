@@ -136,7 +136,7 @@ $(document).ready(function() {
 								"</div>" +
 								"</div>" +
 								"<div class='editBtn dropdown'>" +
-								"<img  id='dropdownMenuButton1' data-bs-toggle='dropdown' style='cursor:pointer;width:30px;height:30px;' src='https://cdn-icons.flaticon.com/png/512/2311/premium/2311523.png?token=exp=1635851763~hmac=dd6163c12d7c6a8d0b50bbea674800ac'>" +
+								"<img  id='dropdownMenuButton1' data-bs-toggle='dropdown' style='cursor:pointer;width:30px;height:30px;' src='img/forum/more.png'>" +
 								"<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton1'>" +
 								"<li><a class='dropdown-item editMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#editMessageBtn'>編輯</a></li>" +
 								"<li><a class='dropdown-item delMessageContent' style='cursor:pointer;'>刪除</a></li></ul>" +
@@ -150,17 +150,17 @@ $(document).ready(function() {
 							var loginUserName = $('.loginUser').val();
 							var messageUserName = $('.messageUserName').val();
 							var messageName = $(this).find('.messageName').html();
-							if (messageName != messageUserName) {
-								$(this).find('.editBtn').css('display', 'none');
-							}
-							if (forumUserName==loginUserName){
-								$('.editBtn').css('display','block');
-							}
-							if (forumUserName!=messageName){
-								$('.editMessageContent').css('display','none')
-							}else{
-								$('.editMessageContent').css('display','block')
-							}
+//							if (messageName != messageUserName) {
+//								$(this).find('.editBtn').css('display', 'none');
+//							}
+//							if (forumUserName==loginUserName){
+//								$('.editBtn').css('display','block');
+//							}
+//							if (forumUserName!=messageName){
+//								$('.editMessageContent').css('display','none')
+//							}else{
+//								$('.editMessageContent').css('display','block')
+//							}
 							
 							var editBtn = $(this).find('.editMessageContent');
 							var delBtn = $(this).find('.delMessageContent');

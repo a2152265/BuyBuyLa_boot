@@ -27,4 +27,10 @@ $(document).ready(function() {
 			}
 		})
 	});
+	$('.new').click(function(){
+		alert('new');
+	})
+	$('.hot').click(function(){
+		alert('hot');
+	})
 });

@@ -91,6 +91,11 @@ public class ForumService implements IForumService {
 		return forumRepository.findByOrderByIdDesc();
 	}
 
+	@Override
+	public List<ForumBean> findByOrderByViewQtyDesc() {
+		return forumRepository.findByOrderByViewQtyDesc();
+	}
+
 
 
 

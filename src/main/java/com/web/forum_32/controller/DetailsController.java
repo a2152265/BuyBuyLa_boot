@@ -36,7 +36,8 @@ public class DetailsController {
 
 	// Detailed
 	@GetMapping("/detailed")
-	public String detailedView(Model model, @RequestParam(value = "id", required = false) Integer id) {
+	public String detailedView(Model model, 
+			@RequestParam(value = "id", required = false) Integer id) {
 		
 		List<ForumBean> articlesList = forumService.getAll();
 		for (int i = 0; i < articlesList.size(); i++) {
@@ -100,6 +101,9 @@ public class DetailsController {
 	// 編輯
 	@PostMapping("/detailed")
 	public String editDedailed(@RequestParam("id") Integer id, @ModelAttribute("editForumContent") ForumBean updfb) {
+		ForumBean editFb= forumService.getContentById(id);
+		updfb.setViewQty(editFb.getViewQty());
+		updfb.setTopArticle(editFb.getTopArticle());
 		if (updfb.getContent() != null) {
 			forumService.addOrEdit(updfb);
 		}

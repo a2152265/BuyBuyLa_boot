@@ -51,6 +51,7 @@ public class ForumController {
 		model.addAttribute("getAll", forumService.getAll());
 		model.addAttribute("getAllOrderByIdDesc", forumService.getAllOrderByIdDesc());
 		model.addAttribute("addForumBean", new ForumBean());
+		model.addAttribute("getAllHot",forumService.findByOrderByViewQtyDesc());
 		
 	}
 	// 分頁

@@ -25,17 +25,13 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
-	rel="stylesheet">
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/css/style32.css'>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript"
-	src='${pageContext.request.contextPath}/js/forum_ajax_32.js'></script>
-<script type="text/javascript"
-	src='${pageContext.request.contextPath}/js/forum_ajax_message_32.js'></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<link rel='stylesheet' href='${pageContext.request.contextPath}/css/style32.css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src='${pageContext.request.contextPath}/js/forum_ajax_32.js'></script>
+<script src='${pageContext.request.contextPath}/js/forum_keyInput_32.js'></script>
+<script src='${pageContext.request.contextPath}/js/forum_ajax_message_32.js'></script>
+<link rel="stylesheet" href="vendors/nice-select/nice-select.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
@@ -158,14 +154,15 @@
 
 						<form:input path="picId" type="hidden"
 							value="${memberUiDefault.id}" />
-						<form:input path="userName" type="text"
+						<form:input path="userName" type="hidden"
 							value="${memberUiDefault.userName}" class="forumUsername" />
-						<form:input path="userEmail" type="text"
+							
+						<form:input path="userEmail" type="hidden"
 							value="${memberUiDefault.userEmail}" />
 						<form:input path="userNickname" type="hidden"
 							value="${memberUiDefault.userNickname}" />
 						<form:input path="Identification" type="hidden"
-							value="${memberUiDefault.identification}" />
+							value="member" />
 						<!-- 結束 -->
 
 						<div class="mb-3">
@@ -202,7 +199,7 @@
 							<div>
 								<img data-bs-toggle="dropdown" aria-expanded="false"
 									class="dropdown-toggle ml700w50h50tf11 editIMG"
-									src="https://cdn-icons.flaticon.com/png/512/2311/premium/2311523.png?token=exp=1635902709~hmac=183301e29c17b0719ab6f59e08067db3">
+									src="img/forum/more.png">
 								<ul class="dropdown-menu">
 									<li data-id="${forumContent.id}" data-bs-toggle="modal"
 										data-bs-target="#UpdateModal"
@@ -270,13 +267,13 @@
 
 						<div class="modal fade" id="editMessageBtn" tabindex="-1"
 							aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
+							<div class="modal-dialog" style="margin-top:90px">
 								<div class="modal-content" style="border-radius:20px">
 									<div class="comment-form" id="reply" style="margin:0px;border-radius:20px">
 										<h4 style="margin:0px">編輯評論</h4>
 									<form id="editMsgForm" style="background-color:#fafaff;border-radius:5%;padding:15px">
 										<input type="hidden" name="messageId" class="editMessageId">
-										<input type="text" name="messageDate" class="editMessageDate"> 
+										<input type="hidden" name="messageDate" class="editMessageDate"> 
 										<input type="hidden" name="messageForumId" class="editMessageForumId"> 
 										<input type="hidden" name="messageIdentification" class="editMessageIdentification">
 										<input type="hidden" name="messagePicId" class="editMessagePicId"> 
@@ -299,6 +296,7 @@
 											class="button button-postComment button--active editMessageBtn"
 											type="button" style="border: none">確定修改</button>
 									</form>
+									<button class="DetailedEditMessageKeyInput">一鍵輸入</button>
 								</div>
 							</div></div>
 						</div>
@@ -362,8 +360,8 @@
 							class="button button-postComment button--active messageBtn"
 							type="button" style="border: none">發表評論</button>
 					</form>
-
 				</div>
+							<button class="DetailedMessageKeyInput" style="margin-left:700px">一鍵輸入</button>
 			</div>
 			<div class="col-lg-4">
 				<div class="blog_right_sidebar">
@@ -453,13 +451,6 @@
 		</div>
 		</div>
 	</section>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
 	<br>
 	<br>
 	<!--================Blog Area =================-->

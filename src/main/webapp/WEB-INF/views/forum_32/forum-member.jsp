@@ -21,8 +21,11 @@
     <title>會員中心</title>
     <style>
         a{ text-decoration:none} a:hover{ text-decoration:none}
-
     </style>
+    
+<!--     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src='${pageContext.request.contextPath}/js/forum_ajax_member_32.js'></script>
 </head>
 <body>
    
@@ -40,16 +43,23 @@
 	<!--===== 內容 =====-->
 	
     <div class="container" style="background-color:white">
-    <button type="button" class="btn btn-primary position-relative">
-	  Inbox
-	  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-	    99+
-	    <span class="visually-hidden">unread messages</span>
-	  </span>
-	</button>
+
+	
+	<div class="row">
+	<div class="col-sm-6 col-lg-3 mb-3 mb-lg-0">
+		<ul class="list-group">
+		  <li class="list-group-item">我的發佈</li>
+		  <li class="list-group-item">A second item</li>
+		  <li class="list-group-item">A third item</li>
+		  <li class="list-group-item">A fourth item</li>
+		  <li class="list-group-item">And a fifth one</li>
+		</ul>
+      </div>
+      <div class="col-sm-6 col-lg-9 mb-9 mb-lg-0">
+      時區:<span class="memberNowDate"></span>
       
-      
-      
+      </div>
+    </div>
       
       
       
