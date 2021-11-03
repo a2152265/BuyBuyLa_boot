@@ -1,6 +1,7 @@
 package com.web.cart_30.service.impl;
 
 
+import java.sql.Blob;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,39 +60,35 @@ public class CartServiceImpl implements CartService {
 
 
 	@Override
-	public void addItemByid(int pid,boolean exists,String buyer) {
+	public void addItemByid(int pid,String buyer) {
 		System.out.println("serviceqqqqqqqqqqqqqqqqqqqqqqqqq");		
 		Optional<Product> product = productRepository.findById(pid);
-		List<Cart> carta= cartRepository.existsByIdAndBuyer(pid,buyer);
-		if(carta.size()!=0) {
+		Cart carta= cartRepository.existsByIdAndBuyer(pid,buyer);
+		System.out.println(carta+"-------------------------------");
+		if(carta!=null) {
 			System.out.println("****************************");
 			System.out.println(carta);
-			exists =true;
+			Cart cart =cartRepository.findByPidAndBuyer(pid,buyer);
+			int count = cart.getCount()+1;
+			cartRepository.add(count,pid);
+			
 		}else {
-			System.out.println("****************************");
+			System.out.println("///////////////////////////");
 			System.out.println(carta);
-			exists=false;
-		}
-		
-		System.out.println("serviceqqqqqqqqqqqqqqqqqqqqqqqqq"+exists);	
-		
-		
-		if(exists!=true) {
-			Cart cart = new Cart(
+			Cart cart = new Cart(	
 					product.get().getProductId(),
 					product.get().getProductName(),
 					product.get().getPrice(),
 					1,
 					buyer,
 					product.get().getSerller(),
+					product.get().getCategory(),
 					product.get().getCoverImage());
 			cartRepository.save(cart);
-		}else if(exists==true){
-			Optional<Cart> cart =cartRepository.findById(pid);
-			int count = cart.get().getCount()+1;
-			cartRepository.add(count,pid);
 		}
+		
 
+	
 	}
 
 
@@ -100,20 +97,22 @@ public class CartServiceImpl implements CartService {
 
 
 	@Override
-	public void add(int pid) {
-		Optional<Cart> cart =cartRepository.findById(pid);
-		int count = cart.get().getCount()+1;
+	public int add(int pid,String buyer) {
+		Cart cart= cartRepository.existsByIdAndBuyer(pid,buyer);
+		int count = cart.getCount()+1;
 		cartRepository.add(count,pid);
 		
+		return count;
+		
 	}
 
 
 
 	@Override
-	public void sub(int pid) {
-		Optional<Cart> cart =cartRepository.findById(pid);
-		if(cart.get().getCount()>1) {
-			int count = cart.get().getCount()-1;
+	public void sub(int pid,String buyer) {
+		Cart cart= cartRepository.existsByIdAndBuyer(pid,buyer);
+		if(cart.getCount()>1) {
+			int count = cart.getCount()-1;
 			cartRepository.add(count,pid);
 		}
 		
@@ -123,8 +122,8 @@ public class CartServiceImpl implements CartService {
 
 
 	@Override
-	public void deletecart(int pid) {
-		cartRepository.deleteById(pid);
+	public void deletecart(int pid,String buyer) {
+		cartRepository.deleteByPidAndBuyer(pid,buyer);
 		
 	}
 //
@@ -153,14 +152,17 @@ public class CartServiceImpl implements CartService {
 				rb.getSeller(),
 				rb.getBuy_time(),
 				rb.getTransport_status(),
+				rb.getCategory(),
 				rb.getBuyeraddress());
 
 	}
 
-	@Transactional
+
 	@Override
-	public void deleteAll() {
-		cartRepository.deleteAll();
+	public void deleteAll(String buyer) {
+		cartRepository.deleteAllByBuyer(buyer);
+		
+
 		
 	}
 
@@ -217,6 +219,17 @@ public class CartServiceImpl implements CartService {
 	public List<BuyerAddress> selectAllBuyerAddressByBuyer(String buyer) {
 		
 		return buyerAddressRepository.selectAllBuyerAddressByBuyer(buyer);
+	}
+
+
+
+
+
+
+	@Transactional
+	@Override
+	public void deleteAddress(int aid) {
+		buyerAddressRepository.deleteById(aid);		
 	}
 
 

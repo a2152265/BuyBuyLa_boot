@@ -89,18 +89,18 @@ public class DetailsController {
 	}
 	
 	// 編輯塞值
-	@GetMapping(value = "/editURL")
-	@ResponseBody
-	public ForumBean editUrl(@RequestParam("id") Integer id, 
-			@ModelAttribute("updateForumBean") ForumBean updfb,
-			Model model) {
-		updfb = forumService.getContentById(id);
-		ForumBean fb = new ForumBean(updfb.getId(),updfb.getTag(),updfb.getTitle(),
-				updfb.getContent(),updfb.getDate(),updfb.getPicId(),
-				updfb.getUserName(),updfb.getUserEmail(),updfb.getUserNickname(),
-				updfb.getIdentification(),updfb.getMessageQty());
-		return fb;
-	}
+//	@GetMapping(value = "/editURL")
+//	@ResponseBody
+//	public ForumBean editUrl(@RequestParam("id") Integer id, 
+//			@ModelAttribute("updateForumBean") ForumBean updfb,
+//			Model model) {
+//		updfb = forumService.getContentById(id);
+////		ForumBean fb = new ForumBean(updfb.getId(),updfb.getTag(),updfb.getTitle(),
+////				updfb.getContent(),updfb.getDate(),updfb.getPicId(),
+////				updfb.getUserName(),updfb.getUserEmail(),updfb.getUserNickname(),
+////				updfb.getIdentification(),updfb.getMessageQty());
+//		return fb;
+//	}
 
 	// 刪除
 	@GetMapping("/delete32")

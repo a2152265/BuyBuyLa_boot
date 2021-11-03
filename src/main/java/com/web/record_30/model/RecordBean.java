@@ -24,33 +24,21 @@ private static final long serialVersionUID = 1L;
 	private Integer pcount;
 	private String transport_status;
 	private String buyeraddress;
-	
+	private String category;
 	public RecordBean() {
 		
 	}
 	
 	
 
-	public RecordBean(Integer record_id, Integer pid, String p_name, Double p_price, String buy_time, String buyer,
-			String seller, Integer pcount, String transport_status, String buyeraddress) {
-		
-		this.record_id = record_id;
-		this.pid = pid;
-		this.p_name = p_name;
-		this.p_price = p_price;
-		this.buy_time = buy_time;
-		this.buyer = buyer;
-		this.seller = seller;
-		this.pcount = pcount;
-		this.transport_status = transport_status;
-		this.buyeraddress = buyeraddress;
-	}
+	
 
 
 
 	public RecordBean(Integer id, Integer record_id, Integer pid, String p_name, Double p_price, String buy_time,
-			String buyer, String seller, Integer pcount, String transport_status,String buyeraddress) {
-		
+			String buyer, String seller, Integer pcount, String transport_status, String buyeraddress,
+			String category) {
+	
 		this.id = id;
 		this.record_id = record_id;
 		this.pid = pid;
@@ -61,8 +49,32 @@ private static final long serialVersionUID = 1L;
 		this.seller = seller;
 		this.pcount = pcount;
 		this.transport_status = transport_status;
-		this.buyeraddress=buyeraddress;
+		this.buyeraddress = buyeraddress;
+		this.category = category;
 	}
+
+
+
+
+
+
+
+	public String getCategory() {
+		return category;
+	}
+
+
+
+
+
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+
+
 
 
 

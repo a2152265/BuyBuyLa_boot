@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+ <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,13 +24,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
 
-    <title>購物紀錄</title>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <title>card</title>
+<!-- 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto"> -->
+<!-- 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <!-- 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<!-- 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
 <!-- 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
 	<style>
 				body {
@@ -171,80 +171,65 @@
 </head>
 
 <body>
-<div class="container-xl">
+  <div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">
 					<div class="row">
-						<div class="col-sm-8"><h2><b>訂單管理</b></h2></div>
-						
+						<div class="col-sm-8"><h2> <b>管理地址</b></h2></div>
+<!-- 						<div class="col-sm-4"> -->
+<!-- 							<div class="search-box"> -->
+<!-- 								<i class="material-icons">&#xE8B6;</i> -->
+<!-- 								<input type="text" class="form-control" placeholder="Search&hellip;"> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 					</div>
 				</div>
-    
     <table id="example" class="display" style="width:100%">
-       	<thead>
-						<tr>
-							<th>訂單編號<i class="fa fa-sort"></i></th>
-							<th>商品編號</th>
-							<th>商品名稱</th>
-							<th>商品單價</th>
-							<th>訂購數量</th>
-							<th>購買時間</th>
-							<th>出貨狀況</th>
-							<th>編輯資料</th>
-						</tr>
-					</thead>
+        <thead>
+        <tr>
+        <th>買家名稱</th>
+        <th>買家手機</th>
+        <th>買家地址</th>
+        <th>買家信箱</th>
+        <th>刪除</th>
+        </tr>
+        </thead>
         		<%
 			int i = 0;
 			%>
-<tbody>
-    	<c:forEach var="update" items="${updateRecord}">
-<%-- 					<form:form method='POST' modelAttribute="updatebean" class='form-horizontal'>	 --%>
-						<tr>
-							<td id='rid'>${update.record_id}</td>
-							<td id='pid'>${update.pid}</td>
-							<td>${update.p_name}</td>
-							<td>${update.p_price}</td>
-							<td>${update.pcount}</td>
-							<td>${update.buy_time}</td>
-					
-							<td>
-							<select path='transport_status' id='ts'>
-							<option selected>${update.transport_status}</option>
-							<option disabled>======</option>
-<!-- 							<option value='待出貨' disabled>待出貨</option> -->
-							<option value='運送中'>運送中</option>
-<%-- 							<form:option value='已到貨'>已到貨</form:option>							 --%>
-							</select>
-							</td>
+        <tbody>
+        <c:forEach var="rows" items="${address}">
+	
+			<tr>
+			<td>${rows.buyerName}</td>
+			<td>${rows.phone}</td>
+			<td>${rows.email}</td>
+			<td>${rows.city}&nbsp;${rows.address}</td>
+			<td>			
+			<a href='#' onclick="if(window.confirm('確定要刪除？')) location.href ='<c:url value='/deleteAddress?aid=${rows.address_id}'/>'" class="delete" title="Delete" data-toggle="tooltip">
+			<i class="material-icons">&#xE872;</i>
+			</a>
+			</td>
+			</tr>
+				<%
+			i = i+1;
+			%>
+		</c:forEach>
 
-							<td>	
-							 <a href="<c:url value='/selectbuyer?buyer=${update.buyer}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-<%-- 							<form:input path="record_id" value='${update.record_id}' style="display:none"/> --%>
-<%-- 							<form:input path="pid" value='${update.pid}' style="display:none"/>	 --%>
-<!-- 							<button type="submit" class="btn bt1" data-toggle="modal" data-target="#staticBackdrop">										 -->
-								<a href="<c:url value='/updatevalue30?rid=${update.record_id}&pid=${update.pid}&ts=運送中' />" class="edit" title="Edit" data-toggle="tooltip">
-								<i class="material-icons">&#xE254;</i>
-								</a>
-<!-- 							</button>	 -->
-									<a href='#' onclick="if(window.confirm('確定要刪除？')) location.href ='<c:url value='/delete?rid=${update.record_id}&pid=${update.pid}'/>'" class="delete" title="Delete" data-toggle="tooltip">
-									<i class="material-icons">&#xE872;</i>
-									</a>
-							
-							</td>
-						</tr>
-													
-							
-
-<%-- 						</form:form>				 --%>
-						
-						</c:forEach>	
-					</tbody>
     </table>
-
-	<center>
-			<a class="btn btn-outline-secondary" href="<c:url value='/member/evolution' />" style='font-size:20px' role="button">回上一頁</a>	
+	</div>
+		<h2 style="text-align: right;">
+				共
+				<%
+				out.println(i);
+				%>筆資料
+			</h2>
+			<center>
+			<a class="btn btn-outline-secondary" href="<c:url value='/try/member_Ui' />" style='font-size:20px' role="button">回上一頁</a>	
 			</center>
+			</div>
+
 
 </body>
 </html>

@@ -18,11 +18,9 @@ import com.web.product_11.model.Product;
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 	
 	 @Query(nativeQuery = true,value="select * from Cart  where pid=?1 AND buyer=?2")
-	 public List<Cart> existsByIdAndBuyer(Integer pid,String buyer) ;
-		 
-	
-	
-	
+	 public Cart existsByIdAndBuyer(Integer pid,String buyer) ;
+		 	
+		
 	
 	@Transactional
 	@Modifying
@@ -33,5 +31,23 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 	
 	@Query(nativeQuery = true, value = "select * from Cart where buyer=?1")
     public  List<Cart> findAllByBuyer(String buyer);
+	
+	
+	@Transactional
+	@Modifying
+	 @Query(nativeQuery = true,value="delete from Cart where pid=?1 AND buyer=?2")
+	public void deleteByPidAndBuyer(int pid,String buyer);	
+	 
+	
+	@Transactional
+	@Modifying
+	 @Query(nativeQuery = true,value="delete from Cart where buyer=?1")
+	public void deleteAllByBuyer(String buyer);	
+	 
+	
+
+	 @Query(nativeQuery = true,value="select * from Cart  where pid=?1 AND buyer=?2")
+	 public Cart findByPidAndBuyer(int pid,String buyer) ;
+	
 	
 }

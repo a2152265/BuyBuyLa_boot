@@ -109,17 +109,11 @@
 	<!--================ End Header Menu Area =================-->
 
 	<!-- ================ start banner area ================= -->	
-	<section class="blog-banner-area" id="category">
+	<section class="blog-banner-area" id="category"  style='height:250px'>
 		<div class="container h-100">
 			<div class="blog-banner">
 				<div class="text-center">
 					<h1>Shopping Cart</h1>
-					<nav aria-label="breadcrumb" class="banner-breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
-            </ol>
-          </nav>
 				</div>
 			</div>
     </div>

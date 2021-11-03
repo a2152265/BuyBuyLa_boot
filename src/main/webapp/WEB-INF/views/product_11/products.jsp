@@ -22,6 +22,12 @@
   <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
 <!--   <link rel='stylesheet' href="css/campaigns.css"  > -->
   <link rel="stylesheet" href="css/productstyle.css">
+  
+<!-- <script src="sweetalert2.min.js"></script> -->
+<!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
+<!-- <script src="sweetalert2.all.min.js"></script> -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <style type="text/css">
 .form__label {
   font-family: 'Roboto', sans-serif;
@@ -193,8 +199,10 @@
 					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
 
+
               <!---------------- 購物車 ---------------->
               <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
+
             </ul>
           </div>
         </div>
@@ -581,15 +589,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 </c:forEach>
 
+
+	
 <script>
 
 
-
+var count=0;
+// const MySwal = withReactContent(Swal)
 $(".additem").click(function(){		
-//		var data=$("#form1").serializeArray();
+
 	var data=$(this).val();
-	console.log(data+"************************");
-	$.ajax({
+		$.ajax({
 		type:'get',
 		url:'additem',
 		data:{
@@ -597,7 +607,18 @@ $(".additem").click(function(){
 		},
 		
 		success:function(){
-			 console.log("77777777")
+	
+
+			Swal.fire({
+				  position:'center',
+				  icon: 'success',
+				  title: '已加入購物車',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
+			
+
+
 		}
 								
 	});		
@@ -605,7 +626,6 @@ $(".additem").click(function(){
 	
 });
 
-var count=0;
 $('.count').each(function(){
 	$(this).html;
 	var a = parseInt($(this).html());
@@ -617,8 +637,6 @@ $('#ccount').html(count)
 
 
 </script>
-	
-
 
 </body>
 </html>
