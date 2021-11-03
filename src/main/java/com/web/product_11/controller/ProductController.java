@@ -36,10 +36,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.web.cart_30.model.Cart;
 import com.web.cart_30.service.CartService;
 import com.web.member_25.model.membershipInformationBean;
+import com.web.member_25.service.MemberService;
 import com.web.product_11.model.Product;
+import com.web.product_11.model.ProductComment;
+import com.web.product_11.service.ProductCommentService;
 import com.web.product_11.service.ProductService;
 
 @Controller
@@ -47,13 +49,18 @@ import com.web.product_11.service.ProductService;
 public class ProductController {
 
 	ProductService productservice;
+	ProductCommentService productCommentService;
+	MemberService memberService;
 	ServletContext servletContext;
 	CartService cartService;
 
 	@Autowired
-	public ProductController(ProductService productservice, ServletContext servletContext,CartService cartService) {
-	
+	public ProductController(ProductService productservice, ProductCommentService productCommentService,
+			MemberService memberService, ServletContext servletContext, CartService cartService) {
+		super();
 		this.productservice = productservice;
+		this.productCommentService = productCommentService;
+		this.memberService = memberService;
 		this.servletContext = servletContext;
 		this.cartService = cartService;
 	}
@@ -61,9 +68,10 @@ public class ProductController {
 	public ProductController() {
 	}
 
+
 	//顯示所有商品
 	@GetMapping("/products")
-	public String list(Model model) {
+	public String productList(Model model) {
 
 		List<Product> beans = productservice.getAllProducts();
 		model.addAttribute("products", beans);
@@ -71,6 +79,8 @@ public class ProductController {
 		
 		
 	}
+	
+	
 	
 	//管理頁面-商品(只顯示未審核商品)
 		@GetMapping("/manage/products")
@@ -82,7 +92,7 @@ public class ProductController {
 					
 		}
 		
-	//商品上架
+	//商品上架(管理者)
 		@PostMapping("/manage/launched")
 		public ResponseEntity<String> productlaunched(
 				Model model,
@@ -117,7 +127,17 @@ public class ProductController {
 		public String getProductById(
 			@RequestParam("id") Integer id, // 查詢字串
 			 Model model) {
-			model.addAttribute("product", productservice.getProductById(id));
+			Product product = productservice.getProductById(id);
+			
+
+			 membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
+			
+			model.addAttribute("product", product);
+			model.addAttribute("productComment",productCommentService.findByProductId(id));
+			model.addAttribute("memberUiDefault",mBean);
+			
+			
+			
 			return "product_11/product";
 		}
 		
@@ -375,23 +395,55 @@ public class ProductController {
 		
 		
 		
-//刪除表單		
+		
+		
+	//刪除表單		
 		@GetMapping("/delete/{productId}")
-		public String getDeleteProductForm(@PathVariable("productId") Integer productId, Model model) {
-			productservice.deleteProduct(productId);
+		public String getDeleteProductForm(Model model,@PathVariable("productId") String productId ) {
 			
+			productservice.deleteProduct(Integer.parseInt(productId));
 			return "redirect:/products/seller";
 		}
 		
 		
+	
+		
 
-//表單只接受下列欄位，其他欄位丟出例外
-	@InitBinder
-	public void whiteListing(WebDataBinder binder) {
+	//表單只接受下列欄位，其他欄位丟出例外
+		@InitBinder
+		public void whiteListing(WebDataBinder binder) {
 		binder.setAllowedFields("productName", "price", "category", "stock", "productInfo", "productNo",
 				"productImage");
-	}
+		}
 
-
+//-----------------------------------商品評論-----------------------------------------
+		
+		//商品評論	
+				@PostMapping("/comment")
+				public ResponseEntity<String> insertProductComment( 
+						@RequestParam("userEmail") String userEmail,
+						@RequestParam("content") String content,
+						@RequestParam("productId") String productId,
+						Model model) {
+					ProductComment productComment = new ProductComment();
+					productComment.setContent(content);
+					productComment.setUserEmail(userEmail);
+					productComment.setProductId(Integer.parseInt(productId));
+					
+					ProductComment comment = productCommentService.findByUserEmailandProductId(userEmail, Integer.parseInt(productId));
+					if(comment !=null) {
+						return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+					}
+					
+					//新增留言時間戳記
+					   Long timeStamp = System.currentTimeMillis();  //获取当前时间戳
+				       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				       String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp)))); 
+				       productComment.setCommentTime(sd);
+					
+					productCommentService.addProductComment(productComment);
+					return new ResponseEntity<String>(HttpStatus.OK);
+				}
+		
 	
 }

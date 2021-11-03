@@ -1,8 +1,6 @@
 package com.web.product_11.service.impl;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +16,6 @@ public class ProductSerivceImpl_boot implements ProductService{
 
 	@Override
 	public List<Product> getAllProducts() {
-		// TODO Auto-generated method stub
 		return productRepositoryDao.findAll();
 	}
 
@@ -29,7 +26,6 @@ public class ProductSerivceImpl_boot implements ProductService{
 
 	@Override
 	public List<String> getAllCategories() {
-		// TODO Auto-generated method stub
 		return productRepositoryDao.getAllCategories();
 	}
 
@@ -40,11 +36,7 @@ public class ProductSerivceImpl_boot implements ProductService{
 
 	@Override
 	public Product getProductById(int productId) {
-
 		return productRepositoryDao.findByProductId(productId);
-
-		
-//		return productRepositoryDao.getById(productId);
 
 	}
 
@@ -83,6 +75,11 @@ public class ProductSerivceImpl_boot implements ProductService{
 	@Override
 	public List<Product> findByStatus() {
 		return productRepositoryDao.findByStatus();
+	}
+
+	@Override
+	public List<Product> productOrderByInsertTime() {
+		return productRepositoryDao.productOrderByInsertTime();
 	}
 
 
