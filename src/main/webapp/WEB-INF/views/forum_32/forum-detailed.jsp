@@ -116,6 +116,7 @@
 
 	<input type="hidden" class="messageUserName"
 		value="${memberUiDefault.userName}${managerSession.userName}">
+	<input type="hidden" class="loginUser" value="${memberUiDefault.userName}${managerSession.userName}">
 
 	<!-- ================ start banner area ================= -->
 	<section class="blog-banner-area" id="blog">
@@ -157,9 +158,9 @@
 
 						<form:input path="picId" type="hidden"
 							value="${memberUiDefault.id}" />
-						<form:input path="userName" type="hidden"
+						<form:input path="userName" type="text"
 							value="${memberUiDefault.userName}" class="forumUsername" />
-						<form:input path="userEmail" type="hidden"
+						<form:input path="userEmail" type="text"
 							value="${memberUiDefault.userEmail}" />
 						<form:input path="userNickname" type="hidden"
 							value="${memberUiDefault.userNickname}" />
@@ -203,10 +204,10 @@
 						</div>
 
 						<div class="col-lg-9 col-md-9 blog_details">
-							<div class="editIMG">
+							<div>
 								<img data-bs-toggle="dropdown" aria-expanded="false"
-									class="dropdown-toggle ml700w50h50tf11"
-									src="https://cdn-icons-png.flaticon.com/128/1827/1827933.png">
+									class="dropdown-toggle ml700w50h50tf11 editIMG"
+									src="https://cdn-icons.flaticon.com/png/512/2311/premium/2311523.png?token=exp=1635902709~hmac=183301e29c17b0719ab6f59e08067db3">
 								<ul class="dropdown-menu">
 									<li data-id="${forumContent.id}" data-bs-toggle="modal"
 										data-bs-target="#UpdateModal"
@@ -279,11 +280,11 @@
 									<div class="comment-form" id="reply" style="margin:0px;border-radius:20px">
 										<h4 style="margin:0px">編輯評論</h4>
 									<form id="editMsgForm" style="background-color:#fafaff;border-radius:5%;padding:15px">
-										<input type="text" name="messageId" class="editMessageId">
+										<input type="hidden" name="messageId" class="editMessageId">
 										<input type="text" name="messageDate" class="editMessageDate"> 
-										<input type="text" name="messageForumId" class="editMessageForumId"> 
-										<input type="text" name="messageIdentification" class="editMessageIdentification">
-										<input type="text" name="messagePicId" class="editMessagePicId"> 
+										<input type="hidden" name="messageForumId" class="editMessageForumId"> 
+										<input type="hidden" name="messageIdentification" class="editMessageIdentification">
+										<input type="hidden" name="messagePicId" class="editMessagePicId"> 
 										<div class="form-group form-inline">
 											<div class="form-group col-lg-6 col-md-6 name">
 												<input type="text" name="messageUserName"
@@ -300,7 +301,7 @@
 												class="form-control mb-10 editMessageContent" placeholder="留言"></textarea>
 										</div>
 										<button
-											class="button button-postComment button--active messageBtn"
+											class="button button-postComment button--active editMessageBtn"
 											type="button" style="border: none">確定修改</button>
 									</form>
 								</div>
@@ -374,7 +375,7 @@
 					<aside class="single_sidebar_widget author_widget">
 						<img width='150'
 							src="<c:url value='/getPicturefromMember/${forumContent.picId}'/>" />
-						<h4 class="forumUsername2">${forumContent.userName}</h4>
+						<h4 class="Username">${forumContent.userName}</h4>
 						<p>一般會員</p>
 						<div class="social_icon">
 							<a href="#"> <i class="fab fa-facebook-f"></i>

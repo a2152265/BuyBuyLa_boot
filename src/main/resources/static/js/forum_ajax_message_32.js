@@ -125,7 +125,7 @@ $(document).ready(function() {
 								"<img style='width: 100px; height: 100px' src='/BuyBuyla_boot/getPicturefromMember/" + data[i]['messagePicId'] + "'>" +
 								"</div>" +
 								"<div class='desc'>" +
-								"<input class='messageId' type='hidden' value='"+data[i]['messageId']+"'>"+
+								"<input class='messageId' type='hidden' value='" + data[i]['messageId'] + "'>" +
 								"<h5><a href='#' class='messageName'>" + data[i]['messageUserName'] + "</a></h5>" +
 								"<p class='date'>" + data[i]['messageDate'] + "</p>" +
 								"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
@@ -139,32 +139,76 @@ $(document).ready(function() {
 								"</div>" +
 								"</div>" +
 								"</div>"
-								)
+							)
 						}
 						$('.single-comment').each(function(i, n) {
+							var forumUserName = $('.Username').html();
+							var loginUserName = $('.loginUser').val();
 							var messageUserName = $('.messageUserName').val();
 							var messageName = $(this).find('.messageName').html();
 							if (messageName != messageUserName) {
 								$(this).find('.editBtn').css('display', 'none');
 							}
+							if (forumUserName==loginUserName){
+								$('.editBtn').css('display','block');
+							}
+							if (forumUserName!=messageName){
+								$('.editMessageContent').css('display','none')
+							}else{
+								$('.editMessageContent').css('display','block')
+							}
+							
 							var editBtn = $(this).find('.editMessageContent');
 							var delBtn = $(this).find('.delMessageContent');
-							var messageId=$(this).find('.messageId').val();
-							editBtn.click(function(){
+							var messageId = $(this).find('.messageId').val();
+							editBtn.click(function() {
 								$('.editMessageId').val(messageId);
 								$.ajax({
-									type:"get",
-									url:"editMessage",
-									data:{"id":messageId},
-									success:function(data){
-										console.log(data);
-										$('.editMessageDate').val(data['messageDate']);
+									type: "get",
+									url: "editMessage",
+									data: { "id": messageId },
+									success: function(data) {
+										var date = new Date();
+										const formatDate = (date) => {
+											let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes()
+											return formatted_date;
+										}
+										$('.editMessageDate').val('最後修改 '+formatDate(date));
 										$('.editMessageForumId').val(data['messageForumId']);
 										$('.editMessageIdentification').val(data['messageIdentification']);
 										$('.editMessagePicId').val(data['messagePicId']);
 										$('.editMessageUserName').val(data['messageUserName']);
 										$('.editMessageUserEmail').val(data['messageUserEmail']);
 										$('.editMessageContent').val(data['messageContent']);
+
+										$('.editMessageBtn').click(function(e) {
+											e.preventDefault();
+											var datas = $('#editMsgForm').serializeArray();
+											if ($('.editMessageContent').val() == "") {
+												Swal.fire({
+													icon: 'error',
+													title: '錯誤',
+													text: '內容為空!',
+													showConfirmButton: false,
+													timer: 1000
+												})
+												return false;
+											}
+											$.ajax({
+												type: "post",
+												url: "editMessageFin",
+												data: datas,
+												success: function() {
+													Swal.fire({
+														icon: 'success',
+														title: '修改留言成功',
+														showConfirmButton: false,
+														timer: 1000
+													});
+													setTimeout(function() { history.go(0) }, 1000);
+												}
+											})
+										})
 									}
 								})
 							})
@@ -185,15 +229,15 @@ $(document).ready(function() {
 											'success'
 										)
 										$.ajax({
-											type:'get',
-											url:'deleteMessage',
-											data:{
-												'id':messageId
+											type: 'get',
+											url: 'deleteMessage',
+											data: {
+												'id': messageId
 											},
-											success:function(){
+											success: function() {
 											}
 										})
-												setTimeout(function() { history.go(0) }, 1000);
+										setTimeout(function() { history.go(0) }, 1000);
 									}
 								})
 							})

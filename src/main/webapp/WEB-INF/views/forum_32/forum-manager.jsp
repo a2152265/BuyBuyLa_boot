@@ -85,7 +85,7 @@
 										class='form-horizontal' enctype="multipart/form-data">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h3 class="modal-title" id="exampleModalLabel">建立貼文</h3>
+												<h3 class="modal-title" id="exampleModalLabel">發起公告</h3>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
@@ -114,8 +114,7 @@
 												<div class="mb-3">
 													<select id="insSelectTag" class="form-select"
 														aria-label="Default select example">
-														<option>新手賣家發問</option>
-														<option>賣家閒聊討論</option>
+														<option>官方最新公告</option>
 													</select> <br>
 													<form:input type="text" path="title" required="true"
 														placeholder="標題" class="form-control title-fontsize"
@@ -163,13 +162,13 @@
 									data-bs-target="#UpdateModal">編輯</button>
 								<div class="modal fade" id="UpdateModal" tabindex="-1"
 									aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-lg" style="margin-top: 90px">
+									<div class="modal-dialog modal-xl" >
 										<form:form method='POST'
 											modelAttribute="managerEditForumContentBean"
 											class='form-horizontal' enctype="multipart/form-data">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h3 class="modal-title" id="exampleModalLabel">編輯貼文</h3>
+													<h3 class="modal-title" id="exampleModalLabel">管理員編輯</h3>
 													<button type="button" class="btn-close"
 														data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>

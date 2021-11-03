@@ -24,11 +24,16 @@ $(function() {
 
 	// 判斷登入狀態
 	// 訪客不能發起討論  留言
-	var f1 = $('.forumUsername').val();
-	var f2 = $('.forumUsername2').html();
-	if(f1!=f2){
-		 $(".editIMG").css("display","none");
+	var loginUser = $('.loginUser').val();
+	var forumUsername = $('.Username').html();
+	if(loginUser!=forumUsername){
+		 $(".editIMG").css("visibility","hidden");
+		 console.log("loginUser="+loginUser+" forumUsername="+forumUsername+" css="+"hidden")
+	}else{
+		$(".editIMG").css("visibility","visible");
+		console.log("loginUser="+loginUser+" forumUsername="+forumUsername+" css="+"visible")
 	}
+	
 	if($('.loginsession').html()==null){
 		$('.newFoRuM').attr("disabled","disabled");
 		$('.newFoRuM').css("background","gray");

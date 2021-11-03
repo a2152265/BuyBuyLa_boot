@@ -125,6 +125,7 @@ public class DetailsController {
 		forumService.addOrEdit(fb);
 		messageService.addMessage(mb);
 	}
+
 	// 編輯評論
 	@GetMapping(value = "/editMessage")
 	@ResponseBody
@@ -133,6 +134,14 @@ public class DetailsController {
 		return new MessageBean(mb.getMessageId(),mb.getMessageForumId(),mb.getMessageDate(),mb.getMessageContent(),
 				mb.getMessagePicId(),mb.getMessageUserName(),mb.getMessageIdentification(),mb.getMessageUserEmail());
 	}
+	
+	// 編輯評論送出
+	@PostMapping(value = "/editMessageFin")
+	@ResponseBody
+	public void editMessageFin(MessageBean mb) {
+		messageService.addMessage(mb);
+	}
+	
 	// 刪除評論
 	@GetMapping(value = "/deleteMessage")
 	public void deleteMessage(@RequestParam("id") Integer id) {

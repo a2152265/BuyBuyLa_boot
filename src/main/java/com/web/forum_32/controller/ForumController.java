@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.service.IForumService;
 
@@ -48,6 +49,7 @@ public class ForumController {
 		model.addAttribute("tagFeatured", forumService.getAllByTag("社團精選話題"));
 		model.addAttribute("getAll", forumService.getAll());
 		model.addAttribute("addForumBean", new ForumBean());
+		
 	}
 	// 分頁
 	@GetMapping({"/forumPage","/forumPageLeft","/forumPageRight"})
@@ -101,7 +103,9 @@ public class ForumController {
 			model.addAttribute("Articles", announcementList);
 			model.addAttribute("addForumBean", new ForumBean());
 		} else {
-			allArticles(model,0);
+			model.addAttribute("tagFeatured", forumService.getAllByTag("社團精選話題"));
+			model.addAttribute("addForumBean", new ForumBean());
+			model.addAttribute("getAll", forumService.getAll());
 		}
 		tagSize(model);
 		return "forum_32/forum";
