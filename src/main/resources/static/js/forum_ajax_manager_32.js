@@ -62,7 +62,15 @@ $(document).ready(function() {
 		});
 		
 		$('.managerCrudBtn').click(function(){
-			
+			var messageForumId = $(this).parent().parent().find('.sorting_1').html()
+			$.ajax({
+				type:"get",
+				url:"findAllMessage",
+				data:{"id":messageForumId},
+				success:function(datas){
+					console.log(datas)
+				}
+			})
 			
 		})
 		

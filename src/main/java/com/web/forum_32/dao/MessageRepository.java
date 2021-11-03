@@ -16,6 +16,8 @@ public interface MessageRepository extends JpaRepository<MessageBean, Integer>  
 	public List<MessageBean> findAllByForumId(Integer messageForumId);
 	
     public Page<MessageBean> findByMessageForumId(Integer messageForumId, Pageable pageable);
+    
+    public List<MessageBean> findAllByMessageForumId(Integer messageForumId);
 
 	
 }

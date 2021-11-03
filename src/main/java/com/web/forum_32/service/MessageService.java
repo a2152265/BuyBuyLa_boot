@@ -52,5 +52,9 @@ public class MessageService implements IMessageService{
 	public MessageBean getById(Integer id) {
 		return messageRepository.getById(id);
 	}
+	@Override
+	public List<MessageBean> getAllByMessageForumId(Integer messageForumId) {
+		return messageRepository.findAllByMessageForumId(messageForumId);
+	}
 
 }

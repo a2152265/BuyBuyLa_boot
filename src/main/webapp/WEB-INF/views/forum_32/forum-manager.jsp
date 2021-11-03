@@ -193,7 +193,7 @@
 											<table id="example" class="display" style="width: 100%">
 												<thead>
 													<tr>
-														<th>會員編號</th>
+														<th>評論編號</th>
 														<th>會員名稱</th>
 														<th>會員信箱</th>
 														<th>留言內容</th>
@@ -208,16 +208,6 @@
 														<td>a123@gmail.com</td>
 														<td>讚</td>
 														<td>2021-11-02 12:51:32</td>
-														<td>
-															<button class="btn btn-primary">刪除</button>
-														</td>
-													</tr>
-													<tr>
-														<td>13</td>
-														<td>廖總經理</td>
-														<td>b123@gmail.com</td>
-														<td>好餓喔</td>
-														<td>2021-11-02 20:32:01</td>
 														<td>
 															<button class="btn btn-primary">刪除</button>
 														</td>

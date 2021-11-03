@@ -15,16 +15,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.forum_32.model.ForumBean;
+import com.web.forum_32.model.MessageBean;
 import com.web.forum_32.service.IForumService;
+import com.web.forum_32.service.IMessageService;
 
 @Controller
 public class ManagerController {
 
 	IForumService forumService;
+	IMessageService messageService;
 	ServletContext servletContext;
 
 	@Autowired
-	public ManagerController(IForumService forumService, ServletContext servletContext) {
+	public ManagerController(IForumService forumService, IMessageService messageService,ServletContext servletContext) {
+		this.messageService=messageService;
 		this.forumService = forumService;
 		this.servletContext = servletContext;
 	}
@@ -72,6 +76,18 @@ public class ManagerController {
 			BindingResult result) {
 		forumService.addOrEdit(updfb);
 		return "redirect:/manager/forum";
+	}
+	
+	// 查詢所有留言
+	@GetMapping(value ="/manager/findAllMessage")
+	@ResponseBody
+	public List<MessageBean> findAllMessage(@RequestParam("id") Integer messageForumId) {
+		List<MessageBean> messageList = messageService.getAllByMessageForumId(messageForumId);
+		for(int i=0;i<messageList.size();i++) {
+			System.out.println("messageId="+messageList.get(i).getMessageId());
+			System.out.println("messageContent="+messageList.get(i).getMessageContent());
+		}
+		return messageList;
 	}
 
 	/************************** 後臺管理結束 ***************************/
