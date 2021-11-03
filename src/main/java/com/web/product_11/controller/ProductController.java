@@ -75,7 +75,7 @@ public class ProductController {
 
 		List<Product> beans = productservice.getAllProducts();
 		model.addAttribute("products", beans);
-		return "product_11/products";
+		return "index";
 		
 		
 	}

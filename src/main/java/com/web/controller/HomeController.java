@@ -71,7 +71,7 @@ public class HomeController {
 		model.addAttribute("announcementList",announcementList);
 		
 		
-		return "product_11/products";
+		return "index";
 		
 		
 	

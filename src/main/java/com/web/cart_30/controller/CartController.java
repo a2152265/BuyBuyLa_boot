@@ -57,7 +57,7 @@ public class CartController {
 		System.out.println("PID cc= "+id);
 		String buyer=mb.getUserEmail();
 		cartService.addItemByid(id,buyer);
-		return "redirect:/products";
+		return "redirect:/";
 	}
 	
 	
@@ -219,7 +219,7 @@ public class CartController {
 		System.out.println("start**************");
 		cartService.deleteAll(buyer);
 		System.out.println("end**************");
-		 return "redirect:/products";
+		 return "redirect:/";
 	}
 	
 
