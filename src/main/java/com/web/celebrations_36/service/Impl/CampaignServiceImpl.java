@@ -64,7 +64,7 @@ public class CampaignServiceImpl implements CampaignService {
 
 	@Override
 	public void updateCampaignWithoutImg(Integer campaignId, Campaign campaign) {
-		campaignRepository.updateCampaigWithoutImg(campaign.getName(), campaign.getUrl(), campaign.getDescription(), campaign.getDate1(),campaign.getCategory(), campaignId);
+		campaignRepository.updateCampaigWithoutImg(campaign.getName(), campaign.getUrl(), campaign.getDescription(), campaign.getDate1(),campaign.getCategory(),campaign.getNote(), campaignId);
 		
 	}
 

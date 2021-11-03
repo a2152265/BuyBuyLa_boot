@@ -153,7 +153,7 @@
             transform: translateY(-7px);
         }
 		.im{
-		margin-left: 150px;
+		margin-left: 23px;
 		/*border:1px solid lightblue ; */
 		/* margin-left: 100px; */
 		width:100px;
@@ -187,7 +187,7 @@
 	<tbody>
 			
 			<div class="im" style="margin-bottom:100px">
-			<a href="<c:url value='${campaign.url} ' />"  target="_blank">	<img style="border-radius:10px " width='150' height='150' 
+			<a href="<c:url value='${campaign.url} ' />"  target="_blank">	<img style="border-radius:10px "width="400" height="150" 
    					  src="<c:url value='/getCampaignPicture/${campaign.id}'/>" />
    			</a>
 			</div>

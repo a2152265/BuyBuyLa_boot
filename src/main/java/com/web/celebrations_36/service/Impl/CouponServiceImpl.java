@@ -1,5 +1,7 @@
 package com.web.celebrations_36.service.Impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,30 @@ public class CouponServiceImpl implements CouponService {
 	public void save(Coupon coupon) {
 		couponRepository.save(coupon);
 	}
-	
-	
+
+	@Override
+	public List<Coupon> findAll() {
+		return couponRepository.findAll();
+	}
+
+//	@Override
+//	public List<Coupon> getCouponByUseremail(String useremail) {
+//		return couponRepository.getCouponByUseremail(useremail);
+//	}
+
+	@Override
+	public List<Coupon> getCouponstatusByUseremail(String userEmail, String couponStatus) {
+		return couponRepository.getCouponstatusByUseremail(userEmail, couponStatus);
+	}
+
+	@Override
+	public Coupon findByUserEmail(String userEmail) {
+		return couponRepository.findByUserEmail(userEmail);
+	}
+
+	@Override
+	public Coupon getCouponcountByUseremail(String userEmail, Integer count) {
+		return couponRepository.getCouponcountByUseremail(userEmail, count);
+	}
+
 }

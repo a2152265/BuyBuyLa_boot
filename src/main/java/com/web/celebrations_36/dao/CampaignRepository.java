@@ -25,8 +25,8 @@ public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
 	 
 	 @Modifying(clearAutomatically = true)
 	 @Transactional
-     @Query("update Campaign set name=:name,url=:url,description=:description,date1=:date1,category=:category where id = :campaignId")
-	 void updateCampaigWithoutImg(String name,String url,String description,String date1,String category,Integer campaignId);
+     @Query("update Campaign set name=:name,url=:url,description=:description,date1=:date1,category=:category,note=:note where id = :campaignId")
+	 void updateCampaigWithoutImg(String name,String url,String description,String date1,String category,String note,Integer campaignId);
 
 	 @Query("select distinct category from Campaign")
 	 List<String>  getAllCategories();

@@ -13,13 +13,31 @@ public class Coupon {
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer id;
+	private Integer id;
 	@Column(name="userEmail")
-	String userEmail;
+	private String userEmail;
 	@Column(name="couponName")
-	String couponName;
+	private String couponName;
 	@Column(name="couponNumber")
-	String couponNumber;
+	private String couponNumber;
+	
+	@Column(name="couponStatus")
+	private String couponStatus;
+	@Column(name="count")
+	private Integer count;
+	
+	public Integer getCount() {
+		return count;
+	}
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+	public String getCouponStatus() {
+		return couponStatus;
+	}
+	public void setCouponStatus(String couponStatus) {
+		this.couponStatus = couponStatus;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -44,11 +62,23 @@ public class Coupon {
 	public void setCouponNumber(String couponNumber) {
 		this.couponNumber = couponNumber;
 	}
-	public Coupon(String userEmail, String couponName, String couponNumber) {
+	public Coupon(String userEmail, String couponName, String couponNumber,String couponStatus) {
 		super();
 		this.userEmail = userEmail;
 		this.couponName = couponName;
 		this.couponNumber = couponNumber;
+		this.couponStatus=couponStatus;
+	}
+	public Coupon() {
+	}
+	
+	public Coupon(String userEmail, String couponName, String couponNumber, String couponStatus, Integer count) {
+		super();
+		this.userEmail = userEmail;
+		this.couponName = couponName;
+		this.couponNumber = couponNumber;
+		this.couponStatus = couponStatus;
+		this.count = count;
 	}
 	
 	

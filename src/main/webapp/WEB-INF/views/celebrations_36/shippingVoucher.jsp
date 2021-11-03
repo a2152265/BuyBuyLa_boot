@@ -22,23 +22,44 @@
    <style>
  #bg{
  width: 650px;
- height: 600px;
+ height: 450px;
  margin: 0 auto;
  /* background: url(turntable-bg.jpg) no-repeat; */
  position: relative;
+/*  margin-left:80px; */
  }
- img[src^="<c:url value='/images/rotater_04.png' />"]{
- position: absolute;
- z-index: 10;
- top: 155px;
- left: 247px;
+img{
+     position: relative;
+     z-index: 1;
+    border: 0.5px solid gray;
+    border-radius: 10px;
+/*   margin-left:80px; */
  }
- img[src^="<c:url value='/images/rotater_05.png' />"]{
- position: absolute;
- z-index: 5;
- top: 60px;
- left: 116px;
- transition: all 4s;
+ .word{
+      position: absolute;
+     /* border: 3px solid black; */
+     z-index: 50;
+     margin-left: 192px;
+     margin-top: 10px;
+     font-size:48px;
+     font-weight: bolder;
+     color: white;
+ }
+ .btn{
+    position: absolute;
+    z-index: 50;
+    margin-left: 290px;
+/*      margin-top: 120px; */
+     width: 130px;
+     height: 50px;
+     font-weight: bolder;
+     font-size: x-large;
+     border-radius: 10px;
+     background-color:white;
+     color:grey;
+     border:1px solid transparent;
+     
+/*      border:0px solid transparent; */
  }
  
  </style>
@@ -124,11 +145,11 @@
 	<!--================ End Header Menu Area =================-->
 	
 <!-- 	<!-- ================ start banner area ================= -->	
-	<section class="blog-banner-area" id="blog" style="height:250px">
-		<div class="container h-100">
-			<div class="blog-banner">
+	<section class="blog-banner-area" id="blog" style="height:250px" >
+		<div class="container h-100" >
+			<div class="blog-banner" >
 				<div class="text-center" style="margin-top:30px">
-					<h1>好運轉轉轉</h1>
+					<h1>免運券</h1>
 					<nav aria-label="breadcrumb" class="banner-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#"></a></li>
@@ -143,18 +164,21 @@
 
 <!--   <!--================Single Product Area =================--> 
 
-    <div id="bg">
+    <div id="bg" >
 <!--  <img id ="pointer" src="style/rotater_04.png" alt="pointer" width="100" height="100" style="margin-top: 80px;margin-left: 44px;"> -->
 <%--   <p>使用者名稱: ${loginMb.getUserEmail()}</p> --%>
-  
-  <img id ="pointer" src="<c:url value='/images/rotater_04.png' />" alt="pointer" width="100" height="100" style="margin-top: 80px;margin-left: 44px;">
- 
- ${loginSession.userEmail}
-
- <img src="<c:url value='/images/rotater_05.png' />" alt="turntable" width="450" height="450">
- <input type="hidden" id="couponName" name="" >
- <input type="hidden" id="couponNumber" name="" >
-  <input type="hidden" id="email" value="${loginSession.userEmail}" >
+ ${count}
+${loginSession.voucherCount}
+${loginSession.userEmail}
+<%-- 	 <c:if test=""> --%>
+	 <div class="container" style="margin-left:80px;margin-top:30px" >
+<%-- 	 	<c:if test="${loginSession.voucherCount==1}"> --%>
+        <div class="word">運費抵用券</div>
+       <a id="btnurl" href="#" ><button class="btn" id="btn" type="button">領取</button></a> 
+        <img src="<c:url value='/images/shippingVoucher.jpg' />" alt="">
+    		   <input type="hidden" id="email" value="${loginSession.userEmail}" >
+<%--     	</c:if> --%>
+    </div>
  </div>
 
 
@@ -681,291 +705,81 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="../vendors/mail-script.js"></script>
   <script src="../js/main.js"></script>
    <script>
-//  var oPointer=document.getElementsByTagName("img")[0];
- var oTurntable=document.getElementsByTagName("img")[2];
- var cat=60;
- var num=0;
- var offOn=true;
- document.title="";
- 
+   var result=true;
+   $(function(){
+        $("#btn").click(function() {
+      	  if(result){ 
+          $.ajax({
+            type: "GET",
+            url: "<c:url value='/campaigns/login' />",
+         	  data:{},
+         	  
+         	  success:function(data,textStatus,xhr){  	  
+          	console.log(xhr.status);
+           if(xhr.status==200){
+          	 var str1= myrandomstring();
+          	  console.log(str1);
+          	  str2 =$('#email').val();
+          	  console.log(str2);
+  			$.ajax({
+  				type:"GET",
+  				url:"<c:url value='/campaigns/insertCoupon' />",
+  			 	   data:{'couponNumber':str1,'couponName':'運費折價券','userEmail':str2},
+  			 	   success:function(data,textStatus,xhr){  	  
+  			 	//   console.log(xhr.status);
+  			 	   if(xhr.status==200){
+  			 		//  	event.preventDefault();
+  			 		   $('#btn').css("color","white").css("background-color","#f2bdbd");
+  			 		   $('#btn').text('來去逛逛');
+//   			 		   $('#btnurl').attr("href","/BuyBuyla_boot/try/coupon");
+  			 	 	   result=false;
+  			 	 		  }
+  			 	 	   },
+  			 	   error: function(xhr,status) {
+  			 	 	// location.href="<c:url value='/try/login' />";
+  			 	     }     
+  			 	   });
 
-
-
-//  oPointer.onclick=function(){
-//  if(offOn){
-//  oTurntable.style.transform="rotate(0deg)";
-//  ratating();
-//  offOn=!offOn;
-
-//  }
-//  else{
-//     alert("今日以兌換完畢");
-//  }
-//  }
- 
-
- $(function(){
-      $("#pointer").click(function() {
-//     	  location.href="<c:url value='/try/login' />";
-//          if(offOn){
-//          oTurntable.style.transform="rotate(0deg)";
-//          ratating();
-//          offOn=!offOn;
-
-//          }
-//          else{
-//             alert("今日以兌換完畢");
-//          }
-    //   data:{couponNumber:$('#couponNumber'),couponName:$('#couponName')},
-        $.ajax({
-          type: "GET",
-          url: "<c:url value='/campaigns/login' />",
-       	  data:{},
-       	  
-       	  success:function(data,textStatus,xhr){  	  
-        //	console.log(xhr.status);
-         if(xhr.status==200){
-        	 if(offOn){
-              oTurntable.style.transform="rotate(0deg)";
-              ratating();
-              offOn=!offOn;
-              }
-              else{
-                 alert("今日以兌換完畢");
-              }
-       		  }
-  		   },
-          error: function(xhr,status) {
-        	 location.href="<c:url value='/try/login' />";
-            }     
-          });
-        });
-//       $.ajax({
-//           type: "GET",
-//           url: "<c:url value='/campaigns/insertdiscount' />",
-//        	  data:{'couponNumber':$('#couponNumber').val(),'couponName':$('#couponName').val()},
-       	  
-//        	  success:function(data,textStatus,xhr){  	  
-//         	console.log(xhr.status);
-//          if(xhr.status==200){
-//         	 if(offOn){
-//               oTurntable.style.transform="rotate(0deg)";
-//               ratating();
-//               offOn=!offOn;
-//               console.log($('#couponNumber').val());
-//               console.log($('#couponName').val());
-//               }
-//               else{
-//                  alert("今日以兌換完畢");
-//               }
-//        		  }
-//   		   },
-//           error: function(xhr,status) {
-//         	// location.href="<c:url value='/try/login' />";
-//             }     
-//           });
-      
-      });
- 
-
-
- function ratating(){
- var timer=null;
- var rdm=0;
- clearInterval(timer);
- timer=setInterval(function(){
- if(Math.floor(rdm/360)<3){
-  rdm=Math.floor(Math.random()*4600); 
- }else{
-    clearInterval(timer);
-    oTurntable.style.transform="rotate("+rdm+"deg)";
-  setTimeout(function(){
- 
-  num=rdm%360;
-  if(num<=cat*1){ 
-     var str =document.getElementById("couponName").value = "10元BuyBuy幣";
-     console.log(str);
-     str1= myrandomstring();
-     console.log(str1);
-     var str2 =$('#email').val();
-	 
-     
-//   $.ajax({
-//   type: "GET",
-//   url: "<c:url value='/campaigns/insertCoupon' />",
-//   data:{'couponNumber':str1,'couponName':'10元buybuy幣','userEmail':str2},
-//   success:function(data,textStatus,xhr){  	  
-//  // console.log(xhr.status);
-  
-//   if(xhr.status==200){
-// 	alert("10元");
-// 		  }
-// 	   },
-//   error: function(xhr,status) {
-// 	// location.href="<c:url value='/try/login' />";
-//     }     
-//   });
-
-     $.ajax({
-    	  type: "GET",
-    	  url: "<c:url value='/campaigns/insertPoint' />",
-    	  data:{'point':10,'userEmail':str2},
-    	  success:function(data,textStatus,xhr){  	  
-    	 // console.log(xhr.status);
-    	  
-    	  if(xhr.status==200){
-    		alert("10元");
-    			  }
+          	 
+         		  }
     		   },
-    	  error: function(xhr,status) {
-    		// location.href="<c:url value='/try/login' />";
-    	    }     
-    	  });
-  
-}else if(num<=cat*2){
+            error: function(xhr,status) {
+          	 location.href="<c:url value='/try/login' />";
+              }     
+            });
+      	  }else{
+      		  
+//       		   $('#btn').css("color","white").css("background-color","#f2bdbd");
+//   	 		   $('#btn').text('來去逛逛');
+  	 		   $('#btnurl').attr("href","/BuyBuyla_boot/try/coupon");
+      		  
+      	  }
+        
+        
+        });
+  		
+        
+        });
    
-   var str =document.getElementById("couponName").value = "5000元BuyBuy幣";
-   console.log(str);
-   str1= myrandomstring();
-   console.log(str1);
-   var str2 =$('#email').val();
-   
-//    $.ajax({
-// 	   type: "GET",
-// 	   url: "<c:url value='/campaigns/insertCoupon' />",
-// 	   data:{'couponNumber':str1,'couponName':'5000元buybuy幣','userEmail':str2},
-// 	   success:function(data,textStatus,xhr){  	  
-// 	//   console.log(xhr.status);
-// 	   if(xhr.status==200){
-// 	 	alert("5000元");
-// 	 		  }
-// 	 	   },
-// 	   error: function(xhr,status) {
-// 	 	// location.href="<c:url value='/try/login' />";
-// 	     }     
-// 	   });
-   
-   $.ajax({
- 	  type: "GET",
- 	  url: "<c:url value='/campaigns/insertPoint' />",
- 	  data:{'point':5000,'userEmail':str2},
- 	  success:function(data,textStatus,xhr){  	  
- 	 // console.log(xhr.status);
- 	  
- 	  if(xhr.status==200){
- 		alert("5000元");
- 			  }
- 		   },
- 	  error: function(xhr,status) {
- 		// location.href="<c:url value='/try/login' />";
- 	    }     
- 	  });
-   
-  
-}else if(num<=cat*3){
-   var str =document.getElementById("couponName").value = "銘謝惠顧";
-   console.log(str);
-   str1= '';
-   console.log(str1);
-   
-   alert("銘謝惠顧");
-  
-}else if(num<=cat*4){
-  var str =document.getElementById("couponName").value = "600元折價券";
-  console.log(str);
-  str1= myrandomstring();
-  console.log(str1);
-  var str2 =$('#email').val();
- 
-  $.ajax({
-	  type: "GET",
-	  url: "<c:url value='/campaigns/insertPoint' />",
-	  data:{'point':600,'userEmail':str2},
-	  success:function(data,textStatus,xhr){  	  
-	//  console.log(xhr.status);
-	  if(xhr.status==200){
-		alert("600元折價券");
-			  }
-		   },
-	  error: function(xhr,status) {
-		// location.href="<c:url value='/try/login' />";
-	    }     
-	  });
-  
-  }else if(num<=cat*5){
-  
-   var str =document.getElementById("couponName").value = "1元BuyBuy幣";
-   console.log(str);
-   str1= myrandomstring();
-   console.log(str1);
-   var str2 =$('#email').val();
-   
-   $.ajax({
-		  type: "GET",
-		  url: "<c:url value='/campaigns/insertPoint' />",
-		  data:{'point':1,'userEmail':str2},
-		  success:function(data,textStatus,xhr){  	  
-		//  console.log(xhr.status);
-		  if(xhr.status==200){
-			alert("1元BuyBuy幣");
-				  }
-			   },
-		  error: function(xhr,status) {
-			// location.href="<c:url value='/try/login' />";
-		    }     
-		  });
-  
-  
-}else if(num<=cat*6){
-  
-   var str =document.getElementById("couponName").value = "5元BuyBuy幣";
-   console.log(str);
-   str1= myrandomstring();
-   console.log(str1);
-   var str2 =$('#email').val();
-   
-   $.ajax({
-		  type: "GET",
-		  url: "<c:url value='/campaigns/insertPoint' />",
-		  data:{'point':5,'userEmail':str2},
-		  success:function(data,textStatus,xhr){  	  
-		//  console.log(xhr.status);
-		  if(xhr.status==200){
-			alert("5元BuyBuy幣");
-				  }
-			   },
-		  error: function(xhr,status) {
-			// location.href="<c:url value='/try/login' />";
-		    }     
-		  });
- 
-  }
+   	function randomusefloor(min,max) {
+  		return Math.floor(Math.random()*(max-min+1)+min);
+  	}
+  	// 亂數英文字
+  	function makerandomletter(max) {
+  	  var text = "";
+  	  var possible = "abcdefghijklmnopqrstuvwxyz";
 
-  },4000);
- } 
- },30); 
- 
- }
+  	  for (var i = 0; i < max; i++)
+  	    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  	  return text;
+  	}
 
- function randomusefloor(min,max) {
-	return Math.floor(Math.random()*(max-min+1)+min);
-}
-// 亂數英文字
-function makerandomletter(max) {
-  var text = "";
-  var possible = "abcdefghijklmnopqrstuvwxyz";
-
-  for (var i = 0; i < max; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  return text;
-}
-
-// 前兩碼英文小寫,後6碼數字
-function myrandomstring() {
-   
-   var str =document.getElementById("couponNumber").value = makerandomletter(2)+randomusefloor(1,999999);
-   return str;
-}
+  	// 前兩碼英文小寫,後6碼數字
+  	function myrandomstring() {
+  	   
+  	   var str = makerandomletter(2)+randomusefloor(1,999999);
+  	   return str;
+  	}
  </script>
 </body>
 </html>

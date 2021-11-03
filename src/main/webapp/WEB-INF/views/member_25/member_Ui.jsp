@@ -254,7 +254,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='???' />">
+                    <a href="<c:url value='/try/coupon' />">
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">我的折價券</span>
                     </a>

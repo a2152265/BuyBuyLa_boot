@@ -841,7 +841,7 @@ body {
     <th style="width:12%;"><i class="fas fa-portrait"></i>&nbsp活動名稱</th>
     <th style="width:20%;"><i class="fas fa-file-alt"></i>&nbsp活動內容</th>
     <th style="width:15%;"><i class="fas fa-image"></i>&nbsp圖片</th>
-    <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp日期</th>
+    <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp結束日期</th>
     <th style="width:10%;"><i class="far fa-clipboard"></i>&nbsp備註</th>
     <th style="width:10%;"><i class="fas fa-pencil-alt"></i>&nbsp修改</th>
     <th style="width:10%;"><i class="fas fa-trash-alt"></i>&nbsp刪除</th>
@@ -855,7 +855,7 @@ body {
     <td>${campaign.description}</td>
     <td>
     <a href="<c:url value='${campaign.url} ' />"  target="_blank">
-    <img style="padding:10px" width='100' height='100' 
+    <img style="padding:10px" width='230' height='120' 
                 		src="<c:url value='/getCampaignPicture/${campaign.id}' />" />
      </a>
     </td>
