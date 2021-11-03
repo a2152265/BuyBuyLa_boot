@@ -126,7 +126,7 @@
 </style>
 </head>
 <body>
-  <!--================ Start Header Menu Area =================-->
+  <!--================ 首頁標題 start =================-->
 	<header class="header_area">
     <div class="main_menu">
       <nav class="navbar navbar-expand-lg navbar-light">
@@ -152,10 +152,9 @@
                <c:if test="${loginSession.userEmail != null}">
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/member/evolution' />">賣家專區</a></li>
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
-<!--                   <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li> -->
                 </c:if>
                 </ul>
-							</li>
+			  </li>
               <li class="nav-item submenu dropdown">
                 <a href="<c:url value='/forum' />" class="nav-link dropdown-toggle"  role="button" aria-haspopup="true"
                   aria-expanded="false">討論區</a>
@@ -163,47 +162,34 @@
 							<li class="nav-item submenu dropdown">
                 <a href="<c:url value='/campaigns' />" class="nav-link dropdown-toggle" role="button" aria-haspopup="true"
                   aria-expanded="false">活動專區</a>
-<!--                 <ul class="dropdown-menu"> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="tracking-order.html">Tracking</a></li> -->
-<!--                 </ul> -->
               </li>
               <c:if test="${loginSession.userEmail != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
 						${loginSession.userEmail}</a></li>
-				</c:if>
+			  </c:if>
             </ul>
-
             <ul class="nav-shop">
-           <li class="nav-item" ><form:form method='POST' action="./queryproduct"
-						class='form-horizontal'>
-				
-							<input name="productName" id="productName" type='text'
-								class='form:input-large'/>
-							<button type='submit' ><i class="ti-search" ></i></button>
-<!-- 							<input id="btnAdd" type='submit' -->
-<!-- 								class='btn btn-primary' /> -->
-				
+           <li class="nav-item" >
+           
+               <!---------------- 首頁查詢商品框 ---------------->
+           		<form:form method='POST' action="./queryproduct" class='form-horizontal'>
+					<input name="productName" id="productName" type='text' class='form:input-large'/>
+					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
-              
-            
-              
-              <!-- 購物車顯示數量在這裡改 -->
-              
+
+              <!---------------- 購物車 ---------------->
               <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
-<!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
             </ul>
           </div>
         </div>
       </nav>
     </div>
   </header>
-	<!--================ End Header Menu Area =================-->
+	<!--================ End 首頁標題 =================-->
 
   <main class="site-main">
     
-    <!--================ Hero banner start =================-->
+    <!--================  start =================-->
     <section class="hero-banner">
       <div class="container">
         <div class="row no-gutters align-items-center pt-60px">
@@ -217,15 +203,14 @@
               <h4>Shop is fun</h4>
               <h1>BuyBuyLa</h1>
               <p></p>
-<!--               <a class="button button-hero" href="#">Browse Now</a> -->
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!--================ Hero banner start =================-->
+    <!--================ End =================-->
 
-    <!--================ Hero Carousel start =================-->
+    <!--================ 顯示類別產品 start =================-->
     <section class="section-margin mt-0">
       <div class="owl-carousel owl-theme hero-carousel">
       <c:forEach var='category' items='${categoryList}'>
@@ -237,25 +222,12 @@
           </a>
         </div>
         </c:forEach>
-<!--         <div class="hero-carousel__slide"> -->
-<!--           <img src="img/home/hero-slide2.png" alt="" class="img-fluid"> -->
-<!--           <a href="#" class="hero-carousel__slideOverlay"> -->
-<!--             <h3>Wireless Headphone</h3> -->
-<!--             <p>Accessories Item</p> -->
-<!--           </a> -->
-<!--         </div> -->
-<!--         <div class="hero-carousel__slide"> -->
-<!--           <img src="img/home/hero-slide3.png" alt="" class="img-fluid"> -->
-<!--           <a href="#" class="hero-carousel__slideOverlay"> -->
-<!--             <h3>Wireless Headphone</h3> -->
-<!--             <p>Accessories Item</p> -->
-<!--           </a> -->
-<!--         </div> -->
       </div>
     </section>
-    <!--================ Hero Carousel end =================-->
+    <!--================ 顯示類別產品 end =================-->
 
-    <!-- ================ trending product section start ================= -->  
+    <!-- ================ start 最新商品 ================= -->  
+    
     <section class="section-margin calc-60px">
       <div class="container">
         <div class="section-intro pb-60px">
@@ -270,30 +242,27 @@
             <div class="card text-center card-product">
               <div class="card-product__img">
                 <img  width="243.61" height="255" class="card-img" src="<c:url value='/getPicture/${product.productId}' />" alt="">
+                  <input type='hidden' class='pid' name='address' value='${product.productId}'/>
                 <ul class="card-product__imgOverlay">
                   <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
-                 
-
-                  <input type='hidden' class='pid' name='address' value='${product.productId}'/>
-                 
                   <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>
-                                
-       
-
-<%--                   <li><button onclick="location.href='<c:url value='/additem' />?id=${product.productId}'"><i class="ti-shopping-cart"></i></button></li> --%>
-           
                   <li><button><i class="ti-heart"></i></button></li>
+                  
                 </ul>
               </div>
               <div class="card-body">
                 <p>${product.category}</p>
-                <h4 class="card-product__title"><a style="overflow:hidden;
+                <h4 class="card-product__title">
+                <a  href="<c:url value='/product?id=${product.productId}' />"
+                	style="overflow:hidden;
 					white-space: nowrap;
 					text-overflow: ellipsis;
 					display: -webkit-box;
 					-webkit-line-clamp: 2;
 					-webkit-box-orient: vertical;
-					white-space: normal;" href="single-product.html">${product.productName}</a></h4>
+					white-space: normal;">${product.productName}
+				</a>
+				</h4>
                 <p class="card-product__price">${product.price}</p>
               </div>
             </div>
@@ -302,7 +271,7 @@
         </div>
       </div>
     </section>
-    <!-- ================ trending product section end ================= -->  
+    <!-- ================ 最新商品 end ================= -->  
 
 
     <!-- ================ offer section start ================= --> 
@@ -322,7 +291,7 @@
 <!--     </section> -->
     <!-- ================ offer section end ================= --> 
 
-    <!-- ================ Best Selling item  carousel ================= --> 
+    <!-- ================ 熱銷產品 start ================= --> 
     <section class="section-margin calc-60px">
       <div class="container">
         <div class="section-intro pb-60px">
@@ -335,24 +304,18 @@
           <div class="card text-center card-product">
             <div  class="card-product__img">
               <img width="243.61" height="255" class="img-fluid" src="<c:url value='/getPicture/${product.productId}' />" alt="">
-              <ul class="card-product__imgOverlay">
-                                <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
-                 
-
                   <input type='hidden' class='pid' name='address' value='${product.productId}'/>
-                 
+              <ul class="card-product__imgOverlay">
+                  <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>  
                   <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>
-                                
-       
-
-<%--                   <li><button onclick="location.href='<c:url value='/additem' />?id=${product.productId}'"><i class="ti-shopping-cart"></i></button></li> --%>
-           
                   <li><button><i class="ti-heart"></i></button></li>
               </ul>
             </div>
             <div class="card-body">
               <p>${product.category}</p>
-              <h4 class="card-product__title"><a style="overflow:hidden;
+              <h4 	class="card-product__title">
+              <a 	href="<c:url value='/product?id=${product.productId}' />"
+              		style="overflow:hidden;
 					white-space: nowrap;
 					text-overflow: ellipsis;
 					display: -webkit-box;
@@ -366,9 +329,9 @@
         </div>
       </div>
     </section>
-    <!-- ================ Best Selling item  carousel end ================= --> 
+    <!-- ================ 熱銷產品 end ================= --> 
 
-    <!-- ================ Blog section start ================= -->  
+    <!-- ================ 討論區 start ================= -->  
     <section class="blog">
       <div class="container">
         <div class="section-intro pb-60px">
@@ -399,7 +362,7 @@
         </div>
       </div>
     </section>
-    <!-- ================ Blog section end ================= -->  
+    <!-- ================ 討論區 end ================= -->  
 
     <!-- ================ Subscribe section start ================= --> 
 <!--     <section class="subscribe-position"> -->

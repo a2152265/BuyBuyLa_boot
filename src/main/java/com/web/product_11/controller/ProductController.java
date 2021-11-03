@@ -38,6 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.web.cart_30.service.CartService;
 import com.web.member_25.model.membershipInformationBean;
+import com.web.member_25.service.MemberService;
 import com.web.product_11.model.Product;
 import com.web.product_11.model.ProductComment;
 import com.web.product_11.service.ProductCommentService;
@@ -49,14 +50,17 @@ public class ProductController {
 
 	ProductService productservice;
 	ProductCommentService productCommentService;
+	MemberService memberService;
 	ServletContext servletContext;
 	CartService cartService;
 
 	@Autowired
 	public ProductController(ProductService productservice, ProductCommentService productCommentService,
-			ServletContext servletContext, CartService cartService) {
+			MemberService memberService, ServletContext servletContext, CartService cartService) {
+		super();
 		this.productservice = productservice;
 		this.productCommentService = productCommentService;
+		this.memberService = memberService;
 		this.servletContext = servletContext;
 		this.cartService = cartService;
 	}
@@ -64,7 +68,6 @@ public class ProductController {
 	public ProductController() {
 	}
 
-	
 
 	//顯示所有商品
 	@GetMapping("/products")
@@ -124,9 +127,16 @@ public class ProductController {
 		public String getProductById(
 			@RequestParam("id") Integer id, // 查詢字串
 			 Model model) {
-			model.addAttribute("product", productservice.getProductById(id));
+			Product product = productservice.getProductById(id);
 			
+
+			 membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
+			
+			model.addAttribute("product", product);
 			model.addAttribute("productComment",productCommentService.findByProductId(id));
+			model.addAttribute("memberUiDefault",mBean);
+			
+			
 			
 			return "product_11/product";
 		}
@@ -389,9 +399,9 @@ public class ProductController {
 		
 	//刪除表單		
 		@GetMapping("/delete/{productId}")
-		public String getDeleteProductForm(Model model) {
+		public String getDeleteProductForm(Model model,@PathVariable("productId") String productId ) {
 			
-			
+			productservice.deleteProduct(Integer.parseInt(productId));
 			return "redirect:/products/seller";
 		}
 		

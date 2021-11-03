@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ 	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
@@ -175,10 +175,10 @@
 				<li class="nav-item">
 					<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-					 aria-selected="false">Specification</a>
-				</li>
+<!-- 				<li class="nav-item"> -->
+<!-- 					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" -->
+<!-- 					 aria-selected="false">Specification</a> -->
+<!-- 				</li> -->
 				<li class="nav-item">
 					<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
 					 aria-selected="false">Comments</a>
@@ -194,76 +194,76 @@
 					<p></p>
 				</div>
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-					<div class="table-responsive">
-						<table class="table">
-							<tbody>
-								<tr>
-									<td>
-										<h5>Width</h5>
-									</td>
-									<td>
-										<h5>128mm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Height</h5>
-									</td>
-									<td>
-										<h5>508mm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Depth</h5>
-									</td>
-									<td>
-										<h5>85mm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Weight</h5>
-									</td>
-									<td>
-										<h5>52gm</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Quality checking</h5>
-									</td>
-									<td>
-										<h5>yes</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Freshness Duration</h5>
-									</td>
-									<td>
-										<h5>03days</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>When packeting</h5>
-									</td>
-									<td>
-										<h5>Without touch of hand</h5>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<h5>Each Box contains</h5>
-									</td>
-									<td>
-										<h5>60pcs</h5>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+<!-- 					<div class="table-responsive"> -->
+<!-- 						<table class="table"> -->
+<!-- 							<tbody> -->
+<!-- 								<tr> -->
+<!-- 									<td> -->
+<!-- 										<h5></h5> -->
+<!-- 									</td> -->
+<!-- 									<td> -->
+<!-- 										<h5></h5> -->
+<!-- 									</td> -->
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td> -->
+<!-- 										<h5>Height</h5> -->
+<!-- 									</td> -->
+<!-- 									<td> -->
+<!-- 										<h5>508mm</h5> -->
+<!-- 									</td> -->
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td> -->
+<!-- 										<h5>Depth</h5> -->
+<!-- 									</td> -->
+<!-- 									<td> -->
+<!-- 										<h5>85mm</h5> -->
+<!-- 									</td> -->
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td> -->
+<!-- 										<h5>Weight</h5> -->
+<!-- 									</td> -->
+<!-- 									<td> -->
+<!-- 										<h5>52gm</h5> -->
+<!-- 									</td> -->
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td> -->
+<!-- 										<h5>Quality checking</h5> -->
+<!-- 									</td> -->
+<!-- 									<td> -->
+<!-- 										<h5>yes</h5> -->
+<!-- 									</td> -->
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td> -->
+<!-- 										<h5>Freshness Duration</h5> -->
+<!-- 									</td> -->
+<!-- 									<td> -->
+<!-- 										<h5>03days</h5> -->
+<!-- 									</td> -->
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td> -->
+<!-- 										<h5>When packeting</h5> -->
+<!-- 									</td> -->
+<!-- 									<td> -->
+<!-- 										<h5>Without touch of hand</h5> -->
+<!-- 									</td> -->
+<!-- 								</tr> -->
+<!-- 								<tr> -->
+<!-- 									<td> -->
+<!-- 										<h5>Each Box contains</h5> -->
+<!-- 									</td> -->
+<!-- 									<td> -->
+<!-- 										<h5>60pcs</h5> -->
+<!-- 									</td> -->
+<!-- 								</tr> -->
+<!-- 							</tbody> -->
+<!-- 						</table> -->
+<!-- 					</div> -->
 				</div>
 				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 					<div class="row">
@@ -275,77 +275,18 @@
 											<img src="img/product/review-1.png" alt="">
 										</div>
 										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
+											<h4>${memberUiDefault.userEmail}</h4>
+											<h5>${memberUiDefault.userName}</h5>
+											<a class="reply_btn" href="#">查看賣場</a>
 										</div>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
+									<p></p>
 								</div>
-								<div class="review_item reply">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-2.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="img/product/review-3.png" alt="">
-										</div>
-										<div class="media-body">
-											<h4>Blake Ruiz</h4>
-											<h5>12th Feb, 2018 at 05:56 pm</h5>
-											<a class="reply_btn" href="#">Reply</a>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-										commodo</p>
-								</div>
+								
+								
 							</div>
 						</div>
-						<div class="col-lg-6">
-							<div class="review_box">
-								<h4>Post a comment</h4>
-								<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="name" name="name" placeholder="Your Full name">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<input type="text" class="form-control" id="number" name="number" placeholder="Phone Number">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<textarea class="form-control" name="message" id="message" rows="1" placeholder="Message"></textarea>
-										</div>
-									</div>
-									<div class="col-md-12 text-right">
-										<button type="submit" value="submit" class="btn primary-btn">Submit Now</button>
-									</div>
-								</form>
-							</div>
-						</div>
+			
 					</div>
 				</div>
 				<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
@@ -414,6 +355,7 @@
 									<li><a href="#"><i class="fa fa-star"></i></a></li>
 								</ul>
 								<p>Outstanding</p>
+			<c:if test="${loginSession.userEmail != null}">
                 <form class="form-contact form-review mt-3">
                   <div class="form-group">
                     <input class="form-control" id="userEmail" name="userEmail" type="text" value="${loginSession.userEmail}"   readonly>
@@ -431,6 +373,19 @@
                     <button id="comment" type="button" class="button button--active button-review">Submit Now</button>
                   </div>
                 </form>
+             </c:if>
+             <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+                <form class="form-contact form-review mt-3">
+                  <div class="form-group">
+                    <input class="form-control" id="userEmail" name="userEmail" type="text" value="訪客"   readonly>
+                  </div>
+                  <div class="form-group">
+                    <textarea id="content" class="form-control different-control w-100" name="content" id="textarea" cols="30" rows="5" placeholder="請先登入後方能進行留言"></textarea>
+                  </div>
+                  <div class="form-group text-center text-md-right mt-3">
+                  </div>
+                </form>
+             </c:if>
 							</div>
 						</div>
 					</div>
