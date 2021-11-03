@@ -22,7 +22,7 @@ public class Cart {
 	private Integer count;
 	private String buyer;
 	private String seller;
-
+	private String category;
 	private Blob coverImage;
 	
 	
@@ -36,18 +36,38 @@ public class Cart {
 
 
 
-
-	public Cart(Integer pid, String p_name, Double p_price, Integer count, String buyer, String seller,
+	public Cart(Integer pid, String p_name, Double p_price, Integer count, String buyer, String seller, String category,
 			Blob coverImage) {
-
+		
 		this.pid = pid;
 		this.p_name = p_name;
 		this.p_price = p_price;
 		this.count = count;
 		this.buyer = buyer;
 		this.seller = seller;
+		this.category = category;
 		this.coverImage = coverImage;
 	}
+
+
+
+
+	public Cart(Integer cid, Integer pid, String p_name, Double p_price, Integer count, String buyer, String seller,
+			String category, Blob coverImage) {
+		this.cid = cid;
+		this.pid = pid;
+		this.p_name = p_name;
+		this.p_price = p_price;
+		this.count = count;
+		this.buyer = buyer;
+		this.seller = seller;
+		this.category = category;
+		this.coverImage = coverImage;
+	}
+
+
+
+
 
 
 
@@ -107,6 +127,30 @@ public class Cart {
 	public void setPid(Integer pid) {
 		this.pid = pid;
 	}
+
+
+
+
+
+	public String getCategory() {
+		return category;
+	}
+
+
+
+
+
+
+
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+
+
+
 
 
 

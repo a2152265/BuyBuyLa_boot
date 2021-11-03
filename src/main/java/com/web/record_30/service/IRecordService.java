@@ -30,5 +30,6 @@ public interface IRecordService {
 	
 	void updateRecordList(RecordList recordList);
 	
+	Double findFemaleRecord();
 	
 }

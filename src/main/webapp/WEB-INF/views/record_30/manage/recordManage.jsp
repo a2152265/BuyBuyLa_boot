@@ -177,7 +177,7 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-8"><h2><b>訂單管理</b></h2></div>
-						
+						<a href="recordanalyze">訂單數據</a>
 					</div>
 				</div>
     

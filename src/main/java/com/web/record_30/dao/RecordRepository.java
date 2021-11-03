@@ -34,7 +34,7 @@ public interface RecordRepository extends JpaRepository<RecordBean, Integer> {
 	public void update(String ts,Integer record_id, Integer PID);
 	
 	@Modifying
-    @Query(nativeQuery = true,value="insert into Record (record_id,pid,p_name,p_price,pcount,buyer,seller,buy_time,transport_status,buyeraddress)"
+    @Query(nativeQuery = true,value="insert into Record (record_id,pid,p_name,p_price,pcount,buyer,seller,buy_time,transport_status,category,buyeraddress)"
     		+ "values("
     		+ ":record_id,"
     		+ ":pid,"
@@ -45,6 +45,7 @@ public interface RecordRepository extends JpaRepository<RecordBean, Integer> {
     		+ ":seller,"
     		+ ":buy_time,"
     		+ ":transport_status,"
+    		+ ":category,"
     		+ ":buyeraddress)")
 	 void insert(
 			@Param("record_id") Integer record_id,
@@ -56,9 +57,11 @@ public interface RecordRepository extends JpaRepository<RecordBean, Integer> {
 			@Param("seller") String seller,
 			@Param("buy_time") String buy_time,
 			@Param("transport_status")String transport_status,
+			@Param("category")String category,
 	 		@Param("buyeraddress")String buyeraddress);
 	
-	
+//	@Query(nativeQuery = true, value = "select * from Record where category='女生衣服'")
+//    public List<RecordBean> findFemaleRecord();
 	
 
 	

@@ -208,6 +208,12 @@ public class RecordController {
 		return "record_30/manage/deleteRecordSuccess";
 	}
 
+	@GetMapping("/recordanalyze")
+	public String recordanalyze(Model model) {
+		Double female = recordservice.findFemaleRecord();
+		
+			return "record_30/manage/recordAnalyze";
+	}
 	
 
 }

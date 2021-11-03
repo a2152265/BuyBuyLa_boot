@@ -1,6 +1,7 @@
 package com.web.cart_30.service.impl;
 
 
+import java.sql.Blob;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,19 +75,20 @@ public class CartServiceImpl implements CartService {
 		}else {
 			System.out.println("///////////////////////////");
 			System.out.println(carta);
-			Cart cart = new Cart(
+			Cart cart = new Cart(	
 					product.get().getProductId(),
 					product.get().getProductName(),
 					product.get().getPrice(),
 					1,
 					buyer,
 					product.get().getSerller(),
+					product.get().getCategory(),
 					product.get().getCoverImage());
 			cartRepository.save(cart);
 		}
 		
-	
 
+	
 	}
 
 
@@ -150,6 +152,7 @@ public class CartServiceImpl implements CartService {
 				rb.getSeller(),
 				rb.getBuy_time(),
 				rb.getTransport_status(),
+				rb.getCategory(),
 				rb.getBuyeraddress());
 
 	}

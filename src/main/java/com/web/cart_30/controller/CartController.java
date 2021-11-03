@@ -172,6 +172,7 @@ public class CartController {
 			rb.setSeller(c.getSeller());
 			rb.setBuy_time(now);
 			rb.setTransport_status("待出貨");
+			rb.setCategory(c.getCategory());
 			rb.setBuyeraddress(address);
 			System.out.println("****************************************************");
 			System.out.println("***"+rb.getId()+"RID = "+rb.getRecord_id()+", PID = "+rb.getPid()+", NAME = "
