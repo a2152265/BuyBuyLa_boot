@@ -136,8 +136,8 @@
 
   <script>
 	let no = 1000;
-let index = 0;
-var names= ["a2152265@gmail.com", 'manager04@gmail.com', 'z1718221@gmail.com', 'xzc8951273@gmail.com'];
+let index = 0,index2=0;
+var names= ["a2152265@gmail.com", 'z1718221@gmail.com', 'xzc8951273@gmail.com'];
 function quickInput(){
 	document.getElementById('name').value = names[index];
 	document.getElementById('pwd').value = names[index];
@@ -145,6 +145,18 @@ function quickInput(){
 	index++;
 	if (index >= names.length) {
 		index = 0 ;
+	}
+	
+}
+
+var names2= ["manager9527@gmail.com", 'manager04@gmail.com', 'manager07@gmail.com'];
+function quickInput2(){
+	document.getElementById('name').value = names2[index2];
+	document.getElementById('pwd').value = names2[index2];
+   
+	index2++;
+	if (index2 >= names2.length) {
+		index2 = 0 ;
 	}
 	
 }
@@ -269,8 +281,8 @@ function quickInput(){
 							</div>
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="button button-login w-100">登入</button>
-								<input id="onejan" type="button" value="一键输入用户名"  onclick='quickInput();' >  <br>
-			
+								<input id="onejan" type="button" value="一键输入用户名"  onclick='quickInput();' > 
+									<input id="onejan2" type="button" value="一键输入管理者"  onclick='quickInput2();' >  <br>
 								<a href="<c:url value='/member/forget' />">忘記密碼?</a>
 							</div>
 						</form:form>
