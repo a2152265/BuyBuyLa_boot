@@ -40,6 +40,7 @@ public class ForumController {
 		pageInit(model);
 		allArticles(model,0);
 		tagSize(model);
+		model.addAttribute("Breadcrumb","所有討論");
 		return "forum_32/forum";
 	}
 	public void allArticles(Model model,Integer pages) {
@@ -74,6 +75,7 @@ public class ForumController {
 		allArticles(model,page-1);
 		tagSize(model);
 		model.addAttribute("page",page);
+		model.addAttribute("Breadcrumb","所有討論");
 		return "forum_32/forum";
 	}
 
@@ -87,6 +89,8 @@ public class ForumController {
 			model.addAttribute("getAll", forumService.getAllByTag("官方最新公告"));
 			model.addAttribute("Articles", announcementList);
 			model.addAttribute("addForumBean", new ForumBean());
+			model.addAttribute("Breadcrumb","官方最新公告");
+			model.addAttribute("getAllOrderByIdDesc", forumService.getAllOrderByIdDesc());
 		} else {
 			allArticles(model,0);
 		}
@@ -103,6 +107,8 @@ public class ForumController {
 			model.addAttribute("getAll", forumService.getAllByTag("社團精選話題"));
 			model.addAttribute("Articles", announcementList);
 			model.addAttribute("addForumBean", new ForumBean());
+			model.addAttribute("Breadcrumb","社團精選話題");
+			model.addAttribute("getAllOrderByIdDesc", forumService.getAllOrderByIdDesc());
 		} else {
 			model.addAttribute("tagFeatured", forumService.getAllByTag("社團精選話題"));
 			model.addAttribute("addForumBean", new ForumBean());
@@ -121,6 +127,8 @@ public class ForumController {
 			model.addAttribute("getAll", forumService.getAllByTag("新手賣家發問"));
 			model.addAttribute("Articles", announcementList);
 			model.addAttribute("addForumBean", new ForumBean());
+			model.addAttribute("getAllOrderByIdDesc", forumService.getAllOrderByIdDesc());
+			model.addAttribute("Breadcrumb","新手賣家發問");
 		} else {
 			allArticles(model,0);
 		}
@@ -137,6 +145,8 @@ public class ForumController {
 			model.addAttribute("getAll", forumService.getAllByTag("賣家閒聊討論"));
 			model.addAttribute("Articles", announcementList);
 			model.addAttribute("addForumBean", new ForumBean());
+			model.addAttribute("Breadcrumb","賣家閒聊討論");
+			model.addAttribute("getAllOrderByIdDesc", forumService.getAllOrderByIdDesc());
 		} else {
 			allArticles(model,0);
 		}

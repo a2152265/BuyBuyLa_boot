@@ -37,7 +37,7 @@ public class DetailsController {
 	// Detailed
 	@GetMapping("/detailed")
 	public String detailedView(Model model, @RequestParam(value = "id", required = false) Integer id) {
-
+		
 		List<ForumBean> articlesList = forumService.getAll();
 		for (int i = 0; i < articlesList.size(); i++) {
 			if (id == articlesList.get(i).getId()) {
@@ -58,6 +58,7 @@ public class DetailsController {
 				}
 			}
 		}
+		
 
 		model.addAttribute("forumContent", forumService.getContentById(id));
 		model.addAttribute("getAll", forumService.getAll());
@@ -68,6 +69,14 @@ public class DetailsController {
 		model.addAttribute("messageSize", messageService.getAllMessage(id).size());
 		model.addAttribute("msgSize", messageService.getAllMessage(id));
 		tagSize(model);
+		
+		
+		ForumBean viewAdd = forumService.getContentById(id);
+		System.out.println("before="+viewAdd.getViewQty());
+		Integer beforeViewQty =  viewAdd.getViewQty();
+		viewAdd.setViewQty(beforeViewQty+1);
+		System.out.println("after="+viewAdd.getViewQty());
+		forumService.addOrEdit(viewAdd);
 
 		return "forum_32/forum-detailed";
 	}

@@ -45,7 +45,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
 					<a class="navbar-brand logo_h" href="<c:url value='/' />"><img
-						src="img/logo.png" alt=""></a>
+						src="" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -197,11 +197,6 @@
 			<div class="row">
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
-						<div class="col-lg-12">
-							<div class="feature-img">
-								<img class="img-fluid" src="img/blog/feature-img1.jpg" alt="">
-							</div>
-						</div>
 
 						<div class="col-lg-9 col-md-9 blog_details">
 							<div>
@@ -239,7 +234,7 @@
 								<div class="detials">
 									<p>上一篇</p>
 									<a href="<c:url value="/detailed" />?id=${previous.id}">
-										<h4 class="previousFail">${previous.title}${previousFail}</h4>
+										<h4 class="previousFail" style="font-size:14px">${previous.title}${previousFail}</h4>
 									</a>
 								</div>
 							</div>
@@ -248,7 +243,7 @@
 								<div class="detials">
 									<p>下一篇</p>
 									<a href="<c:url value="/detailed" />?id=${after.id}">
-										<h4 class="afterFail">${after.title}${afterFail}</h4>
+										<h4 class="afterFail" style="font-size:14px">${after.title}${afterFail}</h4>
 									</a>
 								</div>
 								<div class="arrow">
@@ -340,14 +335,14 @@
 					第<label class="pages"></label>頁
 				</div>
 				<div class="comment-form" id="reply">
-					<h4>發表評論</h4>
+					<h4 class="newMessageH4">發表評論</h4>
 					<form id="addMsgForm" enctype="multipart/form-data">
 						<input type="hidden" name="messageForumId" value="${forumId}">
 						<input type="hidden" name="messagePicId"
 							value="${memberUiDefault.id}"> <input type="hidden"
 							name="messageDate" id="messageDate"> <input type="hidden"
 							name="messageIdentification">
-						<div class="form-group form-inline">
+						<div class="form-group form-inline messageContentBlock">
 							<div class="form-group col-lg-6 col-md-6 name">
 								<input type="text" name="messageUserName" class="form-control"
 									value="${memberUiDefault.userName}" placeholder="Guest"
@@ -359,7 +354,7 @@
 									value="${memberUiDefault.userEmail}">
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group messageContentBlock">
 							<textarea rows="5" name="messageContent"
 								class="form-control mb-10 messageContent" placeholder="留言"></textarea>
 						</div>
@@ -583,7 +578,7 @@
 	<script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
 	<script src="vendors/skrollr.min.js"></script>
 	<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-	<!-- 	<script src="vendors/nice-select/jquery.nice-select.min.js"></script> -->
+		<script src="vendors/nice-select/jquery.nice-select.min.js"></script>
 	<script src="vendors/jquery.ajaxchimp.min.js"></script>
 	<script src="vendors/mail-script.js"></script>
 	<script src="js/main.js"></script>

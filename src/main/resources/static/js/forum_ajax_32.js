@@ -23,7 +23,7 @@ $(document).ready(function() {
 					let updFormatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
 					return updFormatted_date;
 				}
-				$('#nowUpdDate').val('最後修改'+updFormatDate(date));
+				$('#nowUpdDate').val('最後修改 '+updFormatDate(date));
 			}
 		})
 	});

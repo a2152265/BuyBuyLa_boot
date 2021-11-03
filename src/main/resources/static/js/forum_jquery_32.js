@@ -28,18 +28,25 @@ $(function() {
 	var forumUsername = $('.Username').html();
 	if(loginUser!=forumUsername){
 		 $(".editIMG").css("visibility","hidden");
-		 console.log("loginUser="+loginUser+" forumUsername="+forumUsername+" css="+"hidden")
+//		 console.log("loginUser="+loginUser+" forumUsername="+forumUsername+" css="+"hidden")
 	}else{
 		$(".editIMG").css("visibility","visible");
-		console.log("loginUser="+loginUser+" forumUsername="+forumUsername+" css="+"visible")
+//		console.log("loginUser="+loginUser+" forumUsername="+forumUsername+" css="+"visible")
 	}
 	
 	if($('.loginsession').html()==null){
+		$('.addNewForum').css('display','none')
 		$('.newFoRuM').attr("disabled","disabled");
 		$('.newFoRuM').css("background","gray");
-		$('.messageBtn').attr("disabled","disabled");
-		$('.messageBtn').css({"background":"gray"});
+		$('.messageContentBlock').css('display','none');
+		$('.messageBtn').html('登入後進行評論');
+//		$('.messageBtn').css({"background":"gray"});
 		$('.messageContent').attr("disabled","disabled");
+		$('.newMessageH4').css('display','none');
+		$('.messageBtn').click(function(){
+			alert('123')
+		})
 	}
+	
 
 })

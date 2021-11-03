@@ -75,11 +75,33 @@
 					</a>
 				</div>
 			</div>
-			<div class="container">
-				<div>
-					<button type="button" class="btn btn-primary"
-						data-bs-toggle="modal" data-bs-target="#ManagerModal">發起公告</button>
-					<div class="modal fade" id="ManagerModal" tabindex="-1"
+			<div class="container" style="margin:0px">
+			</div>
+			<button type="button" style="margin-left:200px" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ManagerModal">發起公告</button>
+			<table id="example" class="display" style="width: 100%">
+				<thead>
+					<tr>
+						<th>編號</th>
+						<th>發表人</th>
+						<th>標籤</th>
+						<th>標題</th>
+						<th>時間</th>
+						<th>管理</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="content" items="${content}">
+						<tr>
+							<td><c:out value="${content.id}" /></td>
+							<td><c:out value="${content.userName}" /></td>
+							<td><c:out value="${content.tag}" /></td>
+							<td><a href="<c:url value='/detailed' />?id=${content.id}"><c:out
+										value="${content.title}" /></a></td>
+							<td><c:out value="${content.date}" /></td>
+							<td>
+							
+								
+									<div class="modal fade" id="ManagerModal" tabindex="-1"
 						aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog modal-lg" style="margin-top: 90px">
 							<form:form method='POST'
@@ -148,43 +170,15 @@
 							</form:form>
 						</div>
 					</div>
-				</div>
-			</div>
-			<table id="example" class="display" style="width: 100%">
-				<thead>
-					<tr>
-						<th>編號</th>
-						<th>會員名稱</th>
-						<th>標籤</th>
-						<th>標題</th>
-						<th>時間</th>
-						<th>管理</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="content" items="${content}">
-						<tr>
-							<td><c:out value="${content.id}" /></td>
-							<td><c:out value="${content.userName}" /></td>
-							<td><c:out value="${content.tag}" /></td>
-							<td><a href="<c:url value='/detailed' />?id=${content.id}"><c:out
-										value="${content.title}" /></a></td>
-							<td><c:out value="${content.date}" /></td>
-							<td>
-							
-								<!-- 留言管理 -->
-								
-								<button class="btn btn-primary managerCrudBtn" data-bs-toggle="modal"
-									data-bs-target="#managerMessage">留言管理</button> 
 									
 								<!-- Modal -->
 								
 								<div class="modal fade" id="managerMessage" tabindex="-1"
 									aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-xl">
+									<div class="modal-dialog modal-lg">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel" style="margin-left:450px">莫名其妙被給了一顆星</h5>
+												<h5 class="modal-title managerMessageTitle" id="exampleModalLabel"></h5>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
@@ -201,19 +195,7 @@
 														<th>管理</th>
 													</tr>
 												</thead>
-												<tbody id = "messageResult">
-													<tr>
-														<td>5</td>
-														<td>愛刺人的蝦丸子</td>
-														<td>a123@gmail.com</td>
-														<td>讚</td>
-														<td>2021-11-02 12:51:32</td>
-														<td>
-															<button class="btn btn-primary">刪除</button>
-														</td>
-													</tr>
-													
-												</tbody>
+												<tbody id = "messageResult"></tbody>
 											</table>
 											
 											
@@ -311,6 +293,9 @@
 								</div>
 								<button type="button" class="btn btn-primary"
 									onclick="if(window.confirm('確定刪除?')) location.href='<c:url value='/manager/delete32?id=${content.id}'/>' ">刪除</button>
+								<button class="btn btn-primary managerCrudBtn" data-bs-toggle="modal"
+									data-bs-target="#managerMessage">評論管理</button> 
+							
 							</td>
 						</tr>
 					</c:forEach>
@@ -325,7 +310,7 @@
 				<p>Designer</p>
 			</div>
 			<ul>
-				<li><a href="<c:url value='/forum' />" class="active"> <span
+				<li><a href="<c:url value='/forum' />" class=""> <span  
 						class="icon"><i class="fas fa-home"></i></span> <span class="item">Home</span>
 				</a></li>
 				<li><a href="<c:url value='???' />""> <span class="icon"><i
@@ -334,7 +319,7 @@
 				<li><a href="<c:url value='???' />"> <span class="icon"><i
 							class="fas fa-user-friends"></i></span> <span class="item">效益分析</span>
 				</a></li>
-				<li><a href="<c:url value='/manager/forum' />"> <span
+				<li><a href="<c:url value='/manager/forum' />" class="active"> <span
 						class="icon"><i class="fas fa-tachometer-alt"></i></span> <span
 						class="item">討論區</span>
 				</a></li>

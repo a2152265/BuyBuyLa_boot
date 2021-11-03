@@ -89,6 +89,12 @@ public class ManagerController {
 		}
 		return messageList;
 	}
+	// 留言管理 得到標題
+	@GetMapping(value = "/manager/getForumTitle")
+	@ResponseBody
+	public String getForumTitle(@RequestParam("id") Integer id) {
+		return forumService.getContentById(id).getTitle();
+	}
 	
 	// 刪除評論
 	@GetMapping(value = "/manager/deleteMessageById")

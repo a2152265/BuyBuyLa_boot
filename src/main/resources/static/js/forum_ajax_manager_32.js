@@ -55,7 +55,7 @@ $(document).ready(function() {
 					let updFormatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
 					return updFormatted_date;
 				}
-				$('#nowUpdDate').val('最後修改' + updFormatDate(date));
+				$('#nowUpdDate').val('最後修改 ' + updFormatDate(date));
 			}
 		})
 	});
@@ -67,6 +67,14 @@ $(document).ready(function() {
 			url: "findAllMessage",
 			data: { "id": messageForumId },
 			success: function(datas) {
+				$.ajax({
+					type: "get",
+					url: "getForumTitle",
+					data: { "id": messageForumId },
+					success: function(data) {
+						$('.managerMessageTitle').html(data);
+					}
+				})
 				$('#messageResult').html('');
 				for (i = 0; i < datas.length; i++) {
 					$('#messageResult').append(
@@ -76,24 +84,46 @@ $(document).ready(function() {
 						"<td>" + datas[i]['messageUserEmail'] + "</td>" +
 						"<td>" + datas[i]['messageContent'] + "</td>" +
 						"<td>" + datas[i]['messageDate'] + "</td>" +
-						"<td><button class='btn btn-primary managerDeleteBtn'>刪除</button></td>"+
+						"<td><button class='btn btn-primary managerDeleteBtn'>刪除</button></td>" +
 						"</tr>"
 					)
 				}
-				$('.managerDeleteBtn').click(function(){
+				$('.managerDeleteBtn').click(function() {
 					var delMessageId = $(this).parent().prev().prev().prev().prev().prev().html();
 					$.ajax({
-						type:"get",
-						url:"deleteMessageById",
-						data:{"id":delMessageId},
-						success:function(){
-								Swal.fire({
-									icon: 'success',
-									title: '刪除留言成功',
-									showConfirmButton: false,
-									timer: 1000
-								});
-								setTimeout(function() { history.go(0) }, 1000);
+						type: "get",
+						url: "deleteMessageById",
+						data: { "id": delMessageId},
+						success: function() {
+							Swal.fire({
+								icon: 'success',
+								title: '刪除留言成功',
+								showConfirmButton: false,
+								timer: 1500
+							});
+							//test
+							$.ajax({
+								type: "get",
+								url: "findAllMessage",
+								data:{"id":messageForumId},
+								success: function(datas) {
+									$('#messageResult').html('');
+									for (i = 0; i < datas.length; i++) {
+										$('#messageResult').append(
+											"<tr>" +
+											"<td class='managerDelId'>" + datas[i]['messageId'] + "</td>" +
+											"<td>" + datas[i]['messageUserName'] + "</td>" +
+											"<td>" + datas[i]['messageUserEmail'] + "</td>" +
+											"<td>" + datas[i]['messageContent'] + "</td>" +
+											"<td>" + datas[i]['messageDate'] + "</td>" +
+											"<td><button class='btn btn-primary managerDeleteBtn'>刪除</button></td>" +
+											"</tr>"
+										)
+									}
+								}
+							})
+							//								setTimeout(function() { history.go(0) }, 1000);
+
 						}
 					})
 				})

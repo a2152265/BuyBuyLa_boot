@@ -90,6 +90,9 @@ $(document).ready(function() {
 						e.preventDefault();
 						var datas = $("#addMsgForm").serializeArray();
 						if ($('.messageContent').val() == "") {
+							if($('.messageBtn').html()=="登入後進行評論"){
+								return false;
+							}
 							Swal.fire({
 								icon: 'error',
 								title: '錯誤',
@@ -111,6 +114,7 @@ $(document).ready(function() {
 									timer: 1000
 								});
 								setTimeout(function() { history.go(0) }, 1000);
+								
 							}
 						})
 					});

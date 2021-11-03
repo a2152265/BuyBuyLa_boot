@@ -15,9 +15,9 @@
 <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
 <link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
 <link rel="stylesheet" href="vendors/linericon/style.css">
-<link rel="stylesheet"
-	href="vendors/owl-carousel/owl.theme.default.min.css">
+<link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
 <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+<link rel="stylesheet" href="vendors/nice-select/nice-select.css">
 <link rel="stylesheet" href="css/productstyle.css">
 
 
@@ -37,11 +37,11 @@
 	src='${pageContext.request.contextPath}/js/forum_ajax_32.js'></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body>
+<body style="background-color: #f7f7f7">
 	<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
 		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light">
+			<nav class="navbar navbar-expand-lg navbar-light bg-white">
 				<div class="container">
 					<a class="navbar-brand logo_h" href="<c:url value='/' />"><img
 						src="img/logo.png" alt=""></a>
@@ -121,66 +121,69 @@
 
 
 	<!-- ================ start banner area ================= -->
-	<section class="blog-banner-area" id="blog">
-		<div class="container h-100">
-			<div class="blog-banner">
-				<div class="text-center">
-					<h1>BuyBuyLa</h1>
-					<nav aria-label="breadcrumb" class="banner-breadcrumb">
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item">討論區</li>
-						</ol>
-					</nav>
+		<section class="blog-banner-area" id="blog">
+			<div class="container h-100">
+				<div class="blog-banner">
+					<div class="text-center">
+						<h1>BuyBuyLa</h1>
+						<nav aria-label="breadcrumb" class="banner-breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item">討論區</li>
+							</ol>
+						</nav>
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 	<!-- ================ end banner area ================= -->
 	<!--================Blog Categorie Area =================-->
-	<section class="blog_categorie_area">
+	<section class="blog_categorie_area" style="padding: 60px">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
 					<div class="categories_post">
-						<img class="card-img rounded-0" style="width:300px;height:180px"
-							src="https://lorempixel.com/300/180/" >
+						<img class="card-img rounded-0"
+							style="width: 200px; height: 150px"
+							src="https://picsum.photos/200/150">
 						<div class="categories_details">
 							<div class="categories_text">
-								<a href="single-blog.html">
-									<h5>官方最新公告</h5>
+								<a href="<c:url value='/featured' />">
+									<h5>社團精選話題</h5>
 								</a>
 								<div class="border_line"></div>
-								<p>Enjoy your social life together</p>
+								<!-- 								<p>Enjoy your social life together</p> -->
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
 					<div class="categories_post">
-						<img class="card-img rounded-0" style="width:300px;height:180px"
-							src="https://lorempixel.com/800/300/" alt="post">
+						<img class="card-img rounded-0"
+							style="width: 200px; height: 150px"
+							src="https://picsum.photos/200/152" alt="post">
 						<div class="categories_details">
 							<div class="categories_text">
-								<a href="single-blog.html">
-									<h5>新手賣家發問</h5>
-								</a>
-								<div class="border_line"></div>
-								<p>Be a part of politics</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
-					<div class="categories_post">
-						<img class="card-img rounded-0" style="width:300px;height:180px"
-							src="https://lorempixel.com/800/400/" alt="post">
-						<div class="categories_details">
-							<div class="categories_text">
-								<a href="single-blog.html">
+								<a href="<c:url value='/sellerChat' />">
 									<h5>賣家閒聊討論</h5>
 								</a>
 								<div class="border_line"></div>
-								<p>Let the food be finished</p>
+								<!-- 								<p>Be a part of politics</p> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+					<div class="categories_post">
+						<img class="card-img rounded-0"
+							style="width: 200px; height: 150px"
+							src="https://picsum.photos/200/151" alt="post">
+						<div class="categories_details">
+							<div class="categories_text">
+								<a href="<c:url value='/noviceSeller' />">
+									<h5>新手賣家發問</h5>
+								</a>
+								<div class="border_line"></div>
+								<!-- 								<p>Let the food be finished</p> -->
 							</div>
 						</div>
 					</div>
@@ -195,48 +198,213 @@
 	<section class="blog_area">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8">
-					<div class="blog_left_sidebar">
-						<c:forEach var='Articles' items='${Articles}'>
-							<article class="row blog_item" style="margin: 0px">
-								<div class="col-md-3">
-									<div class="blog_info text-right">
-										<div class="post_tag">
-											<a href="#">${Articles.tag}</a>
+				<div class="col-lg-4">
+					<div class="blog_right_sidebar">
+						<aside class="single_sidebar_widget search_widget">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="搜尋作者">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button">
+										<i class="lnr lnr-magnifier"></i>
+									</button>
+								</span>
+							</div>
+							<!-- /input-group -->
+							<div class="br"></div>
+						</aside>
+						<aside class="single_sidebar_widget post_category_widget">
+<!-- 							<input type="button" value="發起討論" class="widget_title newFoRuM" -->
+<!-- 								style="width: 354px; border: none;" data-bs-toggle="modal" -->
+<!-- 								data-bs-target="#Modal"> -->
+							<div class="addNewForum">
+							<h3 data-bs-target="#Modal" data-bs-toggle="modal" class="widget_title newFoRuM" style="cursor:pointer;">發起討論</h3>
+							<div class="br"></div>
+							</div>
+							<div class="modal fade" id="Modal" tabindex="-1"
+								aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-lg" style="margin-top: 90px">
+									<form:form method='POST' modelAttribute="addForumBean"
+										class='form-horizontal' enctype="multipart/form-data">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h3 class="modal-title" id="exampleModalLabel">建立貼文</h3>
+												<button type="button" class="btn-close"
+													data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body insContentBody">
+
+												<!-- 發文 -->
+												<form:input path="tag" type="hidden" id="insTag" />
+												<form:textarea path="content" class="content display-none" />
+												<form:input path="date" type="hidden" id="nowDate" />
+												<form:input path="messageQty" type="hidden" />
+												<form:input path="viewQty" type="hidden" />
+
+												<form:input path="picId" class="form-control" type="hidden"
+													value="${memberUiDefault.id}" />
+												<form:input path="userName" type="hidden"
+													value="${memberUiDefault.userName}${managerSession.userName}" />
+												<form:input path="userEmail" type="hidden"
+													value="${memberUiDefault.userEmail}" />
+												<form:input path="userNickname" type="hidden"
+													value="${memberUiDefault.userNickname}" />
+												<form:input path="Identification" type="hidden"
+													value="member" />
+												<form:input path="topArticle" type="hidden" value="general" />
+												<!-- 結束 -->
+
+												<div class="mb-3">
+													<select id="insSelectTag" 
+														aria-label="Default select example">
+														<option>新手賣家發問</option>
+														<option>賣家閒聊討論</option>
+													</select><br><br><br>
+													<form:input type="text" path="title" required="true"
+														placeholder="標題" class="form-control title-fontsize"
+														aria-label="Sizing example input"
+														aria-describedby="inputGroup-sizing-lg" />
+													<br>
+													<div id="summernote"></div>
+													<div class="mb-3"></div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button id="insSubmit" type="submit" class="btn btn-primary">送出</button>
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">取消</button>
+											</div>
 										</div>
-										<ul class="blog_meta list" style="padding: 0; width: 200px">
-											<li><a href="#">${Articles.userName} <i
-													class="lnr lnr-user"></i>
-											</a></li>
-											<li><a href="#">${Articles.date} <i
-													class="lnr lnr-calendar-full"></i>
-											</a></li>
-											<li><a href="#">${Articles.viewQty}<i
-													class="lnr lnr-eye"></i>
-											</a></li>
-											<li><a href="#">${Articles.messageQty}<i
-													class="lnr lnr-bubble"></i>
-											</a></li>
-										</ul>
+									</form:form>
+								</div>
+							</div>
+						</aside>
+						<aside class="single_sidebar_widget popular_post_widget">
+							<h3 class="widget_title">熱門文章</h3>
+
+							<c:forEach var='content' items='${tagFeatured}' begin="0" end="2">
+								<div class="media post_item">
+									<img width='50'
+										src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+									<div class="media-body">
+										<a href="single-blog.html">
+											<h3>${content.title}</h3>
+										</a>
+										<p>${content.date}</p>
 									</div>
 								</div>
-								<div class="col-md-9">
+							</c:forEach>
+							<div class="br"></div>
+						</aside>
+						<aside class="single_sidebar_widget post_category_widget">
+							<h4 class="widget_title">標籤分類</h4>
+							<ul class="list cat-list">
+								<li><a href="<c:url value='/forum' />"
+									class="d-flex justify-content-between">
+										<p>所有討論</p>
+										<p>${allSize}</p>
+								</a></li>
+								<li><a href="<c:url value='/announcement' />"
+									class="d-flex justify-content-between">
+										<p>官方最新公告</p>
+										<p>${announcementSize}</p>
+								</a></li>
+								<li><a href="<c:url value='/featured' />"
+									class="d-flex justify-content-between">
+										<p>社團精選話題</p>
+										<p>${featuredSize}</p>
+								</a></li>
+								<li><a href="<c:url value='/noviceSeller' />"
+									class="d-flex justify-content-between">
+										<p>新手賣家發問</p>
+										<p>${noviceSellerSize}</p>
+								</a></li>
+								<li><a href="<c:url value='/sellerChat' />"
+									class="d-flex justify-content-between">
+										<p>賣家閒聊討論</p>
+										<p>${sellerChatSize}</p>
+								</a></li>
+							</ul>
+							<div class="br"></div>
+						</aside>
+						<aside class="single_sidebar_widget popular_post_widget">
+							<h3 class="widget_title">最新帖子</h3>
+							<c:forEach var='content' items='${getAllOrderByIdDesc}' begin="0"
+								end="2">
+								<div class="media post_item">
+									<img width='50'
+										src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+									<div class="media-body">
+										<a href="single-blog.html">
+											<h3>${content.title}</h3>
+										</a>
+										<p>${content.date}</p>
+									</div>
+								</div>
+							</c:forEach>
+
+						</aside>
+						<aside class="single_sidebar_widget ads_widget">
+							<div class="br"></div>
+						</aside>
+					</div>
+				</div>
+				
+				<div class="col-lg-8">
+						<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+						  <ol class="breadcrumb">
+						    <li class="breadcrumb-item"><a href="#">BuyBuyLa</a></li>
+						    <li class="breadcrumb-item active" aria-current="page">${Breadcrumb}</li>
+						  </ol>
+						  	<select class="right small">
+						    <option>最新</option>
+						    <option>最熱門</option>
+						    </select>
+<!-- 						  		<input type="button" value="發起討論" class="widget_title btn-primary newFoRuM" -->
+<!-- 								style="width: 154px; border: none;" data-bs-toggle="modal" -->
+<!-- 								data-bs-target="#Modal"> -->
+								<br>
+						</nav>
+					<div class="blog_left_sidebar"><br>
+						<c:forEach var='Articles' items='${Articles}' varStatus='c'>
+							<article class="row blog_item bg-white" style="margin: 0px">
+								<c:if test="${c.count==1}">
+								</c:if>
+								<div class="col-md-12">
 									<div class="blog_post">
-										<div class="blog_details">
-											<h2>${Articles.title}</h2>
+										<div class="blog_details" style="margin-left: 20px">
+											<div>
+												<img
+													style="float: left; width: 40px; height: 40px; border-radius: 50%"
+													src="<c:url value='/getPicturefromMember/${Articles.picId}'/>">
+												<span style="margin-left: 15px">${Articles.userName}<br>
+													<span
+													style="margin-left: 15px; font-size: 13px; color: gray;">${Articles.date}</span></span>
+											</div>
+											<a href="<c:url value='/detailed' />?id=${Articles.id}"><h2>${Articles.title}</h2></a>
 											<div class="box">
 												<div class="ellipsis">${Articles.content}</div>
 											</div>
-											<a class="button button-blog"
+											<a style="margin-left: 300px;" class="button button-blog"
 												href="<c:url value='/detailed' />?id=${Articles.id}">View
-												More</a>
+												More</a><br><br> <span style="color: #00BFA5; font-size: 14px">${Articles.tag}</span>
+											<span><a><img
+													style="width: 15px; margin-left: 30px"
+													src="https://cdn-icons-png.flaticon.com/128/2462/2462844.png">
+													<span style="font-size: 14px; margin-left: 5px;">${Articles.messageQty}
+														Comments</span></a></span> <span><a><img
+													style="width: 15px; margin-left: 10px"
+													src="https://cdn-icons-png.flaticon.com/512/159/159604.png">
+													<span style="font-size: 14px; margin-left: 5px;">${Articles.viewQty}
+														Views</span></a></span>
+											<hr>
 										</div>
 									</div>
 								</div>
+								<div></div>
 							</article>
 						</c:forEach>
 						<nav class="blog-pagination justify-content-center d-flex"
-							style="padding-bottom: 0px">
+							style="padding-bottom: 0px;">
 							<ul class="pagination">
 								<li class="page-item"><a
 									href="<c:url value="/forumPageLeft" />?page=${leftPage}"
@@ -266,171 +434,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4">
-					<div class="blog_right_sidebar">
-						<div class="blog_right_sidebar">
-							<aside class="single_sidebar_widget search_widget">
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="搜尋文章">
-									<span class="input-group-btn">
-										<button class="btn btn-default" type="button">
-											<i class="lnr lnr-magnifier"></i>
-										</button>
-									</span>
-								</div>
-								<!-- /input-group -->
-								<div class="br"></div>
-							</aside>
-							<aside class="single_sidebar_widget post_category_widget">
-								<input type="button" value="發起討論" class="widget_title newFoRuM"
-									style="width: 292px; border: none;" data-bs-toggle="modal"
-									data-bs-target="#Modal">
-								<div class="modal fade" id="Modal" tabindex="-1"
-									aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-lg" style="margin-top: 90px">
-										<form:form method='POST' modelAttribute="addForumBean"
-											class='form-horizontal' enctype="multipart/form-data">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h3 class="modal-title" id="exampleModalLabel">建立貼文</h3>
-													<button type="button" class="btn-close"
-														data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-												<div class="modal-body insContentBody">
-
-													<!-- 發文 -->
-													<form:input path="tag" type="hidden" id="insTag" />
-													<form:textarea path="content" class="content display-none" />
-													<form:input path="date" type="hidden" id="nowDate" />
-													<form:input path="messageQty" type="hidden" />
-													<form:input path="viewQty" type="hidden" />
-
-													<form:input path="picId" class="form-control" type="hidden"
-														value="${memberUiDefault.id}" />
-													<form:input path="userName" type="hidden"
-														value="${memberUiDefault.userName}${managerSession.userName}" />
-													<form:input path="userEmail" type="hidden"
-														value="${memberUiDefault.userEmail}" />
-													<form:input path="userNickname" type="hidden"
-														value="${memberUiDefault.userNickname}" />
-													<form:input path="Identification" type="hidden"
-														value="${managerSession.identification}" />
-													<form:input path="topArticle" type="hidden" value="general" />
-													<!-- 結束 -->
-
-													<div class="mb-3">
-														<select id="insSelectTag" class="form-select"
-															aria-label="Default select example">
-															<option>新手賣家發問</option>
-															<option>賣家閒聊討論</option>
-														</select> <br>
-														<form:input type="text" path="title" required="true"
-															placeholder="標題" class="form-control title-fontsize"
-															aria-label="Sizing example input"
-															aria-describedby="inputGroup-sizing-lg" />
-														<br>
-														<div id="summernote"></div>
-														<div class="mb-3"></div>
-													</div>
-												</div>
-												<div class="modal-footer">
-													<button id="insSubmit" type="submit"
-														class="btn btn-primary">送出</button>
-													<button type="button" class="btn btn-secondary"
-														data-bs-dismiss="modal">取消</button>
-												</div>
-											</div>
-										</form:form>
-									</div>
-								</div>
-
-
-								<div class="br"></div>
-							</aside>
-							<aside class="single_sidebar_widget post_category_widget">
-								<h4 class="widget_title">標籤分類</h4>
-								<ul class="list cat-list">
-									<li><a href="<c:url value='/forum' />"
-										class="d-flex justify-content-between">
-											<p>所有討論</p>
-											<p>${allSize}</p>
-									</a></li>
-									<li><a href="<c:url value='/announcement' />"
-										class="d-flex justify-content-between">
-											<p>官方最新公告</p>
-											<p>${announcementSize}</p>
-									</a></li>
-									<li><a href="<c:url value='/featured' />"
-										class="d-flex justify-content-between">
-											<p>社團精選話題</p>
-											<p>${featuredSize}</p>
-									</a></li>
-									<li><a href="<c:url value='/noviceSeller' />"
-										class="d-flex justify-content-between">
-											<p>新手賣家發問</p>
-											<p>${noviceSellerSize}</p>
-									</a></li>
-									<li><a href="<c:url value='/sellerChat' />"
-										class="d-flex justify-content-between">
-											<p>賣家閒聊討論</p>
-											<p>${sellerChatSize}</p>
-									</a></li>
-								</ul>
-								<div class="br"></div>
-							</aside>
-							<aside class="single_sidebar_widget popular_post_widget">
-								<h3 class="widget_title">精選話題</h3>
-
-								<c:forEach var='content' items='${tagFeatured}' begin="0"
-									end="2">
-									<div class="media post_item">
-										<img width='40'
-											src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
-										<div class="media-body">
-											<a href="single-blog.html">
-												<h3>${content.title}</h3>
-											</a>
-											<p>${content.date}</p>
-										</div>
-									</div>
-								</c:forEach>
-								<div class="br"></div>
-							</aside>
-							<aside class="single_sidebar_widget popular_post_widget">
-								<h3 class="widget_title">最新帖子</h3>
-								<c:forEach var='content' items='${getAllOrderByIdDesc}' begin="0" end="2">
-									<div class="media post_item">
-										<img width='40'
-											src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
-										<div class="media-body">
-											<a href="single-blog.html">
-												<h3>${content.title}</h3>
-											</a>
-											<p>${content.date}</p>
-										</div>
-									</div>
-								</c:forEach>
-
-							</aside>
-							<aside class="single_sidebar_widget ads_widget">
-								<a href="#"> <img class="img-fluid" src="img/blog/add.jpg"
-									alt="">
-								</a>
-								<div class="br"></div>
-							</aside>
-						</div>
-					</div>
-				</div>
 			</div>
-			</div>
+		</div>
 	</section>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
 	<br>
 	<br>
 	<!--================Blog Area =================-->
@@ -438,7 +444,7 @@
 	<section class="instagram_area">
 		<div class="container box_1620">
 			<div class="insta_btn">
-				<a class="btn theme_btn" href="#">Follow us on instagram</a>
+<!-- 				<a class="btn theme_btn" href="#">Follow us on instagram</a> -->
 			</div>
 			<div class="instagram_image row m0">
 				<a href="#"><img src="img/instagram/ins-1.jpg" alt=""></a> <a
@@ -547,15 +553,12 @@
 	<script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
 	<script src="vendors/skrollr.min.js"></script>
 	<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-	<!--   <script src="vendors/nice-select/jquery.nice-select.min.js"></script> -->
+	  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
 	<script src="vendors/jquery.ajaxchimp.min.js"></script>
 	<script src="vendors/mail-script.js"></script>
 	<script src="js/main.js"></script>
-	<!-- jquery -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src='${pageContext.request.contextPath}/js/forum_jquery_32.js'></script>
-	<!-- summernote -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	<script
