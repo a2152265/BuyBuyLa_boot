@@ -187,6 +187,7 @@ public class TestLoginController {
 				mb2.setUserEmail(userEmail);
 				mb2.setUserPwd(userPwd);
 				mb2.setIdentification("manager");
+				mb2.setUserName("管理員");
 				model.addAttribute("managerSession", mb2);
 				model.addAttribute("memberUiDefault", mb2);
 				return "redirect:/manager_Ui";

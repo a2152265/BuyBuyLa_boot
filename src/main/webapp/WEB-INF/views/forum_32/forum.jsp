@@ -35,7 +35,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript"
 	src='${pageContext.request.contextPath}/js/forum_ajax_32.js'></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 	<!--================ Start Header Menu Area =================-->
@@ -136,6 +136,60 @@
 		</div>
 	</section>
 	<!-- ================ end banner area ================= -->
+	<!--================Blog Categorie Area =================-->
+	<section class="blog_categorie_area">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+					<div class="categories_post">
+						<img class="card-img rounded-0" style="width:300px;height:180px"
+							src="https://lorempixel.com/300/180/" >
+						<div class="categories_details">
+							<div class="categories_text">
+								<a href="single-blog.html">
+									<h5>官方最新公告</h5>
+								</a>
+								<div class="border_line"></div>
+								<p>Enjoy your social life together</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+					<div class="categories_post">
+						<img class="card-img rounded-0" style="width:300px;height:180px"
+							src="https://lorempixel.com/800/300/" alt="post">
+						<div class="categories_details">
+							<div class="categories_text">
+								<a href="single-blog.html">
+									<h5>新手賣家發問</h5>
+								</a>
+								<div class="border_line"></div>
+								<p>Be a part of politics</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+					<div class="categories_post">
+						<img class="card-img rounded-0" style="width:300px;height:180px"
+							src="https://lorempixel.com/800/400/" alt="post">
+						<div class="categories_details">
+							<div class="categories_text">
+								<a href="single-blog.html">
+									<h5>賣家閒聊討論</h5>
+								</a>
+								<div class="border_line"></div>
+								<p>Let the food be finished</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================Blog Categorie Area =================-->
+
 
 	<!--================Blog Area =================-->
 	<section class="blog_area">
@@ -143,24 +197,25 @@
 			<div class="row">
 				<div class="col-lg-8">
 					<div class="blog_left_sidebar">
-
-						<c:forEach var='content' items='${content}'>
-							<article class="row blog_item">
+						<c:forEach var='Articles' items='${Articles}'>
+							<article class="row blog_item" style="margin: 0px">
 								<div class="col-md-3">
 									<div class="blog_info text-right">
 										<div class="post_tag">
-											<a href="#">${content.tag}</a>
+											<a href="#">${Articles.tag}</a>
 										</div>
-										<ul class="blog_meta list" style="padding:0;width:200px">
-											<li><a href="#">${content.userName} <i
+										<ul class="blog_meta list" style="padding: 0; width: 200px">
+											<li><a href="#">${Articles.userName} <i
 													class="lnr lnr-user"></i>
 											</a></li>
-											<li><a href="#">${content.date} <i
+											<li><a href="#">${Articles.date} <i
 													class="lnr lnr-calendar-full"></i>
 											</a></li>
-											<li><a href="#">${content.viewQty}<i class="lnr lnr-eye"></i>
+											<li><a href="#">${Articles.viewQty}<i
+													class="lnr lnr-eye"></i>
 											</a></li>
-											<li><a href="#">${content.messageQty}<i class="lnr lnr-bubble"></i>
+											<li><a href="#">${Articles.messageQty}<i
+													class="lnr lnr-bubble"></i>
 											</a></li>
 										</ul>
 									</div>
@@ -168,137 +223,206 @@
 								<div class="col-md-9">
 									<div class="blog_post">
 										<div class="blog_details">
-											<h2>${content.title}</h2>
+											<h2>${Articles.title}</h2>
 											<div class="box">
-												<div class="ellipsis"><p>${content.content}</p></div>
+												<div class="ellipsis">${Articles.content}</div>
 											</div>
 											<a class="button button-blog"
-												href="<c:url value='/detailed' />?id=${content.id}">View
+												href="<c:url value='/detailed' />?id=${Articles.id}">View
 												More</a>
 										</div>
 									</div>
 								</div>
 							</article>
 						</c:forEach>
+						<nav class="blog-pagination justify-content-center d-flex"
+							style="padding-bottom: 0px">
+							<ul class="pagination">
+								<li class="page-item"><a
+									href="<c:url value="/forumPageLeft" />?page=${leftPage}"
+									class="page-link" aria-label="Previous"> <span
+										aria-hidden="true"> <span class="lnr lnr-chevron-left"></span>
+									</span>
+								</a></li>
 
+								<c:forEach items="${getAll}" var="getAll" varStatus="c" step="5">
+									<li class="page-item"><a
+										href="<c:url value="forumPage" />?page=${c.count}"> <input
+											type="button" class="page-link forumPageBtn"
+											style="border: none" value="${c.count}">
+									</a></li>
+								</c:forEach>
+
+								<li class="page-item"><a
+									href="<c:url value="/forumPageRight" />?page=${rightPage}"
+									class="page-link" aria-label="Next"> <span
+										aria-hidden="true"> <span class="lnr lnr-chevron-right"></span>
+									</span>
+								</a></li>
+							</ul>
+						</nav>
+						<div style="text-align: center;">
+							第<label class="pages">${page}</label>頁
+						</div>
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="blog_right_sidebar">
-						<aside class="single_sidebar_widget post_category_widget">
-							<input type="button" value="發起討論" class="widget_title newFoRuM"
-								style="width: 354px; border: none;" data-bs-toggle="modal"
-								data-bs-target="#Modal">
-							<div class="modal fade" id="Modal" tabindex="-1"
-								aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-lg" style="margin-top: 90px">
-									<form:form method='POST' modelAttribute="addForumBean"
-										class='form-horizontal' enctype="multipart/form-data">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h3 class="modal-title" id="exampleModalLabel">建立貼文</h3>
-												<button type="button" class="btn-close"
-													data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body insContentBody">
+						<div class="blog_right_sidebar">
+							<aside class="single_sidebar_widget search_widget">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="搜尋文章">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button">
+											<i class="lnr lnr-magnifier"></i>
+										</button>
+									</span>
+								</div>
+								<!-- /input-group -->
+								<div class="br"></div>
+							</aside>
+							<aside class="single_sidebar_widget post_category_widget">
+								<input type="button" value="發起討論" class="widget_title newFoRuM"
+									style="width: 292px; border: none;" data-bs-toggle="modal"
+									data-bs-target="#Modal">
+								<div class="modal fade" id="Modal" tabindex="-1"
+									aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-lg" style="margin-top: 90px">
+										<form:form method='POST' modelAttribute="addForumBean"
+											class='form-horizontal' enctype="multipart/form-data">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h3 class="modal-title" id="exampleModalLabel">建立貼文</h3>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body insContentBody">
 
-												<!-- 隱藏 -->
-												<form:input path="tag" type="hidden" id="insTag" />
-												<form:textarea path="content" class="content display-none" />
-												<form:input path="date" type="hidden" id="nowDate" />
-												<form:input path="messageQty" type="hidden" />
-												<form:input path="viewQty" type="hidden" />
-												
-												<form:input path="picId" class="form-control" type="hidden" value="${memberUiDefault.id}" />
-												<form:input path="userName" type="hidden" value="${memberUiDefault.userName}" />
-												<form:input path="userEmail" type="hidden" value="${memberUiDefault.userEmail}" />
-												<form:input path="userNickname" type="hidden" value="${memberUiDefault.userNickname}" />
-<%-- 												<form:input path="Identification" type="hidden" value="${memberUiDefault.Identification}" /> --%>
-												<!-- 結束 -->
+													<!-- 發文 -->
+													<form:input path="tag" type="hidden" id="insTag" />
+													<form:textarea path="content" class="content display-none" />
+													<form:input path="date" type="hidden" id="nowDate" />
+													<form:input path="messageQty" type="hidden" />
+													<form:input path="viewQty" type="hidden" />
 
-												<div class="mb-3">
-												<select id="insSelectTag" class="form-select"
-													aria-label="Default select example">
-													<option>新手賣家發問</option>
-													<option>賣家閒聊討論</option>
-												</select>
-													<br>
-													<form:input type="text" path="title" required="true"
-														placeholder="標題" class="form-control title-fontsize"
-														aria-label="Sizing example input"
-														aria-describedby="inputGroup-sizing-lg" />
-													<br>
-													<div id="summernote"></div>
-													<div class="mb-3"></div>
+													<form:input path="picId" class="form-control" type="hidden"
+														value="${memberUiDefault.id}" />
+													<form:input path="userName" type="hidden"
+														value="${memberUiDefault.userName}${managerSession.userName}" />
+													<form:input path="userEmail" type="hidden"
+														value="${memberUiDefault.userEmail}" />
+													<form:input path="userNickname" type="hidden"
+														value="${memberUiDefault.userNickname}" />
+													<form:input path="Identification" type="hidden"
+														value="${managerSession.identification}" />
+													<form:input path="topArticle" type="hidden" value="general" />
+													<!-- 結束 -->
+
+													<div class="mb-3">
+														<select id="insSelectTag" class="form-select"
+															aria-label="Default select example">
+															<option>新手賣家發問</option>
+															<option>賣家閒聊討論</option>
+														</select> <br>
+														<form:input type="text" path="title" required="true"
+															placeholder="標題" class="form-control title-fontsize"
+															aria-label="Sizing example input"
+															aria-describedby="inputGroup-sizing-lg" />
+														<br>
+														<div id="summernote"></div>
+														<div class="mb-3"></div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button id="insSubmit" type="submit"
+														class="btn btn-primary">送出</button>
+													<button type="button" class="btn btn-secondary"
+														data-bs-dismiss="modal">取消</button>
 												</div>
 											</div>
-											<div class="modal-footer">
-												<button id="insSubmit" type="submit" class="btn btn-primary">送出</button>
-												<button type="button" class="btn btn-secondary"
-													data-bs-dismiss="modal">取消</button>
-											</div>
-										</div>
-									</form:form>
-								</div>
-							</div>
-
-
-							<div class="br"></div>
-						</aside>
-						<aside class="single_sidebar_widget post_category_widget">
-							<h4 class="widget_title">標籤分類</h4>
-							<ul class="list cat-list">
-								<li><a href="<c:url value='/forum' />"
-									class="d-flex justify-content-between">
-										<p>所有討論</p>
-										<p>${announcementSize+noviceSellerSize+sellerChatSize}</p>
-								</a></li>
-								<li><a href="<c:url value='/announcement' />"
-									class="d-flex justify-content-between">
-										<p>官方最新公告</p>
-										<p>${announcementSize}</p>
-								</a></li>
-								<li><a href="<c:url value='/noviceSeller' />"
-									class="d-flex justify-content-between">
-										<p>新手賣家發問</p>
-										<p>${noviceSellerSize}</p>
-								</a></li>
-								<li><a href="<c:url value='/sellerChat' />"
-									class="d-flex justify-content-between">
-										<p>賣家閒聊討論</p>
-										<p>${sellerChatSize}</p>
-								</a></li>
-							</ul>
-							<div class="br"></div>
-						</aside>
-						<aside class="single_sidebar_widget popular_post_widget">
-							<h3 class="widget_title">最新帖子</h3>
-
-							<c:forEach var='content' items='${content}' begin="0" end="4">
-								<div class="media post_item">
-									<img width='40'
-										src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
-									<div class="media-body">
-										<a href="single-blog.html">
-											<h3>${content.title}</h3>
-										</a>
-										<p>${content.date}</p>
-										<!--                                   <p>?小時前</p> -->
+										</form:form>
 									</div>
 								</div>
-							</c:forEach>
 
-						</aside>
-						<aside class="single_sidebar_widget ads_widget">
-							<a href="#"> <img class="img-fluid" src="img/blog/add.jpg"
-								alt="">
-							</a>
-							<div class="br"></div>
-						</aside>
+
+								<div class="br"></div>
+							</aside>
+							<aside class="single_sidebar_widget post_category_widget">
+								<h4 class="widget_title">標籤分類</h4>
+								<ul class="list cat-list">
+									<li><a href="<c:url value='/forum' />"
+										class="d-flex justify-content-between">
+											<p>所有討論</p>
+											<p>${allSize}</p>
+									</a></li>
+									<li><a href="<c:url value='/announcement' />"
+										class="d-flex justify-content-between">
+											<p>官方最新公告</p>
+											<p>${announcementSize}</p>
+									</a></li>
+									<li><a href="<c:url value='/featured' />"
+										class="d-flex justify-content-between">
+											<p>社團精選話題</p>
+											<p>${featuredSize}</p>
+									</a></li>
+									<li><a href="<c:url value='/noviceSeller' />"
+										class="d-flex justify-content-between">
+											<p>新手賣家發問</p>
+											<p>${noviceSellerSize}</p>
+									</a></li>
+									<li><a href="<c:url value='/sellerChat' />"
+										class="d-flex justify-content-between">
+											<p>賣家閒聊討論</p>
+											<p>${sellerChatSize}</p>
+									</a></li>
+								</ul>
+								<div class="br"></div>
+							</aside>
+							<aside class="single_sidebar_widget popular_post_widget">
+								<h3 class="widget_title">精選話題</h3>
+
+								<c:forEach var='content' items='${tagFeatured}' begin="0"
+									end="2">
+									<div class="media post_item">
+										<img width='40'
+											src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+										<div class="media-body">
+											<a href="single-blog.html">
+												<h3>${content.title}</h3>
+											</a>
+											<p>${content.date}</p>
+										</div>
+									</div>
+								</c:forEach>
+								<div class="br"></div>
+							</aside>
+							<aside class="single_sidebar_widget popular_post_widget">
+								<h3 class="widget_title">最新帖子</h3>
+								<c:forEach var='content' items='${getAllOrderByIdDesc}' begin="0" end="2">
+									<div class="media post_item">
+										<img width='40'
+											src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+										<div class="media-body">
+											<a href="single-blog.html">
+												<h3>${content.title}</h3>
+											</a>
+											<p>${content.date}</p>
+										</div>
+									</div>
+								</c:forEach>
+
+							</aside>
+							<aside class="single_sidebar_widget ads_widget">
+								<a href="#"> <img class="img-fluid" src="img/blog/add.jpg"
+									alt="">
+								</a>
+								<div class="br"></div>
+							</aside>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+			</div>
 	</section>
 	<br>
 	<br>
@@ -434,7 +558,8 @@
 	<!-- summernote -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	<script src='${pageContext.request.contextPath}/js/forum_summernote_32.js'></script>
+	<script
+		src='${pageContext.request.contextPath}/js/forum_summernote_32.js'></script>
 
 </body>
 </html>

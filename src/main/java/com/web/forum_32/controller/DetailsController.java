@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.model.MessageBean;
 import com.web.forum_32.service.IForumService;
@@ -39,13 +38,33 @@ public class DetailsController {
 	
 	// Detailed
 	@GetMapping("/detailed")
-	public String detailed(Model model, 
-			@RequestParam(value = "id", required = false) Integer id,
-			@RequestParam(value="page",defaultValue="0") int page) {
+	public String detailedView(Model model, @RequestParam(value = "id", required = false) Integer id) {
+
+		List<ForumBean> articlesList = forumService.getAll();
+		for (int i = 0; i < articlesList.size(); i++) {
+			if (id == articlesList.get(i).getId()) {
+				if (i + 1 < articlesList.size()) {
+					Integer previousId = articlesList.get(i + 1).getId();
+					ForumBean previous = forumService.getContentById(previousId);
+					model.addAttribute("previous", previous);
+				} else {
+					model.addAttribute("previousFail","previousFail");
+				}
+				
+				if (i > 0) {
+					Integer afterId = articlesList.get(i-1).getId();
+					ForumBean after = forumService.getContentById(afterId);
+					model.addAttribute("after", after);
+				} else {
+					model.addAttribute("afterFail","afterFail");
+				}
+			}
+		}
+
+		model.addAttribute("forumContent", forumService.getContentById(id));
+		model.addAttribute("getAll", forumService.getAll());
+		model.addAttribute("tagFeatured", forumService.getAllByTag("社團精選話題"));
 		
-		List<ForumBean> allList = forumService.getAllArticles();
-		model.addAttribute("fb", forumService.getContentById(id));
-		model.addAttribute("content", allList);
 		model.addAttribute("forumId", id);
 		model.addAttribute("updateForumBean", new ForumBean());
 		model.addAttribute("fTitle", forumService.getContentById(id).getTitle());
@@ -88,19 +107,15 @@ public class DetailsController {
 		return "redirect:/detailed?id="+id;
 	}
 	
-	// 編輯塞值
-//	@GetMapping(value = "/editURL")
-//	@ResponseBody
-//	public ForumBean editUrl(@RequestParam("id") Integer id, 
-//			@ModelAttribute("updateForumBean") ForumBean updfb,
-//			Model model) {
-//		updfb = forumService.getContentById(id);
-////		ForumBean fb = new ForumBean(updfb.getId(),updfb.getTag(),updfb.getTitle(),
-////				updfb.getContent(),updfb.getDate(),updfb.getPicId(),
-////				updfb.getUserName(),updfb.getUserEmail(),updfb.getUserNickname(),
-////				updfb.getIdentification(),updfb.getMessageQty());
-//		return fb;
-//	}
+	@GetMapping(value = "/editIntoVal")
+	@ResponseBody
+	public ForumBean editIntoVal(@RequestParam("id") Integer id,
+			@ModelAttribute("managerEditForumContent") ForumBean editBean, Model model) {
+		editBean = forumService.getContentById(id);
+		return new ForumBean(editBean.getId(), editBean.getTag(), editBean.getTitle(), editBean.getContent(), editBean.getDate(),
+				editBean.getPicId(), editBean.getUserName(), editBean.getUserEmail(), editBean.getUserNickname(),
+				editBean.getIdentification(), editBean.getMessageQty(), editBean.getViewQty(),editBean.getTopArticle());
+	}
 
 	// 刪除
 	@GetMapping("/delete32")
@@ -120,10 +135,34 @@ public class DetailsController {
 		messageService.addMessage(mb);
 	}
 
+	// 編輯評論
+	@GetMapping(value = "/editMessage")
+	@ResponseBody
+	public MessageBean editMessage(@RequestParam("id") Integer id) {
+		MessageBean mb = messageService.getById(id);
+		return new MessageBean(mb.getMessageId(),mb.getMessageForumId(),mb.getMessageDate(),mb.getMessageContent(),
+				mb.getMessagePicId(),mb.getMessageUserName(),mb.getMessageIdentification(),mb.getMessageUserEmail());
+	}
+	
+	// 編輯評論送出
+	@PostMapping(value = "/editMessageFin")
+	@ResponseBody
+	public void editMessageFin(MessageBean mb) {
+		messageService.addMessage(mb);
+	}
+	
+	// 刪除評論
+	@GetMapping(value = "/deleteMessage")
+	public void deleteMessage(@RequestParam("id") Integer id) {
+		messageService.delete(id);
+	}
+
 	public void tagSize(Model model) {
-		model.addAttribute("announcementSize", forumService.getAllContentsByAnnouncement().size());
-		model.addAttribute("noviceSellerSize", forumService.getAllContentsByNoviceSeller().size());
-		model.addAttribute("sellerChatSize", forumService.getAllContentsBySellerChat().size());
+		model.addAttribute("allSize", forumService.getAll().size());
+		model.addAttribute("announcementSize",forumService.getAllByTag("官方最新公告").size());
+		model.addAttribute("featuredSize",forumService.getAllByTag("社團精選話題").size());
+		model.addAttribute("noviceSellerSize",forumService.getAllByTag("新手賣家發問").size());
+		model.addAttribute("sellerChatSize",forumService.getAllByTag("賣家閒聊討論").size());
 	}
 
 }

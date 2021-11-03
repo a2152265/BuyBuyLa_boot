@@ -14,7 +14,10 @@ public interface MessageRepository extends JpaRepository<MessageBean, Integer>  
 	
 	@Query(nativeQuery = true, value = "select * from message_32 where messageForumId=:messageForumId")
 	public List<MessageBean> findAllByForumId(Integer messageForumId);
+	
     public Page<MessageBean> findByMessageForumId(Integer messageForumId, Pageable pageable);
+    
+    public List<MessageBean> findAllByMessageForumId(Integer messageForumId);
 
 	
 }

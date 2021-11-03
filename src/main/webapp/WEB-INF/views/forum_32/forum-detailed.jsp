@@ -114,6 +114,9 @@
 	</header>
 	<!--================ End Header Menu Area =================-->
 
+	<input type="hidden" class="messageUserName"
+		value="${memberUiDefault.userName}${managerSession.userName}">
+	<input type="hidden" class="loginUser" value="${memberUiDefault.userName}${managerSession.userName}">
 
 	<!-- ================ start banner area ================= -->
 	<section class="blog-banner-area" id="blog">
@@ -150,13 +153,14 @@
 
 						<form:input path="picId" type="hidden"
 							value="${memberUiDefault.id}" />
-						<form:input path="userName" type="hidden"
+						<form:input path="userName" type="text"
 							value="${memberUiDefault.userName}" class="forumUsername" />
-						<form:input path="userEmail" type="hidden"
+						<form:input path="userEmail" type="text"
 							value="${memberUiDefault.userEmail}" />
 						<form:input path="userNickname" type="hidden"
 							value="${memberUiDefault.userNickname}" />
-						<form:input path="Identification" type="hidden" value="${memberUiDefault.identification}" />
+						<form:input path="Identification" type="hidden"
+							value="${memberUiDefault.identification}" />
 						<!-- 結束 -->
 
 						<div class="mb-3">
@@ -200,10 +204,10 @@
 						</div>
 
 						<div class="col-lg-9 col-md-9 blog_details">
-							<div class="editIMG">
+							<div>
 								<img data-bs-toggle="dropdown" aria-expanded="false"
-									class="dropdown-toggle ml700w50h50tf11"
-									src="https://cdn-icons-png.flaticon.com/128/1827/1827933.png">
+									class="dropdown-toggle ml700w50h50tf11 editIMG"
+									src="https://cdn-icons.flaticon.com/png/512/2311/premium/2311523.png?token=exp=1635902709~hmac=183301e29c17b0719ab6f59e08067db3">
 								<ul class="dropdown-menu">
 									<li data-id="${forumContent.id}" data-bs-toggle="modal"
 										data-bs-target="#UpdateModal"
@@ -220,38 +224,43 @@
 					<div class="navigation-area">
 						<div class="row">
 							<div
-								class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+								class="previousBlock col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
 								<div class="thumb">
-									<a href="#"> <img class="img-fluid" src="img/blog/prev.jpg"
-										alt="">
+									<a href="<c:url value="/detailed" />?id=${previous.id}"> <img
+										class="img-fluid" style="width: 60px; height: 60px;"
+										src="<c:url value='/getPicturefromMember/${previous.picId}'/>">
 									</a>
 								</div>
 								<div class="arrow">
-									<a href="#"> <span class="lnr text-white lnr-arrow-left"></span>
+									<a href="<c:url value="/detailed" />?id=${previous.id}"> <span
+										class="lnr text-white lnr-arrow-left"></span>
 									</a>
 								</div>
 								<div class="detials">
 									<p>上一篇</p>
-									<a href="#">
-										<h4>${previous.title}</h4>
+									<a href="<c:url value="/detailed" />?id=${previous.id}">
+										<h4 class="previousFail">${previous.title}${previousFail}</h4>
 									</a>
 								</div>
 							</div>
 							<div
-								class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+								class="afterBlock col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
 								<div class="detials">
 									<p>下一篇</p>
-									<a href="#">
-										<h4>${after.title}${fail}</h4>
+									<a href="<c:url value="/detailed" />?id=${after.id}">
+										<h4 class="afterFail">${after.title}${afterFail}</h4>
 									</a>
 								</div>
 								<div class="arrow">
-									<a href="#"> <span class="lnr text-white lnr-arrow-right"></span>
+									<a href="<c:url value="/detailed" />?id=${after.id}"> <span
+										class="lnr text-white lnr-arrow-right"></span>
 									</a>
 								</div>
 								<div class="thumb">
-									<a href="#"> <img class="img-fluid" src="img/blog/next.jpg"
-										alt="">
+									<a href="<c:url value="/detailed" />?id=${after.id}"> <img
+										class="img-fluid" style="width: 60px; height: 60px;"
+										src="<c:url value='/getPicturefromMember/${after.picId}'/>">
+
 									</a>
 								</div>
 							</div>
@@ -260,130 +269,193 @@
 					<div class="comments-area">
 						<h4>${messageSize}則評論</h4>
 						<div id="messageResult"></div>
-						<input type="hidden" id="id" value="${forumId}">
-					</div>
-						<nav class="blog-pagination justify-content-center d-flex" style="padding-bottom:0px" >
-							<ul class="pagination">
-								<li class="page-item leftBtn">
-								<a class="page-link" aria-label="Previous"> 
-								<span aria-hidden="true"> 
-								<span class="lnr lnr-chevron-left"></span>
-								</span>
-								</a></li>
-								<c:forEach items='${msgSize}' varStatus="c" step="4" >
-								<li class="page-item">
-								<input type="button" class="page-link pageBtn" style="border: none" value="${c.count}">
-								</li>
-								</c:forEach>
-								<li class="page-item rightBtn"><a class="page-link"
-									aria-label="Next"> <span aria-hidden="true"><span
-											class="lnr lnr-chevron-right"></span>
-									</span>
-								</a></li>
-							</ul>
-						</nav>
-					<div style="text-align: center;">第<label class="pages"></label>頁</div>
-					<div class="comment-form" id="reply">
-						<h4>發表評論</h4>
-						<form id="addMsgForm" enctype="multipart/form-data">
-							<input type="hidden" name="messageForumId" value="${forumId}">
-							<input type="hidden" name="messagePicId"
-								value="${memberUiDefault.id}"> <input type="hidden"
-								name="messageDate" id="messageDate"> <input
-								type="hidden" name="messageIdentification">
-							<div class="form-group form-inline">
-								<div class="form-group col-lg-6 col-md-6 name">
-									<input type="text" name="messageUserName" class="form-control"
-										value="${memberUiDefault.userName}" placeholder="Guest" readonly="readonly">
-								</div>
-								<div class="form-group col-lg-6 col-md-6 email">
-									<input type="email" name="messageUserEmail"
-										class="form-control" readonly="readonly"
-										placeholder="Email address"
-										value="${memberUiDefault.userEmail}">
-								</div>
-							</div>
-							<div class="form-group">
-								<textarea rows="5" name="messageContent"
-									class="form-control mb-10 messageContent" placeholder="留言"></textarea>
-							</div>
-							<button
-								class="button button-postComment button--active messageBtn"
-								type="button" style="border:none">發表評論</button>
-						</form>
 
-					</div>
+
+						<!-- Modal -->
+
+						<div class="modal fade" id="editMessageBtn" tabindex="-1"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content" style="border-radius:20px">
+									<div class="comment-form" id="reply" style="margin:0px;border-radius:20px">
+										<h4 style="margin:0px">編輯評論</h4>
+									<form id="editMsgForm" style="background-color:#fafaff;border-radius:5%;padding:15px">
+										<input type="hidden" name="messageId" class="editMessageId">
+										<input type="text" name="messageDate" class="editMessageDate"> 
+										<input type="hidden" name="messageForumId" class="editMessageForumId"> 
+										<input type="hidden" name="messageIdentification" class="editMessageIdentification">
+										<input type="hidden" name="messagePicId" class="editMessagePicId"> 
+										<div class="form-group form-inline">
+											<div class="form-group col-lg-6 col-md-6 name">
+												<input type="text" name="messageUserName"
+													class="form-control editMessageUserName" placeholder="Guest" readonly="readonly">
+											</div>
+											<div class="form-group col-lg-6 col-md-6 email">
+												<input type="email" name="messageUserEmail"
+													class="form-control editMessageUserEmail" readonly="readonly"
+													placeholder="Email address">
+											</div>
+										</div>
+										<div class="form-group">
+											<textarea rows="5" name="messageContent"
+												class="form-control mb-10 editMessageContent" placeholder="留言"></textarea>
+										</div>
+										<button
+											class="button button-postComment button--active editMessageBtn"
+											type="button" style="border: none">確定修改</button>
+									</form>
+								</div>
+							</div></div>
+						</div>
+					
+
+
+
+
+
+
+
+					<input type="hidden" id="id" value="${forumId}">
 				</div>
-				<div class="col-lg-4">
-					<div class="blog_right_sidebar">
-						<aside class="single_sidebar_widget author_widget">
-							<img width='150'
-								src="<c:url value='/getPicturefromMember/${forumContent.picId}'/>" />
-							<h4 class="forumUsername2">${forumContent.userName}</h4>
-							<p>一般會員</p>
-							<div class="social_icon">
-								<a href="#"> <i class="fab fa-facebook-f"></i>
-								</a> <a href="#"> <i class="fab fa-twitter"></i>
-								</a> <a href="#"> <i class="fab fa-github"></i>
-								</a> <a href="#"> <i class="fab fa-behance"></i>
-								</a>
+				<nav class="blog-pagination justify-content-center d-flex"
+					style="padding-bottom: 0px">
+					<ul class="pagination">
+						<li class="page-item leftBtn"><a class="page-link"
+							aria-label="Previous"> <span aria-hidden="true"> <span
+									class="lnr lnr-chevron-left"></span>
+							</span>
+						</a></li>
+						<c:forEach items='${msgSize}' varStatus="c" step="4">
+							<li class="page-item"><input type="button"
+								class="page-link pageBtn" style="border: none"
+								value="${c.count}"></li>
+						</c:forEach>
+						<li class="page-item rightBtn"><a class="page-link"
+							aria-label="Next"> <span aria-hidden="true"><span
+									class="lnr lnr-chevron-right"></span> </span>
+						</a></li>
+					</ul>
+				</nav>
+				<div style="text-align: center;">
+					第<label class="pages"></label>頁
+				</div>
+				<div class="comment-form" id="reply">
+					<h4>發表評論</h4>
+					<form id="addMsgForm" enctype="multipart/form-data">
+						<input type="hidden" name="messageForumId" value="${forumId}">
+						<input type="hidden" name="messagePicId"
+							value="${memberUiDefault.id}"> <input type="hidden"
+							name="messageDate" id="messageDate"> <input type="hidden"
+							name="messageIdentification">
+						<div class="form-group form-inline">
+							<div class="form-group col-lg-6 col-md-6 name">
+								<input type="text" name="messageUserName" class="form-control"
+									value="${memberUiDefault.userName}" placeholder="Guest"
+									readonly="readonly">
 							</div>
-							<div class="br"></div>
-						</aside>
+							<div class="form-group col-lg-6 col-md-6 email">
+								<input type="email" name="messageUserEmail" class="form-control"
+									readonly="readonly" placeholder="Email address"
+									value="${memberUiDefault.userEmail}">
+							</div>
+						</div>
+						<div class="form-group">
+							<textarea rows="5" name="messageContent"
+								class="form-control mb-10 messageContent" placeholder="留言"></textarea>
+						</div>
+						<button
+							class="button button-postComment button--active messageBtn"
+							type="button" style="border: none">發表評論</button>
+					</form>
 
-						<aside class="single_sidebar_widget ads_widget">
-							<a href="#"> <img class="img-fluid" src="img/blog/add.jpg"
-								alt="">
-							</a>
-							<div class="br"></div>
-						</aside>
-						<aside class="single_sidebar_widget post_category_widget">
-							<h4 class="widget_title">標籤分類</h4>
-							<ul class="list cat-list">
-								<li><a href="<c:url value='/forum' />"
-									class="d-flex justify-content-between">
-										<p>所有討論</p>
-										<p>${announcementSize+noviceSellerSize+sellerChatSize}</p>
-								</a></li>
-								<li><a href="<c:url value='/announcement' />"
-									class="d-flex justify-content-between">
-										<p>官方最新公告</p>
-										<p>${announcementSize}</p>
-								</a></li>
-								<li><a href="<c:url value='/noviceSeller' />"
-									class="d-flex justify-content-between">
-										<p>新手賣家發問</p>
-										<p>${noviceSellerSize}</p>
-								</a></li>
-								<li><a href="<c:url value='/sellerChat' />"
-									class="d-flex justify-content-between">
-										<p>賣家閒聊討論</p>
-										<p>${sellerChatSize}</p>
-								</a></li>
-							</ul>
-							<div class="br"></div>
-						</aside>
-						<aside class="single_sidebar_widget popular_post_widget">
-							<h3 class="widget_title">最新帖子</h3>
-
-							<c:forEach var='content' items='${content}' begin="0" end="4">
-								<div class="media post_item">
-									<img width='40'
-										src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
-									<div class="media-body">
-										<a href="single-blog.html">
-											<h3>${content.title}</h3>
-										</a>
-										<p>${content.date}</p>
-									</div>
-								</div>
-							</c:forEach>
-
-							<div class="br"></div>
-						</aside>
-					</div>
 				</div>
 			</div>
+			<div class="col-lg-4">
+				<div class="blog_right_sidebar">
+					<aside class="single_sidebar_widget author_widget">
+						<img width='150'
+							src="<c:url value='/getPicturefromMember/${forumContent.picId}'/>" />
+						<h4 class="Username">${forumContent.userName}</h4>
+						<p>一般會員</p>
+						<div class="social_icon">
+							<a href="#"> <i class="fab fa-facebook-f"></i>
+							</a> <a href="#"> <i class="fab fa-twitter"></i>
+							</a> <a href="#"> <i class="fab fa-github"></i>
+							</a> <a href="#"> <i class="fab fa-behance"></i>
+							</a>
+						</div>
+						<div class="br"></div>
+					</aside>
+
+					<aside class="single_sidebar_widget post_category_widget">
+						<h4 class="widget_title">標籤分類</h4>
+						<ul class="list cat-list">
+							<li><a href="<c:url value='/forum' />"
+								class="d-flex justify-content-between">
+									<p>所有討論</p>
+									<p>${allSize}</p>
+							</a></li>
+							<li><a href="<c:url value='/announcement' />"
+								class="d-flex justify-content-between">
+									<p>官方最新公告</p>
+									<p>${announcementSize}</p>
+							</a></li>
+							<li><a href="<c:url value='/featured' />"
+								class="d-flex justify-content-between">
+									<p>社團精選話題</p>
+									<p>${featuredSize}</p>
+							</a></li>
+							<li><a href="<c:url value='/noviceSeller' />"
+								class="d-flex justify-content-between">
+									<p>新手賣家發問</p>
+									<p>${noviceSellerSize}</p>
+							</a></li>
+							<li><a href="<c:url value='/sellerChat' />"
+								class="d-flex justify-content-between">
+									<p>賣家閒聊討論</p>
+									<p>${sellerChatSize}</p>
+							</a></li>
+						</ul>
+						<div class="br"></div>
+					</aside>
+					<aside class="single_sidebar_widget popular_post_widget">
+						<h3 class="widget_title">精選話題</h3>
+
+						<c:forEach var='content' items='${tagFeatured}' begin="0" end="2">
+							<div class="media post_item">
+								<img width='40'
+									src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+								<div class="media-body">
+									<a href="single-blog.html">
+										<h3>${content.title}</h3>
+									</a>
+									<p>${content.date}</p>
+								</div>
+							</div>
+						</c:forEach>
+						<div class="br"></div>
+					</aside>
+					<aside class="single_sidebar_widget popular_post_widget">
+						<h3 class="widget_title">最新帖子</h3>
+
+						<c:forEach var='content' items='${getAll}' begin="0" end="2">
+							<div class="media post_item">
+								<img width='40'
+									src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+								<div class="media-body">
+									<a href="single-blog.html">
+										<h3>${content.title}</h3>
+									</a>
+									<p>${content.date}</p>
+								</div>
+							</div>
+						</c:forEach>
+
+						<div class="br"></div>
+					</aside>
+				</div>
+			</div>
+		</div>
 		</div>
 	</section>
 	<br>

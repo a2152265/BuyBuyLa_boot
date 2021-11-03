@@ -2,30 +2,30 @@ package com.web.forum_32.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import com.web.forum_32.model.ForumBean;
 
 public interface ForumRepository extends JpaRepository<ForumBean, Integer> {
-//	findUserByNameIsLike
 	
-	public List<ForumBean> findAllByOrderByIdDesc();
+
 	
-	@Query(nativeQuery = true, value = "select * from forum_32 where tag='官方最新公告'")
-	public List<ForumBean> findAnnouncement();
+	// 分頁全查詢
+	public Page<ForumBean> findAll(Pageable pageable);
+	// 按照最新查詢
+	public List<ForumBean> findByOrderById();
+	// 作者關鍵字搜尋
+	public List<ForumBean> findByUserNameContaining(String userName);
+	// 最新帖子
+	public List<ForumBean> findByOrderByIdDesc();
 	
-	@Query(nativeQuery = true, value = "select * from forum_32 where tag='新手賣家發問' order by id desc")
-	public List<ForumBean> findNoviceSeller();
+	// 標籤分類
+	public List<ForumBean> findByTag(String tag);
+	public Page<ForumBean> findByTagContaining(String tag,Pageable pageable);
 	
-	@Query(nativeQuery = true, value = "select * from forum_32 where tag='賣家閒聊討論' order by id desc")
-	public List<ForumBean> findSellerChat();
 	
-	@Query(nativeQuery = true, value = "select * from forum_32 where userName=:userName order by id desc")
-	public List<ForumBean> findAllByUserName(String userName);
-	
-	@Query(nativeQuery = true, value = "select * from forum_32 where title=:title order by id desc")
-	public List<ForumBean> findAllByTitle(String title);
 	
 	
 }
