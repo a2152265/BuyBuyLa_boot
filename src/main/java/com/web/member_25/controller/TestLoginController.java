@@ -64,9 +64,9 @@ public class TestLoginController {
 		membershipInformationBean mb2 = new membershipInformationBean();
 		mb2.setUserEmail(mb.getUserEmail());
 		mb2.setUserPwd(mb.getUserPwd());
-		mb2.setUserName(mb.getUserName());
+		mb2.setUsername(mb.getUsername());
 		model.addAttribute("loginSession", mb2);
-		System.out.println("首頁的getmapping ----------->getUserEmail =" + mb.getUserName());
+		System.out.println("首頁的getmapping ----------->getUserEmail =" + mb.getUsername());
 
 		return "cart_30/TotalHome";
 	}
@@ -196,7 +196,7 @@ public class TestLoginController {
 			model.addAttribute("loginSession", mb2);
 			membershipInformationBean mb3 =memberService.findMemberData(mb2.getUserEmail());
 			model.addAttribute("memberUiDefault",mb3);
-			System.out.println("mb3=="+mb3.getUserName());
+			System.out.println("mb3=="+mb3.getUsername());
 			//先建立一個bean
 			model.addAttribute("sellerData", new membershipInformationBean());
 			return "redirect:/"; // 登入成功
@@ -272,13 +272,13 @@ public class TestLoginController {
 		//先查DB的會員資料再去把表單的資料塞過去
 		mb2=memberService.findMemberDataAll(mb.getUserEmail());
 		System.out.println("mb.getUserGender()+++++"+mb.getUserGender());
-		System.out.println("mb.getUserName()+++++"+mb.getUserName());
+		System.out.println("mb.getUsername()+++++"+mb.getUsername());
 		mb2.setUserEmail(mb.getUserEmail());
 		mb2.setUserPwd(mb.getUserPwd());
 		mb2.setAddress(mb.getAddress());
 		mb2.setUserGender(mb.getUserGender());
 		mb2.setUserPhone(mb.getUserPhone());
-		mb2.setUserName(mb.getUserName());
+		mb2.setUsername(mb.getUsername());
 		mb2.setUserNickname(mb.getUserNickname());
 		mb2.setBirthday(mb.getBirthday());
 		mb2.setIdentification(mb.getIdentification());
@@ -318,7 +318,7 @@ public class TestLoginController {
 		
 		//sellerData初始化設定
 //		model.addAttribute("sellerData", sellerDataMb);
-		System.out.println("------sellerData 驗證後資料 name----------------?"+sellerDataMb.getUserName());
+		System.out.println("------sellerData 驗證後資料 name----------------?"+sellerDataMb.getUsername());
 		
 		membershipInformationBean mb2 = new membershipInformationBean();
 		
@@ -396,7 +396,7 @@ public class TestLoginController {
 //						mb2= memberService.findMemberDataAll(loginMb.getUserEmail());
 						//在把表單的值給mb2
 						mb2.setUserGender(mb.getUserGender());
-						mb2.setUserName(mb.getUserName());
+						mb2.setUsername(mb.getUsername());
 						mb2.setUserNickname(mb.getUserNickname());
 						mb2.setUserPhone(mb.getUserPhone());
 						mb2.setBirthday(mb.getBirthday());
@@ -495,7 +495,7 @@ public class TestLoginController {
 //		message.setTo(mb.getUserEmail());  //使用者email
 		message.setTo(mb2.getUserEmail());  //測試用我的
 		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
-		message.setText("您好 : "+mb.getUserName()+"\r\n歡迎光臨BuyByLA  "+"  您的驗證碼是:"+VerificationCode +"\r\n \r\n \r\n \r\n \r\n 隱私權政策\r\n"
+		message.setText("您好 : "+mb.getUsername()+"\r\n歡迎光臨BuyByLA  "+"  您的驗證碼是:"+VerificationCode +"\r\n \r\n \r\n \r\n \r\n 隱私權政策\r\n"
 				+ "歡迎您來到BuyBuyLa的網站（以下簡稱本網站），本網站由藍石國際股份有限公司（以下簡稱我們）所經營。我們遵守「個人資料保護法」，並重視您的隱私權，為了確保您的個人資料安全，讓您能夠安心使用本網站的各項服務與資訊，我們訂立了以下的隱私權政策，請您詳細閱讀以了解本網站如何蒐集、應用、保護您的資料。\r\n"
 				+ "一、隱私權保護政策的適用範圍\r\n"
 				+ "\r\n"
@@ -625,7 +625,7 @@ public class TestLoginController {
 		membershipInformationBean dataBean=dataBeanD.get();
 		System.out.println("databean----  id---->"+dataBean.getId());
 		System.out.println("---------getUserEmail---------->"+dataBean.getUserEmail());
-		dataBean.setUserName(bean.getUserName());
+		dataBean.setUsername(bean.getUsername());
 		dataBean.setUserNickname(bean.getUserNickname());
 		dataBean.setUserPhone(bean.getUserPhone());
 		dataBean.setUserPwd(bean.getUserPwd());

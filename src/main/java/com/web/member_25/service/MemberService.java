@@ -56,6 +56,7 @@ public interface MemberService {
 	//測試security的登入
 	int loginByEmail(String userEmail);
 	
+	
 
 
 }

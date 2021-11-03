@@ -34,51 +34,54 @@ public interface MembertRepository extends JpaRepository<membershipInformationBe
 	
 	//更新會員資料測試
 //	membershipInformationBean update(membershipInformationBean mb);
+	
+	
+	//測試security 先註解
 	//更新會員資料
-	@Transactional
-	  @Modifying
-  @Query("UPDATE membershipInformationBean m "
-			+ "set m.userPhone=:userPhone,"
-			+ "m.userName=:userName,"
-			+ "m.userNickname=:userNickname,"
-			+ "m.birthday=:birthday,"
-			+ "m.userGender=:userGender,"
-			+ "m.address=:address,"   //,head_shot=:head_shot
-			+ "m.head_shot=:head_shot," 
-			+ "m.fileName=:fileName " 
-			+ "WHERE m.userEmail=:userEmail") 
-  void upadteMemberData(
-		  @Param("userPhone") String userPhone,
-		  @Param("userName") String userName,
-		  @Param("userNickname") String userNickname,
-		  @Param("birthday") String birthday,
-		  @Param("userGender") String userGender,
-		  @Param("address") String address,
-		  @Param("head_shot") Blob blob,
-		  @Param("fileName") String fileName,
-		  @Param("userEmail") String userEmail);
-	
-	
-	
-	//更新會員資料(無圖片)
-	@Transactional
-	  @Modifying
-  @Query("UPDATE membershipInformationBean m "
-			+ "set m.userPhone=:userPhone,"
-			+ "m.userName=:userName,"
-			+ "m.userNickname=:userNickname,"
-			+ "m.birthday=:birthday,"
-			+ "m.userGender=:userGender,"
-			+ "m.address=:address "   //,head_shot=:head_shot
-			+ "WHERE m.userEmail=:userEmail") 
-  void upadteMemberDataWithNoImg(
-		  @Param("userPhone") String userPhone,
-		  @Param("userName") String userName,
-		  @Param("userNickname") String userNickname,
-		  @Param("birthday") String birthday,
-		  @Param("userGender") String userGender,
-		  @Param("address") String address,
-		  @Param("userEmail") String userEmail);
+//	@Transactional
+//	  @Modifying
+//  @Query("UPDATE membershipInformationBean m "
+//			+ "set m.userPhone=:userPhone,"
+//			+ "m.userName=:userName,"
+//			+ "m.userNickname=:userNickname,"
+//			+ "m.birthday=:birthday,"
+//			+ "m.userGender=:userGender,"
+//			+ "m.address=:address,"   //,head_shot=:head_shot
+//			+ "m.head_shot=:head_shot," 
+//			+ "m.fileName=:fileName " 
+//			+ "WHERE m.userEmail=:userEmail") 
+//  void upadteMemberData(
+//		  @Param("userPhone") String userPhone,
+//		  @Param("userName") String userName,
+//		  @Param("userNickname") String userNickname,
+//		  @Param("birthday") String birthday,
+//		  @Param("userGender") String userGender,
+//		  @Param("address") String address,
+//		  @Param("head_shot") Blob blob,
+//		  @Param("fileName") String fileName,
+//		  @Param("userEmail") String userEmail);
+//	
+//	
+//	
+//	//更新會員資料(無圖片)
+//	@Transactional
+//	  @Modifying
+//  @Query("UPDATE membershipInformationBean m "
+//			+ "set m.userPhone=:userPhone,"
+//			+ "m.userName=:userName,"
+//			+ "m.userNickname=:userNickname,"
+//			+ "m.birthday=:birthday,"
+//			+ "m.userGender=:userGender,"
+//			+ "m.address=:address "   //,head_shot=:head_shot
+//			+ "WHERE m.userEmail=:userEmail") 
+//  void upadteMemberDataWithNoImg(
+//		  @Param("userPhone") String userPhone,
+//		  @Param("userName") String userName,
+//		  @Param("userNickname") String userNickname,
+//		  @Param("birthday") String birthday,
+//		  @Param("userGender") String userGender,
+//		  @Param("address") String address,
+//		  @Param("userEmail") String userEmail);
 	
 	
 	

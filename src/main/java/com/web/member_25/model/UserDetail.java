@@ -13,8 +13,8 @@ import javax.persistence.Transient;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
-@Table(name="membershipInformation")
-public class membershipInformationBean {
+@Table(name="UserDetail")
+public class UserDetail {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +26,9 @@ public class membershipInformationBean {
 	@Column(name="userPwd")
 	String userPwd;
 	
-	
 	@Column(name="username")
 	String username;
-	@Column(name="password")
-	String password;
+	
 	
 	@Column(name="userNickname")
 	String userNickname;
@@ -57,7 +55,7 @@ public class membershipInformationBean {
 	Integer verifyCode;
 	
 	
-	public membershipInformationBean() {
+	public UserDetail() {
 		
 	}
 	
@@ -82,10 +80,10 @@ public class membershipInformationBean {
 		
 		
 
-		public membershipInformationBean(Integer id, String userEmail, String userPhone, String userPwd,
+		public UserDetail(Integer id, String userEmail, String userPhone, String userPwd,
 				String username, String userNickname, String userGender, String address, String identification,
 				Blob head_shot, String fileName, String birthday, String notes, Integer verifyCode, String userPwd1,
-				int verificationCode, MultipartFile productImage,String password) {
+				int verificationCode, MultipartFile productImage) {
 
 			this.id = id;
 			this.userEmail = userEmail;
@@ -102,7 +100,7 @@ public class membershipInformationBean {
 			this.notes = notes;
 			this.verifyCode = verifyCode;
 			this.userPwd1 = userPwd1;
-			this.password=password;	
+	
 		}
 
 		public Integer getId() {
@@ -137,21 +135,12 @@ public class membershipInformationBean {
 			this.userPwd = userPwd;
 		}
 
-		public String getUsername() {
+		public String getUsename() {
 			return username;
 		}
 
 		public void setUsername(String username) {
 			this.username = username;
-		}
-
-
-		public String getPassword() {
-			return password;
-		}
-
-		public void setPassword(String password) {
-			this.password = password;
 		}
 
 		public String getUserNickname() {

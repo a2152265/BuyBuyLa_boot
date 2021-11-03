@@ -5,12 +5,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 //配置一夏usernama pwd (不是那麼的實用)
+//上櫃股type
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
@@ -44,20 +46,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		//自定義404page
-		http.exceptionHandling().accessDeniedPage("/member_25/error404.jsp");
+		http.exceptionHandling().accessDeniedPage("/member_25/error404");
 		
 		
 		http.formLogin()  //自定義的登入葉面
 			.loginPage("/member_25/loginpage") //登入葉面配置
-			.loginProcessingUrl("/user/login") //登入地址
+			.loginProcessingUrl("/try/login") //登入地址
 			.defaultSuccessUrl("/").permitAll()  //登入成功後的跳轉葉面
 			.and().authorizeRequests()
-				.antMatchers("/","test/hello","/try/login","/user/login","/member_25/loginpage").permitAll() //那些路徑訪問不用登入
+				.antMatchers("/","test/hello","/try/login","/user/login").permitAll() //那些路徑訪問不用登入
 				//設定權限s
 //				.antMatchers("/try/member_Ui","member_25/loginpage").hasAuthority("member")	  //1.單個權限腳色
 //				.antMatchers("/try/member_Ui").hasAnyAuthority("memberm,manager")   //2.多個腳色權限
 //				.antMatchers("/try/member_Ui").hasRole("member")    //3.ROLE_member 腳色才可查看
-				.antMatchers("/member_25/member_Ui").hasAnyRole("member","manager")    //4.ROLE_member或ROLE_manager 腳色才可查看
+				.antMatchers("/member_25/member_Ui","/try/member_Ui").hasAnyRole("member","manager")    //4.ROLE_member或ROLE_manager 腳色才可查看
 				
 				.anyRequest().authenticated()
 			.and().csrf().disable(); //關閉csrf防護
