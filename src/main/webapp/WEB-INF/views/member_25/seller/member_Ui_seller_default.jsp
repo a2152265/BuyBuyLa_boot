@@ -17,7 +17,7 @@
     <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
     
 
-    
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     
     
@@ -210,16 +210,12 @@
             <!-- toggle 棟棟 -->
             <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
            
-            <br><div ng-app style="margin-left:0px; margin-top:10px" >
-                <div ng-controller="ToogleStateCtrl">
-                    <span style="margin-top:9px;">發送驗證碼</span>
-                    <div id="srv-state" class="switch vertical-center" ng-click="toggleState()">
-                        <div class="switch-slider {{change}}" ng-class="{'disabled' : !plugin.enabled , 'enabled': plugin.enabled, 'pending': plugin.pending, 'loaded': !plugin.pending}">
-                            <a href="<c:url value='/member/verifyBtn' />"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <br> <a href="<c:url value='/member/verifyBtn' />" id="submit" class="submit">送出驗證碼 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        	
+                        	
+                       
+            
+            
             </td>
             </tr>
           
@@ -249,15 +245,17 @@
   </div>
         <div class="sidebar" style="background-color: rgb(87, 87, 121);">
             <div class="profile">
-                <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
-                <h3></h3>
-                <p>Designer</p>
-            </div>
+                <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
+                   <!-- 讀取圖片 -->
+                  <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
+                   <h3></h3>
+                   <p>${memberUiDefault.userEmail} </p>
+               </div>
             <ul>
                 <li>
                     <a href="<c:url value='/' />" class="active">
                         <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">Home</span>
+                        <span class="item">首頁</span>
                     </a>
                 </li>
                 <li>
@@ -310,8 +308,36 @@
         
     </div>
 
+   <!--  -->
    
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(".submit").click(function(){		
+	  let timerInterval
+	  Swal.fire({
+	  title: '交易處理中 ! !',
+	  html: '請耐心等候 :)',
+	  timer: 12000,
+	  timerProgressBar: true,
+	  didOpen: () => {
+	    Swal.showLoading()
+	    const b = Swal.getHtmlContainer().querySelector('b')
+	    timerInterval = setInterval(() => {
+	      b.textContent = Swal.getTimerLeft()
+	    }, 100)
+	  },
+	  willClose: () => {
+	    clearInterval(timerInterval)
+	  }
+	}).then((result) => {
+	  /* Read more about handling dismissals below */
+	  if (result.dismiss === Swal.DismissReason.timer) {
+	    console.log('I was closed by the timer')
+	  }
+	})
+});
+	
+    </script>
 
     <script>
 

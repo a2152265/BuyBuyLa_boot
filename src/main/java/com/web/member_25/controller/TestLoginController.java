@@ -485,7 +485,7 @@ public class TestLoginController {
 //		message.setTo(mb.getUserEmail());  //使用者email
 		message.setTo(mb2.getUserEmail());  //測試用我的
 		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
-		message.setText("您好 : "+mb2.getUserName()+"\r\n歡迎光臨BuyByLA  "+"  您的驗證碼是:"+VerificationCode +"\r\n \r\n \r\n \r\n \r\n 隱私權政策\r\n"
+		message.setText("您好 : "+mb2.getUserEmail()+"\r\n歡迎光臨BuyByLA  "+"  您的驗證碼是:"+VerificationCode +"\r\n \r\n \r\n \r\n \r\n 隱私權政策\r\n"
 				+ "歡迎您來到BuyBuyLa的網站（以下簡稱本網站），本網站由藍石國際股份有限公司（以下簡稱我們）所經營。我們遵守「個人資料保護法」，並重視您的隱私權，為了確保您的個人資料安全，讓您能夠安心使用本網站的各項服務與資訊，我們訂立了以下的隱私權政策，請您詳細閱讀以了解本網站如何蒐集、應用、保護您的資料。\r\n"
 				+ "一、隱私權保護政策的適用範圍\r\n"
 				+ "\r\n"
