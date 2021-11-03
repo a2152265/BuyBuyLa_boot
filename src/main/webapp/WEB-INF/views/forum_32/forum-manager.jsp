@@ -201,7 +201,7 @@
 														<th>管理</th>
 													</tr>
 												</thead>
-												<tbody>
+												<tbody id = "messageResult">
 													<tr>
 														<td>5</td>
 														<td>愛刺人的蝦丸子</td>
@@ -212,6 +212,7 @@
 															<button class="btn btn-primary">刪除</button>
 														</td>
 													</tr>
+													
 												</tbody>
 											</table>
 											
