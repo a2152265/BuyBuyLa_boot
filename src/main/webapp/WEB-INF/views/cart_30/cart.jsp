@@ -174,10 +174,10 @@ h2 span {
 					<td><img width='150'src="<c:url value='/getPicture/${row.pid}' />" /></td>
 					<td>${row.p_name}</td>
 					<td>
-<%-- 					<a href="<c:url value='/sub' />?id=${row.pid}"> </a>--%>
+
 					<button class="down"  value='${row.pid}'>-</button>
-					<input type="text" value="${row.count}" readonly="readonly" />
-<%-- 					<a href="<c:url value='/add' />?id=${row.pid}"></a> --%>
+					<input  class="cnt" type="text" value="${row.count}" readonly="readonly" />
+
 					<button class="up" value='${row.pid}'>+</button>
 					</td>
 					<td>NT<span>${row.p_price}</span></td>
@@ -212,7 +212,8 @@ h2 span {
 	<script>
 	
 	$(".down").click(function(){		
-//		var data=$("#form1").serializeArray();
+	var cnt = $(".cnt").val();
+	var cnt2;
 	var data=$(this).val();
 	console.log(data+"************************");
 	$.ajax({
@@ -223,7 +224,9 @@ h2 span {
 		},
 		
 		success:function(){
-			 console.log("77777777")
+			cnt2=parseInt(cnt)-1;
+			$(".cnt").val(cnt2);
+			console.log(cnt2)
 		}
 								
 	});			
@@ -231,9 +234,11 @@ h2 span {
 
 	
 	$(".up").click(function(){		
-//		var data=$("#form1").serializeArray();
+	var cnt = $(this).prev().val(); 
+	
+	console.log("cnt=="+cnt)
 	var data=$(this).val();
-	console.log(data+"************************");
+
 	$.ajax({
 		type:'get',
 		url:'add',
@@ -241,8 +246,11 @@ h2 span {
 			"id":data
 		},
 		
-		success:function(){
-			 console.log("77777777")
+		success:function(result){
+			console.log("result=="+result)
+			
+// 			console.log("cnt2 = "+cnt2);
+			
 		}
 								
 	});			

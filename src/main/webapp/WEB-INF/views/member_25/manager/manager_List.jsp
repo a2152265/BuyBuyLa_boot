@@ -195,9 +195,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='???' />">
+                    <a href="<c:url value='/recordManage' />">
                         <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item"></span>
+                        <span class="item">訂單管理</span>
                     </a>
                 </li>
                 <li>
