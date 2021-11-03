@@ -131,7 +131,7 @@ public class RecordService implements IRecordService {
 
 	@Override
 	public Double findFemaleRecord() {
-//		recordRepository.findFemaleRecord();
+		recordRepository.findFemaleRecord();
 		return 0.0;
 	}
 

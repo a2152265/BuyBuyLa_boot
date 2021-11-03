@@ -60,8 +60,8 @@ public interface RecordRepository extends JpaRepository<RecordBean, Integer> {
 			@Param("category")String category,
 	 		@Param("buyeraddress")String buyeraddress);
 	
-//	@Query(nativeQuery = true, value = "select * from Record where category='女生衣服'")
-//    public List<RecordBean> findFemaleRecord();
+	@Query(nativeQuery = true, value = "select * from Record where category='女生衣服'")
+    public List<RecordBean> findFemaleRecord();
 	
 
 	
