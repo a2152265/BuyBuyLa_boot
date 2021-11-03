@@ -149,11 +149,17 @@
 	                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/login' />">會員登入</a></li> 
                   	   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/add' />">會員註冊</a></li>
                </c:if>
+                <c:if test="${managerSession == null}">
                <c:if test="${loginSession.userEmail != null}">
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/member/evolution' />">賣家專區</a></li>
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
 <!--                   <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li> -->
                 </c:if>
+                </c:if>
+                 <c:if test="${managerSession != null}">
+                   <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui' />">會員管理</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
+                    </c:if>
                 </ul>
 							</li>
               <li class="nav-item submenu dropdown">
@@ -169,8 +175,14 @@
 <!--                   <li class="nav-item"><a class="nav-link" href="tracking-order.html">Tracking</a></li> -->
 <!--                 </ul> -->
               </li>
+               <c:if test="${managerSession == null}">
               <c:if test="${loginSession.userEmail != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
+						${loginSession.userEmail}</a></li>
+				</c:if>
+				</c:if>
+				<c:if test="${managerSession != null}">
+              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui' />">Hi管理員!!! &nbsp;
 						${loginSession.userEmail}</a></li>
 				</c:if>
             </ul>

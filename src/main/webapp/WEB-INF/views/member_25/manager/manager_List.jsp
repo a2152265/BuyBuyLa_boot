@@ -66,6 +66,11 @@
     <div class="container" style="padding: 0px 0px 0px 30px;">
        <span style="font-size: 40px;">會員清單</span>
       </div>
+      
+      <!-- 新增會員 -->
+      <div>
+      <a href='/BuyBuyla_boot/manager/insert'  class="button-1" >新增會員</a>
+      </div>
 
 
       <table id="example" class="display" style="width:100% ">
@@ -229,6 +234,8 @@
     </div>
 
     <script>
+    
+    
 
           var hamburger = document.querySelector(".hamburger");
  			 hamburger.addEventListener("click", function(){

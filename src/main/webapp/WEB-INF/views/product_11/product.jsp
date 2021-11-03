@@ -46,6 +46,7 @@
                </c:if>
                <c:if test="${loginSession.userEmail != null}">
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/member/evolution' />">會員專區</a></li>
+                  
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
 <!--                   <li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li> -->
 <!--                   <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li> -->

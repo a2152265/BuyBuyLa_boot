@@ -314,7 +314,7 @@ footer a {
 	<div class="form-container sign-in-container">
 
         <!-- 登入帳號區 -->
-		<form:form method='POST'   modelAttribute="loginSession"
+		<form:form method='POST'   modelAttribute="forgetpwd"
 							cssClass='row login_form' >
 			<h1>歡迎您 請登入</h1>
 			<div class="social-container">
@@ -325,10 +325,21 @@ footer a {
 		
             <form:input id="name" path="userEmail" type='text' placeholder="請輸入帳號" cssclass='form-control'  />
 							
-            <form:password id="pwd" path="userPwd"  placeholder="請輸入密碼" cssclass='form-control'  />
-			  <input id="onejan" type="button" value="一键输入用户名"  onclick='quickInput();' >  <br>
-			<a href="<c:url value='/member/forget' />">忘記密碼?</a>
-			<!-- <button>登入</button> -->
+           <!-- 驗證碼區 -->
+           <div ng-app style="margin-left:0px; margin-top:10px" >
+                <div ng-controller="ToogleStateCtrl">
+                    <span style="margin-top:9px;">發送驗證碼</span>
+                    <div id="srv-state" class="switch vertical-center" ng-click="toggleState()">
+                        <div class="switch-slider {{change}}" ng-class="{'disabled' : !plugin.enabled , 'enabled': plugin.enabled, 'pending': plugin.pending, 'loaded': !plugin.pending}">
+                           <!-- <a href="<c:url value='/member/verifyBtn' />"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>   --> 
+                        <a href="<c:url value='/try/index' />"><button type="submit" value="submit" style="background-color: rgb(9, 9, 121);"   >確認</button> </a>
+          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+           
             <a href="<c:url value='/try/index' />"><button type="submit" value="submit" style="background-color: rgb(9, 9, 121);"   >登入</button> </a>
           
         </form:form>
