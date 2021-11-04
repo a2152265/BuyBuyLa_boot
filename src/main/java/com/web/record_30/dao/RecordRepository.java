@@ -13,7 +13,7 @@ import com.web.record_30.model.RecordBean;
 public interface RecordRepository extends JpaRepository<RecordBean, Integer> {
 	
 	@Query(nativeQuery = true, value = "select * from Record where record_id=?1 order by pid")
-    public List<RecordBean> findByRecord(int record_id );
+    public List<RecordBean> findByRecord(String record_id );
 	
 	@Query(nativeQuery = true, value = "select * from Record where buyer=?1  order by record_id")
     public List<RecordBean> findByRecords(String buyer );
@@ -22,16 +22,16 @@ public interface RecordRepository extends JpaRepository<RecordBean, Integer> {
     public List<RecordBean> findBySellerRecords(String seller );
 	
 	@Query(nativeQuery = true, value = "select * from Record where record_id=?1 AND pid=?2")
-    public RecordBean findByRecordPidAndRid(int record_id,int pid );
+    public RecordBean findByRecordPidAndRid(String record_id,int pid );
 	
 	
 	@Modifying
 	@Query(nativeQuery = true, value = "delete from Record  where record_id=?1 AND pid=?2")
-    public void deleteRecord(int record_id,int pid);
+    public void deleteRecord(String record_id,int pid);
 	
 	@Modifying
     @Query(nativeQuery = true,value="update Record  set transport_status = ?1 where record_id = ?2 AND PID=?3")
-	public void update(String ts,Integer record_id, Integer PID);
+	public void update(String ts,String record_id, Integer PID);
 	
 	@Modifying
     @Query(nativeQuery = true,value="insert into Record (record_id,pid,p_name,p_price,pcount,buyer,seller,buy_time,transport_status,category,buyeraddress)"
@@ -48,7 +48,7 @@ public interface RecordRepository extends JpaRepository<RecordBean, Integer> {
     		+ ":category,"
     		+ ":buyeraddress)")
 	 void insert(
-			@Param("record_id") Integer record_id,
+			@Param("record_id") String record_id,
 			@Param("pid") Integer pid,
 			@Param("p_name") String p_name,
 			@Param("p_price") Double p_price,

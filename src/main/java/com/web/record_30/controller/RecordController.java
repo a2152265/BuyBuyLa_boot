@@ -41,7 +41,7 @@ public class RecordController {
 
 //查購物紀錄細項	
 	@GetMapping("/select")
-    public String getAddNewMemberForm1(@RequestParam Integer id,Model model) {		
+    public String getAddNewMemberForm1(@RequestParam String id,Model model) {		
 
 
 		System.out.println("buyer2 =" +id);		
@@ -85,7 +85,7 @@ public class RecordController {
 		
 //賣家刪掉單筆商品賣出紀錄
 	@GetMapping("/delete")
-	public String delete2(@RequestParam Integer rid,@RequestParam Integer pid ,Model model) {
+	public String delete2(@RequestParam String rid,@RequestParam Integer pid ,Model model) {
 		
 	
 		
@@ -135,7 +135,7 @@ public class RecordController {
 	//賣家更改單筆商品出貨狀態
 	@GetMapping("/updatevalue30")
 	public String updatestatus(@ModelAttribute("loginSession") membershipInformationBean mb,
-			@RequestParam("rid") Integer rid,
+			@RequestParam("rid") String rid,
 			@RequestParam("pid") Integer pid,
 			@RequestParam("ts") String ts,
 			Model model ) {
@@ -169,7 +169,7 @@ public class RecordController {
 	}
 	
 	@GetMapping("/updateRecordList")
-	public String updateRecordList(@RequestParam Integer rid,Model model) {
+	public String updateRecordList(@RequestParam String rid,Model model) {
 		RecordList recordList = recordservice.getRecordByRid(rid);
 		model.addAttribute("RecordList",recordList);
 
@@ -180,7 +180,7 @@ public class RecordController {
 	@PostMapping("/updateRecordList")
 	public String updateRecordList(@ModelAttribute("RecordList") RecordList recordList,Model model) {
 	
-		int rid =recordList.getRecord_id();
+		String rid =recordList.getRecord_id();
 		String buyer = recordList.getBuyer();
 		double totalprice = recordList.getTotalprice();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -201,7 +201,7 @@ public class RecordController {
 	
 	
 	@GetMapping("/deleteRecordList")
-	public String deleteRecordList(@RequestParam Integer rid,Model model) {
+	public String deleteRecordList(@RequestParam String rid,Model model) {
 		List<RecordList> recordList = recordservice.getAllMemberRecord();
 		recordservice.deleteRecordList(rid);
 		model.addAttribute("allreocrd", recordList);

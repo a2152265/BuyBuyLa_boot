@@ -31,7 +31,7 @@ public class RecordService implements IRecordService {
 
 //	@Transactional
 	@Override
-	public List<RecordBean> getAllRecord(int record_id) {
+	public List<RecordBean> getAllRecord(String record_id) {
 		
 		return recordRepository.findByRecord(record_id);
 	}
@@ -40,14 +40,14 @@ public class RecordService implements IRecordService {
 	
 	@Transactional
 	@Override
-	public void deleteRecord(int record_id,int pid) {
+	public void deleteRecord(String record_id,int pid) {
 		System.out.println("**********"+record_id);
 		recordRepository.deleteRecord(record_id,pid);
 		
 	}
 	
 	@Override
-	public void updateRecordListTotalPrice(int record_id, int pid) {
+	public void updateRecordListTotalPrice(String record_id, int pid) {
 		RecordBean rb =recordRepository.findByRecordPidAndRid(record_id, pid);
 		double price=rb.getP_price();
 		int count =rb.getPcount();
@@ -56,15 +56,11 @@ public class RecordService implements IRecordService {
 		
 	}
 	
-	@Override
-	public void deleteRecordListById(int record_id) {
-		recordListRepository.deleteById(record_id);
-		
-	}
+	
 	
 	@Transactional
 	@Override
-	public void update(int rid,int pid,String ts) {
+	public void update(String rid,int pid,String ts) {
 	
 		 recordRepository.update(ts,rid,pid);
 	}
@@ -109,14 +105,19 @@ public class RecordService implements IRecordService {
 
 
 	@Override
-	public void deleteRecordList(int rid) {
-		recordListRepository.deleteById(rid);
+	public void deleteRecordList(String rid) {
+		recordListRepository.deleteByRid(rid);
 		
 	}
 
-
 	@Override
-	public RecordList getRecordByRid(int rid) {
+	public void deleteRecordListById(String record_id) {
+		recordListRepository.deleteByRid(record_id);
+		
+	}
+	
+	@Override
+	public RecordList getRecordByRid(String rid) {
 		
 		return recordListRepository.getById(rid);
 	}
