@@ -61,7 +61,7 @@
 }
 
 input[type=text], select, textarea {
-  width: 100%;
+  width: 350%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -95,8 +95,9 @@ input[type=submit]:hover {
 
 .col-25 {
   float: left;
-  width: 25%;
+test-align:center;
   margin-top: 6px;
+  
 }
 
 .col-75 {
@@ -119,14 +120,27 @@ input[type=submit]:hover {
     margin-top: 0;
   }
 }
+
+.inputbnt{
+	margin-top:12px;
+	
+	
+}
+.flex-parent {
+  display: flex;
+}
+
+.jc-center {
+  justify-content: center;
+}
 </style>
   
   
-  
+  <div class="flex-parent jc-center " style="text-align:center; margin-left:-27%">
    <div class="container">
    <!-- 修改表單資料 -->
         <form:form method='POST' modelAttribute="memberDataDefault" >
-        <input type="hidden" name="_method"  id='putOrDelete'   value="DELETE" >
+        <input type="hidden" name="_method" id='putOrDelete'   value="DELETE" >
         <c:if test='${memberDataDefault.id != null}'>
                <form:hidden path="id" /><br>&nbsp;
 			</c:if>
@@ -181,10 +195,23 @@ input[type=submit]:hover {
         <label for="country">性別</label>
       </div>
       <div class="col-75">
-        <form:select id="country" name="country"/>
-          <form:options path="userGender" value="男性">Australia</form:options>
-          <form:options path="userGender"  value="女性">Canada</form:options>
-          <form:options path="userGender" value="其他">USA</form:options>
+        <form:select  path="userGender" id="userGender" name="country"  required="required">
+          <form:option path="userGender" value="男性" lable="男性" >男性</form:option>
+          <form:option path="userGender"  value="女性" lable="女性" >女性</form:option>
+          <form:option path="userGender" value="其他" lable="其他" >其他</form:option>
+          </form:select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="country">權限</label>
+      </div>
+      <div class="col-75">
+        <form:select  path="identification" id="userGender" name="country"  required="required">
+          <form:option path="identification" value="買家" lable="買家" >買家</form:option>
+          <form:option path="identification"  value="賣家" lable="賣家" >賣家</form:option>
+          <form:option path="identification" value="管理者" lable="管理者" >管理者</form:option>
+          </form:select>
       </div>
     </div>
     <div class="row">
@@ -195,10 +222,15 @@ input[type=submit]:hover {
         <form:textarea path="notes" id="subject" name="subject" placeholder="Write something.." style="height:200px"/>
       </div>
     </div>
-    <div class="row">
-      <input type="submit" value="修改">
+    
+    <div class="inputbnt flex-parent jc-center" style="text-align:center; margin-left:145%" >
+    
+      <input type="submit"  style=" background-color:blue;" value="修改">
+    
     </div>
+    
   </form:form>
+</div>
 </div>
     
     
