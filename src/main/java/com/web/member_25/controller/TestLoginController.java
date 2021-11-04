@@ -167,6 +167,7 @@ public class TestLoginController {
 
 		System.out.println("==========進入processMemberLogin=====================");
 		membershipInformationBean mb2 = new membershipInformationBean();
+		membershipInformationBean mb4 = new membershipInformationBean();
 
 		int loginResult = 0; 
 
@@ -179,6 +180,13 @@ public class TestLoginController {
 		loginResult = memberService.login(userEmail, userPwd);
 	
 		if (loginResult == 1) {
+			
+			mb4 =memberService.findMemberData(userEmail);
+			if (mb4.getSuspension().equals("ban")) {
+				System.out.println("-----------開始登入ban介面----------");
+				model.addAttribute("loginSession",mb4);
+				return "member_25/ban/member_ban";
+			}
 
 			Boolean isMamber = true;
 			isMamber = memberService.memberOrManager(userEmail); // 判斷是使用者還是管理者
@@ -899,10 +907,37 @@ public class TestLoginController {
 					return "redirect:/try/login";
 				}
 				
+			
 				
 				
+	
+				//帳號停權
+		@GetMapping("/member/suspension")
+		public String stopUse(Model model) {
+			model.addAttribute("suspension",new membershipInformationBean());
+			return "member_25/member_Ui_suspension";
+		}
+		
+		@PostMapping("/member/suspension")
+		public String processStopUse(
+				@ModelAttribute("memberUiDefault") membershipInformationBean mb2, 
+				@ModelAttribute("suspension") membershipInformationBean mb, 
+				Model model,SessionStatus sessionStatus) {
+			System.out.println("memberEmail---->"+mb.getUserEmail());
+			System.out.println("memberPwd---->"+mb.getUserPwd());
+			System.out.println("mbPwd---->"+mb.getUserPwd());
+			if (mb.getUserPwd().equals(mb2.getUserPwd())) {
+				System.out.println("--------------已ban------------------");
+				mb2.setSuspension("ban");
+				memberService.save(mb2);
+				sessionStatus.setComplete();
+				return "redirect:/";
+			}
+			System.out.println("密碼錯誤 請重新再試");
+			return "/member/suspension";
+		}
 				
-				
+		
 				
 				
 	

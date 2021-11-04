@@ -12,7 +12,7 @@
             </div>
             <ul>
                 <li>
-                    <a href="<c:url value='???' />"  class="active">
+                    <a href="<c:url value='/try/member_Ui' />"  class="active">
                         <span class="icon"><i class="fas fa-database"></i></span>
                         <span class="item">會員資料</span>
                     </a>

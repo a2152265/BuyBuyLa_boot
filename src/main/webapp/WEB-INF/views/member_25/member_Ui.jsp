@@ -76,7 +76,13 @@
                             <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                 <input type="button" id="onejan" name="submitRewrite" class="btn btn-primary btn-lg" value="一鍵輸入">
                               </div>
-          
+                              
+                              <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                              <a href="<c:url value='/member/suspension' />">
+                      				  <span class="icon"><i class="fas fa-database"></i></span>
+                     				   <span class="item">停用帳號</span>
+                  				  </a>
+          						 </div>
           
                         </div>
                         
