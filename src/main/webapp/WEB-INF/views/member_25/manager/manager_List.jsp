@@ -1,18 +1,11 @@
 
-
-
-
-
  <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!-- header -->
-<%@ include file="../../Home/manager/header.jspf"%>
+<%@ include file="../../Home/manager/datatable/header.jspf"%>
 <!-- sidebar -->>
 <%@ include file="../../Home/manager/footer.jspf"%>
 
-
-
-
-
+<!-- 通知欄 -->>
 <section class="page-content">
   <section class="search-and-user">
     <form>
@@ -37,35 +30,65 @@
   
   
   
-  <!-- 放分析圓餅圖 -->
-  <section class="grid">
   
-    <article>
-    <h1>總收益</h1>
-    </article>
+  
+  <!-- 會員清單 -->
+      <h1 style="font-size: 40px; text-align: center;" >會員清單</h1>
+
+    
+     <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>會員編號</th>
+                <th>E-mail</th>
+                <th>電話</th>
+                <th>密碼</th>
+                <th>會員名稱</th>
+                <th>會員暱稱</th>
+                <th>性別</th>
+                <th>地址</th>
+                <th>8.權限</th>
+                <th>備註</th>
+                <th>修改</th>
+            </tr>
+        </thead>
+        		
+        <tbody>
+       
+            <c:forEach var="member" items="${memberList}">
+                <tr>
+                  <td><c:out value="${member.id}" /></td>
+                  <td><c:out value="${member.userEmail}" /></td>
+                  <td><c:out value="${member.userPhone}" /></td>
+                  <td><c:out value="${member.userPwd}" /></td>
+                  <td><c:out value="${member.userName}" /></td>
+                  <td><c:out value="${member.userNickname}" /></td>
+                  <td><c:out value="${member.userGender}" /></td>
+                  <td><c:out value="${member.address}" /></td>
+                  <td><c:out value="${member.identification}" /></td>
+                  <td><c:out value="${member.notes}" /></td>
+       
+                  <td>
+                 
+                
+                <div class="bn">
+                    <!-- Button 修改會員資料 -->
+				<!--	<a href="<c:url value='/select?id=${selects.record_id}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a> -->
+				
+                    <a href='/BuyBuyla_boot/manager/edit${member.id}'   class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                     <a href='/BuyBuyla_boot/manager/delete${member.id}'  onclick="return(confirm('確認刪除？'))"    class="button-1" >刪除會員</a>
+                               
+                 </div>
+            
+                  </td>                      
+                </tr>
+                 </c:forEach>
+          
+
+    </table>        
     
     
-    <article>
-     <h1>品項</h1>
-    </article>
     
-    
-    <article>
-     <h1>會員數</h1>
-    </article>
-    
-    <article>
-     <h1>發文次數</h1>
-    </article>
-    
-    <article>
-     <h1>活動收益一覽</h1>
-    </article>
-    
-    <article>
-     <h1>購物紀錄</h1>
-    </article>
-  </section>
 
 
 

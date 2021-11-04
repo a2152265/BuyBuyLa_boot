@@ -190,7 +190,7 @@ public class TestLoginController {
 				mb2.setUserName("管理員");
 				model.addAttribute("managerSession", mb2);
 				model.addAttribute("memberUiDefault", mb2);
-				return "redirect:/manager_Ui";
+				return "redirect:/manager_Ui0";
 			}
 			System.out.println("登入成功 userEmail  ----->" + userEmail);
 			mb2.setUserEmail(userEmail);
@@ -438,6 +438,21 @@ public class TestLoginController {
 //
 //		return "manager_Ui";
 //	}
+		
+	//展示分析圖表
+	@RequestMapping("/manager_Ui0")
+	public String ana(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
+		List<membershipInformationBean> memberList = memberService.selectAllUsers();
+		model.addAttribute("memberList", memberList);
+		model.addAttribute("member", new membershipInformationBean());
+		model.addAttribute("memberEdit", new membershipInformationBean());
+		System.out.println("---------------展示會員資料----------------");
+		model.addAttribute("managerSession", memberList);
+		model.addAttribute("memberUiDefault",memberService.findMemberData(mb.getUserEmail()));
+			
+			
+		return "member_25/manager/manager_Ui";
+	}
 
 	// 管理者介面專用 - 展示會員資料
 	@RequestMapping("/manager_Ui")
