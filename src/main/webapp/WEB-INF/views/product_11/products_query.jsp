@@ -10,7 +10,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Aroma Shop - Category</title>
+  <title>BuyBuyLa|</title>
 	<link rel="icon" href="img/Fevicon.png" type="image/png">
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
@@ -38,7 +38,7 @@
           </button>
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
              <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item"><a class="nav-link" href="<c:url value='/' />">首頁</a></li>
+              <li class="nav-item active"><a class="nav-link" href="<c:url value='/' />">首頁</a></li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">會員</a>
@@ -47,38 +47,44 @@
 	                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/login' />">會員登入</a></li> 
                   	   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/add' />">會員註冊</a></li>
                </c:if>
+                <c:if test="${managerSession == null}">
                <c:if test="${loginSession.userEmail != null}">
-                  <li class="nav-item"><a class="nav-link" href="<c:url value='/member/evolution' />">會員專區</a></li>
+                  <li class="nav-item"><a class="nav-link" href="<c:url value='/member/evolution' />">賣家專區</a></li>
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
-<!--                   <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li> -->
                 </c:if>
+                </c:if>
+                 <c:if test="${managerSession != null}">
+                   <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui' />">會員管理</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
+                    </c:if>
                 </ul>
-							</li>
+			  </li>
               <li class="nav-item submenu dropdown">
-                <a href="campaigns" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                <a href="<c:url value='/forum' />" class="nav-link dropdown-toggle"  role="button" aria-haspopup="true"
                   aria-expanded="false">討論區</a>
-<!--                 <ul class="dropdown-menu"> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="blog.html"></a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li> -->
-<!--                 </ul> -->
 							</li>
 							<li class="nav-item submenu dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                <a href="<c:url value='/campaigns' />" class="nav-link dropdown-toggle" role="button" aria-haspopup="true"
                   aria-expanded="false">活動專區</a>
-<!--                 <ul class="dropdown-menu"> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="tracking-order.html">Tracking</a></li> -->
-<!--                 </ul> -->
               </li>
+               <c:if test="${managerSession == null}">
               <c:if test="${loginSession.userEmail != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
 						${loginSession.userEmail}</a></li>
+
 				</c:if>
+				</c:if>
+				<c:if test="${managerSession != null}">
+              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui' />">Hi管理員!!! &nbsp;
+						${loginSession.userEmail}</a></li>
+				</c:if>
+
+			
+
             </ul>
 
             <ul class="nav-shop">
-               <li class="nav-item" ><form:form method='POST' action="./queryproduct"
+               <li class="nav-item" ><form:form method='get' action="./queryproduct"
 						class='form-horizontal'>
 				
 							<input name="productName" id="productName" type='text'
@@ -225,7 +231,7 @@
               
                 <div class="card text-center card-product">
                   <div class="card-product__img">
-                    <img width="370" height="250" class="card-img" src="<c:url value='/getPicture/${product.productId}' />" alt="">
+                    <img width="250" height="300" class="card-img" src="<c:url value='/getPicture/${product.productId}' />" alt="">
                     <ul class="card-product__imgOverlay">
                                     <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
                   <li><button onclick="location.href='<c:url value='/additem' />?id=${product.productId}'"><i class="ti-shopping-cart"></i></button></li>

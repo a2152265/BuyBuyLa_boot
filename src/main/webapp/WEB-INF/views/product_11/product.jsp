@@ -1,6 +1,7 @@
  	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,23 +78,22 @@
             </ul>
 
             <ul class="nav-shop">
-           <li class="nav-item" ><form:form method='POST' action="./queryproduct"
-						class='form-horizontal'>
-				
-							<input name="productName" id="productName" type='text'
-								class='form:input-large'/>
-							<button type='submit' ><i class="ti-search" ></i></button>
-<!-- 							<input id="btnAdd" type='submit' -->
-<!-- 								class='btn btn-primary' /> -->
-				
+          
+           <li class="nav-item" >
+           
+               <!---------------- 首頁查詢商品框 ---------------->
+           		<form:form method='get' action="./queryproduct" class='form-horizontal'>
+					<input name="productName" id="productName" type='text' class='form:input-large'/>
+					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
-              
-            
-              
-              <!-- 購物車顯示數量在這裡改 -->
-              
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>3</span></button> </li>
-<!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
+
+              <!---------------- 購物車 ---------------->
+				<c:if test="${loginSession.userEmail != null}">
+              		<li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
+				</c:if>
+				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
+				 </c:if>
             </ul>
           </div>
         </div>
@@ -385,7 +385,7 @@
                     <input class="form-control" id="userEmail" name="userEmail" type="text" value="訪客"   readonly>
                   </div>
                   <div class="form-group">
-                    <textarea id="content" class="form-control different-control w-100" name="content" id="textarea" cols="30" rows="5" placeholder="請先登入後方能進行留言"></textarea>
+                    <textarea id="content" class="form-control different-control w-100" name="content" id="textarea" cols="30" rows="5" placeholder="請先登入後方能進行留言" readonly></textarea>
                   </div>
                   <div class="form-group text-center text-md-right mt-3">
                   </div>
@@ -666,7 +666,7 @@ $('#comment').click(function() {
         console.log(textStatus);
         console.log(xhr.status);
         if (xhr.status == 200) {
-			
+        	window.location.reload();
          
         }
       },

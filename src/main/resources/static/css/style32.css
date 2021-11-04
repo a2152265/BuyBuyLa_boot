@@ -32,7 +32,7 @@ white-space: normal;
 .updateDataClass{
 	cursor: pointer;
 }
-<<<<<<< HEAD
+
 .cardmx-auto{
 	width: 55rem; padding: 15px; margin: 0px;
 }
@@ -50,13 +50,14 @@ white-space: normal;
 }
 .goodicon{
 	width: 20px; margin-left: 20px;
-=======
+
 #insSelectTag{
 	width: 200px;
 }
+
 #updSelectTag{
 	width: 200px;
->>>>>>> refs/heads/Dev_32
+
 }
 .display-none{
 	display:none;

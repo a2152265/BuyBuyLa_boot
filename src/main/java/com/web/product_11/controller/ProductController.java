@@ -20,6 +20,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -55,6 +57,9 @@ public class ProductController {
 	CartService cartService;
 
 	@Autowired
+	JavaMailSender mailSender;
+	
+	@Autowired
 	public ProductController(ProductService productservice, ProductCommentService productCommentService,
 			MemberService memberService, ServletContext servletContext, CartService cartService) {
 		super();
@@ -83,38 +88,101 @@ public class ProductController {
 	
 	
 	//管理頁面-商品(只顯示未審核商品)
-		@GetMapping("/manage/products")
-		public String managelist(Model model) {
-
-			List<Product> beans = productservice.findByStatus();
-			model.addAttribute("products", beans);
+		@GetMapping("/manage/products/{status}")
+		public String managelist(
+				@PathVariable String status
+				,Model model) {
+	
+				List<Product> beans = productservice.findByStatus(status);
+				model.addAttribute("products", beans);
+				
+			
 			return "product_11/manage/products";
 					
 		}
 		
-	//商品上架(管理者)
+	//商品上架成功(管理者)
 		@PostMapping("/manage/launched")
 		public ResponseEntity<String> productlaunched(
 				Model model,
 				 @RequestParam("productIds") String productIds) {
 			String[] productIds_line = productIds.split(",");
 			
+
 			for(int i=0;i<productIds_line.length;i++) {
 				int pId = Integer.parseInt(productIds_line[i]);
 				productservice.updateProductStatus("上架中",pId);
 				
 			}
-
+			
 			return new ResponseEntity<String>(HttpStatus.OK) ;
+			
+
 					
 		}
 		
+		//商品上架未通過(管理者)
+				@PostMapping("/manage/launchedfail")
+				public ResponseEntity<String> productlaunchedfail(
+						Model model,
+						 @RequestParam("productIds") String productIds) {
+					String[] productIds_line = productIds.split(",");
+					
+
+					for(int i=0;i<productIds_line.length;i++) {
+						int pId = Integer.parseInt(productIds_line[i]);
+						productservice.updateProductStatus("審核失敗",pId);
+						
+					}
+					
+					return new ResponseEntity<String>(HttpStatus.OK) ;
+					
+
+							
+				}
+		
+		
+		//商品上架成功(管理者)寄信
+		@GetMapping("/launched_addaddress")
+		public ResponseEntity<String> launchedEmail(
+				@ModelAttribute("loginSession") membershipInformationBean mb2
+				) {
+			SimpleMailMessage message =new SimpleMailMessage();
+			message.setTo(mb2.getUserEmail());  //測試用我的
+			message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
+			message.setText("您好 : "+mb2.getUserName()+"\r\n歡迎光臨BuyByLA  "+"您的商品已經審核成功。");
+
+			mailSender.send(message);
+			System.out.println("------------------已寄出------------------ --->code=");
+			 return new ResponseEntity<String>(HttpStatus.OK);
+			
+		}
+		
+		
+		//商品上架失敗(管理者)寄信
+				@GetMapping("/launched_addaddressfail")
+				public ResponseEntity<String> launchedEmailfail(
+						@ModelAttribute("loginSession") membershipInformationBean mb2
+						) {
+					SimpleMailMessage message =new SimpleMailMessage();
+					message.setTo(mb2.getUserEmail());  //測試用我的
+					message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
+					message.setText("您好 : "+mb2.getUserName()+"\r\n歡迎光臨BuyByLA  "+"您的商品審核未成功，請重新檢視商品資訊後再次送出。"
+													);
+
+					mailSender.send(message);
+					System.out.println("------------------已寄出------------------ --->code=");
+					 return new ResponseEntity<String>(HttpStatus.OK);
+					
+				}
 	//顯示賣家商品
 		@GetMapping("/products/seller")
 		public String productBySeller(
 				@ModelAttribute("loginSession") membershipInformationBean loginMb,
 				Model model) {
-
+			if(loginMb==null) {
+				return "index";
+			}
 			List<Product> beans = productservice.getProductBySeller(loginMb.getUserEmail());
 			model.addAttribute("sellerproducts", beans);
 			return "product_11/seller/productBySeller";		
@@ -142,7 +210,7 @@ public class ProductController {
 		}
 		
 	//商品名稱查詢
-		@RequestMapping("/queryproduct")
+		@GetMapping("/queryproduct")
 		public String processQueryProduct(
 				@RequestParam("productName") String productName,
 				Model model
@@ -183,6 +251,7 @@ public class ProductController {
 	       p.setInsertTime(sd);
 	       //獲取賣家帳號
 	       p.setSeller(loginMb.getUserEmail());
+	       
 	       
 	       //商品狀態
 	       p.setStatus("待審核");

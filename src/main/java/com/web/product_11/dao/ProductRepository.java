@@ -25,12 +25,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	Product findByProductId(int productId);
 	
-	@Query("from Product p where p.status='上架中' order by p.insertTime ASC")
+	@Query("from Product p where p.status='上架中' order by p.insertTime DESC")
 	List<Product>productOrderByInsertTime();
 	
 	
-	@Query("from Product p where p.status='待審核'")
-	List<Product> findByStatus();
+	@Query("from Product p where p.status=:status")
+	List<Product> findByStatus(String status);
 	
 	@Transactional
 	@Modifying

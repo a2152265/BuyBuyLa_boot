@@ -116,7 +116,7 @@
         </a>
       </li>
       <li>
-        <a href="manage/products">
+        <a href="<c:url value='/manage/products/待審核' />" >
           <svg>
             <use xlink:href="#users"></use>
           </svg>
@@ -184,7 +184,7 @@
       </li>
       <li>
         <div class="switch">
-          <input type="checkbox" id="mode" checked>
+          <input type="checkbox" id="mode" style="-webkit-appearance: none;position: absolute;left: -9999px;" checked>
           <label for="mode">
             <span></span>
             <span>Dark</span>
