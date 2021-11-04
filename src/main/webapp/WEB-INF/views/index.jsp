@@ -49,7 +49,7 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">會員</a>
                 <ul class="dropdown-menu">
-                <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+                <c:if test="${loginSession ==null}">
 	                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/login' />">會員登入</a></li> 
                   	   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/add' />">會員註冊</a></li>
                </c:if>
@@ -60,8 +60,8 @@
                 </c:if>
                 </c:if>
                  <c:if test="${managerSession != null}">
-                   <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui' />">會員管理</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
+                   <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui' />">管理中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">登出</a></li>
                     </c:if>
                 </ul>
 			  </li>

@@ -664,6 +664,7 @@ public class TestLoginController {
 	@GetMapping("/member/changePwd_check")
 	public String changePwd(Model model ) {
 		model.addAttribute("changePwd",new membershipInformationBean());
+		System.out.println("   return \"member_25/member_Ui_changePwd_defalut\";  ");
 		return "member_25/member_Ui_changePwd_defalut";
 	}
 	

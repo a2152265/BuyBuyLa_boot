@@ -163,9 +163,16 @@
         <div class="sidebar" style="background: rgb(26, 5, 48);">
             <div class="profile">
       
+                
+                 <div class="profile">
+             <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
                 <!-- 讀取圖片 -->
-               <img src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>" />
-    
+               <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
+                <h3></h3>
+                <p>${memberUiDefault.userEmail} </p>
+           		 </div>
+            
+            
                 <h3></h3>
                 <p>您好! &nbsp; 管理員${loginSession.userEmail}</p>
             </div>

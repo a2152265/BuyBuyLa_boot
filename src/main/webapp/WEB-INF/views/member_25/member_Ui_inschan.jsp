@@ -102,92 +102,17 @@ Cookie 是網站在您瀏覽網頁時，儲存在您電腦中的資料，讓網�
 本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。
           </div>
           </tr>
-          
-          
-          
-            
+           
           </table>
-          
-      
-         
-      
+    
         </div>
-
-
 
 
   </div>
-        <div class="sidebar" style="background-color: rgb(51, 63, 177);">
-            <div class="profile">
-             <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
-                <!-- 讀取圖片 -->
-               <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
-                <h3></h3>
-                <p>${memberUiDefault.userEmail} </p>
-            </div>
-            <ul>
-                <li>
-                    <a href="<c:url value='/' />"   >
-                        <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">回首頁</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='' />"   onclick="return(confirm('請先成為認證賣家'))">
-                        <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">訂單管理</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='???' />"   onclick="return(confirm('請先成為認證賣家'))">
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
-                        <span class="item">商品管理</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='???' />"   onclick="return(confirm('請先成為認證賣家'))">
-                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">數據中心</span>
-                    </a>
-                </li>
-             
-                
-                <li>
-                    <a href="<c:url value='/try/delete' />"  onclick="return(confirm('確認刪除？'))" >
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">刪除會員</span>
-                    </a>
-                </li>
-
-                <!-- /*減去footer高度*/ -->
-                <li>
-                    <a href="<c:url value='/member/inschan' />"  class="active" >
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">隱私權政策</span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">登出</span>
-                    </a>
-                </li>
-                
-            </ul>
-        </div>
-        
-    </div>
-
-   
-
-
-    <script>
-          var hamburger = document.querySelector(".hamburger");
-  hamburger.addEventListener("click", function(){
-    document.querySelector("body").classList.toggle("active");
-  })
-    </script>
- 
-</body>
-</html>
+  
+  
+  
+<%@ include file="../Home/member/member_25/inschan/sidebar.jspf"%>
+       
+       
+       

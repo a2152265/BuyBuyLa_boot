@@ -86,7 +86,7 @@
           <p>&nbsp;</p>
   
           <input type="submit"  onclick="return(confirm('確認更改？'))"  id="submitRewrite"  name="submitRewrite" 
-          style="text-align: center; font-size: 18x;"  class="button-1"  value="更改密碼"/>
+          style="text-align: center; font-size: 18x;  background-color: rgb(9, 9, 102);"  class="button-1"  value="更改密碼"/>
 
          
          
