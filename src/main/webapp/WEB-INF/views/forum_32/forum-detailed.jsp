@@ -32,6 +32,11 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+
+<!-- 使用者名稱 -->
+<input type="hidden" class="loginUser" value="${memberUiDefault.userName}${managerSession.userName}">
+<!-- 文章編號 -->
+<input type="hidden" id="id" value="${forumId}">
 <!-- <body  style="background:#F5F5F5"> -->
 	<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
@@ -90,19 +95,17 @@
 	</header>
 	<!--================ End Header Menu Area =================-->
 
-	<input type="hidden" class="loginUser" value="${memberUiDefault.userName}${managerSession.userName}">
-
 	<!-- ================ start banner area ================= -->
-	<section class="blog-banner-area" id="blog">
-		<div class="container h-100">
-			<div class="blog-banner">
-				<div class="text-center">
-					<h1>Details</h1>
-					<nav aria-label="breadcrumb" class="banner-breadcrumb"></nav>
-				</div>
-			</div>
-		</div>
-	</section>
+<!-- 	<section class="blog-banner-area" id="blog"> -->
+<!-- 		<div class="container h-100"> -->
+<!-- 			<div class="blog-banner"> -->
+<!-- 				<div class="text-center"> -->
+<!-- 					<h1>Details</h1> -->
+<!-- 					<nav aria-label="breadcrumb" class="banner-breadcrumb"></nav> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
 	<!-- ================ end banner area ================= -->
 
 	<!--================ 編輯Modal  =================-->
@@ -111,14 +114,14 @@
 			<form:form method='POST' modelAttribute="editForumContent" class='form-horizontal' enctype="multipart/form-data">
 				<div class="modal-content">
 					<div class="modal-header">
-						<select id="updSelectTag" class="form-select" aria-label="Default select example">
-							<option>新手賣家發問</option>
-							<option>賣家閒聊討論</option>
-						</select>
 						<h3 class="modal-title" id="exampleModalLabel">編輯貼文</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body updContentBody">
+						<select id="updSelectTag">
+							<option>新手賣家發問</option>
+							<option>賣家閒聊討論</option>
+						</select><br>
 						<!-- 隱藏 -->
 						<form:input path="id" id="updid" type="hidden" />
 						<form:input path="tag" id="updTag" type="hidden" />
@@ -156,32 +159,33 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-					<div class="single-post row">
+					<div class="single-post row" style="border:1px solid">
 						<ol style="background-color:white;list-style-type:none;width:150px;padding:10px;border-top-right-radius:30px;border-bottom-right-radius:30px;">
 						<li><img src="<c:url value='img/forum/chat.png' />" style="width:17px;height:17px"> ${forumContent.tag}</li>
 						</ol>
-						<h1>${forumContent.title}</h1><br>
+						
+						<div>
+							<img data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle ml700w50h50tf11 editIMG" src="img/forum/more.png">
+							<ul class="dropdown-menu">
+								<li data-id="${forumContent.id}" data-bs-toggle="modal" data-bs-target="#UpdateModal" class="dropdown-item updateDataClass">編輯</li>
+								<li class="dropdown-item tata" onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${forumContent.id}'/>'">刪除</li>
+							</ul>
+						</div>
+						<h1>${forumContent.title}</h1>
+						<br>
 					<div style="margin-top:30px">	
 						<img style="float:left;width:50px;height:50px;border-radius:50%" src="<c:url value='/getPicturefromMember/${forumContent.picId}'/>" />
 						<span class="authorUserName" style="margin-left:10px">${forumContent.userName}</span><br>
 						<span style="margin-left:10px;font-size:13px;color:#888888;">${forumContent.date}</span>
-						<span style="float:right;">
+						<span style="float:right;margin-right:80px;">
 						<img style="width:15px;" src="img/forum/speech-bubble.png">
 						<span> ${forumContent.messageQty}</span>
 						<img style="width: 15px; margin-left: 10px" src="img/forum/eye.png">
 						<span> ${forumContent.viewQty}</span>
 						</span>
 					</div>
-						<div class="col-lg-9 col-md-9 blog_details bg-light" style="width:800px;padding:80px;margin-top:50px">
-							<div>
-								<img data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle ml700w50h50tf11 editIMG" src="img/forum/more.png">
-								<ul class="dropdown-menu">
-									<li data-id="${forumContent.id}" data-bs-toggle="modal" data-bs-target="#UpdateModal" class="dropdown-item updateDataClass">編輯</li>
-									<li class="dropdown-item tata" onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${forumContent.id}'/>'">刪除</li>
-								</ul>
-							</div>
-<%-- 							<h1>${forumContent.title}</h1> --%>
-							<p class="excert">${forumContent.content}</p>
+						<div class="col-lg-9 col-md-9 blog_details bg-light" style="width:850px;padding:30px;margin-top:30px">
+							${forumContent.content}
 						</div>
 					</div>
 					<div class="navigation-area">
@@ -224,126 +228,122 @@
 							</div>
 						</div>
 					</div>
-					<div class="comments-area">
-						<h4>${messageSize}則評論</h4>
-						<div id="messageResult"></div>
+				<div class="comments-area">
+					<h4>${messageSize}則評論</h4>
+				<div id="messageResult"></div>
 
 						<!--================ 編輯評論 Modal =================-->
-						<div class="modal fade" id="editMessageBtn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog" style="margin-top:90px">
-								<div class="modal-content" style="border-radius:20px">
-									<div class="comment-form" id="reply" style="margin:0px;border-radius:20px">
-										<h4 style="margin:0px">編輯評論</h4>
-									<form id="editMsgForm" style="background-color:#fafaff;border-radius:5%;padding:15px">
-										<input type="hidden" name="messageId" class="editMessageId">
-										<input type="hidden" name="messageDate" class="editMessageDate"> 
-										<input type="hidden" name="messageForumId" class="editMessageForumId"> 
-										<input type="hidden" name="messageIdentification" class="editMessageIdentification">
-										<input type="hidden" name="messagePicId" class="editMessagePicId"> 
-										<div class="form-group form-inline">
-											<div class="form-group col-lg-6 col-md-6 name">
-												<input type="text" name="messageUserName" class="form-control editMessageUserName" placeholder="Guest" readonly="readonly">
-											</div>
-											<div class="form-group col-lg-6 col-md-6 email">
-												<input type="email" name="messageUserEmail" class="form-control editMessageUserEmail" readonly="readonly" placeholder="Email address">
-											</div>
-										</div>
-										<div class="form-group">
-											<textarea rows="5" name="messageContent" class="form-control mb-10 editMessageContent" placeholder="留言"></textarea>
-										</div>
-										<button class="button button-postComment button--active editMessageBtn" type="button" style="border: none">確定修改</button>
-									</form>
-									<button class="DetailedEditMessageKeyInput">一鍵輸入</button>
-								</div>
-							</div>
-							</div>
-						</div>
-						
-						<!--================ 檢舉評論 Modal =================-->
-						<div class="modal fade" id="reportBtn" tabindex="-1"
-							aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog" style="margin-top:90px">
-								<div class="modal-content" style="border-radius:20px">
-									<div class="comment-form" id="reply" style="margin:0px;border-radius:20px">
-									<form id="reportMessageForm" style="background-color:#fafaff;border-radius:5%;padding:15px">
-										<span style="font-size:30px">檢舉評論</span>
-											<select id="reportSelect" class="right">
-												<option>有不當的內容</option>
-												<option>誤導或詐欺</option>
-												<option>垃圾訊息</option>
-												<option>冒犯他人</option>
-												<option>其他</option>
-											</select>
-										<input type="hidden" class="ReportMessageId" > 
-										<input type="hidden" class="ReportUserName" > 
-										<input type="hidden" class="ReportedUserName" > 
-										<input type="hidden" class="reportSelect" > 
-										<input type="hidden" class="reportDate" > 
-										<br><br>
-										檢舉內容
-										<div class="form-group">
-											<textarea rows="5" name="ReportContent" class="form-control mb-10 ReportedContent" readonly="readonly"></textarea>
-										</div>
-										<button
-											class="button button-postComment button--active reportMessageBtn"
-											type="button" style="border: none">送出</button>
-									</form>
+				<div class="modal fade" id="editMessageBtn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" style="margin-top:90px">
+						<div class="modal-content" style="border-radius:20px">
+							<div class="comment-form" id="reply" style="margin:0px;border-radius:20px">
+								<h4 style="margin:0px">編輯評論</h4>
+							<form id="editMsgForm" style="background-color:#fafaff;border-radius:5%;padding:15px">
+								<input type="hidden" name="messageId" class="editMessageId">
+								<input type="hidden" name="messageDate" class="editMessageDate"> 
+								<input type="hidden" name="messageForumId" class="editMessageForumId"> 
+								<input type="hidden" name="messageIdentification" class="editMessageIdentification">
+								<input type="hidden" name="messagePicId" class="editMessagePicId"> 
+								<div class="form-group form-inline">
+									<div class="form-group col-lg-6 col-md-6 name">
+										<input type="text" name="messageUserName" class="form-control editMessageUserName" placeholder="Guest" readonly="readonly">
+									</div>
+									<div class="form-group col-lg-6 col-md-6 email">
+										<input type="email" name="messageUserEmail" class="form-control editMessageUserEmail" readonly="readonly" placeholder="Email address">
 									</div>
 								</div>
+								<div class="form-group">
+									<textarea rows="5" name="messageContent" class="form-control mb-10 editMessageContent" placeholder="留言"></textarea>
+								</div>
+								<button class="button button-postComment button--active editMessageBtn" type="button" style="border: none">確定修改</button>
+							</form>
+								<button class="DetailedEditMessageKeyInput">一鍵輸入</button>
 							</div>
 						</div>
 					</div>
+				</div>
+						
+						<!--================ 檢舉評論 Modal =================-->
+				<div class="modal fade" id="reportBtn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" style="margin-top:90px">
+						<div class="modal-content" style="border-radius:20px">
+							<div class="comment-form" id="reply" style="margin:0px;border-radius:20px">
+							<form id="reportMessageForm" style="background-color:#fafaff;border-radius:5%;padding:15px">
+								<span style="font-size:30px">檢舉評論</span>
+									<select id="reportSelect" class="right">
+										<option>有不當的內容</option>
+										<option>誤導或詐欺</option>
+										<option>垃圾訊息</option>
+										<option>冒犯他人</option>
+										<option>其他</option>
+									</select>
+								<input type="hidden" class="ReportMessageId" > 
+								<input type="hidden" class="ReportUserName" > 
+								<input type="hidden" class="ReportedUserName" > 
+								<input type="hidden" class="reportSelect" > 
+								<input type="hidden" class="reportDate" > 
+								<br><br>
+								檢舉內容
+								<div class="form-group">
+									<textarea rows="5" name="ReportContent" class="form-control mb-10 ReportedContent" readonly="readonly"></textarea>
+								</div>
+								<button class="button button-postComment button--active reportMessageBtn" type="button" style="border: none">送出</button>
+							</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 				<!--=================================-->
 
-					<input type="hidden" id="id" value="${forumId}">
 					
 				<!--================ 評論分頁 =================-->
-				<nav class="blog-pagination justify-content-center d-flex" style="padding-bottom: 0px">
-					<ul class="pagination">
-						<li class="page-item leftBtn">
-						<a class="page-link" aria-label="Previous"> 
-						<span aria-hidden="true"> 
-							<span class="lnr lnr-chevron-left"></span>
-						</span>
-						</a>
-						</li>
-						<c:forEach items='${msgSize}' varStatus="c" step="4">
-							<li class="page-item"><input type="button" class="page-link pageBtn" style="border: none" value="${c.count}"></li>
-						</c:forEach>
-						<li class="page-item rightBtn"><a class="page-link" aria-label="Next"> <span aria-hidden="true">
-						<span class="lnr lnr-chevron-right"></span></span></a>
-						</li>
-					</ul>
-				</nav>
-				<div style="text-align: center;">第<label class="pages"></label>頁</div>
-				<div class="comment-form" id="reply">
-					<h4 class="newMessageH4">發表評論</h4>
-					<form id="addMsgForm" enctype="multipart/form-data">
-						<input type="hidden" name="messageForumId" value="${forumId}">
-						<input type="hidden" name="messagePicId" value="${memberUiDefault.id}"> 
-						<input type="hidden" name="messageDate" id="messageDate"> 
-						<input type="hidden" name="messageIdentification">
-						<div class="form-group form-inline messageContentBlock">
-							<div class="form-group col-lg-6 col-md-6 name">
-								<input type="text" name="messageUserName" class="form-control" value="${memberUiDefault.userName}" placeholder="Guest" readonly="readonly">
-							</div>
-							<div class="form-group col-lg-6 col-md-6 email">
-								<input type="email" name="messageUserEmail" class="form-control" readonly="readonly" placeholder="Email address" value="${memberUiDefault.userEmail}">
-							</div>
+			<nav class="blog-pagination justify-content-center d-flex" style="padding-bottom: 0px">
+				<ul class="pagination">
+					<li class="page-item leftBtn">
+					<a class="page-link" aria-label="Previous"> 
+					<span aria-hidden="true"> 
+						<span class="lnr lnr-chevron-left"></span>
+					</span>
+					</a>
+					</li>
+					<c:forEach items='${msgSize}' varStatus="c" step="4">
+						<li class="page-item"><input type="button" class="page-link pageBtn" style="border: none" value="${c.count}"></li>
+					</c:forEach>
+					<li class="page-item rightBtn"><a class="page-link" aria-label="Next"> <span aria-hidden="true">
+					<span class="lnr lnr-chevron-right"></span></span></a>
+					</li>
+				</ul>
+			</nav>
+			<div style="text-align: center;">第<label class="pages"></label>頁</div>
+			<div class="comment-form" id="reply">
+				<h4 class="newMessageH4">發表評論</h4>
+				<form id="addMsgForm" enctype="multipart/form-data">
+					<input type="hidden" name="messageForumId" value="${forumId}">
+					<input type="hidden" name="messagePicId" value="${memberUiDefault.id}"> 
+					<input type="hidden" name="messageDate" id="messageDate"> 
+					<input type="hidden" name="messageIdentification">
+					<div class="form-group form-inline messageContentBlock">
+						<div class="form-group col-lg-6 col-md-6 name">
+							<input type="text" name="messageUserName" class="form-control" value="${memberUiDefault.userName}" placeholder="Guest" readonly="readonly">
 						</div>
-						<div class="form-group messageContentBlock">
-							<textarea rows="5" name="messageContent" class="form-control mb-10 messageContent" placeholder="留言"></textarea>
+						<div class="form-group col-lg-6 col-md-6 email">
+							<input type="email" name="messageUserEmail" class="form-control" readonly="readonly" placeholder="Email address" value="${memberUiDefault.userEmail}">
 						</div>
-						<button class="button button-postComment button--active messageBtn" type="button" style="border: none">發表評論</button>
-					</form>
-				</div>
-					<button class="DetailedMessageKeyInput" style="margin-left:700px">一鍵輸入</button>
+					</div>
+					<div class="form-group messageContentBlock">
+						<textarea rows="5" name="messageContent" class="form-control mb-10 messageContent" placeholder="留言"></textarea>
+					</div>
+					<button class="button button-postComment button--active messageBtn" type="button" style="border: none">發表評論</button>
+				</form>
 			</div>
+				<button class="DetailedMessageKeyInput" style="margin-left:700px">一鍵輸入</button>
+		</div>
 			<!--=================================-->
 			
 			
-			<div class="col-lg-4">
-				<div class="blog_right_sidebar">
+		<div class="col-lg-4">
+			<div class="blog_right_sidebar">
 <!-- 					<aside class="single_sidebar_widget author_widget"> -->
 <%-- 						<img width='150' src="<c:url value='/getPicturefromMember/${forumContent.picId}'/>" /> --%>
 <%-- 						<h4 class="Username">${forumContent.userName}</h4> --%>
@@ -406,29 +406,27 @@
 <!-- 					</aside> -->
 
 					<!--================ 最新帖子 =================-->
-					<aside class="single_sidebar_widget popular_post_widget">
-						<h3 class="widget_title">最新帖子</h3>
-						<c:forEach var='content' items='${getAll}' begin="0" end="15">
-							<div class="media post_item">
-								<img width='40' src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
-								<div class="media-body">
-									<a href="<c:url value='/detailed' />?id=${content.id}">
-										<h3>${content.title}</h3>
-									</a>
-									<p>${content.date}</p>
-								</div>
-							</div>
-						</c:forEach>
-						<div class="br"></div>
-					</aside>
-					<!--=================================-->
+			<aside class="single_sidebar_widget popular_post_widget">
+				<h3 class="widget_title">最新帖子</h3>
+				<c:forEach var='content' items='${getAll}' begin="0" end="15">
+					<div class="media post_item">
+						<img width='40' src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+						<div class="media-body">
+							<a href="<c:url value='/detailed' />?id=${content.id}">
+								<h3>${content.title}</h3>
+							</a>
+							<p>${content.date}</p>
+						</div>
+					</div>
+				</c:forEach>
+				<div class="br"></div>
+			</aside>
+			<!--=================================-->
+					</div>
 				</div>
 			</div>
 		</div>
-		</div>
-	</section>
-	<br>
-	<br>
+	</section><br><br>
 	<!--================Blog Area =================-->
 
 

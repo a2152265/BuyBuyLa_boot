@@ -9,7 +9,7 @@ a {
 }
 
 .ml700w50h50tf11{
-	cursor: pointer; float:right; width: 30px; height: 30px;transform: scale(1, 1);
+	cursor: pointer; margin-right:100px;float:right; width: 30px; height: 30px;transform: scale(1, 1);
 }
 .ml700w50h50tf11:hover {
 	transform: scale(1.1, 1.1);

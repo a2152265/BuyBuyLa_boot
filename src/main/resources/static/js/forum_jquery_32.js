@@ -25,14 +25,16 @@ $(function() {
 	// 判斷登入狀態
 	// 訪客不能發起討論  留言
 	var loginUser = $('.loginUser').val();
-	var forumUsername = $('.Username').html();
-	if(loginUser!=forumUsername){
+	var authorUserName = $('.authorUserName').html();
+	if(loginUser!=authorUserName){
 		 $(".editIMG").css("visibility","hidden");
 //		 console.log("loginUser="+loginUser+" forumUsername="+forumUsername+" css="+"hidden")
 	}else{
 		$(".editIMG").css("visibility","visible");
 //		console.log("loginUser="+loginUser+" forumUsername="+forumUsername+" css="+"visible")
 	}
+	console.log('loginUser='+loginUser)
+	console.log('authorUserName='+authorUserName)
 	
 	if($('.loginsession').html()==null){
 		$('.addNewForum').css('display','none')
