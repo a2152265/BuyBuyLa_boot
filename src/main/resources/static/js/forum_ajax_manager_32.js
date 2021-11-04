@@ -93,7 +93,8 @@ $(document).ready(function() {
 					$.ajax({
 						type: "get",
 						url: "deleteMessageById",
-						data: { "id": delMessageId},
+						data: { "id": delMessageId,
+								"messageForumId":messageForumId},
 						success: function() {
 							Swal.fire({
 								icon: 'success',

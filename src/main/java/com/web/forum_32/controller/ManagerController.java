@@ -99,7 +99,11 @@ public class ManagerController {
 	// 刪除評論
 	@GetMapping(value = "/manager/deleteMessageById")
 	@ResponseBody
-	public void deleteMessageById(@RequestParam("id") Integer id) {
+	public void deleteMessageById(@RequestParam("id") Integer id,
+			@RequestParam("messageForumId") Integer messageForumId) {
+		ForumBean fb = forumService.getContentById(messageForumId);
+		fb.setMessageQty(fb.getMessageQty()-1);
+		forumService.addOrEdit(fb);
 		messageService.delete(id);
 	}
 

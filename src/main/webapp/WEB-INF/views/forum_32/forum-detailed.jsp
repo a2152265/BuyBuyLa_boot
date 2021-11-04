@@ -34,7 +34,7 @@
 <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body>
+<body  style="background:#F5F5F5">
 	<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
 		<div class="main_menu bg-white">
@@ -194,12 +194,22 @@
 			<div class="row">
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
-						<img src="<c:url value='img/forum/chat.png' />" style="width:40px;height:19px">
-						
-						<input type="button" value="${forumContent.tag}" style="border:0px;border-top-right-radius:30px;border-bottom-right-radius:30px;width:190px;padding:0px">
-
-							
-						<div class="col-lg-9 col-md-9 blog_details">
+						<ol style="background-color:white;list-style-type:none;width:150px;padding:10px;border-top-right-radius:30px;border-bottom-right-radius:30px;">
+						<li><img src="<c:url value='img/forum/chat.png' />" style="width:17px;height:17px"> ${forumContent.tag}</li>
+						</ol>
+						<h1>${forumContent.title}</h1><br>
+					<div style="margin-top:30px">	
+						<img style="float:left;width:50px;height:50px;border-radius:50%" src="<c:url value='/getPicturefromMember/${forumContent.picId}'/>" />
+						<span style="margin-left:10px">${forumContent.userName}</span><br>
+						<span style="margin-left:10px;font-size:13px;color:#888888;">${forumContent.date}</span>
+						<span style="float:right;">
+						<img style="width:15px;" src="img/forum/speech-bubble.png">
+						<span> ${forumContent.messageQty}</span>
+						<img style="width: 15px; margin-left: 10px" src="img/forum/eye.png">
+						<span> ${forumContent.viewQty}</span>
+						</span>
+					</div>
+						<div class="col-lg-9 col-md-9 blog_details bg-white" style="width:800px;padding:80px;margin-top:50px">
 							<div>
 								<img data-bs-toggle="dropdown" aria-expanded="false"
 									class="dropdown-toggle ml700w50h50tf11 editIMG"
@@ -212,8 +222,7 @@
 										onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${forumContent.id}'/>'">刪除</li>
 								</ul>
 							</div>
-							<h1>${forumContent.title}</h1>
-							<br> <br> <br>
+<%-- 							<h1>${forumContent.title}</h1> --%>
 							<p class="excert">${forumContent.content}</p>
 						</div>
 					</div>
@@ -369,78 +378,75 @@
 			</div>
 			<div class="col-lg-4">
 				<div class="blog_right_sidebar">
-					<aside class="single_sidebar_widget author_widget">
-						<img width='150'
-							src="<c:url value='/getPicturefromMember/${forumContent.picId}'/>" />
-						<h4 class="Username">${forumContent.userName}</h4>
-						<p>一般會員</p>
-						<div class="social_icon">
-							<a href="#"> <i class="fab fa-facebook-f"></i>
-							</a> <a href="#"> <i class="fab fa-twitter"></i>
-							</a> <a href="#"> <i class="fab fa-github"></i>
-							</a> <a href="#"> <i class="fab fa-behance"></i>
-							</a>
-						</div>
-						<div class="br"></div>
-					</aside>
-
-					<aside class="single_sidebar_widget post_category_widget">
-						<h4 class="widget_title">標籤分類</h4>
-						<ul class="list cat-list">
-							<li><a href="<c:url value='/forum' />"
-								class="d-flex justify-content-between">
-									<p>所有討論</p>
-									<p>${allSize}</p>
-							</a></li>
-							<li><a href="<c:url value='/announcement' />"
-								class="d-flex justify-content-between">
-									<p>官方最新公告</p>
-									<p>${announcementSize}</p>
-							</a></li>
-							<li><a href="<c:url value='/featured' />"
-								class="d-flex justify-content-between">
-									<p>社團精選話題</p>
-									<p>${featuredSize}</p>
-							</a></li>
-							<li><a href="<c:url value='/noviceSeller' />"
-								class="d-flex justify-content-between">
-									<p>新手賣家發問</p>
-									<p>${noviceSellerSize}</p>
-							</a></li>
-							<li><a href="<c:url value='/sellerChat' />"
-								class="d-flex justify-content-between">
-									<p>賣家閒聊討論</p>
-									<p>${sellerChatSize}</p>
-							</a></li>
-						</ul>
-						<div class="br"></div>
-					</aside>
-					<aside class="single_sidebar_widget popular_post_widget">
-						<h3 class="widget_title">精選話題</h3>
-
-						<c:forEach var='content' items='${tagFeatured}' begin="0" end="2">
-							<div class="media post_item">
-								<img width='40'
-									src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
-								<div class="media-body">
-									<a href="single-blog.html">
-										<h3>${content.title}</h3>
-									</a>
-									<p>${content.date}</p>
-								</div>
-							</div>
-						</c:forEach>
-						<div class="br"></div>
-					</aside>
+<!-- 					<aside class="single_sidebar_widget author_widget"> -->
+<%-- 						<img width='150' src="<c:url value='/getPicturefromMember/${forumContent.picId}'/>" /> --%>
+<%-- 						<h4 class="Username">${forumContent.userName}</h4> --%>
+<!-- 						<p>一般會員</p> -->
+<!-- 						<div class="social_icon"> -->
+<!-- 							<a href="#"> <i class="fab fa-facebook-f"></i> -->
+<!-- 							</a> <a href="#"> <i class="fab fa-twitter"></i> -->
+<!-- 							</a> <a href="#"> <i class="fab fa-github"></i> -->
+<!-- 							</a> <a href="#"> <i class="fab fa-behance"></i> -->
+<!-- 							</a> -->
+<!-- 						</div> -->
+<!-- 						<div class="br"></div> -->
+<!-- 					</aside> -->
+<!-- 					<aside class="single_sidebar_widget post_category_widget"> -->
+<!-- 						<h4 class="widget_title">標籤分類</h4> -->
+<!-- 						<ul class="list cat-list"> -->
+<%-- 							<li><a href="<c:url value='/forum' />" --%>
+<!-- 								class="d-flex justify-content-between"> -->
+<!-- 									<p>所有討論</p> -->
+<%-- 									<p>${allSize}</p> --%>
+<!-- 							</a></li> -->
+<%-- 							<li><a href="<c:url value='/announcement' />" --%>
+<!-- 								class="d-flex justify-content-between"> -->
+<!-- 									<p>官方最新公告</p> -->
+<%-- 									<p>${announcementSize}</p> --%>
+<!-- 							</a></li> -->
+<%-- 							<li><a href="<c:url value='/featured' />" --%>
+<!-- 								class="d-flex justify-content-between"> -->
+<!-- 									<p>社團精選話題</p> -->
+<%-- 									<p>${featuredSize}</p> --%>
+<!-- 							</a></li> -->
+<%-- 							<li><a href="<c:url value='/noviceSeller' />" --%>
+<!-- 								class="d-flex justify-content-between"> -->
+<!-- 									<p>新手賣家發問</p> -->
+<%-- 									<p>${noviceSellerSize}</p> --%>
+<!-- 							</a></li> -->
+<%-- 							<li><a href="<c:url value='/sellerChat' />" --%>
+<!-- 								class="d-flex justify-content-between"> -->
+<!-- 									<p>賣家閒聊討論</p> -->
+<%-- 									<p>${sellerChatSize}</p> --%>
+<!-- 							</a></li> -->
+<!-- 						</ul> -->
+<!-- 						<div class="br"></div> -->
+<!-- 					</aside> -->
+<!-- 					<aside class="single_sidebar_widget popular_post_widget"> -->
+<!-- 						<h3 class="widget_title">精選話題</h3> -->
+<%-- 						<c:forEach var='content' items='${tagFeatured}' begin="0" end="2"> --%>
+<!-- 							<div class="media post_item"> -->
+<!-- 								<img width='40' -->
+<%-- 									src="<c:url value='/getPicturefromMember/${content.picId}'/>" /> --%>
+<!-- 								<div class="media-body"> -->
+<!-- 									<a href="single-blog.html"> -->
+<%-- 										<h3>${content.title}</h3> --%>
+<!-- 									</a> -->
+<%-- 									<p>${content.date}</p> --%>
+<!-- 								</div> -->
+<!-- 							</div> -->
+<%-- 						</c:forEach> --%>
+<!-- 						<div class="br"></div> -->
+<!-- 					</aside> -->
 					<aside class="single_sidebar_widget popular_post_widget">
 						<h3 class="widget_title">最新帖子</h3>
 
-						<c:forEach var='content' items='${getAll}' begin="0" end="2">
+						<c:forEach var='content' items='${getAll}' begin="0" end="15">
 							<div class="media post_item">
 								<img width='40'
 									src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
 								<div class="media-body">
-									<a href="single-blog.html">
+									<a href="<c:url value='/detailed' />?id=${content.id}">
 										<h3>${content.title}</h3>
 									</a>
 									<p>${content.date}</p>
