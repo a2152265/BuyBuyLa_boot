@@ -48,7 +48,7 @@ public class HomeController {
 	
 
 
-	@GetMapping("/")
+	@GetMapping("/c")
 	public String home0(Model model) {
 		System.out.println("進入首頁La");
 		System.out.println("haha");
@@ -71,7 +71,7 @@ public class HomeController {
 //		model.addAttribute("announcementList",announcementList);
 		
 		
-		return "index";
+		return "index2";
 		
 		
 	
