@@ -1,12 +1,11 @@
 package com.web.cart_30.service.impl;
 
 
-import java.sql.Blob;
+
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,15 +74,7 @@ public class CartServiceImpl implements CartService {
 		}else {
 			System.out.println("///////////////////////////");
 			System.out.println(carta);
-			Cart cart = new Cart(	
-					product.get().getProductId(),
-					product.get().getProductName(),
-					product.get().getPrice(),
-					1,
-					buyer,
-					product.get().getSerller(),
-					product.get().getCategory(),
-					product.get().getCoverImage());
+			Cart cart = new Cart(1,buyer,product.get());				
 			cartRepository.save(cart);
 		}
 		

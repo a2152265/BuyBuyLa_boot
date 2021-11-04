@@ -151,11 +151,11 @@
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                         <img width='150'src="<c:url value='/getPicture/${row.pid}' />" />
+                                         <img width='150'src="<c:url value='/getPicture/${row.product.productId}' />" />
                                       </div>     
                                   </div>
                               </td>
-                              <td>${row.p_name}</td>
+                              <td>${row.product.productName}</td>
                               
                               <td>
                           
@@ -164,10 +164,10 @@
                               </td>
                         
                               <td>
-                                  <h5>${row.p_price}</h5>
+                                  <h5>${row.product.price}</h5>
                               </td>
                               <td>
-                                  <h5 class='total'>${row.count*row.p_price}</h5>
+                                  <h5 class='total'>${row.count*row.product.price}</h5>
                               </td>
                         
                           </tr>

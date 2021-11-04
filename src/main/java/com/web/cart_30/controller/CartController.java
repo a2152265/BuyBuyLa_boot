@@ -164,15 +164,15 @@ public class CartController {
 		for(Cart c:cart) {
 			
 			rb.setRecord_id(rc);
-			rb.setPid(c.getPid());
-			rb.setP_name(c.getP_name());
-			rb.setP_price(c.getP_price());
+			rb.setPid(c.getProduct().getProductId());
+			rb.setP_name(c.getProduct().getProductName());
+			rb.setP_price(c.getProduct().getPrice());
 			rb.setPcount(c.getCount());
 			rb.setBuyer(buyer);
-			rb.setSeller(c.getSeller());
+			rb.setSeller(c.getProduct().getSeller());
 			rb.setBuy_time(now);
 			rb.setTransport_status("待出貨");
-			rb.setCategory(c.getCategory());
+			rb.setCategory(c.getProduct().getCategory());
 			rb.setBuyeraddress(address);
 			System.out.println("****************************************************");
 			System.out.println("***"+rb.getId()+"RID = "+rb.getRecord_id()+", PID = "+rb.getPid()+", NAME = "
@@ -180,7 +180,7 @@ public class CartController {
 					+", BUYER = "+rb.getBuyer()+", SELLER = "+rb.getSeller());
 			System.out.println(address+"////////////////////");
 			System.out.println(rb.getBuyeraddress());
-			totalprice+=c.getP_price()*c.getCount();
+			totalprice+=c.getProduct().getPrice()*c.getCount();
 			
 			cartService.addToRecord2(rb);
 			

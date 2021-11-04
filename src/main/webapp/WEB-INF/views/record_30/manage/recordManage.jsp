@@ -157,6 +157,8 @@
 					border-bottom-width: 0px;
 					border-right-width: 0px;
 				}
+				/*container-xl*/
+				
 	</style>
     <script>
         $(document).ready(function () {
@@ -171,7 +173,7 @@
 </head>
 
 <body>
-<div class="container-xl">
+<div class="container-xl " style="max-width: 1200px !important;">
 		<div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">
@@ -207,7 +209,6 @@
 							<td>${manage.buyeraddress}</td>
 							<td>${manage.pay_status}</td>
 							<td>${manage.transport_status}</td>
-
 							<td>
 							 <a href="<c:url value='/selectbuyer?buyer=${manage.buyer}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
 							
