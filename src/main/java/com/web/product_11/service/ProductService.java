@@ -23,7 +23,7 @@ public interface ProductService {
 		List<Product>productOrderByInsertTime();
 		
 		//狀態查詢商品
-		List<Product> findByStatus();
+		List<Product> findByStatus(String status);
 		
 		//新增商品
 		void  addProduct(Product product);

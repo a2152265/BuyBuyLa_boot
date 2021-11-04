@@ -23,7 +23,7 @@
    <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
 <!--   <link rel='stylesheet' href="css/campaigns.css"  > -->
   <link rel="stylesheet" href="css/productstyle.css">
-  <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
+  <link rel="icon"  sizes="180x180" href="images/favicon.ico" type="image/x-icon"/>
 <!-- <script src="sweetalert2.min.js"></script> -->
 <!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
 <!-- <script src="sweetalert2.all.min.js"></script> -->
@@ -195,15 +195,18 @@
            <li class="nav-item" >
            
                <!---------------- 首頁查詢商品框 ---------------->
-           		<form:form method='POST' action="./queryproduct" class='form-horizontal'>
+           		<form:form method='get' action="./queryproduct" class='form-horizontal'>
 					<input name="productName" id="productName" type='text' class='form:input-large'/>
 					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
 
-
               <!---------------- 購物車 ---------------->
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
-
+				<c:if test="${loginSession.userEmail != null}">
+              		<li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
+				</c:if>
+				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
+				 </c:if>
             </ul>
           </div>
         </div>
@@ -585,9 +588,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
        })
      </script>  
      
-     
-<!--  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+ 
 <c:forEach var="row" items="${cart}">
 <span class="count"  style="display:none"> ${row.count}</span>
 
