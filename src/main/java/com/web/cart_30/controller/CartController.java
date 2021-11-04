@@ -57,6 +57,9 @@ public class CartController {
 		System.out.println("PID cc= "+id);
 		String buyer=mb.getUserEmail();
 		cartService.addItemByid(id,buyer);
+		model.addAttribute("OrderItemCount",buyer);
+		
+		
 		return "redirect:/";
 	}
 	
@@ -183,10 +186,13 @@ public class CartController {
 			totalprice+=c.getProduct().getPrice()*c.getCount();
 			
 			cartService.addToRecord2(rb);
-			
+			int stock =c.getProduct().getStock()-rb.getPcount();
+			cartService.updateStock(rb.getPid(),stock);
 
 		}
 		RecordList  recordList = new RecordList(rc, buyer, totalprice,now,address,"未付款","待出貨");
+		
+		
 		SimpleMailMessage message =new SimpleMailMessage();
 		message.setTo(buyer);
 		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");

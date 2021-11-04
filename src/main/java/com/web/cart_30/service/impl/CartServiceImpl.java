@@ -228,6 +228,18 @@ public class CartServiceImpl implements CartService {
 
 
 
+	//賣出時扣庫存數量
+	@Override
+	public void updateStock(int pid, int count) {
+		productRepository.updateStock(pid,count);
+		
+	}
+
+
+
+
+
+
 
 
 

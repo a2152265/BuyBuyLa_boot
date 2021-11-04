@@ -594,7 +594,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script>
 
 
-var count=0;
+
 // const MySwal = withReactContent(Swal)
 $(".additem").click(function(){		
 
@@ -626,6 +626,7 @@ $(".additem").click(function(){
 	
 });
 
+var count=0;
 $('.count').each(function(){
 	$(this).html;
 	var a = parseInt($(this).html());
