@@ -131,8 +131,81 @@ public class RecordService implements IRecordService {
 
 	@Override
 	public Double findFemaleRecord() {
-		recordRepository.findFemaleRecord();
-		return 0.0;
+	 	List<RecordBean> rb = recordRepository.findFemaleRecord();
+	 	double totalprice=0;
+	 	double price=0;
+	 	int cnt;
+	 	for(RecordBean r:rb) {
+	 		price= r.getP_price();
+	 		cnt = r.getPcount();
+	 		totalprice+=cnt*price;
+	 		
+	 	}
+		return totalprice;
+	}
+
+
+	@Override
+	public Double findMaleRecord() {
+		List<RecordBean> rb = recordRepository.findMaleRecord();
+	 	double totalprice=0;
+	 	double price=0;
+	 	int cnt;
+	 	for(RecordBean r:rb) {
+	 		price= r.getP_price();
+	 		cnt = r.getPcount();
+	 		totalprice+=cnt*price;
+	 		
+	 	}
+		return totalprice;
+	}
+
+
+	@Override
+	public Double findPetRecord() {
+		List<RecordBean> rb = recordRepository.findPetRecord();
+	 	double totalprice=0;
+	 	double price=0;
+	 	int cnt;
+	 	for(RecordBean r:rb) {
+	 		price= r.getP_price();
+	 		cnt = r.getPcount();
+	 		totalprice+=cnt*price;
+	 		
+	 	}
+		return totalprice;
+	}
+
+
+	@Override
+	public Double findFitRecord() {
+		List<RecordBean> rb = recordRepository.findFitRecord();
+	 	double totalprice=0;
+	 	double price=0;
+	 	int cnt;
+	 	for(RecordBean r:rb) {
+	 		price= r.getP_price();
+	 		cnt = r.getPcount();
+	 		totalprice+=cnt*price;
+	 		
+	 	}
+		return totalprice;
+	}
+
+
+	@Override
+	public Double findOtherRecord() {
+		List<RecordBean> rb = recordRepository.findOtherRecord();
+	 	double totalprice=0;
+	 	double price=0;
+	 	int cnt;
+	 	for(RecordBean r:rb) {
+	 		price= r.getP_price();
+	 		cnt = r.getPcount();
+	 		totalprice+=cnt*price;
+	 		
+	 	}
+		return totalprice;
 	}
 
 

@@ -31,5 +31,9 @@ public interface IRecordService {
 	void updateRecordList(RecordList recordList);
 	
 	Double findFemaleRecord();
+	Double findMaleRecord();
+	Double findPetRecord();
+	Double findFitRecord();
+	Double findOtherRecord();
 	
 }

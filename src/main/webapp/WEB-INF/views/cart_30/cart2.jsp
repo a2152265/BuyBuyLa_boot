@@ -144,21 +144,21 @@
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                         <img width='150'src="<c:url value='/getPicture/${row.pid}' />" />
+                                         <img width='150'src="<c:url value='/getPicture/${row.product.productId}' />" />
                                       </div>     
                                   </div>
                               </td>
-                              <td>${row.p_name}</td>
+                              <td>${row.product.productName}</td>
                               
                               <td>
                                   <div class="product_count">
          
                                       <input type="text" name="qty" id="sst" maxlength="12" value="${row.count}" title="Quantity:"
                                           class="input-text qty">
-                                    <a href="<c:url value='/add' />?id=${row.pid}">
+                                    <a href="<c:url value='/add' />?id=${row.product.productId}">
                                       <button   class="increase items-count" type="button">
                                        <i class="lnr lnr-chevron-up"></i></button> </a>
-                                         <a href="<c:url value='/sub' />?id=${row.pid}"> 
+                                         <a href="<c:url value='/sub' />?id=${row.product.productId}"> 
                                          <button class="reduced items-count" type="button">
                                           <i class="lnr lnr-chevron-down"></i></button></a>
 <!--                                       onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"> -->
@@ -170,14 +170,14 @@
                                   </div>
                               </td>
                               <td>
-                                  <h5>${row.p_price}</h5>
+                                  <h5>${row.product.price}</h5>
                               </td>
                               <td>
-                                  <h5 class='total'>${row.count*row.p_price}</h5>
+                                  <h5 class='total'>${row.count*row.product.price}</h5>
                               </td>
                               <td>
-						<a href="<c:url value='/deletecart' />?id=${row.pid}">
-						<button type="button" class="btn btn-outline-dark deletecart" data-mdb-ripple-color="dark" value='${row.pid}'>  刪除</button>
+						<a href="<c:url value='/deletecart' />?id=${row.product.productId}">
+						<button type="button" class="btn btn-outline-dark deletecart" data-mdb-ripple-color="dark" value='${row.product.productId}'>  刪除</button>
 				</a>		
 					</td>
                           </tr>
