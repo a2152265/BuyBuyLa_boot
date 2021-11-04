@@ -92,6 +92,7 @@ public class ForumController {
 			model.addAttribute("addForumBean", new ForumBean());
 			model.addAttribute("Breadcrumb","官方最新公告");
 			model.addAttribute("getAllOrderByIdDesc", forumService.getAllOrderByIdDesc());
+			model.addAttribute("getAllHot",forumService.findByOrderByViewQtyDesc());
 		} else {
 			allArticles(model,0);
 		}
@@ -109,6 +110,7 @@ public class ForumController {
 			model.addAttribute("Articles", announcementList);
 			model.addAttribute("addForumBean", new ForumBean());
 			model.addAttribute("Breadcrumb","社團精選話題");
+			model.addAttribute("getAllHot",forumService.findByOrderByViewQtyDesc());
 			model.addAttribute("getAllOrderByIdDesc", forumService.getAllOrderByIdDesc());
 		} else {
 			model.addAttribute("tagFeatured", forumService.getAllByTag("社團精選話題"));
@@ -128,6 +130,7 @@ public class ForumController {
 			model.addAttribute("getAll", forumService.getAllByTag("新手賣家發問"));
 			model.addAttribute("Articles", announcementList);
 			model.addAttribute("addForumBean", new ForumBean());
+			model.addAttribute("getAllHot",forumService.findByOrderByViewQtyDesc());
 			model.addAttribute("getAllOrderByIdDesc", forumService.getAllOrderByIdDesc());
 			model.addAttribute("Breadcrumb","新手賣家發問");
 		} else {
@@ -146,6 +149,7 @@ public class ForumController {
 			model.addAttribute("getAll", forumService.getAllByTag("賣家閒聊討論"));
 			model.addAttribute("Articles", announcementList);
 			model.addAttribute("addForumBean", new ForumBean());
+			model.addAttribute("getAllHot",forumService.findByOrderByViewQtyDesc());
 			model.addAttribute("Breadcrumb","賣家閒聊討論");
 			model.addAttribute("getAllOrderByIdDesc", forumService.getAllOrderByIdDesc());
 		} else {

@@ -37,7 +37,7 @@
 <body>
 	<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
-		<div class="main_menu">
+		<div class="main_menu bg-white">
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
 					<a class="navbar-brand logo_h" href="<c:url value='/' />"><img
@@ -194,7 +194,11 @@
 			<div class="row">
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
+						<img src="<c:url value='img/forum/chat.png' />" style="width:40px;height:19px">
+						
+						<input type="button" value="${forumContent.tag}" style="border:0px;border-top-right-radius:30px;border-bottom-right-radius:30px;width:190px;padding:0px">
 
+							
 						<div class="col-lg-9 col-md-9 blog_details">
 							<div>
 								<img data-bs-toggle="dropdown" aria-expanded="false"

@@ -33,4 +33,15 @@ $(document).ready(function() {
 	$('.hot').click(function(){
 		alert('hot');
 	})
+	$('.addViewQty').click(function(){
+		var id=$(this).attr("id");
+		$.ajax({
+			type:"get",
+			url:"addViewQty",
+			data:{"id":id},
+			success:function(){
+				
+			}
+		})
+	})
 });

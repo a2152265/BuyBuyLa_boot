@@ -59,7 +59,6 @@ public class DetailsController {
 				}
 			}
 		}
-		
 
 		model.addAttribute("forumContent", forumService.getContentById(id));
 		model.addAttribute("getAll", forumService.getAll());
@@ -71,15 +70,19 @@ public class DetailsController {
 		model.addAttribute("msgSize", messageService.getAllMessage(id));
 		tagSize(model);
 		
+		// 觀看次數
+//		ForumBean view = forumService.getContentById(id);
+//		view.setViewQty(view.getViewQty()+1);
+//		forumService.addOrEdit(view);
 		
-		ForumBean viewAdd = forumService.getContentById(id);
-		System.out.println("before="+viewAdd.getViewQty());
-		Integer beforeViewQty =  viewAdd.getViewQty();
-		viewAdd.setViewQty(beforeViewQty+1);
-		System.out.println("after="+viewAdd.getViewQty());
-		forumService.addOrEdit(viewAdd);
-
 		return "forum_32/forum-detailed";
+	}
+	
+	@GetMapping(value="/addViewQty")
+	public void addViewQty (@RequestParam("id") Integer id) {
+		ForumBean view = forumService.getContentById(id);
+		view.setViewQty(view.getViewQty()+1);
+		forumService.addOrEdit(view);
 	}
 
 	// Ajax 留言顯示

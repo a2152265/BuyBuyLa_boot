@@ -38,11 +38,11 @@
 	<script src='${pageContext.request.contextPath}/js/forum_keyInput_32.js'></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body style="background-color: #f7f7f7">
+<body>
 	<!--================ Start Header Menu Area =================-->
 	<header class="header_area">
-		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light bg-white">
+		<div class="main_menu bg-white">
+			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
 					<a class="navbar-brand logo_h" href="<c:url value='/' />"><img
 						src="img/logo.png" alt=""></a>
@@ -350,7 +350,7 @@
 				</div>
 				
 				<div class="col-lg-8">
-						<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+						<nav class="bg-light" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
 						  <ol class="breadcrumb">
 						    <li class="breadcrumb-item"><a href="#">BuyBuyLa</a></li>
 						    <li class="breadcrumb-item active" aria-current="page">${Breadcrumb}</li>
@@ -364,9 +364,9 @@
 <!-- 								data-bs-target="#Modal"> -->
 								<br>
 						</nav>
-					<div class="blog_left_sidebar"><br>
+					<div class="blog_left_sidebar bg-light"><br>
 						<c:forEach var='Articles' items='${Articles}' varStatus='c'>
-							<article class="row blog_item bg-white" style="margin: 0px">
+							<article class="row blog_item bg-light" style="margin: 0px">
 								<c:if test="${c.count==1}">
 								</c:if>
 								<div class="col-md-12">
@@ -380,13 +380,19 @@
 													<span
 													style="margin-left: 15px; font-size: 13px; color: gray;">${Articles.date}</span></span>
 											</div>
-											<a href="<c:url value='/detailed' />?id=${Articles.id}"><h2>${Articles.title}</h2></a>
+											
+											<div>
+											<a class="" href="<c:url value='/detailed' />?id=${Articles.id}"><h2>${Articles.title}</h2></a>
 											<div class="box">
 												<div class="ellipsis">${Articles.content}</div>
 											</div>
-											<a style="margin-left: 300px;" class="button button-blog"
+											<a style="margin-left: 300px;" class="button button-blog addViewQty" id="${Articles.id}"
 												href="<c:url value='/detailed' />?id=${Articles.id}">View
-												More</a><br><br> <span style="color: #00BFA5; font-size: 14px">${Articles.tag}</span>
+												More</a>
+												</div>
+												
+												<br><br> 
+												<span style="color: #00BFA5; font-size: 14px">${Articles.tag}</span>
 											<span><a><img
 													style="width: 15px; margin-left: 30px"
 													src="img/forum/speech-bubble.png">
