@@ -110,8 +110,6 @@
 	</header>
 	<!--================ End Header Menu Area =================-->
 
-	<input type="hidden" class="messageUserName"
-		value="${memberUiDefault.userName}${managerSession.userName}">
 	<input type="hidden" class="loginUser" value="${memberUiDefault.userName}${managerSession.userName}">
 
 	<!-- ================ start banner area ================= -->
@@ -200,7 +198,7 @@
 						<h1>${forumContent.title}</h1><br>
 					<div style="margin-top:30px">	
 						<img style="float:left;width:50px;height:50px;border-radius:50%" src="<c:url value='/getPicturefromMember/${forumContent.picId}'/>" />
-						<span style="margin-left:10px">${forumContent.userName}</span><br>
+						<span class="authorUserName" style="margin-left:10px">${forumContent.userName}</span><br>
 						<span style="margin-left:10px;font-size:13px;color:#888888;">${forumContent.date}</span>
 						<span style="float:right;">
 						<img style="width:15px;" src="img/forum/speech-bubble.png">
@@ -310,6 +308,42 @@
 											type="button" style="border: none">確定修改</button>
 									</form>
 									<button class="DetailedEditMessageKeyInput">一鍵輸入</button>
+								</div>
+							</div></div>
+						</div>
+						
+						<!-- Modal -->
+
+						<div class="modal fade" id="reportBtn" tabindex="-1"
+							aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" style="margin-top:90px">
+								<div class="modal-content" style="border-radius:20px">
+									<div class="comment-form" id="reply" style="margin:0px;border-radius:20px">
+										
+									<form id="reportMessageForm" style="background-color:#fafaff;border-radius:5%;padding:15px">
+										
+										<span style="font-size:30px">檢舉評論</span>
+											<select id="reportSelect" class="right">
+											<option>有不當的內容</option>
+											<option>誤導或詐欺</option>
+											<option>垃圾訊息</option>
+											<option>冒犯他人</option>
+											<option>其他</option>
+											</select>
+										<input type="hidden" class="ReportMessageId" > 
+										<input type="hidden" class="ReportUserName" > 
+										<input type="hidden" class="ReportedUserName" > 
+										<input type="hidden" class="reportSelect" > 
+										<input type="hidden" class="reportDate" > 
+										<br><br>
+										檢舉內容
+										<div class="form-group">
+											<textarea rows="5" name="ReportContent" class="form-control mb-10 ReportedContent" readonly="readonly"></textarea>
+										</div>
+										<button
+											class="button button-postComment button--active reportMessageBtn"
+											type="button" style="border: none">送出</button>
+									</form>
 								</div>
 							</div></div>
 						</div>

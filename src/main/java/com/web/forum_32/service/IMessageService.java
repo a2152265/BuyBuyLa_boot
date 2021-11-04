@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.web.forum_32.model.MessageBean;
+import com.web.forum_32.model.MessageReportBean;
 
 public interface IMessageService {
 
@@ -13,4 +14,9 @@ public interface IMessageService {
 	MessageBean addMessage(MessageBean mb);
 	void delete(Integer id);
 	public MessageBean getById(Integer id) ;
+	
+	
+	// 檢舉
+	MessageReportBean addReport(MessageReportBean mrb);
+	List<MessageReportBean> getAllReportMessage();
 }

@@ -40,6 +40,7 @@ public class ManagerController {
 	public String managerForumView(Model model) {
 		List<ForumBean> allList = forumService.getAll();
 		model.addAttribute("content", allList);
+		model.addAttribute("reportMessage",messageService.getAllReportMessage());
 		model.addAttribute("managerAddForumContentBean", new ForumBean());
 		model.addAttribute("managerEditForumContentBean", new ForumBean());
 		return "forum_32/forum-manager";

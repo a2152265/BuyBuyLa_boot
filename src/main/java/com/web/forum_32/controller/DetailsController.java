@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.model.MessageBean;
+import com.web.forum_32.model.MessageReportBean;
 import com.web.forum_32.service.IForumService;
 import com.web.forum_32.service.IMessageService;
 
@@ -69,11 +70,6 @@ public class DetailsController {
 		model.addAttribute("messageSize", messageService.getAllMessage(id).size());
 		model.addAttribute("msgSize", messageService.getAllMessage(id));
 		tagSize(model);
-		
-		// 觀看次數
-//		ForumBean view = forumService.getContentById(id);
-//		view.setViewQty(view.getViewQty()+1);
-//		forumService.addOrEdit(view);
 		
 		return "forum_32/forum-detailed";
 	}
@@ -162,6 +158,27 @@ public class DetailsController {
 	@GetMapping(value = "/deleteMessage")
 	public void deleteMessage(@RequestParam("id") Integer id) {
 		messageService.delete(id);
+	}
+	// 檢舉評論
+	@GetMapping(value="/reprotMessage")
+	@ResponseBody
+	public void reprotMessage(
+			@RequestParam("ReportUserName") String ReportUserName,
+			@RequestParam("ReportedUserName") String ReportedUserName,
+			@RequestParam("ReportedContent") String ReportedContent,
+			@RequestParam("ReportForumId") Integer ReportForumId,
+			@RequestParam("ReportMessageId") Integer ReportMessageId,
+			@RequestParam("ReportReason") String ReportReason,
+			@RequestParam("ReportDate") String ReportDate) {
+		MessageReportBean mrb = new MessageReportBean();
+		mrb.setReportContent(ReportedContent);
+		mrb.setReportDate(ReportDate);
+		mrb.setReportedUserName(ReportedUserName);
+		mrb.setReportForumId(ReportForumId);
+		mrb.setReportMessageId(ReportMessageId);
+		mrb.setReportReason(ReportReason);
+		mrb.setReportUserName(ReportUserName);
+		messageService.addReport(mrb);
 	}
 
 	public void tagSize(Model model) {

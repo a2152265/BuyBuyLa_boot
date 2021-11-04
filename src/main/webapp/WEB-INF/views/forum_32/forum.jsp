@@ -199,20 +199,20 @@
 	<section class="blog_area">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-4">
+				<div class="col-lg-3">
 					<div class="blog_right_sidebar">
-						<aside class="single_sidebar_widget search_widget">
-							<div class="input-group">
-								<input type="text" class="form-control searchUserName" placeholder="搜尋作者">
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">
-										<i class="lnr lnr-magnifier"></i>
-									</button>
-								</span>
-							</div>
-							<!-- /input-group -->
-							<div class="br"></div>
-						</aside>
+<!-- 						<aside class="single_sidebar_widget search_widget"> -->
+<!-- 							<div class="input-group"> -->
+<!-- 								<input type="text" class="form-control searchUserName" placeholder="搜尋作者"> -->
+<!-- 								<span class="input-group-btn"> -->
+<!-- 									<button class="btn btn-default" type="button"> -->
+<!-- 										<i class="lnr lnr-magnifier"></i> -->
+<!-- 									</button> -->
+<!-- 								</span> -->
+<!-- 							</div> -->
+<!-- 							/input-group -->
+<!-- 							<div class="br"></div> -->
+<!-- 						</aside> -->
 						<aside class="single_sidebar_widget post_category_widget">
 <!-- 							<input type="button" value="發起討論" class="widget_title newFoRuM" -->
 <!-- 								style="width: 354px; border: none;" data-bs-toggle="modal" -->

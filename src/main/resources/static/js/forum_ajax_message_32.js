@@ -90,7 +90,7 @@ $(document).ready(function() {
 						e.preventDefault();
 						var datas = $("#addMsgForm").serializeArray();
 						if ($('.messageContent').val() == "") {
-							if($('.messageBtn').html()=="登入後進行評論"){
+							if ($('.messageBtn').html() == "登入後進行評論") {
 								return false;
 							}
 							Swal.fire({
@@ -114,7 +114,7 @@ $(document).ready(function() {
 									timer: 1000
 								});
 								setTimeout(function() { history.go(0) }, 1000);
-								
+
 							}
 						})
 					});
@@ -138,6 +138,7 @@ $(document).ready(function() {
 								"<div class='editBtn dropdown'>" +
 								"<img  id='dropdownMenuButton1' data-bs-toggle='dropdown' style='cursor:pointer;width:30px;height:30px;' src='img/forum/more.png'>" +
 								"<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton1'>" +
+								"<li><a class='dropdown-item reportMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#reportBtn'>檢舉</a></li>" +
 								"<li><a class='dropdown-item editMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#editMessageBtn'>編輯</a></li>" +
 								"<li><a class='dropdown-item delMessageContent' style='cursor:pointer;'>刪除</a></li></ul>" +
 								"</div>" +
@@ -146,22 +147,80 @@ $(document).ready(function() {
 							)
 						}
 						$('.single-comment').each(function(i, n) {
-							var forumUserName = $('.Username').html();
-							var loginUserName = $('.loginUser').val();
-							var messageUserName = $('.messageUserName').val();
-							var messageName = $(this).find('.messageName').html();
-//							if (messageName != messageUserName) {
-//								$(this).find('.editBtn').css('display', 'none');
-//							}
-//							if (forumUserName==loginUserName){
-//								$('.editBtn').css('display','block');
-//							}
-//							if (forumUserName!=messageName){
-//								$('.editMessageContent').css('display','none')
-//							}else{
-//								$('.editMessageContent').css('display','block')
-//							}
-							
+							var loginUserName = $('.loginUser').val();     //登入帳號
+							var authorUserName = $('.authorUserName').html();   // 發文人
+							var messageName = $(this).find('.messageName').html();  //   發表評論的人
+							if (loginUserName == '') {
+								$('.editBtn').css('display', 'none');
+							}
+							if ((loginUserName == authorUserName) && (loginUserName == messageName)) {
+								$(this).find('.reportMessageContent').css('display', 'none');
+								$(this).find('.editMessageContent').css('display', 'block');
+								$(this).find('.delMessageContent').css('display', 'block');
+							}
+							if ((loginUserName == authorUserName) && (loginUserName != messageName)) {
+								$(this).find('.reportMessageContent').css('display', 'block');
+								$(this).find('.editMessageContent').css('display', 'none');
+								$(this).find('.delMessageContent').css('display', 'block');
+							}
+							if ((loginUserName != authorUserName) && (loginUserName == messageName)) {
+								$(this).find('.reportMessageContent').css('display', 'none');
+								$(this).find('.editMessageContent').css('display', 'block');
+								$(this).find('.delMessageContent').css('display', 'block');
+							}
+							if ((loginUserName != authorUserName) && (loginUserName != messageName)) {
+								$(this).find('.reportMessageContent').css('display', 'block');
+								$(this).find('.editMessageContent').css('display', 'none');
+								$(this).find('.delMessageContent').css('display', 'none');
+							}
+							// 檢舉留言
+							var reprotBtn = $(this).find(".reportMessageContent");
+							reprotBtn.click(function() {
+								$('.reportSelect').val($('#reportSelect option:selected').text());
+								$('#reportSelect').change(function() {
+									$('.reportSelect').val($('#reportSelect option:selected').text());
+								})
+								var ReportUserName = $('.loginUser').val();
+								var ReportedUserName = $(this).parent().parent().parent().parent().find('.user').find('.messageName').html();
+								var ReportedContent = $(this).parent().parent().parent().parent().find('.user').find('.comment').html();
+								var ReportMessageId = messageId;
+								var date = new Date();
+								const FormatDate = (date) => {
+									let Formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
+									return Formatted_date;
+								}
+								$('.reportDate').val(FormatDate(date));
+								$('.ReportedContent').text(ReportedContent);
+								$('.ReportUserName').val(ReportUserName);
+								$('.ReportedUserName').val(ReportedUserName);
+								$('.ReportMessageId').val(ReportMessageId);
+								$('.reportMessageBtn').click(function() {
+									$.ajax({
+										type: "get",
+										url: "reprotMessage",
+										data: {
+											"ReportForumId":forumId,
+											"ReportUserName": ReportUserName,
+											"ReportedUserName": ReportedUserName,
+											"ReportedContent": ReportedContent,
+											"ReportMessageId": ReportMessageId,
+											"ReportReason": $('.reportSelect').val(),
+											"ReportDate": $('.reportDate').val()
+										},
+										success: function() {
+											Swal.fire({
+												icon: 'success',
+												title: '感謝你提交檢舉',
+												showConfirmButton: false,
+												timer: 1000
+											});
+											setTimeout(function() { history.go(0) }, 1000);
+										}
+
+									})
+								})
+							})
+
 							var editBtn = $(this).find('.editMessageContent');
 							var delBtn = $(this).find('.delMessageContent');
 							var messageId = $(this).find('.messageId').val();
@@ -177,7 +236,7 @@ $(document).ready(function() {
 											let formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes()
 											return formatted_date;
 										}
-										$('.editMessageDate').val('最後修改 '+formatDate(date));
+										$('.editMessageDate').val('最後修改 ' + formatDate(date));
 										$('.editMessageForumId').val(data['messageForumId']);
 										$('.editMessageIdentification').val(data['messageIdentification']);
 										$('.editMessagePicId').val(data['messagePicId']);
@@ -250,6 +309,6 @@ $(document).ready(function() {
 				}
 			})
 		}
-	})
+	});
 
 });

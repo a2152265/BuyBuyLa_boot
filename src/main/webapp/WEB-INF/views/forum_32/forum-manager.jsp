@@ -60,13 +60,14 @@
 <script>
   $(document).ready(function () {
           jQuery('#example').DataTable();
+          jQuery('#example2').DataTable();
       });
   </script>
 
 
 
 </head>
-<body>
+<body style="padding:0px">
 	<div class="wrapper">
 		<div class="section">
 			<div class="top_navbar" style="background: rgb(61, 27, 75);">
@@ -75,9 +76,10 @@
 					</a>
 				</div>
 			</div>
-			<div class="container" style="margin:0px">
-			</div>
-			<button type="button" style="margin-left:200px" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ManagerModal">發起公告</button>
+			<h2>BuyBuyLa討論區管理</h2>
+			<button type="button" style="margin-left: 200px"
+				class="btn btn-primary" data-bs-toggle="modal"
+				data-bs-target="#ManagerModal">發起公告</button>
 			<table id="example" class="display" style="width: 100%">
 				<thead>
 					<tr>
@@ -99,106 +101,103 @@
 										value="${content.title}" /></a></td>
 							<td><c:out value="${content.date}" /></td>
 							<td>
-							
-								
-									<div class="modal fade" id="ManagerModal" tabindex="-1"
-						aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog modal-lg" style="margin-top: 90px">
-							<form:form method='POST'
-								modelAttribute="managerAddForumContentBean"
-								class='form-horizontal' enctype="multipart/form-data">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h3 class="modal-title" id="exampleModalLabel">發起公告</h3>
-										<button type="button" class="btn-close"
-											data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<div class="modal-body insContentBody">
 
-										<!-- 發起公告 -->
-										<form:input path="tag" type="hidden" id="insTag" />
-										<form:textarea path="content"
-											class="managerAddContent display-none" />
-										<form:input path="date" type="hidden" id="nowDate" />
-										<form:input path="messageQty" type="hidden" value="0" />
-										<form:input path="viewQty" type="hidden" value="0" />
 
-										<form:input path="picId" class="form-control" type="hidden"
-											value="${memberUiDefault.id}" />
-										<form:input path="userName" type="hidden"
-											value="${memberUiDefault.userName}${managerSession.userName}" />
-										<form:input path="userEmail" type="hidden"
-											value="${memberUiDefault.userEmail}" />
-										<form:input path="userNickname" type="hidden"
-											value="${memberUiDefault.userNickname}" />
-										<form:input path="Identification" type="hidden"
-											value="${managerSession.identification}" />
-										<form:input path="topArticle" type="hidden"
-											class="insTopArticle" value="general" />
-										<!-- 結束 -->
+								<div class="modal fade" id="ManagerModal" tabindex="-1"
+									aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-lg" style="margin-top: 90px">
+										<form:form method='POST'
+											modelAttribute="managerAddForumContentBean"
+											class='form-horizontal' enctype="multipart/form-data">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h3 class="modal-title" id="exampleModalLabel">發起公告</h3>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body insContentBody">
 
-										<div class="mb-3">
-											<div style="display: flex">
-												<select id="insSelectTag" class="form-select"
-													aria-label="Default select example">
-													<option>官方最新公告</option>
-												</select>
-												<div class="form-check"
-													style="margin-top: 6px; margin-left: 400px">
-													<input class="form-check-input" type="checkbox"
-														id="insFlexCheckDefault"> <label
-														class="form-check-label" for="flexCheckDefault">
-														置頂 </label>
+													<!-- 發起公告 -->
+													<form:input path="tag" type="hidden" id="insTag" />
+													<form:textarea path="content"
+														class="managerAddContent display-none" />
+													<form:input path="date" type="hidden" id="nowDate" />
+													<form:input path="messageQty" type="hidden" value="0" />
+													<form:input path="viewQty" type="hidden" value="0" />
+													<form:input path="picId" class="form-control" type="hidden"
+														value="${memberUiDefault.id}" />
+													<form:input path="userName" type="hidden"
+														value="${memberUiDefault.userName}${managerSession.userName}" />
+													<form:input path="userEmail" type="hidden"
+														value="${memberUiDefault.userEmail}" />
+													<form:input path="userNickname" type="hidden"
+														value="${memberUiDefault.userNickname}" />
+													<form:input path="Identification" type="hidden"
+														value="${managerSession.identification}" />
+													<form:input path="topArticle" type="hidden"
+														class="insTopArticle" value="general" />
+													<!-- 結束 -->
+													<div class="mb-3">
+														<div style="display: flex">
+															<select id="insSelectTag" class="form-select"
+																aria-label="Default select example">
+																<option>官方最新公告</option>
+															</select>
+															<div class="form-check"
+																style="margin-top: 6px; margin-left: 400px">
+																<input class="form-check-input" type="checkbox"
+																	id="insFlexCheckDefault"> <label
+																	class="form-check-label" for="flexCheckDefault">
+																	置頂 </label>
+															</div>
+														</div>
+														<br>
+														<form:input type="text" path="title" required="true"
+															placeholder="標題" class="form-control title-fontsize"
+															aria-label="Sizing example input" value="[公告]  "
+															aria-describedby="inputGroup-sizing-lg" />
+														<br>
+														<div id="managerAddSummernote"></div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button id="managerInsSubmit" type="submit"
+														class="btn btn-primary">送出</button>
+													<button type="button" class="btn btn-secondary"
+														data-bs-dismiss="modal">取消</button>
 												</div>
 											</div>
-											<br>
-											<form:input type="text" path="title" required="true"
-												placeholder="標題" class="form-control title-fontsize"
-												aria-label="Sizing example input" value="[公告]  "
-												aria-describedby="inputGroup-sizing-lg" />
-											<br>
-											<div id="managerAddSummernote"></div>
-										</div>
+										</form:form>
 									</div>
-									<div class="modal-footer">
-										<button id="managerInsSubmit" type="submit"
-											class="btn btn-primary">送出</button>
-										<button type="button" class="btn btn-secondary"
-											data-bs-dismiss="modal">取消</button>
-									</div>
-								</div>
-							</form:form>
-						</div>
-					</div>
-									
-								<!-- Modal -->
-								
+								</div> <!-- Modal -->
+
 								<div class="modal fade" id="managerMessage" tabindex="-1"
 									aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-lg">
+									<div class="modal-dialog modal-xl">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title managerMessageTitle" id="exampleModalLabel"></h5>
+												<h5 class="modal-title managerMessageTitle"
+													id="exampleModalLabel"></h5>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
 											<div class="modal-body">
-											
-											<table id="example" class="display" style="width: 100%">
-												<thead>
-													<tr>
-														<th>評論編號</th>
-														<th>會員名稱</th>
-														<th>會員信箱</th>
-														<th>留言內容</th>
-														<th>時間</th>
-														<th>管理</th>
-													</tr>
-												</thead>
-												<tbody id = "messageResult"></tbody>
-											</table>
-											
-											
+
+												<table id="example" class="display" style="width: 100%">
+													<thead>
+														<tr>
+															<th>評論編號</th>
+															<th>會員名稱</th>
+															<th>會員信箱</th>
+															<th>留言內容</th>
+															<th>時間</th>
+															<th>管理</th>
+														</tr>
+													</thead>
+													<tbody id="messageResult"></tbody>
+												</table>
+
+
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
@@ -211,7 +210,7 @@
 
 
 
-								<button type="button" class="btn btn-primary updateDataBtn"
+								<button type="button" class="btn btn-info updateDataBtn"
 									data-id="${content.id}" data-bs-toggle="modal"
 									data-bs-target="#UpdateModal">編輯</button>
 								<div class="modal fade" id="UpdateModal" tabindex="-1"
@@ -291,16 +290,51 @@
 										</form:form>
 									</div>
 								</div>
-								<button type="button" class="btn btn-primary"
+								<button type="button" class="btn btn-danger"
 									onclick="if(window.confirm('確定刪除?')) location.href='<c:url value='/manager/delete32?id=${content.id}'/>' ">刪除</button>
-								<button class="btn btn-primary managerCrudBtn" data-bs-toggle="modal"
-									data-bs-target="#managerMessage">評論管理</button> 
-							
+								<button class="btn btn-primary managerCrudBtn"
+									data-bs-toggle="modal" data-bs-target="#managerMessage">評論管理</button>
+
 							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+			<br><br><br>
+			<hr>
+			<h1>評論檢舉</h1>
+			<table id="example2" class="display" style="width: 100%">
+				<thead>
+					<tr>
+						<th>文章編號</th>
+						<th>評論編號</th>
+						<th>檢舉人</th>
+						<th>被檢舉帳號</th>
+						<th>原因</th>
+						<th>內容</th>
+						<th>檢舉日期</th>
+						<th>管理</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${reportMessage}" var="reportList">
+						<tr>
+							<td><c:out value="${reportList.reportForumId}" /></td>
+							<td><c:out value="${reportList.reportMessageId}" /></td>
+							<td>${reportList.reportUserName}</td>
+							<td>${reportList.reportedUserName}</td>
+							<td>${reportList.reportReason}</td>
+							<td>${reportList.reportContent}</td>
+							<td>${reportList.reportDate}</td>
+							<td>
+							<input type="button" class="btn btn-secondary" value="忽略">
+							<input type="button" class="btn btn-danger" value="刪除">
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<br><br><br><br><br><br>
 		</div>
 		<div class="sidebar" style="background: rgb(66, 9, 122);">
 			<div class="profile">
@@ -310,7 +344,7 @@
 				<p>Designer</p>
 			</div>
 			<ul>
-				<li><a href="<c:url value='/forum' />" class=""> <span  
+				<li><a href="<c:url value='/forum' />" class=""> <span
 						class="icon"><i class="fas fa-home"></i></span> <span class="item">Home</span>
 				</a></li>
 				<li><a href="<c:url value='???' />""> <span class="icon"><i
@@ -319,8 +353,8 @@
 				<li><a href="<c:url value='???' />"> <span class="icon"><i
 							class="fas fa-user-friends"></i></span> <span class="item">效益分析</span>
 				</a></li>
-				<li><a href="<c:url value='/manager/forum' />" class="active"> <span
-						class="icon"><i class="fas fa-tachometer-alt"></i></span> <span
+				<li><a href="<c:url value='/manager/forum' />" class="active">
+						<span class="icon"><i class="fas fa-tachometer-alt"></i></span> <span
 						class="item">討論區</span>
 				</a></li>
 				<li><a href="<c:url value='???' />"> <span class="icon"><i
@@ -347,9 +381,9 @@
 
 	<script>
           var hamburger = document.querySelector(".hamburger");
-  hamburger.addEventListener("click", function(){
-    document.querySelector("body").classList.toggle("active");
-  })
+		  hamburger.addEventListener("click", function(){
+		    document.querySelector("body").classList.toggle("active");
+		  })
     </script>
 
 	<!-- jquery -->

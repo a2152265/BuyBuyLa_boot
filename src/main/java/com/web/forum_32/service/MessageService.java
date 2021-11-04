@@ -8,14 +8,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.web.forum_32.dao.MessageReportRepository;
 import com.web.forum_32.dao.MessageRepository;
 import com.web.forum_32.model.MessageBean;
+import com.web.forum_32.model.MessageReportBean;
 
 @Service
 public class MessageService implements IMessageService{
 
 	@Autowired
 	MessageRepository messageRepository;
+	@Autowired
+	MessageReportRepository messageReportRepository;
 	
 	@Override
 	public List<MessageBean> getAllMessage(Integer messageForumId) {
@@ -55,6 +59,14 @@ public class MessageService implements IMessageService{
 	@Override
 	public List<MessageBean> getAllByMessageForumId(Integer messageForumId) {
 		return messageRepository.findAllByMessageForumId(messageForumId);
+	}
+	@Override
+	public MessageReportBean addReport(MessageReportBean mrb) {
+		return messageReportRepository.saveAndFlush(mrb);
+	}
+	@Override
+	public List<MessageReportBean> getAllReportMessage() {
+		return messageReportRepository.findAll();
 	}
 
 }
