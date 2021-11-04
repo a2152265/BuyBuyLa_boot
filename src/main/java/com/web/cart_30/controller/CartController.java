@@ -30,7 +30,7 @@ import com.web.record_30.model.RecordList;
 
 
 @Controller
-@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" ,"cart"})
+@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" ,"cart","OrderItemCount"})
 public class CartController {
 	CartService cartService;
 

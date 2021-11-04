@@ -202,7 +202,7 @@
 
 
               <!---------------- 購物車 ---------------->
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
+              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
 
             </ul>
           </div>
@@ -588,10 +588,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
      
 <!--  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
-<c:forEach var="row" items="${cart}">
-<span class="count"  style="display:none"> ${row.count}</span>
 
-</c:forEach>
+<input type='text' value='${count}' class='count2'/>
 
 
 	
@@ -630,15 +628,9 @@ $(".additem").click(function(){
 	
 });
 
-var count=0;
-$('.count').each(function(){
-	$(this).html;
-	var a = parseInt($(this).html());
-	count=count+a
 
-	})
 
-$('#ccount').html(count)
+$('#ccount').html(count2)
 
 
 </script>
