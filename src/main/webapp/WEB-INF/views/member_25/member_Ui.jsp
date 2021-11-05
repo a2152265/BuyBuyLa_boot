@@ -330,6 +330,9 @@ function sendMessage(event) {
         stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
         stompClient.send("/app/chatback", {}, JSON.stringify(chatMessage));
         stompClient.send("/app/chatback2", {}, JSON.stringify(chatMessage));
+        //測試send to user2
+        stompClient.send("/app/user2", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/user3", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();

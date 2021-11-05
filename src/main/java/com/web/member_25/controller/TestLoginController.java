@@ -186,12 +186,12 @@ public class TestLoginController {
 	
 		if (loginResult == 1) {
 			
-			mb4 =memberService.findMemberData(userEmail);
-			if (mb4.getSuspension().equals("ban")) {
-				System.out.println("-----------開始登入ban介面----------");
-				model.addAttribute("loginSession",mb4);
-				return "member_25/ban/member_ban";
-			}
+//			mb4 =memberService.findMemberData(userEmail);
+//			if (mb4.getSuspension().equals("ban")) {
+//				System.out.println("-----------開始登入ban介面----------");
+//				model.addAttribute("loginSession",mb4);
+//				return "member_25/ban/member_ban";
+//			}
 
 			Boolean isMamber = true;
 			isMamber = memberService.memberOrManager(userEmail); // 判斷是使用者還是管理者
