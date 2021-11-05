@@ -186,12 +186,17 @@ public class TestLoginController {
 	
 		if (loginResult == 1) {
 			
-//			mb4 =memberService.findMemberData(userEmail);
-//			if (mb4.getSuspension().equals("ban")) {
-//				System.out.println("-----------開始登入ban介面----------");
-//				model.addAttribute("loginSession",mb4);
-//				return "member_25/ban/member_ban";
-//			}
+			mb4 =memberService.findMemberData(userEmail);
+			String susban=mb4.getSuspension();
+			System.out.println("--登入後先判斷停權狀態----------->"+mb4.getSuspension());
+			System.out.println("--登入後先判斷停權狀態-------susban---->"+susban);
+
+			if (mb4.getSuspension()!=null) {
+				System.out.println("-----------開始登入ban介面----------"+mb4.getSuspension());
+				model.addAttribute("loginSession",mb4);
+				model.addAttribute("memberUiDefault",mb4);
+				return "redirect:/member/member_ban";
+			}
 
 			Boolean isMamber = true;
 			isMamber = memberService.memberOrManager(userEmail); // 判斷是使用者還是管理者
@@ -252,6 +257,10 @@ public class TestLoginController {
 	@GetMapping("/try/member_Ui")
 	public String tryMemberUpdate(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
 		System.out.println("membershipInformationBean --getUserEmail----->" + mb.getUserEmail());
+		if (mb.getSuspension()!=null) {
+			return "redirect:/member/member_ban";
+		}
+		
 		membershipInformationBean mb2 = new membershipInformationBean();
 		String userEmail = mb.getUserEmail();		
 		//預載會員資料
@@ -328,7 +337,9 @@ public class TestLoginController {
 	public String buyerEvolution(@ModelAttribute("loginSession") membershipInformationBean mb, 
 			@ModelAttribute("sellerData") membershipInformationBean sellerDataMb, 
 			Model model) {
-		
+		if (mb.getSuspension()!=null) {
+			return "redirect:/member/member_ban";
+		}
 		//sellerData初始化設定
 //		model.addAttribute("sellerData", sellerDataMb);
 		System.out.println("------sellerData 驗證後資料 name----------------?"+sellerDataMb.getUserName());
@@ -356,6 +367,9 @@ public class TestLoginController {
 			@ModelAttribute("sellerData") membershipInformationBean mb,
 			@ModelAttribute("loginSession") membershipInformationBean mb3, 
 			Model model) {
+		if (mb3.getSuspension()!=null) {
+			return "redirect:/member/member_ban";
+		}
 		membershipInformationBean mb2 = new membershipInformationBean();			
 	mb=memberService.findMemberDataAll(mb.getUserEmail());
 	
@@ -514,7 +528,7 @@ public class TestLoginController {
 		message.setTo(mb2.getUserEmail());  //測試用我的
 		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
 		message.setText("您好 : "+mb2.getUserEmail()+"\r\n歡迎光臨BuyByLA  "+"  您的驗證碼是:"+VerificationCode +"\r\n \r\n \r\n \r\n \r\n 隱私權政策\r\n"
-				+ "歡迎您來到BuyBuyLa的網站（以下簡稱本網站），本網站由藍石國際股份有限公司（以下簡稱我們）所經營。我們遵守「個人資料保護法」，並重視您的隱私權，為了確保您的個人資料安全，讓您能夠安心使用本網站的各項服務與資訊，我們訂立了以下的隱私權政策，請您詳細閱讀以了解本網站如何蒐集、應用、保護您的資料。\r\n"
+				+ "歡迎您來到BuyBuyLa的網站（以下簡稱本網站），本網站由BuyBuyBoy國際股份有限公司（以下簡稱我們）所經營。我們遵守「個人資料保護法」，並重視您的隱私權，為了確保您的個人資料安全，讓您能夠安心使用本網站的各項服務與資訊，我們訂立了以下的隱私權政策，請您詳細閱讀以了解本網站如何蒐集、應用、保護您的資料。\r\n"
 				+ "一、隱私權保護政策的適用範圍\r\n"
 				+ "\r\n"
 				+ "隱私權保護政策內容，包括本網站如何處理在您使用網站服務時收集到的個人識別資料。隱私權保護政策不適用於本網站以外的相關連結網站，也不適用於非本網站所委託或參與管理的人員。\r\n"
@@ -527,7 +541,7 @@ public class TestLoginController {
 				+ "\r\n"
 				+ "• 為提供精確的服務，我們會將收集的問卷調查內容進行統計與分析，分析結果之統計數據或說明文字呈現，除供內部研究外，我們會視需要公佈統計數據及說明文字，但不涉及特定個人之資料。\r\n"
 				+ "\r\n"
-				+ "• 關於申請綁定 LINE 個人化服務：藍石將根據您提供的手機號碼或 Email 與 LINE 帳號進行身份驗證，過程中的查詢及驗證服務是由綠藤系統執行，並不會經由 LINE 記錄資料。\r\n"
+				+ "• 關於申請綁定 LINE 個人化服務：BuyBuyBoy將根據您提供的手機號碼或 Email 與 LINE 帳號進行身份驗證，過程中的查詢及驗證服務是由綠藤系統執行，並不會經由 LINE 記錄資料。\r\n"
 				+ "\r\n"
 				+ "三、與第三方共用個人資料之政策\r\n"
 				+ "\r\n"
@@ -865,7 +879,7 @@ public class TestLoginController {
 					message.setTo(mBean.getUserEmail());  //測試用我的
 					message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
 					message.setText("您好 : "+mBean.getUserName()+"\r\n歡迎光臨BuyByLA  "+"  您的密碼是:"+mBean.getUserPwd() +"\r\n \r\n \r\n \r\n \r\n 隱私權政策\r\n"
-							+ "歡迎您來到BuyBuyLa的網站（以下簡稱本網站），本網站由藍石國際股份有限公司（以下簡稱我們）所經營。我們遵守「個人資料保護法」，並重視您的隱私權，為了確保您的個人資料安全，讓您能夠安心使用本網站的各項服務與資訊，我們訂立了以下的隱私權政策，請您詳細閱讀以了解本網站如何蒐集、應用、保護您的資料。\r\n"
+							+ "歡迎您來到BuyBuyLa的網站（以下簡稱本網站），本網站由BuyBuyBoy國際股份有限公司（以下簡稱我們）所經營。我們遵守「個人資料保護法」，並重視您的隱私權，為了確保您的個人資料安全，讓您能夠安心使用本網站的各項服務與資訊，我們訂立了以下的隱私權政策，請您詳細閱讀以了解本網站如何蒐集、應用、保護您的資料。\r\n"
 							+ "一、隱私權保護政策的適用範圍\r\n"
 							+ "\r\n"
 							+ "隱私權保護政策內容，包括本網站如何處理在您使用網站服務時收集到的個人識別資料。隱私權保護政策不適用於本網站以外的相關連結網站，也不適用於非本網站所委託或參與管理的人員。\r\n"
@@ -878,7 +892,7 @@ public class TestLoginController {
 							+ "\r\n"
 							+ "• 為提供精確的服務，我們會將收集的問卷調查內容進行統計與分析，分析結果之統計數據或說明文字呈現，除供內部研究外，我們會視需要公佈統計數據及說明文字，但不涉及特定個人之資料。\r\n"
 							+ "\r\n"
-							+ "• 關於申請綁定 LINE 個人化服務：藍石將根據您提供的手機號碼或 Email 與 LINE 帳號進行身份驗證，過程中的查詢及驗證服務是由綠藤系統執行，並不會經由 LINE 記錄資料。\r\n"
+							+ "• 關於申請綁定 LINE 個人化服務：BuyBuyBoy將根據您提供的手機號碼或 Email 與 LINE 帳號進行身份驗證，過程中的查詢及驗證服務是由綠藤系統執行，並不會經由 LINE 記錄資料。\r\n"
 							+ "\r\n"
 							+ "三、與第三方共用個人資料之政策\r\n"
 							+ "\r\n"
@@ -942,6 +956,22 @@ public class TestLoginController {
 			}
 			System.out.println("密碼錯誤 請重新再試");
 			return "/member/suspension";
+		}
+		
+		
+		@GetMapping("/member/member_ban")
+		public String unban(@ModelAttribute("loginSession") membershipInformationBean mb,Model model) {
+			
+			return "member_25/ban/member_ban";
+		}
+		
+		@PostMapping("/member/member_ban")
+		public String processUnban(@ModelAttribute("loginSession") membershipInformationBean mb,Model model) {
+			System.out.println("unban-------notes---->"+mb.getNotes());
+			membershipInformationBean mb2=memberService.findMemberDataAll(mb.getUserEmail());
+			mb2.setNotes(mb.getNotes());
+			memberService.save(mb2);
+			return "member_25/ban/member_ban_done";
 		}
 				
 		

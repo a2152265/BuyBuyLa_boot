@@ -67,7 +67,7 @@
                   <td><c:out value="${member.userGender}" /></td>
                   <td><c:out value="${member.address}" /></td>
                   <td><c:out value="${member.identification}" /></td>
-                  <td><c:out value="${member.notes}" /></td>
+                  <td style="color:red;"><c:out value="${member.notes}" /></td>
                   <td style="color:red;"><c:out value="${member.suspension}" /></td>
        
                   <td>
