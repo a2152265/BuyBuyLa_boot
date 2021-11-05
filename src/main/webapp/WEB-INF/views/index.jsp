@@ -618,9 +618,15 @@ $(".additem").click(function(){
 				  showConfirmButton: false,
 				  timer: 1500
 				})
-			
-
-
+		},error:function(){
+			Swal.fire({
+				  position:'center',
+				  icon: 'error',
+				  title: '加入購物車失敗 ! ! !',
+				  text: '請登入會員',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
 		}
 								
 	});		
