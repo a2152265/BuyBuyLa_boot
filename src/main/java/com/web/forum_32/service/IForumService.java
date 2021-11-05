@@ -8,8 +8,10 @@ public interface IForumService {
 	
 	// 首頁展示
 	List<ForumBean> getAll();
-	List<ForumBean> getAllOrderByIdDesc();
-	List<ForumBean> getAllArticles(int page, int size);
+	List<ForumBean> getAllArticlesByPage(int page, int size);
+	// 標籤分類
+	List<ForumBean> getAllByTag(String tag,int page, int size);
+	List<ForumBean> getAllByTag(String tag);
 	
 	
 	// CRUD
@@ -18,14 +20,9 @@ public interface IForumService {
 	void addOrEdit(ForumBean content);
 	void delete (Integer id);
 	
-	//
 	// 熱門文章
-	List<ForumBean> findByOrderByViewQtyDesc();
+	List<ForumBean> findTop4ByOrderByViewQtyDesc();
+	// 最新帖子
+	List<ForumBean> findTop4ByOrderByIdDesc();
 	
-	// 標籤分類
-	List<ForumBean> getAllByTag(String tag,int page, int size);
-	List<ForumBean> getAllByTag(String tag);
-//	List<ForumBean> getAllContentsByNoviceSeller(String tag,int page, int size);
-//	List<ForumBean> getAllContentsBySellerChat(String tag,int page, int size);
-//	List<ForumBean> getAllContentsByFeatured(String tag,int page, int size);
 }

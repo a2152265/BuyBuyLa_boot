@@ -28,13 +28,9 @@ $(function() {
 	var authorUserName = $('.authorUserName').html();
 	if(loginUser!=authorUserName){
 		 $(".editIMG").css("visibility","hidden");
-//		 console.log("loginUser="+loginUser+" forumUsername="+forumUsername+" css="+"hidden")
 	}else{
 		$(".editIMG").css("visibility","visible");
-//		console.log("loginUser="+loginUser+" forumUsername="+forumUsername+" css="+"visible")
 	}
-	console.log('loginUser='+loginUser)
-	console.log('authorUserName='+authorUserName)
 	
 	if($('.loginsession').html()==null){
 		$('.addNewForum').css('display','none')

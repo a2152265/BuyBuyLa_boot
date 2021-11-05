@@ -25,19 +25,15 @@ public class ForumService implements IForumService {
 	}
 
 	@Override
-	public List<ForumBean> getAllArticles(int page, int size) {
+	public List<ForumBean> getAllArticlesByPage(int page, int size) {
         Page<ForumBean> pageResult = forumRepository.findAll(
-                PageRequest.of(page,  // 查詢的頁數，從0起算
-                                size, // 查詢的每頁筆數
-                                Sort.by("topArticle").descending().and(Sort.by("id").descending())
-                                )); // 依CREATE_TIME欄位降冪排序
+                PageRequest.of(
+                		page,size,Sort.by("topArticle").descending().and(Sort.by("id").descending()))); 
         pageResult.getNumberOfElements(); // 本頁筆數
         pageResult.getSize();             // 每頁筆數 
         pageResult.getTotalElements();    // 全部筆數
         pageResult.getTotalPages();       // 全部頁數
-        
         List<ForumBean> articleList =  pageResult.getContent();
-    
         return articleList;
 	}
 	@Override
@@ -86,14 +82,15 @@ public class ForumService implements IForumService {
 		return forumRepository.findByTag(tag);
 	}
 
-	@Override
-	public List<ForumBean> getAllOrderByIdDesc() {
-		return forumRepository.findByOrderByIdDesc();
+
+	@Override  // 熱門文章
+	public List<ForumBean> findTop4ByOrderByViewQtyDesc() {
+		return forumRepository.findTop4ByOrderByViewQtyDesc();
 	}
 
-	@Override
-	public List<ForumBean> findByOrderByViewQtyDesc() {
-		return forumRepository.findByOrderByViewQtyDesc();
+	@Override  // 最新帖子
+	public List<ForumBean> findTop4ByOrderByIdDesc() {
+		return forumRepository.findTop4ByOrderByIdDesc();
 	}
 
 

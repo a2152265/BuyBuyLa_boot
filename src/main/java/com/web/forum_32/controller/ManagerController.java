@@ -38,8 +38,7 @@ public class ManagerController {
 	// 後台頁面展示
 	@GetMapping("/manager/forum")
 	public String managerForumView(Model model) {
-		List<ForumBean> allList = forumService.getAll();
-		model.addAttribute("content", allList);
+		model.addAttribute("content", forumService.getAll());
 		model.addAttribute("reportMessage",messageService.getAllReportMessage());
 		model.addAttribute("managerAddForumContentBean", new ForumBean());
 		model.addAttribute("managerEditForumContentBean", new ForumBean());
@@ -63,11 +62,10 @@ public class ManagerController {
 			@ModelAttribute("managerEditForumContentBean") ForumBean editBean,
 			Model model) {
 		editBean = forumService.getContentById(id);
-		ForumBean data = new ForumBean(editBean.getId(),editBean.getTag(),editBean.getTitle(),
+		return new ForumBean(editBean.getId(),editBean.getTag(),editBean.getTitle(),
 				editBean.getContent(),editBean.getDate(),editBean.getPicId(),
 				editBean.getUserName(),editBean.getUserEmail(),editBean.getUserNickname(),
 				editBean.getIdentification(),editBean.getMessageQty(),editBean.getViewQty(),editBean.getTopArticle());
-		return data;
 	}
 
 	// 編輯>提交表單
@@ -83,12 +81,7 @@ public class ManagerController {
 	@GetMapping(value ="/manager/findAllMessage")
 	@ResponseBody
 	public List<MessageBean> findAllMessage(@RequestParam("id") Integer messageForumId) {
-		List<MessageBean> messageList = messageService.getAllByMessageForumId(messageForumId);
-		for(int i=0;i<messageList.size();i++) {
-			System.out.println("messageId="+messageList.get(i).getMessageId());
-			System.out.println("messageContent="+messageList.get(i).getMessageContent());
-		}
-		return messageList;
+		return messageService.getAllByMessageForumId(messageForumId);
 	}
 	// 留言管理 得到標題
 	@GetMapping(value = "/manager/getForumTitle")

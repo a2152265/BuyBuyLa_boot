@@ -23,7 +23,7 @@ public class MessageService implements IMessageService{
 	
 	@Override
 	public List<MessageBean> getAllMessage(Integer messageForumId) {
-		return messageRepository.findAllByForumId(messageForumId);
+		return messageRepository.findByMessageForumId(messageForumId);
 	}
 	@Override
 	public List<MessageBean> getPagedMessagesByMessageForumId(

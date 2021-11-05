@@ -156,7 +156,12 @@ public class DetailsController {
 	
 	// 刪除評論
 	@GetMapping(value = "/deleteMessage")
-	public void deleteMessage(@RequestParam("id") Integer id) {
+	public void deleteMessage(@RequestParam("id") Integer id,
+			@RequestParam("forumId") Integer forumId) {
+		
+		ForumBean updateMessageQty =forumService.getContentById(forumId);
+		updateMessageQty.setMessageQty(updateMessageQty.getMessageQty()-1);
+		forumService.addOrEdit(updateMessageQty);
 		messageService.delete(id);
 	}
 	// 檢舉評論

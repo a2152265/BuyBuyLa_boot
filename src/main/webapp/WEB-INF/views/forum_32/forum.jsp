@@ -195,73 +195,11 @@
 <!-- 							/input-group -->
 <!-- 							<div class="br"></div> -->
 <!-- 						</aside> -->
-						<aside class="single_sidebar_widget post_category_widget">
-							<div class="addNewForum">
-<!-- 							<h3 data-bs-target="#Modal" data-bs-toggle="modal" class="widget_title newFoRuM" style="cursor:pointer;">發起討論</h3> -->
-<!-- 							<div class="br"></div> -->
-							</div>
-							<!-- ================ 發起討論Model ================= -->
-							<div class="modal fade" id="Modal" tabindex="-1"
-								aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-lg" style="margin-top: 90px">
-									<form:form method='POST' modelAttribute="addForumBean" class='form-horizontal' enctype="multipart/form-data">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h3 class="modal-title" id="exampleModalLabel">發起討論</h3>
-												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-											</div>
-											<div class="modal-body insContentBody">
-												<form:input path="tag" type="hidden" id="insTag" />
-												<form:textarea path="content" class="content display-none" />
-												<form:input path="date" type="hidden" id="nowDate" />
-												<form:input path="messageQty" type="hidden" />
-												<form:input path="viewQty" type="hidden" />
-												<form:input path="identification" type="hidden" value="member" />
-												<form:input path="picId" class="form-control" type="hidden" value="${memberUiDefault.id}" />
-												<form:input path="userName" type="hidden" value="${memberUiDefault.userName}${managerSession.userName}" />
-												<form:input path="userEmail" type="hidden" value="${memberUiDefault.userEmail}" />
-												<form:input path="userNickname" type="hidden" value="${memberUiDefault.userNickname}" />
-												<form:input path="Identification" type="hidden" value="member" />
-												<form:input path="topArticle" type="hidden" value="general" />
-												<div class="mb-3">
-													<select id="insSelectTag" aria-label="Default select example">
-														<option>新手賣家發問</option>
-														<option>賣家閒聊討論</option>
-													</select><br><br>
-													<form:input type="text" path="title" required="true"
-														placeholder="標題" class="form-control title-fontsize titleKeyInput"
-														aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
-													<br>
-													<div id="summernote"></div>
-												</div>
-											</div>
-											<div class="modal-footer">
-												<button id="insSubmit" type="submit" class="btn btn-primary">送出</button>
-												<button type="button" class="btn btn-secondary"
-													data-bs-dismiss="modal">取消</button>
-												<button class="addNewForumKeyInput" type="button">一鍵輸入</button>
-											</div>
-										</div>
-									</form:form>
-								</div>
-							</div>
-							<!-- ================================= -->
-						</aside>
 						
 						<!-- ================ 熱門文章 ================= -->
 						<aside class="single_sidebar_widget popular_post_widget">
-							<h3 class="widget_title">熱門文章</h3>
-							<c:forEach var='content' items='${getAllHot}' begin="0" end="3">
-								<div class="media post_item">
-									<img width='50' src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
-									<div class="media-body">
-										<a href="<c:url value='/detailed' />?id=${content.id}">
-											<h3>${content.title}</h3>
-										</a>
-										<p>${content.date}</p>
-									</div>
-								</div>
-							</c:forEach>
+							<h3 class="widget_title hotArticles">熱門文章</h3>
+							<div id="hotArticles"></div>
 							<div class="br"></div>
 						</aside>
 						<!-- ================================= -->
@@ -269,18 +207,7 @@
 						<!-- ================ 最新帖子 ================= -->
 						<aside class="single_sidebar_widget popular_post_widget">
 							<h3 class="widget_title">最新帖子</h3>
-							<c:forEach var='content' items='${getAllOrderByIdDesc}' begin="0" end="2">
-								<div class="media post_item">
-									<img width='50' src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
-									<div class="media-body">
-										<a href="<c:url value='/detailed' />?id=${content.id}">
-											<h3>${content.title}</h3>
-										</a>
-										<p>${content.date}</p>
-									</div>
-								</div>
-							</c:forEach>
-						<aside class="single_sidebar_widget ads_widget">
+							<div id="newArticles"></div>
 							<div class="br"></div>
 						</aside>
 						<!-- ================================= -->
@@ -314,8 +241,6 @@
 							<div class="br"></div>
 						</aside>
 						<!-- ================================= -->
-
-						</aside>
 					</div>
 				</div>
 				<!-- ================================= -->
@@ -331,7 +256,7 @@
 						    <option class="new">最新</option>
 						    <option class="hot">最熱門</option>
 						    </select><br>
-						  		<input type="button" value="發起討論" class="widget_title btn-warning newFoRuM"
+						  		<input type="button" value="發起討論" class="widget_title btn-warning addNewForum"
 								style="margin-left:50px;border-radius:10px;width: 154px; border: none;" data-bs-toggle="modal"
 								data-bs-target="#Modal">
 								<br>
@@ -340,6 +265,7 @@
 				
 				<!-- ================ 帖子 ================= -->
 					<div class="blog_left_sidebar bg-light"><br>
+					<div id="getAllArticlesByPage"></div>
 						<c:forEach var='Articles' items='${Articles}' varStatus='c'>
 							<article class="row blog_item bg-light" style="margin: 0px">
 								<div class="col-md-12">
@@ -353,7 +279,7 @@
 												</span>
 											</div>
 											<div>
-											<a class="" href="<c:url value='/detailed' />?id=${Articles.id}"><h2>${Articles.title}</h2></a>
+											<a href="<c:url value='/detailed' />?id=${Articles.id}"><h2>${Articles.title}</h2></a>
 											<div class="box"><div class="ellipsis">${Articles.content}</div></div>
 											<a style="margin-left: 300px;" class="button button-blog addViewQty" id="${Articles.id}" href="<c:url value='/detailed' />?id=${Articles.id}">View More</a>
 											</div>
@@ -371,24 +297,69 @@
 							</article>
 						</c:forEach>
 						<!-- ================================= -->
+						<!-- ================ 發起討論Model ================= -->
+						<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-lg" style="margin-top: 90px">
+								<form:form method='POST' modelAttribute="addForumBean" action="addNewForum" class='form-horizontal' enctype="multipart/form-data">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h3 class="modal-title" id="exampleModalLabel">發起討論</h3>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body insContentBody">
+											<form:input path="tag" type="hidden" id="insTag" />
+											<form:textarea path="content" class="content display-none" />
+											<form:input path="date" type="hidden" id="nowDate" />
+											<form:input path="messageQty" type="hidden" />
+											<form:input path="viewQty" type="hidden" />
+											<form:input path="identification" type="hidden" value="member" />
+											<form:input path="picId" class="form-control" type="hidden" value="${memberUiDefault.id}" />
+											<form:input path="userName" type="hidden" value="${memberUiDefault.userName}${managerSession.userName}" />
+											<form:input path="userEmail" type="hidden" value="${memberUiDefault.userEmail}" />
+											<form:input path="userNickname" type="hidden" value="${memberUiDefault.userNickname}" />
+											<form:input path="Identification" type="hidden" value="member" />
+											<form:input path="topArticle" type="hidden" value="general" />
+											<div class="mb-3">
+												<select id="insSelectTag" aria-label="Default select example">
+													<option>新手賣家發問</option>
+													<option>賣家閒聊討論</option>
+												</select><br><br>
+												<form:input type="text" path="title" required="true"
+													placeholder="標題" class="form-control title-fontsize titleKeyInput"
+													aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
+												<br>
+													<div id="summernote"></div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button id="insSubmit" type="submit" class="btn btn-primary">送出</button>
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">取消</button>
+												<button class="addNewForumKeyInput" type="button">一鍵輸入</button>
+											</div>
+										</div>
+									</form:form>
+								</div>
+							</div>
+							<!-- ================================= -->
 						
 						<!-- ================ 分頁 ================= -->
 						<nav class="blog-pagination justify-content-center d-flex" style="padding-bottom: 0px;">
 							<ul class="pagination">
 								<li class="page-item">
-								<a href="<c:url value="/forumPageLeft" />?page=${leftPage}" class="page-link" aria-label="Previous"> 
+								<a href="<c:url value="/PageLeft" />?tag=${tag}&page=${leftPage}" class="page-link" aria-label="Previous"> 
 								<span aria-hidden="true"> <span class="lnr lnr-chevron-left"></span></span>
 								</a>
 								</li>
-								<c:forEach items="${getAll}" var="getAll" varStatus="c" step="5">
+								<c:forEach items="${pageSize}" varStatus="c" step="5">
 									<li class="page-item">
-									<a href="<c:url value="forumPage" />?page=${c.count}"> 
+									<a href="<c:url value="/Page" />?tag=${tag}&page=${c.count}"> 
 									<input type="button" class="page-link forumPageBtn" style="border: none" value="${c.count}">
 									</a>
 									</li>
 								</c:forEach>
 								<li class="page-item">
-								<a href="<c:url value="/forumPageRight" />?page=${rightPage}" class="page-link" aria-label="Next"> 
+								<a href="<c:url value="/PageRight" />?tag=${tag}&page=${rightPage}" class="page-link" aria-label="Next"> 
 								<span aria-hidden="true"><span class="lnr lnr-chevron-right"></span></span>
 								</a>
 								</li>

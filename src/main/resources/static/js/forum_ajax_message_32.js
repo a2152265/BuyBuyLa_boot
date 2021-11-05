@@ -295,7 +295,8 @@ $(document).ready(function() {
 											type: 'get',
 											url: 'deleteMessage',
 											data: {
-												'id': messageId
+												'id': messageId,
+												'forumId':forumId
 											},
 											success: function() {
 											}
