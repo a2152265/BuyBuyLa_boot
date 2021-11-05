@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,11 +24,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.web.cart_30.model.BuyerAddress;
 import com.web.cart_30.model.Cart;
-
+import com.web.cart_30.model.Ecpay;
 import com.web.cart_30.service.CartService;
+import com.web.cart_30.service.PayementService;
 import com.web.member_25.model.membershipInformationBean;
 import com.web.record_30.model.RecordBean;
 import com.web.record_30.model.RecordList;
+
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutALL;
 
 
 
@@ -34,11 +40,12 @@ import com.web.record_30.model.RecordList;
 @Controller
 @SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" ,"cart","OrderItemCount"})
 public class CartController {
+	public static AllInOne all;
 	CartService cartService;
-
+	PayementService payementService;
 	@Autowired
-	public CartController(CartService cartService) {
-
+	public CartController(CartService cartService,PayementService payementService) {
+		this.payementService=payementService;
 		this.cartService = cartService;
 	}
 
@@ -157,7 +164,7 @@ public class CartController {
 	
 	@GetMapping("/addaddress")
 	@ResponseBody
-	public void addaddress(@RequestParam("address")String address, @ModelAttribute("loginSession") membershipInformationBean mb ) {
+	public void addaddress(@RequestParam("address")String address, @ModelAttribute("loginSession") membershipInformationBean mb,HttpServletResponse response ,Model model) {
 		String buyer=mb.getUserEmail();	
 		List<Cart> cart = cartService.addToRecord(buyer);	
 		Integer rc = cartService.getRidCount(1);
@@ -171,7 +178,8 @@ public class CartController {
 		
 		str = str+now.substring(0,4)+now.substring(5,7)+now.substring(8,10)
 		+now.substring(11,13)+now.substring(14,16)+now.substring(17,19);
-		System.out.println(now.replaceAll("/:",""));
+		System.out.println("....................................");
+		System.out.println(str);
 	
 		
 		
@@ -198,14 +206,37 @@ public class CartController {
 			System.out.println(rb.getBuyeraddress());
 			totalprice+=c.getProduct().getPrice()*c.getCount();
 			
+			
+					
 			cartService.addToRecord2(rb);
 			int stock =c.getProduct().getStock()-rb.getPcount();
 			cartService.updateStock(rb.getPid(),stock);
 
 		}
 		RecordList  recordList = new RecordList(str, buyer, totalprice,now,address,"未付款","待出貨");
+		//綠界
+		Ecpay ecpay = new Ecpay();
+		
+//		String totalAmount=""+totalprice;
+//		AioCheckOutALL obj = new AioCheckOutALL();
+//		obj.setMerchantTradeNo(str);
+//		obj.setMerchantTradeDate(str);
+//		obj.setTotalAmount(totalAmount);
+//		obj.setTradeDesc("BuyBuyLa Demo");
+//		obj.setItemName("BuyBuyLa 商品一批X1");
+//		obj.setReturnURL("http://211.23.128.214:5000");
+//		obj.setNeedExtraPaidInfo("N");
+//		all.aioCheckOut(obj, null);
 		
 		
+		
+		
+//		System.out.println("00000000000000000000000000000000000");
+//		System.out.println(ecpay.cmprChkMacValue());
+		
+		
+	
+		payementService.prepareECPayData(recordList, response);
 		SimpleMailMessage message =new SimpleMailMessage();
 		message.setTo(buyer);
 		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
@@ -215,6 +246,7 @@ public class CartController {
 		System.out.println("------------------已寄出------------------ --->");
 		cartService.addToRecordList(recordList);
 		cartService.addRidCount();
+
 		
 		
 	}

@@ -275,10 +275,11 @@ footer a {
     <script>
     	let no = 1000;
     let index = 0;
-    var names= ["a2152265@gmail.com", '0', 'a', 'b', 'c123@gmail.com'];
+    var names= ["asd26463558@gmail.com", '0', 'c123@gmail.com'];
+    var pwd= ["asd123", '0','c123456'];
     function quickInput(){
     	document.getElementById('name').value = names[index];
-    	document.getElementById('pwd').value = names[index];
+    	document.getElementById('pwd').value = pwd[index];
    	
     	index++;
         if (index >= names.length) {
