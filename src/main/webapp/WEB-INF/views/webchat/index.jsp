@@ -443,7 +443,7 @@ function connect(event) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
 
-        var socket = new SockJS('/chatroom');
+        var socket = new SockJS('/BuyBuyla_boot/chatroom');
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, onConnected, onError);
@@ -498,6 +498,8 @@ function sendMessage(event) {
         };
         // 發送訊息至/app/chat，也就是送到ChatController.sendMessage()
         stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/chatback", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/chatback2", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();
@@ -528,6 +530,7 @@ function onMessageReceived(payload) {
         var usernameElement = getUsernameElement(message.sender);
         messageElement.appendChild(usernameElement);
     }
+    console.log(message.content);
 
     var textElement = document.createElement('p');
     var messageText = document.createTextNode(message.content);

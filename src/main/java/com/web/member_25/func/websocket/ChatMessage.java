@@ -48,19 +48,30 @@ public class ChatMessage {
 //    	}
     
     
-    public void setCharType(ChatType type) {
-    	this.type = type;
-    	}
-
-    	public ChatType getCharType() {
-    	return this.type;
-    	}
+    //可成功 但無法寄出
+//    public void setCharType(ChatType type) {
+//    	this.type = type;
+//    	}
+//
+//    	public ChatType getCharType() {
+//    	return this.type;
+//    	}
+    
+    	
 
     	public void setSender(String sender) {
     	this.sender = sender;
     	}
 
-    	public String getSender() {
+    	public ChatType getType() {
+			return type;
+		}
+
+		public void setType(ChatType type) {
+			this.type = type;
+		}
+
+		public String getSender() {
     	return this.sender;
     	}
 

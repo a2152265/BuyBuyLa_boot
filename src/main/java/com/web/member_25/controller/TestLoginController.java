@@ -51,6 +51,11 @@ public class TestLoginController {
 		this.memberService = memberService;
 		this.servletContext = servletContext;
 	}
+	
+	public TestLoginController() {
+	
+	}
+
 
 //	@GetMapping("/zxczc")   //改
 //	public String indexDefault() {
