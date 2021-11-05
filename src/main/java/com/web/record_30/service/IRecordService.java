@@ -30,6 +30,8 @@ public interface IRecordService {
 	
 	void updateRecordList(RecordList recordList);
 	
+	void deleteAllRecordByRid(String rid);
+	
 	Double findFemaleRecord();
 	Double findMaleRecord();
 	Double findPetRecord();

@@ -15,6 +15,7 @@ public class RecordList {
 	private String buyeraddress;
 	private String transport_status;
 	private String pay_status;
+	private String last_update_time;
 	
 	
 	public RecordList() {
@@ -22,8 +23,29 @@ public class RecordList {
 	}
 
 
+	
+
+
+	public RecordList(String record_id, String buyer, Double totalprice, String buy_time, String buyeraddress,
+			String transport_status, String pay_status, String last_update_time) {
+	
+		this.record_id = record_id;
+		this.buyer = buyer;
+		this.totalprice = totalprice;
+		this.buy_time = buy_time;
+		this.buyeraddress = buyeraddress;
+		this.transport_status = transport_status;
+		this.pay_status = pay_status;
+		this.last_update_time = last_update_time;
+	}
+
+
+
+
+
 	public RecordList(String record_id, String buyer, Double totalprice, String buy_time, String buyeraddress,
 			String transport_status, String pay_status) {
+
 		this.record_id = record_id;
 		this.buyer = buyer;
 		this.totalprice = totalprice;
@@ -32,6 +54,25 @@ public class RecordList {
 		this.transport_status = transport_status;
 		this.pay_status = pay_status;
 	}
+
+
+
+
+
+	public String getLast_update_time() {
+		return last_update_time;
+	}
+
+
+
+
+
+	public void setLast_update_time(String last_update_time) {
+		this.last_update_time = last_update_time;
+	}
+
+
+
 
 
 	public String getRecord_id() {

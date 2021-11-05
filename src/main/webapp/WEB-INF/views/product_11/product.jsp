@@ -619,25 +619,41 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   
   
   <script>
-$(".additem").click(function(){		
-//		var data=$("#form1").serializeArray();
-	var data=$('.pid').val();
-	console.log(data+"************************");
-	$.ajax({
-		type:'get',
-		url:'additem',
-		data:{
-			"id":data
-		},
+  $(".additem").click(function(){		
+
+		var data=$(this).val();
+			$.ajax({
+			type:'get',
+			url:'additem',
+			data:{
+				"id":data
+			},
+			
+			success:function(){
 		
-		success:function(){
-			 console.log("77777777")
-		}
-								
-	});		
-	
-	
-});
+
+				Swal.fire({
+					  position:'center',
+					  icon: 'success',
+					  title: '已加入購物車',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+			},error:function(){
+				Swal.fire({
+					  position:'center',
+					  icon: 'error',
+					  title: '加入購物車失敗 ! ! !',
+					  text: '請登入會員',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+			}
+									
+		});		
+		
+		
+	});
 
 $('#comment').click(function() {
     

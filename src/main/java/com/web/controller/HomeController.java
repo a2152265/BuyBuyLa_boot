@@ -48,7 +48,7 @@ public class HomeController {
 	
 
 
-	@GetMapping("/")
+	@GetMapping({"/","index"})
 	public String home0(@ModelAttribute("OrderItemCount") String buyer,Model model) {
 		System.out.println("進入首頁La");
 		System.out.println("haha");

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.web.record_30.model.RecordBean;
 
@@ -77,6 +78,9 @@ public interface RecordRepository extends JpaRepository<RecordBean, Integer> {
 	@Query(nativeQuery = true, value = "select * from Record where category='其他'")
     public List<RecordBean> findOtherRecord();
 	
-
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value = "delete from Record  where record_id=?1")
+    public void deleteAllRecordByRid(String record_id);
 	
 }

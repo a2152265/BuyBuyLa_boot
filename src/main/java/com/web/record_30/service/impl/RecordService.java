@@ -210,6 +210,13 @@ public class RecordService implements IRecordService {
 	}
 
 
+	@Override
+	public void deleteAllRecordByRid(String rid) {
+		recordRepository.deleteAllRecordByRid(rid);
+		
+	}
+
+
 	
 
 

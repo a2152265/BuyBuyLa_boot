@@ -295,7 +295,7 @@
                               </td>
                               <td>
                                   <div class="checkout_btn_inner d-flex align-items-center">
-                                      <a class="gray_btn" href="products">繼續去購物</a>
+                                      <a class="gray_btn" href="index">繼續去購物</a>
                                       <a class="primary-btn ml-2" href="check">我要去買單</a>
                                   </div>
                               </td>

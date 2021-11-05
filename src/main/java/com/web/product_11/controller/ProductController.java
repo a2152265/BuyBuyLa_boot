@@ -60,7 +60,7 @@ public class ProductController {
 	@Autowired
 	public ProductController(ProductService productservice, ProductCommentService productCommentService,
 			MemberService memberService, ServletContext servletContext, CartService cartService,CampaignService campaignService) {
-		super();
+		
 		this.productservice = productservice;
 		this.productCommentService = productCommentService;
 		this.memberService = memberService;

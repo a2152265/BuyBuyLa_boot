@@ -168,6 +168,7 @@ public class RecordController {
 		return "record_30/manage/recordManage";
 	}
 	
+	//更新購物資料
 	@GetMapping("/updateRecordList")
 	public String updateRecordList(@RequestParam String rid,Model model) {
 		RecordList recordList = recordservice.getRecordByRid(rid);
@@ -185,12 +186,13 @@ public class RecordController {
 		double totalprice = recordList.getTotalprice();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		String now = dtf.format(LocalDateTime.now());
-		recordList.setBuy_time(now);
+		String buytime =recordList.getBuy_time();
 		String buyeraddress = recordList.getBuyeraddress();
 		String transport_status= recordList.getTransport_status();
 		String pay_status= recordList.getPay_status();
+		recordList.setLast_update_time(now);
 		System.out.println("qqqqqqqqqqqqqqqqqqqqqqqqq");
-		System.out.println(rid+","+buyer+","+totalprice+","+buyeraddress+","+now+","+transport_status+","+pay_status);
+		System.out.println(rid+","+buyer+","+totalprice+","+buyeraddress+","+buytime+","+transport_status+","+pay_status);
 //		recordservice.update(rid, pid, transport_status);
 //		System.out.println("rid = "+ rid+",pid = "+pid+"TS = "+transport_status+"+++++++++++++++++++++++");
 		recordservice.updateRecordList(recordList);
@@ -199,11 +201,12 @@ public class RecordController {
 		
 	}
 	
-	
+//刪除時，會刪訂單跟該訂單的細項	
 	@GetMapping("/deleteRecordList")
 	public String deleteRecordList(@RequestParam String rid,Model model) {
 		List<RecordList> recordList = recordservice.getAllMemberRecord();
 		recordservice.deleteRecordList(rid);
+		recordservice.deleteAllRecordByRid(rid);
 		model.addAttribute("allreocrd", recordList);
 		return "record_30/manage/deleteRecordSuccess";
 	}
