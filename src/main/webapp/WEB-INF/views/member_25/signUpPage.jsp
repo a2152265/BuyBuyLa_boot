@@ -258,6 +258,10 @@ function quickInput(){
 								<form:errors path="userPhone" cssClass="error" style="color: red;" />	
 							</div>
 							<div class="col-md-12 form-group">
+								<form:input cssclass="form-control" style="width: 350px;"  path="userName" id="userName" name="name" placeholder="請輸入姓名" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" />
+									
+							</div>
+							<div class="col-md-12 form-group">
 								<form:input cssclass="form-control" style="width: 350px;"  path="userEmail" id="userEmail" name="email" placeholder="請輸入信箱" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" />
 								<form:errors path="userEmail" cssClass="error" style="color: red;" />
 							</div>
@@ -386,6 +390,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 		   demoBTN.onclick = function(){
 			document.getElementById("userPhone").setAttribute('value','0921212121');
+			document.getElementById("userName").setAttribute('value','楊過');
 			document.getElementById("userEmail").setAttribute('value','a2152265@gmail.com');               
 			document.getElementById("pwd").setAttribute('value','a2152265@gmail.com');          
 			document.getElementById("pwd1").setAttribute('value','a2152265@gmail.com'); 

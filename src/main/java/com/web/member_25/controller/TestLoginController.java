@@ -663,6 +663,7 @@ public class TestLoginController {
 		System.out.println("------------------->"+bean.getFileName());
 		System.out.println("------------------->"+bean.getIdentification());
 		System.out.println("------------------->"+bean.getUserEmail());
+		System.out.println("---getSuspension---------------->"+bean.getSuspension());
 		Optional<membershipInformationBean> dataBeanD=memberService.findById(id);
 		membershipInformationBean dataBean=dataBeanD.get();
 		System.out.println("databean----  id---->"+dataBean.getId());
@@ -675,6 +676,7 @@ public class TestLoginController {
 		dataBean.setUserGender(bean.getUserGender());
 		dataBean.setIdentification(bean.getIdentification());
 		dataBean.setNotes(bean.getNotes());
+		dataBean.setSuspension(bean.getSuspension());
 		
 //		new MemberValidator().validate(bean, result);
 //

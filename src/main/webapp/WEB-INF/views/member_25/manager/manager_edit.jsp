@@ -214,6 +214,18 @@ test-align:center;
           </form:select>
       </div>
     </div>
+    
+    <div class="row">
+      <div class="col-25">
+        <label for="country">狀態</label>
+      </div>
+      <div class="col-75">
+        <form:select  path="identification" id="userGender" name="country"  required="required">
+          <form:option path="identification" value="買家" lable="買家" >ban</form:option>
+          <form:option path="suspension"  value="" lable="賣家" >unban</form:option>
+          </form:select>
+      </div>
+    </div>
     <div class="row">
       <div class="col-25">
         <label for="subject">備註</label>
