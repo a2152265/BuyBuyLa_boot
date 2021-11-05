@@ -17,6 +17,9 @@ public interface IMessageService {
 	
 	
 	// 檢舉
-	MessageReportBean addReport(MessageReportBean mrb);
+	public MessageReportBean getMessageReportById(Integer id);
+	MessageReportBean saveReport(MessageReportBean mrb);
 	List<MessageReportBean> getAllReportMessage();
+	void deleteMessageReport(Integer reportId);
+	void deleteByReportStatus(String status);
 }

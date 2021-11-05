@@ -58,11 +58,11 @@
 
 
 <script>
-  $(document).ready(function () {
-          jQuery('#example').DataTable();
-          jQuery('#example2').DataTable();
-      });
-  </script>
+   $(document).ready(function () { 
+       jQuery('#example').DataTable();
+       jQuery('#example2').DataTable();
+   }); 
+</script>
 
 
 
@@ -306,34 +306,40 @@
 			<table id="example2" class="display" style="width: 100%">
 				<thead>
 					<tr>
+						<th style="display:none">檢舉編號</th>
 						<th>文章編號</th>
 						<th>評論編號</th>
 						<th>檢舉人</th>
-						<th>被檢舉帳號</th>
+						<th>被檢舉人</th>
+						<th style="display:none">被檢舉人信箱</th>
 						<th>原因</th>
 						<th>內容</th>
-						<th>檢舉日期</th>
+						<th>日期</th>
+						<th>受理狀態</th>
 						<th>管理</th>
 					</tr>
 				</thead>
-				<tbody>
 					<c:forEach items="${reportMessage}" var="reportList">
 						<tr>
-							<td><c:out value="${reportList.reportForumId}" /></td>
-							<td><c:out value="${reportList.reportMessageId}" /></td>
-							<td>${reportList.reportUserName}</td>
-							<td>${reportList.reportedUserName}</td>
-							<td>${reportList.reportReason}</td>
-							<td>${reportList.reportContent}</td>
-							<td>${reportList.reportDate}</td>
+							<td class="reportId" style="display:none">${reportList.reportId}</td>
+							<td class="reportForumId">${reportList.reportForumId}</td>
+							<td class="reportMessageId">${reportList.reportMessageId}</td>
+							<td class="reportUserName">${reportList.reportUserName}</td>
+							<td class="reportedUserName">${reportList.reportedUserName}</td>
+							<td class="reportedUserEmail" style="display:none">${reportList.reportedUserEmail}</td>
+							<td class="reportReason">${reportList.reportReason}</td>
+							<td class="reportContent">${reportList.reportContent}</td>
+							<td class="reportDate">${reportList.reportDate}</td>
+							<td class="reportStatus">${reportList.reportStatus}</td>
 							<td>
-							<input type="button" class="btn btn-secondary" value="忽略">
-							<input type="button" class="btn btn-danger" value="刪除">
+							<input type="button" class="btn btn-secondary ignore" value="忽略">
+							<input type="button" class="btn btn-danger warning" value="刪除此評論">
 							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+			<input type="button"class="btn btn-info clear"  value="清除" style="float:right;margin-right:200px">
 			<br><br><br><br><br><br>
 		</div>
 		<div class="sidebar" style="background: rgb(66, 9, 122);">

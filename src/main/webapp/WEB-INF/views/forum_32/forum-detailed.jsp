@@ -277,15 +277,16 @@
 										<option>冒犯他人</option>
 										<option>其他</option>
 									</select>
-								<input type="hidden" class="ReportMessageId" > 
-								<input type="hidden" class="ReportUserName" > 
-								<input type="hidden" class="ReportedUserName" > 
+								<input type="hidden" class="reportMessageId" > 
+								<input type="hidden" class="reportUserName" > 
+								<input type="hidden" class="reportedUserName" > 
 								<input type="hidden" class="reportSelect" > 
-								<input type="hidden" class="reportDate" > 
+								<input type="hidden" class="reportDate" >
+								<input type="hidden" class="reportedUserEmail" value="${loginSession.userEmail}" >
 								<br><br>
 								檢舉內容
 								<div class="form-group">
-									<textarea rows="5" name="ReportContent" class="form-control mb-10 ReportedContent" readonly="readonly"></textarea>
+									<textarea rows="5" name="ReportContent" class="form-control mb-10 reportedContent" readonly="readonly"></textarea>
 								</div>
 								<button class="button button-postComment button--active reportMessageBtn" type="button" style="border: none">送出</button>
 							</form>

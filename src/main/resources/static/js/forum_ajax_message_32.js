@@ -180,32 +180,33 @@ $(document).ready(function() {
 								$('#reportSelect').change(function() {
 									$('.reportSelect').val($('#reportSelect option:selected').text());
 								})
-								var ReportUserName = $('.loginUser').val();
-								var ReportedUserName = $(this).parent().parent().parent().parent().find('.user').find('.messageName').html();
-								var ReportedContent = $(this).parent().parent().parent().parent().find('.user').find('.comment').html();
-								var ReportMessageId = messageId;
+								var reportUserName = $('.loginUser').val();
+								var reportedUserName = $(this).parent().parent().parent().parent().find('.user').find('.messageName').html();
+								var reportedContent = $(this).parent().parent().parent().parent().find('.user').find('.comment').html();
+								var reportMessageId = messageId;
 								var date = new Date();
 								const FormatDate = (date) => {
 									let Formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
 									return Formatted_date;
 								}
 								$('.reportDate').val(FormatDate(date));
-								$('.ReportedContent').text(ReportedContent);
-								$('.ReportUserName').val(ReportUserName);
-								$('.ReportedUserName').val(ReportedUserName);
-								$('.ReportMessageId').val(ReportMessageId);
+								$('.reportedContent').text(reportedContent);
+								$('.reportUserName').val(reportUserName);
+								$('.reportedUserName').val(reportedUserName);
+								$('.reportMessageId').val(reportMessageId);
 								$('.reportMessageBtn').click(function() {
 									$.ajax({
 										type: "get",
 										url: "reprotMessage",
 										data: {
-											"ReportForumId":forumId,
-											"ReportUserName": ReportUserName,
-											"ReportedUserName": ReportedUserName,
-											"ReportedContent": ReportedContent,
-											"ReportMessageId": ReportMessageId,
-											"ReportReason": $('.reportSelect').val(),
-											"ReportDate": $('.reportDate').val()
+											"reportForumId":forumId,
+											"reportUserName": reportUserName,
+											"reportedUserName": reportedUserName,
+											"reportedContent": reportedContent,
+											"reportMessageId": reportMessageId,
+											"reportReason": $('.reportSelect').val(),
+											"reportDate": $('.reportDate').val(),
+											"reportedUserEmail":$('.reportedUserEmail').val()
 										},
 										success: function() {
 											Swal.fire({

@@ -22,17 +22,20 @@ public class MessageReportBean implements Serializable {
 	private Integer reportMessageId;
 	private String reportUserName;
 	private String reportedUserName;
+	private String reportedUserEmail;
 	private String reportReason;
 	private String reportContent;
 	private String reportDate;
+	private String reportStatus;
+	private String warningContent;
 	
 	
 	public MessageReportBean() {
 	}
 
 
-	public MessageReportBean(Integer reportId,Integer reportForumId, Integer reportMessageId, String reportUserName, String reportedUserName,
-			String reportReason, String reportContent, String reportDate) {
+	public MessageReportBean(Integer reportId,Integer reportForumId, Integer reportMessageId, String reportUserName, String reportedUserEmail,String reportedUserName,
+			String reportReason, String reportContent, String reportDate, String reportStatus,String warningContent) {
 		this.reportId = reportId;
 		this.reportForumId=reportForumId;
 		this.reportMessageId = reportMessageId;
@@ -41,6 +44,8 @@ public class MessageReportBean implements Serializable {
 		this.reportReason = reportReason;
 		this.reportContent = reportContent;
 		this.reportDate = reportDate;
+		this.reportStatus=reportStatus;
+		this.warningContent=warningContent;
 	}
 
 
@@ -94,6 +99,16 @@ public class MessageReportBean implements Serializable {
 	}
 
 
+	public String getReportedUserEmail() {
+		return reportedUserEmail;
+	}
+
+
+	public void setReportedUserEmail(String reportedUserEmail) {
+		this.reportedUserEmail = reportedUserEmail;
+	}
+
+
 	public String getReportReason() {
 		return reportReason;
 	}
@@ -121,6 +136,26 @@ public class MessageReportBean implements Serializable {
 
 	public void setReportDate(String reportDate) {
 		this.reportDate = reportDate;
+	}
+
+
+	public String getReportStatus() {
+		return reportStatus;
+	}
+
+
+	public void setReportStatus(String reportStatus) {
+		this.reportStatus = reportStatus;
+	}
+
+
+	public String getWarningContent() {
+		return warningContent;
+	}
+
+
+	public void setWarningContent(String warningContent) {
+		this.warningContent = warningContent;
 	}
 
 	

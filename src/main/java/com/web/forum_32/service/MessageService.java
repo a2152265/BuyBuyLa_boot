@@ -33,7 +33,6 @@ public class MessageService implements IMessageService{
 				        PageRequest.of(page,  // 查詢的頁數，從0起算
 				                size, 			// 查詢的每頁筆數
 				                Sort.by("messageId").descending()));
-						
 						pageResult.getNumberOfElements(); // 本頁筆數
 						pageResult.getSize();             // 每頁筆數 
 						pageResult.getTotalElements();    // 全部筆數
@@ -61,12 +60,25 @@ public class MessageService implements IMessageService{
 		return messageRepository.findAllByMessageForumId(messageForumId);
 	}
 	@Override
-	public MessageReportBean addReport(MessageReportBean mrb) {
-		return messageReportRepository.saveAndFlush(mrb);
+	public MessageReportBean saveReport(MessageReportBean mrb) {
+		return messageReportRepository.save(mrb);
 	}
 	@Override
 	public List<MessageReportBean> getAllReportMessage() {
-		return messageReportRepository.findAll();
+		return messageReportRepository.findAllByOrderByReportStatusDesc();
+	}
+	@Override
+	public void deleteMessageReport(Integer reportId) {
+		messageReportRepository.deleteById(reportId);
+	}
+	@Override
+	public MessageReportBean getMessageReportById(Integer id) {
+		return messageReportRepository.getById(id);
+	}
+	@Override
+	public void deleteByReportStatus(String status) {
+		messageReportRepository.deleteByReportStatus(status);
+		
 	}
 
 }

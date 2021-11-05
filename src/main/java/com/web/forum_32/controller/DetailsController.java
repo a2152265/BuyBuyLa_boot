@@ -168,22 +168,26 @@ public class DetailsController {
 	@GetMapping(value="/reprotMessage")
 	@ResponseBody
 	public void reprotMessage(
-			@RequestParam("ReportUserName") String ReportUserName,
-			@RequestParam("ReportedUserName") String ReportedUserName,
-			@RequestParam("ReportedContent") String ReportedContent,
-			@RequestParam("ReportForumId") Integer ReportForumId,
-			@RequestParam("ReportMessageId") Integer ReportMessageId,
-			@RequestParam("ReportReason") String ReportReason,
-			@RequestParam("ReportDate") String ReportDate) {
+			@RequestParam("reportUserName") String reportUserName,
+			@RequestParam("reportedUserName") String reportedUserName,
+			@RequestParam("reportedContent") String reportedContent,
+			@RequestParam("reportForumId") Integer reportForumId,
+			@RequestParam("reportMessageId") Integer reportMessageId,
+			@RequestParam("reportReason") String reportReason,
+			@RequestParam("reportDate") String reportDate,
+			@RequestParam("reportedUserEmail") String reportedUserEmail){
 		MessageReportBean mrb = new MessageReportBean();
-		mrb.setReportContent(ReportedContent);
-		mrb.setReportDate(ReportDate);
-		mrb.setReportedUserName(ReportedUserName);
-		mrb.setReportForumId(ReportForumId);
-		mrb.setReportMessageId(ReportMessageId);
-		mrb.setReportReason(ReportReason);
-		mrb.setReportUserName(ReportUserName);
-		messageService.addReport(mrb);
+		mrb.setReportedUserEmail(reportedUserEmail);
+		mrb.setReportContent(reportedContent);
+		mrb.setReportDate(reportDate);
+		mrb.setReportedUserName(reportedUserName);
+		mrb.setReportForumId(reportForumId);
+		mrb.setReportMessageId(reportMessageId);
+		mrb.setReportReason(reportReason);
+		mrb.setReportUserName(reportUserName);
+		mrb.setWarningContent(reportedContent);
+		mrb.setReportStatus("待審核");
+		messageService.saveReport(mrb);
 	}
 
 	public void tagSize(Model model) {

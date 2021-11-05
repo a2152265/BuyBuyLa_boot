@@ -31,8 +31,7 @@ public class ForumController {
 	
 	// 首頁
 	@GetMapping("/forum")
-	public String forumIndex(Model model,
-			@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
+	public String forumIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
 		forum(model,page);
 		init(model);
 		return "forum_32/forum";
@@ -40,43 +39,37 @@ public class ForumController {
 	
 	// 首頁 標籤:新手賣家發問
 	@GetMapping("/noviceSeller")
-	public String noviceSellerIndex(Model model,
-			@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
+	public String noviceSellerIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
 		noviceSeller(model,page);
 		init(model);
 		return "forum_32/forum";
 	}
 	// 首頁 標籤:賣家閒聊討論
 	@GetMapping("/sellerChat")
-	public String sellerChatIndex(Model model,
-			@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
+	public String sellerChatIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
 		sellerChat(model,page);
 		init(model);
 		return "forum_32/forum";
 	}
 	// 首頁 標籤:官方最新公告
 	@GetMapping("/announcement")
-	public String announcementIndex(Model model,
-			@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
+	public String announcementIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
 		announcement(model,page);
 		init(model);
 		return "forum_32/forum";
 	}
 	// 首頁 標籤:社團精選話題
 	@GetMapping("/featured")
-	public String featuredIndex(Model model,
-			@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
+	public String featuredIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
 		featured(model,page);
 		init(model);
 		return "forum_32/forum";
 	}
 
-
 	@GetMapping({"/Page","/PageLeft","/PageRight"})
-	public String forumPage(
+	public String forumPage(Model model,
 			@RequestParam("tag") String tag,
-			@RequestParam("page") Integer page,
-			Model model) {
+			@RequestParam("page") Integer page ){
 		if(tag.equals("forum")) {
 			forum(model,page-1);
 		}else if(tag.equals("noviceSeller")) {
