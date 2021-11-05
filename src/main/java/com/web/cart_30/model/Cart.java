@@ -29,7 +29,7 @@ public class Cart {
 	
 	 @ManyToOne(cascade=CascadeType.ALL)
 	 @JoinColumn(name="ProductId_FK")
-	 private Product product;	;
+	 private Product product;	
 
 
 
