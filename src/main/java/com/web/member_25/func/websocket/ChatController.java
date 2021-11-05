@@ -92,7 +92,6 @@ public class ChatController {
     @SendTo("/topic/public") //只要有訂閱這個/topic/public的東東的人都會收到這個訊息 大概
     public ChatMessage chatback(@Payload ChatMessage chatMessage) {
     	if (login(chatMessage.getContent())==true) {
-			
 			chatMessage.setContent("請問您還需要甚麼服務嗎?  輸入1查詢會員資料 輸入2給你一個微笑");
 		}
     	
@@ -100,22 +99,22 @@ public class ChatController {
     }
     
     
-    @MessageMapping("user2")
-    @SendToUser(value = "/topic/greeting" )
-    public ChatMessage chatwithpeople(@Payload ChatMessage chatMessage) {
-    	if (login(chatMessage.getContent())==true) {
-			chatMessage.setContent("請問您還需要甚麼服務嗎?  輸入1查詢會員資料 輸入2給你一個微笑");
-		}
-    	
-    	System.out.println("AAA----getSender------->"+chatMessage.getSender());
-    	System.out.println("AAA----getContent------->"+chatMessage.getContent());
-    	
-        return chatMessage; // 返回時會將訊息送至/topic/public
-    }
+//    @MessageMapping("user2")
+//    @SendToUser(value = "/topic/greeting" )
+//    public ChatMessage chatwithpeople(@Payload ChatMessage chatMessage) {
+//    	if (login(chatMessage.getContent())==true) {
+//			chatMessage.setContent("請問您還需要甚麼服務嗎?  輸入1查詢會員資料 輸入2給你一個微笑");
+//		}
+//    	
+//    	System.out.println("AAA----getSender------->"+chatMessage.getSender());
+//    	System.out.println("AAA----getContent------->"+chatMessage.getContent());
+//    	
+//        return chatMessage; // 返回時會將訊息送至/topic/public
+//    }
     
     
     @MessageMapping("user3")
-    @SendToUser(value = "/topic/public" )
+    @SendToUser(value = "/topic/public" ,broadcast = false)
     public ChatMessage processchatwithpeople(@Payload ChatMessage chatMessage) {
     	if (login(chatMessage.getContent())==true) {
 			chatMessage.setContent("請問您還需要甚麼服務嗎?  輸入1查詢會員資料 輸入2給你一個微笑");
@@ -125,6 +124,8 @@ public class ChatController {
     	System.out.println("user2動作中");
         return chatMessage; // 返回時會將訊息送至/topic/public
     }
+    
+    
     
     
     

@@ -121,7 +121,8 @@
        
        <!-- 放入聊天室 -->
         <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+        <div style=" position: fixed; right:0;  top: 92%;  z-index:9999;">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" >
     BuyBuy子在此為您服務
   </button>
   
@@ -186,7 +187,7 @@
       </div>
     </div>
   </div>
-       
+      </div> 
        
        
        
