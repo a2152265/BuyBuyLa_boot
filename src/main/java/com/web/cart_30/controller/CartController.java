@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ import ecpay.payment.integration.domain.AioCheckOutALL;
 @Controller
 @SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" ,"cart","OrderItemCount"})
 public class CartController {
-	public static AllInOne all;
+
 	CartService cartService;
 	PayementService payementService;
 	@Autowired
@@ -251,6 +252,117 @@ public class CartController {
 		
 	}
 	
+
+	public static String genAioCheckOutALL(HttpServletResponse response,HttpServletRequest request,Model model){
+
+		
+		AllInOne all=new AllInOne("");
+		AioCheckOutALL obj = new AioCheckOutALL();
+		obj.setMerchantTradeNo("taaadde546ny0004");
+		obj.setMerchantTradeDate("2017/01/01 08:05:23");
+		obj.setTotalAmount("50");
+		obj.setTradeDesc("test Description");
+		obj.setItemName("TestItem");
+		obj.setReturnURL("http://211.23.128.214:5000");
+		obj.setNeedExtraPaidInfo("N");
+		
+		
+		String form = all.aioCheckOut(obj, null);
+		return form;
+	}
+
+	
+	@GetMapping("/ecpay")
+	@ResponseBody
+	public String ecpay(@ModelAttribute("loginSession") membershipInformationBean mb,HttpServletRequest request,HttpServletResponse response ,Model model) {
+		String buyer=mb.getUserEmail();	
+		List<Cart> cart = cartService.addToRecord(buyer);	
+		Integer rc = cartService.getRidCount(1);
+		RecordBean rb=new RecordBean();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		
+		String now = dtf.format(LocalDateTime.now());
+		
+		String str="ATXH";
+		
+		
+		str = str+now.substring(0,4)+now.substring(5,7)+now.substring(8,10)
+		+now.substring(11,13)+now.substring(14,16)+now.substring(17,19);
+		System.out.println("....................................");
+		System.out.println(str);
+	
+		
+		
+		double totalprice =0;
+//		System.out.println(address+"////////////////////");
+		for(Cart c:cart) {
+			
+			rb.setRecord_id(str);
+			rb.setPid(c.getProduct().getProductId());
+			rb.setP_name(c.getProduct().getProductName());
+			rb.setP_price(c.getProduct().getPrice());
+			rb.setPcount(c.getCount());
+			rb.setBuyer(buyer);
+			rb.setSeller(c.getProduct().getSeller());
+			rb.setBuy_time(now);
+			rb.setTransport_status("待出貨");
+			rb.setCategory(c.getProduct().getCategory());
+//			rb.setBuyeraddress(address);
+			System.out.println("****************************************************");
+			System.out.println("***"+rb.getId()+"RID = "+rb.getRecord_id()+", PID = "+rb.getPid()+", NAME = "
+					+ rb.getP_name()+", PRICE = "+rb.getP_price()+", CNT = "+rb.getPcount()
+					+", BUYER = "+rb.getBuyer()+", SELLER = "+rb.getSeller());
+//			System.out.println(address+"////////////////////");
+			System.out.println(rb.getBuyeraddress());
+			totalprice+=c.getProduct().getPrice()*c.getCount();
+			
+			
+					
+			cartService.addToRecord2(rb);
+			int stock =c.getProduct().getStock()-rb.getPcount();
+			cartService.updateStock(rb.getPid(),stock);
+
+		}
+		RecordList  recordList = new RecordList(str, buyer, totalprice,now,null,"未付款","待出貨");
+		//綠界
+	
+//		String totalAmount=""+totalprice;
+		int totalAmount =(int) totalprice;
+		String totalAmount2 =""+totalAmount;
+		AllInOne all=new AllInOne("");
+		AioCheckOutALL obj = new AioCheckOutALL();
+		obj.setMerchantTradeNo(str);
+		obj.setMerchantTradeDate(now);
+		obj.setTotalAmount(totalAmount2);
+		obj.setTradeDesc("BuyBuyLa Demo");
+		obj.setItemName("BuyBuyLa 商品一批X1");
+		obj.setReturnURL("http://211.23.128.214:5000");
+		obj.setNeedExtraPaidInfo("N");
+		obj.setClientBackURL("http://localhost:9090/BuyBuyla_boot/");
+		String form = all.aioCheckOut(obj, null);
+		
+		
+		
+		
+//		System.out.println("00000000000000000000000000000000000");
+//		System.out.println(ecpay.cmprChkMacValue());
+		
+		
+	
+//		payementService.prepareECPayData(recordList, response);
+//		SimpleMailMessage message =new SimpleMailMessage();
+//		message.setTo(buyer);
+//		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
+//		message.setText("您在BuyBuyLA 線上商城購買成功");
+//		
+//		mailSender.send(message); 
+		System.out.println("------------------已寄出------------------ --->");
+		cartService.addToRecordList(recordList);
+		cartService.addRidCount();
+
+		return form;
+		
+	}
 	
 	
 	

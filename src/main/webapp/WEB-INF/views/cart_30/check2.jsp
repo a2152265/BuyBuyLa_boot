@@ -408,6 +408,7 @@
                               </td>
                               <td>
  				<a class="gray_btn" href="cart">回上一頁</a>
+ 				<a class="gray_btn" href="ecpay">付款</a>
                               </td>
                                <td>
 
