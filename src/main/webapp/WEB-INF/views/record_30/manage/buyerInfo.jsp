@@ -263,7 +263,9 @@ $(document).ready(function () {
                 
             </ul>
         </div>
-        
+        	<center>
+			<a class="btn btn-outline-secondary" href="recordManage" style='font-size:20px' role="button">回上一頁</a>	
+			</center>
     </div>
 
    

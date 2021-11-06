@@ -156,18 +156,22 @@
     <div class="container">
         <div class="billing_details">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-md-8">
                     <h3>結算明細</h3>
-                    <form class="row contact_form" action="#" method="post" novalidate="novalidate">
-                        <div class="col-md-4 form-group p_star">
-                            <form:input type="text" class="form-control" id="buyerName" path="buyerName" placeholder="姓名"/>
-                            <span class="placeholder" data-placeholder="Name"></span>
-                        </div>
-              
-                        <div class="col-md-4 form-group p_star">
-                            <form:input type="text" class="form-control" id="phone" path="phone" placeholder="電話"/>
-                            <span class="placeholder" data-placeholder="Phone number"></span>
-                        </div>
+                    
+                    <div class="row" style="margin-left: 0px;">
+	                    <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+	                        <div class="col-6 form-group p_star">
+	                            <form:input type="text" class="form-control" id="buyerName" path="buyerName" placeholder="姓名"/>
+	                            <span class="placeholder" data-placeholder="Name"></span>
+	                        </div>
+	              
+	                        <div class="col-6 form-group p_star" style="right: 18px">
+	                            <form:input type="text" class="form-control" id="phone" path="phone" placeholder="電話"/>
+	                            <span class="placeholder" data-placeholder="Phone number"></span>
+	                        </div>
+                       </div>
+                       
                       <br>
                         <div class="col-md-12 form-group">
                           <form:input type="text" class="form-control" id="email" path="email" placeholder="E-mail"/>
