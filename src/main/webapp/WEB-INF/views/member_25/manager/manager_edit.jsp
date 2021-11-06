@@ -208,9 +208,9 @@ test-align:center;
       </div>
       <div class="col-75">
         <form:select  path="identification" id="userGender" name="country"  required="required">
-          <form:option path="identification" value="買家" lable="買家" >買家</form:option>
-          <form:option path="identification"  value="賣家" lable="賣家" >賣家</form:option>
-          <form:option path="identification" value="管理者" lable="管理者" >管理者</form:option>
+          <form:option path="identification" value="member" lable="買家" >買家</form:option>
+          <form:option path="identification"  value="seller" lable="賣家" >賣家</form:option>
+          <form:option path="identification" value="manager" lable="管理者" >管理者</form:option>
           </form:select>
       </div>
     </div>
@@ -220,8 +220,8 @@ test-align:center;
         <label for="country">狀態</label>
       </div>
       <div class="col-75">
-        <form:select  path="identification" id="userGender" name="country"  required="required">
-          <form:option path="identification" value="買家" lable="買家" >ban</form:option>
+        <form:select  path="suspension" id="userGender" name="country"  required="required">
+          <form:option path="suspension" value="ban" lable="買家" >ban</form:option>
           <form:option path="suspension"  value="" lable="賣家" >unban</form:option>
           </form:select>
       </div>

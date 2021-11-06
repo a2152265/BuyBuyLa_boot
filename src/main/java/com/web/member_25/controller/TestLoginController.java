@@ -1,5 +1,6 @@
 package com.web.member_25.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -973,6 +975,34 @@ public class TestLoginController {
 			memberService.save(mb2);
 			return "member_25/ban/member_ban_done";
 		}
+		
+		@GetMapping("/banList")
+		@ResponseBody
+		public List<String> banList(@ModelAttribute("loginSession") membershipInformationBean mb,
+				Model model) {
+			List<membershipInformationBean> memberList = memberService.selectAllUsers();
+			int memberCount=0,count=0;
+			List<String> banList=new ArrayList<>();
+			System.out.println("-------11----------->");
+			for(int i=0;i<memberList.size();i++) {
+				if (memberList.get(i).getSuspension()!=null) {
+					System.out.println("----22-------------->");
+					banList.add(memberList.get(i).getUserEmail());
+					memberCount++;
+					System.out.println("--會員被ban名單--------------"+banList);
+				}
+				count++;
+				
+			}
+			System.out.println("--會員被ban名單---嫁入list完成-----------");
+			System.out.println("被ban人數----------->"+memberCount);
+			System.out.println("總人數----------->"+count);
+	
+			return banList;
+		}
+		
+		
+		
 				
 		
 				
