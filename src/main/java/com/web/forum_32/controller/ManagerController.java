@@ -141,11 +141,12 @@ public class ManagerController {
 		messageService.addMessage(mb);
 		messageService.saveReport(mrb);
 		
-//		SimpleMailMessage message = new SimpleMailMessage();
-//		message.setTo("hyprocrite1631@gmail.com");
-//		message.setSubject("你的留言遭到檢舉");
-//		message.setText("你的留言遭到檢舉 \r\n 內容:"+mrb.getWarningContent());
-//		mailSender.send(message);
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo("hyprocrite1631@gmail.com");
+		message.setSubject("你的留言遭到檢舉");
+		message.setText("你的留言遭到檢舉 \r\n 內容:"+mrb.getWarningContent());
+		
+		mailSender.send(message);
 
 	}
 

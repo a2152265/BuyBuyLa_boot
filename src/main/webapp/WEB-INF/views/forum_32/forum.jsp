@@ -313,10 +313,10 @@
 											<form:input path="messageQty" type="hidden" />
 											<form:input path="viewQty" type="hidden" />
 											<form:input path="identification" type="hidden" value="member" />
-											<form:input path="picId" class="form-control" type="hidden" value="${memberUiDefault.id}" />
-											<form:input path="userName" type="hidden" value="${memberUiDefault.userName}${managerSession.userName}" />
-											<form:input path="userEmail" type="hidden" value="${memberUiDefault.userEmail}" />
-											<form:input path="userNickname" type="hidden" value="${memberUiDefault.userNickname}" />
+											<form:input path="picId" class="form-control" type="hidden" value="${loginSession.id}" />
+											<form:input path="userName" type="hidden" value="${loginSession.userName}" />
+											<form:input path="userEmail" type="hidden" value="${loginSession.userEmail}" />
+											<form:input path="userNickname" type="hidden" value="${loginSession.userNickname}" />
 											<form:input path="Identification" type="hidden" value="member" />
 											<form:input path="topArticle" type="hidden" value="general" />
 											<div class="mb-3">

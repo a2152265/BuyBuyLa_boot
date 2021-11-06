@@ -125,15 +125,15 @@
 													<form:input path="messageQty" type="hidden" value="0" />
 													<form:input path="viewQty" type="hidden" value="0" />
 													<form:input path="picId" class="form-control" type="hidden"
-														value="${memberUiDefault.id}" />
+														value="${loginSession.id}" />
 													<form:input path="userName" type="hidden"
-														value="${memberUiDefault.userName}${managerSession.userName}" />
+														value="${loginSession.userName}" />
 													<form:input path="userEmail" type="hidden"
-														value="${memberUiDefault.userEmail}" />
+														value="${loginSession.userEmail}" />
 													<form:input path="userNickname" type="hidden"
-														value="${memberUiDefault.userNickname}" />
+														value="${loginSession.userNickname}" />
 													<form:input path="Identification" type="hidden"
-														value="${managerSession.identification}" />
+														value="${loginSession.identification}" />
 													<form:input path="topArticle" type="hidden"
 														class="insTopArticle" value="general" />
 													<!-- 結束 -->
@@ -239,15 +239,15 @@
 														type="hidden" />
 
 													<form:input path="picId" class="picId" type="hidden"
-														value="${memberUiDefault.id}" />
+														value="${loginSession.id}" />
 													<form:input path="userName" class="userName" type="hidden"
-														value="${memberUiDefault.userName}" />
+														value="${loginSession.userName}" />
 													<form:input path="userEmail" class="userEmail"
-														type="hidden" value="${memberUiDefault.userEmail}" />
+														type="hidden" value="${loginSession.userEmail}" />
 													<form:input path="userNickname" class="userNickname"
-														type="hidden" value="${memberUiDefault.userNickname}" />
+														type="hidden" value="${loginSession.userNickname}" />
 													<form:input path="Identification" type="hidden"
-														value="${memberUiDefault.identification}" />
+														value="${loginSession.identification}" />
 													<form:input path="topArticle" class="topArticle"
 														type="hidden" />
 													<!-- 結束 -->

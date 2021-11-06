@@ -62,6 +62,7 @@ public class TestLoginController {
 	public String index(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
 		System.out.println("login後回首頁GetMapping");
 		membershipInformationBean mb2 = new membershipInformationBean();
+		
 		mb2.setUserEmail(mb.getUserEmail());
 		mb2.setUserPwd(mb.getUserPwd());
 		mb2.setUserName(mb.getUserName());
@@ -186,15 +187,22 @@ public class TestLoginController {
 			if (isMamber == false) {
 				mb2.setUserEmail(userEmail);
 				mb2.setUserPwd(userPwd);
-				mb2.setIdentification("manager");
-				mb2.setUserName("管理員");
 				model.addAttribute("managerSession", mb2);
+				
+//			*************************************************************
+				model.addAttribute("loginSession",memberService.findMemberData(mb2.getUserEmail()));
+//			*************************************************************
+				
 				return "redirect:/manager_Ui";
 			}
 			System.out.println("登入成功 userEmail  ----->" + userEmail);
 			mb2.setUserEmail(userEmail);
 			mb2.setUserPwd(userPwd);
-			model.addAttribute("loginSession", mb2);
+			
+//			*************************************************************
+			model.addAttribute("loginSession",memberService.findMemberData(mb2.getUserEmail()));
+//			*************************************************************
+//			model.addAttribute("loginSession", mb2);  
 			membershipInformationBean mb3 =memberService.findMemberData(mb2.getUserEmail());
 			model.addAttribute("memberUiDefault",mb3);
 			System.out.println("mb3=="+mb3.getUserName());

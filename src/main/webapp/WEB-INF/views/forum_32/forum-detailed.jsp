@@ -34,7 +34,7 @@
 <body>
 
 <!-- 使用者名稱 -->
-<input type="hidden" class="loginUser" value="${memberUiDefault.userName}${managerSession.userName}">
+<input type="hidden" class="loginUser" value="${loginSession.userName}">
 <!-- 文章編號 -->
 <input type="hidden" id="id" value="${forumId}">
 <!-- <body  style="background:#F5F5F5"> -->
@@ -128,10 +128,10 @@
 						<form:textarea path="content" class="updContent display-none" />
 						<form:input path="date" id="nowUpdDate" type="hidden" />
 						<form:input path="messageQty" type="hidden" value="${messageSize}" />
-						<form:input path="picId" type="hidden" value="${memberUiDefault.id}" />
-						<form:input path="userName" type="hidden" value="${memberUiDefault.userName}" class="forumUsername" />
-						<form:input path="userEmail" type="hidden" value="${memberUiDefault.userEmail}" />
-						<form:input path="userNickname" type="hidden" value="${memberUiDefault.userNickname}" />
+						<form:input path="picId" type="hidden" value="${loginSession.id}" />
+						<form:input path="userName" type="hidden" value="${loginSession.userName}" class="forumUsername" />
+						<form:input path="userEmail" type="hidden" value="${loginSession.userEmail}" />
+						<form:input path="userNickname" type="hidden" value="${loginSession.userNickname}" />
 						<form:input path="Identification" type="hidden" value="member" />
 						<!-- 結束 -->
 						<div class="mb-3"><br>
@@ -159,7 +159,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
-					<div class="single-post row" style="border:1px solid">
+					<div class="single-post row">
 						<ol style="background-color:white;list-style-type:none;width:150px;padding:10px;border-top-right-radius:30px;border-bottom-right-radius:30px;">
 						<li><img src="<c:url value='img/forum/chat.png' />" style="width:17px;height:17px"> ${forumContent.tag}</li>
 						</ol>
@@ -321,15 +321,15 @@
 				<h4 class="newMessageH4">發表評論</h4>
 				<form id="addMsgForm" enctype="multipart/form-data">
 					<input type="hidden" name="messageForumId" value="${forumId}">
-					<input type="hidden" name="messagePicId" value="${memberUiDefault.id}"> 
+					<input type="hidden" name="messagePicId" value="${loginSession.id}"> 
 					<input type="hidden" name="messageDate" id="messageDate"> 
 					<input type="hidden" name="messageIdentification">
 					<div class="form-group form-inline messageContentBlock">
 						<div class="form-group col-lg-6 col-md-6 name">
-							<input type="text" name="messageUserName" class="form-control" value="${memberUiDefault.userName}" placeholder="Guest" readonly="readonly">
+							<input type="text" name="messageUserName" class="form-control" value="${loginSession.userName}" placeholder="Guest" readonly="readonly">
 						</div>
 						<div class="form-group col-lg-6 col-md-6 email">
-							<input type="email" name="messageUserEmail" class="form-control" readonly="readonly" placeholder="Email address" value="${memberUiDefault.userEmail}">
+							<input type="email" name="messageUserEmail" class="form-control" readonly="readonly" placeholder="Email address" value="${loginSession.userEmail}">
 						</div>
 					</div>
 					<div class="form-group messageContentBlock">
