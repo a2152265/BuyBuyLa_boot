@@ -8,8 +8,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.web.forum_32.dao.ForumLikeRepository;
 import com.web.forum_32.dao.ForumRepository;
 import com.web.forum_32.model.ForumBean;
+import com.web.forum_32.model.ForumLikeBean;
 
 
 
@@ -18,6 +20,8 @@ public class ForumService implements IForumService {
 	
 	@Autowired
 	ForumRepository forumRepository;
+	@Autowired
+	ForumLikeRepository forumLikeRepository;
 	
 	@Override
 	public List<ForumBean> getAll() {
@@ -91,6 +95,16 @@ public class ForumService implements IForumService {
 	@Override  // 最新帖子
 	public List<ForumBean> findTop4ByOrderByIdDesc() {
 		return forumRepository.findTop4ByOrderByIdDesc();
+	}
+
+	@Override
+	public void likeSave(ForumLikeBean flb) {
+		forumLikeRepository.save(flb);
+	}
+
+	@Override
+	public ForumLikeBean findAllByForumIdAndLoginUserName(Integer forumId,String loginUserName) {
+		return forumLikeRepository.findByForumIdAndLoginUserName(forumId, loginUserName);
 	}
 
 

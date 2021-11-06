@@ -2,6 +2,7 @@ package com.web.forum_32.service;
 
 import java.util.List;
 import com.web.forum_32.model.ForumBean;
+import com.web.forum_32.model.ForumLikeBean;
 
 
 public interface IForumService {
@@ -25,4 +26,7 @@ public interface IForumService {
 	// 最新帖子
 	List<ForumBean> findTop4ByOrderByIdDesc();
 	
+	// 讚CRUD
+	void likeSave(ForumLikeBean flb);
+	public ForumLikeBean findAllByForumIdAndLoginUserName(Integer forumId,String loginUserName);
 }

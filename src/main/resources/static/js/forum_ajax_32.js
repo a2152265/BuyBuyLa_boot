@@ -3,6 +3,7 @@
  */
 $(document).ready(function() {
 
+
 	// 熱門文章
 	$.ajax({
 		type: "get",
@@ -63,12 +64,6 @@ $(document).ready(function() {
 			}
 		})
 	});
-	$('.new').click(function() {
-		alert('new');
-	})
-	$('.hot').click(function() {
-		alert('hot');
-	})
 	$('.addViewQty').click(function() {
 		var id = $(this).attr("id");
 		$.ajax({

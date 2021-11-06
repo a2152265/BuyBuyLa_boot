@@ -27,14 +27,18 @@
 <link href='css/style32.css' rel='stylesheet' >
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src='js/forum_ajax_32.js'></script>
+<script src='js/forum_ajax_like_32.js'></script>
 <script src='js/forum_keyInput_32.js'></script>
 <script src='js/forum_ajax_message_32.js'></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
-<!-- 使用者名稱 -->
+<!-- 使用者 -->
+<input type="hidden" class="loginId" value="${loginSession.id}">
 <input type="hidden" class="loginUser" value="${loginSession.userName}">
+<input type="hidden" class="loginIdentification" value="${loginSession.identification}">
+<input type="hidden" class="loginUserEmail" value="${loginSession.userEmail}">
 <!-- 文章編號 -->
 <input type="hidden" id="id" value="${forumId}">
 <!-- <body  style="background:#F5F5F5"> -->
@@ -160,18 +164,18 @@
 			<div class="row">
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
-						<ol style="background-color:white;list-style-type:none;width:150px;padding:10px;border-top-right-radius:30px;border-bottom-right-radius:30px;">
+						<ol style="background-color:#c6c2c2;list-style-type:none;width:150px;padding:10px;border-top-right-radius:30px;border-bottom-right-radius:30px;">
 						<li><img src="<c:url value='img/forum/chat.png' />" style="width:17px;height:17px"> ${forumContent.tag}</li>
 						</ol>
 						
-						<div>
-							<img data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle ml700w50h50tf11 editIMG" src="img/forum/more.png">
+						<div style='width:700px'>
+							<img data-bs-toggle="dropdown" aria-expanded="false" class="dropdown-toggle ml700w50h50tf11 editIMG" src="img/forum/edit.png">
 							<ul class="dropdown-menu">
 								<li data-id="${forumContent.id}" data-bs-toggle="modal" data-bs-target="#UpdateModal" class="dropdown-item updateDataClass">編輯</li>
 								<li class="dropdown-item tata" onclick="if(window.confirm('確定要刪除？')) location.href =' <c:url value='/delete32?id=${forumContent.id}'/>'">刪除</li>
 							</ul>
 						</div>
-						<h1>${forumContent.title}</h1>
+						<h1 style="margin-top:50px">${forumContent.title}</h1>
 						<br>
 					<div style="margin-top:30px">	
 						<img style="float:left;width:50px;height:50px;border-radius:50%" src="<c:url value='/getPicturefromMember/${forumContent.picId}'/>" />
@@ -184,11 +188,15 @@
 						<span> ${forumContent.viewQty}</span>
 						</span>
 					</div>
-						<div class="col-lg-9 col-md-9 blog_details bg-light" style="width:850px;padding:30px;margin-top:30px">
+						<div class="col-lg-9 col-md-9 blog_details bg-light" style="width:850px;padding:30px;margin-top:10px">
 							${forumContent.content}
 						</div>
+					</div><br>
+					<div id='likeImg' style="margin:10px;">
+					<img src="https://cdn-icons-png.flaticon.com/512/126/126473.png" class='like'>
+					<label style='font-size:20px'>50</label>
 					</div>
-					<div class="navigation-area">
+					<div class="navigation-area" style='margin:0px;'>
 						<div class="row">
 							<div class="previousBlock col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
 								<div class="thumb">

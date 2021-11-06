@@ -22,4 +22,5 @@ public interface IMessageService {
 	List<MessageReportBean> getAllReportMessage();
 	void deleteMessageReport(Integer reportId);
 	void deleteByReportStatus(String status);
+	
 }

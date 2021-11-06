@@ -122,11 +122,11 @@ $(document).ready(function() {
 						$('#messageResult').html('');
 						for (i = 0; i < data.length; i++) {
 							$('#messageResult').append(
-								"<div class='comment-list' style='padding-bottom:14px'>" +
+								"<div class='comment-list editDisplay'>" +
 								"<div class='single-comment justify-content-between d-flex'>" +
 								"<div class='user justify-content-between d-flex'>" +
 								"<div class='thumb'>" +
-								"<img style='width: 100px; height: 100px' src='getPicturefromMember/" + data[i]['messagePicId'] + "'>" +
+								"<img style='width: 80px; height: 80px' src='getPicturefromMember/" + data[i]['messagePicId'] + "'>" +
 								"</div>" +
 								"<div class='desc'>" +
 								"<input class='messageId' type='hidden' value='" + data[i]['messageId'] + "'>" +
@@ -134,9 +134,9 @@ $(document).ready(function() {
 								"<p class='date'>" + data[i]['messageDate'] + "</p>" +
 								"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
 								"</div>" +
-								"<div class='reply-btn'><a style='cursor:pointer;' class='btn-reply text-uppercase'>回覆</a></div>"+
+//								"<div class='reply-btn'><a style='cursor:pointer;' class='btn-reply text-uppercase'>回覆</a></div>"+
 								"</div>" +
-								"<div class='editBtn dropdown'>" +
+								"<div class='editBtn dropdown' style='display:none'>" +
 								"<img  id='dropdownMenuButton1' data-bs-toggle='dropdown' style='cursor:pointer;width:30px;height:30px;' src='img/forum/more.png'>" +
 								"<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton1'>" +
 								"<li><a class='dropdown-item reportMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#reportBtn'>檢舉</a></li>" +
@@ -144,23 +144,21 @@ $(document).ready(function() {
 								"<li><a class='dropdown-item delMessageContent' style='cursor:pointer;'>刪除</a></li></ul>" +
 								"</div>" +
 								"</div>" +
-								"</div>" +
-//								************************************************************************
-								"<div class='form-group'><input style='display:none;margin-left:100px;width:400px' class='displayrepty form-control' type='text' placeholder='回覆"+data[i]['messageUserName']+"......'></div>"+
-//								************************************************************************
-								"<div class='comment-list left-padding' style='padding-left:100px'>"+
-								"<div class='single-comment justify-content-between d-flex'>"+
-								"<div class='user justify-content-between d-flex'><div class='thumb'>"+
-								"<img style='width: 50px; height: 50px' src='getPicturefromMember/"+ data[i]['messagePicId']+"'>"+
-								"</div><div class='desc'>"+
-								"<a href='#'>Elsie Cunningham</a>"+
-								"<p class='date'>December 4, 2017 at 3:12 pm </p>"+
-								"<p class='comment'>被檢舉了齁 汪汪</p>"+
-								"</div></div></div></div>"
-//								************************************************************************
+								"</div>" 
+
 							)
 						}
-						$('.single-comment').each(function(i, n) {
+							if($('.loginUser').val()!=''){
+						$('.editDisplay').each(function(){
+							$(this).mouseover(function(){
+								$(this).find('.editBtn').css('display','block')
+							})
+							$(this).mouseout(function(){
+								$(this).find('.editBtn').css('display','none')
+							})
+						})
+							}
+						$('.single-comment').each(function() {
 							var loginUserName = $('.loginUser').val();     //登入帳號
 							var authorUserName = $('.authorUserName').html();   // 發文人
 							var messageName = $(this).find('.messageName').html();  //   發表評論的人
@@ -188,21 +186,7 @@ $(document).ready(function() {
 								$(this).find('.editMessageContent').css('display', 'none');
 								$(this).find('.delMessageContent').css('display', 'none');
 							}
-							var replyBtn=$(this).find(".btn-reply");
-							replyBtn.click(function(){
-								var displayrepty= $(this).parent().parent().parent().parent().next().find('.displayrepty');
-								if(displayrepty.css('display')=='none'){
-									displayrepty.css('display','block')
-								}else if(displayrepty.css('display')=='block'){
-									displayrepty.css('display','none')
-								}
-							})
-							var displayrepty=$(this).parent().next().find('.displayrepty');
-							displayrepty.keydown(function(e){
-								if(e.keyCode==13){
-									var reptyVal = displayrepty.val();
-								}
-							})
+							
 							// 檢舉留言
 							var reprotBtn = $(this).find(".reportMessageContent");
 							reprotBtn.click(function() {

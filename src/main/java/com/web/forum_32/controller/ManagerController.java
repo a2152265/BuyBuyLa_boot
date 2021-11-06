@@ -68,7 +68,7 @@ public class ManagerController {
 		return new ForumBean(editBean.getId(), editBean.getTag(), editBean.getTitle(), editBean.getContent(),
 				editBean.getDate(), editBean.getPicId(), editBean.getUserName(), editBean.getUserEmail(),
 				editBean.getUserNickname(), editBean.getIdentification(), editBean.getMessageQty(),
-				editBean.getViewQty(), editBean.getTopArticle());
+				editBean.getViewQty(),editBean.getLikeQty(),editBean.getTopArticle());
 	}
 
 	// 編輯>提交表單

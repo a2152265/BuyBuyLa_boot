@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.web.forum_32.model.ForumBean;
+import com.web.forum_32.model.ForumLikeBean;
 import com.web.forum_32.model.MessageBean;
 import com.web.forum_32.model.MessageReportBean;
 import com.web.forum_32.service.IForumService;
@@ -117,7 +118,7 @@ public class DetailsController {
 		editBean = forumService.getContentById(id);
 		return new ForumBean(editBean.getId(), editBean.getTag(), editBean.getTitle(), editBean.getContent(), editBean.getDate(),
 				editBean.getPicId(), editBean.getUserName(), editBean.getUserEmail(), editBean.getUserNickname(),
-				editBean.getIdentification(), editBean.getMessageQty(), editBean.getViewQty(),editBean.getTopArticle());
+				editBean.getIdentification(), editBean.getMessageQty(), editBean.getViewQty(),editBean.getLikeQty(),editBean.getTopArticle());
 	}
 
 	// 刪除
@@ -125,6 +126,53 @@ public class DetailsController {
 	public String deleteContentById(@RequestParam("id") Integer id, Model model) {
 		forumService.delete(id);
 		return "redirect:/forum";
+	}
+	
+	// 讚讚狀態
+	@GetMapping("getStatus")
+	@ResponseBody
+	public boolean getStatus(
+			@RequestParam("forumId") Integer forumId,
+			@RequestParam(value="loginUserName",required = false) String loginUserName) {
+		if(loginUserName=="") {
+			return false;
+		}else {
+			ForumLikeBean flb = forumService.findAllByForumIdAndLoginUserName(forumId, loginUserName);
+			if(flb!=null) {
+				if(flb.getStatus()==true) {
+					return true;
+				}else {
+					return false;
+				}
+			}else {
+				ForumLikeBean flb1=new ForumLikeBean();
+				flb1.setForumId(forumId);
+				flb1.setLoginUserName(loginUserName);
+				flb1.setStatus(true);
+				forumService.likeSave(flb1);
+				return true;
+			}
+		}
+	}
+	
+	// 讚讚
+	@GetMapping("/like")
+	@ResponseBody
+	public void like(
+			@RequestParam("forumId") Integer forumId,
+			@RequestParam("loginUserName") String loginUserName,
+			@RequestParam("status") boolean status) {
+		ForumLikeBean flb1 = forumService.findAllByForumIdAndLoginUserName(forumId, loginUserName);
+		if(flb1!=null) {
+			flb1.setStatus(!status);
+			forumService.likeSave(flb1);
+		}else {
+			ForumLikeBean flb = new ForumLikeBean();
+			flb.setForumId(forumId);
+			flb.setLoginUserName(loginUserName);
+			flb.setStatus(!status);
+			forumService.likeSave(flb);
+		}
 	}
 
 	// 發表評論
@@ -135,9 +183,9 @@ public class DetailsController {
 		ForumBean fb = forumService.getContentById(forumId);
 		fb.setMessageQty(messageService.getAllMessage(forumId).size() + 1);
 		forumService.addOrEdit(fb);
+		mb.setMessageIdentification("member");
 		messageService.addMessage(mb);
 	}
-
 	// 編輯評論
 	@GetMapping(value = "/editMessage")
 	@ResponseBody
