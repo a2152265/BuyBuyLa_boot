@@ -17,35 +17,35 @@ public class BuyerAddress {
 	private String phone;
 	private String email;
 	private String city;
+	private String country;
+	private Integer postalcode;
 	private String address;
 	
 	public BuyerAddress() {
 
 	}
 
-	
 	public BuyerAddress(Integer address_id, String buyer, String buyerName, String phone, String email, String city,
-			String address) {
-
+			String country, Integer postalcode, String address) {
+		
 		this.address_id = address_id;
 		this.buyer = buyer;
 		this.buyerName = buyerName;
 		this.phone = phone;
 		this.email = email;
 		this.city = city;
+		this.country = country;
+		this.postalcode = postalcode;
 		this.address = address;
 	}
-
 
 	public Integer getAddress_id() {
 		return address_id;
 	}
 
-
 	public void setAddress_id(Integer address_id) {
 		this.address_id = address_id;
 	}
-
 
 	public String getBuyer() {
 		return buyer;
@@ -85,6 +85,22 @@ public class BuyerAddress {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public Integer getPostalcode() {
+		return postalcode;
+	}
+
+	public void setPostalcode(Integer postalcode) {
+		this.postalcode = postalcode;
 	}
 
 	public String getAddress() {

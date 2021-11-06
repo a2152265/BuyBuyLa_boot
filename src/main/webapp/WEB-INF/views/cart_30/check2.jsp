@@ -422,7 +422,7 @@
                               <td>
                                   <div class="checkout_btn_inner d-flex align-items-center">
                                     
-                                    <input type="button" value="確認送出" class="primary-btn ml-2 submit"></a>
+                                    <input type="button" value="確認送出" class="primary-btn ml-2 submit">
                                   </div>
                               </td>
                           </tr>

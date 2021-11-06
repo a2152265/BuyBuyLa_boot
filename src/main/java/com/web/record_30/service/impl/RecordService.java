@@ -32,7 +32,7 @@ public class RecordService implements IRecordService {
 //	@Transactional
 	@Override
 	public List<RecordBean> getAllRecord(String record_id) {
-		
+//		List<RecordBean> aa  = recordRepository.findBytP_name("131as");
 		return recordRepository.findByRecord(record_id);
 	}
 	
@@ -83,7 +83,7 @@ public class RecordService implements IRecordService {
 
 	@Override
 	public List<RecordBean> getAllSellerRecords(String seller) {
-
+		
 		return recordRepository.findBySellerRecords(seller);
 	}
 

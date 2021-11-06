@@ -139,11 +139,11 @@ public class CartController {
 		model.addAttribute("BuyerAddressList",ba);
 		model.addAttribute("BuyerAddress",new BuyerAddress());
 		
-		 return "cart_30/check2";
+		 return "cart_30/checkout";
 	}
 	
 	
-	@PostMapping("/check")
+
 	public String insertAddress(@ModelAttribute("loginSession")  membershipInformationBean mb ,@ModelAttribute("BuyerAddress") BuyerAddress ba,BindingResult br,Model model) {
 		String account = mb.getUserEmail();
 		ba.setBuyer(account);
@@ -250,10 +250,12 @@ public class CartController {
 	}
 
 	
-	@GetMapping("/ecpay")
+	@PostMapping("/check")
 	@ResponseBody
-	public String ecpay(@ModelAttribute("loginSession") membershipInformationBean mb,HttpServletRequest request,HttpServletResponse response ,Model model) {
+	public String ecpay(@ModelAttribute("BuyerAddress") BuyerAddress address,@ModelAttribute("loginSession") membershipInformationBean mb,HttpServletRequest request,HttpServletResponse response ,Model model) {
 		String buyer=mb.getUserEmail();	
+		String buyeraddress =address.getCity()+address.getCountry()+address.getAddress();
+		
 		List<Cart> cart = cartService.addToRecord(buyer);	
 		Integer rc = cartService.getRidCount(1);
 		RecordBean rb=new RecordBean();
@@ -301,7 +303,7 @@ public class CartController {
 			cartService.updateStock(rb.getPid(),stock);
 
 		}
-		RecordList  recordList = new RecordList(str, buyer, totalprice,now,null,"未付款","待出貨");
+		RecordList  recordList = new RecordList(str, buyer, totalprice,now,buyeraddress,"未付款","待出貨");
 		//綠界
 	
 //		String totalAmount=""+totalprice;
@@ -318,14 +320,10 @@ public class CartController {
 		obj.setNeedExtraPaidInfo("N");
 		obj.setClientBackURL("http://localhost:9090/BuyBuyla_boot/fin");
 		String form = all.aioCheckOut(obj, null);
-		
-		
-		
-
 
 		cartService.addToRecordList(recordList);
 		cartService.addRidCount();
-		cartService.deleteAll(buyer);
+	
 		return form;
 		
 	}
@@ -336,6 +334,7 @@ public class CartController {
 	@GetMapping("/fin")
 	public String fin(@ModelAttribute("address") String address ,@ModelAttribute("loginSession") membershipInformationBean mb ,Model model) {
 		String buyer=mb.getUserEmail();	
+		cartService.deleteAll(buyer);
 		SimpleMailMessage message =new SimpleMailMessage();
 		message.setTo(buyer);
 		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");

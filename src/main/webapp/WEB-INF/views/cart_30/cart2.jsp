@@ -109,15 +109,15 @@
 	<!--================ End Header Menu Area =================-->
 
 	<!-- ================ start banner area ================= -->	
-	<section class="blog-banner-area" id="category"  style='height:250px'>
-		<div class="container h-100">
-			<div class="blog-banner">
-				<div class="text-center">
-					<h1>Shopping Cart</h1>
-				</div>
-			</div>
-    </div>
-	</section>
+<!-- 	<section class="blog-banner-area" id="category"  style='height:250px'> -->
+<!-- 		<div class="container h-100"> -->
+<!-- 			<div class="blog-banner"> -->
+<!-- 				<div class="text-center"> -->
+<!-- 					<h1>Shopping Cart</h1> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!--     </div> -->
+<!-- 	</section> -->
 	<!-- ================ end banner area ================= -->
   
   
@@ -182,30 +182,32 @@
 					</td>
                           </tr>
                         </c:forEach>
-<!--                           <tr class="bottom_button"> -->
-<!--                           <td> -->
-
-<!--                               </td> -->
-<!--                               <td> -->
+                          <tr class="bottom_button">
+                        
+                              <td>
 <!--                                   <a class="button" href="#">Update Cart</a> -->
-<!--                               </td> -->
-<!--                               <td> -->
+                              </td>
+                              <td>
 
-<!--                               </td> -->
-<!--                               <td> -->
+                              </td>
+                              <td>
 
-<!--                               </td> -->
-                            
+                              </td>
+                             <td>
+
+                              </td> <td>
+
+                              </td>
                            
-<!--                               <td> -->
-<!--                                   <div class="cupon_text d-flex align-items-center"> -->
-<!--                                       <input type="text" placeholder="Coupon Code"> -->
-<!--                                       <a class="primary-btn" href="#">Apply</a> -->
-<!--                                       <a class="button" href="#">Have a Coupon?</a> -->
-<!--                                   </div> -->
-<!--                               </td> -->
+                              <td colspan="2">
+                                  <div class="cupon_text d-flex align-items-center">
+                                      <input type="text" placeholder="Coupon Code">
+                                      <a class="primary-btn" href="#">Apply</a>
+                                      <a class="button" href="#">Have a Coupon?</a>
+                                  </div>
+                              </td>
                               
-<!--                           </tr> -->
+                          </tr>
                           <tr>
                               <td>
 
@@ -219,6 +221,9 @@
                              
                               <td>
                                 
+                              </td>
+                                <td>
+
                               </td>
                               <td>
                                     <h3>總價:</h3>
@@ -235,10 +240,10 @@
 
                               </td>
                              
-                              <td>
-                                
+                             <td>
+
                               </td>
-                              <td>
+                              <td colspan="2"  style="text-align:right;">
                                   <h2 id='totalPrice' style="font-size:60px">0</h2>
                               </td>
                           </tr>
@@ -294,7 +299,10 @@
 
                               </td>
                               <td>
-                                  <div class="checkout_btn_inner d-flex align-items-center">
+
+                              </td>
+                              <td >
+                                  <div class="checkout_btn_inner d-flex " style="text-align:right;">
                                       <a class="gray_btn" href="index">繼續去購物</a>
                                       <a class="primary-btn ml-2" href="check">我要去買單</a>
                                   </div>
