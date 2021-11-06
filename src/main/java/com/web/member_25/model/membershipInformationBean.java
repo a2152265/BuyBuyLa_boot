@@ -1,6 +1,7 @@
 package com.web.member_25.model;
 
 import java.sql.Blob;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
@@ -244,6 +246,9 @@ public class membershipInformationBean {
 		public void setVerificationCode(int verificationCode) {
 			VerificationCode = verificationCode;
 		}
+
+		
+		
 		
 		
 		

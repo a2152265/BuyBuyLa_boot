@@ -268,10 +268,10 @@ function quickInput2(){
 
 
 							<div class="col-md-12 form-group">
-								<form:input  class="form-control" path="userEmail"  id="name" name="name" placeholder="請輸入帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"/>
+								<form:input  class="form-control" path="userEmail"  id="name" name="username" placeholder="請輸入帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"/>
 							</div>
 							<div class="col-md-12 form-group">
-								<form:password class="form-control" path="userPwd"  id="pwd" name="name" placeholder="請輸入密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"/>
+								<form:password class="form-control" path="userPwd"  id="pwd" name="password" placeholder="請輸入密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"/>
 							</div>
 							<div class="col-md-12 form-group">
 								<div class="creat_account">
