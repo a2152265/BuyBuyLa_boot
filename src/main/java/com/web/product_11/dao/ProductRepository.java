@@ -25,9 +25,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	Product findByProductId(int productId);
 	
-	@Query("from Product p where p.status='上架中' order by p.insertTime DESC")
+	@Query("from Product p where p.status='上架中'and stock>0 order by p.insertTime DESC")
 	List<Product>productOrderByInsertTime();
-	
 	
 	@Query("from Product p where p.status=:status")
 	List<Product> findByStatus(String status);
@@ -49,5 +48,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Modifying
 	@Query("update Product set stock=:stock where productId=:pid")
 	void updateStock(int pid, int stock);
+	
+	//更新銷售量
+	@Transactional
+	@Modifying
+	@Query("update Product set sales=sales+1 where productId=:pid")
+	void updateSales(int pid);
 	
 }

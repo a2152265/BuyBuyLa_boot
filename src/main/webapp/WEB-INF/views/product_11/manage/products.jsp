@@ -407,8 +407,8 @@
   </div>
 	
 
-<!--         	<button  onClick="batch_up()" >審核上架</button> -->
-<!--     <button  onClick="batch_fail()" >未通過</button> -->
+    <button  onClick="batch_up()" >審核上架</button>
+    <button  onClick="batch_fail()" >未通過</button>
 
 
     
@@ -593,7 +593,7 @@ $('input:checkbox[name="selectall"]').click(function(){
 
 	      $.ajax({
 	        type: 'post',
-	        url: 'launched',
+	        url: '../launched',
 	        data: {"productIds": productId},
 	        success: function (data, textStatus, xhr) {
 	          if (xhr.status == 200) {
@@ -638,7 +638,7 @@ $('input:checkbox[name="selectall"]').click(function(){
 
 	      $.ajax({
 	        type: 'post',
-	        url: 'launchedfail',
+	        url: '../launchedfail',
 	        data: {"productIds": productId},
 	        success: function (data, textStatus, xhr) {
 	          if (xhr.status == 200) {

@@ -255,7 +255,8 @@ public class ProductController {
 	       
 	       //商品狀態
 	       p.setStatus("待審核");
-		
+	       //商品銷售量
+	       p.setSales(0);
 
 		if(!p.getProductImage().isEmpty()) {
 		// 於productImage取得照片

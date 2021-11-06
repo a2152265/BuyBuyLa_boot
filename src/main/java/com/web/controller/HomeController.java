@@ -57,6 +57,9 @@ public class HomeController {
 		model.addAttribute("products", allProduct);
 		model.addAttribute("categoryList", productservice.getAllCategories());
 		
+		//商品顯示(依銷售量、上架顯示)
+		
+		
 		//商品顯示(依照商品上傳時間、上架顯示)
 		List<Product> ascProduct = productservice.productOrderByInsertTime();
 		model.addAttribute("ascProduct", ascProduct);

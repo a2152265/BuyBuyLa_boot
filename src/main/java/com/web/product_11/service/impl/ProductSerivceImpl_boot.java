@@ -85,6 +85,23 @@ public class ProductSerivceImpl_boot implements ProductService{
 		return productRepositoryDao.findByStatus(status);
 	}
 
+	@Override
+	public void updateSales(int pid) {
+		productRepositoryDao.updateSales(pid);
+	}
+//
+//	@Override
+//	public List<Product> productOrderBySales() {
+//		return productRepositoryDao.productOrderBySales();
+//	}
+
+	@Override
+	public List<Product> productOrderBySales() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 
 
