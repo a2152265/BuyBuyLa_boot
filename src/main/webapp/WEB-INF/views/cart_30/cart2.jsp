@@ -155,25 +155,22 @@
          
                                       <input type="text" name="qty" id="sst" maxlength="12" value="${row.count}" title="Quantity:"
                                           class="input-text qty">
-                                    <a href="<c:url value='/add' />?id=${row.product.productId}">
-                                      <button   class="increase items-count" type="button">
-                                       <i class="lnr lnr-chevron-up"></i></button> </a>
-                                         <a href="<c:url value='/sub' />?id=${row.product.productId}"> 
-                                         <button class="reduced items-count" type="button">
-                                          <i class="lnr lnr-chevron-down"></i></button></a>
-<!--                                       onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"> -->
-                                       
-                                      
-<!--                                       onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" -->
+
+                                      <button   class="increase items-count up" type="button" value='${row.product.productId}'>
+                                       <i class="lnr lnr-chevron-up"></i></button> 
+
+                                         <button class="reduced items-count down" type="button" value='${row.product.productId}'>
+                                          <i class="lnr lnr-chevron-down"></i></button>
+
                                          
                                
                                   </div>
                               </td>
                               <td>
-                                  <h5>${row.product.price}</h5>
+                                  <h5 value='${row.product.price}' class='price'>${row.product.price}</h5>
                               </td>
                               <td>
-                                  <h5 class='total'>${row.count*row.product.price}</h5>
+                                  <h5 class='total' value='8888'>${row.count*row.product.price}</h5>
                               </td>
                               <td>
 						<a href="<c:url value='/deletecart' />?id=${row.product.productId}">
@@ -421,29 +418,97 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   
    <script>
   
-	$(".down").click(function(){		
-//		var data=$("#form1").serializeArray();
-	var data=$(this).val();
-	console.log(data+"************************");
+	$(".down").each(function(){
+		$(this).click(function(){
+			var text = $(this).prev().prev();
+			
+			var price =$(this).parent().parent().next().children("h5.price").html();
+			console.log(price)
+			
+			var price2=parseFloat(price)
+			console.log(price2)
+			var totalprice = $(this).parent().parent().next().next().children("h5.total");
+			console.log(parseFloat(totalprice))
+			
+			if(parseInt(text.val())>1){
+				text.val(parseInt(text.val())-1)
+				totalprice.html(parseFloat(text.val())*price2)
+				
+				totalprice.html(parseInt(text.val())*price2+".0")
+				var total=0;
+				$('.total').each(function(){
+				$(this).html;
+				var a = parseInt($(this).html());
+				total=total+a
+
+				})
+	
+				$('#totalPrice').html(total)
+			}
+			
+		})
+	})
+	
+	
+	
+	
+	$(".down").click(function(){
+		var cnt = $(this).prev().prev().val(); 
+		
+//	 	console.log("cnt=="+cnt)
+		var data=$(this).val();
+
+	
 	$.ajax({
 		type:'get',
 		url:'sub',
 		data:{
 			"id":data
 		},
-		
 		success:function(){
-			 console.log("77777777")
+			$(".cnt").val(cnt2);
 		}
 								
 	});			
 });
 
+
+	
+	$(".up").each(function(){
+		$(this).click(function(){
+			var text = $(this).prev();
+			var price =$(this).parent().parent().next().children("h5.price").html();
+			
+			var price2=parseInt(price)
+			var totalprice = $(this).parent().parent().next().next().children("h5.total");
+		
+			var totalprice2 =parseInt(totalprice)
+			
+			text.val(parseInt(text.val())+1)
+			totalprice.html(parseInt(text.val())*price2+".0")
+			
+			var total=0;
+			$('.total').each(function(){
+			$(this).html;
+			var a = parseInt($(this).html());
+			total=total+a
+
+			})
+	
+			$('#totalPrice').html(total)
+			
+			
+		})
+	})
+	
+	
 	
 	$(".up").click(function(){		
-//		var data=$("#form1").serializeArray();
+	var cnt = $(this).prev().val(); 
+	
+	
 	var data=$(this).val();
-	console.log(data+"************************");
+
 	$.ajax({
 		type:'get',
 		url:'add',
@@ -452,7 +517,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		},
 		
 		success:function(){
-			 console.log("77777777")
+		
+		
+			
 		}
 								
 	});			

@@ -206,10 +206,23 @@ h2 span {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
 	
-	$(".down").click(function(){		
-	var cnt = $(".cnt").val();
-	var cnt2;
-	var data=$(this).val();
+
+	$(".down").each(function(){
+		$(this).click(function(){
+			var text = $(this).next();
+			text.val(parseInt(text.val())-1)
+		})
+	})
+	
+	
+	
+	
+	$(".down").click(function(){
+		var cnt = $(this).next().val(); 
+		
+//	 	console.log("cnt=="+cnt)
+		var data=$(this).val();
+
 	console.log(data+"************************");
 	$.ajax({
 		type:'get',
@@ -217,16 +230,21 @@ h2 span {
 		data:{
 			"id":data
 		},
-		
 		success:function(){
-			cnt2=parseInt(cnt)-1;
 			$(".cnt").val(cnt2);
-			console.log(cnt2)
 		}
 								
 	});			
 });
 
+	$(".up").each(function(){
+		$(this).click(function(){
+			var text = $(this).prev();
+			text.val(parseInt(text.val())+1)
+		})
+	})
+	
+	
 	
 	$(".up").click(function(){		
 	var cnt = $(this).prev().val(); 
@@ -241,10 +259,9 @@ h2 span {
 			"id":data
 		},
 		
-		success:function(result){
-			console.log("result=="+result)
-			
-// 			console.log("cnt2 = "+cnt2);
+		success:function(){
+		
+
 			
 		}
 								

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.web.cart_30.model.BuyerAddress;
 import com.web.member_25.model.membershipInformationBean;
 
 import com.web.record_30.model.RecordBean;
@@ -64,13 +65,15 @@ public class RecordController {
 	
 	//查買家資料	
 		@GetMapping("/selectbuyer")
-	    public String selectBuyerInfo(@RequestParam String buyer,Model model) {		
-			membershipInformationBean mb=new membershipInformationBean();
-			mb=recordservice.getBuyerInfo(buyer);
-			model.addAttribute("member",mb);
-			System.out.println("======================================");		
-			System.out.println(mb.getUserName()+","+mb.getUserGender()+","+mb.getUserPhone()+","+mb.getUserEmail());
-			return "record_30/buyerInfo";
+	    public String selectBuyerInfo(@RequestParam String rid,Model model) {		
+			BuyerAddress buyerAddress =new BuyerAddress();
+			buyerAddress = recordservice.getBuyerInfo(rid);
+			System.out.println("======================================");
+			System.out.println(buyerAddress.getRecord_id());
+			model.addAttribute("BuyerAddress",buyerAddress);
+			System.out.println("8888888888");		
+//			System.out.println(buyerAddress.getUserName()+","+mb.getUserGender()+","+mb.getUserPhone()+","+mb.getUserEmail());
+			return "record_30/manage/buyerInfo";
 	    }
 
 	

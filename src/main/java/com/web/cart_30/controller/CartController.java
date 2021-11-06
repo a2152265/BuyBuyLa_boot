@@ -89,21 +89,9 @@ public class CartController {
 		 return "redirect:/cart";
 	}
 	
-//	@GetMapping("/add")
-//	public Integer add(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id,Model model) {
-//		System.out.println("starttttt===============");
-//		String buyer=mb.getUserEmail();	
-//		List<Cart> cart = cartService.addToRecord(buyer);
-//		model.addAttribute("cart", cart);
-//		int cnt =cartService.add(id,buyer);	
-//
-//		System.out.println("===============endddddddddddd");
-//		System.out.println(cnt);
-//		 return cnt;
-//	}
-//	
 	@GetMapping("/add")
-	public String add(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id,Model model) {
+	@ResponseBody
+	public Integer add(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id,Model model) {
 		System.out.println("starttttt===============");
 		String buyer=mb.getUserEmail();	
 		List<Cart> cart = cartService.addToRecord(buyer);
@@ -112,10 +100,24 @@ public class CartController {
 
 		System.out.println("===============endddddddddddd");
 		System.out.println(cnt);
-		 return "redirect:/cart";
+		 return cnt;
 	}
 	
+//	@GetMapping("/add")
+//	public String add(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id,Model model) {
+//		System.out.println("starttttt===============");
+//		String buyer=mb.getUserEmail();	
+//		List<Cart> cart = cartService.addToRecord(buyer);
+//		model.addAttribute("cart", cart);
+//		int cnt =cartService.add(id,buyer);	
+//
+//		System.out.println("===============endddddddddddd");
+//		System.out.println(cnt);
+//		 return "redirect:/cart";
+//	}
+	
 	@GetMapping("/sub")
+	@ResponseBody
 	public String sub(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id,Model model) {
 		System.out.println("starttttt===============");
 		String buyer=mb.getUserEmail();	
@@ -126,6 +128,18 @@ public class CartController {
 	
 		 return "redirect:/cart";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/check")
 	public String check(@ModelAttribute("loginSession")  membershipInformationBean mb,Model model) {
@@ -158,96 +172,79 @@ public class CartController {
 	JavaMailSender mailSender;
 	
 	
-	@GetMapping("/addaddress")
-	@ResponseBody
-	public void addaddress(@RequestParam("address")String address, @ModelAttribute("loginSession") membershipInformationBean mb,HttpServletResponse response ,Model model) {
-		String buyer=mb.getUserEmail();	
-		List<Cart> cart = cartService.addToRecord(buyer);	
-		Integer rc = cartService.getRidCount(1);
-		RecordBean rb=new RecordBean();
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-		
-		String now = dtf.format(LocalDateTime.now());
-		
-		String str="ATXH";
-		
-		
-		str = str+now.substring(0,4)+now.substring(5,7)+now.substring(8,10)
-		+now.substring(11,13)+now.substring(14,16)+now.substring(17,19);
-		System.out.println("....................................");
-		System.out.println(str);
-	
-		
-		
-		double totalprice =0;
-		System.out.println(address+"////////////////////");
-		for(Cart c:cart) {
-			
-			rb.setRecord_id(str);
-			rb.setPid(c.getProduct().getProductId());
-			rb.setP_name(c.getProduct().getProductName());
-			rb.setP_price(c.getProduct().getPrice());
-			rb.setPcount(c.getCount());
-			rb.setBuyer(buyer);
-			rb.setSeller(c.getProduct().getSeller());
-			rb.setBuy_time(now);
-			rb.setTransport_status("待出貨");
-			rb.setCategory(c.getProduct().getCategory());
-			rb.setBuyeraddress(address);
-			System.out.println("****************************************************");
-			System.out.println("***"+rb.getId()+"RID = "+rb.getRecord_id()+", PID = "+rb.getPid()+", NAME = "
-					+ rb.getP_name()+", PRICE = "+rb.getP_price()+", CNT = "+rb.getPcount()
-					+", BUYER = "+rb.getBuyer()+", SELLER = "+rb.getSeller());
-			System.out.println(address+"////////////////////");
-			System.out.println(rb.getBuyeraddress());
-			totalprice+=c.getProduct().getPrice()*c.getCount();
-			
-			
-					
-			cartService.addToRecord2(rb);
-			int stock =c.getProduct().getStock()-rb.getPcount();
-			cartService.updateStock(rb.getPid(),stock);
+//	@GetMapping("/addaddress")
+//	@ResponseBody
+//	public void addaddress(@RequestParam("address")String address, @ModelAttribute("loginSession") membershipInformationBean mb,HttpServletResponse response ,Model model) {
+//		String buyer=mb.getUserEmail();	
+//		List<Cart> cart = cartService.addToRecord(buyer);	
+//		Integer rc = cartService.getRidCount(1);
+//		RecordBean rb=new RecordBean();
+//		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//		
+//		String now = dtf.format(LocalDateTime.now());
+//		
+//		String str="ATXH";
+//		
+//		
+//		str = str+now.substring(0,4)+now.substring(5,7)+now.substring(8,10)
+//		+now.substring(11,13)+now.substring(14,16)+now.substring(17,19);
+//		System.out.println("....................................");
+//		System.out.println(str);
+//	
+//		
+//		
+//		double totalprice =0;
+//		System.out.println(address+"////////////////////");
+//		for(Cart c:cart) {
+//			
+//			rb.setRecord_id(str);
+//			rb.setPid(c.getProduct().getProductId());
+//			rb.setP_name(c.getProduct().getProductName());
+//			rb.setP_price(c.getProduct().getPrice());
+//			rb.setPcount(c.getCount());
+//			rb.setBuyer(buyer);
+//			rb.setSeller(c.getProduct().getSeller());
+//			rb.setBuy_time(now);
+//			rb.setTransport_status("待出貨");
+//			rb.setCategory(c.getProduct().getCategory());
+//			rb.setBuyeraddress(address);
+//			System.out.println("****************************************************");
+//			System.out.println("***"+rb.getId()+"RID = "+rb.getRecord_id()+", PID = "+rb.getPid()+", NAME = "
+//					+ rb.getP_name()+", PRICE = "+rb.getP_price()+", CNT = "+rb.getPcount()
+//					+", BUYER = "+rb.getBuyer()+", SELLER = "+rb.getSeller());
+//			System.out.println(address+"////////////////////");
+//			System.out.println(rb.getBuyeraddress());
+//			totalprice+=c.getProduct().getPrice()*c.getCount();
+//			
+//			
+//					
+//			cartService.addToRecord2(rb);
+//			int stock =c.getProduct().getStock()-rb.getPcount();
+//			cartService.updateStock(rb.getPid(),stock);
+//
+//		}
+//		RecordList  recordList = new RecordList(str, buyer, totalprice,now,address,"未付款","待出貨");
+//
+//
+//		
+//		
+//	
+//
+//		SimpleMailMessage message =new SimpleMailMessage();
+//		message.setTo(buyer);
+//		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
+//		message.setText("您在BuyBuyLA 線上商城購買成功");
+//		
+//		mailSender.send(message); 
+//		System.out.println("------------------已寄出------------------ --->");
+//		cartService.addToRecordList(recordList);
+//		cartService.addRidCount();
+//
+//		
+//		
+//	}
+//	
 
-		}
-		RecordList  recordList = new RecordList(str, buyer, totalprice,now,address,"未付款","待出貨");
-
-
-		
-		
-	
-
-		SimpleMailMessage message =new SimpleMailMessage();
-		message.setTo(buyer);
-		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
-		message.setText("您在BuyBuyLA 線上商城購買成功");
-		
-		mailSender.send(message); 
-		System.out.println("------------------已寄出------------------ --->");
-		cartService.addToRecordList(recordList);
-		cartService.addRidCount();
-
-		
-		
-	}
-	
-
-	public static String genAioCheckOutALL(HttpServletResponse response,HttpServletRequest request,Model model){
-
-		
-		AllInOne all=new AllInOne("");
-		AioCheckOutALL obj = new AioCheckOutALL();
-		obj.setMerchantTradeNo("taaadde546ny0004");
-		obj.setMerchantTradeDate("2017/01/01 08:05:23");
-		obj.setTotalAmount("50");
-		obj.setTradeDesc("test Description");
-		obj.setItemName("TestItem");
-		obj.setReturnURL("http://211.23.128.214:5000");
-		obj.setNeedExtraPaidInfo("N");
-		
-		
-		String form = all.aioCheckOut(obj, null);
-		return form;
-	}
 
 	
 	@PostMapping("/check")
@@ -255,6 +252,10 @@ public class CartController {
 	public String ecpay(@ModelAttribute("BuyerAddress") BuyerAddress address,@ModelAttribute("loginSession") membershipInformationBean mb,HttpServletRequest request,HttpServletResponse response ,Model model) {
 		String buyer=mb.getUserEmail();	
 		String buyeraddress =address.getCity()+address.getCountry()+address.getAddress();
+		
+		
+		
+		
 		
 		List<Cart> cart = cartService.addToRecord(buyer);	
 		Integer rc = cartService.getRidCount(1);
@@ -303,10 +304,22 @@ public class CartController {
 			cartService.updateStock(rb.getPid(),stock);
 
 		}
-		RecordList  recordList = new RecordList(str, buyer, totalprice,now,buyeraddress,"未付款","待出貨");
-		//綠界
-	
-//		String totalAmount=""+totalprice;
+		RecordList  recordList = new RecordList(str, buyer, totalprice,now,buyeraddress,"已付款","待出貨");
+		
+		BuyerAddress buyerinfo=new BuyerAddress();
+		buyerinfo.setRecord_id(str);
+		buyerinfo.setBuyer(buyer);
+		buyerinfo.setBuyerName(address.getBuyerName());
+		buyerinfo.setPhone(address.getPhone());
+		buyerinfo.setEmail(address.getEmail());
+		buyerinfo.setCountry(address.getCountry());
+		buyerinfo.setCity(address.getCity());
+		buyerinfo.setAddress(address.getAddress());
+		buyerinfo.setPostalcode(address.getPostalcode());
+		cartService.insertAddress(buyerinfo);
+		
+		
+		//綠界	
 		int totalAmount =(int) totalprice;
 		String totalAmount2 =""+totalAmount;
 		AllInOne all=new AllInOne("");
@@ -321,6 +334,10 @@ public class CartController {
 		obj.setClientBackURL("http://localhost:9090/BuyBuyla_boot/fin");
 		String form = all.aioCheckOut(obj, null);
 
+		
+		
+		
+		
 		cartService.addToRecordList(recordList);
 		cartService.addRidCount();
 	

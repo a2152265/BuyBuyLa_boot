@@ -210,7 +210,7 @@
 							<td>${manage.pay_status}</td>
 							<td>${manage.transport_status}</td>
 							<td>
-							 <a href="<c:url value='/selectbuyer?buyer=${manage.buyer}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+							 <a href="<c:url value='/selectbuyer?rid=${manage.record_id}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
 							
 								<a href="<c:url value='/updateRecordList?rid=${manage.record_id}'/>" class="edit" title="Edit" data-toggle="tooltip">
 								<i class="material-icons">&#xE254;</i>
