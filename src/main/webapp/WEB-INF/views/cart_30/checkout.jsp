@@ -57,7 +57,7 @@
 </head>
 <body>
   <!--================ Start Header Menu Area =================-->
-	<header class="header_area">
+<header class="header_area">
     <div class="main_menu">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
@@ -70,62 +70,71 @@
           </button>
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item active"><a class="nav-link" href="<c:url value='/' />">Home</a></li>
+              <li class="nav-item active"><a class="nav-link" href="<c:url value='/' />">首頁</a></li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">會員</a>
                 <ul class="dropdown-menu">
-                <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+                <c:if test="${loginSession ==null}">
 	                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/login' />">會員登入</a></li> 
                   	   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/add' />">會員註冊</a></li>
                </c:if>
+                <c:if test="${managerSession == null}">
                <c:if test="${loginSession.userEmail != null}">
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/member/evolution' />">賣家專區</a></li>
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
-<!--                   <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li> -->
                 </c:if>
+                </c:if>
+                 <c:if test="${managerSession != null}">
+                   <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">管理中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">登出</a></li>
+                    </c:if>
                 </ul>
-							</li>
+			  </li>
               <li class="nav-item submenu dropdown">
                 <a href="<c:url value='/forum' />" class="nav-link dropdown-toggle"  role="button" aria-haspopup="true"
                   aria-expanded="false">討論區</a>
-
 							</li>
 							<li class="nav-item submenu dropdown">
                 <a href="<c:url value='/campaigns' />" class="nav-link dropdown-toggle" role="button" aria-haspopup="true"
                   aria-expanded="false">活動專區</a>
-
               </li>
+               <c:if test="${managerSession == null}">
               <c:if test="${loginSession.userEmail != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
 						${loginSession.userEmail}</a></li>
-				</c:if>
-            </ul>
 
+				</c:if>
+				</c:if>
+				<c:if test="${managerSession != null}">
+              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">Hi管理員!!! &nbsp;
+						${loginSession.userEmail}</a></li>
+				</c:if>
+
+			
+
+            </ul>
             <ul class="nav-shop">
-           <li class="nav-item" ><form:form method='POST' action="./queryproduct"
-						class='form-horizontal'>
-				
-							<input name="productName" id="productName" type='text'
-								class='form:input-large'/>
-							<button type='submit' ><i class="ti-search" ></i></button>
-<!-- 							<input id="btnAdd" type='submit' -->
-<!-- 								class='btn btn-primary' /> -->
-				
+           <li class="nav-item" >
+           
+               <!---------------- 首頁查詢商品框 ---------------->
+           		<form:form method='get' action="./queryproduct" class='form-horizontal'>
+					<input name="productName" id="productName" type='text' class='form:input-large'/>
+					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
-              
-            
-              
-              <!-- 購物車顯示數量在這裡改 -->
-              
-               <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
-<!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
+
+              <!---------------- 購物車 ---------------->
+				<c:if test="${loginSession.userEmail != null}">
+              		<li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
+				</c:if>
+				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
+				 </c:if>
             </ul>
           </div>
         </div>
       </nav>
     </div>
-  </header>
   </header>
 	<!--================ End Header Menu Area =================-->
 
