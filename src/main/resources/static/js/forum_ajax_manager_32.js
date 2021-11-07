@@ -34,6 +34,7 @@ $(document).ready(function() {
 				$('.topArticle').val(data['topArticle']);
 				$('.editMessageQty').val(data['messageQty']);
 				$('.editViewQty').val(data['viewQty']);
+				$('.editLikeQty').val(data['likeQty']);
 				if ($('.topArticle').val() == 'top') {
 					$('.form-check-input').attr("checked", "checked");
 				} else {

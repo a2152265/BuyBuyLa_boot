@@ -164,7 +164,8 @@ $(document).ready(function() {
 											"<img style='width:40px; height:40px' src='getPicturefromMember/" + replyResult[j]['replyPicId'] + "'>" +
 											"</div>" +
 											"<div class='desc'>" +
-											"<input class='replyId' type='hidden' value='"+replyResult[j]['replyId']+"'"+
+											"<input class='replyId' type='hidden' value='"+replyResult[j]['replyId']+"' >"+
+											"<input class='replyUserEmail' type='hidden' value='"+replyResult[j]['replyUserEmail']+"' >"+
 											"<h5>" +
 											"<a href='#' class='replyUserName'>" + replyResult[j]['replyUserName'] + "</a>" +
 											"</h5>" +
@@ -252,7 +253,39 @@ $(document).ready(function() {
 							reportReplyMessageContent.click(function(){
 								$('.reportedReplyContent').text($(this).parent().parent().parent().prev().find('.comment').html());
 								$('.reportReplyDate').val(replyNowDate)
-								
+								$('.reportReplySelect').val($('#reportReptySelect option:selected').text());
+								$('#reportReptySelect').change(function() {
+									$('.reportReplySelect').val($('#reportReptySelect option:selected').text());
+								})
+								$('.reportReplyId').val($(this).parent().parent().parent().prev().find('.replyId').val());
+								$('.reportReplyUserName').val(LoginUserName);
+								$('.reportedReplyUserName').val($(this).parent().parent().parent().prev().find('.replyUserName').html())
+								$('.reportedReplyUserEmail').val($(this).parent().parent().parent().prev().find('.replyUserEmail').val())
+								$('.reportReplyMessageBtn').click(function(){
+									$.ajax({
+										type:"get",
+										url:"reprotReplyMessage",
+										data:{
+											"reportReplyUserName":LoginUserName,
+											"reportedReplyUserName":$('.reportedReplyUserName').val(),
+											"reportedReplyContent":$('.reportedReplyContent').text(),
+											"reportReplyForumId":replyForumId,
+											"reportReplyMessageId":$('.reportReplyId').val(),
+											"reportReplyReason":$('.reportReplySelect').val(),
+											"reportReplyDate":$('.reportReplyDate').val(),
+											"reportedReplyUserEmail":$('.reportedReplyUserEmail').val()
+										},
+										success:function(){
+											Swal.fire({
+												icon: 'success',
+												title: '感謝你提交檢舉',
+												showConfirmButton: false,
+												timer: 1000
+											});
+											setTimeout(function() { history.go(0) }, 1000);
+										}
+									})
+								})
 							})
 							editReplyMessageContent.click(function(){
 								alert('編輯')
@@ -353,7 +386,7 @@ $(document).ready(function() {
 								})
 								var reportUserName = $('.loginUser').val();
 								var reportedUserName = $(this).parent().parent().parent().parent().find('.user').find('.messageName').html();
-								var reportedUserEmail = $(this).parent().parent().parent().parent().find('.user').find('.messageUserEmail').html();
+								var reportedUserEmail = $(this).parent().parent().parent().prev().prev().find('.messageUserEmail').val();
 								var reportedContent = $(this).parent().parent().parent().parent().find('.user').find('.comment').html();
 								var reportMessageId = messageId;
 								var date = new Date();

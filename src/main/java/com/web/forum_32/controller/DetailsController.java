@@ -285,6 +285,31 @@ public class DetailsController {
 		mrb.setReportStatus("待審核");
 		messageService.saveReport(mrb);
 	}
+	// 檢舉評論
+	@GetMapping(value="/reprotReplyMessage")
+	@ResponseBody
+	public void reprotReplyMessage(
+			@RequestParam("reportReplyUserName") String reportUserName,
+			@RequestParam("reportedReplyUserName") String reportedUserName,
+			@RequestParam("reportedReplyContent") String reportedContent,
+			@RequestParam("reportReplyForumId") Integer reportForumId,
+			@RequestParam("reportReplyMessageId") Integer reportMessageId,
+			@RequestParam("reportReplyReason") String reportReason,
+			@RequestParam("reportReplyDate") String reportDate,
+			@RequestParam("reportedReplyUserEmail") String reportedUserEmail){
+		MessageReportBean mrb = new MessageReportBean();
+		mrb.setReportedUserEmail(reportedUserEmail);
+		mrb.setReportContent(reportedContent);
+		mrb.setReportDate(reportDate);
+		mrb.setReportedUserName(reportedUserName);
+		mrb.setReportForumId(reportForumId);
+		mrb.setReportMessageId(reportMessageId);
+		mrb.setReportReason(reportReason);
+		mrb.setReportUserName(reportUserName);
+		mrb.setWarningContent(reportedContent);
+		mrb.setReportStatus("待審核");
+		messageService.saveReport(mrb);
+	}
 
 	public void tagSize(Model model) {
 		model.addAttribute("allSize", forumService.getAll().size());

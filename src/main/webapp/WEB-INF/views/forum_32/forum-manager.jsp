@@ -238,6 +238,8 @@
 														type="hidden" />
 													<form:input path="viewQty" class="editViewQty"
 														type="hidden" />
+													<form:input path="likeQty" class="editLikeQty"
+														type="hidden" />
 
 													<form:input path="picId" class="picId" type="hidden"
 														value="${loginSession.id}" />

@@ -314,8 +314,8 @@
 											<form:input path="date" type="hidden" id="nowDate" />
 											<form:input path="identification" type="hidden" value="member" />
 											<form:input path="picId" class="form-control" type="hidden" value="${loginSession.id}" />
-											<form:input path="userName" type="hidden" value="${loginSession.userName}" />
-											<form:input path="userEmail" type="hidden" value="${loginSession.userEmail}" />
+											<form:input path="userName" type="text" value="${loginSession.userName}" />
+											<form:input path="userEmail" type="text" value="${loginSession.userEmail}" />
 											<form:input path="userNickname" type="hidden" value="${loginSession.userNickname}" />
 											<form:input path="Identification" type="hidden" value="member" />
 											<form:input path="topArticle" type="hidden" value="general" />
