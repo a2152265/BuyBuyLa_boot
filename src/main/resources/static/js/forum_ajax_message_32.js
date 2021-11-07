@@ -130,6 +130,7 @@ $(document).ready(function() {
 								"</div>" +
 								"<div class='desc'>" +
 								"<input class='messageId' type='hidden' value='" + data[i]['messageId'] + "'>" +
+								"<input class='messageUserEmail' type='hidden' value='" + data[i]['messageUserEmail'] + "'>" +
 								"<h5><a href='#' class='messageName'>" + data[i]['messageUserName'] + "</a></h5>" +
 								"<p class='date'>" + data[i]['messageDate'] + "</p>" +
 								"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
@@ -163,10 +164,9 @@ $(document).ready(function() {
 											"<img style='width:40px; height:40px' src='getPicturefromMember/" + replyResult[j]['replyPicId'] + "'>" +
 											"</div>" +
 											"<div class='desc'>" +
-											"<input class='messageReplyId' type='hidden' value='"+replyResult[j]['messageReplyId']+"'"+
 											"<input class='replyId' type='hidden' value='"+replyResult[j]['replyId']+"'"+
 											"<h5>" +
-											"<a href='#'>" + replyResult[j]['replyUserName'] + "</a>" +
+											"<a href='#' class='replyUserName'>" + replyResult[j]['replyUserName'] + "</a>" +
 											"</h5>" +
 											"<p class='date'>" + replyResult[j]['replyDate'] + "</p>" +
 											"<p class='comment'>" +
@@ -177,8 +177,8 @@ $(document).ready(function() {
 								"<div class='editReplyBtn dropdown' style='visibility:hidden'>" +
 								"<img  id='dropdownMenuButton2' data-bs-toggle='dropdown' style='cursor:pointer;width:30px;height:30px;' src='img/forum/more.png'>" +
 								"<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton2'>" +
-								"<li><a class='dropdown-item reportReplyMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#reportBtn'>檢舉</a></li>" +
-								"<li><a class='dropdown-item editReplyMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#editMessageBtn'>編輯</a></li>" +
+								"<li><a class='dropdown-item reportReplyMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#replyReportBtn'>檢舉</a></li>" +
+								"<li><a class='dropdown-item editReplyMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#editReplyMessageBtn'>編輯</a></li>" +
 								"<li><a class='dropdown-item delReplyMessageContent' style='cursor:pointer;'>刪除</a></li></ul>" +
 								"</div>" +
 											"</div>" +
@@ -219,18 +219,40 @@ $(document).ready(function() {
 							// 發文的人
 							var AuthorUserName = $('.authorUserName').html();
 							var replyForumId=$('#id').val();
-							// 留言的人
-							var replyPicId=$(this).find('.').val();
-							var replyIdentification=$('.loginIdentification').val();
-							var replyDate=nowReplyFormatDate(date);
+							var replyUserName=$(this).find('.replyUserName').html();
+							var replyNowDate=nowReplyFormatDate(date);
 							
-							
+							if (LoginUserName == '') {
+								$('.editReplyBtn').css('display', 'none');
+							}
+							if ((LoginUserName == AuthorUserName) && (LoginUserName == replyUserName)) {
+								$(this).find('.reportReplyMessageContent').css('display', 'none');
+								$(this).find('.editReplyMessageContent').css('display', 'block');
+								$(this).find('.delReplyMessageContent').css('display', 'block');
+							}
+							if ((LoginUserName == AuthorUserName) && (LoginUserName != replyUserName)) {
+								$(this).find('.reportReplyMessageContent').css('display', 'block');
+								$(this).find('.editReplyMessageContent').css('display', 'none');
+								$(this).find('.delReplyMessageContent').css('display', 'block');
+							}
+							if ((LoginUserName != AuthorUserName) && (LoginUserName == replyUserName)) {
+								$(this).find('.reportReplyMessageContent').css('display', 'none');
+								$(this).find('.editReplyMessageContent').css('display', 'block');
+								$(this).find('.delReplyMessageContent').css('display', 'block');
+							}
+							if ((LoginUserName != AuthorUserName) && (LoginUserName != replyUserName)) {
+								$(this).find('.reportReplyMessageContent').css('display', 'block');
+								$(this).find('.editReplyMessageContent').css('display', 'none');
+								$(this).find('.delReplyMessageContent').css('display', 'none');
+							}
 							
 							var reportReplyMessageContent=$(this).find('.reportReplyMessageContent');
 							var editReplyMessageContent=$(this).find('.editReplyMessageContent');
 							var delReplyMessageContent=$(this).find('.delReplyMessageContent');
 							reportReplyMessageContent.click(function(){
-							alert('檢舉');
+								$('.reportedReplyContent').text($(this).parent().parent().parent().prev().find('.comment').html());
+								$('.reportReplyDate').val(replyNowDate)
+								
 							})
 							editReplyMessageContent.click(function(){
 								alert('編輯')
@@ -331,6 +353,7 @@ $(document).ready(function() {
 								})
 								var reportUserName = $('.loginUser').val();
 								var reportedUserName = $(this).parent().parent().parent().parent().find('.user').find('.messageName').html();
+								var reportedUserEmail = $(this).parent().parent().parent().parent().find('.user').find('.messageUserEmail').html();
 								var reportedContent = $(this).parent().parent().parent().parent().find('.user').find('.comment').html();
 								var reportMessageId = messageId;
 								var date = new Date();
@@ -343,6 +366,7 @@ $(document).ready(function() {
 								$('.reportUserName').val(reportUserName);
 								$('.reportedUserName').val(reportedUserName);
 								$('.reportMessageId').val(reportMessageId);
+								$('.reportedUserEmail').val(reportedUserEmail);
 								$('.reportMessageBtn').click(function() {
 									$.ajax({
 										type: "get",
@@ -355,7 +379,7 @@ $(document).ready(function() {
 											"reportMessageId": reportMessageId,
 											"reportReason": $('.reportSelect').val(),
 											"reportDate": $('.reportDate').val(),
-											"reportedUserEmail": $('.reportedUserEmail').val()
+											"reportedUserEmail": reportedUserEmail
 										},
 										success: function() {
 											Swal.fire({
