@@ -161,7 +161,33 @@ function quickInput2(){
 	
 }
 
+<<<<<<< HEAD
 </script>
+=======
+footer a {
+    color: #3c97bf;
+    text-decoration: none;
+}
+    </style>
+    
+    <script>
+    	let no = 1000;
+    let index = 0;
+    var names= ["asd26463558@gmail.com", '0', 'c123@gmail.com'];
+    var pwd= ["asd123", '0','c123456'];
+    function quickInput(){
+    	document.getElementById('name').value = names[index];
+    	document.getElementById('pwd').value = pwd[index];
+   	
+    	index++;
+        if (index >= names.length) {
+        	index = 0 ;
+    	}
+    	
+    }
+    
+    </script>
+>>>>>>> Dev-Alex11
 </head>
 <body>
 	<!--================ 首頁標題 start =================-->

@@ -2,6 +2,7 @@ package com.web.record_30.service;
 
 import java.util.List;
 
+import com.web.cart_30.model.BuyerAddress;
 import com.web.member_25.model.membershipInformationBean;
 import com.web.record_30.model.RecordBean;
 import com.web.record_30.model.RecordList;
@@ -18,7 +19,7 @@ public interface IRecordService {
 	List<RecordList> getAllRecordList(String buyer);
 	List<RecordBean> getAllSellerRecords(String seller );
 	
-	membershipInformationBean getBuyerInfo(String buyer);
+	BuyerAddress getBuyerInfo(String buyer);
 	
 	
 	//以下為管理者功能	

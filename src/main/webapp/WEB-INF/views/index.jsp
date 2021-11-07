@@ -27,7 +27,7 @@
 <!-- <script src="sweetalert2.min.js"></script> -->
 <!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
 <!-- <script src="sweetalert2.all.min.js"></script> -->
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <!--================ 首頁標題 start =================-->
@@ -99,10 +99,10 @@
 
               <!---------------- 購物車 ---------------->
 				<c:if test="${loginSession.userEmail != null}">
-              		<li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
+              		<li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
 				</c:if>
 				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
-				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
+				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
 				 </c:if>
             </ul>
           </div>
@@ -490,7 +490,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
      </script>  
      
 
-<input type='hidden' value='${count}' class='count2' />
+
+<%-- <input type='hidden' value='${count}' class='count2' /> --%>
 
 
 	
@@ -510,15 +511,21 @@ $(".additem").click(function(){
 		},
 		
 		success:function(){
-	
+			
 
 			Swal.fire({
 				  position:'center',
 				  icon: 'success',
 				  title: '已加入購物車',
 				  showConfirmButton: false,
+				  
 				  timer: 1500
 				})
+		
+				var count = parseInt($('#ccount').html())+1
+				console.log(count)
+				
+				$('#ccount').html(count)
 		},error:function(){
 			Swal.fire({
 				  position:'center',
@@ -537,7 +544,7 @@ $(".additem").click(function(){
 
 
 
-$('#ccount').html(count2)
+
 
 
 </script>

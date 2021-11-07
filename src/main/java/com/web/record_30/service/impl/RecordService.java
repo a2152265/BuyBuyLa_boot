@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.web.cart_30.dao.BuyerAddressRepository;
 import com.web.cart_30.dao.RecordListRepository;
+import com.web.cart_30.model.BuyerAddress;
 import com.web.member_25.dao.MembertRepository;
 import com.web.member_25.model.membershipInformationBean;
 import com.web.record_30.dao.RecordRepository;
@@ -21,18 +23,20 @@ public class RecordService implements IRecordService {
 	MembertRepository membertRepository;
 	RecordRepository recordRepository;
 	RecordListRepository recordListRepository;
+	BuyerAddressRepository buyerAddressRepository;
 	@Autowired
-	public RecordService(RecordRepository recordRepository,RecordListRepository recordListRepository,MembertRepository membertRepository) {
+	public RecordService(RecordRepository recordRepository,RecordListRepository recordListRepository,MembertRepository membertRepository,BuyerAddressRepository buyerAddressRepository) {
 		this.recordRepository = recordRepository;
 		this.recordListRepository=recordListRepository;
 		this.membertRepository=membertRepository;
+		this.buyerAddressRepository=buyerAddressRepository;
 	}
 
 
 //	@Transactional
 	@Override
 	public List<RecordBean> getAllRecord(String record_id) {
-		
+//		List<RecordBean> aa  = recordRepository.findBytP_name("131as");
 		return recordRepository.findByRecord(record_id);
 	}
 	
@@ -83,15 +87,15 @@ public class RecordService implements IRecordService {
 
 	@Override
 	public List<RecordBean> getAllSellerRecords(String seller) {
-
+		
 		return recordRepository.findBySellerRecords(seller);
 	}
 
 
 	@Override
-	public membershipInformationBean getBuyerInfo(String buyer) {
+	public BuyerAddress getBuyerInfo(String rid) {
 		
-		return membertRepository.findByUserEmail(buyer);
+		return buyerAddressRepository.findByRecord_id(rid);
 	}
 
 //
