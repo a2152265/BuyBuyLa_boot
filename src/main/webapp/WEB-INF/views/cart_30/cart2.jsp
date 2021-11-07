@@ -324,26 +324,26 @@
 				<div class="row section_gap">
 					<div class="col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets ">
-							<h4 class="footer_title large_title">Our Mission</h4>
+							<h4 class="footer_title large_title">我們的目標</h4>
 							<p>
-								So seed seed green that winged cattle in. Gathering thing made fly you're no 
-								divided deep moved us lan Gathering thing us land years living.
+								起初，BuyBuyLa最初創立的目標是為了讓廖總能在台北多買一棟帝寶，1997年時廖總誕生於台北醫學院的護理產房，伴隨著他的是大安區10幾張地契的月子禮，
+								而後又過了幾年，廖總與他一起長大的好夥伴葉總、謝總、歐總，他們展現出了無與倫比的天賦，在工程、財經、甚至極限運動上都有了驚人的成就(雖然他們並不缺錢)
 							</p>
 							<p>
-								So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved 
+								2021年，BuyBuyLa於中央大學的一間小工作室中誕生(暫定)，為了BuyBuyLa人們的money而設計出了另類的網站，有著奇怪的會員系統，神奇的商品、複雜的購物車、賭徒般的活動、社交的討論區，
+								BuyBuyLa於人們野望中誕生。
 							</p>
 						</div>
 					</div>
 					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets">
-							<h4 class="footer_title">Quick Links</h4>
+							<h4 class="footer_title">快速連結</h4>
 							<ul class="list">
-								<li><a href="#">Home</a></li>
-								<li><a href="#">Shop</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">Product</a></li>
-								<li><a href="#">Brand</a></li>
-								<li><a href="#">Contact</a></li>
+								<li><a href="#">首頁</a></li>
+								<li><a href="#">商品</a></li>
+								<li><a href="#">討論版</a></li>
+								<li><a href="#">購物車</a></li>
+								<li><a href="#">活動</a></li>
 							</ul>
 						</div>
 					</div>
@@ -362,30 +362,30 @@
 					</div>
 					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets">
-							<h4 class="footer_title">Contact Us</h4>
+							<h4 class="footer_title">聯絡我們</h4>
 							<div class="ml-40">
 								<p class="sm-head">
 									<span class="fa fa-location-arrow"></span>
-									Head Office
+									總部
 								</p>
-								<p>123, Main Street, Your City</p>
+								<p>台北市中正區重慶南路一段122號</p>
 	
 								<p class="sm-head">
 									<span class="fa fa-phone"></span>
-									Phone Number
+									電話
 								</p>
 								<p>
-									+123 456 7890 <br>
-									+123 456 7890
+									+0921212121 <br>
+									+0226462646
 								</p>
 	
 								<p class="sm-head">
 									<span class="fa fa-envelope"></span>
-									Email
+									電子信箱
 								</p>
 								<p>
-									free@infoexample.com <br>
-									www.infoexample.com
+									a212121@BuyBuyLa.org <br>
+									
 								</p>
 							</div>
 						</div>
