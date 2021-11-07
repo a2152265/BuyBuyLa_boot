@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.model.ForumLikeBean;
 import com.web.forum_32.model.MessageBean;
+import com.web.forum_32.model.MessageReplyBean;
 import com.web.forum_32.model.MessageReportBean;
 import com.web.forum_32.service.IForumService;
 import com.web.forum_32.service.IMessageService;
@@ -228,6 +229,36 @@ public class DetailsController {
 		updateMessageQty.setMessageQty(updateMessageQty.getMessageQty()-1);
 		forumService.addOrEdit(updateMessageQty);
 		messageService.delete(id);
+	}
+	// 回覆評論
+	@GetMapping(value="/addReplyMessage")
+	@ResponseBody
+	public void addReplyMessage(
+			@RequestParam("messageReplyId") Integer messageReplyId,
+			@RequestParam("replyForumId") Integer replyForumId,
+			@RequestParam("replyDate") String replyDate,
+			@RequestParam("replyContent") String replyContent,
+			@RequestParam("replyPicId") Integer replyPicId,
+			@RequestParam("replyUserName") String replyUserName,
+			@RequestParam("replyIdentification") String replyIdentification,
+			@RequestParam("replyUserEmail") String replyUserEmail) {
+		MessageReplyBean mrb= new MessageReplyBean();
+		mrb.setMessageReplyId(messageReplyId);
+		mrb.setReplyContent(replyContent);
+		mrb.setReplyDate(replyDate);
+		mrb.setReplyForumId(replyForumId);
+		mrb.setReplyIdentification(replyIdentification);
+		mrb.setReplyPicId(replyPicId);
+		mrb.setReplyUserEmail(replyUserEmail);
+		mrb.setReplyUserName(replyUserName);
+		messageService.addReplyMessage(mrb);
+	}
+	// 評論顯示
+	@GetMapping(value="/getReply")
+	@ResponseBody
+	public List<MessageReplyBean> getReply(
+			@RequestParam("messageId") Integer messageId){
+		return messageService.findByMessageReplyId(messageId);
 	}
 	// 檢舉評論
 	@GetMapping(value="/reprotMessage")

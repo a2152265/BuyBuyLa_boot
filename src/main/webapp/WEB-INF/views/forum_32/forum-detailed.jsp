@@ -239,6 +239,7 @@
 				<div class="comments-area">
 					<h4>${messageSize}則評論</h4>
 				<div id="messageResult"></div>
+				<div id="replyResult"></div>
 
 						<!--================ 編輯評論 Modal =================-->
 				<div class="modal fade" id="editMessageBtn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

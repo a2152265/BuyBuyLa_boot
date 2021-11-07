@@ -8,9 +8,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.web.forum_32.dao.MessageReplyRepository;
 import com.web.forum_32.dao.MessageReportRepository;
 import com.web.forum_32.dao.MessageRepository;
 import com.web.forum_32.model.MessageBean;
+import com.web.forum_32.model.MessageReplyBean;
 import com.web.forum_32.model.MessageReportBean;
 
 @Service
@@ -20,6 +22,8 @@ public class MessageService implements IMessageService{
 	MessageRepository messageRepository;
 	@Autowired
 	MessageReportRepository messageReportRepository;
+	@Autowired
+	MessageReplyRepository messageReplyResository;
 	
 	@Override
 	public List<MessageBean> getAllMessage(Integer messageForumId) {
@@ -79,6 +83,14 @@ public class MessageService implements IMessageService{
 	public void deleteByReportStatus(String status) {
 		messageReportRepository.deleteByReportStatus(status);
 		
+	}
+	@Override
+	public MessageReplyBean addReplyMessage(MessageReplyBean mrb) {
+		return messageReplyResository.save(mrb);
+	}
+	@Override
+	public List<MessageReplyBean> findByMessageReplyId(Integer messageReplyId) {
+		return messageReplyResository.findByMessageReplyId(messageReplyId);
 	}
 
 }

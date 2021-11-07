@@ -134,9 +134,11 @@ $(document).ready(function() {
 								"<p class='date'>" + data[i]['messageDate'] + "</p>" +
 								"<p class='comment'>" + data[i]['messageContent'] + "</p>" +
 								"</div>" +
-//								"<div class='reply-btn'><a style='cursor:pointer;' class='btn-reply text-uppercase'>回覆</a></div>"+
 								"</div>" +
-								"<div class='editBtn dropdown' style='display:none'>" +
+								//
+								"<div class='reply-btn' style='position:absolute;margin-left:300px'><a style='cursor:pointer;' class='btn-reply text-uppercase'>回覆</a></div>" +
+								//
+								"<div class='editBtn dropdown' style='visibility:hidden'>" +
 								"<img  id='dropdownMenuButton1' data-bs-toggle='dropdown' style='cursor:pointer;width:30px;height:30px;' src='img/forum/more.png'>" +
 								"<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton1'>" +
 								"<li><a class='dropdown-item reportMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#reportBtn'>檢舉</a></li>" +
@@ -144,27 +146,160 @@ $(document).ready(function() {
 								"<li><a class='dropdown-item delMessageContent' style='cursor:pointer;'>刪除</a></li></ul>" +
 								"</div>" +
 								"</div>" +
-								"</div>" 
-
-							)
-						}
-							if($('.loginUser').val()!=''){
-						$('.editDisplay').each(function(){
-							$(this).mouseover(function(){
-								$(this).find('.editBtn').css('display','block')
+								"<input type='text' class='form-control mb-10' style='display:none;margin:10px 80px;width:400px;' placeholder='回覆" + data[i]['messageUserName'] + "........'>" +
+								"</div>")
+							$.ajax({
+								type: "get",
+								url: "getReply",
+								async: false,
+								data: { "messageId": data[i]['messageId'] },
+								success: function(replyResult) {
+									for (j = 0; j < replyResult.length; j++) {
+										$('#messageResult').append(
+											"<div class='comment-list left-padding editReplyDisplay' style='padding:20px;padding-top:0px;padding-left:100px'>" +
+											"<div class='single-comment1 justify-content-between d-flex'>" +
+											"<div class='user justify-content-between d-flex'>" +
+											"<div class='thumb'>" +
+											"<img style='width:40px; height:40px' src='getPicturefromMember/" + replyResult[j]['replyPicId'] + "'>" +
+											"</div>" +
+											"<div class='desc'>" +
+											"<input class='messageReplyId' type='hidden' value='"+replyResult[j]['messageReplyId']+"'"+
+											"<input class='replyId' type='hidden' value='"+replyResult[j]['replyId']+"'"+
+											"<h5>" +
+											"<a href='#'>" + replyResult[j]['replyUserName'] + "</a>" +
+											"</h5>" +
+											"<p class='date'>" + replyResult[j]['replyDate'] + "</p>" +
+											"<p class='comment'>" +
+											replyResult[j]['replyContent'] +
+											"</p>" +
+											"</div>" +
+											"</div>" +
+								"<div class='editReplyBtn dropdown' style='visibility:hidden'>" +
+								"<img  id='dropdownMenuButton2' data-bs-toggle='dropdown' style='cursor:pointer;width:30px;height:30px;' src='img/forum/more.png'>" +
+								"<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton2'>" +
+								"<li><a class='dropdown-item reportReplyMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#reportBtn'>檢舉</a></li>" +
+								"<li><a class='dropdown-item editReplyMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#editMessageBtn'>編輯</a></li>" +
+								"<li><a class='dropdown-item delReplyMessageContent' style='cursor:pointer;'>刪除</a></li></ul>" +
+								"</div>" +
+											"</div>" +
+											"</div>"
+										)
+									}
+								}
 							})
-							$(this).mouseout(function(){
-								$(this).find('.editBtn').css('display','none')
+						}
+						if ($('.loginUser').val() != '') {
+							$('.editDisplay').each(function() {
+								$(this).mouseover(function() {
+									$(this).find('.editBtn').css('visibility', 'visible')
+								})
+								$(this).mouseout(function() {
+									$(this).find('.editBtn').css('visibility', 'hidden')
+								})
+							})
+						}
+						if ($('.loginUser').val() != '') {
+							$('.editReplyDisplay').each(function() {
+								$(this).mouseover(function() {
+									$(this).find('.editReplyBtn').css('visibility', 'visible')
+								})
+								$(this).mouseout(function() {
+									$(this).find('.editReplyBtn').css('visibility', 'hidden')
+								})
+							})
+						}
+						$('.single-comment1').each(function(){
+							var date = new Date();
+							const nowReplyFormatDate = (date) => {
+								let nowReplyFormatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
+								return nowReplyFormatted_date;
+							}
+							// 登入的人
+							var LoginUserName=$('.loginUser').val();
+							// 發文的人
+							var AuthorUserName = $('.authorUserName').html();
+							var replyForumId=$('#id').val();
+							// 留言的人
+							var replyPicId=$(this).find('.').val();
+							var replyIdentification=$('.loginIdentification').val();
+							var replyDate=nowReplyFormatDate(date);
+							
+							
+							
+							var reportReplyMessageContent=$(this).find('.reportReplyMessageContent');
+							var editReplyMessageContent=$(this).find('.editReplyMessageContent');
+							var delReplyMessageContent=$(this).find('.delReplyMessageContent');
+							reportReplyMessageContent.click(function(){
+							alert('檢舉');
+							})
+							editReplyMessageContent.click(function(){
+								alert('編輯')
+							})
+							delReplyMessageContent.click(function(){
+								alert('刪除');
 							})
 						})
-							}
 						$('.single-comment').each(function() {
+							var replyBtn = $(this).find('.reply-btn');
+							var replyText = $(this).next();
+							var messageReplyId = $(this).find('.messageId').val();
+							var date = new Date();
+							const nowFormatDate = (date) => {
+								let nowFormatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
+								return nowFormatted_date;
+							}
+							replyBtn.click(function() {
+								if (replyText.css('display') == 'block') {
+									replyText.css('display', 'none')
+								} else if (replyText.css('display') == 'none') {
+									replyText.css('display', 'block')
+								}
+							})
+							replyText.keydown(function(e) {
+								if (e.which == 13) {
+									if (replyText.val() == '') {
+										alert('請輸入內容')
+									} else {
+										$.ajax({
+											type: "get",
+											url: "addReplyMessage",
+											data: {
+												"messageReplyId": messageReplyId,
+												"replyForumId": forumId,
+												"replyDate": nowFormatDate(date),
+												"replyContent": replyText.val(),
+												"replyPicId": $('.loginId').val(),
+												"replyUserName": loginUserName,
+												"replyIdentification": $('.loginIdentification').val(),
+												"replyUserEmail": $('.loginUserEmail').val()
+											},
+											success: function() {
+												alert('回覆成功');
+												replyText.val('');
+												replyText.css('display', 'none');
+												$.ajax({
+													type:"get",
+													url:"message",
+													data:{
+													"id": forumId,
+													"page": page
+													},
+													success:function(data){
+														showMessage(data);
+													}
+												})
+											}
+										})
+									}
+								}
+							})
+
 							var loginUserName = $('.loginUser').val();     //登入帳號
 							var authorUserName = $('.authorUserName').html();   // 發文人
 							var messageName = $(this).find('.messageName').html();  //   發表評論的人
 							if (loginUserName == '') {
 								$('.editBtn').css('display', 'none');
-								$('.reply-btn').css('display','none');
+								$('.reply-btn').css('display', 'none');
 							}
 							if ((loginUserName == authorUserName) && (loginUserName == messageName)) {
 								$(this).find('.reportMessageContent').css('display', 'none');
@@ -186,7 +321,7 @@ $(document).ready(function() {
 								$(this).find('.editMessageContent').css('display', 'none');
 								$(this).find('.delMessageContent').css('display', 'none');
 							}
-							
+
 							// 檢舉留言
 							var reprotBtn = $(this).find(".reportMessageContent");
 							reprotBtn.click(function() {
@@ -213,14 +348,14 @@ $(document).ready(function() {
 										type: "get",
 										url: "reprotMessage",
 										data: {
-											"reportForumId":forumId,
+											"reportForumId": forumId,
 											"reportUserName": reportUserName,
 											"reportedUserName": reportedUserName,
 											"reportedContent": reportedContent,
 											"reportMessageId": reportMessageId,
 											"reportReason": $('.reportSelect').val(),
 											"reportDate": $('.reportDate').val(),
-											"reportedUserEmail":$('.reportedUserEmail').val()
+											"reportedUserEmail": $('.reportedUserEmail').val()
 										},
 										success: function() {
 											Swal.fire({
@@ -311,7 +446,7 @@ $(document).ready(function() {
 											url: 'deleteMessage',
 											data: {
 												'id': messageId,
-												'forumId':forumId
+												'forumId': forumId
 											},
 											success: function() {
 											}
