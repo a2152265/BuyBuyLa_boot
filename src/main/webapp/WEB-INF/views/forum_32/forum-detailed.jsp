@@ -138,12 +138,6 @@
 						<form:input path="userNickname" type="hidden" value="${loginSession.userNickname}" />
 						<form:input path="Identification" type="hidden" value="member" />
 						<!-- 結束 -->
-						<div class="mb-3">
-						<select id="updSelectTag" class="form-select"
-							aria-label="Default select example" style="width:200px">
-							<option>新手賣家發問</option>
-							<option>賣家閒聊討論</option>
-						</select>
 						<div class="mb-3"><br>
 							<form:input type="text" required="true" placeholder="標題" path="title" class="form-control title-fontsize"
 								aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
