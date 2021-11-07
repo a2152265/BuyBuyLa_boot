@@ -236,6 +236,7 @@
 							</div>
 						</div>
 					</div>
+					
 				<div class="comments-area">
 					<h4>${messageSize}則評論</h4>
 				<div id="messageResult"></div>
@@ -381,72 +382,10 @@
 				<button class="DetailedMessageKeyInput" style="margin-left:700px">一鍵輸入</button>
 		</div>
 			<!--=================================-->
-			
-			
-		<div class="col-lg-4">
+				</div>
+			<div class="col-lg-4">
 			<div class="blog_right_sidebar">
-<!-- 					<aside class="single_sidebar_widget author_widget"> -->
-<%-- 						<img width='150' src="<c:url value='/getPicturefromMember/${forumContent.picId}'/>" /> --%>
-<%-- 						<h4 class="Username">${forumContent.userName}</h4> --%>
-<!-- 						<p>一般會員</p> -->
-<!-- 						<div class="social_icon"> -->
-<!-- 							<a href="#"> <i class="fab fa-facebook-f"></i> -->
-<!-- 							</a> <a href="#"> <i class="fab fa-twitter"></i> -->
-<!-- 							</a> <a href="#"> <i class="fab fa-github"></i> -->
-<!-- 							</a> <a href="#"> <i class="fab fa-behance"></i> -->
-<!-- 							</a> -->
-<!-- 						</div> -->
-<!-- 						<div class="br"></div> -->
-<!-- 					</aside> -->
-<!-- 					<aside class="single_sidebar_widget post_category_widget"> -->
-<!-- 						<h4 class="widget_title">標籤分類</h4> -->
-<!-- 						<ul class="list cat-list"> -->
-<%-- 							<li><a href="<c:url value='/forum' />" --%>
-<!-- 								class="d-flex justify-content-between"> -->
-<!-- 									<p>所有討論</p> -->
-<%-- 									<p>${allSize}</p> --%>
-<!-- 							</a></li> -->
-<%-- 							<li><a href="<c:url value='/announcement' />" --%>
-<!-- 								class="d-flex justify-content-between"> -->
-<!-- 									<p>官方最新公告</p> -->
-<%-- 									<p>${announcementSize}</p> --%>
-<!-- 							</a></li> -->
-<%-- 							<li><a href="<c:url value='/featured' />" --%>
-<!-- 								class="d-flex justify-content-between"> -->
-<!-- 									<p>社團精選話題</p> -->
-<%-- 									<p>${featuredSize}</p> --%>
-<!-- 							</a></li> -->
-<%-- 							<li><a href="<c:url value='/noviceSeller' />" --%>
-<!-- 								class="d-flex justify-content-between"> -->
-<!-- 									<p>新手賣家發問</p> -->
-<%-- 									<p>${noviceSellerSize}</p> --%>
-<!-- 							</a></li> -->
-<%-- 							<li><a href="<c:url value='/sellerChat' />" --%>
-<!-- 								class="d-flex justify-content-between"> -->
-<!-- 									<p>賣家閒聊討論</p> -->
-<%-- 									<p>${sellerChatSize}</p> --%>
-<!-- 							</a></li> -->
-<!-- 						</ul> -->
-<!-- 						<div class="br"></div> -->
-<!-- 					</aside> -->
-<!-- 					<aside class="single_sidebar_widget popular_post_widget"> -->
-<!-- 						<h3 class="widget_title">精選話題</h3> -->
-<%-- 						<c:forEach var='content' items='${tagFeatured}' begin="0" end="2"> --%>
-<!-- 							<div class="media post_item"> -->
-<!-- 								<img width='40' -->
-<%-- 									src="<c:url value='/getPicturefromMember/${content.picId}'/>" /> --%>
-<!-- 								<div class="media-body"> -->
-<!-- 									<a href="single-blog.html"> -->
-<%-- 										<h3>${content.title}</h3> --%>
-<!-- 									</a> -->
-<%-- 									<p>${content.date}</p> --%>
-<!-- 								</div> -->
-<!-- 							</div> -->
-<%-- 						</c:forEach> --%>
-<!-- 						<div class="br"></div> -->
-<!-- 					</aside> -->
-
-					<!--================ 最新帖子 =================-->
+			<!--================ 最新帖子 =================-->
 			<aside class="single_sidebar_widget popular_post_widget">
 				<h3 class="widget_title">最新帖子</h3>
 				<c:forEach var='content' items='${getAll}' begin="0" end="15">
@@ -463,8 +402,8 @@
 				<div class="br"></div>
 			</aside>
 			<!--=================================-->
-					</div>
 				</div>
+			</div>
 			</div>
 		</div>
 	</section><br><br>
