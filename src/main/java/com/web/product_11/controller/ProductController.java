@@ -32,9 +32,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,7 +44,9 @@ import com.web.member_25.model.membershipInformationBean;
 import com.web.member_25.service.MemberService;
 import com.web.product_11.model.Product;
 import com.web.product_11.model.ProductComment;
+import com.web.product_11.model.ProductFavorite;
 import com.web.product_11.service.ProductCommentService;
+import com.web.product_11.service.ProductFavoriteService;
 import com.web.product_11.service.ProductService;
 
 @Controller
@@ -55,6 +55,7 @@ public class ProductController {
 
 	ProductService productservice;
 	ProductCommentService productCommentService;
+	ProductFavoriteService productFavoriteService;
 	MemberService memberService;
 	ServletContext servletContext;
 	CartService cartService;
@@ -62,21 +63,24 @@ public class ProductController {
 	@Autowired
 	JavaMailSender mailSender;
 	
+
 	@Autowired
 	public ProductController(ProductService productservice, ProductCommentService productCommentService,
-			MemberService memberService, ServletContext servletContext, CartService cartService,CampaignService campaignService) {
-		
+			ProductFavoriteService productFavoriteService, MemberService memberService, ServletContext servletContext,
+			CartService cartService, JavaMailSender mailSender) {
 		this.productservice = productservice;
 		this.productCommentService = productCommentService;
+		this.productFavoriteService = productFavoriteService;
 		this.memberService = memberService;
 		this.servletContext = servletContext;
 		this.cartService = cartService;
-		this.campaignService=campaignService;
+		this.mailSender = mailSender;
+
 	}
 
+	
 	public ProductController() {
 	}
-
 
 	//顯示所有商品
 	@GetMapping("/products")
@@ -231,13 +235,24 @@ public class ProductController {
 			@RequestParam("id") Integer id, // 查詢字串
 			 Model model) {
 			Product product = productservice.getProductById(id);
+			if((membershipInformationBean) model.getAttribute("loginSession")!=null) {
+				
+				membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
+				membershipInformationBean member = memberService.findMemberData(mb.getUserEmail());			
+				membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
+				ProductFavorite producrFavorite = productFavoriteService.findByMidAndPid(member.getId(), product.getProductId());
+				
+				model.addAttribute("producrFavorite", producrFavorite); 
+				model.addAttribute("product", product);
+				model.addAttribute("productComment",productCommentService.findByProductId(id));
+				model.addAttribute("memberUiDefault",mBean);
 			
+			
+			}else {
+				model.addAttribute("product", product);
 
-			 membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
+			}
 			
-			model.addAttribute("product", product);
-			model.addAttribute("productComment",productCommentService.findByProductId(id));
-			model.addAttribute("memberUiDefault",mBean);
 			
 			
 			
@@ -550,5 +565,49 @@ public class ProductController {
 					return new ResponseEntity<String>(HttpStatus.OK);
 				}
 		
-	
+//-----------------------------------商品我的最愛-----------------------------------------
+		//新增我的最愛
+				@GetMapping("/favorite")
+				public String AddFavoriteProduct(
+						@RequestParam("id") String id
+						,Model model) {
+			
+					membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
+					int pId = Integer.parseInt(id);
+					System.out.println("!!!!!!!!!!!"+mb.getUserEmail());
+					System.out.println("!!!!!!!!!!!"+mb.getIdentification());
+					
+					ProductFavorite productFavorite = new ProductFavorite();
+					Product product = productservice.getProductById(pId);
+					
+					membershipInformationBean member = memberService.findMemberData(mb.getUserEmail());
+					
+					productFavorite.setMembershipInformationBean(member);
+					productFavorite.setProduct(product);
+					ProductFavorite producrFavorite = productFavoriteService.findByMidAndPid(member.getId(), product.getProductId());
+//					System.out.println("@@@@@@@@@@@@"+producrFavorite.getFavoriteId());
+					if(producrFavorite == null) {
+						productFavoriteService.addFavoriteProduct(productFavorite);
+					}else if(producrFavorite != null) {
+						System.out.println("################"+producrFavorite.getFavoriteId());
+						return "redirect:/";
+						
+					}
+					
+					
+					return "redirect:/";
+				}
+				
+		//依照會員取得我的最愛
+//				@GetMapping("/favorite")
+//				public String getFavoriteProduct(
+//						@RequestParam("id") String id
+//						,Model model) {
+//					
+//					membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
+//					
+//							return "";
+//					
+//				}
+				
 }

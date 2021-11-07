@@ -162,7 +162,15 @@
 						</div>
 						<div class="card_area d-flex align-items-center">
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+							<c:choose>
+								<c:when test="${producrFavorite == null}">
+									<a class="icon_btn" href="<c:url value='./favorite?id=${product.productId}' />"><i class="lnr lnr lnr-heart"></i></a>
+								</c:when>
+								<c:otherwise>
+									<a class="icon_btn" href="<c:url value='./favorite?id=${product.productId}' />"><i class="fas fa-heart"></i></a>
+								</c:otherwise>
+							</c:choose>
+
 						<div class="line-it-button" data-lang="zh_Hant" data-type="share-a" data-ver="3" data-url="http://localhost:8080/BuyBuyla_boot/product?id=${product.productId}" data-color="grey" data-size="small" data-count="true" style="display: none;">
 						</div>
 						</div>

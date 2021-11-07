@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
   <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
    <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-<!--   <link rel='stylesheet' href="css/campaigns.css"  > -->
+  <link rel='stylesheet' href="css/campaigns.css"  >
   <link rel="stylesheet" href="css/productstyle.css">
   <link rel="icon"  sizes="180x180" href="images/favicon.ico" type="image/x-icon"/>
 <!-- <script src="sweetalert2.min.js"></script> -->
@@ -172,7 +172,6 @@
                   <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
                   <c:if test="${loginSession.userEmail != null}">
                   <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>                  
-                  <li><button><i class="ti-heart"></i></button></li>
                   </c:if>
                   
                 </ul>
@@ -236,7 +235,7 @@
                   <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>  
                     <c:if test="${loginSession.userEmail != null}">
                   <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>                  
-                  <li><button><i class="ti-heart"></i></button></li>
+<!--                   <li><button><i class="ti-heart"></i></button></li> -->
                   </c:if>
               </ul>
             </div>

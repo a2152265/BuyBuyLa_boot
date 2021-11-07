@@ -2,16 +2,20 @@ package com.web.product_11.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
-import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
+
 
 
 @Entity
@@ -37,6 +41,9 @@ public class Product implements Serializable {
 	@Transient
 	private MultipartFile productImage;
 	private Blob coverImage;
+	
+	@OneToMany(mappedBy = "product",fetch = FetchType.LAZY) //本類別無外鍵 
+	Set<ProductFavorite> productFavorites=new HashSet<>();
 	
 	public Product() {
 		// TODO Auto-generated constructor stub
@@ -202,6 +209,18 @@ public class Product implements Serializable {
 
 	public void setSales(Integer sales) {
 		this.sales = sales;
+	}
+
+
+
+	public Set<ProductFavorite> getProductFavorites() {
+		return productFavorites;
+	}
+
+
+
+	public void setProductFavorites(Set<ProductFavorite> productFavorites) {
+		this.productFavorites = productFavorites;
 	}
 
 	
