@@ -466,7 +466,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			"id":data
 		},
 		success:function(){
-			$(".cnt").val(cnt2);
+			var count = parseInt($('#ccount').html())-1
+			console.log(count)
+			if(count>0){
+				$('#ccount').html(count)
+			}
+			
 		}
 								
 	});			
@@ -517,7 +522,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		},
 		
 		success:function(){
-		
+			var count = parseInt($('#ccount').html())+1
+			console.log(count)
+			
+			$('#ccount').html(count)
 		
 			
 		}
