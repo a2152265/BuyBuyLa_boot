@@ -132,69 +132,6 @@
   <section class="section-margin--small mb-5">
     <div class="container">
       <div class="row">
-<!--         <div class="col-xl-3 col-lg-4 col-md-5"> -->
-<!--           <div class="sidebar-categories"> -->
-<!--             <div class="head">Browse Categories</div> -->
-<!--             <ul class="main-categories"> -->
-<!--               <li class="common-filter"> -->
-<%--                 <form action="#"> --%>
-<!--                   <ul> -->
-<!--                     <li class="filter-list"><input class="pixel-radio" type="radio" id="men" name="brand"><label for="men">Men<span> (3600)</span></label></li> -->
-<!--                     <li class="filter-list"><input class="pixel-radio" type="radio" id="women" name="brand"><label for="women">Women<span> (3600)</span></label></li> -->
-<!--                     <li class="filter-list"><input class="pixel-radio" type="radio" id="accessories" name="brand"><label for="accessories">Accessories<span> (3600)</span></label></li> -->
-<!--                     <li class="filter-list"><input class="pixel-radio" type="radio" id="footwear" name="brand"><label for="footwear">Footwear<span> (3600)</span></label></li> -->
-<!--                     <li class="filter-list"><input class="pixel-radio" type="radio" id="bayItem" name="brand"><label for="bayItem">Bay item<span> (3600)</span></label></li> -->
-<!--                     <li class="filter-list"><input class="pixel-radio" type="radio" id="electronics" name="brand"><label for="electronics">Electronics<span> (3600)</span></label></li> -->
-<!--                     <li class="filter-list"><input class="pixel-radio" type="radio" id="food" name="brand"><label for="food">Food<span> (3600)</span></label></li> -->
-<!--                   </ul> -->
-<%--                 </form> --%>
-<!--               </li> -->
-<!--             </ul> -->
-<!--           </div> -->
-<!--           <div class="sidebar-filter"> -->
-<!--             <div class="top-filter-head">Product Filters</div> -->
-<!--             <div class="common-filter"> -->
-<!--               <div class="head">Brands</div> -->
-<%--               <form action="#"> --%>
-<!--                 <ul> -->
-<!--                   <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li> -->
-<!--                   <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li> -->
-<!--                   <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li> -->
-<!--                   <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li> -->
-<!--                   <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li> -->
-<!--                 </ul> -->
-<%--               </form> --%>
-<!--             </div> -->
-<!--             <div class="common-filter"> -->
-<!--               <div class="head">Color</div> -->
-<%--               <form action="#"> --%>
-<!--                 <ul> -->
-<!--                   <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li> -->
-<!--                   <li class="filter-list"><input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">Black -->
-<!--                       Leather<span>(29)</span></label></li> -->
-<!--                   <li class="filter-list"><input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">Black -->
-<!--                       with red<span>(19)</span></label></li> -->
-<!--                   <li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">Gold<span>(19)</span></label></li> -->
-<!--                   <li class="filter-list"><input class="pixel-radio" type="radio" id="spacegrey" name="color"><label for="spacegrey">Spacegrey<span>(19)</span></label></li> -->
-<!--                 </ul> -->
-<%--               </form> --%>
-<!--             </div> -->
-<!--             <div class="common-filter"> -->
-<!--               <div class="head">Price</div> -->
-<!--               <div class="price-range-area"> -->
-<!--                 <div id="price-range"></div> -->
-<!--                 <div class="value-wrapper d-flex"> -->
-<!--                   <div class="price">Price:</div> -->
-<!--                   <span>$</span> -->
-<!--                   <div id="lower-value"></div> -->
-<!--                   <div class="to">to</div> -->
-<!--                   <span>$</span> -->
-<!--                   <div id="upper-value"></div> -->
-<!--                 </div> -->
-<!--               </div> -->
-<!--             </div> -->
-<!--           </div> -->
-<!--         </div> -->
         <div class="col-xl-9 col-lg-8 col-md-7" style="flex: 0 0 100%;
     max-width: 100%;">
           <!-- Start Filter Bar -->
@@ -233,9 +170,10 @@
                   <div class="card-product__img">
                     <img width="250" height="300" class="card-img" src="<c:url value='/getPicture/${product.productId}' />" alt="">
                     <ul class="card-product__imgOverlay">
-                                    <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
-                  <li><button onclick="location.href='<c:url value='/additem' />?id=${product.productId}'"><i class="ti-shopping-cart"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
+                    <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
+                  <c:if test="${loginSession.userEmail != null}">
+                  <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>                  
+                  </c:if>
                     </ul>
                   </div>
                   <div class="card-body">

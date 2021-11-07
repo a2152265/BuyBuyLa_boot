@@ -275,7 +275,6 @@
                   <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
                   <c:if test="${loginSession.userEmail != null}">
                   <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>                  
-                  <li><button><i class="ti-heart"></i></button></li>
                   </c:if>
                   
                 </ul>
@@ -339,7 +338,7 @@
                   <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>  
                     <c:if test="${loginSession.userEmail != null}">
                   <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>                  
-                  <li><button><i class="ti-heart"></i></button></li>
+<!--                   <li><button><i class="ti-heart"></i></button></li> -->
                   </c:if>
               </ul>
             </div>

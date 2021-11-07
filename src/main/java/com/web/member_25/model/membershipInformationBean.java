@@ -1,16 +1,22 @@
 package com.web.member_25.model;
 
 import java.sql.Blob;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.web.product_11.model.ProductFavorite;
 
 @Entity
 @Table(name="membershipInformation")
@@ -53,6 +59,8 @@ public class membershipInformationBean {
 	@Column(name="verifyCode")
 	Integer verifyCode;
 	
+	@OneToMany(mappedBy = "membershipInformationBean",fetch = FetchType.LAZY) //本類別無外鍵 
+	Set<ProductFavorite> productFavorites=new HashSet<>();
 	
 	public membershipInformationBean() {
 		
@@ -229,10 +237,14 @@ public class membershipInformationBean {
 		public void setVerificationCode(int verificationCode) {
 			VerificationCode = verificationCode;
 		}
-		
-		
-		
-		
+
+		public Set<ProductFavorite> getProductFavorites() {
+			return productFavorites;
+		}
+
+		public void setProductFavorites(Set<ProductFavorite> productFavorites) {
+			this.productFavorites = productFavorites;
+		}
 		
 		
 		
