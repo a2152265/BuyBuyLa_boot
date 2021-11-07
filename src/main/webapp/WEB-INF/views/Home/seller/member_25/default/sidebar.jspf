@@ -1,0 +1,102 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+    
+  <div class="sidebar" style="background-color: rgb(87, 87, 121);">
+            <div class="profile">
+                <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
+                   <!-- 讀取圖片 -->
+                  <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
+                   <h3></h3>
+                   <p>${memberUiDefault.userEmail} </p>
+               </div>
+            <ul>
+                <li>
+                    <a href="<c:url value='/' />" class="active">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">首頁</span>
+                    </a>
+                </li>
+                <li>
+
+           
+
+                    <a href="<c:url value='???' />"   onclick="return(confirm('請先成為認證賣家'))">
+
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">訂單管理</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='???' />"   onclick="return(confirm('請先成為認證賣家'))">
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item"> 商品管理</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='???' />"  onclick="return(confirm('請先成為認證賣家'))">
+                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+                        <span class="item">數據中心</span>
+                    </a>
+                </li>
+                
+                 <li>
+                    <a href="<c:url value='/member/managerPower' />" >
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">帳號管理</span>
+                    </a>
+                </li>
+
+                <!-- /*減去footer高度*/ -->
+                <li style="min-height: calc(100% - 50px); ">
+                    <a href="<c:url value='/seller/inschan' />">
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">隱私權政策</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">登出</span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+        
+
+ 
+
+    <script>
+
+        //toggle 棟棟
+        function ToogleStateCtrl($scope) {
+  $scope.plugin = {
+    enabled: false
+  }
+  $scope.toggleState = function() {
+    console.log('toggling from ' + $scope.plugin.enabled + ' to ' + !$scope.plugin.enabled);
+    $scope.plugin.pending = true;
+    //delay to simulate pending state
+    $scope.change='loading';
+    setTimeout(doToggle, 11000);
+  }
+  function doToggle() {
+    console.log('do toggling')
+    $scope.plugin.pending = false;
+    $scope.plugin.enabled = !$scope.plugin.enabled;
+    $scope.change='loading_completed';
+    $scope.$apply()
+  }
+}
+
+
+          var hamburger = document.querySelector(".hamburger");
+  hamburger.addEventListener("click", function(){
+    document.querySelector("body").classList.toggle("active");
+  })
+    </script>
+ 
+</body>
+</html>

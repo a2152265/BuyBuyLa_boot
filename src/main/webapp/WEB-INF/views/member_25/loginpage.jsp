@@ -8,390 +8,392 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>BuyBuyLa|Home</title>
+	<link rel="icon" href="img/Fevicon.png" type="image/png">
+  <link rel="stylesheet" href="../vendors/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="../vendors/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="../vendors/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="../vendors/nice-select/nice-select.css">
+  <link rel="stylesheet" href="../vendors/owl-carousel/owl.theme.default.min.css">
+  <link rel="stylesheet" href="../vendors/owl-carousel/owl.carousel.min.css">
+
+ 
+    <link rel='stylesheet' href="<spring:url value='../css/productstyle.css' />"  type="text/css" />
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
 
 
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+ 
 
-* {
-	box-sizing: border-box;
+  <style type="text/css">
+.form__label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  margin-left: 2rem;
+  margin-top: 0.7rem;
+  display: block;
+  transition: all 0.3s;
+  transform: translateY(0rem);
 }
-
-body {
-	background: #f6f5f7;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	font-family: 'Montserrat', sans-serif;
-	height: 100vh;
-	margin: -20px 0 50px;
+.form__input {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  font-size: 1.2rem;
+	margin: 0 auto;
+  padding: 1.5rem 2rem;
+  border-radius: 0.2rem;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  width: 90%;
+  display: block;
+  border-bottom: 0.3rem solid transparent;
+  transition: all 0.3s;
 }
-
-h1 {
-	font-weight: bold;
-	margin: 0;
+.form__input:placeholder-shown + .form__label {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateY(-4rem);
+  transform: translateY(-4rem);
 }
+ .wrap{
+            width: 1000px;
+            height: 300px;
+            background-color: black;
+            margin:0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide-img{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            position: absolute;
+            width: 12000px;
+            /* border: olive 2px solid; */
+            display: flex;
+            left: 0;
+            transition: 0.6s;
+        }
+        .slide-img li{
+            width: 1000px;
+            height: 300px;
+            /* 伸展比例 壓縮比例 額外剩餘比例 */
+            /* flex:1 0 0; */
+        }
+        .slide-img li img{
+            height: 100%;
+            width: 100%;
+            /* 元素內容調整大小比例 */
+            object-fit: cover;
+        }
+        .pages{
+            list-style: none;
+            position: absolute;
+            margin:0;
+            padding: 0;
+            bottom:10px;
+            display: flex;
+            left:0;
+            width: 100%;
+            justify-content: center;
+        }
+        .pages li{
+            border:1px solid #fff;
+            margin: 0 5px;
+            width: 20px;
+            height:20px;
+            border-radius: 50%;
+            cursor:hand;
+        }
+        .slide-arrow{
+            position: absolute;
+            /* background-color: red; */
+            width: 40px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index:1;
+            font-size: 36px;
+            cursor: pointer;
+            color: white;
+            opacity: .6;
+        }
+        .slide-arrow:hover{
+        	color: white;
+            opacity: 1;
+        }
+        .slide-arrow.right{
+            right:0;
+        }
+</style>
 
-h2 {
-	text-align: center;
-}
 
-p {
-	font-size: 14px;
-	font-weight: 100;
-	line-height: 20px;
-	letter-spacing: 0.5px;
-	margin: 20px 0 30px;
-}
-
-span {
-	font-size: 12px;
-}
-
-a {
-	color: #333;
-	font-size: 14px;
-	text-decoration: none;
-	margin: 15px 0;
-}
-
-button {
-	border-radius: 20px;
-	border: 1px solid #FF4B2B;
-	background-color: #FF4B2B;
-	color: #FFFFFF;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 12px 45px;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	transition: transform 80ms ease-in;
-}
-
-button:active {
-	transform: scale(0.95);
-}
-
-button:focus {
-	outline: none;
-}
-
-button.ghost {
-	background-color: transparent;
-	border-color: #FFFFFF;
-}
-
-form {
-	background-color: #FFFFFF;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	padding: 0 50px;
-	height: 100%;
-	text-align: center;
-}
-
-input {
-	background-color: #eee;
-	border: none;
-	padding: 12px 15px;
-	margin: 8px 0;
-	width: 100%;
-}
-
-.container {
-	background-color: #fff;
-	border-radius: 10px;
-  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-			0 10px 10px rgba(0,0,0,0.22);
-	position: relative;
-	overflow: hidden;
-	width: 768px;
-	max-width: 100%;
-	min-height: 480px;
-}
-
-.form-container {
-	position: absolute;
-	top: 0;
-	height: 100%;
-	transition: all 0.6s ease-in-out;
-}
-
-.sign-in-container {
-	left: 0;
-	width: 50%;
-	z-index: 2;
-}
-
-.container.right-panel-active .sign-in-container {
-	transform: translateX(100%);
-}
-
-.sign-up-container {
-	left: 0;
-	width: 50%;
-	opacity: 0;
-	z-index: 1;
-}
-
-.container.right-panel-active .sign-up-container {
-	transform: translateX(100%);
-	opacity: 1;
-	z-index: 5;
-	animation: show 0.6s;
-}
-
-@keyframes show {
-	0%, 49.99% {
-		opacity: 0;
-		z-index: 1;
+  <script>
+	let no = 1000;
+let index = 0,index2=0;
+var names= ["a2152265@gmail.com", 'z1718221@gmail.com', 'xzc8951273@gmail.com'];
+function quickInput(){
+	document.getElementById('name').value = names[index];
+	document.getElementById('pwd').value = names[index];
+   
+	index++;
+	if (index >= names.length) {
+		index = 0 ;
 	}
 	
-	50%, 100% {
-		opacity: 1;
-		z-index: 5;
+}
+
+var names2= ["manager9527@gmail.com", 'manager04@gmail.com', 'manager07@gmail.com'];
+function quickInput2(){
+	document.getElementById('name').value = names2[index2];
+	document.getElementById('pwd').value = names2[index2];
+   
+	index2++;
+	if (index2 >= names2.length) {
+		index2 = 0 ;
 	}
+	
 }
 
-.overlay-container {
-	position: absolute;
-	top: 0;
-	left: 50%;
-	width: 50%;
-	height: 100%;
-	overflow: hidden;
-	transition: transform 0.6s ease-in-out;
-	z-index: 100;
-}
-
-.container.right-panel-active .overlay-container{
-	transform: translateX(-100%);
-}
-
-.overlay {
-	background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C);
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: 0 0;
-	color: #FFFFFF;
-	position: relative;
-	left: -100%;
-	height: 100%;
-	width: 200%;
-  	transform: translateX(0);
-	transition: transform 0.6s ease-in-out;
-}
-
-.container.right-panel-active .overlay {
-  	transform: translateX(50%);
-}
-
-.overlay-panel {
-	position: absolute;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	padding: 0 40px;
-	text-align: center;
-	top: 0;
-	height: 100%;
-	width: 50%;
-	transform: translateX(0);
-	transition: transform 0.6s ease-in-out;
-}
-
-.overlay-left {
-	transform: translateX(-20%);
-}
-
-.container.right-panel-active .overlay-left {
-	transform: translateX(0);
-}
-
-.overlay-right {
-	right: 0;
-	transform: translateX(0);
-}
-
-.container.right-panel-active .overlay-right {
-	transform: translateX(20%);
-}
-
-.social-container {
-	margin: 20px 0;
-}
-
-.social-container a {
-	border: 1px solid #DDDDDD;
-	border-radius: 50%;
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	margin: 0 5px;
-	height: 40px;
-	width: 40px;
-}
-
-footer {
-    background-color: #222;
-    color: #fff;
-    font-size: 14px;
-    bottom: 0;
-    position: fixed;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 999;
-}
-
-footer p {
-    margin: 10px 0;
-}
-
-footer i {
-    color: red;
-}
-
-footer a {
-    color: #3c97bf;
-    text-decoration: none;
-}
-    </style>
-    
-    <script>
-    	let no = 1000;
-    let index = 0;
-    var names= ["a2152265@gmail.com", '0', 'a', 'b', 'c123@gmail.com'];
-    function quickInput(){
-    	document.getElementById('name').value = names[index];
-    	document.getElementById('pwd').value = names[index];
-   	
-    	index++;
-        if (index >= names.length) {
-        	index = 0 ;
-    	}
-    	
-    }
-    
-    </script>
+</script>
 </head>
 <body>
-
-
-
-
-    <!-- <h2>Weekly Coding Challenge #1: Sign in/up Form</h2>
-<div class="container" id="container"> -->
-	<div class="form-container sign-up-container">
-		<form action="#">
-			<h1>Create Account</h1>
-			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+	<!--================ 首頁標題 start =================-->
+	<header class="header_area">
+		<div class="main_menu">
+		  <nav class="navbar navbar-expand-lg navbar-light">
+			<div class="container">
+			  <a class="navbar-brand logo_h" href="<c:url value='/' />"><img src="img/logo.png" alt=""></a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+				<ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+				  <li class="nav-item active"><a class="nav-link" href="<c:url value='/' />">首頁</a></li>
+				  <li class="nav-item submenu dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+					  aria-expanded="false">會員</a>
+					<ul class="dropdown-menu">
+					<c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+						   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/login' />">會員登入</a></li> 
+							 <li class="nav-item"><a class="nav-link" href="<c:url value='/try/add' />">會員註冊</a></li>
+				   </c:if>
+					<c:if test="${managerSession == null}">
+				   <c:if test="${loginSession.userEmail != null}">
+					  <li class="nav-item"><a class="nav-link" href="<c:url value='/member/evolution' />">賣家專區</a></li>
+					  <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
+					</c:if>
+					</c:if>
+					 <c:if test="${managerSession != null}">
+					   <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui' />">會員管理</a></li>
+						<li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
+						</c:if>
+					</ul>
+				  </li>
+				  <li class="nav-item submenu dropdown">
+					<a href="<c:url value='/forum' />" class="nav-link dropdown-toggle"  role="button" aria-haspopup="true"
+					  aria-expanded="false">討論區</a>
+								</li>
+								<li class="nav-item submenu dropdown">
+					<a href="<c:url value='/campaigns' />" class="nav-link dropdown-toggle" role="button" aria-haspopup="true"
+					  aria-expanded="false">活動專區</a>
+				  </li>
+				   <c:if test="${managerSession == null}">
+				  <c:if test="${loginSession.userEmail != null}">
+				  <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
+							${loginSession.userEmail}</a></li>
+	
+					</c:if>
+					</c:if>
+					<c:if test="${managerSession != null}">
+				  <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui' />">Hi管理員!!! &nbsp;
+							${loginSession.userEmail}</a></li>
+					</c:if>
+	
+				
+	
+				</ul>
+				<ul class="nav-shop">
+			   <li class="nav-item" >
+			   
+				   <!---------------- 首頁查詢商品框 ---------------->
+					   <form:form method='POST' action="./queryproduct" class='form-horizontal'>
+						<input name="productName" id="productName" type='text' class='form:input-large'/>
+						<button type='submit' ><i class="ti-search" ></i></button>
+					</form:form>
+	
+	
+				  <!---------------- 購物車 ---------------->
+				  <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
+	
+				</ul>
+			  </div>
 			</div>
-			<span>or use your email for registration</span>
-			<input type="text" placeholder="Name" />
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
-			<button>Sign Up</button>
-		</form>
-	</div>
-	<div class="form-container sign-in-container">
+		  </nav>
+		</div>
+	  </header>
+		<!--================ End 首頁標題 =================-->
+  
+ 
+  
+  <!--================Login Box Area =================-->
+	<section class="login_box_area section-margin">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<div class="hover">
+							<h4>新加入的夥伴?</h4>
+							<p>註冊後開始享受你的購物旅程</p>
+							<a class="button button-account" href="<c:url value='/try/add' />">註冊</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>登入後開始</h3>
 
-        <!-- 登入帳號區 -->
-		<form:form method='POST'   modelAttribute="loginSession"
-							cssClass='row login_form' >
-			<h1>歡迎您 請登入</h1>
-			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-			</div>
-		
-            <form:input id="name" path="userEmail" type='text' placeholder="請輸入帳號" cssclass='form-control'  />
-							
-            <form:password id="pwd" path="userPwd"  placeholder="請輸入密碼" cssclass='form-control'  />
-			  <input id="onejan" type="button" value="一键输入用户名"  onclick='quickInput();' >  <br>
-			<a href="<c:url value='/member/forget' />">忘記密碼?</a>
-			<!-- <button>登入</button> -->
-            <a href="<c:url value='/try/index' />"><button type="submit" value="submit" style="background-color: rgb(9, 9, 121);"   >登入</button> </a>
-          
-        </form:form>
-
+						<!-- 登入帳號區 -->
+						<form:form method='POST'   modelAttribute="loginSession"
+							cssClass='row login_form' id="contactForm">
 
 
-	</div>
-	<div class="overlay-container">
-		<div class="overlay">
-			<div class="overlay-panel overlay-left">
-				<h1>Welcome Back!</h1>
-				<p>To keep connected with us please login with your personal info</p>
-				<button class="ghost" id="signIn">Sign In</button>
-			</div>
-			<div class="overlay-panel overlay-right"  style="background-color: rgb(9, 9, 121);">
-				<h1>還沒有帳號?</h1>
-				<p>來建一個吧 很厲害的</p>
-                <a href="<c:url value='/try/add' />"  style="color: white;">註冊</a>
-				<!-- <button class="ghost" id="signUp">註冊</button> -->
+							<div class="col-md-12 form-group">
+								<form:input  class="form-control" path="userEmail"  id="name" name="name" placeholder="請輸入帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"/>
+							</div>
+							<div class="col-md-12 form-group">
+								<form:password class="form-control" path="userPwd"  id="pwd" name="name" placeholder="請輸入密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"/>
+							</div>
+							<div class="col-md-12 form-group">
+								<div class="creat_account">
+									<input type="checkbox" id="f-option2" name="selector">
+									<label for="f-option2">保持登入狀態</label>
+								</div>
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="button button-login w-100">登入</button>
+								<input id="onejan" type="button" value="一键输入用户名"  onclick='quickInput();' > 
+									<input id="onejan2" type="button" value="一键输入管理者"  onclick='quickInput2();' >  <br>
+								<a href="<c:url value='/member/forget' />">忘記密碼?</a>
+							</div>
+						</form:form>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-<!-- </div> -->
-
-<footer>
-	<p>
-		Created with <i class="fa fa-heart"></i> by
-		<a target="_blank" href="https://florin-pop.com">Florin Pop</a>
-		- Read how I created this and how you can join the challenge
-		<a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
-	</p>
-</footer>
+	</section>
+	<!--================End Login Box Area =================-->
 
 
 
-    <script>
-    /*
-    // 1 jan input
-    let demoBTN = document.getElementById('onejan')
-    demoBTN.onclick = function(){
-    document.getElementById("name").setAttribute('value','a2152265@gmail.com');
-    document.getElementById("pwd").setAttribute('value','a2152265@gmail.com');               
-   console.log("YAA");
-    };*/
-    
-    
-    
-    
-    
-        const signUpButton = document.getElementById('signUp');
-const signInButton = document.getElementById('signIn');
-const container = document.getElementById('container');
+  <!--================ Start footer Area  =================-->	
+	<footer>
+		<div class="footer-area footer-only">
+			<div class="container">
+				<div class="row section_gap">
+					<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets ">
+							<h4 class="footer_title large_title">我們的目標</h4>
+							<p>
+								起初，BuyBuyLa最初創立的目標是為了讓廖總能在台北多買一棟帝寶，1997年時廖總誕生於台北醫學院的護理產房，伴隨著他的是大安區10幾張地契的月子禮，
+								而後又過了幾年，廖總與他一起長大的好夥伴葉總、謝總、歐總，他們展現出了無與倫比的天賦，在工程、財經、甚至極限運動上都有了驚人的成就(雖然他們並不缺錢)
+							</p>
+							<p>
+								2021年，BuyBuyLa於中央大學的一間小工作室中誕生(暫定)，為了BuyBuyLa人們的money而設計出了另類的網站，有著奇怪的會員系統，神奇的商品、複雜的購物車、賭徒般的活動、社交的討論區，
+								BuyBuyLa於人們野望中誕生。
+							</p>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">快速連結</h4>
+							<ul class="list">
+								<li><a href="#">首頁</a></li>
+								<li><a href="#">商品</a></li>
+								<li><a href="#">討論版</a></li>
+								<li><a href="#">購物車</a></li>
+								<li><a href="#">活動</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget instafeed">
+							<h4 class="footer_title">Gallery</h4>
+							<ul class="list instafeed d-flex flex-wrap">
+								<li><img src="img/gallery/r1.jpg" alt=""></li>
+								<li><img src="img/gallery/r2.jpg" alt=""></li>
+								<li><img src="img/gallery/r3.jpg" alt=""></li>
+								<li><img src="img/gallery/r5.jpg" alt=""></li>
+								<li><img src="img/gallery/r7.jpg" alt=""></li>
+								<li><img src="img/gallery/r8.jpg" alt=""></li>
+							</ul>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">聯絡我們</h4>
+							<div class="ml-40">
+								<p class="sm-head">
+									<span class="fa fa-location-arrow"></span>
+									總部
+								</p>
+								<p>台北市中正區重慶南路一段122號</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-phone"></span>
+									電話
+								</p>
+								<p>
+									+0921212121 <br>
+									+0226462646
+								</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-envelope"></span>
+									電子信箱
+								</p>
+								<p>
+									a212121@BuyBuyLa.org <br>
+									
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-signUpButton.addEventListener('click', () => {
-	container.classList.add("right-panel-active");
-});
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row d-flex">
+					<p class="col-lg-12 footer-text text-center">
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--================ End footer Area  =================-->
 
-signInButton.addEventListener('click', () => {
-	container.classList.remove("right-panel-active");
-});
-    </script>
 
 
-    
+  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
+  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="vendors/skrollr.min.js"></script>
+  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
+  <script src="vendors/jquery.ajaxchimp.min.js"></script>
+  <script src="vendors/mail-script.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

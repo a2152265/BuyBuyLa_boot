@@ -1,6 +1,8 @@
 package com.web.cart_30.controller;
 
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -30,7 +32,7 @@ import com.web.record_30.model.RecordList;
 
 
 @Controller
-@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" ,"cart"})
+@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" ,"cart","OrderItemCount"})
 public class CartController {
 	CartService cartService;
 
@@ -161,12 +163,23 @@ public class CartController {
 		Integer rc = cartService.getRidCount(1);
 		RecordBean rb=new RecordBean();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		
 		String now = dtf.format(LocalDateTime.now());
+		
+		String str="ATXH";
+		
+		
+		str = str+now.substring(0,4)+now.substring(5,7)+now.substring(8,10)
+		+now.substring(11,13)+now.substring(14,16)+now.substring(17,19);
+		System.out.println(now.replaceAll("/:",""));
+	
+		
+		
 		double totalprice =0;
 		System.out.println(address+"////////////////////");
 		for(Cart c:cart) {
 			
-			rb.setRecord_id(rc);
+			rb.setRecord_id(str);
 			rb.setPid(c.getProduct().getProductId());
 			rb.setP_name(c.getProduct().getProductName());
 			rb.setP_price(c.getProduct().getPrice());
@@ -190,7 +203,7 @@ public class CartController {
 			cartService.updateStock(rb.getPid(),stock);
 
 		}
-		RecordList  recordList = new RecordList(rc, buyer, totalprice,now,address,"未付款","待出貨");
+		RecordList  recordList = new RecordList(str, buyer, totalprice,now,address,"未付款","待出貨");
 		
 		
 		SimpleMailMessage message =new SimpleMailMessage();

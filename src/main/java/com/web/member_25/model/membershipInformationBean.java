@@ -53,6 +53,10 @@ public class membershipInformationBean {
 	@Column(name="verifyCode")
 	Integer verifyCode;
 	
+	//Suspension
+	@Column(name="suspension")
+	String suspension;
+	
 	
 	public membershipInformationBean() {
 		
@@ -82,7 +86,7 @@ public class membershipInformationBean {
 		public membershipInformationBean(Integer id, String userEmail, String userPhone, String userPwd,
 				String userName, String userNickname, String userGender, String address, String identification,
 				Blob head_shot, String fileName, String birthday, String notes, Integer verifyCode, String userPwd1,
-				int verificationCode, MultipartFile productImage) {
+				int verificationCode, MultipartFile productImage,String suspension) {
 
 			this.id = id;
 			this.userEmail = userEmail;
@@ -99,7 +103,18 @@ public class membershipInformationBean {
 			this.notes = notes;
 			this.verifyCode = verifyCode;
 			this.userPwd1 = userPwd1;
+			this.suspension=suspension;
 	
+		}
+		
+		
+
+		public String getSuspension() {
+			return suspension;
+		}
+
+		public void setSuspension(String suspension) {
+			this.suspension = suspension;
 		}
 
 		public Integer getId() {

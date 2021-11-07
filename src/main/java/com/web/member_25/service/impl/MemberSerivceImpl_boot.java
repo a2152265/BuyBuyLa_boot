@@ -196,8 +196,27 @@ public class MemberSerivceImpl_boot implements MemberService{
 
 	@Override
 	public int loginByEmail(String userEmail) {
-		// TODO Auto-generated method stub
-		return 0;
+		int loginState=0;
+		System.out.println("login中......");
+		
+		try {
+			System.out.println("findByUserEmailAndUserPwd------------------->"+membertRepository.findByUserEmail(userEmail));
+			
+			if (membertRepository.findByUserEmail(userEmail)==null) {
+				loginState=2;
+			}else {
+				loginState=1; System.out.println("serverImpl成功登入");				
+			}
+	} catch (NullPointerException e) {
+		e.printStackTrace();
+		System.out.println("查無帳號  ----->");
+		loginState=2;
+	}catch (IncorrectResultSizeDataAccessException e) {
+		System.out.println("帳號重複多筆--Inco ----->");
+		loginState=3;
+	}
+
+	return loginState;
 	}
 
 

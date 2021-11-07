@@ -1,88 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
-    <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
-	
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    
-    <link rel="stylesheet" href="member.css">
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>會員中心</title>
-    <style>
-        
-
-    </style>
-</head>
-<body >
-   
-    <div class="wrapper" >
-       <div class="section">
-
-
-
-    <div class="top_navbar" style="background-color: rgb(51, 63, 177);">
-      <div class="hamburger">
-        <a href="#">
-          <i class="fas fa-bars"></i>
-        </a>
-      </div>
-    </div>
-
-
-
-        <!-- <h1>WE Will BuyBuyLA your money</h1>
-        <h2>Flexbo -> 商品狀態x</h2>
-        <nav>
-            <ul class="flex-nav">
-                <li><a href="#">未付款</a></li>
-                <li><a href="#">已付款</a></li>
-                <li><a href="#">已出貨</a></li>
-                <li><a href="#">運送中</a></li>
-                <li><a href="#">已送達</a></li>
-                <li><a href="#">已完成</a></li>
-                <li><a href="#">取消交易</a></li>
-            </ul>
-        </nav> -->
-        
-  
-
-
-
-
-    <div class="container" >
-      <span style="font-size:30px;  font-weight:bold;">會員專區</span>
-      </div>
-
-
-
-    
-
-         
-                  <div class="card text-black" style="border-radius: 25px;">
-                    <div class="card-body p-md-5">
-                      <div class="row justify-content-center">
-                        <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-          
-                          <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"> 修改會員資料 </p>
+ <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<!-- header -->
+<%@ include file="../Home/member/member_25/header.jspf"%>
+<!-- sidebar -->>
+<%@ include file="../Home/member/member_25/sidebar.jspf"%>
+                          
+                               <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"> 修改會員資料 </p>
+                       
                             <!-- 修改表單開始 -->
                           <form:form method='POST' modelAttribute="memberUiDefault"
                           class="mx-1 mx-md-4" enctype="multipart/form-data">
@@ -152,7 +76,13 @@
                             <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                 <input type="button" id="onejan" name="submitRewrite" class="btn btn-primary btn-lg" value="一鍵輸入">
                               </div>
-          
+                              
+                              <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                              <a href="<c:url value='/member/suspension' />">
+                      				  <span class="icon"><i class="fas fa-database"></i></span>
+                     				   <span class="item">停用帳號</span>
+                  				  </a>
+          						 </div>
           
                         </div>
                         
@@ -182,113 +112,93 @@
                       </div>
                     </div>
                   </div>
+                  
+                  
+                  
+                  
                
 
        
-      
-       
-       
-      
-      
-      
+       <!-- 放入聊天室 -->
+        <!-- Button trigger modal -->
+        <div style=" position: fixed; right:0;  top: 92%;  z-index:9999;">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" >
+    BuyBuy子在此為您服務
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">歡迎~</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+            <span aria-hidden="true" >&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="height:600px">
         
         
-        
+        <!-- 進入頁面 -->
+    <div id="username-page"> 
+        <div class="username-page-container" >
+            <h1 class="title">輸入暱稱</h1>
+            
+            <form id="usernameForm" name="usernameForm">
+                <div class="form-group popup">
+                    <input type="text" id="name" placeholder="輸入名稱..."
+                        autocomplete="off" class="form-control popup" />
+                    <span class="popuptext" id="hint">請輸入暱稱</span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="accent username-submit">開始聊天</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-	
-
-
- 
-<div>
-        <div class="sidebar" style="background-color: rgb(51, 63, 177);">
-            <div class="profile">
-             <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
-                <!-- 讀取圖片 -->
-               <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
-                <h3></h3>
-                <p>${memberUiDefault.userEmail} </p>
+    <!-- 聊天室頁面 -->
+    <div id="chat-page" class="hidden">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2>BuyBuyLa</h2>
             </div>
-            <ul>
-                <li>
-                    <a href="<c:url value='/' />" class="active">
-                        <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">回首頁</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/selectLsit'/>">
-                        <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">購買紀錄</span>
-                    </a>
-                </li>
-                  <li>
-                    <a href="<c:url value='/addressLsit'/>">
-                        <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">地址管理</span>
-                    </a>
-                </li>
-           
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">討論區</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item">帳號管理</span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="<c:url value='/member/evolution' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item">賣家中心</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/member/changePwd_check' />">
-                        <span class="icon"><i class="fas fa-chart-line"></i></span>
-                        <span class="item">更改密碼</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/try/coupon' />">
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
-                        <span class="item">我的折價券</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/try/delete' />"  onclick="return(confirm('確認刪除？'))">
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">刪除會員</span>
-                    </a>
-                </li>
+            <div class="connecting">BuyBuy子正在趕來中....</div>
+            <ul id="messageArea" class="messageBodyY">
 
-                <!-- /*減去footer高度*/ -->
-                <li>
-                    <a href="<c:url value='/member/inschan' />">
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">隱私權政策</span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">登出</span>
-                    </a>
-                </li>
-                
-                
             </ul>
         </div>
-        
+            <form id="messageForm" name="messageForm">
+                <div class="form-group">
+                    <div class="input-group clearfix" style="margin-top:-15%; ">
+                        <input type="text" id="message" placeholder="輸入訊息..."
+                            autocomplete="off" class="form-control" />
+                        <button type="submit" class="primary">送出</button>
+                    </div>
+                </div>
+            </form>
     </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+          <button type="button" class="btn btn-primary">HI</button>
+        </div>
+      </div>
+    </div>
+  </div>
+      </div> 
+       
+       
+       
+       
+       
+       
+      
+       <!-- sidebar is here -->>
    
-
-
+   
+   
     <script>
     // 1 jan input
     let demoBTN = document.getElementById('onejan')
@@ -317,6 +227,207 @@ $(".custom-file-input").on("change", function() {
   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 });
     </script>
+    
+    
+    
+    
+    
+    
+    <!-- 聊天室區 -->
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="/js/main.js?version=1"></script>
+
+
+
+<script>
+'use strict';
+
+var usernamePage = document.querySelector('#username-page');
+var chatPage = document.querySelector('#chat-page');
+var usernameForm = document.querySelector('#usernameForm');
+var messageForm = document.querySelector('#messageForm');
+var messageInput = document.querySelector('#message');
+var messageArea = document.querySelector('#messageArea');
+var connectingElement = document.querySelector('.connecting');
+var nameInput = document.querySelector('#name');
+var popup = document.querySelector('#hint');
+
+var stompClient = null;
+var username = null;
+
+/**
+ * 頭像的顏色
+ */
+var colors = [ '#2196F3', '#32c787', '#00bcd4','#4dbb00', '#ff5652', '#ffc107',
+        '#ff85af', '#ff9800', '#39bbb0', '#b0c503' ];
+
+/**
+ * 連線
+ * @param event
+ * @returns
+ */
+function connect(event) {
+    username = document.querySelector('#name').value.trim();
+
+    if (username) {
+        usernamePage.classList.add('hidden');
+        chatPage.classList.remove('hidden');
+
+        var socket = new SockJS('/BuyBuyla_boot/chatroom');
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, onConnected, onError);
+    } else {
+        popHint();
+    }
+    event.preventDefault();
+}
+
+/**
+ * 連線建立後要處理的邏輯
+ * @returns
+ */
+function onConnected() {
+    // 訂閱/topic/public
+    stompClient.subscribe('/topic/public', onMessageReceived); // 當後端送訊息至/topic/public時，會執行onMessageReceived()。
+
+    // 發送訊息至/app/join，也就是送到ChatController.addUser()
+    stompClient.send("/app/join", {}, JSON.stringify({
+        sender : username,
+        type : 'JOIN'
+    }))
+
+    connectingElement.classList.add('hidden');
+}
+
+function onError(error) {
+    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
+    connectingElement.style.color = 'red';
+}
+
+/**
+ * 彈出提示
+ * @returns
+ */
+function popHint() {
+    popup.classList.toggle("show");
+}
+
+/**
+ * 發送訊息
+ * @param event 發送訊息事件
+ * @returns
+ */
+function sendMessage(event) {
+    var messageContent = messageInput.value.trim();
+    if (messageContent && stompClient) {
+        var chatMessage = {
+            sender : username,
+            content : messageInput.value,
+            type : 'CHAT'
+        };
+        // 發送訊息至/app/chat，也就是送到ChatController.sendMessage()
+        stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/chatback", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/chatback2", {}, JSON.stringify(chatMessage));
+        //測試send to user2
+        stompClient.send("/app/user2", {}, JSON.stringify(chatMessage));
+        stompClient.send("/app/user3", {}, JSON.stringify(chatMessage));
+        messageInput.value = '';
+    }
+    event.preventDefault();
+}
+
+/**
+ * 從後端接受訊息後要進行的處理
+ * @param payload 後端送來的訊息
+ * @returns
+ */
+function onMessageReceived(payload) {
+    var message = JSON.parse(payload.body);
+
+    var messageElement = document.createElement('li');
+
+    if (message.type === 'JOIN') {
+        messageElement.classList.add('event-message');
+        message.content = message.sender + ' 加入聊天室';
+    } else if (message.type === 'LEAVE') {
+        messageElement.classList.add('event-message');
+        message.content = message.sender + ' 離開聊天室';
+    } else {
+        messageElement.classList.add('chat-message');
+
+        var avatarElement = getAvatarElement(message.sender);
+        messageElement.appendChild(avatarElement);
+
+        var usernameElement = getUsernameElement(message.sender);
+        messageElement.appendChild(usernameElement);
+    }
+    console.log(message.content);
+
+    var textElement = document.createElement('p');
+    var messageText = document.createTextNode(message.content);
+    textElement.appendChild(messageText);
+
+    messageElement.appendChild(textElement);
+
+    messageArea.appendChild(messageElement);
+    messageArea.scrollTop = messageArea.scrollHeight;
+}
+
+/**
+ * 取得頭像元素
+ * @param sender 訊息發送者名稱
+ * @returns
+ */
+function getAvatarElement(sender) {
+    var avatarElement = document.createElement('i');
+    var avatarText = document.createTextNode(sender[0]);
+    avatarElement.appendChild(avatarText);
+    avatarElement.style['background-color'] = getAvatarColor(sender);
+    return avatarElement;
+}
+
+/**
+ * 取得頭像顏色
+ * @param sender 訊息發送者名稱
+ * @returns
+ */
+function getAvatarColor(sender) {
+    var hash = 0;
+    for (var i = 0; i < sender.length; i++) {
+        hash = 31 * hash + sender.charCodeAt(i);
+    }
+    var index = Math.abs(hash % colors.length);
+    return colors[index];
+}
+
+/**
+ * 取得使用者名稱的元素
+ * @param sender 使用者名稱
+ * @returns
+ */
+function getUsernameElement(sender) {
+    var usernameElement = document.createElement('span');
+    var usernameText = document.createTextNode(sender);
+    usernameElement.appendChild(usernameText);
+    return usernameElement;
+}
+
+/**
+ * 移除彈出的提示
+ * @param event
+ * @returns
+ */
+function removePopup (event) {
+    popup.classList.remove("show");
+}
+
+nameInput.addEventListener('focus', removePopup, true)
+usernameForm.addEventListener('submit', connect, true)
+messageForm.addEventListener('submit', sendMessage, true)
+</script>
  
 </body>
 </html>

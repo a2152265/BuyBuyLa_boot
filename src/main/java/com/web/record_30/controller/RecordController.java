@@ -41,7 +41,7 @@ public class RecordController {
 
 //查購物紀錄細項	
 	@GetMapping("/select")
-    public String getAddNewMemberForm1(@RequestParam Integer id,Model model) {		
+    public String getAddNewMemberForm1(@RequestParam String id,Model model) {		
 
 
 		System.out.println("buyer2 =" +id);		
@@ -85,7 +85,7 @@ public class RecordController {
 		
 //賣家刪掉單筆商品賣出紀錄
 	@GetMapping("/delete")
-	public String delete2(@RequestParam Integer rid,@RequestParam Integer pid ,Model model) {
+	public String delete2(@RequestParam String rid,@RequestParam Integer pid ,Model model) {
 		
 	
 		
@@ -135,7 +135,7 @@ public class RecordController {
 	//賣家更改單筆商品出貨狀態
 	@GetMapping("/updatevalue30")
 	public String updatestatus(@ModelAttribute("loginSession") membershipInformationBean mb,
-			@RequestParam("rid") Integer rid,
+			@RequestParam("rid") String rid,
 			@RequestParam("pid") Integer pid,
 			@RequestParam("ts") String ts,
 			Model model ) {
@@ -168,8 +168,9 @@ public class RecordController {
 		return "record_30/manage/recordManage";
 	}
 	
+	//更新購物資料
 	@GetMapping("/updateRecordList")
-	public String updateRecordList(@RequestParam Integer rid,Model model) {
+	public String updateRecordList(@RequestParam String rid,Model model) {
 		RecordList recordList = recordservice.getRecordByRid(rid);
 		model.addAttribute("RecordList",recordList);
 
@@ -180,17 +181,18 @@ public class RecordController {
 	@PostMapping("/updateRecordList")
 	public String updateRecordList(@ModelAttribute("RecordList") RecordList recordList,Model model) {
 	
-		int rid =recordList.getRecord_id();
+		String rid =recordList.getRecord_id();
 		String buyer = recordList.getBuyer();
 		double totalprice = recordList.getTotalprice();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		String now = dtf.format(LocalDateTime.now());
-		recordList.setBuy_time(now);
+		String buytime =recordList.getBuy_time();
 		String buyeraddress = recordList.getBuyeraddress();
 		String transport_status= recordList.getTransport_status();
 		String pay_status= recordList.getPay_status();
+		recordList.setLast_update_time(now);
 		System.out.println("qqqqqqqqqqqqqqqqqqqqqqqqq");
-		System.out.println(rid+","+buyer+","+totalprice+","+buyeraddress+","+now+","+transport_status+","+pay_status);
+		System.out.println(rid+","+buyer+","+totalprice+","+buyeraddress+","+buytime+","+transport_status+","+pay_status);
 //		recordservice.update(rid, pid, transport_status);
 //		System.out.println("rid = "+ rid+",pid = "+pid+"TS = "+transport_status+"+++++++++++++++++++++++");
 		recordservice.updateRecordList(recordList);
@@ -199,11 +201,12 @@ public class RecordController {
 		
 	}
 	
-	
+//刪除時，會刪訂單跟該訂單的細項	
 	@GetMapping("/deleteRecordList")
-	public String deleteRecordList(@RequestParam Integer rid,Model model) {
+	public String deleteRecordList(@RequestParam String rid,Model model) {
 		List<RecordList> recordList = recordservice.getAllMemberRecord();
 		recordservice.deleteRecordList(rid);
+		recordservice.deleteAllRecordByRid(rid);
 		model.addAttribute("allreocrd", recordList);
 		return "record_30/manage/deleteRecordSuccess";
 	}

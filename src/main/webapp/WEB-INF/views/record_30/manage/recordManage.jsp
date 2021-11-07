@@ -173,7 +173,7 @@
 </head>
 
 <body>
-<div class="container-xl " style="max-width: 1200px !important;">
+<div class="container-xl " style="max-width: 1300px !important;">
 		<div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">

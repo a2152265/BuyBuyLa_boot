@@ -23,7 +23,7 @@ import com.web.product_11.service.ProductCommentService;
 import com.web.product_11.service.ProductService;
 
 @Controller
-@SessionAttributes({ "loginSession","cart"})
+@SessionAttributes({ "loginSession","cart","OrderItemCount"})
 public class HomeController {
 	
 	ProductService productservice;
@@ -48,7 +48,7 @@ public class HomeController {
 	
 
 
-	@GetMapping("/")
+	@GetMapping({"/","index"})
 	public String home0(@ModelAttribute("OrderItemCount") String buyer,Model model) {
 		System.out.println("進入首頁La");
 		System.out.println("haha");
@@ -69,9 +69,18 @@ public class HomeController {
 		model.addAttribute("campaignss",cambeans);
 		model.addAttribute("campaignsizes",cambeans.size());
 		
+		System.out.println("/*/*/*//*/*/*/*/*/*/*/*/*");
+		System.out.println(buyer);
 		//從購物車找該買家總購買商品數
+		int count=0;
 		List<Cart> cart = cartService.addToRecord(buyer);
-		model.addAttribute("cart", cart);	
+		for(Cart c:cart) {
+			
+		count+=c.getCount();
+
+		}
+		System.out.println(count);
+		model.addAttribute("count",count);	
 
 		
 		

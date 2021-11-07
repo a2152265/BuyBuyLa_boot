@@ -1,0 +1,34 @@
+<!-- 解決轉碼問題 -->
+ <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+ 
+<div>
+        <div class="sidebar" style="background-color: gray;">
+            <div class="profile">
+             <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
+                <!-- 讀取圖片 -->
+               <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
+                <h3></h3>
+                <p>${memberUiDefault.userEmail} </p>
+            </div>
+            <ul>
+                
+                <li>
+                    <a href="<c:url value='/' />">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">回首頁</span>
+                    </a>
+                </li>
+     
+                
+                <li>
+                    <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">登出</span>
+                    </a>
+                </li>   
+                
+                
+            </ul>
+        </div>
+        
+    </div>
