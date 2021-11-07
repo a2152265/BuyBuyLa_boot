@@ -192,12 +192,15 @@ public class TestLoginController {
 			String susban=mb4.getSuspension();
 			System.out.println("--登入後先判斷停權狀態----------->"+mb4.getSuspension());
 			System.out.println("--登入後先判斷停權狀態-------susban---->"+susban);
-
-			if (mb4.getSuspension().length()!=0) {
-				System.out.println("-----------開始登入ban介面----------"+mb4.getSuspension());
-				model.addAttribute("loginSession",mb4);
-				model.addAttribute("memberUiDefault",mb4);
-				return "redirect:/member/member_ban";
+			try {
+				if (mb4.getSuspension().length()!=0) {
+					System.out.println("-----------開始登入ban介面----------"+mb4.getSuspension());
+					model.addAttribute("loginSession",mb4);
+					model.addAttribute("memberUiDefault",mb4);
+					return "redirect:/member/member_ban";
+				}
+			} catch (Exception e) {
+				System.out.println("沒事-----繼續----");
 			}
 
 			Boolean isMamber = true;

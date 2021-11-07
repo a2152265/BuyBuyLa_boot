@@ -17,11 +17,17 @@ public interface RecordListRepository extends JpaRepository< RecordList, Integer
 	@Transactional
 	@Modifying
     @Query(nativeQuery = true,value="update RecordList  set totalprice= ?1 where record_id = ?2")
-	public void updateRecordListTotalPrice(double totalprice,Integer record_id);
+	public void updateRecordListTotalPrice(double totalprice,String record_id);
 	
+
+	@Transactional
+	@Modifying
+    @Query(nativeQuery = true,value="delete from RecordList where record_id = ?1")
+	public void deleteByRid(String record_id);
 	
-//	@Query(nativeQuery = true, value = "select * from RecordList where record_id=?1")
-//    public List<RecordList> getRecordByRid(int record_id);
+	@Query(nativeQuery = true, value = "select * from RecordList where record_id = ?1")
+    public RecordList getById(String record_id);
+
 	
 	
 	

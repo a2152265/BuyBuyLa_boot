@@ -38,6 +38,30 @@
 
 <title>購物車</title>
 
+ <script>
+    let no = 1000;
+    let index = 0;
+    var buyerName= ["莊逸洪", '廖家慶', '葉俊偉', '謝德榮', '張晉愷'];
+    var phone= ["0978856318", '0973848588', '0920447528', '0966338741', '0978456123'];
+  
+    var address= ["大溪區仁善街245號", '中壢區中正路四段85號', '中壢區春德路105號', '八德區豐田三路56號', '湖口鄉成功路100號'];
+   
+    var email= ["a2152265@gmail.com", 'aa15ss5@gmail.com', 'b21a5875@gmail.com', 'aqe45668@gmail.com', 'c123@gmail.com'];
+    function quickInput(){
+    	document.getElementById('buyerName').value = buyerName[index];
+    	document.getElementById('phone').value = phone[index];
+    
+    	document.getElementById('address').value = address[index];
+    	document.getElementById('email').value = email[index];
+   	
+    	index++;
+        if (index >= buyerName.length) {
+        	index = 0 ;
+    	}
+    	
+    }
+    
+    </script>
 
 
 </head>
@@ -151,11 +175,11 @@
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                         <img width='150'src="<c:url value='/getPicture/${row.pid}' />" />
+                                         <img width='150'src="<c:url value='/getPicture/${row.product.productId}' />" />
                                       </div>     
                                   </div>
                               </td>
-                              <td>${row.p_name}</td>
+                              <td>${row.product.productName}</td>
                               
                               <td>
                           
@@ -164,27 +188,26 @@
                               </td>
                         
                               <td>
-                                  <h5>${row.p_price}</h5>
+                                  <h5>${row.product.price}</h5>
                               </td>
                               <td>
-                                  <h5 class='total'>${row.count*row.p_price}</h5>
+                                  <h5 class='total'>${row.count*row.product.price}</h5>
                               </td>
                         
                           </tr>
                         </c:forEach>
+                        
                           <tr class="bottom_button">
                         
                               <td>
                                  
                               </td>
+                                <td>
+                                 
+                              </td>
                               
-                               <td>
-
-                              </td>
-                               <td>
-
-                              </td>
-                              <td>
+                             
+                              <td  colspan="2">
  	<select id='addAddress' style='font-size:20px'>
         <option selected>Choose...</option>
 		<c:forEach var="rows" items="${BuyerAddressList}">	
@@ -205,31 +228,31 @@
 	        </button>
 	
         <!-- Modal -->
-        <div class="modal fade " id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+        <div class="modal fade " id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="position:absolute; z-index:99999;">
+            <div class="modal-dialog" >
+                <div class="modal-content" >
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">新增地址:</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" >
 
 
 
 							<form:form method='POST' modelAttribute="BuyerAddress" class='needs-validation'>	
-                            <div class="form-row ">
+                            <div class="form-row " >
                                 <div class="col-md-6 mb-3 col-form-label-sm">
                                     <label for="validationCustom01">姓名:</label>
-                                    <form:input path='buyerName' type="text" class="form-control col-form-label-sm"  value="" placeholder="姓名" required="required"/>
+                                    <form:input id='buyerName' path='buyerName' type="text" class="form-control col-form-label-sm"  value="" placeholder="姓名" required="required"/>
                                     <div class="valid-feedback">
 
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="validationCustom02">電話:</label>               
-                                    <form:input type='text' class="form-control" path='phone' value="" placeholder="電話" required="required"/>
+                                    <form:input type='text' class="form-control" id='phone' path='phone' value="" placeholder="電話" required="required"/>
                                     <div class="valid-feedback">
 
                                     </div>
@@ -238,7 +261,7 @@
                             <div class="form-group">
                                 <label for="validationCustom02">城市:</label>
 <!--                                 <select class="form-select form-select-lg mb-3" > -->
-                                <form:select path='city' class="custom-select mr-sm-2" aria-label=".form-select-lg example" id="inlineFormCustomSelect" required="required">
+                                <form:select path='city' class="custom-select mr-sm-2" aria-label=".form-select-lg example" id="city" required="required">
                                     <option selected>Choose...</option>
                                     <form:option value="臺北市">臺北市</form:option>
                                     <form:option value="新北市">新北市</form:option>
@@ -270,7 +293,7 @@
 
                             <div class="form-group">
                                 <label for="validationCustom03">地址:</label>
-                                <form:input path='address' type="text" class="form-control" id="validationCustom02" value="" placeholder="地址" required="required"/>
+                                <form:input path='address' type="text" class="form-control" id="address" value="" placeholder="地址" required="required"/>
                                 <div class="valid-feedback">
 
                                 </div>
@@ -278,7 +301,7 @@
 
                             <div class="form-group">
                                 <label for="validationCustom03">Email</label>
-                                <form:input path='email' type="text" class="form-control" id="validationCustom02" value="" placeholder="Email" required="required"/>
+                                <form:input path='email' type="text" class="form-control" id="email" value="" placeholder="Email" required="required"/>
                                 <div class="valid-feedback">
 
                                 </div>
@@ -287,7 +310,7 @@
 
                             <div class="modal-footer">
 
-                                <button type="button" class="btn btn-outline-info">一件輸入</button>
+                                <button type="button" class="btn btn-outline-info" onclick='quickInput();'>一件輸入</button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
 
                                 <button type="submit" class="btn btn-primary">送出</button>
@@ -359,7 +382,26 @@
                                   <h2 id='totalPrice' style="font-size:60px">0</h2>
                               </td>
                           </tr>
-               
+                  <tr class="out_button_area">
+                              <td class="d-none-l">
+
+                              </td>
+                              <td>
+ 				
+                              </td>
+                               <td>
+
+                              </td>
+                              <td>
+
+                              </td>
+                              <td>
+
+                              </td>
+                              <td>
+                              
+                              </td>
+                          </tr>
                           <tr class="out_button_area">
                               <td class="d-none-l">
 
@@ -427,7 +469,9 @@
 		})	
 
 
-$(".submit").click(function(){		
+$(".submit").click(function(){	
+	
+	
 		  let timerInterval
 		  Swal.fire({
 		  title: '交易處理中 ! !',
@@ -450,6 +494,7 @@ $(".submit").click(function(){
 		    console.log('I was closed by the timer')
 		  }
 		})
+		
 		var data=$('#selectval').val();
 		console.log(data);
 		$.ajax({
@@ -469,7 +514,10 @@ $(".submit").click(function(){
 		
 	});
 		
-	
+	 
+   
+   
+   
 
 	</script>
 

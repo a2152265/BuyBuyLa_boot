@@ -1,6 +1,8 @@
 package com.web.cart_30.controller;
 
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -30,7 +32,7 @@ import com.web.record_30.model.RecordList;
 
 
 @Controller
-@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" ,"cart"})
+@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" ,"cart","OrderItemCount"})
 public class CartController {
 	CartService cartService;
 
@@ -57,6 +59,9 @@ public class CartController {
 		System.out.println("PID cc= "+id);
 		String buyer=mb.getUserEmail();
 		cartService.addItemByid(id,buyer);
+		model.addAttribute("OrderItemCount",buyer);
+		
+		
 		return "redirect:/";
 	}
 	
@@ -158,21 +163,32 @@ public class CartController {
 		Integer rc = cartService.getRidCount(1);
 		RecordBean rb=new RecordBean();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		
 		String now = dtf.format(LocalDateTime.now());
+		
+		String str="ATXH";
+		
+		
+		str = str+now.substring(0,4)+now.substring(5,7)+now.substring(8,10)
+		+now.substring(11,13)+now.substring(14,16)+now.substring(17,19);
+		System.out.println(now.replaceAll("/:",""));
+	
+		
+		
 		double totalprice =0;
 		System.out.println(address+"////////////////////");
 		for(Cart c:cart) {
 			
-			rb.setRecord_id(rc);
-			rb.setPid(c.getPid());
-			rb.setP_name(c.getP_name());
-			rb.setP_price(c.getP_price());
+			rb.setRecord_id(str);
+			rb.setPid(c.getProduct().getProductId());
+			rb.setP_name(c.getProduct().getProductName());
+			rb.setP_price(c.getProduct().getPrice());
 			rb.setPcount(c.getCount());
 			rb.setBuyer(buyer);
-			rb.setSeller(c.getSeller());
+			rb.setSeller(c.getProduct().getSeller());
 			rb.setBuy_time(now);
 			rb.setTransport_status("待出貨");
-			rb.setCategory(c.getCategory());
+			rb.setCategory(c.getProduct().getCategory());
 			rb.setBuyeraddress(address);
 			System.out.println("****************************************************");
 			System.out.println("***"+rb.getId()+"RID = "+rb.getRecord_id()+", PID = "+rb.getPid()+", NAME = "
@@ -180,13 +196,16 @@ public class CartController {
 					+", BUYER = "+rb.getBuyer()+", SELLER = "+rb.getSeller());
 			System.out.println(address+"////////////////////");
 			System.out.println(rb.getBuyeraddress());
-			totalprice+=c.getP_price()*c.getCount();
+			totalprice+=c.getProduct().getPrice()*c.getCount();
 			
 			cartService.addToRecord2(rb);
-			
+			int stock =c.getProduct().getStock()-rb.getPcount();
+			cartService.updateStock(rb.getPid(),stock);
 
 		}
-		RecordList  recordList = new RecordList(rc, buyer, totalprice,now,address,"未付款","待出貨");
+		RecordList  recordList = new RecordList(str, buyer, totalprice,now,address,"未付款","待出貨");
+		
+		
 		SimpleMailMessage message =new SimpleMailMessage();
 		message.setTo(buyer);
 		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");

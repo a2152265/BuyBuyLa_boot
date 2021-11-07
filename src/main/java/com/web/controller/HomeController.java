@@ -23,7 +23,7 @@ import com.web.product_11.service.ProductCommentService;
 import com.web.product_11.service.ProductService;
 
 @Controller
-@SessionAttributes({ "loginSession","cart"})
+@SessionAttributes({ "loginSession","cart","OrderItemCount"})
 public class HomeController {
 	
 	ProductService productservice;
@@ -48,8 +48,8 @@ public class HomeController {
 	
 
 
-	@GetMapping("/")
-	public String home0(Model model) {
+	@GetMapping({"/","index"})
+	public String home0(@ModelAttribute("OrderItemCount") String buyer,Model model) {
 		System.out.println("進入首頁La");
 		System.out.println("haha");
 		List<Product> allProduct = productservice.getAllProducts();
@@ -65,6 +65,22 @@ public class HomeController {
 		List<Campaign> cambeans = campaignService.findAll();
 		model.addAttribute("campaignss",cambeans);
 		model.addAttribute("campaignsizes",cambeans.size());
+		
+		System.out.println("/*/*/*//*/*/*/*/*/*/*/*/*");
+		System.out.println(buyer);
+		//從購物車找該買家總購買商品數
+		int count=0;
+		List<Cart> cart = cartService.addToRecord(buyer);
+		for(Cart c:cart) {
+			
+		count+=c.getCount();
+
+		}
+		System.out.println(count);
+		model.addAttribute("count",count);	
+
+		
+		
 		
 		//討論區-官方最新公告
 //		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
@@ -85,6 +101,16 @@ public class HomeController {
 		
 		return "Home/manageHome";
 		
+	}
+	
+	
+	
+	@ModelAttribute("OrderItemCount")
+	public String setbuyer(Model model) {
+				
+		String buyer = null;
+		
+		return buyer;
 	}
 	
 	

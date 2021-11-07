@@ -36,7 +36,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.cart_30.model.Cart;
 import com.web.cart_30.service.CartService;
+import com.web.celebrations_36.model.Campaign;
+import com.web.celebrations_36.service.CampaignService;
 import com.web.member_25.model.membershipInformationBean;
 import com.web.member_25.service.MemberService;
 import com.web.product_11.model.Product;
@@ -45,7 +48,7 @@ import com.web.product_11.service.ProductCommentService;
 import com.web.product_11.service.ProductService;
 
 @Controller
-@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" })
+@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData","OrderItemCount" })
 public class ProductController {
 
 	ProductService productservice;
@@ -53,16 +56,17 @@ public class ProductController {
 	MemberService memberService;
 	ServletContext servletContext;
 	CartService cartService;
-
+	CampaignService campaignService;
 	@Autowired
 	public ProductController(ProductService productservice, ProductCommentService productCommentService,
-			MemberService memberService, ServletContext servletContext, CartService cartService) {
-		super();
+			MemberService memberService, ServletContext servletContext, CartService cartService,CampaignService campaignService) {
+		
 		this.productservice = productservice;
 		this.productCommentService = productCommentService;
 		this.memberService = memberService;
 		this.servletContext = servletContext;
 		this.cartService = cartService;
+		this.campaignService=campaignService;
 	}
 
 	public ProductController() {
@@ -71,10 +75,41 @@ public class ProductController {
 
 	//顯示所有商品
 	@GetMapping("/products")
-	public String productList(Model model) {
+	public String productList(@ModelAttribute("OrderItemCount") String buyer,Model model) {
 
 		List<Product> beans = productservice.getAllProducts();
 		model.addAttribute("products", beans);
+		
+		
+		System.out.println("進入首頁La");
+		System.out.println("haha");
+		List<Product> allProduct = productservice.getAllProducts();
+		System.out.println("首頁の商品列表展示中ing.....");
+		model.addAttribute("products", allProduct);
+		model.addAttribute("categoryList", productservice.getAllCategories());
+		
+		//商品顯示(依照商品上傳時間、上架顯示)
+		List<Product> ascProduct = productservice.productOrderByInsertTime();
+		model.addAttribute("ascProduct", ascProduct);
+		
+		//首頁輪播圖
+		List<Campaign> cambeans = campaignService.findAll();
+		model.addAttribute("campaignss",cambeans);
+		model.addAttribute("campaignsizes",cambeans.size());
+		
+		System.out.println("/*/*/*//*/*/*/*/*/*/*/*/*");
+		System.out.println(buyer);
+		//從購物車找該買家總購買商品數
+		List<Cart> cart = cartService.addToRecord(buyer);
+		model.addAttribute("cart", cart);	
+
+		
+		
+		
+		//討論區-官方最新公告
+//		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
+//		model.addAttribute("announcementList",announcementList);
+		
 		return "index";
 		
 		

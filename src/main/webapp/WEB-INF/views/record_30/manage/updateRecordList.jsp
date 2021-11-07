@@ -154,8 +154,16 @@ $(document).ready(function () {
                <form:hidden path="buyer" /><br>&nbsp;
 			</c:if>
  			<form:hidden path="record_id" /><br>
+ 			<form:hidden path="buy_time" /><br>
 		<form:hidden path="totalprice" /><br>
-	
+	<div class="row">
+          <div class="col-25">
+            <label for="fname">訂單編號</label>
+          </div>
+          <div class="col-75" style="padding-top: 10px;">
+          ${RecordList.record_id} 
+          </div>
+        </div>
         
         <div class="row">
           <div class="col-25">
@@ -167,7 +175,7 @@ $(document).ready(function () {
         </div>
         <div class="row">
           <div class="col-25">
-            <label for="fname">會員帳號</label>
+            <label for="fname">訂單總價</label>
           </div>
           <div class="col-75" style="padding-top: 10px;">
           ${RecordList.totalprice} 
@@ -175,7 +183,7 @@ $(document).ready(function () {
         </div>
        <div class="row">
           <div class="col-25">
-            <label for="fname">會員帳號</label>
+            <label for="fname">購買日期</label>
           </div>
           <div class="col-75" style="padding-top: 10px;">
           ${RecordList.buy_time} 

@@ -15,23 +15,34 @@
         </div>
       </div>
       
- 
+ <input id='female'  class='female' value='${female}'type='hidden' />
+ <input id='male' value='${male}' type='hidden'/>
+ <input id='pet' value='${pet}' type='hidden'/>
+ <input id='fit' value='${fit}' type='hidden'/>
+ <input id='other' value='${other}' type='hidden'/>
       
       
       
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
     
 
     <script>
-
-      let ctx = document.getElementById('lineChart');
-let myChart = new Chart(ctx, {
+	var female = document.getElementById('female').value
+	var male = document.getElementById('male').value
+	var pet = document.getElementById('pet').value
+	var fit = document.getElementById('fit').value
+	var other = document.getElementById('other').value
+   
+    
+    
+    let ctx = document.getElementById('lineChart');
+	let myChart = new Chart(ctx, {
     type: 'pie',
     data: {
         labels: ['女性衣服', '男性衣服', '寵物', '健身器材', '其他'],
         datasets: [{
             label: '# of Votes',
-            data: [10, 5, 12, 5, 1],
+            data: [female,male, pet, fit,other],
             backgroundColor: [
                 'rgba(255, 99, 132,0.5)',
                 'rgba(54, 162, 235,0.5)',

@@ -99,7 +99,7 @@
 
 
               <!---------------- 購物車 ---------------->
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
+              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
 
             </ul>
           </div>
@@ -486,17 +486,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
      
 <!--  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
-<c:forEach var="row" items="${cart}">
-<span class="count"  style="display:none"> ${row.count}</span>
 
-</c:forEach>
+<input type='hidden' value='${count}' class='count2' />
 
 
 	
 <script>
 
 
-var count=0;
+
 // const MySwal = withReactContent(Swal)
 $(".additem").click(function(){		
 
@@ -518,9 +516,15 @@ $(".additem").click(function(){
 				  showConfirmButton: false,
 				  timer: 1500
 				})
-			
-
-
+		},error:function(){
+			Swal.fire({
+				  position:'center',
+				  icon: 'error',
+				  title: '加入購物車失敗 ! ! !',
+				  text: '請登入會員',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
 		}
 								
 	});		
@@ -528,14 +532,9 @@ $(".additem").click(function(){
 	
 });
 
-$('.count').each(function(){
-	$(this).html;
-	var a = parseInt($(this).html());
-	count=count+a
 
-	})
 
-$('#ccount').html(count)
+$('#ccount').html(count2)
 
 
 </script>
