@@ -285,8 +285,14 @@ public class TestLoginController {
 		mb=memberService.findMemberDataAll(httpServletRequest.getUserPrincipal().getName());
 		
 		System.out.println("membershipInformationBean --getUserEmail----->" + mb.getUserEmail());
-		if (mb.getSuspension()!=null) {
-			return "redirect:/member/member_ban";
+		try {
+			if (mb.getSuspension().length()==0) {
+				System.out.println("這傢伙被ban了");
+				return "redirect:/member/member_ban";
+			}
+			
+		} catch (Exception e) {
+			System.out.println("-------沒事--繼續-------->");
 		}
 		
 		membershipInformationBean mb2 = new membershipInformationBean();
