@@ -1000,13 +1000,19 @@ return "redirect:/manager_Ui0";
 			List<String> banList=new ArrayList<>();
 			System.out.println("-------11----------->");
 			for(int i=0;i<memberList.size();i++) {
-				if (memberList.get(i).getSuspension()!=null) {
-					System.out.println("----22-------------->");
-					banList.add(memberList.get(i).getUserEmail());
-					memberCount++;
-					System.out.println("--會員被ban名單--------------"+banList);
+				
+				try {
+					if (memberList.get(i).getSuspension().length()!=0) {
+						System.out.println("----22-------------->");
+						banList.add(memberList.get(i).getUserEmail());
+						memberCount++;
+						System.out.println("--會員被ban名單--------------"+banList);
+					}
+					count++;
+					
+				} catch (Exception e) {
+					System.out.println("---沒事 繼續找ban----->");
 				}
-				count++;
 				
 			}
 			System.out.println("--會員被ban名單---嫁入list完成-----------");
