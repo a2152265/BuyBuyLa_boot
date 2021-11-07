@@ -140,13 +140,6 @@ public class CartController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	@GetMapping("/check")
 	public String check(@ModelAttribute("loginSession")  membershipInformationBean mb,Model model) {
 		String buyer=mb.getUserEmail();	
