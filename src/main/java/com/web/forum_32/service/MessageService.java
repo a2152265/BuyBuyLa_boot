@@ -92,5 +92,13 @@ public class MessageService implements IMessageService{
 	public List<MessageReplyBean> findByMessageReplyId(Integer messageReplyId) {
 		return messageReplyResository.findByMessageReplyId(messageReplyId);
 	}
+	@Override
+	public void deleteReply(Integer id) {
+		messageReplyResository.deleteById(id);
+	}
+	@Override
+	public MessageReplyBean getByReplyId(Integer replyId) {
+		return messageReplyResository.getById(replyId);
+	}
 
 }

@@ -230,6 +230,16 @@ public class DetailsController {
 		forumService.addOrEdit(updateMessageQty);
 		messageService.delete(id);
 	}
+	// 刪除評論
+	@GetMapping(value = "/deleteReplyMessage")
+	public void deleteReplyMessage(@RequestParam("id") Integer id,
+			@RequestParam("forumId") Integer forumId) {
+		
+		ForumBean updateMessageQty =forumService.getContentById(forumId);
+		updateMessageQty.setMessageQty(updateMessageQty.getMessageQty()-1);
+		forumService.addOrEdit(updateMessageQty);
+		messageService.deleteReply(id);
+	}
 	// 回覆評論
 	@GetMapping(value="/addReplyMessage")
 	@ResponseBody
@@ -251,6 +261,9 @@ public class DetailsController {
 		mrb.setReplyPicId(replyPicId);
 		mrb.setReplyUserEmail(replyUserEmail);
 		mrb.setReplyUserName(replyUserName);
+		ForumBean fb = forumService.getContentById(replyForumId);
+		fb.setMessageQty(messageService.getAllMessage(replyForumId).size() + 1);
+		forumService.addOrEdit(fb);
 		messageService.addReplyMessage(mrb);
 	}
 	// 評論顯示
@@ -288,29 +301,22 @@ public class DetailsController {
 	// 檢舉評論
 	@GetMapping(value="/reprotReplyMessage")
 	@ResponseBody
-	public void reprotReplyMessage(
-			@RequestParam("reportReplyUserName") String reportUserName,
-			@RequestParam("reportedReplyUserName") String reportedUserName,
-			@RequestParam("reportedReplyContent") String reportedContent,
-			@RequestParam("reportReplyForumId") Integer reportForumId,
-			@RequestParam("reportReplyMessageId") Integer reportMessageId,
-			@RequestParam("reportReplyReason") String reportReason,
-			@RequestParam("reportReplyDate") String reportDate,
-			@RequestParam("reportedReplyUserEmail") String reportedUserEmail){
-		MessageReportBean mrb = new MessageReportBean();
-		mrb.setReportedUserEmail(reportedUserEmail);
-		mrb.setReportContent(reportedContent);
-		mrb.setReportDate(reportDate);
-		mrb.setReportedUserName(reportedUserName);
-		mrb.setReportForumId(reportForumId);
-		mrb.setReportMessageId(reportMessageId);
-		mrb.setReportReason(reportReason);
-		mrb.setReportUserName(reportUserName);
-		mrb.setWarningContent(reportedContent);
-		mrb.setReportStatus("待審核");
-		messageService.saveReport(mrb);
+	public void reprotReplyMessage() {
 	}
-
+	// reply取值
+	@GetMapping(value="/getReplyBean")
+	@ResponseBody
+	public MessageReplyBean getReplyBean(@RequestParam("replyId") Integer replyId) {
+		MessageReplyBean mrb =  messageService.getByReplyId(replyId);
+		return new MessageReplyBean(mrb.getReplyId(),mrb.getMessageReplyId(),mrb.getReplyForumId(),mrb.getReplyDate(),
+				mrb.getReplyContent(),mrb.getReplyPicId(),mrb.getReplyUserName(),mrb.getReplyIdentification(),mrb.getReplyUserEmail());
+	}
+	// reply編輯評論送出
+	@PostMapping(value = "/editReplyFin")
+	@ResponseBody
+	public void editReplyFin(MessageReplyBean mrb) {
+		messageService.addReplyMessage(mrb);
+	}
 	public void tagSize(Model model) {
 		model.addAttribute("allSize", forumService.getAll().size());
 		model.addAttribute("announcementSize",forumService.getAllByTag("官方最新公告").size());

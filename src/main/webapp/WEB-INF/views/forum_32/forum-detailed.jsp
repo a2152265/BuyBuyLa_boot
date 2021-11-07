@@ -272,6 +272,37 @@
 						</div>
 					</div>
 				</div>
+						<!--================ 編輯評論reply Modal =================-->
+				<div class="modal fade" id="editReplyMessageBtn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" style="margin-top:90px">
+						<div class="modal-content" style="border-radius:20px">
+							<div class="comment-form" id="reply" style="margin:0px;border-radius:20px">
+								<h4 style="margin:0px">編輯評論</h4>
+							<form id="editReplyMsgForm" style="background-color:#fafaff;border-radius:5%;padding:15px">
+								<input type="hidden" name="replyId" class="editReplyId">
+								<input type="hidden" name="messageReplyId" class="editMessageReplyId">
+								<input type="hidden" name="replyDate" class="editReplyDate"> 
+								<input type="hidden" name="replyForumId" class="editReplyForumId"> 
+								<input type="hidden" name="replyIdentification" class="editReplyIdentification">
+								<input type="hidden" name="replyPicId" class="editReplyPicId"> 
+								<div class="form-group form-inline">
+									<div class="form-group col-lg-6 col-md-6 name">
+										<input type="text" name="replyUserName" class="form-control editReplyUserName" placeholder="Guest" readonly="readonly">
+									</div>
+									<div class="form-group col-lg-6 col-md-6 email">
+										<input type="email" name="replyUserEmail" class="form-control editReplyUserEmail" readonly="readonly" placeholder="Email address">
+									</div>
+								</div>
+								<div class="form-group">
+									<textarea rows="5" name="replyContent" class="form-control mb-10 editReplyContent" placeholder="留言"></textarea>
+								</div>
+								<button class="button button-postComment button--active editReplyyBtn" type="button" style="border: none">確定修改</button>
+							</form>
+								<button class="DetailedEditMessageKeyInput">一鍵輸入</button>
+							</div>
+						</div>
+					</div>
+				</div>
 						
 						<!--================ 檢舉評論 Modal =================-->
 				<div class="modal fade" id="reportBtn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

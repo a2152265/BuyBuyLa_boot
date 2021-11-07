@@ -19,6 +19,8 @@ public interface IMessageService {
 	// 回覆評論
 	MessageReplyBean addReplyMessage(MessageReplyBean mrb);
 	List<MessageReplyBean> findByMessageReplyId(Integer messageReplyId);
+	void deleteReply(Integer id);
+	public MessageReplyBean getByReplyId(Integer replyId);
 	
 	// 檢舉
 	public MessageReportBean getMessageReportById(Integer id);
