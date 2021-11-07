@@ -23,7 +23,7 @@ import com.web.product_11.service.ProductCommentService;
 import com.web.product_11.service.ProductService;
 
 @Controller
-@SessionAttributes({ "loginSession","cart","OrderItemCount"})
+@SessionAttributes({ "loginSession","cart","OrderItemCount","count"})
 public class HomeController {
 	
 	ProductService productservice;

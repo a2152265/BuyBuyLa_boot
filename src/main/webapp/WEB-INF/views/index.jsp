@@ -586,10 +586,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
      </script>  
      
      
-<!--  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 
-<input type='hidden' value='${count}' class='count2' />
+
+<%-- <input type='hidden' value='${count}' class='count2' /> --%>
 
 
 	
@@ -609,15 +608,21 @@ $(".additem").click(function(){
 		},
 		
 		success:function(){
-	
+			
 
 			Swal.fire({
 				  position:'center',
 				  icon: 'success',
 				  title: '已加入購物車',
 				  showConfirmButton: false,
+				  
 				  timer: 1500
 				})
+		
+				var count = parseInt($('#ccount').html())+1
+				console.log(count)
+				
+				$('#ccount').html(count)
 		},error:function(){
 			Swal.fire({
 				  position:'center',
@@ -636,7 +641,7 @@ $(".additem").click(function(){
 
 
 
-$('#ccount').html(count2)
+// $('#ccount').html(count2)
 
 
 </script>

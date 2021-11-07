@@ -34,7 +34,7 @@ import ecpay.payment.integration.domain.AioCheckOutALL;
 
 
 @Controller
-@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" ,"cart","OrderItemCount"})
+@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" ,"cart","OrderItemCount","count"})
 public class CartController {
 
 	CartService cartService;
@@ -46,19 +46,24 @@ public class CartController {
 	}
 
 
-//	@GetMapping("/test")
-//	public String home(
-////			@ModelAttribute("loginSession") membershipInformationBean mb,
-//			Model model) {
-//
-//		 return "product_11/products";
-//		 
-//	}
-	
+
 	
 	
 	@GetMapping("/additem")
 	public String additem(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id ,Model model) {
+		System.out.println("PID cc= "+id);
+		String buyer=mb.getUserEmail();
+		cartService.addItemByid(id,buyer);
+		model.addAttribute("OrderItemCount",buyer);
+		
+		
+		return "redirect:/";
+	}
+	
+	
+	
+	@GetMapping("/additemFromproduct")
+	public String additemFromproduct(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id ,Model model) {
 		System.out.println("PID cc= "+id);
 		String buyer=mb.getUserEmail();
 		cartService.addItemByid(id,buyer);
@@ -75,6 +80,7 @@ public class CartController {
 		String buyer=mb.getUserEmail();	
 		List<Cart> cart = cartService.addToRecord(buyer);
 		model.addAttribute("cart", cart);	
+		model.addAttribute("OrderItemCount",buyer);
 		 	return "cart_30/cart2";
 	}
 	
@@ -374,16 +380,16 @@ public class CartController {
 	
 
 
-	// 使用者地址管理
-		@GetMapping("/addressLsit")
-		public String addressLsit(@ModelAttribute("loginSession") membershipInformationBean mb,Model model) {
-			String buyer = mb.getUserEmail();
-			List<BuyerAddress> address = cartService.selectAllBuyerAddressByBuyer(buyer);
-			model.addAttribute("buyer",buyer);
-			model.addAttribute("address",address);
-			return "cart_30/address/addressList";
-		}
-		
+//	// 使用者地址管理
+//		@GetMapping("/addressLsit")
+//		public String addressLsit(@ModelAttribute("loginSession") membershipInformationBean mb,Model model) {
+//			String buyer = mb.getUserEmail();
+//			List<BuyerAddress> address = cartService.selectAllBuyerAddressByBuyer(buyer);
+//			model.addAttribute("buyer",buyer);
+//			model.addAttribute("address",address);
+//			return "cart_30/address/addressList";
+//		}
+//		
 		@GetMapping("/deleteAddress")
 		public String deleteAddress(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam int aid,Model model) {
 			cartService.deleteAddress(aid);

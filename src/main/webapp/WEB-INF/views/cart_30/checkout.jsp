@@ -118,7 +118,7 @@
               
               <!-- 購物車顯示數量在這裡改 -->
               
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
+               <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
 <!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
             </ul>
           </div>
