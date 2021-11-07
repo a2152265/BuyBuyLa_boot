@@ -192,9 +192,9 @@
 							${forumContent.content}
 						</div>
 					</div><br>
-					<div id='likeImg' style="margin:10px;">
-					<img src="https://cdn-icons-png.flaticon.com/512/126/126473.png" class='like'>
-					<label style='font-size:20px'>50</label>
+					<div style='margin:10px'>
+					<span id='likeImg' style="width:40px"></span>
+					<span id='likeQty' style='font-size:20px;'></span>
 					</div>
 					<div class="navigation-area" style='margin:0px;'>
 						<div class="row">
@@ -442,9 +442,6 @@
 	<!--================Instagram Area =================-->
 	<section class="instagram_area">
 		<div class="container box_1620">
-			<div class="insta_btn">
-				<a class="btn theme_btn" href="#">Follow us on instagram</a>
-			</div>
 			<div class="instagram_image row m0">
 				<a href="#"><img src="img/instagram/ins-1.jpg" alt=""></a> <a
 					href="#"><img src="img/instagram/ins-2.jpg" alt=""></a> <a

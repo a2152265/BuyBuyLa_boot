@@ -107,6 +107,11 @@ public class ForumService implements IForumService {
 		return forumLikeRepository.findByForumIdAndLoginUserName(forumId, loginUserName);
 	}
 
+	@Override
+	public List<ForumLikeBean> findByForumIdAndStatus(Integer forumId,boolean status) {
+		return forumLikeRepository.findByForumIdAndStatus(forumId,status);
+	}
+
 
 
 

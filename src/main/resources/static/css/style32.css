@@ -5,10 +5,11 @@
 	height: 30px;
 	cursor: pointer;
 }
-.like:hover {
-	transform: scale(1.2, 1.2);
+.nolike{
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
 }
-
 a {
 	text-decoration: none;
 }

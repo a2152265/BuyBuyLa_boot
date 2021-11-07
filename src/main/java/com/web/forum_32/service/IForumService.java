@@ -29,4 +29,5 @@ public interface IForumService {
 	// 讚CRUD
 	void likeSave(ForumLikeBean flb);
 	public ForumLikeBean findAllByForumIdAndLoginUserName(Integer forumId,String loginUserName);
+	List<ForumLikeBean> findByForumIdAndStatus(Integer forumId,boolean status);
 }

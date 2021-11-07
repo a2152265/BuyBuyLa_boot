@@ -160,6 +160,7 @@ public class ForumController {
 			BindingResult result) {
 			fb.setMessageQty(0);
 			fb.setViewQty(0);
+			fb.setLikeQty(0);
 			forumService.addOrEdit(fb);
 		return "redirect:/detailed?id="+fb.getId();
 	}

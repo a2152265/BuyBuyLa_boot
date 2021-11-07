@@ -124,6 +124,7 @@
 													<form:input path="date" type="hidden" id="nowDate" />
 													<form:input path="messageQty" type="hidden" value="0" />
 													<form:input path="viewQty" type="hidden" value="0" />
+													<form:input path="likeQty" type="hidden" value="0" />
 													<form:input path="picId" class="form-control" type="hidden"
 														value="${loginSession.id}" />
 													<form:input path="userName" type="hidden"

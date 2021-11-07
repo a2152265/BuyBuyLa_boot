@@ -285,7 +285,9 @@
 											</div>
 												<br><br> 
 											<span style="color: #00BFA5; font-size: 14px">${Articles.tag}</span>
-											<span><a><img style="width: 15px; margin-left: 30px" src="img/forum/speech-bubble.png">
+											<span><a><img style="width: 15px; margin-left: 30px" src="img/forum/likeView.png">
+											<span style="font-size: 14px; margin-left: 0px;">${Articles.likeQty}</span></a></span>
+											<span><a><img style="width: 15px; margin-left: 10px" src="img/forum/speech-bubble.png">
 											<span style="font-size: 14px; margin-left: 5px;">${Articles.messageQty} Comments</span></a></span>
 											<span><a><img style="width: 15px; margin-left: 10px" src="img/forum/eye.png">
 											<span style="font-size: 14px; margin-left: 5px;">${Articles.viewQty} Views</span></a></span>
@@ -310,8 +312,6 @@
 											<form:input path="tag" type="hidden" id="insTag" />
 											<form:textarea path="content" class="content display-none" />
 											<form:input path="date" type="hidden" id="nowDate" />
-											<form:input path="messageQty" type="hidden" />
-											<form:input path="viewQty" type="hidden" />
 											<form:input path="identification" type="hidden" value="member" />
 											<form:input path="picId" class="form-control" type="hidden" value="${loginSession.id}" />
 											<form:input path="userName" type="hidden" value="${loginSession.userName}" />

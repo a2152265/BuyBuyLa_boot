@@ -128,50 +128,67 @@ public class DetailsController {
 		return "redirect:/forum";
 	}
 	
-	// 讚讚狀態
-	@GetMapping("getStatus")
+	// 讚讚Status
+	@GetMapping("getLike")
 	@ResponseBody
-	public boolean getStatus(
+	public ForumLikeBean getLike(
 			@RequestParam("forumId") Integer forumId,
 			@RequestParam(value="loginUserName",required = false) String loginUserName) {
 		if(loginUserName=="") {
-			return false;
+			return null;
 		}else {
 			ForumLikeBean flb = forumService.findAllByForumIdAndLoginUserName(forumId, loginUserName);
-			if(flb!=null) {
-				if(flb.getStatus()==true) {
-					return true;
-				}else {
-					return false;
-				}
-			}else {
+			if(flb==null) {
 				ForumLikeBean flb1=new ForumLikeBean();
 				flb1.setForumId(forumId);
 				flb1.setLoginUserName(loginUserName);
-				flb1.setStatus(true);
+				flb1.setStatus(false);
 				forumService.likeSave(flb1);
-				return true;
+				return flb1;
+			}else {
+				return flb;
 			}
 		}
 	}
+	// 讚讚Qty
+	@GetMapping("/getLikeQty")
+	@ResponseBody
+	public Integer getLikeQty(
+			@RequestParam("forumId") Integer forumId) {
+		Integer qty=forumService.findByForumIdAndStatus(forumId,true).size();
+		if(qty!=0) {
+			return qty;
+		}else {
+			return 0;
+		}
+	}
 	
-	// 讚讚
+	// 讚讚Click
 	@GetMapping("/like")
 	@ResponseBody
-	public void like(
+	public boolean like(
 			@RequestParam("forumId") Integer forumId,
 			@RequestParam("loginUserName") String loginUserName,
 			@RequestParam("status") boolean status) {
 		ForumLikeBean flb1 = forumService.findAllByForumIdAndLoginUserName(forumId, loginUserName);
+		ForumBean fb =forumService.getContentById(forumId);
+		if(status==true) {
+			fb.setLikeQty(fb.getLikeQty()-1);
+		}else if ( status ==false) {
+			fb.setLikeQty(fb.getLikeQty()+1);
+		}
+		forumService.addOrEdit(fb);
 		if(flb1!=null) {
 			flb1.setStatus(!status);
 			forumService.likeSave(flb1);
+			return flb1.getStatus();
 		}else {
 			ForumLikeBean flb = new ForumLikeBean();
 			flb.setForumId(forumId);
 			flb.setLoginUserName(loginUserName);
 			flb.setStatus(!status);
 			forumService.likeSave(flb);
+			return flb.getStatus();
 		}
 	}
 
