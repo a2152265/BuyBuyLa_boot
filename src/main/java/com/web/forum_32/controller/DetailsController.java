@@ -36,7 +36,7 @@ public class DetailsController {
 	}
 
 	/**************************** 文章展示 ****************************/
-
+//
 	// Detailed
 	@GetMapping("/detailed")
 	public String detailedView(Model model, 
