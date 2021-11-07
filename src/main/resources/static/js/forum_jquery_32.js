@@ -25,21 +25,26 @@ $(function() {
 	// 判斷登入狀態
 	// 訪客不能發起討論  留言
 	var loginUser = $('.loginUser').val();
-	var forumUsername = $('.Username').html();
-	if(loginUser!=forumUsername){
+	var authorUserName = $('.authorUserName').html();
+	if(loginUser!=authorUserName){
 		 $(".editIMG").css("visibility","hidden");
-		 console.log("loginUser="+loginUser+" forumUsername="+forumUsername+" css="+"hidden")
 	}else{
 		$(".editIMG").css("visibility","visible");
-		console.log("loginUser="+loginUser+" forumUsername="+forumUsername+" css="+"visible")
 	}
 	
 	if($('.loginsession').html()==null){
+		$('.addNewForum').css('display','none')
 		$('.newFoRuM').attr("disabled","disabled");
 		$('.newFoRuM').css("background","gray");
-		$('.messageBtn').attr("disabled","disabled");
-		$('.messageBtn').css({"background":"gray"});
+		$('.messageContentBlock').css('display','none');
+		$('.messageBtn').html('登入後進行評論');
+//		$('.messageBtn').css({"background":"gray"});
 		$('.messageContent').attr("disabled","disabled");
+		$('.newMessageH4').css('display','none');
+		$('.messageBtn').click(function(){
+			window.location.href ="try/login";
+		})
 	}
+	
 
 })

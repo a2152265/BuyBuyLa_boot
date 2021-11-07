@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.service.IForumService;
@@ -27,124 +28,107 @@ public class ForumController {
 	}
 
 	/**************************** 頁面展示 ****************************/
-	public void pageInit (Model model) {
-		model.addAttribute("page",1);
-		model.addAttribute("leftPage",1);
-		model.addAttribute("rightPage",2);
-	}
 	
 	// 首頁
 	@GetMapping("/forum")
-	public String forum(Model model,
-			@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
-		pageInit(model);
-		allArticles(model,0);
-		tagSize(model);
+	public String forumIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
+		forum(model,page);
+		init(model);
 		return "forum_32/forum";
 	}
-	public void allArticles(Model model,Integer pages) {
-		List<ForumBean> getAllArticles = forumService.getAllArticles(pages, 5);
-		model.addAttribute("getAllArticles", getAllArticles);
-		model.addAttribute("Articles", getAllArticles);
-		model.addAttribute("tagFeatured", forumService.getAllByTag("社團精選話題"));
-		model.addAttribute("getAll", forumService.getAll());
-		model.addAttribute("getAllOrderByIdDesc", forumService.getAllOrderByIdDesc());
-		model.addAttribute("addForumBean", new ForumBean());
-		
-	}
-	// 分頁
-	@GetMapping({"/forumPage","/forumPageLeft","/forumPageRight"})
-	public String forumPage(
-			@RequestParam("page") Integer page,
-			Model model) {
-		Integer leftPage=page;
-		Integer rightPage=page;
-		
-		if(leftPage-1==0) {
-			model.addAttribute("leftPage",page);
-		}else {
-			model.addAttribute("leftPage",leftPage-1);
-		}
-		
-		if(rightPage>forumService.getAll().size()/5) {
-			model.addAttribute("rightPage",rightPage);
-		}else {
-			model.addAttribute("rightPage",rightPage+1);
-		}
-		allArticles(model,page-1);
-		tagSize(model);
-		model.addAttribute("page",page);
-		return "forum_32/forum";
-	}
-
-	// 首頁 標籤:官方最新公告
-	@GetMapping("/announcement")
-	public String announcement(Model model,
-			@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
-		List<ForumBean> announcementList = forumService.getAllByTag("官方最新公告", 0, 5);
-		if (!announcementList.isEmpty()) {
-			pageInit(model);
-			model.addAttribute("getAll", forumService.getAllByTag("官方最新公告"));
-			model.addAttribute("Articles", announcementList);
-			model.addAttribute("addForumBean", new ForumBean());
-		} else {
-			allArticles(model,0);
-		}
-		tagSize(model);
-		return "forum_32/forum";
-	}
-	// 首頁 標籤:社團精選話題
-	@GetMapping("/featured")
-	public String featured(Model model,
-			@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
-		List<ForumBean> announcementList = forumService.getAllByTag("社團精選話題", 0, 5);
-		if (!announcementList.isEmpty()) {
-			pageInit(model);
-			model.addAttribute("getAll", forumService.getAllByTag("社團精選話題"));
-			model.addAttribute("Articles", announcementList);
-			model.addAttribute("addForumBean", new ForumBean());
-		} else {
-			model.addAttribute("tagFeatured", forumService.getAllByTag("社團精選話題"));
-			model.addAttribute("addForumBean", new ForumBean());
-			model.addAttribute("getAll", forumService.getAll());
-		}
-		tagSize(model);
-		return "forum_32/forum";
-	}
+	
 	// 首頁 標籤:新手賣家發問
 	@GetMapping("/noviceSeller")
-	public String noviceSeller(Model model,
-			@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
-		List<ForumBean> announcementList = forumService.getAllByTag("新手賣家發問", 0, 5);
-		if (!announcementList.isEmpty()) {
-			pageInit(model);
-			model.addAttribute("getAll", forumService.getAllByTag("新手賣家發問"));
-			model.addAttribute("Articles", announcementList);
-			model.addAttribute("addForumBean", new ForumBean());
-		} else {
-			allArticles(model,0);
-		}
-		tagSize(model);
+	public String noviceSellerIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
+		noviceSeller(model,page);
+		init(model);
 		return "forum_32/forum";
 	}
 	// 首頁 標籤:賣家閒聊討論
 	@GetMapping("/sellerChat")
-	public String sellerChat(Model model,
-			@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
-		List<ForumBean> announcementList = forumService.getAllByTag("賣家閒聊討論", 0, 5);
-		if (!announcementList.isEmpty()) {
-			pageInit(model);
-			model.addAttribute("getAll", forumService.getAllByTag("賣家閒聊討論"));
-			model.addAttribute("Articles", announcementList);
-			model.addAttribute("addForumBean", new ForumBean());
-		} else {
-			allArticles(model,0);
+	public String sellerChatIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
+		sellerChat(model,page);
+		init(model);
+		return "forum_32/forum";
+	}
+	// 首頁 標籤:官方最新公告
+	@GetMapping("/announcement")
+	public String announcementIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
+		announcement(model,page);
+		init(model);
+		return "forum_32/forum";
+	}
+	// 首頁 標籤:社團精選話題
+	@GetMapping("/featured")
+	public String featuredIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
+		featured(model,page);
+		init(model);
+		return "forum_32/forum";
+	}
+
+	@GetMapping({"/Page","/PageLeft","/PageRight"})
+	public String forumPage(Model model,
+			@RequestParam("tag") String tag,
+			@RequestParam("page") Integer page ){
+		if(tag.equals("forum")) {
+			forum(model,page-1);
+		}else if(tag.equals("noviceSeller")) {
+			noviceSeller(model,page-1);
+		}else if(tag.equals("sellerChat")) {
+			sellerChat(model, page-1);
+		}else if(tag.equals("featured")) {
+			featured(model,page-1);
+		}else if (tag.equals("announcement")) {
+			announcement(model,page-1);
 		}
-		tagSize(model);
+		init(model);
+		if(page==1) {
+			model.addAttribute("leftPage",page);
+		}else {
+			model.addAttribute("leftPage",page-1);
+		}
+		model.addAttribute("rightPage",page+1);
+		model.addAttribute("page",page);
 		return "forum_32/forum";
 	}
 	
-	public void tagSize(Model model) {
+	public void forum(Model model,Integer page) {
+		List<ForumBean> getAllArticles = forumService.getAllArticlesByPage(page, 5);
+		model.addAttribute("tag","forum");
+		model.addAttribute("pageSize", forumService.getAll());
+		model.addAttribute("Breadcrumb","所有討論");
+		model.addAttribute("Articles", getAllArticles);
+	}
+	public void announcement(Model model,Integer page) {
+		model.addAttribute("tag","announcement");
+		model.addAttribute("pageSize", forumService.getAllByTag("官方最新公告"));
+		model.addAttribute("Breadcrumb","官方最新公告");
+		model.addAttribute("Articles", forumService.getAllByTag("官方最新公告",page,5));
+	}
+	public void featured(Model model,Integer page) {
+		model.addAttribute("tag","featured");
+		model.addAttribute("pageSize", forumService.getAllByTag("社團精選話題"));
+		model.addAttribute("Breadcrumb","社團精選話題");
+		model.addAttribute("Articles", forumService.getAllByTag("社團精選話題",page,5));
+	}
+	public void sellerChat(Model model,Integer page) {
+		model.addAttribute("tag","sellerChat");
+		model.addAttribute("pageSize", forumService.getAllByTag("賣家閒聊討論"));
+		model.addAttribute("Breadcrumb","賣家閒聊討論");
+		model.addAttribute("Articles", forumService.getAllByTag("賣家閒聊討論",page,5));
+	}
+	public void noviceSeller(Model model,Integer page) {
+		model.addAttribute("tag","noviceSeller");
+		model.addAttribute("pageSize", forumService.getAllByTag("新手賣家發問"));
+		model.addAttribute("Breadcrumb","新手賣家發問");
+		model.addAttribute("Articles", forumService.getAllByTag("新手賣家發問", page, 5));
+	}
+	
+	public void init (Model model) {
+		model.addAttribute("page",1);
+		model.addAttribute("leftPage",1);
+		model.addAttribute("rightPage",2);
+		model.addAttribute("addForumBean", new ForumBean());
 		model.addAttribute("allSize", forumService.getAll().size());
 		model.addAttribute("announcementSize",forumService.getAllByTag("官方最新公告").size());
 		model.addAttribute("featuredSize",forumService.getAllByTag("社團精選話題").size());
@@ -152,16 +136,31 @@ public class ForumController {
 		model.addAttribute("sellerChatSize",forumService.getAllByTag("賣家閒聊討論").size());
 	}
 	
+	// 熱門文章
+	@GetMapping("/getHotArticles")
+	@ResponseBody
+	public List<ForumBean> getHotArticles(){
+		return forumService.findTop4ByOrderByViewQtyDesc();
+	}
+	// 最新帖子
+	@GetMapping("/getNewArticles")
+	@ResponseBody
+	public List<ForumBean> getNewArticles(){
+		return forumService.findTop4ByOrderByIdDesc();
+	}
+	
 	
 					/* 文章CRUD */
 	
 	// 新增 提交表單
-	@PostMapping({ "/forum","featuredSize", "/noviceSeller", "/sellerChat", "/announcement" })
+	@PostMapping("/addNewForum")
+//	@PostMapping({ "/forum","featuredSize", "/noviceSeller", "/sellerChat", "/announcement" })
 	public String processAddNewFourmForm(Model model,
 			@ModelAttribute("addForumBean") ForumBean fb, 
 			BindingResult result) {
 			fb.setMessageQty(0);
 			fb.setViewQty(0);
+			fb.setLikeQty(0);
 			forumService.addOrEdit(fb);
 		return "redirect:/detailed?id="+fb.getId();
 	}

@@ -8,18 +8,26 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.web.forum_32.dao.MessageReplyRepository;
+import com.web.forum_32.dao.MessageReportRepository;
 import com.web.forum_32.dao.MessageRepository;
 import com.web.forum_32.model.MessageBean;
+import com.web.forum_32.model.MessageReplyBean;
+import com.web.forum_32.model.MessageReportBean;
 
 @Service
 public class MessageService implements IMessageService{
 
 	@Autowired
 	MessageRepository messageRepository;
+	@Autowired
+	MessageReportRepository messageReportRepository;
+	@Autowired
+	MessageReplyRepository messageReplyResository;
 	
 	@Override
 	public List<MessageBean> getAllMessage(Integer messageForumId) {
-		return messageRepository.findAllByForumId(messageForumId);
+		return messageRepository.findByMessageForumId(messageForumId);
 	}
 	@Override
 	public List<MessageBean> getPagedMessagesByMessageForumId(
@@ -29,7 +37,6 @@ public class MessageService implements IMessageService{
 				        PageRequest.of(page,  // 查詢的頁數，從0起算
 				                size, 			// 查詢的每頁筆數
 				                Sort.by("messageId").descending()));
-						
 						pageResult.getNumberOfElements(); // 本頁筆數
 						pageResult.getSize();             // 每頁筆數 
 						pageResult.getTotalElements();    // 全部筆數
@@ -55,6 +62,35 @@ public class MessageService implements IMessageService{
 	@Override
 	public List<MessageBean> getAllByMessageForumId(Integer messageForumId) {
 		return messageRepository.findAllByMessageForumId(messageForumId);
+	}
+	@Override
+	public MessageReportBean saveReport(MessageReportBean mrb) {
+		return messageReportRepository.save(mrb);
+	}
+	@Override
+	public List<MessageReportBean> getAllReportMessage() {
+		return messageReportRepository.findAllByOrderByReportStatusDesc();
+	}
+	@Override
+	public void deleteMessageReport(Integer reportId) {
+		messageReportRepository.deleteById(reportId);
+	}
+	@Override
+	public MessageReportBean getMessageReportById(Integer id) {
+		return messageReportRepository.getById(id);
+	}
+	@Override
+	public void deleteByReportStatus(String status) {
+		messageReportRepository.deleteByReportStatus(status);
+		
+	}
+	@Override
+	public MessageReplyBean addReplyMessage(MessageReplyBean mrb) {
+		return messageReplyResository.save(mrb);
+	}
+	@Override
+	public List<MessageReplyBean> findByMessageReplyId(Integer messageReplyId) {
+		return messageReplyResository.findByMessageReplyId(messageReplyId);
 	}
 
 }
