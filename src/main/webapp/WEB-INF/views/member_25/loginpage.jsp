@@ -9,7 +9,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" onclick="CreateImg(event)">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -163,8 +163,35 @@ function quickInput2(){
 
 </script>
 
+
+
+<script type="text/javascript">
+        //網頁加載完成時調用的函數
+        function Init()
+        {
+            document.body.bgColor = "blue";
+        }
+
+        //當點擊網頁的時候，觸發這個函數
+        //因為Body標記中沒有內容，所以onclick不給body加。
+        function CreateImg(e)
+        {
+            var imgObj = document.createElement("img");
+            //設置參數
+            //顯示的圖片
+            imgObj.src = "../images/112.png";
+			console.log('msg!!!!!!!!!!!!!!!!')
+            //定位
+            imgObj.style.position = "absolute";
+            imgObj.style.left = e.clientX + "px";
+            imgObj.style.top = e.clientY + "px";
+
+            document.body.appendChild(imgObj);
+        }
+    </script>
+
 </head>
-<body>
+<body onload="Init()">
 	 <!--================ 首頁標題 start =================-->
 	<header class="header_area">
     <div class="main_menu">
@@ -399,5 +426,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="vendors/jquery.ajaxchimp.min.js"></script>
   <script src="vendors/mail-script.js"></script>
   <script src="js/main.js"></script>
+  
+  
+  
+  
+  
 </body>
 </html>
