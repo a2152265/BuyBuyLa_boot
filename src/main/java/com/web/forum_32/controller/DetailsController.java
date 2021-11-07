@@ -26,7 +26,7 @@ public class DetailsController {
 	IForumService forumService;
 	IMessageService messageService;
 	ServletContext servletContext;
-
+//
 	@Autowired
 	public DetailsController(IForumService forumService, IMessageService messageService,
 			ServletContext servletContext) {
