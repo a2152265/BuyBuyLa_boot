@@ -263,7 +263,7 @@ function quickInput2(){
 						<h3>登入後開始</h3>
 
 						<!-- 登入帳號區 -->
-						<form:form method='POST'   modelAttribute="loginSession"
+						<form:form method='POST'   modelAttribute="loginSession" action="/BuyBuyla_boot/try/login"
 							cssClass='row login_form' id="contactForm">
 
 

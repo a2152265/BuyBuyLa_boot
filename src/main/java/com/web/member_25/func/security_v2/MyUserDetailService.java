@@ -31,17 +31,29 @@ public class MyUserDetailService implements UserDetailsService{
 		membershipInformationBean mb=new membershipInformationBean();
 		result=	memberService.loginByEmail(username);
 		if (result==1) {
-			System.out.println("-userDetail成功登入---");
-			 mb=memberService.findMemberDataAll(username);
+			mb=memberService.findMemberDataAll(username);
+			System.out.println("-userDetail成功登入--->"+username);
+			System.out.println("-userDetail成功登入---pwd>"+mb.getUserPwd());
+			BCryptPasswordEncoder encoder1 = new BCryptPasswordEncoder(); 
+			System.out.println("-userDetail成功登入---pwdencode>"+new BCryptPasswordEncoder().encode(mb.getUserPwd()));
+			
+			boolean isPasswordMatches = encoder1.matches(
+					mb.getUserPwd(),
+					new BCryptPasswordEncoder().encode(mb.getUserPwd())
+			);
+			System.out.println("--密碼比對-------------->"+isPasswordMatches);
+			
 		}else {
+			
+			
 			System.out.println("userDetail--------錯誤--->"+result);
 			throw new UsernameNotFoundException("userDetail 帳號不存在!!!!!!");
 		}
 		
 		
 		
-		
-		List<GrantedAuthority> auths=AuthorityUtils.commaSeparatedStringToAuthorityList("role");
+		//設定一下腳色
+		List<GrantedAuthority> auths=AuthorityUtils.commaSeparatedStringToAuthorityList("member,ROLE_member");
 		//DB返回的帳密+ 腳色-->role
 		return new User(mb.getUserEmail(), new BCryptPasswordEncoder().encode(mb.getUserPwd()), auths);
 	}

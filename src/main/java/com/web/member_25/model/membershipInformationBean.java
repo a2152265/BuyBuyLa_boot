@@ -60,6 +60,14 @@ public class membershipInformationBean {
 	String suspension;
 	
 	
+	
+	//security用--------------------------------------------------------
+		@Transient
+		String password;
+		@Transient
+		String username;
+	//security用--------------------------------------------------------
+	
 	public membershipInformationBean() {
 		
 	}
@@ -245,6 +253,22 @@ public class membershipInformationBean {
 
 		public void setVerificationCode(int verificationCode) {
 			VerificationCode = verificationCode;
+		}
+
+		public String getPassword() {
+			return password;
+		}
+
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+		public String getUsername() {
+			return username;
+		}
+
+		public void setUsername(String username) {
+			this.username = username;
 		}
 
 		

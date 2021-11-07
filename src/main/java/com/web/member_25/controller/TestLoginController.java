@@ -11,9 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.lang.Exception;
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -86,8 +91,12 @@ public class TestLoginController {
 		return "cart_30/TotalHome";
 	}
 
+	//進入方法前先驗證
+	@PreAuthorize("hasAnyAuthority('member','manager')")
 	@GetMapping("/try/add")
-	public String trySignUp(Model model) {
+	public String trySignUp(Model model,
+			Principal principal,Authentication authentication,HttpServletRequest httpServletRequest
+			) {
 //		MemberBean mb=new MemberBean();
 		membershipInformationBean mb = new membershipInformationBean();
 		// 設定預設值
@@ -96,6 +105,12 @@ public class TestLoginController {
 		mb.setUserPhone("0912345678");
 		mb.setIdentification("member");
 		model.addAttribute("loginBeanDefault", mb);
+		
+		
+		System.out.println("-principal------------>"+principal.getName());
+		System.out.println("-httpServletRequest------------>"+httpServletRequest.getUserPrincipal().getName());
+		System.out.println("-authentication------------>"+authentication.getName());
+		
 		return "member_25/signUpPage";
 	}
 
@@ -255,9 +270,20 @@ public class TestLoginController {
 		return "redirect:/"; // 回乾淨首頁成功 讚
 	}
 
+	
 	//登入後會員介面
+	@Secured({"member","ROLE_member","manager","ROLE_manager"})  //決定限制
 	@GetMapping("/try/member_Ui")
-	public String tryMemberUpdate(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
+	public String tryMemberUpdate(@ModelAttribute("loginSession") membershipInformationBean mb, Model model,
+			HttpServletRequest httpServletRequest
+			) {
+		System.out.println("--------------進入會員_Ui------------------------");
+		System.out.println("--------------進入會員_Ui------------------------");
+		System.out.println("--------------進入會員_Ui------------------------");
+		System.out.println("--------------進入會員_Ui------------------------");
+		System.out.println("-httpServletRequest------------>"+httpServletRequest.getUserPrincipal().getName());
+		mb=memberService.findMemberDataAll(httpServletRequest.getUserPrincipal().getName());
+		
 		System.out.println("membershipInformationBean --getUserEmail----->" + mb.getUserEmail());
 		if (mb.getSuspension()!=null) {
 			return "redirect:/member/member_ban";
@@ -278,6 +304,7 @@ public class TestLoginController {
 		return "member_25/member_Ui";
 	}
 
+	
 	@PostMapping("/try/member_Ui")
 	public String tryProcessMemberUpdate(@ModelAttribute("memberUiDefault") membershipInformationBean mb,
 //				@RequestParam String userEmail,
@@ -1004,7 +1031,14 @@ public class TestLoginController {
 		
 		
 				
-		
+		@GetMapping("/error_403")
+		public String errorAuth() {
+			System.out.println("---------------無權限--------------");
+			System.out.println("---------------無權限--------------");
+			System.out.println("---------------無權限--------------");
+			System.out.println("---------------無權限--------------");
+			return "/error_403";
+		}
 				
 				
 	

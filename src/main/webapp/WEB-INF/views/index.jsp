@@ -85,7 +85,8 @@
 						${loginSession.userEmail}</a></li>
 				</c:if>
 
-			
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
+						${loginSession.userEmail}</a></li>
 
             </ul>
             <ul class="nav-shop">
