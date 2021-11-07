@@ -193,7 +193,7 @@ public class TestLoginController {
 			System.out.println("--登入後先判斷停權狀態----------->"+mb4.getSuspension());
 			System.out.println("--登入後先判斷停權狀態-------susban---->"+susban);
 
-			if (mb4.getSuspension()!=null) {
+			if (mb4.getSuspension().length()!=0) {
 				System.out.println("-----------開始登入ban介面----------"+mb4.getSuspension());
 				model.addAttribute("loginSession",mb4);
 				model.addAttribute("memberUiDefault",mb4);
