@@ -8,8 +8,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.web.forum_32.dao.ForumLikeRepository;
 import com.web.forum_32.dao.ForumRepository;
 import com.web.forum_32.model.ForumBean;
+import com.web.forum_32.model.ForumLikeBean;
 
 
 
@@ -18,6 +20,8 @@ public class ForumService implements IForumService {
 	
 	@Autowired
 	ForumRepository forumRepository;
+	@Autowired
+	ForumLikeRepository forumLikeRepository;
 	
 	@Override
 	public List<ForumBean> getAll() {
@@ -25,19 +29,15 @@ public class ForumService implements IForumService {
 	}
 
 	@Override
-	public List<ForumBean> getAllArticles(int page, int size) {
+	public List<ForumBean> getAllArticlesByPage(int page, int size) {
         Page<ForumBean> pageResult = forumRepository.findAll(
-                PageRequest.of(page,  // 查詢的頁數，從0起算
-                                size, // 查詢的每頁筆數
-                                Sort.by("topArticle").descending().and(Sort.by("id").descending())
-                                )); // 依CREATE_TIME欄位降冪排序
+                PageRequest.of(
+                		page,size,Sort.by("topArticle").descending().and(Sort.by("id").descending()))); 
         pageResult.getNumberOfElements(); // 本頁筆數
         pageResult.getSize();             // 每頁筆數 
         pageResult.getTotalElements();    // 全部筆數
         pageResult.getTotalPages();       // 全部頁數
-        
         List<ForumBean> articleList =  pageResult.getContent();
-    
         return articleList;
 	}
 	@Override
@@ -86,9 +86,30 @@ public class ForumService implements IForumService {
 		return forumRepository.findByTag(tag);
 	}
 
+
+	@Override  // 熱門文章
+	public List<ForumBean> findTop4ByOrderByViewQtyDesc() {
+		return forumRepository.findTop4ByOrderByViewQtyDesc();
+	}
+
+	@Override  // 最新帖子
+	public List<ForumBean> findTop4ByOrderByIdDesc() {
+		return forumRepository.findTop4ByOrderByIdDesc();
+	}
+
 	@Override
-	public List<ForumBean> getAllOrderByIdDesc() {
-		return forumRepository.findByOrderByIdDesc();
+	public void likeSave(ForumLikeBean flb) {
+		forumLikeRepository.save(flb);
+	}
+
+	@Override
+	public ForumLikeBean findAllByForumIdAndLoginUserName(Integer forumId,String loginUserName) {
+		return forumLikeRepository.findByForumIdAndLoginUserName(forumId, loginUserName);
+	}
+
+	@Override
+	public List<ForumLikeBean> findByForumIdAndStatus(Integer forumId,boolean status) {
+		return forumLikeRepository.findByForumIdAndStatus(forumId,status);
 	}
 
 

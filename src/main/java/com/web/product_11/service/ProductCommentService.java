@@ -2,8 +2,6 @@ package com.web.product_11.service;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
-
 import com.web.product_11.model.ProductComment;
 
 public interface ProductCommentService {

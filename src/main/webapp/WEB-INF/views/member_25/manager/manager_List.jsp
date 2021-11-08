@@ -94,7 +94,7 @@
 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
 	<script src="vendors/jquery.ajaxchimp.min.js"></script>  -->
 	
-	
+	  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<script>
 	
         console.log('INNNNNNNNNNN');
@@ -109,9 +109,42 @@ integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anon
     		success:function(banList){
  				 console.log('HAAAAAAAAAa');
  				console.log(banList);	
-    			for(i=0 ; i<banList.length ; i++){
-    				console.log(banList[i]);
-    			}   
+ 				var s=[];
+ 				//sweat alert
+ 				for(i=0 ; i<banList.length ; i++){
+     				banList[i];
+     				s+=banList[i]+"<br>";
+ 				}
+ 				
+ 				    let timerInterval
+  				  Swal.fire({
+   				 title: '您好 ! !  這裡是ban list',
+   				html: 
+   					s
+  				  ,
+   				 timer: 500000,
+   				 timerProgressBar: true,
+    				didOpen: () => {
+    			  Swal.showLoading()
+   			   const b = Swal.getHtmlContainer().querySelector('b')
+    			  timerInterval = setInterval(() => {
+    			    b.textContent = Swal.getTimerLeft()
+   			   }, 2000)
+   			 },
+    willClose: () => {
+      clearInterval(timerInterval)
+    }
+  }).then((result) => {
+    /* Read more about handling dismissals below */
+    if (result.dismiss === Swal.DismissReason.timer) {
+      console.log('Ban ban ban')
+    }
+  })
+    			 
+    			
+    			
+    			
+    			
     		},
     		error: function (banList) {
     	        console.log(banList);

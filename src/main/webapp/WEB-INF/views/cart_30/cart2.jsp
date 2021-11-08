@@ -42,82 +42,84 @@
           </button>
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item active"><a class="nav-link" href="<c:url value='/' />">Home</a></li>
+              <li class="nav-item active"><a class="nav-link" href="<c:url value='/' />">首頁</a></li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">會員</a>
                 <ul class="dropdown-menu">
-                <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+                <c:if test="${loginSession ==null}">
 	                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/login' />">會員登入</a></li> 
                   	   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/add' />">會員註冊</a></li>
                </c:if>
+                <c:if test="${managerSession == null}">
                <c:if test="${loginSession.userEmail != null}">
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/member/evolution' />">賣家專區</a></li>
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
-<!--                   <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li> -->
                 </c:if>
+                </c:if>
+                 <c:if test="${managerSession != null}">
+                   <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">管理中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">登出</a></li>
+                    </c:if>
                 </ul>
-							</li>
+			  </li>
               <li class="nav-item submenu dropdown">
                 <a href="<c:url value='/forum' />" class="nav-link dropdown-toggle"  role="button" aria-haspopup="true"
                   aria-expanded="false">討論區</a>
-<!--                 <ul class="dropdown-menu"> -->
-<%--                   <li class="nav-item"><a class="nav-link" href="<c:url value='/forum' />"></a></li> --%>
-<%--                   <li class="nav-item"><a class="nav-link" href="<c:url value='/forum' />">討論區</a></li> --%>
-<!--                 </ul> -->
 							</li>
 							<li class="nav-item submenu dropdown">
                 <a href="<c:url value='/campaigns' />" class="nav-link dropdown-toggle" role="button" aria-haspopup="true"
                   aria-expanded="false">活動專區</a>
-<!--                 <ul class="dropdown-menu"> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="tracking-order.html">Tracking</a></li> -->
-<!--                 </ul> -->
               </li>
+               <c:if test="${managerSession == null}">
               <c:if test="${loginSession.userEmail != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
 						${loginSession.userEmail}</a></li>
-				</c:if>
-            </ul>
 
+				</c:if>
+				</c:if>
+				<c:if test="${managerSession != null}">
+              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">Hi管理員!!! &nbsp;
+						${loginSession.userEmail}</a></li>
+				</c:if>
+
+			
+
+            </ul>
             <ul class="nav-shop">
-           <li class="nav-item" ><form:form method='POST' action="./queryproduct"
-						class='form-horizontal'>
-				
-							<input name="productName" id="productName" type='text'
-								class='form:input-large'/>
-							<button type='submit' ><i class="ti-search" ></i></button>
-<!-- 							<input id="btnAdd" type='submit' -->
-<!-- 								class='btn btn-primary' /> -->
-				
+           <li class="nav-item" >
+           
+               <!---------------- 首頁查詢商品框 ---------------->
+           		<form:form method='get' action="./queryproduct" class='form-horizontal'>
+					<input name="productName" id="productName" type='text' class='form:input-large'/>
+					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
-              
-            
-              
-              <!-- 購物車顯示數量在這裡改 -->
-              
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
-<!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
+
+              <!---------------- 購物車 ---------------->
+				<c:if test="${loginSession.userEmail != null}">
+              		<li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
+				</c:if>
+				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
+				 </c:if>
             </ul>
           </div>
         </div>
       </nav>
     </div>
   </header>
-  </header>
 	<!--================ End Header Menu Area =================-->
 
 	<!-- ================ start banner area ================= -->	
-	<section class="blog-banner-area" id="category"  style='height:250px'>
-		<div class="container h-100">
-			<div class="blog-banner">
-				<div class="text-center">
-					<h1>Shopping Cart</h1>
-				</div>
-			</div>
-    </div>
-	</section>
+<!-- 	<section class="blog-banner-area" id="category"  style='height:250px'> -->
+<!-- 		<div class="container h-100"> -->
+<!-- 			<div class="blog-banner"> -->
+<!-- 				<div class="text-center"> -->
+<!-- 					<h1>Shopping Cart</h1> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!--     </div> -->
+<!-- 	</section> -->
 	<!-- ================ end banner area ================= -->
   
   
@@ -144,68 +146,67 @@
                               <td>
                                   <div class="media">
                                       <div class="d-flex">
-                                         <img width='150'src="<c:url value='/getPicture/${row.pid}' />" />
+                                         <img width='150'src="<c:url value='/getPicture/${row.product.productId}' />" />
                                       </div>     
                                   </div>
                               </td>
-                              <td>${row.p_name}</td>
+                              <td>${row.product.productName}</td>
                               
                               <td>
                                   <div class="product_count">
          
                                       <input type="text" name="qty" id="sst" maxlength="12" value="${row.count}" title="Quantity:"
                                           class="input-text qty">
-                                    <a href="<c:url value='/add' />?id=${row.pid}">
-                                      <button   class="increase items-count" type="button">
-                                       <i class="lnr lnr-chevron-up"></i></button> </a>
-                                         <a href="<c:url value='/sub' />?id=${row.pid}"> 
-                                         <button class="reduced items-count" type="button">
-                                          <i class="lnr lnr-chevron-down"></i></button></a>
-<!--                                       onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"> -->
-                                       
-                                      
-<!--                                       onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" -->
+
+                                      <button   class="increase items-count up" type="button" value='${row.product.productId}'>
+                                       <i class="lnr lnr-chevron-up"></i></button> 
+
+                                         <button class="reduced items-count down" type="button" value='${row.product.productId}'>
+                                          <i class="lnr lnr-chevron-down"></i></button>
+
                                          
                                
                                   </div>
                               </td>
                               <td>
-                                  <h5>${row.p_price}</h5>
+                                  <h5 value='${row.product.price}' class='price'>${row.product.price}</h5>
                               </td>
                               <td>
-                                  <h5 class='total'>${row.count*row.p_price}</h5>
+                                  <h5 class='total' value='8888'>${row.count*row.product.price}</h5>
                               </td>
                               <td>
-						<a href="<c:url value='/deletecart' />?id=${row.pid}">
-						<button type="button" class="btn btn-outline-dark deletecart" data-mdb-ripple-color="dark" value='${row.pid}'>  刪除</button>
+						<a href="<c:url value='/deletecart' />?id=${row.product.productId}">
+						<button type="button" class="btn btn-outline-dark deletecart" data-mdb-ripple-color="dark" value='${row.product.productId}'>  刪除</button>
 				</a>		
 					</td>
                           </tr>
                         </c:forEach>
-<!--                           <tr class="bottom_button"> -->
-<!--                           <td> -->
-
-<!--                               </td> -->
-<!--                               <td> -->
+                          <tr class="bottom_button">
+                        
+                              <td>
 <!--                                   <a class="button" href="#">Update Cart</a> -->
-<!--                               </td> -->
-<!--                               <td> -->
+                              </td>
+                              <td>
 
-<!--                               </td> -->
-<!--                               <td> -->
+                              </td>
+                              <td>
 
-<!--                               </td> -->
-                            
+                              </td>
+                             <td>
+
+                              </td> <td>
+
+                              </td>
                            
-<!--                               <td> -->
-<!--                                   <div class="cupon_text d-flex align-items-center"> -->
-<!--                                       <input type="text" placeholder="Coupon Code"> -->
-<!--                                       <a class="primary-btn" href="#">Apply</a> -->
-<!--                                       <a class="button" href="#">Have a Coupon?</a> -->
-<!--                                   </div> -->
-<!--                               </td> -->
+                              <td colspan="2">
+                                  <div class="cupon_text d-flex align-items-center">
+                                      <input type="text" placeholder="Coupon Code">
+                                      <a class="primary-btn" href="#">Apply</a>
+                                      <a class="button" href="#">Have a Coupon?</a>
+                                  </div>
+                              </td>
                               
-<!--                           </tr> -->
+                          </tr>
                           <tr>
                               <td>
 
@@ -219,6 +220,9 @@
                              
                               <td>
                                 
+                              </td>
+                                <td>
+
                               </td>
                               <td>
                                     <h3>總價:</h3>
@@ -235,10 +239,10 @@
 
                               </td>
                              
-                              <td>
-                                
+                             <td>
+
                               </td>
-                              <td>
+                              <td colspan="2"  style="text-align:right;">
                                   <h2 id='totalPrice' style="font-size:60px">0</h2>
                               </td>
                           </tr>
@@ -294,8 +298,11 @@
 
                               </td>
                               <td>
-                                  <div class="checkout_btn_inner d-flex align-items-center">
-                                      <a class="gray_btn" href="products">繼續去購物</a>
+
+                              </td>
+                              <td >
+                                  <div class="checkout_btn_inner d-flex " style="text-align:right;">
+                                      <a class="gray_btn" href="index">繼續去購物</a>
                                       <a class="primary-btn ml-2" href="check">我要去買單</a>
                                   </div>
                               </td>
@@ -317,26 +324,26 @@
 				<div class="row section_gap">
 					<div class="col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets ">
-							<h4 class="footer_title large_title">Our Mission</h4>
+							<h4 class="footer_title large_title">我們的目標</h4>
 							<p>
-								So seed seed green that winged cattle in. Gathering thing made fly you're no 
-								divided deep moved us lan Gathering thing us land years living.
+								起初，BuyBuyLa最初創立的目標是為了讓廖總能在台北多買一棟帝寶，1997年時廖總誕生於台北醫學院的護理產房，伴隨著他的是大安區10幾張地契的月子禮，
+								而後又過了幾年，廖總與他一起長大的好夥伴葉總、謝總、歐總，他們展現出了無與倫比的天賦，在工程、財經、甚至極限運動上都有了驚人的成就(雖然他們並不缺錢)
 							</p>
 							<p>
-								So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved 
+								2021年，BuyBuyLa於中央大學的一間小工作室中誕生(暫定)，為了BuyBuyLa人們的money而設計出了另類的網站，有著奇怪的會員系統，神奇的商品、複雜的購物車、賭徒般的活動、社交的討論區，
+								BuyBuyLa於人們野望中誕生。
 							</p>
 						</div>
 					</div>
 					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets">
-							<h4 class="footer_title">Quick Links</h4>
+							<h4 class="footer_title">快速連結</h4>
 							<ul class="list">
-								<li><a href="#">Home</a></li>
-								<li><a href="#">Shop</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">Product</a></li>
-								<li><a href="#">Brand</a></li>
-								<li><a href="#">Contact</a></li>
+								<li><a href="#">首頁</a></li>
+								<li><a href="#">商品</a></li>
+								<li><a href="#">討論版</a></li>
+								<li><a href="#">購物車</a></li>
+								<li><a href="#">活動</a></li>
 							</ul>
 						</div>
 					</div>
@@ -355,30 +362,30 @@
 					</div>
 					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets">
-							<h4 class="footer_title">Contact Us</h4>
+							<h4 class="footer_title">聯絡我們</h4>
 							<div class="ml-40">
 								<p class="sm-head">
 									<span class="fa fa-location-arrow"></span>
-									Head Office
+									總部
 								</p>
-								<p>123, Main Street, Your City</p>
+								<p>台北市中正區重慶南路一段122號</p>
 	
 								<p class="sm-head">
 									<span class="fa fa-phone"></span>
-									Phone Number
+									電話
 								</p>
 								<p>
-									+123 456 7890 <br>
-									+123 456 7890
+									+0921212121 <br>
+									+0226462646
 								</p>
 	
 								<p class="sm-head">
 									<span class="fa fa-envelope"></span>
-									Email
+									電子信箱
 								</p>
 								<p>
-									free@infoexample.com <br>
-									www.infoexample.com
+									a212121@BuyBuyLa.org <br>
+									
 								</p>
 							</div>
 						</div>
@@ -413,29 +420,102 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   
    <script>
   
-	$(".down").click(function(){		
-//		var data=$("#form1").serializeArray();
-	var data=$(this).val();
-	console.log(data+"************************");
+	$(".down").each(function(){
+		$(this).click(function(){
+			var text = $(this).prev().prev();
+			
+			var price =$(this).parent().parent().next().children("h5.price").html();
+			console.log(price)
+			
+			var price2=parseFloat(price)
+			console.log(price2)
+			var totalprice = $(this).parent().parent().next().next().children("h5.total");
+			console.log(parseFloat(totalprice))
+			
+			if(parseInt(text.val())>1){
+				text.val(parseInt(text.val())-1)
+				totalprice.html(parseFloat(text.val())*price2)
+				
+				totalprice.html(parseInt(text.val())*price2+".0")
+				var total=0;
+				$('.total').each(function(){
+				$(this).html;
+				var a = parseInt($(this).html());
+				total=total+a
+
+				})
+	
+				$('#totalPrice').html(total)
+			}
+			
+		})
+	})
+	
+	
+	
+	
+	$(".down").click(function(){
+		var cnt = $(this).prev().prev().val(); 
+		
+//	 	console.log("cnt=="+cnt)
+		var data=$(this).val();
+
+	
 	$.ajax({
 		type:'get',
 		url:'sub',
 		data:{
 			"id":data
 		},
-		
 		success:function(){
-			 console.log("77777777")
+			var count = parseInt($('#ccount').html())-1
+			console.log(count)
+			if(count>0){
+				$('#ccount').html(count)
+			}
+			
 		}
 								
 	});			
 });
 
+
+	
+	$(".up").each(function(){
+		$(this).click(function(){
+			var text = $(this).prev();
+			var price =$(this).parent().parent().next().children("h5.price").html();
+			
+			var price2=parseInt(price)
+			var totalprice = $(this).parent().parent().next().next().children("h5.total");
+		
+			var totalprice2 =parseInt(totalprice)
+			
+			text.val(parseInt(text.val())+1)
+			totalprice.html(parseInt(text.val())*price2+".0")
+			
+			var total=0;
+			$('.total').each(function(){
+			$(this).html;
+			var a = parseInt($(this).html());
+			total=total+a
+
+			})
+	
+			$('#totalPrice').html(total)
+			
+			
+		})
+	})
+	
+	
 	
 	$(".up").click(function(){		
-//		var data=$("#form1").serializeArray();
+	var cnt = $(this).prev().val(); 
+	
+	
 	var data=$(this).val();
-	console.log(data+"************************");
+
 	$.ajax({
 		type:'get',
 		url:'add',
@@ -444,7 +524,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		},
 		
 		success:function(){
-			 console.log("77777777")
+			var count = parseInt($('#ccount').html())+1
+			console.log(count)
+			
+			$('#ccount').html(count)
+		
+			
 		}
 								
 	});			

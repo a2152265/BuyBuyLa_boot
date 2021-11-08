@@ -74,6 +74,7 @@ public class TestLoginController {
 	public String index(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
 		System.out.println("login後回首頁GetMapping");
 		membershipInformationBean mb2 = new membershipInformationBean();
+		
 		mb2.setUserEmail(mb.getUserEmail());
 		mb2.setUserPwd(mb.getUserPwd());
 		mb2.setUserName(mb.getUserName());
@@ -207,12 +208,15 @@ public class TestLoginController {
 			String susban=mb4.getSuspension();
 			System.out.println("--登入後先判斷停權狀態----------->"+mb4.getSuspension());
 			System.out.println("--登入後先判斷停權狀態-------susban---->"+susban);
-
-			if (mb4.getSuspension()!=null) {
-				System.out.println("-----------開始登入ban介面----------"+mb4.getSuspension());
-				model.addAttribute("loginSession",mb4);
-				model.addAttribute("memberUiDefault",mb4);
-				return "redirect:/member/member_ban";
+			try {
+				if (mb4.getSuspension().length()!=0) {
+					System.out.println("-----------開始登入ban介面----------"+mb4.getSuspension());
+					model.addAttribute("loginSession",mb4);
+					model.addAttribute("memberUiDefault",mb4);
+					return "redirect:/member/member_ban";
+				}
+			} catch (Exception e) {
+				System.out.println("沒事-----繼續----");
 			}
 
 			Boolean isMamber = true;
@@ -221,16 +225,27 @@ public class TestLoginController {
 			if (isMamber == false) {
 				mb2.setUserEmail(userEmail);
 				mb2.setUserPwd(userPwd);
-				mb2.setIdentification("manager");
-				mb2.setUserName("管理員");
 				model.addAttribute("managerSession", mb2);
+//<<<<<<< HEAD
 				model.addAttribute("memberUiDefault", mb2);
-				return "redirect:/manager_Ui0";
+//=======
+				
+//			*************************************************************
+				model.addAttribute("loginSession",memberService.findMemberData(mb2.getUserEmail()));
+//			*************************************************************
+return "redirect:/manager_Ui0";
+				
+//				return "redirect:/manager_Ui";
+//>>>>>>> refs/heads/Dev_32_newCSS
 			}
 			System.out.println("登入成功 userEmail  ----->" + userEmail);
 			mb2.setUserEmail(userEmail);
 			mb2.setUserPwd(userPwd);
-			model.addAttribute("loginSession", mb2);
+			
+//			*************************************************************
+			model.addAttribute("loginSession",memberService.findMemberData(mb2.getUserEmail()));
+//			*************************************************************
+//			model.addAttribute("loginSession", mb2);  
 			membershipInformationBean mb3 =memberService.findMemberData(mb2.getUserEmail());
 			model.addAttribute("memberUiDefault",mb3);
 			System.out.println("mb3=="+mb3.getUserName());
@@ -286,7 +301,7 @@ public class TestLoginController {
 		
 		System.out.println("membershipInformationBean --getUserEmail----->" + mb.getUserEmail());
 		try {
-			if (mb.getSuspension().length()==0) {
+			if (mb.getSuspension().length()!=0) {
 				System.out.println("這傢伙被ban了");
 				return "redirect:/member/member_ban";
 			}
@@ -372,8 +387,14 @@ public class TestLoginController {
 	public String buyerEvolution(@ModelAttribute("loginSession") membershipInformationBean mb, 
 			@ModelAttribute("sellerData") membershipInformationBean sellerDataMb, 
 			Model model) {
-		if (mb.getSuspension()!=null) {
-			return "redirect:/member/member_ban";
+		try {
+			if (mb.getSuspension().length()!=0) {
+				System.out.println("----賣家區--這傢伙被ban了-------------");
+				return "redirect:/member/member_ban";
+			}
+			
+		} catch (Exception e) {
+			System.out.println("-------------沒事 繼續-麥加區");
 		}
 		//sellerData初始化設定
 //		model.addAttribute("sellerData", sellerDataMb);
@@ -402,8 +423,14 @@ public class TestLoginController {
 			@ModelAttribute("sellerData") membershipInformationBean mb,
 			@ModelAttribute("loginSession") membershipInformationBean mb3, 
 			Model model) {
-		if (mb3.getSuspension()!=null) {
-			return "redirect:/member/member_ban";
+		try {
+			if (mb3.getSuspension().length()!=0) {
+				System.out.println("----賣家區--這傢伙被ban了-------------");
+				return "redirect:/member/member_ban";
+			}
+			
+		} catch (Exception e) {
+			System.out.println("-------------沒事 繼續-麥加區");
 		}
 		membershipInformationBean mb2 = new membershipInformationBean();			
 	mb=memberService.findMemberDataAll(mb.getUserEmail());
@@ -774,7 +801,7 @@ public class TestLoginController {
 	@PostMapping("/member/changePwd_checkcheck")
 	public String changePwdcheck_success(@ModelAttribute("changePwd") membershipInformationBean bean,
 			@ModelAttribute("loginSession") membershipInformationBean loginBean,
-			SessionStatus sessionStatus,
+			SessionStatus sessionStatus,HttpSession session,
 			Model model) {
 		System.out.println("post ------------checkon");
 		membershipInformationBean mBean=memberService.findMemberData(loginBean.getUserEmail());
@@ -783,11 +810,20 @@ public class TestLoginController {
 		memberService.save(mBean);
 		System.out.println("更改密碼完成-------->");
 	
-			sessionStatus.setComplete();
+	
+		session.removeAttribute("beanForVerificationCode");
+		session.removeAttribute("memberList");
+		session.removeAttribute("memberUiDefault");
+		session.removeAttribute("sellerData");
+		session.removeAttribute("managerSession");
+		session.removeAttribute("changePwd");
+		session.removeAttribute("memberUiDefault");
+		session.removeAttribute("loginSession");
+		sessionStatus.setComplete();
 			System.out.println("已清除 登入狀態");
-		
+		System.out.println("-----------"+mBean.getUserEmail());
 		//清除登入狀態
-		return "member_25/alertPage_changePwdsuccess";
+		return "redirect:/try/logout";
 	}
 	
 	
@@ -1018,13 +1054,19 @@ public class TestLoginController {
 			List<String> banList=new ArrayList<>();
 			System.out.println("-------11----------->");
 			for(int i=0;i<memberList.size();i++) {
-				if (memberList.get(i).getSuspension()!=null) {
-					System.out.println("----22-------------->");
-					banList.add(memberList.get(i).getUserEmail());
-					memberCount++;
-					System.out.println("--會員被ban名單--------------"+banList);
+				
+				try {
+					if (memberList.get(i).getSuspension().length()!=0) {
+						System.out.println("----22-------------->");
+						banList.add(memberList.get(i).getUserEmail());
+						memberCount++;
+						System.out.println("--會員被ban名單--------------"+banList);
+					}
+					count++;
+					
+				} catch (Exception e) {
+					System.out.println("---沒事 繼續找ban----->");
 				}
-				count++;
 				
 			}
 			System.out.println("--會員被ban名單---嫁入list完成-----------");

@@ -25,7 +25,7 @@ import com.web.product_11.service.ProductCommentService;
 import com.web.product_11.service.ProductService;
 
 @Controller
-@SessionAttributes({ "loginSession","cart","memberUiDefault","managerSession"})
+@SessionAttributes({ "loginSession","cart","memberUiDefault","managerSession","OrderItemCount","count"})
 public class HomeController {
 	
 	ProductService productservice;
@@ -54,16 +54,20 @@ public class HomeController {
 	
 
 
-	@GetMapping("/")
-	public String home0(Model model,
-			Authentication authentication
-			) {
+
+	@GetMapping({"/","index"})
+	public String home0(@ModelAttribute("OrderItemCount") String buyer,
+			Authentication authentication,
+			Model model) {
 		System.out.println("進入首頁La");
 		System.out.println("haha");
 		List<Product> allProduct = productservice.getAllProducts();
 		System.out.println("首頁の商品列表展示中ing.....");
 		model.addAttribute("products", allProduct);
 		model.addAttribute("categoryList", productservice.getAllCategories());
+		
+		//商品顯示(依銷售量、上架顯示)
+		
 		
 		//商品顯示(依照商品上傳時間、上架顯示)
 		List<Product> ascProduct = productservice.productOrderByInsertTime();
@@ -74,7 +78,7 @@ public class HomeController {
 		model.addAttribute("campaignss",cambeans);
 		model.addAttribute("campaignsizes",cambeans.size());
 		
-		
+		//登入狀態
 		try {
 			if (authentication.getName()!=null) {
 				System.out.println("-authentication------------>"+authentication.getName());
@@ -82,6 +86,7 @@ public class HomeController {
 				mb=memberService.findMemberDataAll(authentication.getName());
 				model.addAttribute("loginSession",mb);
 				model.addAttribute("memberUiDefault",mb);
+				model.addAttribute("sellerData",mb);
 				System.out.println("-----------Index--------已登入------------------>"+mb.getUserEmail());
 				System.out.println("-----------Index--------已登入(BC碼)------------------>"+mb.getUserPwd());
 				
@@ -90,12 +95,23 @@ public class HomeController {
 					model.addAttribute("managerSession",mb);
 					System.out.println("---------------這傢伙是管理員");
 				}
-				
-				
 			}
 		} catch (Exception e) {
 			System.out.println("-----------Index--------目前尚未登入------------------>");
 		}
+		System.out.println("/*/*/*//*/*/*/*/*/*/*/*/*");
+		System.out.println(buyer);
+		//從購物車找該買家總購買商品數
+		int count=0;
+		List<Cart> cart = cartService.addToRecord(buyer);
+		for(Cart c:cart) {
+			
+		count+=c.getCount();
+
+		}
+		System.out.println(count);
+		model.addAttribute("count",count);	
+
 		
 		//討論區-官方最新公告
 //		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
@@ -105,20 +121,18 @@ public class HomeController {
 	
 	}
 	
-	
-	
-
 	@GetMapping("/adminHome")
-	public String manageHome(Model model) {
-		
-		return "Home/manageHome";
-		
+	public String manageHome(Model model) {	
+		return "Home/manageHome";	
 	}
 	
 	
-	
-	
-	
+
+	@ModelAttribute("OrderItemCount")
+	public String setbuyer(Model model) {
+		String buyer = null;
+		return buyer;
+	}
 	
 	
 }

@@ -219,7 +219,7 @@
 							</td>
 
 							<td>	
-							 <a href="<c:url value='/selectbuyer?buyer=${update.buyer}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+							 <a href="<c:url value='/selectbuyer?rid=${update.record_id}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
 <%-- 							<form:input path="record_id" value='${update.record_id}' style="display:none"/> --%>
 <%-- 							<form:input path="pid" value='${update.pid}' style="display:none"/>	 --%>
 <!-- 							<button type="submit" class="btn bt1" data-toggle="modal" data-target="#staticBackdrop">										 -->

@@ -189,11 +189,11 @@
         </a>
       </li>
       <li>
-        <a href="./user">
+        <a href="<c:url value='/recordManage' />">
           <svg>
             <use xlink:href="#pages"></use>
           </svg>
-          <span>購物車管理</span>
+          <span>購物紀錄管理</span>
         </a>
       </li>
       <li>

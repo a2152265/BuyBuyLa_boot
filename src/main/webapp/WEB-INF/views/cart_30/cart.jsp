@@ -166,21 +166,21 @@ h2 span {
 			<tbody id="tbody">
 			<c:forEach var="row" items="${cart}">
 				<tr>
-					<td><img width='150'src="<c:url value='/getPicture/${row.pid}' />" /></td>
-					<td>${row.p_name}</td>
+					<td><img width='150'src="<c:url value='/getPicture/${row.product.productId}' />" /></td>
+<%-- 					<td>${row.p_name}</td> --%>
 					<td>
 
-					<button class="down"  value='${row.pid}'>-</button>
+					<button class="down"  value='${row.product.productId}'>-</button>
 					<input  class="cnt" type="text" value="${row.count}" readonly="readonly" />
 
-					<button class="up" value='${row.pid}'>+</button>
-					</td>
-					<td>NT<span>${row.p_price}</span></td>
-					<td>NT<span class="total">${row.count*row.p_price}</span></td>
-					<td>
-						<a href="<c:url value='/deletecart' />?id=${row.pid}"></a>
-						<button class='deletecart' value='${row.pid}'>刪除</button>
-					</td>
+					<button class="up" value='${row.product.productId}'>+</button>
+<!-- 					</td> -->
+<%-- 					<td>NT<span>${row.p_price}</span></td> --%>
+<%-- 					<td>NT<span class="total">${row.count*row.p_price}</span></td> --%>
+<!-- 					<td> -->
+<%-- 						<a href="<c:url value='/deletecart' />?id=${row.pid}"></a> --%>
+<%-- 						<button class='deletecart' value='${row.pid}'>刪除</button> --%>
+<!-- 					</td> -->
 				</tr>
 			
 		</c:forEach>
@@ -206,10 +206,23 @@ h2 span {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
 	
-	$(".down").click(function(){		
-	var cnt = $(".cnt").val();
-	var cnt2;
-	var data=$(this).val();
+
+	$(".down").each(function(){
+		$(this).click(function(){
+			var text = $(this).next();
+			text.val(parseInt(text.val())-1)
+		})
+	})
+	
+	
+	
+	
+	$(".down").click(function(){
+		var cnt = $(this).next().val(); 
+		
+//	 	console.log("cnt=="+cnt)
+		var data=$(this).val();
+
 	console.log(data+"************************");
 	$.ajax({
 		type:'get',
@@ -217,21 +230,26 @@ h2 span {
 		data:{
 			"id":data
 		},
-		
 		success:function(){
-			cnt2=parseInt(cnt)-1;
 			$(".cnt").val(cnt2);
-			console.log(cnt2)
 		}
 								
 	});			
 });
 
+	$(".up").each(function(){
+		$(this).click(function(){
+			var text = $(this).prev();
+			text.val(parseInt(text.val())+1)
+		})
+	})
+	
+	
 	
 	$(".up").click(function(){		
 	var cnt = $(this).prev().val(); 
 	
-	console.log("cnt=="+cnt)
+// 	console.log("cnt=="+cnt)
 	var data=$(this).val();
 
 	$.ajax({
@@ -241,10 +259,9 @@ h2 span {
 			"id":data
 		},
 		
-		success:function(result){
-			console.log("result=="+result)
-			
-// 			console.log("cnt2 = "+cnt2);
+		success:function(){
+		
+
 			
 		}
 								

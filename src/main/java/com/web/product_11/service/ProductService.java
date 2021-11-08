@@ -19,11 +19,14 @@ public interface ProductService {
 		//ID查詢商品
 		Product getProductById(int productId);
 		
+		//依照商品銷售量查詢產品
+		List<Product>productOrderBySales();
+		
 		//依照商品新增時間查詢商品
 		List<Product>productOrderByInsertTime();
 		
 		//狀態查詢商品
-		List<Product> findByStatus();
+		List<Product> findByStatus(String status);
 		
 		//新增商品
 		void  addProduct(Product product);
@@ -36,6 +39,9 @@ public interface ProductService {
 		
 		//更新商品狀態
 		void updateProductStatus(String status,int productId);
+		
+		//更新商品銷售量
+		void updateSales(int pid);
 		
 		//刪除商品
 		void  deleteProduct(int productId);

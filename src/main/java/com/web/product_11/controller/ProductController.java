@@ -20,6 +20,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -30,51 +32,93 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.cart_30.model.Cart;
 import com.web.cart_30.service.CartService;
+import com.web.celebrations_36.model.Campaign;
+import com.web.celebrations_36.service.CampaignService;
 import com.web.member_25.model.membershipInformationBean;
 import com.web.member_25.service.MemberService;
 import com.web.product_11.model.Product;
 import com.web.product_11.model.ProductComment;
+import com.web.product_11.model.ProductFavorite;
 import com.web.product_11.service.ProductCommentService;
+import com.web.product_11.service.ProductFavoriteService;
 import com.web.product_11.service.ProductService;
 
 @Controller
-@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" })
+@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData","OrderItemCount" })
 public class ProductController {
 
 	ProductService productservice;
 	ProductCommentService productCommentService;
+	ProductFavoriteService productFavoriteService;
 	MemberService memberService;
 	ServletContext servletContext;
 	CartService cartService;
+	CampaignService campaignService;
+	@Autowired
+	JavaMailSender mailSender;
+	
 
 	@Autowired
 	public ProductController(ProductService productservice, ProductCommentService productCommentService,
-			MemberService memberService, ServletContext servletContext, CartService cartService) {
-		super();
+			ProductFavoriteService productFavoriteService, MemberService memberService, ServletContext servletContext,
+			CartService cartService, JavaMailSender mailSender) {
 		this.productservice = productservice;
 		this.productCommentService = productCommentService;
+		this.productFavoriteService = productFavoriteService;
 		this.memberService = memberService;
 		this.servletContext = servletContext;
 		this.cartService = cartService;
+		this.mailSender = mailSender;
+
 	}
 
+	
 	public ProductController() {
 	}
 
-
 	//顯示所有商品
 	@GetMapping("/products")
-	public String productList(Model model) {
+	public String productList(@ModelAttribute("OrderItemCount") String buyer,Model model) {
 
 		List<Product> beans = productservice.getAllProducts();
 		model.addAttribute("products", beans);
+		
+		
+		System.out.println("進入首頁La");
+		System.out.println("haha");
+		List<Product> allProduct = productservice.getAllProducts();
+		System.out.println("首頁の商品列表展示中ing.....");
+		model.addAttribute("products", allProduct);
+		model.addAttribute("categoryList", productservice.getAllCategories());
+		
+		//商品顯示(依照商品上傳時間、上架顯示)
+		List<Product> ascProduct = productservice.productOrderByInsertTime();
+		model.addAttribute("ascProduct", ascProduct);
+		
+		//首頁輪播圖
+		List<Campaign> cambeans = campaignService.findAll();
+		model.addAttribute("campaignss",cambeans);
+		model.addAttribute("campaignsizes",cambeans.size());
+		
+		System.out.println("/*/*/*//*/*/*/*/*/*/*/*/*");
+		System.out.println(buyer);
+		//從購物車找該買家總購買商品數
+		List<Cart> cart = cartService.addToRecord(buyer);
+		model.addAttribute("cart", cart);	
+
+		
+		
+		
+		//討論區-官方最新公告
+//		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
+//		model.addAttribute("announcementList",announcementList);
+		
 		return "index";
 		
 		
@@ -83,38 +127,101 @@ public class ProductController {
 	
 	
 	//管理頁面-商品(只顯示未審核商品)
-		@GetMapping("/manage/products")
-		public String managelist(Model model) {
-
-			List<Product> beans = productservice.findByStatus();
-			model.addAttribute("products", beans);
+		@GetMapping("/manage/products/{status}")
+		public String managelist(
+				@PathVariable String status
+				,Model model) {
+	
+				List<Product> beans = productservice.findByStatus(status);
+				model.addAttribute("products", beans);
+				
+			
 			return "product_11/manage/products";
 					
 		}
 		
-	//商品上架(管理者)
+	//商品上架成功(管理者)
 		@PostMapping("/manage/launched")
 		public ResponseEntity<String> productlaunched(
 				Model model,
 				 @RequestParam("productIds") String productIds) {
 			String[] productIds_line = productIds.split(",");
 			
+
 			for(int i=0;i<productIds_line.length;i++) {
 				int pId = Integer.parseInt(productIds_line[i]);
 				productservice.updateProductStatus("上架中",pId);
 				
 			}
-
+			
 			return new ResponseEntity<String>(HttpStatus.OK) ;
+			
+
 					
 		}
 		
+		//商品上架未通過(管理者)
+				@PostMapping("/manage/launchedfail")
+				public ResponseEntity<String> productlaunchedfail(
+						Model model,
+						 @RequestParam("productIds") String productIds) {
+					String[] productIds_line = productIds.split(",");
+					
+
+					for(int i=0;i<productIds_line.length;i++) {
+						int pId = Integer.parseInt(productIds_line[i]);
+						productservice.updateProductStatus("審核失敗",pId);
+						
+					}
+					
+					return new ResponseEntity<String>(HttpStatus.OK) ;
+					
+
+							
+				}
+		
+		
+		//商品上架成功(管理者)寄信
+		@GetMapping("/launched_addaddress")
+		public ResponseEntity<String> launchedEmail(
+				@ModelAttribute("loginSession") membershipInformationBean mb2
+				) {
+			SimpleMailMessage message =new SimpleMailMessage();
+			message.setTo(mb2.getUserEmail());  //測試用我的
+			message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
+			message.setText("您好 : "+mb2.getUserName()+"\r\n歡迎光臨BuyByLA  "+"您的商品已經審核成功。");
+
+			mailSender.send(message);
+			System.out.println("------------------已寄出------------------ --->code=");
+			 return new ResponseEntity<String>(HttpStatus.OK);
+			
+		}
+		
+		
+		//商品上架失敗(管理者)寄信
+				@GetMapping("/launched_addaddressfail")
+				public ResponseEntity<String> launchedEmailfail(
+						@ModelAttribute("loginSession") membershipInformationBean mb2
+						) {
+					SimpleMailMessage message =new SimpleMailMessage();
+					message.setTo(mb2.getUserEmail());  //測試用我的
+					message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
+					message.setText("您好 : "+mb2.getUserName()+"\r\n歡迎光臨BuyByLA  "+"您的商品審核未成功，請重新檢視商品資訊後再次送出。"
+													);
+
+					mailSender.send(message);
+					System.out.println("------------------已寄出------------------ --->code=");
+					 return new ResponseEntity<String>(HttpStatus.OK);
+					
+				}
 	//顯示賣家商品
 		@GetMapping("/products/seller")
 		public String productBySeller(
 				@ModelAttribute("loginSession") membershipInformationBean loginMb,
 				Model model) {
-
+			if(loginMb==null) {
+				return "index";
+			}
 			List<Product> beans = productservice.getProductBySeller(loginMb.getUserEmail());
 			model.addAttribute("sellerproducts", beans);
 			return "product_11/seller/productBySeller";		
@@ -128,13 +235,24 @@ public class ProductController {
 			@RequestParam("id") Integer id, // 查詢字串
 			 Model model) {
 			Product product = productservice.getProductById(id);
+			if((membershipInformationBean) model.getAttribute("loginSession")!=null) {
+				
+				membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
+				membershipInformationBean member = memberService.findMemberData(mb.getUserEmail());			
+				membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
+				ProductFavorite producrFavorite = productFavoriteService.findByMidAndPid(member.getId(), product.getProductId());
+				
+				model.addAttribute("producrFavorite", producrFavorite); 
+				model.addAttribute("product", product);
+				model.addAttribute("productComment",productCommentService.findByProductId(id));
+				model.addAttribute("memberUiDefault",mBean);
 			
+			
+			}else {
+				model.addAttribute("product", product);
 
-			 membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
+			}
 			
-			model.addAttribute("product", product);
-			model.addAttribute("productComment",productCommentService.findByProductId(id));
-			model.addAttribute("memberUiDefault",mBean);
 			
 			
 			
@@ -142,7 +260,7 @@ public class ProductController {
 		}
 		
 	//商品名稱查詢
-		@RequestMapping("/queryproduct")
+		@GetMapping("/queryproduct")
 		public String processQueryProduct(
 				@RequestParam("productName") String productName,
 				Model model
@@ -184,9 +302,11 @@ public class ProductController {
 	       //獲取賣家帳號
 	       p.setSeller(loginMb.getUserEmail());
 	       
+	       
 	       //商品狀態
 	       p.setStatus("待審核");
-		
+	       //商品銷售量
+	       p.setSales(0);
 
 		if(!p.getProductImage().isEmpty()) {
 		// 於productImage取得照片
@@ -445,5 +565,49 @@ public class ProductController {
 					return new ResponseEntity<String>(HttpStatus.OK);
 				}
 		
-	
+//-----------------------------------商品我的最愛-----------------------------------------
+		//新增我的最愛
+				@GetMapping("/favorite")
+				public String AddFavoriteProduct(
+						@RequestParam("id") String id
+						,Model model) {
+			
+					membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
+					int pId = Integer.parseInt(id);
+					System.out.println("!!!!!!!!!!!"+mb.getUserEmail());
+					System.out.println("!!!!!!!!!!!"+mb.getIdentification());
+					
+					ProductFavorite productFavorite = new ProductFavorite();
+					Product product = productservice.getProductById(pId);
+					
+					membershipInformationBean member = memberService.findMemberData(mb.getUserEmail());
+					
+					productFavorite.setMembershipInformationBean(member);
+					productFavorite.setProduct(product);
+					ProductFavorite producrFavorite = productFavoriteService.findByMidAndPid(member.getId(), product.getProductId());
+//					System.out.println("@@@@@@@@@@@@"+producrFavorite.getFavoriteId());
+					if(producrFavorite == null) {
+						productFavoriteService.addFavoriteProduct(productFavorite);
+					}else if(producrFavorite != null) {
+						System.out.println("################"+producrFavorite.getFavoriteId());
+						return "redirect:/";
+						
+					}
+					
+					
+					return "redirect:/";
+				}
+				
+		//依照會員取得我的最愛
+//				@GetMapping("/favorite")
+//				public String getFavoriteProduct(
+//						@RequestParam("id") String id
+//						,Model model) {
+//					
+//					membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
+//					
+//							return "";
+//					
+//				}
+				
 }

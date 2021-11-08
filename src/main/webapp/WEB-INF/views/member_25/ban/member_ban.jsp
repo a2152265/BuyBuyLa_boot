@@ -5,7 +5,7 @@
 <!-- sidebar -->
 <%@ include file="../../Home/member/member_25/ban/sidebar.jspf"%>
                           
-                      <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" style="color:red;"> 申請恢復帳號 </p>&nbsp;&nbsp;
+                      <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" style="color:red;"> 申請恢復帳號 </p>&nbsp;&nbsp;<br>
                       <c:if test="${memberUiDefault.getNotes()!=null}">
                        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" style="color:red;"> 審核狀態 : 待審核 </p>
                          </c:if> 

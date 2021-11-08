@@ -1,18 +1,24 @@
 package com.web.member_25.model;
 
 import java.sql.Blob;
-import java.util.Collection;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.web.product_11.model.ProductFavorite;
 
 @Entity
 @Table(name="membershipInformation")
@@ -55,10 +61,15 @@ public class membershipInformationBean {
 	@Column(name="verifyCode")
 	Integer verifyCode;
 	
+
 	//Suspension
 	@Column(name="suspension")
 	String suspension;
 	
+
+	@OneToMany(mappedBy = "membershipInformationBean",fetch = FetchType.LAZY) //本類別無外鍵 
+	Set<ProductFavorite> productFavorites=new HashSet<>();
+
 	
 	
 	//security用--------------------------------------------------------
@@ -255,28 +266,18 @@ public class membershipInformationBean {
 			VerificationCode = verificationCode;
 		}
 
-		public String getPassword() {
-			return password;
-		}
 
-		public void setPassword(String password) {
-			this.password = password;
-		}
-
-		public String getUsername() {
-			return username;
-		}
-
-		public void setUsername(String username) {
-			this.username = username;
-		}
 
 		
 		
 		
-		
-		
-		
+		public Set<ProductFavorite> getProductFavorites() {
+			return productFavorites;
+		}
+
+		public void setProductFavorites(Set<ProductFavorite> productFavorites) {
+			this.productFavorites = productFavorites;
+		}
 		
 		
 		

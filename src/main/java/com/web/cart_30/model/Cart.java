@@ -1,12 +1,17 @@
 package com.web.cart_30.model;
 
-import java.sql.Blob;
 
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.web.product_11.model.Product;
 
 
 
@@ -16,16 +21,15 @@ public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer cid;
-	private Integer pid;	
-	private String p_name;
-	private Double p_price;
+	
+
 	private Integer count;
 	private String buyer;
-	private String seller;
-	private String category;
-	private Blob coverImage;
+
 	
-	
+	 @ManyToOne(cascade=CascadeType.ALL)
+	 @JoinColumn(name="ProductId_FK")
+	 private Product product;	
 
 
 
@@ -35,68 +39,22 @@ public class Cart {
 
 
 
-
-	public Cart(Integer pid, String p_name, Double p_price, Integer count, String buyer, String seller, String category,
-			Blob coverImage) {
-		
-		this.pid = pid;
-		this.p_name = p_name;
-		this.p_price = p_price;
+	public Cart(Integer count, String buyer, Product product) {
+	
 		this.count = count;
 		this.buyer = buyer;
-		this.seller = seller;
-		this.category = category;
-		this.coverImage = coverImage;
+		this.product = product;
 	}
 
 
 
-
-	public Cart(Integer cid, Integer pid, String p_name, Double p_price, Integer count, String buyer, String seller,
-			String category, Blob coverImage) {
-		this.cid = cid;
-		this.pid = pid;
-		this.p_name = p_name;
-		this.p_price = p_price;
-		this.count = count;
-		this.buyer = buyer;
-		this.seller = seller;
-		this.category = category;
-		this.coverImage = coverImage;
-	}
-
-
-
-
-
-
-
-
-
-	public Cart(Integer pid, String buyer) {
-
-		this.pid = pid;
-		this.buyer = buyer;
-	}
-
-
-
-
-
-	public Cart(Integer cid, Integer pid, String p_name, Double p_price, Integer count, String buyer, String seller,
-			Blob coverImage) {
+	public Cart(Integer cid, Integer count, String buyer, Product product) {
 
 		this.cid = cid;
-		this.pid = pid;
-		this.p_name = p_name;
-		this.p_price = p_price;
 		this.count = count;
 		this.buyer = buyer;
-		this.seller = seller;
-		this.coverImage = coverImage;
+		this.product = product;
 	}
-
-
 
 
 
@@ -106,85 +64,9 @@ public class Cart {
 
 
 
-
-
 	public void setCid(Integer cid) {
 		this.cid = cid;
 	}
-
-
-
-
-
-	public Integer getPid() {
-		return pid;
-	}
-
-
-
-
-
-	public void setPid(Integer pid) {
-		this.pid = pid;
-	}
-
-
-
-
-
-	public String getCategory() {
-		return category;
-	}
-
-
-
-
-
-
-
-
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-
-
-
-
-
-
-
-
-	public String getP_name() {
-		return p_name;
-	}
-
-
-
-
-
-	public void setP_name(String p_name) {
-		this.p_name = p_name;
-	}
-
-
-
-
-
-	public Double getP_price() {
-		return p_price;
-	}
-
-
-
-
-
-	public void setP_price(Double p_price) {
-		this.p_price = p_price;
-	}
-
-
 
 
 
@@ -194,13 +76,9 @@ public class Cart {
 
 
 
-
-
 	public void setCount(Integer count) {
 		this.count = count;
 	}
-
-
 
 
 
@@ -210,46 +88,38 @@ public class Cart {
 
 
 
-
-
 	public void setBuyer(String buyer) {
 		this.buyer = buyer;
 	}
 
 
 
+	public Product getProduct() {
+		return product;
+	}
 
 
-	public String getSeller() {
-		return seller;
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 
 
 
-
-	public void setSeller(String seller) {
-		this.seller = seller;
-	}
+	
 
 
 
-
-
-	public Blob getCoverImage() {
-		return coverImage;
-	}
+	
 
 
 
 
 
-	public void setCoverImage(Blob coverImage) {
-		this.coverImage = coverImage;
-	}
 
-
-
+	
+	
 
 
 

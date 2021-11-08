@@ -24,10 +24,11 @@
 <!--   <link rel='stylesheet' href="css/campaigns.css"  > -->
   <link rel="stylesheet" href="css/productstyle.css"  type="text/css">
   <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
+
 <!-- <script src="sweetalert2.min.js"></script> -->
 <!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
 <!-- <script src="sweetalert2.all.min.js"></script> -->
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <!--================ 首頁標題 start =================-->
@@ -92,15 +93,18 @@
            <li class="nav-item" >
            
                <!---------------- 首頁查詢商品框 ---------------->
-           		<form:form method='POST' action="./queryproduct" class='form-horizontal'>
+           		<form:form method='get' action="./queryproduct" class='form-horizontal'>
 					<input name="productName" id="productName" type='text' class='form:input-large'/>
 					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
 
-
               <!---------------- 購物車 ---------------->
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
-
+				<c:if test="${loginSession.userEmail != null}">
+              		<li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
+				</c:if>
+				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
+				 </c:if>
             </ul>
           </div>
         </div>
@@ -167,8 +171,9 @@
                   <input type='hidden' class='pid' name='address' value='${product.productId}'/>
                 <ul class="card-product__imgOverlay">
                   <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
-                  <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
+                  <c:if test="${loginSession.userEmail != null}">
+                  <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>                  
+                  </c:if>
                   
                 </ul>
               </div>
@@ -229,8 +234,10 @@
                   <input type='hidden' class='pid' name='address' value='${product.productId}'/>
               <ul class="card-product__imgOverlay">
                   <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>  
-                  <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>
-                  <li><button><i class="ti-heart"></i></button></li>
+                    <c:if test="${loginSession.userEmail != null}">
+                  <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>                  
+<!--                   <li><button><i class="ti-heart"></i></button></li> -->
+                  </c:if>
               </ul>
             </div>
             <div class="card-body">
@@ -483,20 +490,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
        })
      </script>  
      
-     
-<!--  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
-<c:forEach var="row" items="${cart}">
-<span class="count"  style="display:none"> ${row.count}</span>
 
-</c:forEach>
+
+<%-- <input type='hidden' value='${count}' class='count2' /> --%>
 
 
 	
 <script type="text/javascript">
 
 
-var count=0;
+
 // const MySwal = withReactContent(Swal)
 $(".additem").click(function(){		
 
@@ -509,18 +512,30 @@ $(".additem").click(function(){
 		},
 		
 		success:function(){
-	
+			
 
 			Swal.fire({
 				  position:'center',
 				  icon: 'success',
 				  title: '已加入購物車',
 				  showConfirmButton: false,
+				  
 				  timer: 1500
 				})
-			
-
-
+		
+				var count = parseInt($('#ccount').html())+1
+				console.log(count)
+				
+				$('#ccount').html(count)
+		},error:function(){
+			Swal.fire({
+				  position:'center',
+				  icon: 'error',
+				  title: '加入購物車失敗 ! ! !',
+				  text: '請登入會員',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
 		}
 								
 	});		
@@ -528,14 +543,9 @@ $(".additem").click(function(){
 	
 });
 
-$('.count').each(function(){
-	$(this).html;
-	var a = parseInt($(this).html());
-	count=count+a
 
-	})
 
-$('#ccount').html(count)
+
 
 
 </script>

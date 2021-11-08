@@ -17,23 +17,57 @@ public class BuyerAddress {
 	private String phone;
 	private String email;
 	private String city;
+	private String country;
+	private Integer postalcode;
 	private String address;
+	private String record_id;
+	
+	
+	
 	
 	public BuyerAddress() {
 
 	}
 
-	
-	public BuyerAddress(Integer address_id, String buyer, String buyerName, String phone, String email, String city,
-			String address) {
 
+	public BuyerAddress(String buyer, String buyerName, String phone, String email, String city, String country,
+			Integer postalcode, String address, String record_id) {
+		
+		this.buyer = buyer;
+		this.buyerName = buyerName;
+		this.phone = phone;
+		this.email = email;
+		this.city = city;
+		this.country = country;
+		this.postalcode = postalcode;
+		this.address = address;
+		this.record_id = record_id;
+	}
+
+
+	public BuyerAddress(Integer address_id, String buyer, String buyerName, String phone, String email, String city,
+			String country, Integer postalcode, String address, String record_id) {
+	
 		this.address_id = address_id;
 		this.buyer = buyer;
 		this.buyerName = buyerName;
 		this.phone = phone;
 		this.email = email;
 		this.city = city;
+		this.country = country;
+		this.postalcode = postalcode;
 		this.address = address;
+		this.record_id = record_id;
+	}
+
+
+	public String getRecord_id() {
+		return record_id;
+	}
+
+
+	public void setRecord_id(String record_id) {
+		this.record_id = record_id;
 	}
 
 
@@ -41,11 +75,9 @@ public class BuyerAddress {
 		return address_id;
 	}
 
-
 	public void setAddress_id(Integer address_id) {
 		this.address_id = address_id;
 	}
-
 
 	public String getBuyer() {
 		return buyer;
@@ -85,6 +117,22 @@ public class BuyerAddress {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public Integer getPostalcode() {
+		return postalcode;
+	}
+
+	public void setPostalcode(Integer postalcode) {
+		this.postalcode = postalcode;
 	}
 
 	public String getAddress() {

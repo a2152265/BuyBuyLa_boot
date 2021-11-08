@@ -18,7 +18,7 @@
                 position: 'center',
                 icon: 'success',
                 title: '更改密碼成功 ! !',
-                text: '請誠心登入 ',
+                text: '請重新登入 ',
                 showConfirmButton: false,
                 timer: 1000
                 })

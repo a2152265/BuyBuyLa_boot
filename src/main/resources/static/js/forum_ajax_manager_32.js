@@ -3,7 +3,7 @@
  */
 $(document).ready(function() {
 
-	// 管理員  發起公告  置頂設定
+	// 管理員  置頂設定
 	$("#insFlexCheckDefault").click(function() {
 		if ($(this).prop("checked")) {
 			$('.insTopArticle').val('top')
@@ -32,9 +32,8 @@ $(document).ready(function() {
 				$('.userName').val(data['userName']);
 				$('.picId').val(data['picId']);
 				$('.topArticle').val(data['topArticle']);
-				$('.editMessageQty').val(data['messageQty'])
-				$('.editViewQty').val(data['viewQty'])
-
+				$('.editMessageQty').val(data['messageQty']);
+				$('.editViewQty').val(data['viewQty']);
 				if ($('.topArticle').val() == 'top') {
 					$('.form-check-input').attr("checked", "checked");
 				} else {
@@ -42,9 +41,9 @@ $(document).ready(function() {
 				}
 				$("#flexCheckDefault").click(function() {
 					if ($(this).prop("checked")) {
-						$('.topArticle').val('top')
+						$('.topArticle').val('top');
 					} else {
-						$('.topArticle').val('general')
+						$('.topArticle').val('general');
 					}
 				});
 
@@ -56,18 +55,26 @@ $(document).ready(function() {
 					let updFormatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
 					return updFormatted_date;
 				}
-				$('#nowUpdDate').val('最後修改' + updFormatDate(date));
+				$('#nowUpdDate').val('最後修改 ' + updFormatDate(date));
 			}
 		})
 	});
 
 	$('.managerCrudBtn').click(function() {
-		var messageForumId = $(this).parent().parent().find('.sorting_1').html()
+		var messageForumId = $(this).parent().parent().find('.sorting_1').html();
 		$.ajax({
 			type: "get",
 			url: "findAllMessage",
 			data: { "id": messageForumId },
 			success: function(datas) {
+				$.ajax({
+					type: "get",
+					url: "getForumTitle",
+					data: { "id": messageForumId },
+					success: function(data) {
+						$('.managerMessageTitle').html(data);
+					}
+				})
 				$('#messageResult').html('');
 				for (i = 0; i < datas.length; i++) {
 					$('#messageResult').append(
@@ -77,30 +84,121 @@ $(document).ready(function() {
 						"<td>" + datas[i]['messageUserEmail'] + "</td>" +
 						"<td>" + datas[i]['messageContent'] + "</td>" +
 						"<td>" + datas[i]['messageDate'] + "</td>" +
-						"<td><button class='btn btn-primary managerDeleteBtn'>刪除</button></td>"+
+						"<td><button class='btn btn-primary managerDeleteBtn'>刪除</button></td>" +
 						"</tr>"
 					)
 				}
-				$('.managerDeleteBtn').click(function(){
+				$('.managerDeleteBtn').click(function() {
 					var delMessageId = $(this).parent().prev().prev().prev().prev().prev().html();
 					$.ajax({
-						type:"get",
-						url:"deleteMessageById",
-						data:{"id":delMessageId},
-						success:function(){
-								Swal.fire({
-									icon: 'success',
-									title: '刪除留言成功',
-									showConfirmButton: false,
-									timer: 1000
-								});
-								setTimeout(function() { history.go(0) }, 1000);
+						type: "get",
+						url: "deleteMessageById",
+						data: { "id": delMessageId,
+								"messageForumId":messageForumId},
+						success: function() {
+							Swal.fire({
+								icon: 'success',
+								title: '刪除留言成功',
+								showConfirmButton: false,
+								timer: 1500
+							});
+							$.ajax({
+								type: "get",
+								url: "findAllMessage",
+								data:{"id":messageForumId},
+								success: function(datas) {
+									$('#messageResult').html('');
+									for (i = 0; i < datas.length; i++) {
+										$('#messageResult').append(
+											"<tr>" +
+											"<td class='managerDelId'>" + datas[i]['messageId'] + "</td>" +
+											"<td>" + datas[i]['messageUserName'] + "</td>" +
+											"<td>" + datas[i]['messageUserEmail'] + "</td>" +
+											"<td>" + datas[i]['messageContent'] + "</td>" +
+											"<td>" + datas[i]['messageDate'] + "</td>" +
+											"<td><button class='btn btn-primary managerDeleteBtn'>刪除</button></td>" +
+											"</tr>"
+										)
+									}
+								}
+							})
 						}
 					})
 				})
+				
 			}
 		})
 
 	})
+	$('.reportStatus').each(function(){
+		if($(this).html()=='已完成'){
+			$(this).next().html("<input type='button' value='復原' class='btn btn-warning retest'>")
+		}
+	})
+	// 復原
+	$('.retest').each(function(){
+		$(this).click(function(){
+			var reportId =$(this).parent().parent().find('.reportId').html();
+			var messageId =$(this).parent().parent().find('.reportMessageId').html();
+			$.ajax({
+				type:"get",
+				url:"retest",
+				data:{
+					"reportId":reportId,
+					"messageId":messageId
+				},
+				success:function(){
+					history.go(0);
+				}
+			})
+		})
+	})
+	// 忽略
+	$('.ignore').each(function() {
+		$(this).click(function(){
+			var reportId =$(this).parent().parent().find('.reportId').html();
+			$.ajax({
+				type:"get",
+				url:"ignoreReprot",
+				data:{
+					"reportId":reportId
+					},
+				success:function(){
+					history.go(0);
+				}
+			})
+		})
+	})
+	// 警告
+	$('.warning').each(function(){
+		$(this).click(function(){
+			var reportId =$(this).parent().parent().find('.reportId').html();
+			var messageId =$(this).parent().parent().find('.reportMessageId').html();
+			var userEmail =$(this).parent().parent().find('.reportedUserEmail').html();
+			$.ajax({
+				type:"get",
+				url:"warning",
+				data:{
+					"reportId":reportId,
+					"messageId":messageId,
+					"userEmail":userEmail
+				},
+				success:function(){
+					history.go(0);
+				}
+			})
+		})
+	})
+	// 清除
+	$('.clear').click(function(){
+		$.ajax({
+			type:"get",
+			url:"clear",
+			success:function(){
+				history.go(0);
+			}
+		})
+	})
+
 
 });

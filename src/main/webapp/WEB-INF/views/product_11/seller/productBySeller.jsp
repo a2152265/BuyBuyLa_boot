@@ -21,8 +21,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>賣家中心</title>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
- <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+ 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <style>
 #myInput {
   background-image: url('/css/searchicon.png'); /* Add a search icon to input */
@@ -61,7 +61,7 @@
 
 #myTable tr.header, #myTable tr:hover {
   /* Add a grey background color to the table header and on hover */
-  background-color: #f1f1f1;
+  background-color: #ECF5FF;
 }
  .btn-outline-primary {
   color:lightblue;
@@ -180,7 +180,16 @@
   grid-column: 1 / -1;
 }
 
+.table-wrapper {
+					min-width: 1000px;
+					background: #fff;
+					padding: 20px;
+					box-shadow: 0 1px 1px rgba(0,0,0,.05);
+				}
 
+	.table-responsive {
+					margin: 30px 0;
+				}
 </style>
 </head>
 <body>
@@ -214,12 +223,14 @@
   <div id="search" style="margin-bottom:30px">
 						<button  type="button" class="btn btn-outline-primary"onclick="location.href ='<c:url value='/products/add' />'">新增商品</button>
 	</div>
+	<div class="table-responsive">
+	<div class="table-wrapper">
 <table id="myTable" class="display" style="width:100%;font-weight:bolder;font-size:20px;" >
     <thead >
         <tr >
     <th style="width:6%;"><i class="fas fa-list-ol"></i>&nbsp商品編號</th>
     <th style="width:12%;"><i class="fas fa-portrait"></i>&nbsp商品名稱</th>
-    <th style="width:15%;"><i class="fas fa-image"></i>&nbsp圖片</th>
+    <th style="width:15%;"><i class="fas fa-image"></i>&nbsp商品圖片</th>
     <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp商品庫存</th>
     <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp商品價錢</th>
     <th style="width:10%;"><i class="far fa-clipboard"></i>&nbsp商品類別</th>
@@ -248,7 +259,8 @@
         </c:forEach>
     </tbody>
 </table>
-
+</div>
+</div>
 </section>
 
 
@@ -327,6 +339,17 @@
   })
   
   $('#myTable').DataTable({
+	  rowReorder: true,
+	  columnDefs: [
+	      { orderable: true, className: 'reorder', targets: 0},
+	      { orderable: true, className: 'reorder', targets: 3},
+	      { orderable: true, className: 'reorder', targets: 4},
+	      { orderable: true, className: 'reorder', targets: 5},
+	      { orderable: true, className: 'reorder', targets: 7},
+
+	      { orderable: false, targets: '_all' }
+
+	      ],
      "language": {
      "processing": "處理中...",
      "loadingRecords": "載入中...",
@@ -347,8 +370,13 @@
          "sortAscending": ": 升冪排列",
          "sortDescending": ": 降冪排列"
      }
+     
+     
+     
  }
-});;
+  
+  
+});
   
   
   

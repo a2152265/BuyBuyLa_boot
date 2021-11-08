@@ -48,14 +48,15 @@ button {
   cursor: pointer;
 }
 
-input {
-  -webkit-appearance: none;
-}
+/* input { */
+/*   -webkit-appearance: none; */
+/* } */
 
-[type="checkbox"] {
-  position: absolute;
-  left: -9999px;
-}
+/* [type="checkbox"] { */
+/*   position: absolute; */
+/*   left: -9999px; */
+/* } */
+
 
 label {
   cursor: pointer;

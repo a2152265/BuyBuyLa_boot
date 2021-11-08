@@ -1,6 +1,7 @@
  	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,23 +78,32 @@
             </ul>
 
             <ul class="nav-shop">
-           <li class="nav-item" ><form:form method='POST' action="./queryproduct"
-						class='form-horizontal'>
-				
-							<input name="productName" id="productName" type='text'
-								class='form:input-large'/>
-							<button type='submit' ><i class="ti-search" ></i></button>
-<!-- 							<input id="btnAdd" type='submit' -->
-<!-- 								class='btn btn-primary' /> -->
-				
+          
+           <li class="nav-item" >
+           
+               <!---------------- 首頁查詢商品框 ---------------->
+           		<form:form method='get' action="./queryproduct" class='form-horizontal'>
+					<input name="productName" id="productName" type='text' class='form:input-large'/>
+					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
+
+
+              <!---------------- 購物車 ---------------->
+				<c:if test="${loginSession.userEmail != null}">
+              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
+				</c:if>
+				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
+				 </c:if>
+
               
             
               
               <!-- 購物車顯示數量在這裡改 -->
               
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>3</span></button> </li>
+<%--               <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li> --%>
 <!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
+
             </ul>
           </div>
         </div>
@@ -162,7 +172,15 @@
 						</div>
 						<div class="card_area d-flex align-items-center">
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+							<c:choose>
+								<c:when test="${producrFavorite == null}">
+									<a class="icon_btn" href="<c:url value='./favorite?id=${product.productId}' />"><i class="lnr lnr lnr-heart"></i></a>
+								</c:when>
+								<c:otherwise>
+									<a class="icon_btn" href="<c:url value='./favorite?id=${product.productId}' />"><i class="fas fa-heart"></i></a>
+								</c:otherwise>
+							</c:choose>
+
 						<div class="line-it-button" data-lang="zh_Hant" data-type="share-a" data-ver="3" data-url="http://localhost:8080/BuyBuyla_boot/product?id=${product.productId}" data-color="grey" data-size="small" data-count="true" style="display: none;">
 						</div>
 						</div>
@@ -385,7 +403,7 @@
                     <input class="form-control" id="userEmail" name="userEmail" type="text" value="訪客"   readonly>
                   </div>
                   <div class="form-group">
-                    <textarea id="content" class="form-control different-control w-100" name="content" id="textarea" cols="30" rows="5" placeholder="請先登入後方能進行留言"></textarea>
+                    <textarea id="content" class="form-control different-control w-100" name="content" id="textarea" cols="30" rows="5" placeholder="請先登入後方能進行留言" readonly></textarea>
                   </div>
                   <div class="form-group text-center text-md-right mt-3">
                   </div>
@@ -619,25 +637,41 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   
   
   <script>
-$(".additem").click(function(){		
-//		var data=$("#form1").serializeArray();
-	var data=$('.pid').val();
-	console.log(data+"************************");
-	$.ajax({
-		type:'get',
-		url:'additem',
-		data:{
-			"id":data
-		},
+  $(".additem").click(function(){		
+
+		var data=$(this).val();
+			$.ajax({
+			type:'get',
+			url:'additemFromproduct',
+			data:{
+				"id":data
+			},
+			
+			success:function(){
 		
-		success:function(){
-			 console.log("77777777")
-		}
-								
-	});		
-	
-	
-});
+
+				Swal.fire({
+					  position:'center',
+					  icon: 'success',
+					  title: '已加入購物車',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+			},error:function(){
+				Swal.fire({
+					  position:'center',
+					  icon: 'error',
+					  title: '加入購物車失敗 ! ! !',
+					  text: '請登入會員',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+			}
+									
+		});		
+		
+		
+	});
 
 $('#comment').click(function() {
     
@@ -666,7 +700,7 @@ $('#comment').click(function() {
         console.log(textStatus);
         console.log(xhr.status);
         if (xhr.status == 200) {
-			
+        	window.location.reload();
          
         }
       },
