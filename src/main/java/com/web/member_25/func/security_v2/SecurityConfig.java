@@ -68,24 +68,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http)  throws Exception{
+		
 		//自訂無權限錯誤葉面
 		http.exceptionHandling().accessDeniedPage("/error_403");
 		//登出
 		http.logout().logoutUrl("/try/logout").logoutSuccessUrl("/try/logoutSuccess").permitAll();
 		//自訂login
 		http.formLogin()     //自訂login
+		
 			.loginPage("/try/login")   //登入地址
 			.loginProcessingUrl("/try/login")  //登入後跳到哪個controller 路徑
 			.usernameParameter("userEmail")///登入表單form中使用者名稱輸入框input的name名，不修改的話預設是username
             .passwordParameter("userPwd")//form中密碼輸入框input的name名，不修改的話預設是password
-			.defaultSuccessUrl("/index").permitAll()  //登入後跳轉到哪個路徑
+			.defaultSuccessUrl("/",true).permitAll()  //登入後跳轉到哪個路徑
 			
 			.and().authorizeRequests() //定義那些需要保護那些不需要
 				  .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() //允許靜態資源
 		
 				  //不需要權限區------------------------------------
 				  //靜態資源區
-				  .antMatchers("/","/try/login","/index","../src/main/resources/static/**").permitAll()
+				  .antMatchers("/","/homeLa","/try/login","/index","../src/main/resources/static/**").permitAll()
 				  .antMatchers("../static/**","/resources/**","/products/**").permitAll()
 				  .antMatchers("/static/css/**","/static/images/**","/static/img/**","/static/js/**","/static/vendors/**").permitAll()
 				  //product_11

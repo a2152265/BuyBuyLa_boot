@@ -25,7 +25,7 @@ import com.web.product_11.service.ProductCommentService;
 import com.web.product_11.service.ProductService;
 
 @Controller
-@SessionAttributes({ "loginSession","cart","memberUiDefault"})
+@SessionAttributes({ "loginSession","cart","memberUiDefault","managerSession"})
 public class HomeController {
 	
 	ProductService productservice;
@@ -100,6 +100,61 @@ public class HomeController {
 		//討論區-官方最新公告
 //		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
 //		model.addAttribute("announcementList",announcementList);
+	
+		return "index";
+	
+	}
+	
+	
+	
+	
+	
+	@GetMapping("/homeLa")
+	public String home_explicit(Model model,
+			Authentication authentication
+			) {
+		System.out.println("進入首頁La");
+		System.out.println("haha");
+		List<Product> allProduct = productservice.getAllProducts();
+		System.out.println("首頁の商品列表展示中ing.....");
+		model.addAttribute("products", allProduct);
+		model.addAttribute("categoryList", productservice.getAllCategories());
+		
+		//商品顯示(依照商品上傳時間、上架顯示)
+		List<Product> ascProduct = productservice.productOrderByInsertTime();
+		model.addAttribute("ascProduct", ascProduct);
+		
+		//首頁輪播圖
+		List<Campaign> cambeans = campaignService.findAll();
+		model.addAttribute("campaignss",cambeans);
+		model.addAttribute("campaignsizes",cambeans.size());
+		
+		
+		try {
+			if (authentication.getName()!=null) {
+				System.out.println("-authentication------------>"+authentication.getName());
+				membershipInformationBean mb=new membershipInformationBean();
+				mb=memberService.findMemberDataAll(authentication.getName());
+				model.addAttribute("loginSession",mb);
+				model.addAttribute("memberUiDefault",mb);
+				System.out.println("-----------Index--------已登入------------------>"+mb.getUserEmail());
+				System.out.println("-----------Index--------已登入(BC碼)------------------>"+mb.getUserPwd());
+				
+				if (memberService.memberOrManager(authentication.getName())==false) {
+					mb.setUserName("管理員");
+					model.addAttribute("managerSession",mb);
+					System.out.println("---------------這傢伙是管理員");
+				}
+				
+				
+			}
+		} catch (Exception e) {
+			System.out.println("-----------Index--------目前尚未登入------------------>");
+		}
+		
+		//討論區-官方最新公告
+//		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
+//		model.addAttribute("announcementList",announcementList);
 		
 		
 		return "index";
@@ -117,6 +172,11 @@ public class HomeController {
 		return "Home/manageHome";
 		
 	}
+	
+	
+	
+	
+	
 	
 	
 }
