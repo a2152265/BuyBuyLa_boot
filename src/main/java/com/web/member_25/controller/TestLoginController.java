@@ -92,12 +92,11 @@ public class TestLoginController {
 	}
 
 	//進入方法前先驗證
-	@PreAuthorize("hasAnyAuthority('member','manager')")
 	@GetMapping("/try/add")
-	public String trySignUp(Model model,
-			Principal principal,Authentication authentication,HttpServletRequest httpServletRequest
+	public String trySignUp(Model model
+//			Principal principal,Authentication authentication,HttpServletRequest httpServletRequest
 			) {
-//		MemberBean mb=new MemberBean();
+		System.out.println("-----------ADD");
 		membershipInformationBean mb = new membershipInformationBean();
 		// 設定預設值
 		mb.setUserEmail("c123@gmail.com");
@@ -107,9 +106,9 @@ public class TestLoginController {
 		model.addAttribute("loginBeanDefault", mb);
 		
 		
-		System.out.println("-principal------------>"+principal.getName());
-		System.out.println("-httpServletRequest------------>"+httpServletRequest.getUserPrincipal().getName());
-		System.out.println("-authentication------------>"+authentication.getName());
+//		System.out.println("-principal------------>"+principal.getName());
+//		System.out.println("-httpServletRequest------------>"+httpServletRequest.getUserPrincipal().getName());
+//		System.out.println("-authentication------------>"+authentication.getName());
 		
 		return "member_25/signUpPage";
 	}
@@ -176,6 +175,7 @@ public class TestLoginController {
 
 	@PostMapping("/try/login")
 	public String processtryLogin(@ModelAttribute("loginSession") membershipInformationBean mb, BindingResult result,
+		
 			RedirectAttributes redirectAttributes, Model model) {
 
 		// -------------------------------------------
@@ -190,7 +190,7 @@ public class TestLoginController {
 		System.out.println("==========進入processMemberLogin=====================");
 		membershipInformationBean mb2 = new membershipInformationBean();
 		membershipInformationBean mb4 = new membershipInformationBean();
-
+		
 		int loginResult = 0; 
 
 		String userEmail = null, userPwd = null;
@@ -310,7 +310,7 @@ public class TestLoginController {
 		return "member_25/member_Ui";
 	}
 
-	
+	@Secured({"member","ROLE_member","manager","ROLE_manager"})  //決定限制
 	@PostMapping("/try/member_Ui")
 	public String tryProcessMemberUpdate(@ModelAttribute("memberUiDefault") membershipInformationBean mb,
 //				@RequestParam String userEmail,
@@ -1046,6 +1046,11 @@ public class TestLoginController {
 			return "/error_403";
 		}
 				
+		@GetMapping("/try/logoutSuccess")
+		public String logoutSuccessPage() {
+			System.out.println("登出no sweat alert");
+			return "member_25/logoutSuccess";
+		}
 				
 	
 	

@@ -35,7 +35,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
     public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/resources/**");
+		web.ignoring().antMatchers("/public/**");
         web.ignoring().antMatchers("/static/**");
+        web.ignoring().antMatchers("/static/css/**");
+        web.ignoring().antMatchers("/static/images/**");
+        web.ignoring().antMatchers("/static/img/**");
+        web.ignoring().antMatchers("/static/js/**");
+        web.ignoring().antMatchers("/static/vendors/**");
+        web.ignoring().antMatchers("/static/vendors/bootstrap/**");
+        web.ignoring().antMatchers("/static/vendors/fontawesome/**");
+        web.ignoring().antMatchers("/static/vendors/jquery/**");
+        web.ignoring().antMatchers("/static/vendors/linericon**");
+        web.ignoring().antMatchers("/static/vendors/nice-select/**");
+        web.ignoring().antMatchers("/static/vendors/owl-carousel/**");
+        web.ignoring().antMatchers("/static/vendors/themify-icons/**");
+        web.ignoring().antMatchers("/global/**");
+        
+        web.ignoring().antMatchers("/vendors/**");
+        web.ignoring().antMatchers("/css/**");
+        web.ignoring().antMatchers("/img/**");
+        web.ignoring().antMatchers("img/**");
+        web.ignoring().antMatchers("/images/**");
+        web.ignoring().antMatchers("/js/**");
     }
 	
 	
@@ -50,34 +71,70 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//自訂無權限錯誤葉面
 		http.exceptionHandling().accessDeniedPage("/error_403");
 		//登出
-		http.logout().logoutUrl("/try/logout").logoutSuccessUrl("/").permitAll();
+		http.logout().logoutUrl("/try/logout").logoutSuccessUrl("/try/logoutSuccess").permitAll();
 		//自訂login
 		http.formLogin()     //自訂login
 			.loginPage("/try/login")   //登入地址
 			.loginProcessingUrl("/try/login")  //登入後跳到哪個controller 路徑
 			.usernameParameter("userEmail")///登入表單form中使用者名稱輸入框input的name名，不修改的話預設是username
             .passwordParameter("userPwd")//form中密碼輸入框input的name名，不修改的話預設是password
-			.defaultSuccessUrl("/").permitAll()  //登入後跳轉到哪個路徑
+			.defaultSuccessUrl("/index").permitAll()  //登入後跳轉到哪個路徑
 			
 			.and().authorizeRequests() //定義那些需要保護那些不需要
 				  .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() //允許靜態資源
 		
-				  //,"/member_25/member_Ui"
+				  //不需要權限區------------------------------------
+				  //靜態資源區
 				  .antMatchers("/","/try/login","/index","../src/main/resources/static/**").permitAll()
-				  .antMatchers("/try/login","../static/**","/resources/**").permitAll()
+				  .antMatchers("../static/**","/resources/**","/products/**").permitAll()
 				  .antMatchers("/static/css/**","/static/images/**","/static/img/**","/static/js/**","/static/vendors/**").permitAll()
+				  //product_11
+				  .antMatchers("/products/**","/product/**","/categoryList/**","/getPicture/**","/comment/**").permitAll()
+				  //member_25
+				  .antMatchers("/try/login/**","/try/add/**").permitAll()
+				  //cart_30
+				  .antMatchers("/xxx/xxx","/xxx/xxx").permitAll()
+				  //forum_32
+				  .antMatchers("/xxx/xxx","/xxx/xxx").permitAll()
+				  //cele_36
+				  .antMatchers("/xxx/xxx","/xxx/xxx").permitAll()
+				  //不需要權限區------------------------------------
 				  
 				  
-				  //設定一下權限
+				  			  
+				  
+				  //需要權限區member---------------------------------
 //				  .antMatchers("/try/member_Ui","/member_25/member_Ui").hasAuthority("member") //需要member權限才能登陸
-				  .antMatchers("/try/member_Ui","/member_25/member_Ui").hasRole("member") //需要ROLE_membe才能訪問
-				  .antMatchers("/try/add").hasRole("member") //需要ROLE_membe才能訪問
+				  	//product_11
+				  .antMatchers("/xxx/xxx").hasRole("member") //需要ROLE_membe才能訪問
+				  	//member_25
+//				  .antMatchers("/try/member_Ui","/member_25/member_Ui").hasRole("member") //需要ROLE_membe才能訪問
 				  .antMatchers("/try/member_Ui","/member_25/member_Ui").hasAnyAuthority("member","manager")
+				  	//cart_30
+				  .antMatchers("/xxx/xxx").hasRole("member") //需要ROLE_member才能訪問
+				  	//forum_32
+				  .antMatchers("/xxxx/xxx").hasRole("member") //需要ROLE_member才能訪問
+				  	//cele_36
+				  .antMatchers("/xxx/xxx").hasRole("member") //需要ROLE_member才能訪問
+				  //需要權限區member---------------------------------
+				  
+				  
+				  
+				  //需要權限區-------管理員---------------------------------
+				  	//product_11
+				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
+				  	//member_25
+				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
+				  	//cart_30
+				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
+				  	//forum_32
+				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
+				  	//cele_36
+				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
+				  //需要權限區-------管理員---------------------------------
+				  
 				  
 			.anyRequest().authenticated()
-			.and().csrf().disable();   
-				
+			.and().csrf().disable();   			
 	}
-	
-	
 }

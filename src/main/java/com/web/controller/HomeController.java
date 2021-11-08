@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +19,13 @@ import com.web.celebrations_36.service.CampaignService;
 import com.web.forum_32.model.ForumBean;
 import com.web.forum_32.service.IForumService;
 import com.web.member_25.model.membershipInformationBean;
+import com.web.member_25.service.MemberService;
 import com.web.product_11.model.Product;
 import com.web.product_11.service.ProductCommentService;
 import com.web.product_11.service.ProductService;
 
 @Controller
-@SessionAttributes({ "loginSession","cart"})
+@SessionAttributes({ "loginSession","cart","memberUiDefault"})
 public class HomeController {
 	
 	ProductService productservice;
@@ -33,23 +35,29 @@ public class HomeController {
 	CartService cartService;
 	IForumService forumService;
 	
+	//member
+	MemberService memberService;
+	
 	
 	@Autowired
 	public HomeController(ProductService productservice, ProductCommentService productCommentService,
 			CampaignService campaignService, ServletContext servletContext, CartService cartService,
-			IForumService forumService) {
+			IForumService forumService,MemberService memberService) {
 		this.productservice = productservice;
 		this.productCommentService = productCommentService;
 		this.campaignService = campaignService;
 		this.servletContext = servletContext;
 		this.cartService = cartService;
 		this.forumService = forumService;
+		this.memberService=memberService;
 	}
 	
 
 
 	@GetMapping("/")
-	public String home0(Model model) {
+	public String home0(Model model,
+			Authentication authentication
+			) {
 		System.out.println("進入首頁La");
 		System.out.println("haha");
 		List<Product> allProduct = productservice.getAllProducts();
@@ -65,6 +73,21 @@ public class HomeController {
 		List<Campaign> cambeans = campaignService.findAll();
 		model.addAttribute("campaignss",cambeans);
 		model.addAttribute("campaignsizes",cambeans.size());
+		
+		
+		try {
+			if (authentication.getName()!=null) {
+				System.out.println("-authentication------------>"+authentication.getName());
+				membershipInformationBean mb=new membershipInformationBean();
+				mb=memberService.findMemberDataAll(authentication.getName());
+				model.addAttribute("loginSession",mb);
+				model.addAttribute("memberUiDefault",mb);
+				System.out.println("-----------Index--------已登入------------------>"+mb.getUserEmail());
+				System.out.println("-----------Index--------已登入(BC碼)------------------>"+mb.getUserPwd());
+			}
+		} catch (Exception e) {
+			System.out.println("-----------Index--------目前尚未登入------------------>");
+		}
 		
 		//討論區-官方最新公告
 //		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();

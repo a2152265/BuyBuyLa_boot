@@ -14,15 +14,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>BuyBuyLa|Home</title>
 	<link rel="icon" href="img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-  <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-   <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css"  type="text/css">
+  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css"  type="text/css">
+	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css"  type="text/css">
+  <link rel="stylesheet" href="vendors/nice-select/nice-select.css"  type="text/css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css"  type="text/css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css"  type="text/css">
+   <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css"  type="text/css">
 <!--   <link rel='stylesheet' href="css/campaigns.css"  > -->
-  <link rel="stylesheet" href="css/productstyle.css">
+  <link rel="stylesheet" href="css/productstyle.css"  type="text/css">
   <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
 <!-- <script src="sweetalert2.min.js"></script> -->
 <!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
@@ -35,7 +35,7 @@
     <div class="main_menu">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand logo_h" href="<c:url value='/' />"><img src="img/logo.png" alt=""></a>
+          <a class="navbar-brand logo_h" href="<c:url value='/' />"><img src="img/logo.png" alt="BuyBuyLa"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="icon-bar"></span>
@@ -49,7 +49,7 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">會員</a>
                 <ul class="dropdown-menu">
-                <c:if test="${loginSession ==null}">
+                <c:if test="${loginSession.userEmail ==null}">
 	                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/login' />">會員登入</a></li> 
                   	   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/add' />">會員註冊</a></li>
                </c:if>
@@ -85,8 +85,7 @@
 						${loginSession.userEmail}</a></li>
 				</c:if>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
-						${loginSession.userEmail}</a></li>
+			
 
             </ul>
             <ul class="nav-shop">
@@ -413,16 +412,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/skrollr.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="vendors/jquery.ajaxchimp.min.js"></script>
-  <script src="vendors/mail-script.js"></script>
-  <script src="js/main.js"></script>
+  <script src="vendors/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
+  <script src="vendors/bootstrap/bootstrap.bundle.min.js" type="text/javascript"></script>
+  <script src="vendors/skrollr.min.js" type="text/javascript"></script>
+  <script src="vendors/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
+  <script src="vendors/nice-select/jquery.nice-select.min.js" type="text/javascript"></script>
+  <script src="vendors/jquery.ajaxchimp.min.js" type="text/javascript"></script>
+  <script src="vendors/mail-script.js" type="text/javascript"></script>
+  <script src="js/main.js" type="text/javascript"></script>
 
-  <script> 
+  <script type="text/javascript"> 
 
        $(function(){
            let index=0;
@@ -494,7 +493,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 	
-<script>
+<script type="text/javascript">
 
 
 var count=0;

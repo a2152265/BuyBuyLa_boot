@@ -27,7 +27,11 @@
     <link rel='stylesheet' href="<spring:url value='../css/productstyle.css' />"  type="text/css" />
   <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
 
-
+<style>
+        body {
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+    </style>
  
 
   <style type="text/css">
@@ -395,5 +399,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="vendors/jquery.ajaxchimp.min.js"></script>
   <script src="vendors/mail-script.js"></script>
   <script src="js/main.js"></script>
+  
+
 </body>
 </html>
