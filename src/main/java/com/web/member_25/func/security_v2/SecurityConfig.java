@@ -111,7 +111,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				  .antMatchers("/xxx/xxx").hasRole("member") //需要ROLE_membe才能訪問
 				  	//member_25
 //				  .antMatchers("/try/member_Ui","/member_25/member_Ui").hasRole("member") //需要ROLE_membe才能訪問
-				  .antMatchers("/try/member_Ui","/member_25/member_Ui").hasAnyAuthority("member","manager")
+//				  .antMatchers("/try/member_Ui","/member_25/member_Ui").hasAnyAuthority("member","manager")
+				  .antMatchers("/try/member_Ui").hasAnyRole("manager","member")
 				  	//cart_30
 				  .antMatchers("/xxx/xxx").hasRole("member") //需要ROLE_member才能訪問
 				  	//forum_32
