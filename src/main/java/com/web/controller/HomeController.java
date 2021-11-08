@@ -84,6 +84,14 @@ public class HomeController {
 				model.addAttribute("memberUiDefault",mb);
 				System.out.println("-----------Index--------已登入------------------>"+mb.getUserEmail());
 				System.out.println("-----------Index--------已登入(BC碼)------------------>"+mb.getUserPwd());
+				
+				if (memberService.memberOrManager(authentication.getName())==false) {
+					mb.setUserName("管理員");
+					model.addAttribute("managerSession",mb);
+					System.out.println("---------------這傢伙是管理員");
+				}
+				
+				
 			}
 		} catch (Exception e) {
 			System.out.println("-----------Index--------目前尚未登入------------------>");
