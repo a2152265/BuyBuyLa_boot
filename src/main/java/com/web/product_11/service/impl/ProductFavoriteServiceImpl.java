@@ -1,6 +1,8 @@
 package com.web.product_11.service.impl;
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.web.product_11.dao.ProductFavoriteRepository;
@@ -28,6 +30,12 @@ public class ProductFavoriteServiceImpl implements ProductFavoriteService {
 	@Override
 	public ProductFavorite findByMidAndPid(Integer memberId, Integer productId) {
 		return productFavoriteRepository.findByMidAndPid(memberId, productId);
+	}
+
+
+	@Override
+	public List<ProductFavorite> findByMemberId(Integer memberId) {
+		return productFavoriteRepository.findByMemberId(memberId);
 	}
 
 

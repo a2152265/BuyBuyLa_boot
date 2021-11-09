@@ -105,6 +105,16 @@
 				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
 				 </c:if>
             </ul>
+            
+              <!---------------- 我的最愛 ---------------->
+            <ul style="list-style-type: none; padding-left:10px" >
+               <c:if test="${loginSession.userEmail != null}">
+                <li ><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
+                 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+                <li ><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/try/login' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
+            </ul>
           </div>
         </div>
       </nav>

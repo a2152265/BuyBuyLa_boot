@@ -11,4 +11,7 @@ public interface ProductFavoriteRepository extends JpaRepository<ProductFavorite
 	
 	@Query("from ProductFavorite where fk_member_id=:memberId and fk_product_id=:productId ")
 	ProductFavorite findByMidAndPid(Integer memberId,Integer productId);
+	
+	@Query("from ProductFavorite where fk_member_id=:memberId")
+	List<ProductFavorite> findByMemberId(Integer memberId);
 }

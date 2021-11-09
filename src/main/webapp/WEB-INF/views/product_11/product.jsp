@@ -90,21 +90,24 @@
 
               <!---------------- 購物車 ---------------->
 				<c:if test="${loginSession.userEmail != null}">
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
+              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>		
 				</c:if>
 				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
 				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
 				 </c:if>
-
               
-            
-              
-              <!-- 購物車顯示數量在這裡改 -->
-              
-<%--               <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li> --%>
-<!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
-
             </ul>
+            
+            <!---------------- 我的最愛 ---------------->
+            <ul style="list-style-type: none; padding-left:10px" >
+               <c:if test="${loginSession.userEmail != null}">
+                <li ><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
+                 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+                <li ><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/try/login' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
+            </ul>
+            
           </div>
         </div>
       </nav>
@@ -140,12 +143,6 @@
  						<div class="single-prd-item"> 
  							<img class="img-fluid" src="<c:url value='/getPicture/${product.productId}'/>" alt=""> 
  						</div> 
-						<!-- <div class="single-prd-item">
-							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
-						</div>
-						<div class="single-prd-item">
-							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
-						</div> -->
 					</div>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
@@ -158,20 +155,17 @@
 							<li><a href="javascript:;"><span>庫存量</span>${product.stock}</a></li>
 						</ul>
 						<br>
-<%-- 						<p>${product.productInfo}</p> --%>
 						<div class="product_count">
-<!--               <label for="qty">Quantity:</label> -->
+
               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
 							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
 							<input type="number" name="qty" id="sst" min="1" max="${product.stock}"  size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
-<%-- 							<a class="button primary-btn" href="<c:url value='/additem' />?id=${product.productId}">Add to Cart</a>  --%>
 							<input type='hidden' class='pid' name='address' value='${product.productId}'/>
 							<a class="button primary-btn additem" href="#">Add to Cart</a>                             
 						</div>
 						<div class="card_area d-flex align-items-center">
-							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
 							<c:choose>
 								<c:when test="${producrFavorite == null}">
 									<a class="icon_btn" href="<c:url value='./favorite?id=${product.productId}' />"><i class="lnr lnr lnr-heart"></i></a>
@@ -219,7 +213,7 @@
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 <!-- 					<div class="table-responsive"> -->
 <!-- 						<table class="table"> -->
-<!-- 							<tbody> -->
+<!-- 							<tbody> -->	
 <!-- 								<tr> -->
 <!-- 									<td> -->
 <!-- 										<h5></h5> -->

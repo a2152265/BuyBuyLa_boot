@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -595,19 +596,28 @@ public class ProductController {
 					}
 					
 					
-					return "redirect:/";
+					return "/";
 				}
 				
 		//依照會員取得我的最愛
-//				@GetMapping("/favorite")
-//				public String getFavoriteProduct(
-//						@RequestParam("id") String id
-//						,Model model) {
-//					
-//					membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
-//					
-//							return "";
-//					
-//				}
+				@GetMapping("/member/favorite")
+				public String getFavoriteProduct(Model model) {
+					
+					membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
+					membershipInformationBean member = memberService.findMemberData(mb.getUserEmail());
+					List<Product> pList= new ArrayList<>();
+					System.out.println(member.getId());
+					List<ProductFavorite> productFavorite = productFavoriteService.findByMemberId(member.getId());
+					for(ProductFavorite p:productFavorite) {
+						Product product = p.getProduct();
+						Integer productId = product.getProductId();
+						Product favoriteproduct = productservice.getProductById(productId);
+						pList.add(favoriteproduct);
+					}
+						model.addAttribute("favoriteList", pList);
+					
+							return "product_11/buyer/product_favorite";
+					
+				}
 				
 }
