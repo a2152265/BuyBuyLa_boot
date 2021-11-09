@@ -43,7 +43,7 @@
 				<th>會員編號</th>
 				<th>E-mail</th>
 				<th>電話</th>
-				<th>密碼</th>
+				<th  style="width:20%; max-width: 50px;">密碼</th>
 				<th>會員名稱</th>
 				<th>會員暱稱</th>
 				<th>性別</th>
@@ -62,7 +62,7 @@
 					<td><c:out value="${member.id}" /></td>
 					<td><c:out value="${member.userEmail}" /></td>
 					<td><c:out value="${member.userPhone}" /></td>
-					<td><c:out value="${member.userPwd}" /></td>
+					<td  style="width:20%; max-width: 90px; word-break: break-all;" ><c:out value="${member.userPwd}" /></td>
 					<td><c:out value="${member.userName}" /></td>
 					<td><c:out value="${member.userNickname}" /></td>
 					<td><c:out value="${member.userGender}" /></td>
@@ -79,9 +79,9 @@
 							<!--	<a href="<c:url value='/select?id=${selects.record_id}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a> -->
 
 							<a href='/BuyBuyla_boot/manager/edit${member.id}' class="view"
-								title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+								title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a><br>
 							<a href='/BuyBuyla_boot/manager/delete${member.id}'
-								onclick="return(confirm('確認刪除？'))" class="button-1">刪除會員</a>
+								onclick="return(confirm('確認刪除？'))" class="button-1">刪除</a>
 
 						</div>
 

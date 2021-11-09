@@ -2,7 +2,7 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!-- header -->
 <%@ include file="../Home/member/member_25/header.jspf"%>
-<!-- sidebar -->>
+<!-- sidebar -->
 <%@ include file="../Home/member/member_25/sidebar.jspf"%>
                           
                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"> 修改會員資料 </p>
@@ -92,7 +92,7 @@
                <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>" 
                    class="img-fluid" alt="Sample image"  style="width: 50%;  height:50%;" />
          
-                        <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                        <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2" style="margin-top:-30%; margin-left:-30%;">
           
 
                             
@@ -103,7 +103,7 @@
                         <br><br> <label class="custom-file-label" for="customFile">選擇大頭貼</label> 
                       </div>
 						</form>
-
+						</div>
                     </form:form> 
 
                           <!-- <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-registration/draw1.png" class="img-fluid" alt="Sample image"> -->

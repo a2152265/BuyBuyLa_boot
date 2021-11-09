@@ -125,43 +125,52 @@ Cookie 是網站在您瀏覽網頁時，儲存在您電腦中的資料，讓網�
                 <h3></h3>
                 <p>${memberUiDefault.userEmail} </p>
             </div>
-            <ul>
+             <ul>
                 <li>
-                    <a href="<c:url value='/' />"   >
+                    <a href="<c:url value='/' />" >
                         <span class="icon"><i class="fas fa-home"></i></span>
                         <span class="item">回首頁</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='' />"   onclick="return(confirm('請先成為認證賣家'))">
+                    <a href="<c:url value='/try/member_Ui' />" >
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">會員中心</span>
+                    </a>
+                </li>
+
+                 <li>        
+                    <a href="<c:url value='/update30' />">
+
+
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">訂單管理</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='???' />"   onclick="return(confirm('請先成為認證賣家'))">
+
+                    <a href="<c:url value='/products/seller' />">
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">商品管理</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='???' />"   onclick="return(confirm('請先成為認證賣家'))">
+                    <a href="<c:url value='???' />">
                         <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
                         <span class="item">數據中心</span>
                     </a>
                 </li>
-             
-                
+               
                 <li>
-                    <a href="<c:url value='/try/delete' />"  onclick="return(confirm('確認刪除？'))" >
+                    <a href="<c:url value='/member/managerPower' />" >
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">刪除會員</span>
+                        <span class="item">帳號管理</span>
                     </a>
                 </li>
 
                 <!-- /*減去footer高度*/ -->
-                <li style="min-height: calc(100% - 50px); " >
-                    <a href="<c:url value='/seller/inschan' />"  class="active" >
+                <li style="min-height: calc(100% - 50px); ">
+                    <a href="<c:url value='/member/inschan_on' />">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">隱私權政策</span>
                     </a>

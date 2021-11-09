@@ -2,7 +2,7 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!-- header -->
 <%@ include file="../Home/member/member_25/header.jspf"%>
-<!-- sidebar -->>
+<!-- sidebar -->
 <%@ include file="../Home/member/member_25/sidebar.jspf"%>
                           
                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" style="color:red;"> 停用帳號 </p>
