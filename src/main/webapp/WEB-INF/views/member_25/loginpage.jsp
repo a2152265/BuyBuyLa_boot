@@ -153,7 +153,7 @@ function quickInput(){
 	
 }
 
-var names2= ["manager9527@gmail.com", 'manager04@gmail.com', 'manager07@gmail.com'];
+var names2= ["manager1@gmail.com", 'manager02@gmail.com', 'manager07@gmail.com'];
 function quickInput2(){
 	document.getElementById('name').value = names2[index2];
 	document.getElementById('pwd').value = names2[index2];

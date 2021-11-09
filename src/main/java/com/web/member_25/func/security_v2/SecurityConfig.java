@@ -20,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration    //securedEnabled有哪些腳色   prePostEnabled
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true) 
+@EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true, jsr250Enabled = true) 
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
@@ -60,6 +60,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         
         //跑版區
         web.ignoring().antMatchers("/Home/**");
+        web.ignoring().antMatchers("/test/**");
+        web.ignoring().antMatchers("/check/**");
+        web.ignoring().antMatchers("/form/**");
     }
 	
 	
@@ -97,12 +100,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				  .antMatchers("/products/**","/product/**","/categoryList/**","/getPicture/**","/comment/**").permitAll()
 				  //member_25
 				  .antMatchers("/try/login/**","/try/add/**").permitAll()
-				  //cart_30
-				  .antMatchers("/xxx/xxx","/xxx/xxx").permitAll()
 				  //forum_32
 				  .antMatchers("/xxx/xxx","/xxx/xxx").permitAll()
 				  //cele_36
 				  .antMatchers("/xxx/xxx","/xxx/xxx").permitAll()
+				  //cart_30
+				  .antMatchers("/additem/**","/additemFromproduct/**","/cart/**","/deletecart/**","/add/**","/sub/**","/check/**",
+						  "/check/**","/fin/**","/removeAllCart/**","/deleteAddress/**","/check/**","/fin/**","/form/**",
+						  "./payment-stage/**","../payment-stage/**","payment-stage/**","/211.23.128.214:5000/**"
+						  ).permitAll()
+				  //record_30
+				  .antMatchers("/select/**","/selectLsit/**","/selectbuyer/**","/delete/**","/update30/**",
+						  "/updatevalue30/**","/recordManage/**","/updateRecordList/**","/updateRecordList/**",
+						  "/recordanalyze/**","/deleteRecordList/**").permitAll()
+//				  .regexMatchers("/**","https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5#").permitAll()
+				  .antMatchers("/**","/payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5#").permitAll()
 				  //不需要權限區------------------------------------
 				  
 				  
@@ -111,36 +123,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				  //需要權限區member---------------------------------
 //				  .antMatchers("/try/member_Ui","/member_25/member_Ui").hasAuthority("member") //需要member權限才能登陸
 				  	//product_11
-				  .antMatchers("/xxx/xxx").hasRole("member") //需要ROLE_membe才能訪問
-				  	//member_25
-//				  .antMatchers("/try/member_Ui","/member_25/member_Ui").hasRole("member") //需要ROLE_membe才能訪問
-//				  .antMatchers("/try/member_Ui","/member_25/member_Ui").hasAnyAuthority("member","manager")
-				  .antMatchers("/try/member_Ui").hasAnyRole("manager","member")
-				  	//cart_30
-				  .antMatchers("/xxx/xxx").hasRole("member") //需要ROLE_member才能訪問
-				  	//forum_32
-				  .antMatchers("/xxxx/xxx").hasRole("member") //需要ROLE_member才能訪問
-				  	//cele_36
-				  .antMatchers("/xxx/xxx").hasRole("member") //需要ROLE_member才能訪問
+//				  .antMatchers("/xxx").hasRole("admin") //需要ROLE_membe才能訪問
+//				  	//member_25
+////				  .antMatchers("/try/member_Ui","/member_25/member_Ui").hasRole("member") //需要ROLE_membe才能訪問
+////				  .antMatchers("/try/member_Ui","/member_25/member_Ui").hasAnyAuthority("member","manager")
+//				  .antMatchers("/try/member_Ui").hasAnyRole("manager","member")
+//				  	//cart_30
+//				  .antMatchers("/xxx/xxx").hasRole("member") //需要ROLE_member才能訪問
+//				  	//forum_32
+//				  .antMatchers("/xxxx/xxx").hasRole("member") //需要ROLE_member才能訪問
+//				  	//cele_36
+//				  .antMatchers("/xxx/xxx").hasRole("member") //需要ROLE_member才能訪問
 				  //需要權限區member---------------------------------
 				  
 				  
 				  
 				  //需要權限區-------管理員---------------------------------
 				  	//product_11
-				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
-				  	//member_25
-				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
-				  	//cart_30
-				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
-				  	//forum_32
-				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
-				  	//cele_36
-				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
+//				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
+//				  	//member_25
+//				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
+//				  	//cart_30
+//				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
+//				  	//forum_32
+//				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
+//				  	//cele_36
+//				  .antMatchers("/xxx/xxx").hasRole("manager") //需要ROLE_manager才能訪問
 				  //需要權限區-------管理員---------------------------------
 				  
-				  
-			.anyRequest().authenticated()
+//				  .anyRequest().permitAll()
+//			.anyRequest().authenticated()
 			.and().csrf().disable();   			
 	}
 }

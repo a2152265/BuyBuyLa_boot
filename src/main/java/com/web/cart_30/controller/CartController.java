@@ -5,12 +5,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,7 +57,7 @@ public class CartController {
 		String buyer=mb.getUserEmail();
 		cartService.addItemByid(id,buyer);
 		model.addAttribute("OrderItemCount",buyer);
-		
+		System.out.println("---buyer additem----->"+buyer);
 		
 		return "redirect:/";
 	}
@@ -134,7 +136,6 @@ public class CartController {
 	
 		 return "redirect:/cart";
 	}
-	
 	
 	
 	
@@ -244,8 +245,6 @@ public class CartController {
 //	}
 //	
 
-
-	
 	@PostMapping("/check")
 	@ResponseBody
 	public String ecpay(@ModelAttribute("BuyerAddress") BuyerAddress address,@ModelAttribute("loginSession") membershipInformationBean mb,HttpServletRequest request,HttpServletResponse response ,Model model) {
@@ -330,7 +329,7 @@ public class CartController {
 		obj.setItemName("BuyBuyLa 商品一批X1");
 		obj.setReturnURL("http://211.23.128.214:5000");
 		obj.setNeedExtraPaidInfo("N");
-		obj.setClientBackURL("http://localhost:9090/BuyBuyla_boot/fin");
+		obj.setClientBackURL("http://localhost:8080/BuyBuyla_boot/fin");
 		String form = all.aioCheckOut(obj, null);
 
 		
@@ -339,7 +338,7 @@ public class CartController {
 		
 		cartService.addToRecordList(recordList);
 		cartService.addRidCount();
-	
+	System.out.println("----------------buy-----done-------------------------");
 		return form;
 		
 	}

@@ -1102,6 +1102,10 @@ return "redirect:/manager_Ui0";
 			System.out.println("登出no sweat alert");
 			return "member_25/logoutSuccess";
 		}
+		
+		
+		
+		
 				
 	
 	
