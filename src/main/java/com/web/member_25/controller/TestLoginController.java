@@ -19,6 +19,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -155,10 +156,9 @@ public class TestLoginController {
 		} else if (loginResult == true) {
 
 			System.out.println("無人使用此帳號 已註冊  ----->");
+			//加密
+			mb.setUserPwd(new BCryptPasswordEncoder().encode(mb.getUserPwd()));
 			mb.setIdentification("member");
-			
-			
-			
 			
 			memberService.save(mb);
 			return "redirect:/";
@@ -781,7 +781,15 @@ return "redirect:/manager_Ui0";
 		membershipInformationBean mBean=memberService.findMemberData(bean.getUserEmail());
 		System.out.println("----changeBean->"+changeBean.getUserPwd());
 		System.out.println("----mBean->"+mBean.getUserPwd());
-		if(mBean.getUserPwd().equals(changeBean.getUserPwd())) {
+		String pwd=changeBean.getUserPwd();
+		
+		//比對
+		BCryptPasswordEncoder encoder1 = new BCryptPasswordEncoder(); 
+		System.out.println("-userDetail成功登入---pwdencode>"+new BCryptPasswordEncoder().encode(changeBean.getUserPwd()));
+		boolean isPasswordMatches = encoder1.matches(changeBean.getUserPwd(),mBean.getUserPwd());
+		System.out.println("--密碼比對-------------->"+isPasswordMatches);
+		
+		if(isPasswordMatches==true) {
 			model.addAttribute("changePwd",changeBean);
 			System.out.println("確認舊密碼成功 -->"+changeBean.getUserPwd());
 			return "redirect:/member/changePwd_checkcheck";
@@ -805,7 +813,8 @@ return "redirect:/manager_Ui0";
 			Model model) {
 		System.out.println("post ------------checkon");
 		membershipInformationBean mBean=memberService.findMemberData(loginBean.getUserEmail());
-		mBean.setUserPwd(bean.getUserPwd());
+		
+		mBean.setUserPwd(new BCryptPasswordEncoder().encode(bean.getUserPwd()));
 		System.out.println("bean.getUserPwd()---更改密碼完成-------->"+mBean.getUserPwd());
 		memberService.save(mBean);
 		System.out.println("更改密碼完成-------->");
