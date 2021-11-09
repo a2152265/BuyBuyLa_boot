@@ -78,7 +78,7 @@
 									<a class="nav-link loginsession" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp; ${loginSession.userEmail}</a></li>
 								</c:if>
 						</ul>
-						<ul class="nav-shop">
+						<ul class="nav-shop" style='visibility:hidden'>
 							<li class="nav-item">
 								<form:form method='POST' action="./queryproduct" class='form-horizontal'>
 									<input name="productName" id="productName" type='text' class='form:input-large' />
