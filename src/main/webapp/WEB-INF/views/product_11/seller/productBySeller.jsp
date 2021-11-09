@@ -252,8 +252,8 @@
     <td>${product.category}</td>
     <td>${product.insertTime}</td>
     <td>${product.status}</td>
-    <td><button style="font-size:18px;font-weight:bolder;border: 1px grey solid;border-radius:3px" class="btn" type="button" onclick="location.href ='../update?productId=${product.productId}'" >修&nbsp改</button></td>
-    <td><button style="font-size:18px;font-weight:bolder;border: 1px grey solid;border-radius:3px" class="btn" type="button" onclick="location.href ='../delete/${product.productId}'" >刪&nbsp除</button>
+    <td><button style="border:0"  type="button" onclick="location.href ='../update?productId=${product.productId}'" ><i class="fas fa-edit"></i></button></td>
+    <td><button style="border:0"  class="btn" type="button" onclick="location.href ='../delete/${product.productId}'" ><i class="fas fa-trash-alt"></i></button>
     </td>
   </tr>
         </c:forEach>

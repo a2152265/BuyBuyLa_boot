@@ -12,7 +12,7 @@ public interface ProductFavoriteService {
 	
 	List<ProductFavorite> findByMemberId(Integer memberId);
 	
-	
+	void deleteByMidAndPid(Integer memberId,Integer productId);
 	
 	
 }

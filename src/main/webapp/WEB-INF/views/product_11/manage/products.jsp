@@ -401,14 +401,18 @@
     </div>
   </section>
   <div style="background-color:#242e42; width:600px ; padding:10px;"  >
-	<a class="nav-link"  id="uncheck" href="<c:url value='/manage/products/待審核 ' />"style="padding-left:100px; color:white">待審核</a>
+	<a class="nav-link"  id="uncheck" href="<c:url value='/manage/products/待審核 ' />"style="padding-left:100px; color:white ">待審核</a>
 	<a class="nav-link"  id="uncheck" href="<c:url value='/manage/products/上架中 ' />"style="padding-left:100px;color:white">上架中</a>
 	<a class="nav-link"  id="uncheck" href="<c:url value='/manage/products/審核失敗 ' />"style="padding-left:100px;color:white">審核失敗</a>
-  </div>
-	
 
-    <button  onClick="batch_up()" >審核上架</button>
+  </div>
+  
+	<div>
+	<c:if test="${status =='待審核' }">
+    <button  onClick="batch_up()" >審核上架<i class="far fa-check-circle"></i></button>
     <button  onClick="batch_fail()" >未通過</button>
+	</c:if> 
+	</div>
 
 
     
@@ -426,7 +430,9 @@
     <th style="width:10%;">商品類別</th>
     <th style="width:10%;">上傳時間</th>
     <th style="width:10%;"><i class="fas fa-file-alt"></i>&nbsp商品狀態</th>
+    <c:if test="${status =='待審核' }">
     <th style="width:10%;"><input type="checkbox" value="" name="selectall"></th>
+    </c:if>
         </tr>
     </thead>
     <tbody>
@@ -443,9 +449,11 @@
 		    <td>${product.category}</td>
 		    <td>${product.insertTime}</td>
 		    <td>${product.status}</td>
+		   <c:if test="${status =='待審核' }">
 		    <td>
 		       <input id="" type="checkbox" name="select" id="checkbox" value="${product.productId}"/>
 		    </td>
+		   </c:if> 
         </tr>
         </c:forEach> 
 
@@ -671,6 +679,8 @@ $('input:checkbox[name="selectall"]').click(function(){
 	  
 	   
 	  }
+ 
+ 
 
  </script>
 </body>

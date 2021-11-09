@@ -65,11 +65,7 @@
 							<li class="nav-item submenu dropdown">
                 <a href="<c:url value='/campaigns' />" class="nav-link dropdown-toggle" role="button" aria-haspopup="true"
                   aria-expanded="false">活動專區</a>
-<!--                 <ul class="dropdown-menu"> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="tracking-order.html">Tracking</a></li> -->
-<!--                 </ul> -->
+
               </li>
               <c:if test="${loginSession.userEmail != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
@@ -101,7 +97,7 @@
             <!---------------- 我的最愛 ---------------->
             <ul style="list-style-type: none; padding-left:10px" >
                <c:if test="${loginSession.userEmail != null}">
-                <li ><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
+                <li><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
                </c:if>
                  <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
                 <li ><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/try/login' />'"><i class="fas fa-heart"></i></button> </li>		
@@ -162,16 +158,16 @@
 							<input type="number" name="qty" id="sst" min="1" max="${product.stock}"  size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
-							<input type='hidden' class='pid' name='address' value='${product.productId}'/>
+							<input  type='hidden' class='pid' name='address' value='${product.productId}'/>
 							<a class="button primary-btn additem" href="#">Add to Cart</a>                             
 						</div>
 						<div class="card_area d-flex align-items-center">
 							<c:choose>
 								<c:when test="${producrFavorite == null}">
-									<a class="icon_btn" href="<c:url value='./favorite?id=${product.productId}' />"><i class="lnr lnr lnr-heart"></i></a>
+									<a id="addfavorite" class="icon_btn" ><i class="lnr lnr lnr-heart"></i></a>
 								</c:when>
 								<c:otherwise>
-									<a class="icon_btn" href="<c:url value='./favorite?id=${product.productId}' />"><i class="fas fa-heart"></i></a>
+									<a  id="deletefavorite" class="icon_btn" ><i class="fas fa-heart"></i></a>
 								</c:otherwise>
 							</c:choose>
 
@@ -211,76 +207,7 @@
 					<p></p>
 				</div>
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-<!-- 					<div class="table-responsive"> -->
-<!-- 						<table class="table"> -->
-<!-- 							<tbody> -->	
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5></h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5></h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>Height</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>508mm</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>Depth</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>85mm</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>Weight</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>52gm</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>Quality checking</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>yes</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>Freshness Duration</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>03days</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>When packeting</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>Without touch of hand</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>Each Box contains</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>60pcs</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 							</tbody> -->
-<!-- 						</table> -->
-<!-- 					</div> -->
+
 				</div>
 				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 					<div class="row">
@@ -712,6 +639,45 @@ $('#comment').click(function() {
 
 
 
+});
+
+$("#addfavorite").click(function(){		
+	
+	var productId= $('#productId').val();
+	console.log(productId);
+		$.ajax({
+		type:'get',
+		url:'favorite',
+		data:{
+			"productId":productId
+		},
+		
+		success:function(){
+				window.location.reload();
+		}						
+	});		
+	
+	
+});
+
+$("#deletefavorite").click(function(){		
+
+	var productId= $('#productId').val();
+	console.log(productId);
+		$.ajax({
+		type:'get',
+		url:'deletefavorite',
+		data:{
+			"productId":productId
+		},
+		
+		success:function(){
+				window.location.reload();
+		}
+								
+	});		
+	
+	
 });
 
 

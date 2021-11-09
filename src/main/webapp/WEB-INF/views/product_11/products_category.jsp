@@ -83,23 +83,35 @@
 
             </ul>
 
-            <ul class="nav-shop">
-               <li class="nav-item" >	
-               <form:form method='get' action="../queryproduct"
-						class='form-horizontal'>
-				
-							<input name="productName" id="productName" type='text'
-								class='form:input-large'/>
-							<button type='submit' ><i class="ti-search" ></i></button>
-				
+             <ul class="nav-shop">
+          
+           <li class="nav-item" >
+           
+               <!---------------- 首頁查詢商品框 ---------------->
+           		<form:form method='get' action="./queryproduct" class='form-horizontal'>
+					<input name="productName" id="productName" type='text' class='form:input-large'/>
+					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
+
+
+              <!---------------- 購物車 ---------------->
+				<c:if test="${loginSession.userEmail != null}">
+              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>		
+				</c:if>
+				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
+				 </c:if>
               
+            </ul>
             
-              
-              <!-- 購物車顯示數量在這裡改 -->
-              
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
-<!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
+            <!---------------- 我的最愛 ---------------->
+            <ul style="list-style-type: none; padding-left:10px" >
+               <c:if test="${loginSession.userEmail != null}">
+                <li ><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
+                 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+                <li ><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/try/login' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
             </ul>
           </div>
         </div>
@@ -198,18 +210,18 @@
           <!-- Start Filter Bar -->
           <div class="filter-bar d-flex flex-wrap align-items-center">
             <div class="sorting">
-              <select>
-                <option value="1">Default sorting</option>
-                <option value="1">Default sorting</option>
-                <option value="1">Default sorting</option>
-              </select>
+<!--               <select> -->
+<!--                 <option value="1">Default sorting</option> -->
+<!--                 <option value="1">Default sorting</option> -->
+<!--                 <option value="1">Default sorting</option> -->
+<!--               </select> -->
             </div>
             <div class="sorting mr-auto">
-              <select>
-                <option value="1">Show 12</option>
-                <option value="1">Show 12</option>
-                <option value="1">Show 12</option>
-              </select>
+<!--               <select> -->
+<!--                 <option value="1">Show 12</option> -->
+<!--                 <option value="1">Show 12</option> -->
+<!--                 <option value="1">Show 12</option> -->
+<!--               </select> -->
             </div>
             <div>
               <div class="input-group filter-bar-search">
@@ -224,10 +236,9 @@
           <!-- Start Best Seller -->
           <section class="lattest-product-area pb-40 category-list">
             <div class="row">
-              <div class="col-md-6 col-lg-4">
-              
-                <div class="card text-center card-product">
               <c:forEach items="${products}" var="product">
+              <div class="col-md-6 col-lg-4">
+                <div class="card text-center card-product">
                   <div class="card-product__img">
                     <img class="card-img" src="<c:url value='/getPicture/${product.productId}' />" alt="">
                     <ul class="card-product__imgOverlay">
@@ -241,10 +252,10 @@
                     <h4 class="card-product__title"><a href="#">${product.productName}</a></h4>
                     <p class="card-product__price">$${product.price}</p>
                   </div>
-                </c:forEach>
                 </div>
 
               </div>
+                </c:forEach>
             </div>
           </section>
           <!-- End Best Seller -->

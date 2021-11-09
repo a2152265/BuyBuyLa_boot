@@ -39,6 +39,12 @@ public class ProductFavoriteServiceImpl implements ProductFavoriteService {
 	}
 
 
+	@Override
+	public void deleteByMidAndPid(Integer memberId, Integer productId) {
+		productFavoriteRepository.deleteByMidAndPid(memberId, productId);
+	}
+
+
 	
 
 }

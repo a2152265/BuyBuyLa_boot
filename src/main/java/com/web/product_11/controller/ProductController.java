@@ -132,7 +132,11 @@ public class ProductController {
 		public String managelist(
 				@PathVariable String status
 				,Model model) {
-	
+				System.out.println("@@@@@@@@@@@"+status);
+				if(status=="待審核") {
+					model.addAttribute("status", "待審核");
+				}
+				
 				List<Product> beans = productservice.findByStatus(status);
 				model.addAttribute("products", beans);
 				
@@ -250,7 +254,10 @@ public class ProductController {
 			
 			
 			}else {
+				membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
 				model.addAttribute("product", product);
+				model.addAttribute("productComment",productCommentService.findByProductId(id));
+				model.addAttribute("memberUiDefault",mBean);
 
 			}
 			
@@ -569,8 +576,8 @@ public class ProductController {
 //-----------------------------------商品我的最愛-----------------------------------------
 		//新增我的最愛
 				@GetMapping("/favorite")
-				public String AddFavoriteProduct(
-						@RequestParam("id") String id
+				public ResponseEntity<String> addFavoriteProduct(
+						@RequestParam("productId") String id
 						,Model model) {
 			
 					membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
@@ -589,14 +596,31 @@ public class ProductController {
 //					System.out.println("@@@@@@@@@@@@"+producrFavorite.getFavoriteId());
 					if(producrFavorite == null) {
 						productFavoriteService.addFavoriteProduct(productFavorite);
-					}else if(producrFavorite != null) {
-						System.out.println("################"+producrFavorite.getFavoriteId());
-						return "redirect:/";
-						
 					}
 					
+					return new ResponseEntity<String>(HttpStatus.OK);
+
+				}
+				
+				
+		//刪除我的最愛
+				@GetMapping("/deletefavorite")
+				public ResponseEntity<String> deleteFavoriteProduct(
+						@RequestParam("productId") String id
+						,Model model) {
+					System.out.println("############"+id);
+					membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
+					int pId = Integer.parseInt(id);
+		
+
+					System.out.println("############"+mb.getUserEmail());
+					membershipInformationBean member = memberService.findMemberData(mb.getUserEmail());
 					
-					return "/";
+					productFavoriteService.deleteByMidAndPid(member.getId(),pId);
+				
+					
+					return new ResponseEntity<String>(HttpStatus.OK);
+
 				}
 				
 		//依照會員取得我的最愛

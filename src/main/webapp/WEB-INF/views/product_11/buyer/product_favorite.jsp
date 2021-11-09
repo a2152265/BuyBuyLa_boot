@@ -109,19 +109,7 @@
       </nav>
     </div>
   </header>
-	<!--================ End Header Menu Area =================-->
 
-	<!-- ================ start banner area ================= -->	
-<!-- 	<section class="blog-banner-area" id="category"  style='height:250px'> -->
-<!-- 		<div class="container h-100"> -->
-<!-- 			<div class="blog-banner"> -->
-<!-- 				<div class="text-center"> -->
-<!-- 					<h1>Shopping Cart</h1> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!--     </div> -->
-<!-- 	</section> -->
-	<!-- ================ end banner area ================= -->
   
   
 
@@ -136,7 +124,8 @@
 					<th style="width:10%;"></th>
 					<th></th>
 					<th></th>
-					<th>	</th>
+					<th></th>
+					<th></th>
 				</tr>
 			</thead>
                       <tbody>
@@ -150,14 +139,15 @@
                               <td>${favoriteList.productName}</td>
 	
                               <td>
-                                  <h5 value='${favoriteList.price}' class='price'>${favoriteList.price}</h5>
+                                  <h5  class='price'>${favoriteList.price}</h5>
                               </td>
-      
-	                              <td>
-							<a href="<c:url value='/deletecart' />?id=${favoriteList.productId}">
-							<button style="border:0" type="button" class="btn btn-outline-dark deletecart" data-mdb-ripple-color="dark" value='${favoriteList.productId}'><i class="fas fa-trash"></i></button>
-					</a>		
-						</td>
+
+							  <td>
+							   	<button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/product?id=${favoriteList.productId}' />'"><i class="fas fa-search"></i></button> 
+							  </td>
+							  <td>
+								<button type="button" id="deletefavorite" onclick="deletefavorite(${favoriteList.productId});" style="border:0"  class="btn btn-outline-dark deletecart" data-mdb-ripple-color="dark"><i class="fas fa-trash"></i></button>	
+							  </td>
 	                          </tr>
 	                        </c:forEach>
 
@@ -274,132 +264,26 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   
    <script>
   
-	$(".down").each(function(){
-		$(this).click(function(){
-			var text = $(this).prev().prev();
-			
-			var price =$(this).parent().parent().next().children("h5.price").html();
-			console.log(price)
-			
-			var price2=parseFloat(price)
-			console.log(price2)
-			var totalprice = $(this).parent().parent().next().next().children("h5.total");
-			console.log(parseFloat(totalprice))
-			
-			if(parseInt(text.val())>1){
-				text.val(parseInt(text.val())-1)
-				totalprice.html(parseFloat(text.val())*price2)
-				
-				totalprice.html(parseInt(text.val())*price2+".0")
-				var total=0;
-				$('.total').each(function(){
-				$(this).html;
-				var a = parseInt($(this).html());
-				total=total+a
+   function deletefavorite(pId) {		
 
-				})
-	
-				$('#totalPrice').html(total)
+		
+			$.ajax({
+			type:'get',
+			url:'../deletefavorite',
+			data:{
+				"productId":pId
+			},
+			
+			success:function(){
+					window.location.reload();
 			}
-			
-		})
-	})
-	
-	
-	
-	
-	$(".down").click(function(){
-		var cnt = $(this).prev().prev().val(); 
-		
-//	 	console.log("cnt=="+cnt)
-		var data=$(this).val();
+									
+		});	
 
-	
-	$.ajax({
-		type:'get',
-		url:'sub',
-		data:{
-			"id":data
-		},
-		success:function(){
-			var count = parseInt($('#ccount').html())-1
-			console.log(count)
-			if(count>0){
-				$('#ccount').html(count)
-			}
-			
-		}
-								
-	});			
-});
-
-
-	
-	$(".up").each(function(){
-		$(this).click(function(){
-			var text = $(this).prev();
-			var price =$(this).parent().parent().next().children("h5.price").html();
-			
-			var price2=parseInt(price)
-			var totalprice = $(this).parent().parent().next().next().children("h5.total");
-		
-			var totalprice2 =parseInt(totalprice)
-			
-			text.val(parseInt(text.val())+1)
-			totalprice.html(parseInt(text.val())*price2+".0")
-			
-			var total=0;
-			$('.total').each(function(){
-			$(this).html;
-			var a = parseInt($(this).html());
-			total=total+a
-
-			})
-	
-			$('#totalPrice').html(total)
-			
-			
-		})
-	})
+   };
 	
 	
 	
-	$(".up").click(function(){		
-	var cnt = $(this).prev().val(); 
-	
-	
-	var data=$(this).val();
-
-	$.ajax({
-		type:'get',
-		url:'add',
-		data:{
-			"id":data
-		},
-		
-		success:function(){
-			var count = parseInt($('#ccount').html())+1
-			console.log(count)
-			
-			$('#ccount').html(count)
-		
-			
-		}
-								
-	});			
-});
-	
-	
-
-	var total=0;
-	$('.total').each(function(){
-		$(this).html;
-		var a = parseInt($(this).html());
-		total=total+a
-
-		})
-	
-	$('#totalPrice').html(total)
 	
 	 </script>	
 </body>
