@@ -104,6 +104,7 @@ public class DetailsController {
 	public String editDedailed(@RequestParam("id") Integer id, @ModelAttribute("editForumContent") ForumBean updfb) {
 		ForumBean editFb= forumService.getContentById(id);
 		updfb.setViewQty(editFb.getViewQty());
+		updfb.setLikeQty(editFb.getLikeQty());
 		updfb.setTopArticle(editFb.getTopArticle());
 		if (updfb.getContent() != null) {
 			forumService.addOrEdit(updfb);
@@ -170,6 +171,7 @@ public class DetailsController {
 	public boolean like(
 			@RequestParam("forumId") Integer forumId,
 			@RequestParam("loginUserName") String loginUserName,
+			@RequestParam("loginId") Integer loginId,
 			@RequestParam("status") boolean status) {
 		ForumLikeBean flb1 = forumService.findAllByForumIdAndLoginUserName(forumId, loginUserName);
 		ForumBean fb =forumService.getContentById(forumId);
@@ -180,6 +182,7 @@ public class DetailsController {
 		}
 		forumService.addOrEdit(fb);
 		if(flb1!=null) {
+			flb1.setLoginId(loginId);
 			flb1.setStatus(!status);
 			forumService.likeSave(flb1);
 			return flb1.getStatus();
@@ -187,6 +190,7 @@ public class DetailsController {
 			ForumLikeBean flb = new ForumLikeBean();
 			flb.setForumId(forumId);
 			flb.setLoginUserName(loginUserName);
+			flb.setLoginId(loginId);
 			flb.setStatus(!status);
 			forumService.likeSave(flb);
 			return flb.getStatus();
@@ -316,6 +320,13 @@ public class DetailsController {
 	@ResponseBody
 	public void editReplyFin(MessageReplyBean mrb) {
 		messageService.addReplyMessage(mrb);
+	}
+	// 顯示按讚使用者
+	@GetMapping(value="/displayUserLike")
+	@ResponseBody
+	public List<ForumLikeBean> displayUserLike(
+			@RequestParam("forumId") Integer forumId){
+		return forumService.findByForumIdAndStatus(forumId, true);
 	}
 	public void tagSize(Model model) {
 		model.addAttribute("allSize", forumService.getAll().size());

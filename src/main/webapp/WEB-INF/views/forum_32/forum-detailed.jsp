@@ -26,10 +26,10 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <link href='css/style32.css' rel='stylesheet' >
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src='js/forum_ajax_32.js'></script>
-<script src='js/forum_ajax_like_32.js'></script>
-<script src='js/forum_keyInput_32.js'></script>
-<script src='js/forum_ajax_message_32.js'></script>
+<script src='js/forum_32/forum_ajax_32.js'></script>
+<script src='js/forum_32/forum_ajax_like_32.js'></script>
+<script src='js/forum_32/forum_keyInput_32.js'></script>
+<script src='js/forum_32/forum_ajax_message_32.js'></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
@@ -47,7 +47,7 @@
 		<div class="main_menu">
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
-					<a class="navbar-brand logo_h" href="<c:url value='/' />"><img src="" alt=""></a>
+					<a class="navbar-brand logo_h" href="<c:url value='/' />"><img src="img/logo.png" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
@@ -192,7 +192,7 @@
 							${forumContent.content}
 						</div>
 					</div><br>
-					<div style='margin:10px'>
+					<div class='displayLikeQty' style='margin:10px'>
 					<span id='likeImg' style="width:40px"></span>
 					<span id='likeQty' style='font-size:20px;'></span>
 					</div>
@@ -404,12 +404,12 @@
 						</div>
 					</div>
 					<div class="form-group messageContentBlock">
-						<textarea rows="5" name="messageContent" class="form-control mb-10 messageContent" placeholder="留言"></textarea>
+						<textarea rows="5" name="messageContent" class="form-control mb-10 messageContent" placeholder="Comments"></textarea>
 					</div>
 					<button class="button button-postComment button--active messageBtn" type="button" style="border: none">發表評論</button>
 				</form>
+				<button class="DetailedMessageKeyInput" style="margin-left:300px">一鍵輸入</button>
 			</div>
-				<button class="DetailedMessageKeyInput" style="margin-left:700px">一鍵輸入</button>
 		</div>
 			<!--=================================-->
 				</div>
@@ -553,8 +553,8 @@
 	<script src="vendors/mail-script.js"></script>
 	<script src="js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src='js/forum_jquery_32.js'></script>
+	<script src='js/forum_32/forum_jquery_32.js'></script>
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	<script src='js/forum_summernote_32.js'></script>
+	<script src='js/forum_32/forum_summernote_32.js'></script>
 </body>
 </html>

@@ -594,5 +594,4 @@ $(document).ready(function() {
 			})
 		}
 	});
-
 });

@@ -5,10 +5,21 @@ $(document).ready(function() {
 
 	// 管理員  置頂設定
 	$("#insFlexCheckDefault").click(function() {
+			var managerTitleKeyInput = $('.managerTitleKeyInput').val();
 		if ($(this).prop("checked")) {
 			$('.insTopArticle').val('top')
+			$('.managerTitleKeyInput').val('【置頂】'+managerTitleKeyInput)
 		} else {
 			$('.insTopArticle').val('general')
+		}
+	});
+	$("#editFlexCheckDefault").click(function() {
+		var editManagerTitleKeyInput = $('.editManagerTitleKeyInput').val();
+		if ($(this).prop("checked")) {
+			$('.editTopArticle').val('top');
+			$('.editManagerTitleKeyInput').val('【置頂】'+editManagerTitleKeyInput)
+		} else {
+			$('.editTopArticle').val('general');
 		}
 	});
 
@@ -24,7 +35,6 @@ $(document).ready(function() {
 			},
 			success: function(data) {
 				$('#updid').val(dataid);
-				console.log(data['content']);
 				$('#summernote').summernote('code', data['content']);
 				$('.title-fontsize').val(data['title']);
 				$('.userNickname').val(data['userNickname']);

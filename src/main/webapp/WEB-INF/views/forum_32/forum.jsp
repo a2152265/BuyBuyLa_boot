@@ -26,8 +26,8 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <link href='css/style32.css' rel='stylesheet' >
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src='js/forum_ajax_32.js'></script>
-<script src='js/forum_keyInput_32.js'></script>
+<script src='js/forum_32/forum_ajax_32.js'></script>
+<script src='js/forum_32/forum_keyInput_32.js'></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
@@ -37,7 +37,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
 					<a class="navbar-brand logo_h" href="<c:url value='/' />"><img
-						src="img/logo.png" alt=""></a>
+						src="img/logo.png"></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -252,9 +252,9 @@
 						    <li class="breadcrumb-item"><a href="#">BuyBuyLa</a></li>
 						    <li class="breadcrumb-item active" aria-current="page">${Breadcrumb}</li>
 						  </ol>
-						  	<select class="right">
-						    <option class="new">最新</option>
-						    <option class="hot">最熱門</option>
+						  	<select class="right" onChange="location = this.options[this.selectedIndex].value;">
+						    <option value="forum">${newForum}</option>
+						    <option value="forumHot">${hotForum}</option>
 						    </select><br>
 						  		<input type="button" value="發起討論" class="widget_title btn-warning addNewForum"
 								style="margin-left:50px;border-radius:10px;width: 154px; border: none;" data-bs-toggle="modal"
@@ -286,7 +286,7 @@
 												<br><br> 
 											<span style="color: #00BFA5; font-size: 14px">${Articles.tag}</span>
 											<span><a><img style="width: 15px; margin-left: 30px" src="img/forum/likeView.png">
-											<span style="font-size: 14px; margin-left: 0px;">${Articles.likeQty}</span></a></span>
+											<span style="font-size: 14px; margin-left: 0px;">${Articles.likeQty} Likes</span></a></span>
 											<span><a><img style="width: 15px; margin-left: 10px" src="img/forum/speech-bubble.png">
 											<span style="font-size: 14px; margin-left: 5px;">${Articles.messageQty} Comments</span></a></span>
 											<span><a><img style="width: 15px; margin-left: 10px" src="img/forum/eye.png">
@@ -305,7 +305,11 @@
 								<form:form method='POST' modelAttribute="addForumBean" action="addNewForum" class='form-horizontal' enctype="multipart/form-data">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h3 class="modal-title" id="exampleModalLabel">發起討論</h3>
+<!-- 											<h3 class="modal-title" id="exampleModalLabel">發起討論</h3> -->
+												<select id="insSelectTag" aria-label="Default select example">
+													<option>新手賣家發問</option>
+													<option>賣家閒聊討論</option>
+												</select>
 											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										<div class="modal-body insContentBody">
@@ -314,16 +318,12 @@
 											<form:input path="date" type="hidden" id="nowDate" />
 											<form:input path="identification" type="hidden" value="member" />
 											<form:input path="picId" class="form-control" type="hidden" value="${loginSession.id}" />
-											<form:input path="userName" type="text" value="${loginSession.userName}" />
-											<form:input path="userEmail" type="text" value="${loginSession.userEmail}" />
+											<form:input path="userName" type="hidden" value="${loginSession.userName}" />
+											<form:input path="userEmail" type="hidden" value="${loginSession.userEmail}" />
 											<form:input path="userNickname" type="hidden" value="${loginSession.userNickname}" />
 											<form:input path="Identification" type="hidden" value="member" />
 											<form:input path="topArticle" type="hidden" value="general" />
 											<div class="mb-3">
-												<select id="insSelectTag" aria-label="Default select example">
-													<option>新手賣家發問</option>
-													<option>賣家閒聊討論</option>
-												</select><br><br>
 												<form:input type="text" path="title" required="true"
 													placeholder="標題" class="form-control title-fontsize titleKeyInput"
 													aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
@@ -491,9 +491,9 @@
 	<script src="vendors/mail-script.js"></script>
 	<script src="js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src='js/forum_jquery_32.js'></script>
+	<script src='js/forum_32/forum_jquery_32.js'></script>
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	<script src='js/forum_summernote_32.js'></script>
+	<script src='js/forum_32/forum_summernote_32.js'></script>
 
 </body>
 </html>

@@ -41,6 +41,18 @@ public class ForumService implements IForumService {
         return articleList;
 	}
 	@Override
+	public List<ForumBean> getAllArticlesByHotByPage(int page, int size) {
+        Page<ForumBean> pageResult = forumRepository.findAll(
+                PageRequest.of(
+                		page,size,Sort.by("topArticle").descending().and(Sort.by("likeQty").descending()))); 
+        pageResult.getNumberOfElements(); // 本頁筆數
+        pageResult.getSize();             // 每頁筆數 
+        pageResult.getTotalElements();    // 全部筆數
+        pageResult.getTotalPages();       // 全部頁數
+        List<ForumBean> articleList =  pageResult.getContent();
+        return articleList;
+	}
+	@Override
 	public List<ForumBean> getAllByTag(
 			String tag,int page, int size) {
 		Page<ForumBean> pageResult = forumRepository.findByTagContaining(
@@ -53,11 +65,10 @@ public class ForumService implements IForumService {
 		pageResult.getSize();             // 每頁筆數 
 		pageResult.getTotalElements();    // 全部筆數
 		pageResult.getTotalPages();       // 全部頁數
-		
 		List<ForumBean> articleList =  pageResult.getContent();
-		
 		return articleList;
 	}
+
 
 	@Override
 	public void addOrEdit(ForumBean content) {

@@ -10,6 +10,7 @@ public interface IForumService {
 	// 首頁展示
 	List<ForumBean> getAll();
 	List<ForumBean> getAllArticlesByPage(int page, int size);
+	List<ForumBean> getAllArticlesByHotByPage(int page, int size);
 	// 標籤分類
 	List<ForumBean> getAllByTag(String tag,int page, int size);
 	List<ForumBean> getAllByTag(String tag);

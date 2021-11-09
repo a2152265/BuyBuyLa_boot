@@ -34,6 +34,17 @@ public class ForumController {
 	public String forumIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
 		forum(model,page);
 		init(model);
+		model.addAttribute("newForum","最新");
+		model.addAttribute("hotForum","最熱門");
+		return "forum_32/forum";
+	}
+	// 首頁
+	@GetMapping("/forumHot")
+	public String forumHotIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
+		forumHot(model,page);
+		init(model);
+		model.addAttribute("newForum","最熱門");
+		model.addAttribute("hotForum","最新");
 		return "forum_32/forum";
 	}
 	
@@ -80,6 +91,8 @@ public class ForumController {
 			featured(model,page-1);
 		}else if (tag.equals("announcement")) {
 			announcement(model,page-1);
+		}else if(tag.equals("forumHot")) {
+			forumHot(model,page-1);
 		}
 		init(model);
 		if(page==1) {
@@ -95,6 +108,13 @@ public class ForumController {
 	public void forum(Model model,Integer page) {
 		List<ForumBean> getAllArticles = forumService.getAllArticlesByPage(page, 5);
 		model.addAttribute("tag","forum");
+		model.addAttribute("pageSize", forumService.getAll());
+		model.addAttribute("Breadcrumb","所有討論");
+		model.addAttribute("Articles", getAllArticles);
+	}
+	public void forumHot(Model model,Integer page) {
+		List<ForumBean> getAllArticles = forumService.getAllArticlesByHotByPage(page, 5);
+		model.addAttribute("tag","forumHot");
 		model.addAttribute("pageSize", forumService.getAll());
 		model.addAttribute("Breadcrumb","所有討論");
 		model.addAttribute("Articles", getAllArticles);

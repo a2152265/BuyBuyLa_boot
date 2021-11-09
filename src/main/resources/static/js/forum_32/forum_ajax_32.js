@@ -3,7 +3,6 @@
  */
 $(document).ready(function() {
 
-
 	// 熱門文章
 	$.ajax({
 		type: "get",

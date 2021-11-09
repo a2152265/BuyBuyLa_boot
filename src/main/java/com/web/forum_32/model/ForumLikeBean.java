@@ -17,13 +17,15 @@ public class ForumLikeBean implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String loginUserName;
+	private Integer loginId;
 	private Integer forumId;
 	private Boolean status;
 	public ForumLikeBean() {
 	}
-	public ForumLikeBean(Integer id, String loginUserName, Integer forumId,Boolean status) {
+	public ForumLikeBean(Integer id, String loginUserName, Integer loginId,Integer forumId,Boolean status) {
 		this.id = id;
 		this.loginUserName = loginUserName;
+		this.loginId=loginId;
 		this.forumId = forumId;
 		this.status=status;
 	}
@@ -38,6 +40,13 @@ public class ForumLikeBean implements Serializable{
 	}
 	public void setLoginUserName(String loginUserName) {
 		this.loginUserName = loginUserName;
+	}
+	
+	public Integer getLoginId() {
+		return loginId;
+	}
+	public void setLoginId(Integer loginId) {
+		this.loginId = loginId;
 	}
 	public Integer getForumId() {
 		return forumId;
