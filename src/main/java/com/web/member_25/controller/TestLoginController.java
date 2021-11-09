@@ -1021,18 +1021,28 @@ return "redirect:/manager_Ui0";
 		
 		@PostMapping("/member/suspension")
 		public String processStopUse(
-				@ModelAttribute("memberUiDefault") membershipInformationBean mb2, 
+//				@ModelAttribute("memberUiDefault") membershipInformationBean mb2, 
 				@ModelAttribute("suspension") membershipInformationBean mb, 
+				@ModelAttribute("loginSession") membershipInformationBean loMb, 
 				Model model,SessionStatus sessionStatus) {
-			System.out.println("memberEmail---->"+mb.getUserEmail());
-			System.out.println("memberPwd---->"+mb.getUserPwd());
-			System.out.println("mbPwd---->"+mb.getUserPwd());
-			if (mb.getUserPwd().equals(mb2.getUserPwd())) {
+			System.out.println("sus---------->"+mb.getUserPwd());
+			System.out.println("login email------------->"+loMb.getUserEmail());
+			System.out.println("login PWD------------->"+loMb.getUserPwd());
+			
+			membershipInformationBean pwMb=memberService.findMemberDataAll(loMb.getUserEmail());
+			String password=mb.getUserPwd();
+			System.out.println("--DB PWD------------>"+pwMb.getUserPwd());
+			//加密
+			BCryptPasswordEncoder encoder1 = new BCryptPasswordEncoder(); 
+			boolean isPasswordMatches = encoder1.matches(password,pwMb.getUserPwd());
+			System.out.println("--密碼比對------ban區-------->"+isPasswordMatches);
+			
+			if (isPasswordMatches==true) {
 				System.out.println("--------------已ban------------------");
-				mb2.setSuspension("ban");
-				memberService.save(mb2);
+				pwMb.setSuspension("ban");
+				memberService.save(pwMb);
 				sessionStatus.setComplete();
-				return "redirect:/";
+				return "redirect:/try/logout";
 			}
 			System.out.println("密碼錯誤 請重新再試");
 			return "/member/suspension";
