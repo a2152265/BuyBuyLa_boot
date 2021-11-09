@@ -415,6 +415,23 @@
 				</div>
 			<div class="col-lg-4">
 			<div class="blog_right_sidebar">
+			<!--================ 社團精選話題 =================-->
+			<aside class="single_sidebar_widget popular_post_widget">
+				<h3 class="widget_title">社團精選話題</h3>
+				<c:forEach var='content' items='${tagFeatured}' begin="0" end="3">
+					<div class="media post_item">
+						<img width='40' src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+						<div class="media-body">
+							<a href="<c:url value='/detailed' />?id=${content.id}">
+								<h3>${content.title}</h3>
+							</a>
+							<p>${content.date}</p>
+						</div>
+					</div>
+				</c:forEach>
+				<div class="br"></div>
+			</aside>
+			<!--=================================-->
 			<!--================ 最新帖子 =================-->
 			<aside class="single_sidebar_widget popular_post_widget">
 				<h3 class="widget_title">最新帖子</h3>

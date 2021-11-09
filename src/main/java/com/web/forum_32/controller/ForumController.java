@@ -77,6 +77,27 @@ public class ForumController {
 		return "forum_32/forum";
 	}
 
+	//搜尋
+	@GetMapping("searchText")
+	@ResponseBody
+	public List<ForumBean> searchText(@RequestParam("searchText") String searchText){
+		List<ForumBean> searchList=forumService.findUserNameContaining(searchText);
+		for(int i=0;i<searchList.size();i++) {
+			for(int j=0;j<searchList.size();j++) {
+				if(i!=j&&searchList.get(i).getUserName().equals(searchList.get(j).getUserName())) {
+					searchList.remove(searchList.get(j));
+				}
+			}
+		}
+		return searchList;
+	}
+	@GetMapping("getSearchTextList")
+	@ResponseBody
+	public List<ForumBean> getSearchTextListIndex(@RequestParam("searchText") String searchText,Model model){
+		List<ForumBean> getSearchTextList=forumService.findUserNameContaining(searchText);
+		return getSearchTextList;
+	}
+	// 分頁
 	@GetMapping({"/Page","/PageLeft","/PageRight"})
 	public String forumPage(Model model,
 			@RequestParam("tag") String tag,

@@ -25,7 +25,15 @@ $(document).ready(function() {
 			}
 			$('#likeImg').click(function() {
 				if (loginUserName == '') {
-					alert('請先登入會員');
+					Swal.fire({
+						title: '目前為訪客身分',
+						showCancelButton: true,
+						confirmButtonText: '登入'
+					}).then((result) => {
+						if (result.isConfirmed) {
+							window.location.href ="try/login";
+						} 
+					})
 				} else {
 					$.ajax({
 						type: "get",

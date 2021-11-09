@@ -193,6 +193,7 @@
             border-bottom-width: 0px;
             border-right-width: 0px;
         }
+        a{color:white;}
 </style>
 
 
