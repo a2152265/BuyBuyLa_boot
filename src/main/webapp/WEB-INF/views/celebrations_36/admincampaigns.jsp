@@ -16,6 +16,12 @@
 body{
 
 }
+.table-wrapper {
+					min-width: 1000px;
+					background: #fff;
+					padding: 40px;
+					box-shadow: 0 1px 1px rgba(0,0,0,.05);
+				}
 #myInput {
   background-image: url('/css/searchicon.png'); /* Add a search icon to input */
   background-position: 10px 12px; /* Position the search icon */
@@ -834,6 +840,8 @@ body {
   <div id="search" style="margin-bottom:30px">
 						<button  type="button" class="btn btn-outline-primary"onclick="location.href ='./campaign/addCampaign'">新增活動</button>
 	</div>
+	<div class="table-wrapper">
+			
 <table id="myTable" class="display" style="width:100%;font-weight:bolder;font-size:20px;" >
     <thead >
         <tr >
@@ -842,6 +850,8 @@ body {
     <th style="width:20%;"><i class="fas fa-file-alt"></i>&nbsp活動內容</th>
     <th style="width:15%;"><i class="fas fa-image"></i>&nbsp圖片</th>
     <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp結束日期</th>
+    <th style="width:10%;"><i class="far fa-clipboard"></i>&nbsp狀態</th>
+     <th style="width:10%;"><i class="far fa-clipboard"></i>&nbsp類別</th>
     <th style="width:10%;"><i class="far fa-clipboard"></i>&nbsp備註</th>
     <th style="width:10%;"><i class="fas fa-pencil-alt"></i>&nbsp修改</th>
     <th style="width:10%;"><i class="fas fa-trash-alt"></i>&nbsp刪除</th>
@@ -860,7 +870,9 @@ body {
      </a>
     </td>
     <td>${campaign.date1}</td>
+    <td>${campaign.campaignStatus}</td>
     <td>${campaign.note}</td>
+    <td>${campaign.category}</td>
     <td><button style="font-size:18px;font-weight:bolder;border: 1px grey solid;border-radius:3px" class="btn" type="button" onclick="location.href ='./updatecampaign?id=${campaign.id}'" >修&nbsp改</button></td>
     <td><button style="font-size:18px;font-weight:bolder;border: 1px grey solid;border-radius:3px" class="btn" type="button" onclick="if(window.confirm('確定要刪除')) location.href ='./deletecampaign/${campaign.id}'" >刪&nbsp除</button>
     </td>
@@ -868,7 +880,7 @@ body {
         </c:forEach>
     </tbody>
 </table>
-
+</div>
 </section>
 
 <script>

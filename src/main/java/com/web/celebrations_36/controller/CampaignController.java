@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -60,8 +63,32 @@ public class CampaignController {
 	}
 	
 	@GetMapping("/campaigns")
-	public String list(Model model) {
-		List<Campaign> beans = campaignService.findAll();
+	public String list(Model model) throws ParseException {
+		List<Campaign> campaigns =campaignService.findAll();
+		Long timeStamp = System.currentTimeMillis();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
+		String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
+		Date currentDate = sdf.parse(sd);
+		Date expiryDate;
+		for (int i = 0; i < campaigns.size(); i++) {
+		    
+//			f=sd.compareTo(list.get(i).getExpiryDate());
+			expiryDate = sdf.parse(campaigns.get(i).getDate1() + " " + "00:00:00");
+
+			if (currentDate.after(expiryDate)) {
+//			System.out.println(sdf.parse(list.get(i).getExpiryDate()+" "+ "00:00:00"));
+			campaignService.updateCampaignstatus("已結束",campaigns.get(i).getId());
+				}
+//				System.out.println(i);
+			}
+		
+		
+		
+		
+		
+		String campaignStatus="進行中";
+		List<Campaign> beans = campaignService.getCampaignsByCampaignstatus(campaignStatus);
+//		List<Campaign> beans = campaignService.findAll();
 		model.addAttribute("campaigns",beans);
 		return "celebrations_36/campaigns";
 	}
@@ -102,6 +129,7 @@ public class CampaignController {
 			}
 		}		
 		//==============================================
+		campaign.setCampaignStatus("進行中");
 		campaignService.save(campaign);
 		//===============================================
 		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
@@ -251,7 +279,7 @@ public class CampaignController {
 			@RequestParam("id") Integer id,
 			@ModelAttribute("campaign") Campaign campaign, 
 			Model model
-	){
+	) throws ParseException{
 		System.out.println("id="+campaign.getId());
 		campaign.setId(id);
 		
@@ -271,6 +299,23 @@ public class CampaignController {
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 			}
 		}	
+
+		Long timeStamp = System.currentTimeMillis();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
+		String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
+		Date currentDate = sdf.parse(sd);
+		Date expiryDate=sdf.parse(campaign.getDate1() + " " + "00:00:00");;
+
+		if (currentDate.after(expiryDate)) {
+//		System.out.println(sdf.parse(list.get(i).getExpiryDate()+" "+ "00:00:00"));
+		campaignService.updateCampaignstatus("已結束",id);
+		}
+//		System.out.println(i);
+		if (currentDate.before(expiryDate)||currentDate.equals(expiryDate)) {
+//			System.out.println(sdf.parse(list.get(i).getExpiryDate()+" "+ "00:00:00"));
+			campaignService.updateCampaignstatus("進行中",id);
+		}
+						
 		//===============================
 		campaignService.update(campaign);
 		//===============================
@@ -288,6 +333,23 @@ public class CampaignController {
 		
 		}else if(campaign.getProductImage().isEmpty()){
 			System.out.println("*****************************************");
+			
+			Long timeStamp = System.currentTimeMillis();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
+			String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
+			Date currentDate = sdf.parse(sd);
+			Date expiryDate=sdf.parse(campaign.getDate1() + " " + "00:00:00");;
+
+			if (currentDate.after(expiryDate)) {
+//			System.out.println(sdf.parse(list.get(i).getExpiryDate()+" "+ "00:00:00"));
+			campaignService.updateCampaignstatus("已結束",id);
+			}
+			
+			if (currentDate.before(expiryDate)||currentDate.equals(expiryDate)) {
+//				System.out.println(sdf.parse(list.get(i).getExpiryDate()+" "+ "00:00:00"));
+				campaignService.updateCampaignstatus("進行中",id);
+			}
+			
 			campaignService.updateCampaignWithoutImg(id, campaign);
 		}
 	    return "redirect:/admincampaign";
@@ -304,9 +366,27 @@ public class CampaignController {
 	}
 	
 	@GetMapping("/campaigns/{category}") // 路徑變數{category}
-	public String getProductsByCategory(@PathVariable("category") String category, Model model) {
-		List<Campaign> campaigns = campaignService.getCampaignsByCategory(category);
-		model.addAttribute("campaigns", campaigns);
+	public String getProductsByCategory(@PathVariable("category") String category, Model model) throws ParseException {
+		List<Campaign> campaigns =campaignService.findAll();
+		Long timeStamp = System.currentTimeMillis();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
+		String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
+		Date currentDate = sdf.parse(sd);
+		Date expiryDate;
+		for (int i = 0; i < campaigns.size(); i++) {
+		    
+//			f=sd.compareTo(list.get(i).getExpiryDate());
+			expiryDate = sdf.parse(campaigns.get(i).getDate1() + " " + "00:00:00");
+
+			if (currentDate.after(expiryDate)) {
+//			System.out.println(sdf.parse(list.get(i).getExpiryDate()+" "+ "00:00:00"));
+			campaignService.updateCampaignstatus("已結束",campaigns.get(i).getId());
+				}
+//				System.out.println(i);
+			}
+		
+		List<Campaign> campaignsrunning = campaignService.getCampaignsByCategory(category,"進行中");
+		model.addAttribute("campaigns", campaignsrunning);
 		return "celebrations_36/campaigns_category";
 	}
 	

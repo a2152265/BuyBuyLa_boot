@@ -14,7 +14,7 @@ import com.web.celebrations_36.service.PointService;
 import com.web.member_25.model.membershipInformationBean;
 
 @Controller
-@SessionAttributes("loginSession")
+@SessionAttributes({"loginSession","memberUiDefault"})
 public class PointController {
 	
 	PointService pointService;

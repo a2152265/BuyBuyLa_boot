@@ -153,7 +153,7 @@
             transform: translateY(-7px);
         }
 		.im{
-		margin-left: 150px;
+		margin-left: 23px;
 		/*border:1px solid lightblue ; */
 		/* margin-left: 100px; */
 		width:100px;
@@ -184,7 +184,7 @@
 		<tbody>
 			
 			<div class="im" style="margin-bottom:80px">
-				<img src="<c:url value='/images/image.jpg' />" width="150" height="150" alt="封面圖片" >
+				<img src="<c:url value='/images/image.png' />" width="400" height="150" alt="封面圖片" >
 			</div>
             <tr>
                 <td><label  for="productImage">
@@ -219,7 +219,7 @@
                             <form:option value="折價券"></form:option>
                             <form:option value="特惠商品"></form:option>
                             <form:option value="購物金"></form:option>
-                       
+                       		<form:option value="免運"></form:option>
                         </form:select>
                         </td>
             </tr>
@@ -250,7 +250,7 @@
                </tbody>
     </table>
 
- 	<div class="wrap" style="display: flex;margin-left: 80px;">
+ 	<div class="wrap" style="display: flex;margin-left: 180px;">
         <input id="btnAdd" type='submit' class='btn btn-primary'
                             value="送出" />
 	</div>  

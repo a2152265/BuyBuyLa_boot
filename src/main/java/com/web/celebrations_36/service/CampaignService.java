@@ -21,6 +21,10 @@ public interface CampaignService {
 	
 	void updateCampaignWithoutImg(Integer campaignId,Campaign campaign);
 	//獲取類別商品
-	List<Campaign>getCampaignsByCategory(String category);
+//	List<Campaign>getCampaignsByCategory(String category);
+	List<Campaign> getCampaignsByCategory(String category,String campaignStatus);
+	List<Campaign> getCampaignsByCampaignstatus(String campaignStatus);
+    void updateCampaignstatus(String campaignStatus,Integer id);
+
 }
 

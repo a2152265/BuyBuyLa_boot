@@ -33,6 +33,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.SQLException;
+
+import com.web.celebrations_36.model.Coupon;
+import com.web.celebrations_36.service.CouponService;
 import com.web.member_25.func.MemberException;
 import com.web.member_25.func.MemberValidator;
 import com.web.member_25.func.ProcessImage;
@@ -45,13 +48,22 @@ public class TestLoginController {
 
 	MemberService memberService;
 	ServletContext servletContext; // get pic用
-
+	CouponService couponService;
+	
+//	@Autowired
+//	public TestLoginController(MemberService memberService, ServletContext servletContext) {
+//		this.memberService = memberService;
+//		this.servletContext = servletContext;
+//	}
+	
 	@Autowired
-	public TestLoginController(MemberService memberService, ServletContext servletContext) {
-		this.memberService = memberService;
-		this.servletContext = servletContext;
-	}
-
+	public TestLoginController(MemberService memberService, ServletContext servletContext, CouponService couponService) {
+	this.memberService = memberService;
+	this.servletContext = servletContext;
+	this.couponService = couponService;
+}
+	
+	
 //	@GetMapping("/zxczc")   //改
 //	public String indexDefault() {
 //		System.out.println("回首頁");
@@ -70,6 +82,8 @@ public class TestLoginController {
 
 		return "cart_30/TotalHome";
 	}
+
+
 
 	@PostMapping("/try/index")
 	public String processIndex(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
@@ -242,6 +256,8 @@ public class TestLoginController {
 		membershipInformationBean mb2 = new membershipInformationBean();
 		String userEmail = mb.getUserEmail();		
 		//預載會員資料
+		
+		
 		mb2=memberService.findMemberData(mb.getUserEmail());
 		if (mb2.getFileName()==null||mb2.getFileName().equals("")) {
 			System.out.println("------登入後預載預設圖片------");

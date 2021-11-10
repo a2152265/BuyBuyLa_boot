@@ -1,5 +1,8 @@
 package com.web.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -49,7 +52,7 @@ public class HomeController {
 
 
 	@GetMapping("/")
-	public String home0(Model model) {
+	public String home0(Model model) throws ParseException {
 		System.out.println("進入首頁La");
 		System.out.println("haha");
 		List<Product> allProduct = productservice.getAllProducts();
@@ -62,7 +65,36 @@ public class HomeController {
 		model.addAttribute("ascProduct", ascProduct);
 		
 		//首頁輪播圖
-		List<Campaign> cambeans = campaignService.findAll();
+		List<Campaign> campaigns =campaignService.findAll();
+		Long timeStamp = System.currentTimeMillis();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
+		String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
+		Date currentDate = sdf.parse(sd);
+		Date expiryDate;
+		for (int i = 0; i < campaigns.size(); i++) {
+		    
+//			f=sd.compareTo(list.get(i).getExpiryDate());
+			expiryDate = sdf.parse(campaigns.get(i).getDate1() + " " + "00:00:00");
+
+			if (currentDate.after(expiryDate)) {
+//			System.out.println(sdf.parse(list.get(i).getExpiryDate()+" "+ "00:00:00"));
+			campaignService.updateCampaignstatus("已結束",campaigns.get(i).getId());
+//			productservice.updateProductDiscount(1.0, "寵物");
+			}
+			
+//			if (currentDate.before(expiryDate)||currentDate.equals(expiryDate)) {
+////				System.out.println(sdf.parse(list.get(i).getExpiryDate()+" "+ "00:00:00"));
+//				campaignService.updateCampaignstatus("進行中",campaigns.get(i).getId());
+//
+//				productservice.updateProductDiscount(0.8, "寵物");
+//				}
+			
+			}
+		
+		
+		
+		String campaignStatus="進行中";
+		List<Campaign> cambeans = campaignService.getCampaignsByCampaignstatus(campaignStatus);
 		model.addAttribute("campaignss",cambeans);
 		model.addAttribute("campaignsizes",cambeans.size());
 		

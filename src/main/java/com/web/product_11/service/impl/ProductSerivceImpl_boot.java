@@ -82,6 +82,17 @@ public class ProductSerivceImpl_boot implements ProductService{
 		return productRepositoryDao.productOrderByInsertTime();
 	}
 
+	@Override
+	public void updateProductDiscount(Double discount, String category) {
+		productRepositoryDao.updateProductDiscount(discount, category);
+		
+	}
+
+//	@Override
+//	public void updateProductPrice() {
+//		productRepositoryDao.updateProductPrice();
+//	}
+
 
 
 

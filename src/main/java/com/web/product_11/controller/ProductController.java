@@ -37,6 +37,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.cart_30.service.CartService;
+import com.web.celebrations_36.model.Campaign;
+import com.web.celebrations_36.service.CampaignService;
 import com.web.member_25.model.membershipInformationBean;
 import com.web.member_25.service.MemberService;
 import com.web.product_11.model.Product;
@@ -53,20 +55,35 @@ public class ProductController {
 	MemberService memberService;
 	ServletContext servletContext;
 	CartService cartService;
+	CampaignService campaignService;
 
-	@Autowired
-	public ProductController(ProductService productservice, ProductCommentService productCommentService,
-			MemberService memberService, ServletContext servletContext, CartService cartService) {
-		super();
-		this.productservice = productservice;
-		this.productCommentService = productCommentService;
-		this.memberService = memberService;
-		this.servletContext = servletContext;
-		this.cartService = cartService;
-	}
+//	@Autowired
+//	public ProductController(ProductService productservice, ProductCommentService productCommentService,
+//			MemberService memberService, ServletContext servletContext, CartService cartService) {
+//		super();
+//		this.productservice = productservice;
+//		this.productCommentService = productCommentService;
+//		this.memberService = memberService;
+//		this.servletContext = servletContext;
+//		this.cartService = cartService;
+//	}
+	
 
 	public ProductController() {
 	}
+
+	@Autowired
+	public ProductController(ProductService productservice, ProductCommentService productCommentService,
+		MemberService memberService, ServletContext servletContext, CartService cartService,
+		CampaignService campaignService) {
+	super();
+	this.productservice = productservice;
+	this.productCommentService = productCommentService;
+	this.memberService = memberService;
+	this.servletContext = servletContext;
+	this.cartService = cartService;
+	this.campaignService = campaignService;
+}
 
 
 	//顯示所有商品
@@ -186,7 +203,7 @@ public class ProductController {
 	       
 	       //商品狀態
 	       p.setStatus("待審核");
-		
+	       p.setDiscount(1.0);
 
 		if(!p.getProductImage().isEmpty()) {
 		// 於productImage取得照片
@@ -328,6 +345,39 @@ public class ProductController {
 			List<Product> products = productservice.getProductsByCategory(category);
 			model.addAttribute("products", products);
 			return "product_11/products_category";
+		}
+		
+//		@GetMapping("/campaigns/shippingVoucher2/{category}") // 路徑變數{category}
+//		public String getProductsByCategory1(@PathVariable("category") String category, Model model) {
+//			List<Product> products = productservice.getProductsByCategory(category);
+//			model.addAttribute("products", products);
+//			return "celebrations_36/shippingVoucher2";
+//		}
+		
+		//限時活動
+		@GetMapping("/campaigns/countdownSales")
+		public String productList1(Model model) {
+			
+			List<Campaign> campaignsByCategory = campaignService.getCampaignsByCategory("限時活動", "已結束");
+			String category="寵物";
+			if(campaignsByCategory.size()==0) {
+			
+//			System.out.println("12w12w12w12sqwxq"+campaignsByCategory.size());
+      		
+			productservice.updateProductDiscount(0.8, category);
+			List<Product> beans = productservice.getProductsByCategory(category);
+
+			model.addAttribute("products", beans);
+			
+			}
+//			System.out.println("12w12w12w12sqwxq"+campaignsByCategory.size());
+
+				productservice.updateProductDiscount(1.0, category);
+				List<Product> beans = productservice.getProductsByCategory(category);
+
+				model.addAttribute("products", beans);
+			
+			return "celebrations_36/countdownSales";
 		}
 		
 	//更新表單

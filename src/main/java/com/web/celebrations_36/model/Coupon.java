@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="coupon")
 public class Coupon {
@@ -25,6 +27,11 @@ public class Coupon {
 	private String couponStatus;
 	@Column(name="count")
 	private Integer count;
+	@Column(name="userGender")
+	private String userGender;
+	
+	@Column(name="expiryDate")
+	private String expiryDate;
 	
 	public Integer getCount() {
 		return count;
@@ -62,6 +69,24 @@ public class Coupon {
 	public void setCouponNumber(String couponNumber) {
 		this.couponNumber = couponNumber;
 	}
+	
+	
+	
+
+	
+	
+	public String getExpiryDate() {
+		return expiryDate;
+	}
+	public void setExpiryDate(String expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+	public String getUserGender() {
+		return userGender;
+	}
+	public void setUserGender(String userGender) {
+		this.userGender = userGender;
+	}
 	public Coupon(String userEmail, String couponName, String couponNumber,String couponStatus) {
 		super();
 		this.userEmail = userEmail;
@@ -80,6 +105,18 @@ public class Coupon {
 		this.couponStatus = couponStatus;
 		this.count = count;
 	}
+	public Coupon(String userEmail, String couponName, String couponNumber, String couponStatus, Integer count,
+			String userGender, String expiryDate) {
+		super();
+		this.userEmail = userEmail;
+		this.couponName = couponName;
+		this.couponNumber = couponNumber;
+		this.couponStatus = couponStatus;
+		this.count = count;
+		this.userGender = userGender;
+		this.expiryDate = expiryDate;
+	}
+
 	
 	
 }

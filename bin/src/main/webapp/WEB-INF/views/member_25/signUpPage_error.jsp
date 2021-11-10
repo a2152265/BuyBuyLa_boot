@@ -295,18 +295,20 @@ footer a {
 			</div>
 			
             
-            <form:input id="userPhone" path="userPhone" type='text' placeholder="userPhone" cssclass='form-control'  />
-            <br><form:errors path="userPhone" cssClass="error" style="color: red;" />	
+            <form:input id="userPhone" path="userPhone" type='text' placeholder="請輸入手機號碼" cssclass='form-control'  />
+            <form:errors path="userPhone" cssClass="error" style="color: red;" />	
 
-            <form:input id="userEmail" path="userEmail" type='text' placeholder="Email" cssclass='form-control'  />
-            <br><form:errors path="userEmail" cssClass="error" style="color: red;" />
+            <form:input id="userEmail" path="userEmail" type='text' placeholder="請輸入信箱" cssclass='form-control'  />
+            <form:errors path="userEmail" cssClass="error" style="color: red;" />
 
-            <form:password id="pwd" path="userPwd"  placeholder="Password" cssclass='form-control'  />
-			<br><form:errors path="userPwd" cssClass="error"  style="color: red;" />
+            <form:password id="pwd" path="userPwd"  placeholder="請輸入密碼" cssclass='form-control'  />
+			<form:errors path="userPwd" cssClass="error"  style="color: red;" />
 			
-			<form:password id="pwd" path="userPwd1"  placeholder="Password check" cssclass='form-control'  />
-			<br><form:errors path="userPwd1" cssClass="error"  style="color: red;" />
+			<form:password id="pwd" path="userPwd1"  placeholder="確認密碼" cssclass='form-control'  />
+			<form:errors path="userPwd1" cssClass="error"  style="color: red;" />
 			
+			<input id="onejan" type="button" value="一键输入註冊資料" class="reg" > 
+        
             <input type="submit" id="submit"  name="submit" value="註冊" class="reg" onclick="return(confirm('確認註冊？'))"  >
 
 		</form:form>
@@ -326,10 +328,10 @@ footer a {
 				<p>To keep connected with us please login with your personal info</p>
 				<button class="ghost" id="signIn">Sign In</button>
 			</div>
-			<div class="overlay-panel overlay-right">
+			<div class="overlay-panel overlay-right"  style="background-color: rgb(9, 9, 121);">
 				<h1>已有帳號?</h1>
 				<p>來登入BuyBuyLa</p>
-                <a href="<c:url value='/try/login' />" >登入</a>
+                <a href="<c:url value='/try/login' />" style="color: white;"  >登入</a>
 			</div>
 		</div>
 	</div>
@@ -345,8 +347,19 @@ footer a {
 
 
 <script>
-    alert('帳號重複');
-    </script>
+
+			alert('註冊失敗 帳號重複');
+	
+            // 1 jan input
+               let demoBTN = document.getElementById('onejan')
+
+               demoBTN.onclick = function(){
+                document.getElementById("userPhone").setAttribute('value','0921212121');
+                document.getElementById("userEmail").setAttribute('value','a2152265@gmail.com');               
+                document.getElementById("pwd").setAttribute('value','a2152265@gmail.com');          
+                console.log("YAA");
+                 };
+       </script>
 
 </body>
 </html>

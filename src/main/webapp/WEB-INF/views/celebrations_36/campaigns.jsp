@@ -133,6 +133,7 @@
         <a class="nav-link" href="<c:url value='/campaigns' />"style="padding-left:100px;">活動總覽</a>
         <a class="nav-link" href="<c:url value='/campaigns/購物金' />" style="padding-left:100px">購物金</a>
         <a class="nav-link" href="<c:url value='/campaigns/免運' />" style="padding-left:100px">免運</a>
+        <a class="nav-link" href="<c:url value='/campaigns/限時活動' />" style="padding-left:100px">限時活動</a>
       </div>
     </div>
   </div>

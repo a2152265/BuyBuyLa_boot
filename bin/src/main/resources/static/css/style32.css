@@ -4,38 +4,15 @@ a {
     text-decoration:none;
 }
 
-.card {
-	overflow: hidden;
-}
-
 .tata {
 	cursor: pointer;
 }
-.tata-a {
-	text-decoration: none; color: black;
-}
 
-.tata:hover {
-	color: red;
+.ml700w50h50tf11{
+	cursor: pointer; float:right; width: 30px; height: 30px;transform: scale(1, 1);
 }
-
-#edit {
-	transform: scale(1, 1);
-}
-
-#edit:hover {
+.ml700w50h50tf11:hover {
 	transform: scale(1.1, 1.1);
-}
-
-b {
-	font-size: 55px;
-	margin-left:27px;
-}
-.card-text { 
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
-  overflow: hidden;
 }
 
 .box {
@@ -51,21 +28,11 @@ display: -webkit-box;
 -webkit-box-orient: vertical;
 white-space: normal;
 }
-.card-body{
-	padding: 0px;
-}
-.photoSticker{
-	width: 50px; height: 50px; border-radius: 50%;
-}
-.contentUserName{
-	margin-left: 15px; font-size: 20px;
-}
-.editImgg{
-	cursor: pointer; float: right; width: 30px; height: 30px;
-}
+
 .updateDataClass{
 	cursor: pointer;
 }
+<<<<<<< HEAD
 .cardmx-auto{
 	width: 55rem; padding: 15px; margin: 0px;
 }
@@ -83,52 +50,20 @@ white-space: normal;
 }
 .goodicon{
 	width: 20px; margin-left: 20px;
+=======
+#insSelectTag{
+	width: 200px;
+}
+#updSelectTag{
+	width: 200px;
+>>>>>>> refs/heads/Dev_32
 }
 .display-none{
 	display:none;
 }
 .modal-title{
-	margin-left: 150px;
+	margin-left: 300px;
 }
 .title-fontsize{
 	font-size: 30px;
-}
-.date20px{
-	font-size: 20px;
-}
-.ml150w260{
-	margin-left: 150px; width: 260px;
-}
-.mtop30{
-	margin-top: 30px;
-}
-.editml700w50h50{
-	cursor: pointer; margin-left: 700px; width: 30px; height: 30px;
-}
-.w60h60br50fl{
-	width: 60px; height: 60px; border-radius: 50%; float: left;
-}
-.w20{
-	width: 20px;
-}
-.w60h60br50flmr30{
-	width: 60px; height: 60px; border-radius: 50%; float: left; margin-right: 30px;
-}
-.ml450mt100{
-	margin-left: 450px; margin-top: 100px;
-}
-.detailed{
-	padding: 40px;
-}
-.w40{
-	width: 40px;
-}
-.w60p20ml460mt20{
-	width: 60%; padding: 20px; margin-left: 460px; margin-top: 20px;
-}
-.fr{
-	float: right;
-}
-.ml80{
-	margin-left: 80px;
 }

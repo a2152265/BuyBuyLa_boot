@@ -57,10 +57,10 @@ public class CampaignServiceImpl implements CampaignService {
 		campaignRepository.deleteCampaignById(campaignId);
 	}
 	
-	@Override
-	public List<Campaign> getCampaignsByCategory(String category) {
-		return campaignRepository.getCampaignsByCategory(category);
-	}
+//	@Override
+//	public List<Campaign> getCampaignsByCategory(String category) {
+//		return campaignRepository.getCampaignsByCategory(category);
+//	}
 
 	@Override
 	public void updateCampaignWithoutImg(Integer campaignId, Campaign campaign) {
@@ -70,8 +70,24 @@ public class CampaignServiceImpl implements CampaignService {
 
 	@Override
 	public List<String> getAllCategories() {
-		
 		return campaignRepository.getAllCategories();
+	}
+
+	@Override
+	public List<Campaign> getCampaignsByCampaignstatus(String campaignStatus) {
+		return campaignRepository.getCampaignsByCampaignstatus(campaignStatus);
+	}
+
+	@Override
+	public void updateCampaignstatus(String campaignStatus, Integer id) {
+		campaignRepository.updateCampaignstatus(campaignStatus, id);
+
+		
+	}
+
+	@Override
+	public List<Campaign> getCampaignsByCategory(String category, String campaignStatus) {
+		return campaignRepository.getCampaignsByCategory(category, campaignStatus);
 	}
 
 //	@Override
