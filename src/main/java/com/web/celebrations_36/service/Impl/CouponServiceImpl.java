@@ -60,4 +60,9 @@ public class CouponServiceImpl implements CouponService {
 		
 	}
 
+	@Override
+	public List<Coupon> getCouponstatus(String couponStatus) {
+		return couponRepository.getCouponstatus(couponStatus);
+	}
+
 }

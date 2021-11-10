@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -1173,7 +1174,7 @@ body {
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Profile Views</h6>
+                                                <h6 class="text-muted font-semibold">點擊次數</h6>
                                                 <h6 class="font-extrabold mb-0">112.000</h6>
                                             </div>
                                         </div>
@@ -1190,8 +1191,8 @@ body {
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Followers</h6>
-                                                <h6 class="font-extrabold mb-0">183.000</h6>
+                                                <h6 class="text-muted font-semibold">領取次數</h6>
+                                                <h6 class="font-extrabold mb-0" style="margin-left:20px"><fmt:formatNumber type="number" value="${size}" maxFractionDigits="0"/></h6>
                                             </div>
                                         </div>
                                     </div>
@@ -1232,56 +1233,64 @@ body {
                                 </div>
                             </div>
                         </div>
+       <div style="display:flex;margin-top:40px;margin-left:20px">                 
     <div class="svg-item">
-  <svg width="100%" height="100%" viewBox="0 0 40 40" class="donut">
+  <svg style="margin-top:40px;margin-right:100px" width="100%" height="100%" viewBox="0 0 40 40" class="donut">
     <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="#fff"></circle>
     <circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5"></circle>
     <circle class="donut-segment" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5" stroke-dasharray="20 80" stroke-dashoffset="25"></circle>
     <g class="donut-text">
 
       <text y="50%" transform="translate(0, 2)">
-        <tspan x="50%" text-anchor="middle" class="donut-percent">40%</tspan>   
+        <tspan x="50%" text-anchor="middle" class="donut-percent"><fmt:formatNumber type="number" value="${userate}" maxFractionDigits="2"/>%</tspan>   
+     	<div style="margin-left:58px;color:#FF6200;font-weight:bolder;font-size:30px">使用率</div>
       </text>
+     
     </g>
+    
   </svg>
+  
 </div>
-  
-  <main>
-  
-  <p>Change the number values in the html.</p>
-  <section>
-    <div class="pieID pie">
-      
-    </div>
-    <ul class="pieID legend">
-      <li>
-        <em>Humans</em>
-        <span>718</span>
-      </li>
-      <li>
-        <em>Dogs</em>
-        <span>531</span>
-      </li>
-      <li>
-        <em>Cats</em>
-        <span>868</span>
-      </li>
-      <li>
-        <em>Slugs</em>
-        <span>344</span>
-      </li>
-      <li>
-        <em>Aliens</em>
-        <span>1145</span>
-      </li>
-    </ul>
-  </section>
-  
-  
-  <h5>Page Hits per Country</h5>
+<!--  <div style="margin-left:58px;color:#FF6200;font-weight:bolder;font-size:30px">使用率</div> -->
+ <div style="margin-left:100px">
+ <h5>Page Hits per Country</h5>
   <div id="pie-chart"></div>
+ </div>
+  </div>
+<!--   <main> -->
+  
+<!--   <section> -->
+<!--     <div class="pieID pie"> -->
+      
+<!--     </div> -->
+<!--     <ul class="pieID legend"> -->
+<!--       <li> -->
+<!--         <em>Humans</em> -->
+<!--         <span>718</span> -->
+<!--       </li> -->
+<!--       <li> -->
+<!--         <em>Dogs</em> -->
+<!--         <span>531</span> -->
+<!--       </li> -->
+<!--       <li> -->
+<!--         <em>Cats</em> -->
+<!--         <span>868</span> -->
+<!--       </li> -->
+<!--       <li> -->
+<!--         <em>Slugs</em> -->
+<!--         <span>344</span> -->
+<!--       </li> -->
+<!--       <li> -->
+<!--         <em>Aliens</em> -->
+<!--         <span>1145</span> -->
+<!--       </li> -->
+<!--     </ul> -->
+<!--   </section> -->
+  
+  
+  
  
-</main>
+<!-- </main> -->
 
 
     <div id="container1" style="height: 500px"></div>
@@ -1464,15 +1473,16 @@ google.load("visualization", "1", {packages:["corechart"]});
 google.setOnLoadCallback(drawCharts);
 function drawCharts() {
   
- 
+var a=1000;
+ console.log(a);
  
   var pieData = google.visualization.arrayToDataTable([
     ['Country', 'Page Hits'],
-    ['USA',      7242],
-    ['Canada',   4563],
-    ['Mexico',   1345],
-    ['Sweden',    946],
-    ['Germany',  2150]
+    ['寵物',      12],
+    ['運動用品',   33],
+    ['diana',   45],
+    ['Sweden',    46],
+    ['Germany',  50]
   ]);
   // pie chart options
   var pieOptions = {

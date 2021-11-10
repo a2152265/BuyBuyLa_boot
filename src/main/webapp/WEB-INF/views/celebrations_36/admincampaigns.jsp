@@ -871,8 +871,8 @@ body {
     </td>
     <td>${campaign.date1}</td>
     <td>${campaign.campaignStatus}</td>
-    <td>${campaign.note}</td>
     <td>${campaign.category}</td>
+    <td>${campaign.note}</td>
     <td><button style="font-size:18px;font-weight:bolder;border: 1px grey solid;border-radius:3px" class="btn" type="button" onclick="location.href ='./updatecampaign?id=${campaign.id}'" >修&nbsp改</button></td>
     <td><button style="font-size:18px;font-weight:bolder;border: 1px grey solid;border-radius:3px" class="btn" type="button" onclick="if(window.confirm('確定要刪除')) location.href ='./deletecampaign/${campaign.id}'" >刪&nbsp除</button>
     </td>

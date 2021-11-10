@@ -128,9 +128,17 @@ public class CampaignController {
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 			}
 		}		
+//		if(campaign.getDate1()==null) {
+//			 Long timeStamp = System.currentTimeMillis();  //获取当前时间戳
+//		       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		       String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp)))); 
+//		       campaign.setDate1(sd);
+//		}
 		//==============================================
-		campaign.setCampaignStatus("進行中");
-		campaignService.save(campaign);
+		      
+			       campaign.setCampaignStatus("進行中");
+			       campaignService.save(campaign);
+		
 		//===============================================
 		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
 		String rootDirectory = servletContext.getRealPath("/");
@@ -161,6 +169,15 @@ public class CampaignController {
 				blob = new SerialBlob(img);
 				campaign.setFileName("NoImage2.png");
 				campaign.setCoverImage(blob);
+				
+//				if(campaign.getDate1()==null) {
+//					 Long timeStamp = System.currentTimeMillis();  //获取当前时间戳
+//				       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//				       String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp)))); 
+//				       campaign.setDate1(sd);
+//				}
+				
+				
 				campaignService.save(campaign);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block

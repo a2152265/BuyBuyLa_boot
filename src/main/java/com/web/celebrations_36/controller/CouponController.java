@@ -43,13 +43,13 @@ public class CouponController {
 	public String voucher(Model model) {
 		return "celebrations_36/voucherstatics";
 	}
-	@GetMapping("/campaigns/voucher1") 
-	public String voucher1(Model model) {
-		return "celebrations_36/voucherstatics2";
-	}
+//	@GetMapping("/campaigns/voucher1") 
+//	public String voucher1(Model model) {
+//		return "celebrations_36/voucherstatics2";
+//	}
 	
 	
-	@GetMapping("/campaigns/shippingVoucher") // 路徑變數{category}
+	@GetMapping("/campaigns/shippingVoucher") 
 	public String spinningWheel(Model model) {
 		return "celebrations_36/shippingVoucher";
 	}
@@ -94,6 +94,7 @@ public class CouponController {
 //	 	Date a=sdf.parse(sd);
 //	 	Date b=sdf.parse(sd1);
 		System.out.println("list size" + list.size());
+		
 		for (int i = 0; i < list.size(); i++) {
 	    
 //		f=sd.compareTo(list.get(i).getExpiryDate());
@@ -161,6 +162,22 @@ public class CouponController {
 			model.addAttribute("couponList", couponList);
 		}
 		return "celebrations_36/couponexpired";
+	}
+	
+	
+	@GetMapping("/campaigns/voucher1") // 路徑變數{category}
+	public String voucherStatic(Model model) {
+		List<Coupon> totalnum = couponService.findAll();
+		double size = totalnum.size();
+		System.out.println(size);
+		List<Coupon> couponstatus = couponService.getCouponstatus("已使用");
+		double usenum=couponstatus.size();
+		System.out.println(usenum);
+		double userate=(usenum/size)*100;
+		System.out.println(userate);
+		model.addAttribute("size", size);
+		model.addAttribute("userate", userate);
+		return "celebrations_36/voucherstatics2";
 	}
 
 }

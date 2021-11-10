@@ -359,25 +359,26 @@ public class ProductController {
 		public String productList1(Model model) {
 			
 			List<Campaign> campaignsByCategory = campaignService.getCampaignsByCategory("限時活動", "已結束");
+			int size = campaignsByCategory.size();
 			String category="寵物";
-			if(campaignsByCategory.size()==0) {
+			if(size==0) {
 			
-//			System.out.println("12w12w12w12sqwxq"+campaignsByCategory.size());
+			System.out.println("12w12w12w12sqwxq"+size);
       		
 			productservice.updateProductDiscount(0.8, category);
 			List<Product> beans = productservice.getProductsByCategory(category);
 
 			model.addAttribute("products", beans);
-			
-			}
-//			System.out.println("12w12w12w12sqwxq"+campaignsByCategory.size());
+			return "celebrations_36/countdownSales";
+			}else {
+			System.out.println("11ㄉˇw12sqwxq"+size);
 
 				productservice.updateProductDiscount(1.0, category);
 				List<Product> beans = productservice.getProductsByCategory(category);
 
 				model.addAttribute("products", beans);
 			
-			return "celebrations_36/countdownSales";
+			return "celebrations_36/countdownSales";}
 		}
 		
 	//更新表單
