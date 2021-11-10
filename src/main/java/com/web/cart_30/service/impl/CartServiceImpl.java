@@ -74,7 +74,7 @@ public class CartServiceImpl implements CartService {
 		}else {
 			System.out.println("///////////////////////////");
 			System.out.println(carta);
-			Cart cart = new Cart(1,buyer,product.get());				
+			Cart cart = new Cart(1,buyer,product.get(),0);				
 			cartRepository.save(cart);
 		}
 		
@@ -234,6 +234,46 @@ public class CartServiceImpl implements CartService {
 		productRepository.updateStock(pid,count);
 		
 	}
+
+
+
+
+
+
+//抓折扣碼
+	@Override
+	public int getDiscount(String discountCode) {
+		
+		return 50;
+	}
+
+
+
+
+
+
+//把折扣價進資料庫
+@Override
+public void addDiscountToCart(int discount,String buyer) {
+	cartRepository.addDiscountToCart(discount,buyer);
+	
+}
+
+
+
+
+
+
+//判斷是否重複使用折扣
+@Override
+public boolean discountRepeat(String buyer) {
+	 List<Cart> cc =cartRepository.discountRepeat(buyer);
+	 System.out.println(cc.size()+"cccccccccccccc");
+	 if(cc.size()>0) {
+		 return true;
+	 }
+	return false;
+}
 
 
 

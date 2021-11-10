@@ -162,8 +162,6 @@
         $(document).ready(function () {
             jQuery('#example').DataTable();
         });
-
-
     </script>
 
     <style>

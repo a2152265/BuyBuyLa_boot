@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
 
   <link rel="stylesheet" href="css/productstyle.css">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <!--================ Start Header Menu Area =================-->
@@ -200,8 +201,8 @@
                            
                               <td colspan="2">
                                   <div class="cupon_text d-flex align-items-center">
-                                      <input type="text" placeholder="Coupon Code">
-                                      <a class="primary-btn" href="#">Apply</a>
+                                      <input type="text" placeholder="優惠碼" id='discount'>
+                                      <input type="button" value="送出" class="primary-btn ml-2 submit" id='apply'>                                
                                       <a class="button" href="#">Have a Coupon?</a>
                                   </div>
                               </td>
@@ -534,9 +535,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 								
 	});			
 });
-	
-	
-
 	var total=0;
 	$('.total').each(function(){
 		$(this).html;
@@ -546,6 +544,57 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		})
 	
 	$('#totalPrice').html(total)
+	
+	
+	$("#apply").click(function(){		
+					
+		var data=$("#discount").val();
+		console.log("data = "+data)
+		$.ajax({
+			type:'get',
+			url:'getDiscount',
+			data:{
+				"discountCode":data
+			},
+			
+			success:function(discount){
+// 				console.log("discount = "+discount)
+					Swal.fire({
+				  position:'center',
+				  icon: 'success',
+				  title: '已為您扣除'+discount+'元',
+				  showConfirmButton: false,
+				  
+				  timer: 1500
+				})
+				var dis = parseInt(discount); 
+				var count = parseInt($('#totalPrice').html())-dis;
+				console.log(count)
+				
+				$('#totalPrice').html(count)
+				
+			},error:function(){
+				Swal.fire({
+					  position:'center',
+					  icon: 'error',
+					  title: '查無此優惠碼或您已使用過折價券',
+					  text: '請再確認一次',
+					  showConfirmButton: false,
+					  timer: 2500
+					})
+			}
+									
+		});			
+	});
+	
+	
+	
+	
+	
+	
+	
+
+
 	
 	 </script>	
 </body>

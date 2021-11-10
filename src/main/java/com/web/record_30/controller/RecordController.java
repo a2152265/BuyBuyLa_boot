@@ -106,7 +106,7 @@ public class RecordController {
 	
 	
 	
-
+//到管理紀錄頁面
 	@GetMapping("/update30")
 	public String update(@ModelAttribute("loginSession") membershipInformationBean mb,@ModelAttribute("updatebean") RecordBean record ,Model model ) {
 		RecordBean recordBean =new RecordBean();
@@ -180,7 +180,7 @@ public class RecordController {
 		return "record_30/manage/updateRecordList";
 	}
 	
-	
+	//更新購物資料
 	@PostMapping("/updateRecordList")
 	public String updateRecordList(@ModelAttribute("RecordList") RecordList recordList,Model model) {
 	
@@ -214,6 +214,7 @@ public class RecordController {
 		return "record_30/manage/deleteRecordSuccess";
 	}
 
+	//分析圖
 	@GetMapping("/recordanalyze")
 	public String recordanalyze(Model model) {
 		Double female = recordservice.findFemaleRecord();
