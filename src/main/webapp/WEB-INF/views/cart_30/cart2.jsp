@@ -199,15 +199,46 @@
 
                               </td>
                            
+                            <td>
+
+                              </td>
                               <td colspan="2">
                                   <div class="cupon_text d-flex align-items-center">
                                       <input type="text" placeholder="優惠碼" id='discount'>
                                       <input type="button" value="送出" class="primary-btn ml-2 submit" id='apply'>                                
-                                      <a class="button" href="#">Have a Coupon?</a>
+                                   
                                   </div>
                               </td>
                               
                           </tr>
+<!--                                 <tr class="bottom_button"> -->
+                        
+<!--                               <td> -->
+<!-- <!--                                   <a class="button" href="#">Update Cart</a> --> -->
+<!--                               </td> -->
+<!--                               <td> -->
+
+<!--                               </td> -->
+<!--                               <td> -->
+
+<!--                               </td> -->
+<!--                              <td> -->
+
+<!--                               </td> <td> -->
+
+<!--                               </td> -->
+<!--                             <td> -->
+
+<!--                               </td> -->
+<!--                               <td colspan="2"> -->
+<!--                                   <div class="cupon_text d-flex align-items-center"> -->
+<!--                                       <input type="text" placeholder="優惠碼" id='discount2'> -->
+<!--                                       <input type="button" value="送出" class="primary-btn ml-2 submit" id='apply2'>                                 -->
+                                    
+<!--                                   </div> -->
+<!--                               </td> -->
+                              
+<!--                           </tr> -->
                           <tr>
                               <td>
 
