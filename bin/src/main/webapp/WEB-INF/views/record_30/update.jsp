@@ -6,64 +6,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Bootstrap Simple Data Table</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+
+    <title>購物紀錄</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	
-	<script>
-	(function(document) {
-		  'use strict';
-
-		  // 建立 LightTableFilter
-		  var LightTableFilter = (function(Arr) {
-
-		    var _input;
-
-		    // 資料輸入事件處理函數
-		    function _onInputEvent(e) {
-		      _input = e.target;
-		      var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
-		      Arr.forEach.call(tables, function(table) {
-		        Arr.forEach.call(table.tBodies, function(tbody) {
-		          Arr.forEach.call(tbody.rows, _filter);
-		        });
-		      });
-		    }
-
-		    // 資料篩選函數，顯示包含關鍵字的列，其餘隱藏
-		    function _filter(row) {
-		      var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-		      row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
-		    }
-
-		    return {
-		      // 初始化函數
-		      init: function() {
-		        var inputs = document.getElementsByClassName('light-table-filter');
-		        Arr.forEach.call(inputs, function(input) {
-		          input.oninput = _onInputEvent;
-		        });
-		      }
-		    };
-		  })(Array.prototype);
-
-		  // 網頁載入完成後，啟動 LightTableFilter
-		  document.addEventListener('readystatechange', function() {
-		    if (document.readyState === 'complete') {
-		      LightTableFilter.init();
-		    }
-		  });
-
-		})(document);
-	</script>
+<!-- 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
 	<style>
 				body {
 					color: #566787;
@@ -190,29 +158,31 @@
 					border-right-width: 0px;
 				}
 	</style>
-<script>
-	$(document).ready(function(){
-		$('[data-toggle="tooltip"]').tooltip();
-	});
-</script>
+    <script>
+        $(document).ready(function () {
+            jQuery('#example').DataTable();
+        });
+
+
+    </script>
+
+    <style>
+    </style>
 </head>
+
 <body>
-	<div class="container-xl">
+<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">
 					<div class="row">
-						<div class="col-sm-8"><h2>Customer <b>Details</b></h2></div>
-						<div class="col-sm-4">
-							<div class="search-box">
-								<i class="material-icons">&#xE8B6;</i>
-									<input type="text" class="light-table-filter form-control" data-table="order-table" placeholder="Search&hellip;">
-							</div>
-						</div>
+						<div class="col-sm-8"><h2><b>訂單管理</b></h2></div>
+						
 					</div>
 				</div>
-				<table class="table table-striped table-hover table-bordered order-table">
-					<thead>
+    
+    <table id="example" class="display" style="width:100%">
+       	<thead>
 						<tr>
 							<th>訂單編號<i class="fa fa-sort"></i></th>
 							<th>商品編號</th>
@@ -224,10 +194,12 @@
 							<th>編輯資料</th>
 						</tr>
 					</thead>
-					<tbody>
-						
-					<c:forEach var="update" items="${updateRecord}">
-					<form:form method='POST' modelAttribute="updatebean" class='form-horizontal'>	
+        		<%
+			int i = 0;
+			%>
+<tbody>
+    	<c:forEach var="update" items="${updateRecord}">
+<%-- 					<form:form method='POST' modelAttribute="updatebean" class='form-horizontal'>	 --%>
 						<tr>
 							<td id='rid'>${update.record_id}</td>
 							<td id='pid'>${update.pid}</td>
@@ -237,24 +209,24 @@
 							<td>${update.buy_time}</td>
 					
 							<td>
-							<form:select path='transport_status' id='ts'>
+							<select path='transport_status' id='ts'>
 							<option selected>${update.transport_status}</option>
 							<option disabled>======</option>
-							<form:option value='待出貨'>待出貨</form:option>
-							<form:option value='運送中'>運送中</form:option>
-							<form:option value='已到貨'>已到貨</form:option>							
-							</form:select>
+<!-- 							<option value='待出貨' disabled>待出貨</option> -->
+							<option value='運送中'>運送中</option>
+<%-- 							<form:option value='已到貨'>已到貨</form:option>							 --%>
+							</select>
 							</td>
 
 							<td>	
-							 <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-							<form:input path="record_id" value='${update.record_id}' style="display:none"/>
-							<form:input path="pid" value='${update.pid}' style="display:none"/>	
-							<button type="submit" class="btn bt1" data-toggle="modal" data-target="#staticBackdrop">										
-								<a href="<c:url value='/updatevalue30?rid=${update.record_id}&pid=${update.pid}&ts=${update.transport_status}' />" class="edit" title="Edit" data-toggle="tooltip">
+							 <a href="<c:url value='/selectbuyer?buyer=${update.buyer}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+<%-- 							<form:input path="record_id" value='${update.record_id}' style="display:none"/> --%>
+<%-- 							<form:input path="pid" value='${update.pid}' style="display:none"/>	 --%>
+<!-- 							<button type="submit" class="btn bt1" data-toggle="modal" data-target="#staticBackdrop">										 -->
+								<a href="<c:url value='/updatevalue30?rid=${update.record_id}&pid=${update.pid}&ts=運送中' />" class="edit" title="Edit" data-toggle="tooltip">
 								<i class="material-icons">&#xE254;</i>
 								</a>
-							</button>	
+<!-- 							</button>	 -->
 									<a href='#' onclick="if(window.confirm('確定要刪除？')) location.href ='<c:url value='/delete?rid=${update.record_id}&pid=${update.pid}'/>'" class="delete" title="Delete" data-toggle="tooltip">
 									<i class="material-icons">&#xE872;</i>
 									</a>
@@ -264,30 +236,15 @@
 													
 							
 
-						</form:form>				
+<%-- 						</form:form>				 --%>
 						
-						</c:forEach>														
-							
+						</c:forEach>	
 					</tbody>
-				</table>
-				<div class="clearfix">
-					<ul class="pagination">
-						<li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-						<li class="page-item"><a href="#" class="page-link">1</a></li>
-						<li class="page-item"><a href="#" class="page-link">2</a></li>
-						<li class="page-item active"><a href="#" class="page-link">3</a></li>
-						<li class="page-item"><a href="#" class="page-link">4</a></li>
-						<li class="page-item"><a href="#" class="page-link">5</a></li>
-						<li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<center>
-		<a class="btn btn-outline-secondary" href="<c:url value='/member/evolution' />" style='font-size:20px' role="button">返回賣家中心</a>
-		</center>
+    </table>
 
-		
-	</div>   
+	<center>
+			<a class="btn btn-outline-secondary" href="<c:url value='/member/evolution' />" style='font-size:20px' role="button">回上一頁</a>	
+			</center>
+
 </body>
 </html>

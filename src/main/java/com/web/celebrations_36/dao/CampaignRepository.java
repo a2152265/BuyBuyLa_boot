@@ -15,8 +15,11 @@ public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
 //	void deleteCampaignById(int productId);
 //	void delete(int campaignId);
 //	 void updateWithoutImg(Campaign campaign);
-	@Query("from Campaign c where c.category=:category")
-	List<Campaign> getCampaignsByCategory(String category);
+	 @Query("from Campaign c where c.category=:category and c.campaignStatus=:campaignStatus")
+	 List<Campaign> getCampaignsByCategory(String category,String campaignStatus);
+	 
+	 @Query("from Campaign c where c.campaignStatus=:campaignStatus")
+	 List<Campaign> getCampaignsByCampaignstatus(String campaignStatus);
 	
 	 @Modifying(clearAutomatically = true)
 	 @Transactional
@@ -31,6 +34,9 @@ public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
 	 @Query("select distinct category from Campaign")
 	 List<String>  getAllCategories();
 
-
+	 @Modifying(clearAutomatically = true)
+	 @Transactional
+     @Query("update Campaign set campaignStatus=:campaignStatus where id = :id")
+	 void updateCampaignstatus(String campaignStatus,Integer id);
 }
 

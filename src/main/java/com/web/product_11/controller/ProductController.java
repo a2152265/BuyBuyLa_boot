@@ -61,14 +61,16 @@ public class ProductController {
 	ServletContext servletContext;
 	CartService cartService;
 	CampaignService campaignService;
-	@Autowired
 	JavaMailSender mailSender;
 	
+
+
 
 	@Autowired
 	public ProductController(ProductService productservice, ProductCommentService productCommentService,
 			ProductFavoriteService productFavoriteService, MemberService memberService, ServletContext servletContext,
-			CartService cartService, JavaMailSender mailSender) {
+			CartService cartService, JavaMailSender mailSender,
+			CampaignService campaignService) {
 		this.productservice = productservice;
 		this.productCommentService = productCommentService;
 		this.productFavoriteService = productFavoriteService;
@@ -76,12 +78,13 @@ public class ProductController {
 		this.servletContext = servletContext;
 		this.cartService = cartService;
 		this.mailSender = mailSender;
-
+		this.campaignService = campaignService;
 	}
 
 	
 	public ProductController() {
 	}
+
 
 	//顯示所有商品
 	@GetMapping("/products")
@@ -329,8 +332,12 @@ public class ProductController {
 	       
 	       //商品狀態
 	       p.setStatus("待審核");
+
 	       //商品銷售量
 	       p.setSales(0);
+
+	       p.setDiscount(1.0);
+
 
 		if(!p.getProductImage().isEmpty()) {
 		// 於productImage取得照片
@@ -457,6 +464,39 @@ public class ProductController {
 			List<Product> products = productservice.getProductsByCategory(category);
 			model.addAttribute("products", products);
 			return "product_11/products_category";
+		}
+		
+//		@GetMapping("/campaigns/shippingVoucher2/{category}") // 路徑變數{category}
+//		public String getProductsByCategory1(@PathVariable("category") String category, Model model) {
+//			List<Product> products = productservice.getProductsByCategory(category);
+//			model.addAttribute("products", products);
+//			return "celebrations_36/shippingVoucher2";
+//		}
+		
+		//限時活動
+		@GetMapping("/campaigns/countdownSales")
+		public String productList1(Model model) {
+			
+			List<Campaign> campaignsByCategory = campaignService.getCampaignsByCategory("限時活動", "已結束");
+			String category="寵物";
+			if(campaignsByCategory.size()==0) {
+			
+//			System.out.println("12w12w12w12sqwxq"+campaignsByCategory.size());
+      		
+			productservice.updateProductDiscount(0.8, category);
+			List<Product> beans = productservice.getProductsByCategory(category);
+
+			model.addAttribute("products", beans);
+			
+			}
+//			System.out.println("12w12w12w12sqwxq"+campaignsByCategory.size());
+
+				productservice.updateProductDiscount(1.0, category);
+				List<Product> beans = productservice.getProductsByCategory(category);
+
+				model.addAttribute("products", beans);
+			
+			return "celebrations_36/countdownSales";
 		}
 		
 	//更新表單

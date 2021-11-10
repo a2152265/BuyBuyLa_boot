@@ -30,7 +30,7 @@
 
 
 
-    <div class="top_navbar">
+    <div class="top_navbar" style="background-color: rgb(51, 63, 177);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -153,6 +153,13 @@
                     <a href="<c:url value='/try/delete' />">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">隱私權政策</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">登出</span>
                     </a>
                 </li>
                 

@@ -43,12 +43,17 @@ public interface ProductService {
 		//更新商品狀態
 		void updateProductStatus(String status,int productId);
 		
+
 		//更新商品銷售量
 		void updateSales(int pid);
+
 		
 		//刪除商品
 		void  deleteProduct(int productId);
 		
 		//查詢賣家商品
 		List<Product> getProductBySeller(String seller);
+		
+		void updateProductDiscount(Double discount,String category);
+
 }

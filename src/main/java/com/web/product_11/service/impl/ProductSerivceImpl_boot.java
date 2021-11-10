@@ -104,6 +104,13 @@ public class ProductSerivceImpl_boot implements ProductService{
 	}
 
 
+	public void updateProductDiscount(Double discount, String category) {
+		productRepositoryDao.updateProductDiscount(discount, category);
+		
+	}
+
+
+
 
 
 

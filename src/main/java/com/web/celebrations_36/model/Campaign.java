@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,8 +34,10 @@ public class Campaign implements Serializable {
 	private String date1;
 	private Blob coverImage;
 	private String fileName;
+	private String campaignStatus;
 	@Transient
 	private MultipartFile  productImage;
+	
 	
 
 	public Campaign(int id, String url, String name, String description, String note, Blob coverImage,
@@ -80,6 +83,23 @@ public class Campaign implements Serializable {
 		this.date1 = date1;
 		this.coverImage = coverImage;
 		this.fileName = fileName;
+		this.productImage = productImage;
+	}
+	
+
+	public Campaign(int id, String url, String category, String name, String description, String note, String date1,
+			Blob coverImage, String fileName, String campaignStatus, MultipartFile productImage) {
+		super();
+		this.id = id;
+		this.url = url;
+		this.category = category;
+		this.name = name;
+		this.description = description;
+		this.note = note;
+		this.date1 = date1;
+		this.coverImage = coverImage;
+		this.fileName = fileName;
+		this.campaignStatus = campaignStatus;
 		this.productImage = productImage;
 	}
 
@@ -182,9 +202,15 @@ public class Campaign implements Serializable {
 	public void setProductImage(MultipartFile productImage) {
 		this.productImage = productImage;
 	}
-	
-	
-	
 
+
+	public String getCampaignStatus() {
+		return campaignStatus;
+	}
+
+
+	public void setCampaignStatus(String campaignStatus) {
+		this.campaignStatus = campaignStatus;
+	}
 
 }

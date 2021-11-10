@@ -32,7 +32,7 @@
 
 
 
-    <div class="top_navbar">
+    <div class="top_navbar"  style="background-color: rgb(87, 87, 121);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -43,29 +43,9 @@
 
 
         <h1>Welcome ~~      WE Will BuyBuyLA your money</h1>
-        <nav>
-            <ul class="flex-nav">
-                <li><a href="#">未付款</a></li>
-                <li><a href="#">已付款</a></li>
-                <li><a href="#">已出貨</a></li>
-                <li><a href="#">運送中</a></li>
-                <li><a href="#">已送達</a></li>
-                <li><a href="#">已完成</a></li>
-                <li><a href="#">取消交易</a></li>
-            </ul>
-        </nav>
         
-  
 
-
-
-
-    <div class="container">
-      <span style="font-size:30px;  font-weight:bold;">賣家中心</span>
-      </div>
-
-
-
+    
     <div style="text-align: center;">
     
       
@@ -137,33 +117,35 @@ Cookie 是網站在您瀏覽網頁時，儲存在您電腦中的資料，讓網�
 
 
   </div>
-        <div class="sidebar">
+        <div class="sidebar"  style="background-color: rgb(87, 87, 121);">
             <div class="profile">
-                <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
+             <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
+                <!-- 讀取圖片 -->
+               <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
                 <h3></h3>
-                <p>Designer</p>
+                <p>${memberUiDefault.userEmail} </p>
             </div>
             <ul>
                 <li>
-                    <a href="<c:url value='/' />" class="active">
+                    <a href="<c:url value='/' />"   >
                         <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">Home</span>
+                        <span class="item">回首頁</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='/member/seller_Ui' />"">
+                    <a href="<c:url value='' />"   onclick="return(confirm('請先成為認證賣家'))">
                         <span class="icon"><i class="fas fa-desktop"></i></span>
                         <span class="item">訂單管理</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='???' />">
+                    <a href="<c:url value='???' />"   onclick="return(confirm('請先成為認證賣家'))">
                         <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">商品管理</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='???' />">
+                    <a href="<c:url value='???' />"   onclick="return(confirm('請先成為認證賣家'))">
                         <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
                         <span class="item">數據中心</span>
                     </a>
@@ -178,10 +160,17 @@ Cookie 是網站在您瀏覽網頁時，儲存在您電腦中的資料，讓網�
                 </li>
 
                 <!-- /*減去footer高度*/ -->
-                <li style="min-height: calc(100% - 50px); ">
-                    <a href="<c:url value='/try/delete' />">
+                <li style="min-height: calc(100% - 50px); " >
+                    <a href="<c:url value='/seller/inschan' />"  class="active" >
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">隱私權政策</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">登出</span>
                     </a>
                 </li>
                 

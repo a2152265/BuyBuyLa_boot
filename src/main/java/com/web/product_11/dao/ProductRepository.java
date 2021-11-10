@@ -61,5 +61,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Modifying
 	@Query("update Product set sales=sales+1 where productId=:pid")
 	void updateSales(int pid);
+
+	@Transactional
+	@Modifying
+	@Query("update Product set discount=:discount where category=:category")
+	void updateProductDiscount(Double discount,String category);
+	
+
 	
 }

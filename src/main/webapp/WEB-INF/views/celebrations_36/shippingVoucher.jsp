@@ -176,6 +176,7 @@ ${loginSession.userEmail}
        <a id="btnurl" href="#" ><button class="btn" id="btn" type="button">領取</button></a> 
         <img src="<c:url value='/images/shippingVoucher.jpg' />" alt="">
     		   <input type="hidden" id="email" value="${loginSession.userEmail}" >
+    		   <input type="hidden" id="gender" value=" ${memberUiDefault.userGender}" >
 <%--     	</c:if> --%>
     </div>
  </div>
@@ -720,10 +721,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
           	  console.log(str1);
           	  str2 =$('#email').val();
           	  console.log(str2);
+          	  str3=$('#gender').val();
   			$.ajax({
   				type:"GET",
   				url:"<c:url value='/campaigns/insertCoupon' />",
-  			 	   data:{'couponNumber':str1,'couponName':'運費折價券','userEmail':str2},
+  			 	   data:{'couponNumber':str1,'couponName':'運費折價券','userEmail':str2,'userGender':str3},
   			 	   success:function(data,textStatus,xhr){  	  
   			 	//   console.log(xhr.status);
   			 	   if(xhr.status==200){
