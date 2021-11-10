@@ -49,5 +49,14 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 	 @Query(nativeQuery = true,value="select * from Cart  where ProductId_FK=?1 AND buyer=?2")
 	 public Cart findByPidAndBuyer(int pid,String buyer) ;
 	
+
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true,value="update Cart set discount = ?1 where buyer=?2")
+	public void addDiscountToCart(int discount,String buyer);
+	
+	 @Query(nativeQuery = true,value="select * from Cart  where buyer=?1 AND discount>0")
+	 public  List<Cart> discountRepeat(String buyer) ;
+	
 	
 }

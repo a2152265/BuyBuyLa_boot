@@ -535,7 +535,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 								
 	});			
 });
+	var total=0;
+	$('.total').each(function(){
+		$(this).html;
+		var a = parseInt($(this).html());
+		total=total+a
+
+		})
 	
+	$('#totalPrice').html(total)
 	
 	
 	$("#apply").click(function(){		
@@ -560,19 +568,19 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				  timer: 1500
 				})
 				var dis = parseInt(discount); 
-				var count = parseInt($('#ccount').html())-dis;
+				var count = parseInt($('#totalPrice').html())-dis;
 				console.log(count)
 				
-				$('#ccount').html(count)
+				$('#totalPrice').html(count)
 				
 			},error:function(){
 				Swal.fire({
 					  position:'center',
 					  icon: 'error',
-					  title: '查無此驗證碼',
+					  title: '查無此優惠碼或您已使用過折價券',
 					  text: '請再確認一次',
 					  showConfirmButton: false,
-					  timer: 1500
+					  timer: 2500
 					})
 			}
 									
@@ -586,15 +594,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	
 	
 
-	var total=0;
-	$('.total').each(function(){
-		$(this).html;
-		var a = parseInt($(this).html());
-		total=total+a
 
-		})
-	
-	$('#totalPrice').html(total)
 	
 	 </script>	
 </body>

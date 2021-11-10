@@ -27,8 +27,8 @@ public interface CartService {
 	
 	//折扣
 	public int getDiscount(String discountCode);
-	
-	
+	public void addDiscountToCart(int discount,String buyer);
+	public boolean discountRepeat(String buyer);
 	
 	
 	//賣出時扣庫存數量
