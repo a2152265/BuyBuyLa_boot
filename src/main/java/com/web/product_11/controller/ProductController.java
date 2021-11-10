@@ -114,12 +114,6 @@ public class ProductController {
 		model.addAttribute("cart", cart);	
 
 		
-		
-		
-		//討論區-官方最新公告
-//		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
-//		model.addAttribute("announcementList",announcementList);
-		
 		return "index";
 		
 		
@@ -239,6 +233,7 @@ public class ProductController {
 		public String getProductById(
 			@RequestParam("id") Integer id, // 查詢字串
 			 Model model) {
+		
 			Product product = productservice.getProductById(id);
 			if((membershipInformationBean) model.getAttribute("loginSession")!=null) {
 				
@@ -251,15 +246,18 @@ public class ProductController {
 				model.addAttribute("product", product);
 				model.addAttribute("productComment",productCommentService.findByProductId(id));
 				model.addAttribute("memberUiDefault",mBean);
-			
+				productservice.updateViews(id);
+
 			
 			}else {
 				membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
 				model.addAttribute("product", product);
 				model.addAttribute("productComment",productCommentService.findByProductId(id));
 				model.addAttribute("memberUiDefault",mBean);
+				productservice.updateViews(id);
 
 			}
+			
 			
 			
 			
@@ -326,7 +324,8 @@ public class ProductController {
 	       p.setInsertTime(sd);
 	       //獲取賣家帳號
 	       p.setSeller(loginMb.getUserEmail());
-	       
+	       //商品點擊率
+	       p.setViews(0);
 	       
 	       //商品狀態
 	       p.setStatus("待審核");

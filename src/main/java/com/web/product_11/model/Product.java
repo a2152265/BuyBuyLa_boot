@@ -37,6 +37,8 @@ public class Product implements Serializable {
 	private String insertTime;
 	private String status;
 	private Integer sales;
+	private Integer count;
+	private Integer views;
 	
 	@Transient
 	private MultipartFile productImage;
@@ -67,8 +69,29 @@ public class Product implements Serializable {
 		this.coverImage = coverImage;
 	}
 
-
 	
+	public Product(Integer productId, String productName, Double price, String category, Integer stock,
+			String productInfo, String productNo, String fileName, String seller, String insertTime, String status,
+			Integer sales, Integer count, MultipartFile productImage, Blob coverImage,
+			Set<ProductFavorite> productFavorites) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.price = price;
+		this.category = category;
+		this.stock = stock;
+		this.productInfo = productInfo;
+		this.productNo = productNo;
+		this.fileName = fileName;
+		this.seller = seller;
+		this.insertTime = insertTime;
+		this.status = status;
+		this.sales = sales;
+		this.count = count;
+		this.productImage = productImage;
+		this.coverImage = coverImage;
+		this.productFavorites = productFavorites;
+	}
 
 
 
@@ -221,6 +244,30 @@ public class Product implements Serializable {
 
 	public void setProductFavorites(Set<ProductFavorite> productFavorites) {
 		this.productFavorites = productFavorites;
+	}
+
+
+
+	public Integer getCount() {
+		return count;
+	}
+
+
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+
+
+	public Integer getViews() {
+		return views;
+	}
+
+
+
+	public void setViews(Integer views) {
+		this.views = views;
 	}
 
 	

@@ -34,6 +34,9 @@ public interface ProductService {
 		//更新商品
 		void updateProduct(int productId,Product product);
 		
+		//更新瀏覽次數
+		void updateViews(int pid);
+		
 		//更新商品(無照片)
 		void updateProductNoImg(Integer productId,Product product);
 		

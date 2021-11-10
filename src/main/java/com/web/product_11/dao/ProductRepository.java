@@ -49,6 +49,13 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("update Product set stock=:stock where productId=:pid")
 	void updateStock(int pid, int stock);
 	
+	
+	@Transactional
+	@Modifying
+	@Query("update Product set views=views+1 where productId=:pid")
+	void updateViews(int pid);
+	
+	
 	//更新銷售量
 	@Transactional
 	@Modifying
