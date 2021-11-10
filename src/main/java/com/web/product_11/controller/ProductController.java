@@ -238,28 +238,37 @@ public class ProductController {
 			 Model model) {
 		
 			Product product = productservice.getProductById(id);
+			
 			if((membershipInformationBean) model.getAttribute("loginSession")!=null) {
 				
 				membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
 				membershipInformationBean member = memberService.findMemberData(mb.getUserEmail());			
 				membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
+				System.out.println("!!!!!!!!!!!!!"+product.getProductId());
 				ProductFavorite producrFavorite = productFavoriteService.findByMidAndPid(member.getId(), product.getProductId());
-				
 				model.addAttribute("producrFavorite", producrFavorite); 
-				model.addAttribute("product", product);
-				model.addAttribute("productComment",productCommentService.findByProductId(id));
 				model.addAttribute("memberUiDefault",mBean);
-				productservice.updateViews(id);
 
 			
 			}else {
 				membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
-				model.addAttribute("product", product);
-				model.addAttribute("productComment",productCommentService.findByProductId(id));
 				model.addAttribute("memberUiDefault",mBean);
-				productservice.updateViews(id);
-
 			}
+			
+			
+			model.addAttribute("productComment",productCommentService.findByProductId(id));
+			model.addAttribute("product", product);
+
+			List<Product> productBySellerList= new ArrayList<>();
+			
+			for(Product p:productservice.findBySellerAndStatus(product.getSeller(), "上架中")) {
+				if(p.getProductId()==id) {
+					continue;
+				}
+				productBySellerList.add(p);
+			}
+			model.addAttribute("sellerProduct", productBySellerList);
+			productservice.updateViews(id);
 			
 			
 			

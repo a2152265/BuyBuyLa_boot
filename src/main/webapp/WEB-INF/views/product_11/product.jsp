@@ -152,26 +152,16 @@
 						</ul>
 						<br>
 						<div class="product_count">
-<<<<<<< HEAD
 
-              <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
-							<input type="number" name="qty" id="sst" min="1" max="${product.stock}"  size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-               class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
-							<input  type='hidden' class='pid' name='address' value='${product.productId}'/>
-							<a class="button primary-btn additem" href="#">Add to Cart</a>                             
-=======
-<!--               <label for="qty">Quantity:</label> -->
+
 <!--               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" -->
 <!-- 							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button> -->
 							<input type="number" name="qty" id="sst" min="1" max="${product.stock}"  size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
 <!-- 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" -->
 <!--                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button> -->
-<%-- 							<a class="button primary-btn" href="<c:url value='/additem' />?id=${product.productId}">Add to Cart</a>  --%>
-							<input type='hidden' class='pid' name='address' value='${product.productId}'/>
-							<a class="button primary-btn additem" href="" >Add to Cart</a>                             
->>>>>>> Dev-Alex14
+							<input  type='hidden' class='pid' name='address' value='${product.productId}'/>
+							<a class="button primary-btn additem" href="#">Add to Cart</a>                             
+
 						</div>
 						<div class="card_area d-flex align-items-center">
 							<c:choose>
@@ -360,107 +350,88 @@
       </div>
 			<div class="row mt-30">
         <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <c:forEach items="${sellerProduct}" var="product" begin="0" end="2">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
+              <a href="#"><img src="<c:url value='/getPicture/${product.productId}'/>" alt=""></a>
               <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
+                  <a href="<c:url value='/product?id=${product.productId}' />" class="title"
+                  style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;"
+                  >${product.productName}</a>
+                  <div class="price">${product.price*product.discount}</div>
               </div>
             </div>
           </div>
+          </c:forEach>
         </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <c:forEach items="${sellerProduct}" var="product" begin="3" end="5">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-4.png" alt=""></a>
+              <a href="#"><img src="<c:url value='/getPicture/${product.productId}'/>" alt=""></a>
               <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-5.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-6.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
+                  <a href="<c:url value='/product?id=${product.productId}' />" class="title"
+                  style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;"
+                  >${product.productName}</a>
+                  <div class="price">${product.price*product.discount}</div>
               </div>
             </div>
           </div>
+          </c:forEach>
         </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+          <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <c:forEach items="${sellerProduct}" var="product" begin="6" end="8">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-7.png" alt=""></a>
+              <a href="#"><img src="<c:url value='/getPicture/${product.productId}'/>" alt=""></a>
               <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-8.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-9.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
+                  <a href="<c:url value='/product?id=${product.productId}' />" class="title"
+                  style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;"
+                  >${product.productName}</a>
+                  <div class="price">${product.price*product.discount}</div>
               </div>
             </div>
           </div>
+          </c:forEach>
         </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+          <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <c:forEach items="${sellerProduct}" var="product" begin="9" end="11">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
+              <a href="#"><img src="<c:url value='/getPicture/${product.productId}'/>" alt=""></a>
               <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
+                  <a href="<c:url value='/product?id=${product.productId}' />" class="title"
+                  style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;"
+                  >${product.productName}</a>
+                  <div class="price">${product.price*product.discount}</div>
               </div>
             </div>
           </div>
+          </c:forEach>
         </div>
       </div>
 		</div>
