@@ -268,6 +268,7 @@ public void addDiscountToCart(int discount,String buyer) {
 @Override
 public boolean discountRepeat(String buyer) {
 	 List<Cart> cc =cartRepository.discountRepeat(buyer);
+	 System.out.println(cc.size()+"cccccccccccccc");
 	 if(cc.size()>0) {
 		 return true;
 	 }

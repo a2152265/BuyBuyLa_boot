@@ -141,7 +141,7 @@ public class CartController {
 		
 		int discount = cartService.getDiscount(discountCode);
 		List<Cart> cart = cartService.addToRecord(buyer);
-		cartService.addDiscountToCart(discount,buyer);
+		
 		boolean exist =	cartService.discountRepeat(buyer);
 		System.out.println(exist+"999999999");
 		
@@ -151,7 +151,7 @@ public class CartController {
 			return qq ;
 		}
 	
-
+		cartService.addDiscountToCart(discount,buyer);
 		
 		
 		
@@ -196,14 +196,14 @@ public class CartController {
 //確認付費，導到綠界
 	@PostMapping("/check")
 	@ResponseBody
-	public String ecpay(@ModelAttribute("cart") Cart cc,@ModelAttribute("BuyerAddress") BuyerAddress address,@ModelAttribute("loginSession") membershipInformationBean mb,HttpServletRequest request,HttpServletResponse response ,Model model) {
+	public String ecpay(@ModelAttribute("BuyerAddress") BuyerAddress address,@ModelAttribute("loginSession") membershipInformationBean mb,HttpServletRequest request,HttpServletResponse response ,Model model) {
 		String buyer=mb.getUserEmail();	
 		String buyeraddress =address.getCity()+address.getCountry()+address.getAddress();
 		
 		
 		
 		
-		System.out.println(cc.getDiscount()+"8787878787");cc.getDiscount();
+
 		List<Cart> cart = cartService.addToRecord(buyer);	
 		Integer rc = cartService.getRidCount(1);
 		RecordBean rb=new RecordBean();
@@ -251,9 +251,9 @@ public class CartController {
 			cartService.updateStock(rb.getPid(),stock);
 
 		}
-//		int discount = cart.get(0).getDiscount();	
-//		totalprice=totalprice-discount;
-//		System.out.println(discount+"  weqqeweqewqewqe0");
+		int discount = cart.get(0).getDiscount();	
+		totalprice=totalprice-discount;
+		System.out.println(discount+"  weqqeweqewqewqe0");
 		RecordList  recordList = new RecordList(str, buyer, totalprice,now,buyeraddress,"已付款","待出貨");
 		
 		BuyerAddress buyerinfo=new BuyerAddress();

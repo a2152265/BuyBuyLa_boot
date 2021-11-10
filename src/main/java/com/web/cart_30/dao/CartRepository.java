@@ -55,7 +55,7 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 	@Query(nativeQuery = true,value="update Cart set discount = ?1 where buyer=?2")
 	public void addDiscountToCart(int discount,String buyer);
 	
-	 @Query(nativeQuery = true,value="select * from Cart  where buyer=?1 AND discount>0")
+	 @Query(nativeQuery = true,value="select * from Cart  where buyer=?1 AND discount>1")
 	 public  List<Cart> discountRepeat(String buyer) ;
 	
 	
