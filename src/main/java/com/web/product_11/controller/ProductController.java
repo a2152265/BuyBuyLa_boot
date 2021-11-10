@@ -290,10 +290,27 @@ public class ProductController {
 
 	//表單填寫，寫入資料庫
 	@PostMapping("/products/add")
-	public String processAddNewProductForm(@ModelAttribute("productBean") Product p,
+	public ResponseEntity<Product> processAddNewProductForm(
+			 @RequestParam("productName") String productName,
+             @RequestParam("price") String price,
+             @RequestParam("category") String category,
+             @RequestParam("stock") String stock,
+             @RequestParam("productNo") String productNo,
+             @RequestParam("productInfo") String productInfo,
+             @RequestParam("productImage") MultipartFile multipartFile,
+			@ModelAttribute("productBean") Product p,
 			@ModelAttribute("loginSession") membershipInformationBean loginMb,
 			BindingResult result // 父:Errors(表單如有錯誤放置)
 	) {
+		
+		p.setProductName(productName);
+		p.setPrice(Double.parseDouble(price));
+		p.setCategory(category);
+		p.setStock(Integer.parseInt(stock));
+		p.setProductNo(productNo);
+		p.setProductImage(multipartFile);
+		
+		
 		// 判斷是否有不合法欄位
 		String[] suppressedFields = result.getSuppressedFields();
 		if (suppressedFields.length > 0) {
@@ -340,30 +357,15 @@ public class ProductController {
 		
 	       
 	       productservice.addProduct(p);
+	       return new ResponseEntity<Product>(HttpStatus.OK); 
 		}else {
 			
 			productservice.addProduct(p);
+			return new ResponseEntity<Product>(HttpStatus.OK); 
 		}
 		
-		
-		// ----------------------------------------
-//		// 取出副檔名，.png、.jpg
-//		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-//		// 找到應用系統根目錄 /mvcExercise
-//		String rootDirectory = servletContext.getRealPath("/");
-//		try {
-//			// 在根目錄下建立images資料夾
-//			File imageFolder = new File(rootDirectory, "images");
-//			if (!imageFolder.exists())
-//				imageFolder.mkdirs();
-//			File file = new File(imageFolder, "Product_" + p.getProductId() + ext);
-//			productImage.transferTo(file);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-//		}
-
-		return "redirect:/products/seller";
+	
+ 
 	}
 
 	//獲取類別List
