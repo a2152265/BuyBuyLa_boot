@@ -25,6 +25,11 @@ public interface CartService {
 	public void addToRecordList(RecordList rl); 
 	public void insertAddress(BuyerAddress address);
 	
+	//折扣
+	public int getDiscount(String discountCode);
+	
+	
+	
 	
 	//賣出時扣庫存數量
 	public void updateStock(int pid,int count);

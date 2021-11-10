@@ -161,14 +161,14 @@
 <%-- 						<p>${product.productInfo}</p> --%>
 						<div class="product_count">
 <!--               <label for="qty">Quantity:</label> -->
-              <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
+<!--               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" -->
+<!-- 							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button> -->
 							<input type="number" name="qty" id="sst" min="1" max="${product.stock}"  size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-               class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
+<!-- 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" -->
+<!--                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button> -->
 <%-- 							<a class="button primary-btn" href="<c:url value='/additem' />?id=${product.productId}">Add to Cart</a>  --%>
 							<input type='hidden' class='pid' name='address' value='${product.productId}'/>
-							<a class="button primary-btn additem" href="#">Add to Cart</a>                             
+							<a class="button primary-btn additem" href="" >Add to Cart</a>                             
 						</div>
 						<div class="card_area d-flex align-items-center">
 							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>

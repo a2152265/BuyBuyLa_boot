@@ -74,7 +74,7 @@ public class CartServiceImpl implements CartService {
 		}else {
 			System.out.println("///////////////////////////");
 			System.out.println(carta);
-			Cart cart = new Cart(1,buyer,product.get());				
+			Cart cart = new Cart(1,buyer,product.get(),0);				
 			cartRepository.save(cart);
 		}
 		
@@ -233,6 +233,18 @@ public class CartServiceImpl implements CartService {
 	public void updateStock(int pid, int count) {
 		productRepository.updateStock(pid,count);
 		
+	}
+
+
+
+
+
+
+//抓折扣碼
+	@Override
+	public int getDiscount(String discountCode) {
+		
+		return 0;
 	}
 
 

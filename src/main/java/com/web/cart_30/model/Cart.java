@@ -25,7 +25,7 @@ public class Cart {
 
 	private Integer count;
 	private String buyer;
-
+	private Integer discount;
 	
 	 @ManyToOne(cascade=CascadeType.ALL)
 	 @JoinColumn(name="ProductId_FK")
@@ -39,27 +39,41 @@ public class Cart {
 
 
 
-	public Cart(Integer count, String buyer, Product product) {
+	public Cart(Integer count, String buyer, Product product,Integer discount) {
 	
 		this.count = count;
 		this.buyer = buyer;
 		this.product = product;
+		this.discount=discount;
 	}
 
 
 
-	public Cart(Integer cid, Integer count, String buyer, Product product) {
+	public Cart(Integer cid, Integer count, String buyer, Product product,Integer discount) {
 
 		this.cid = cid;
 		this.count = count;
 		this.buyer = buyer;
 		this.product = product;
+		this.discount=discount;
 	}
 
 
 
 	public Integer getCid() {
 		return cid;
+	}
+
+
+
+	public Integer getDiscount() {
+		return discount;
+	}
+
+
+
+	public void setDiscount(Integer discount) {
+		this.discount = discount;
 	}
 
 

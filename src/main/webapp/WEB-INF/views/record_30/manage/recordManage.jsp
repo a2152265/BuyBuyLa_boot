@@ -177,9 +177,9 @@
 		<div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">
-					<div class="row">
-						<div class="col-sm-8"><h2><b>訂單管理</b></h2></div>
-						<a href="recordanalyze">訂單數據</a>
+					<div class="row" >
+						<div class="col-sm-11" ><h2><b>訂單管理</b></h2></div>
+						<a href="recordanalyze" style="text-decoration:none;">訂單數據</a>
 					</div>
 				</div>
     
@@ -196,9 +196,7 @@
 							<th>編輯資料</th>
 						</tr>
 					</thead>
-        		<%
-			int i = 0;
-			%>
+        	
 <tbody>
     	<c:forEach var="manage" items="${allreocrd}">
 						<tr>
