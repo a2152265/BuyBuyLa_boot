@@ -11,6 +11,36 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+<script>
+
+        let labSub=document.getElementById("labSub");
+        let sub=document.getElementById("sub");
+        
+	$(function(){
+        let ips = document.getElementById("pwd");
+        let ipss = document.getElementById("pwd1");
+        let lab =document.getElementById("lab");
+        ipss.addEventListener("change",function( event){
+            console.log(ips.value);
+            console.log(ipss.value);
+            if(ips.value!=ipss.value){
+                console.log('HIiIII');
+                lab.style.display="";
+              
+                
+            }else{
+                lab.style.display="none";
+           
+            }
+
+        })
+        
+        
+        
+	})
+    </script>
+
+
     <div style="text-align: center;">
     
        
@@ -32,13 +62,14 @@
  						 </div>
   						<div class="form-group"  style="padding-left:31%; padding-right:31%;">
   						  <label for="exampleInputPassword1">確認密碼</label>
- 						   <form:password  path="userPwd1" class="form-control" id="pwd" placeholder="請再次輸入密碼"/>
+ 						   <form:password  path="userPwd1" class="form-control" id="pwd1" placeholder="請再次輸入密碼"/>
  						 </div>
   						<div class="form-check">
+    					<label id="lab"  style="color: red; display: none;" >確認密碼必須和密碼一致</label><br>
     					<input type="checkbox" class="form-check-input" id="exampleCheck1">
   						 <label class="form-check-label" for="exampleCheck1">確認</label>
  						 </div>
-  						<button type="submit"   onclick="return(confirm('確認送出？'))"   class="btn btn-primary">送出</button>
+  						<button type="submit"   id="sub"   onclick="return(confirm('確認送出？'))"   class="btn btn-primary send">送出</button>
 					</form:form>
           </table>
           

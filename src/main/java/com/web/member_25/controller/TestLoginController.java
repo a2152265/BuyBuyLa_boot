@@ -1045,7 +1045,7 @@ return "redirect:/manager_Ui0";
 				return "redirect:/try/logout";
 			}
 			System.out.println("密碼錯誤 請重新再試");
-			return "/member/suspension";
+			return "member_25/member_Ui_suspension_error";
 		}
 		
 		
@@ -1058,10 +1058,33 @@ return "redirect:/manager_Ui0";
 		@PostMapping("/member/member_ban")
 		public String processUnban(@ModelAttribute("loginSession") membershipInformationBean mb,Model model) {
 			System.out.println("unban-------notes---->"+mb.getNotes());
-			membershipInformationBean mb2=memberService.findMemberDataAll(mb.getUserEmail());
-			mb2.setNotes(mb.getNotes());
-			memberService.save(mb2);
-			return "member_25/ban/member_ban_done";
+			membershipInformationBean mb2;
+			try {
+				 mb2=memberService.findMemberDataAll(mb.getUserEmail());
+				
+				 
+				//加密
+					BCryptPasswordEncoder encoder1 = new BCryptPasswordEncoder(); 
+					System.out.println("-userDetail成功登入---pwdencode>"+new BCryptPasswordEncoder().encode(mb2.getUserPwd()));
+					boolean isPasswordMatches = encoder1.matches(mb.getUserPwd(),mb2.getUserPwd());
+					System.out.println("--密碼比對-------------->"+isPasswordMatches);
+				 
+				 
+				 
+				 if (isPasswordMatches==true) {
+					 mb2.setNotes(mb.getNotes());
+					 memberService.save(mb2);
+					System.out.println("成功更ban帳號");
+					return "member_25/ban/member_ban_done";
+				}
+				
+				 
+			} catch (Exception e) {
+				System.out.println("ban帳號環節出錯拉");
+			}
+			return "member_25/ban/member_ban_fail";
+			
+			
 		}
 		
 		@GetMapping("/banList")

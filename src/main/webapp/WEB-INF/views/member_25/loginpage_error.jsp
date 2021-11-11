@@ -27,7 +27,11 @@
     <link rel='stylesheet' href="<spring:url value='../css/productstyle.css' />"  type="text/css" />
   <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
 
-
+<style>
+        body {
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+    </style>
  
 
   <style type="text/css">
@@ -135,8 +139,6 @@
 
 
   <script>
-  alert('登入失敗(查無此帳號)');
-  
 	let no = 1000;
 let index = 0,index2=0;
 var names= ["a2152265@gmail.com", 'z1718221@gmail.com', 'xzc8951273@gmail.com'];
@@ -151,7 +153,7 @@ function quickInput(){
 	
 }
 
-var names2= ["manager9527@gmail.com", 'manager04@gmail.com', 'manager07@gmail.com'];
+var names2= ["manager1@gmail.com", 'manager02@gmail.com', 'manager07@gmail.com'];
 function quickInput2(){
 	document.getElementById('name').value = names2[index2];
 	document.getElementById('pwd').value = names2[index2];
@@ -164,86 +166,90 @@ function quickInput2(){
 }
 
 </script>
+
 </head>
 <body>
-	<!--================ 首頁標題 start =================-->
+	 <!--================ 首頁標題 start =================-->
 	<header class="header_area">
-		<div class="main_menu">
-		  <nav class="navbar navbar-expand-lg navbar-light">
-			<div class="container">
-			  <a class="navbar-brand logo_h" href="<c:url value='/' />"><img src="img/logo.png" alt=""></a>
-			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			  </button>
-			  <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-				<ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-				  <li class="nav-item active"><a class="nav-link" href="<c:url value='/' />">首頁</a></li>
-				  <li class="nav-item submenu dropdown">
-					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-					  aria-expanded="false">會員</a>
-					<ul class="dropdown-menu">
-					<c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
-						   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/login' />">會員登入</a></li> 
-							 <li class="nav-item"><a class="nav-link" href="<c:url value='/try/add' />">會員註冊</a></li>
-				   </c:if>
-					<c:if test="${managerSession == null}">
-				   <c:if test="${loginSession.userEmail != null}">
-					  <li class="nav-item"><a class="nav-link" href="<c:url value='/member/evolution' />">賣家專區</a></li>
-					  <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
-					</c:if>
-					</c:if>
-					 <c:if test="${managerSession != null}">
-					   <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui' />">會員管理</a></li>
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
-						</c:if>
-					</ul>
-				  </li>
-				  <li class="nav-item submenu dropdown">
-					<a href="<c:url value='/forum' />" class="nav-link dropdown-toggle"  role="button" aria-haspopup="true"
-					  aria-expanded="false">討論區</a>
-								</li>
-								<li class="nav-item submenu dropdown">
-					<a href="<c:url value='/campaigns' />" class="nav-link dropdown-toggle" role="button" aria-haspopup="true"
-					  aria-expanded="false">活動專區</a>
-				  </li>
-				   <c:if test="${managerSession == null}">
-				  <c:if test="${loginSession.userEmail != null}">
-				  <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
-							${loginSession.userEmail}</a></li>
-	
-					</c:if>
-					</c:if>
-					<c:if test="${managerSession != null}">
-				  <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui' />">Hi管理員!!! &nbsp;
-							${loginSession.userEmail}</a></li>
-					</c:if>
-	
-				
-	
-				</ul>
-				<ul class="nav-shop">
-			   <li class="nav-item" >
-			   
-				   <!---------------- 首頁查詢商品框 ---------------->
-					   <form:form method='POST' action="./queryproduct" class='form-horizontal'>
-						<input name="productName" id="productName" type='text' class='form:input-large'/>
-						<button type='submit' ><i class="ti-search" ></i></button>
-					</form:form>
-	
-	
-				  <!---------------- 購物車 ---------------->
-				  <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'></span></button> </li>
-	
-				</ul>
-			  </div>
-			</div>
-		  </nav>
-		</div>
-	  </header>
-		<!--================ End 首頁標題 =================-->
+    <div class="main_menu">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand logo_h" style="position:obsolute; z-index:999;" href="<c:url value='/' />"><img src="img/logo.png" alt="BuyBuyLa"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+              <li class="nav-item active"><a class="nav-link" href="<c:url value='/' />">首頁</a></li>
+              <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false">會員</a>
+                <ul class="dropdown-menu">
+                <c:if test="${loginSession ==null}">
+	                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/login' />">會員登入</a></li> 
+                  	   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/add' />">會員註冊</a></li>
+               </c:if>
+                <c:if test="${managerSession == null}">
+               <c:if test="${loginSession.userEmail != null}">
+                  <li class="nav-item"><a class="nav-link" href="<c:url value='/member/evolution' />">賣家專區</a></li>
+                  <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
+                </c:if>
+                </c:if>
+                 <c:if test="${managerSession != null}">
+                   <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">管理中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">登出</a></li>
+                    </c:if>
+                </ul>
+			  </li>
+              <li class="nav-item submenu dropdown">
+                <a href="<c:url value='/forum' />" class="nav-link dropdown-toggle"  role="button" aria-haspopup="true"
+                  aria-expanded="false">討論區</a>
+							</li>
+							<li class="nav-item submenu dropdown">
+                <a href="<c:url value='/campaigns' />" class="nav-link dropdown-toggle" role="button" aria-haspopup="true"
+                  aria-expanded="false">活動專區</a>
+              </li>
+               <c:if test="${managerSession == null}">
+              <c:if test="${loginSession.userEmail != null}">
+              <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
+						${loginSession.userEmail}</a></li>
+
+				</c:if>
+				</c:if>
+				<c:if test="${managerSession != null}">
+              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">Hi管理員!!! &nbsp;
+						${loginSession.userEmail}</a></li>
+				</c:if>
+
+			
+
+            </ul>
+            <ul class="nav-shop">
+           <li class="nav-item" >
+           
+               <!---------------- 首頁查詢商品框 ---------------->
+           		<form:form method='get' action="./queryproduct" class='form-horizontal'>
+					<input name="productName" id="productName" type='text' class='form:input-large'/>
+					<button type='submit' ><i class="ti-search" ></i></button>
+				</form:form>
+
+              <!---------------- 購物車 ---------------->
+				<c:if test="${loginSession.userEmail != null}">
+              		<li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
+				</c:if>
+				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
+				 </c:if>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+	<!--================ End 首頁標題 =================-->
   
  
   
@@ -265,17 +271,20 @@ function quickInput2(){
 						<h3>登入後開始</h3>
 
 						<!-- 登入帳號區 -->
-						<form:form method='POST'   modelAttribute="loginSession"
+						<form:form method='POST'   modelAttribute="loginSession" action="/BuyBuyla_boot/try/login"
 							cssClass='row login_form' id="contactForm">
 
 
 							<div class="col-md-12 form-group">
-								<form:input  class="form-control" path="userEmail"  id="name" name="name" placeholder="請輸入帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"/>
+								<form:input  class="form-control" path="userEmail"  id="name" name="username" placeholder="請輸入帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"/>
 							</div>
 							<div class="col-md-12 form-group">
-								<form:password class="form-control" path="userPwd"  id="pwd" name="name" placeholder="請輸入密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"/>
+								<form:password class="form-control" path="userPwd"  id="pwd" name="password" placeholder="請輸入密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"/>
 							</div>
 							<div class="col-md-12 form-group">
+				 <c:if test="${param.error}">
+				<label style="color:red;">帳號或密碼錯誤,請重新輸入</label>
+				</c:if>
 								<div class="creat_account">
 									<input type="checkbox" id="f-option2" name="selector">
 									<label for="f-option2">保持登入狀態</label>
@@ -397,5 +406,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="vendors/jquery.ajaxchimp.min.js"></script>
   <script src="vendors/mail-script.js"></script>
   <script src="js/main.js"></script>
+  <script type="text/javascript">
+  	alert('帳號或密碼錯誤');
+  </script>
+  
+
 </body>
 </html>

@@ -282,6 +282,9 @@ function quickInput2(){
 								<form:password class="form-control" path="userPwd"  id="pwd" name="password" placeholder="請輸入密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"/>
 							</div>
 							<div class="col-md-12 form-group">
+				 <c:if test="${param.error}">
+				<label style="color:red;">帳號或密碼錯誤,請重新輸入</label>
+				</c:if>
 								<div class="creat_account">
 									<input type="checkbox" id="f-option2" name="selector">
 									<label for="f-option2">保持登入狀態</label>

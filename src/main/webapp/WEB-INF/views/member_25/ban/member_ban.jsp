@@ -38,7 +38,9 @@
                             </div>                     
           
                             
-          
+          		 <c:if test="${param.error}">
+				<label style="color:red;">密碼錯誤,請重新輸入</label>
+				</c:if>
                             <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                               <input type="submit" id="submitRewrite" name="submitRewrite" class="btn btn-primary btn-lg" value="送出">
                             </div>

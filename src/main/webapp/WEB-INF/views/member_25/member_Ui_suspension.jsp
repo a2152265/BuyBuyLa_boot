@@ -32,11 +32,11 @@
                             
           
                             <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                              <input type="submit" id="submitRewrite" name="submitRewrite" class="btn btn-primary btn-lg" value="停用帳號">
+                              <input type="submit"  onclick="return(confirm('確認停用帳號？'))"   id="submitRewrite" name="submitRewrite" class="btn btn-primary btn-lg" value="停用帳號">
                             </div>
 
                             <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                <input type="button" id="onejan" name="submitRewrite" class="btn btn-primary btn-lg" value="一鍵輸入">
+                                <input type="button" id="onejan" name="submitRewrite"  class="btn btn-primary btn-lg" value="一鍵輸入">
                               </div>
                               
                              

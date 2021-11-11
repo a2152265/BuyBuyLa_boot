@@ -87,7 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.usernameParameter("userEmail")///登入表單form中使用者名稱輸入框input的name名，不修改的話預設是username
             .passwordParameter("userPwd")//form中密碼輸入框input的name名，不修改的話預設是password
 			.defaultSuccessUrl("/",true).permitAll()  //登入後跳轉到哪個路徑
-			
+			.failureUrl("/try/login?error=true")
 			.and().authorizeRequests() //定義那些需要保護那些不需要
 				  .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() //允許靜態資源
 		
