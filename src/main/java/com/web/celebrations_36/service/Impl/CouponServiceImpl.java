@@ -60,4 +60,10 @@ public class CouponServiceImpl implements CouponService {
 		
 	}
 
+	@Override
+	public List<Coupon> getCouponstatus(String couponStatus) {
+		// TODO Auto-generated method stub
+		return couponRepository.getCouponstatus(couponStatus);
+	}
+
 }

@@ -109,6 +109,12 @@ public class ProductSerivceImpl_boot implements ProductService{
 		
 	}
 
+	@Override
+	public List<Product> getAllPoints() {
+		
+		return productRepositoryDao.getAllPoints();
+	}
+
 
 
 

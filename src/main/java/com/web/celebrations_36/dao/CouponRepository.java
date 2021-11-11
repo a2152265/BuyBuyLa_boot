@@ -23,16 +23,20 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 	@Query("from Coupon c where c.userEmail=:userEmail and c.count=:count")
 	Coupon getCouponcountByUseremail(String userEmail,Integer count);
 	
+	@Query("from Coupon c where c.couponNumber=:couponNumber")
+	Coupon getCouponNumber(String couponNumber);
 	
 	Coupon findByUserEmail(String userEmail);
 	
 
-	 @Query("from Coupon c where c.userEmail=:userEmail ")
-	 List<Coupon> findAllByUseremail(String userEmail);
+	@Query("from Coupon c where c.userEmail=:userEmail ")
+	List<Coupon> findAllByUseremail(String userEmail);
 	
+	@Query("from Coupon c where c.couponStatus=:couponStatus ")
+	List<Coupon> getCouponstatus(String couponStatus);
 	
-	 @Modifying(clearAutomatically = true)
-	 @Transactional
-     @Query("update Coupon set couponStatus=:couponStatus where couponNumber = :couponNumber")
-	 void updateCouponStatus(String couponStatus,String couponNumber);
+	@Modifying(clearAutomatically = true)
+	@Transactional
+    @Query("update Coupon set couponStatus=:couponStatus where couponNumber = :couponNumber")
+	void updateCouponStatus(String couponStatus,String couponNumber);
 }

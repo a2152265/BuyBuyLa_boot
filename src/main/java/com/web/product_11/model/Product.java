@@ -40,7 +40,7 @@ public class Product implements Serializable {
 
 	private Integer count;
 	private Integer views;
-
+	private Integer point;
 	private Double discount;
 	
 	@Transient
@@ -119,8 +119,20 @@ public class Product implements Serializable {
 		this.coverImage = coverImage;
 	}
 
+	
 
 
+
+
+	public Integer getPoint() {
+		return point;
+	}
+
+
+
+	public void setPoint(Integer point) {
+		this.point = point;
+	}
 
 
 

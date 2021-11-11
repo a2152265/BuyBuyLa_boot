@@ -312,58 +312,58 @@
         });
       })
       
- $(function(){
-	$('#form').validate({
-        /* 常用檢測屬性
-       required:必填
-       noSpace:空白
-       minlength:最小長度
-       maxlength:最大長度
-       email:信箱格式
-       number:數字格式
-       url:網址格式https://www.minwt.com
-       */
-       onkeyup: function(element, event) {
-         //去除左側空白
-         var value = this.elementValue(element).replace(/^\s+/g, "");
-         $(element).val(value);
-        },
-        rules: {
-          productName: {
-            required: true
-          },
-          price:{
-            required: true,
-            minlength: 8,
-            number: true
-          },
-          stock: 'required',
-          url:{
-            url: true
-          },
-          productNo: {
-            required: true
-          }
-        },
-        messages: {
-        	productName: {
-            required:'必填'
-          },
-          price: {
-            required:'必填'
-          },
-          stock: '必填',
-          productNo: {
-            required:'必填'
-          },
-          url:'網址格式不正確'
-        },
-        submitHandler: function(form) {
-          form.submit();
-        }
-  });
+//  $(function(){
+// 	$('#form').validate({
+//         /* 常用檢測屬性
+//        required:必填
+//        noSpace:空白
+//        minlength:最小長度
+//        maxlength:最大長度
+//        email:信箱格式
+//        number:數字格式
+//        url:網址格式https://www.minwt.com
+//        */
+//        onkeyup: function(element, event) {
+//          //去除左側空白
+//          var value = this.elementValue(element).replace(/^\s+/g, "");
+//          $(element).val(value);
+//         },
+//         rules: {
+//           productName: {
+//             required: true
+//           },
+//           price:{
+//             required: true,
+//             minlength: 8,
+//             number: true
+//           },
+//           stock: 'required',
+//           url:{
+//             url: true
+//           },
+//           productNo: {
+//             required: true
+//           }
+//         },
+//         messages: {
+//         	productName: {
+//             required:'必填'
+//           },
+//           price: {
+//             required:'必填'
+//           },
+//           stock: '必填',
+//           productNo: {
+//             required:'必填'
+//           },
+//           url:'網址格式不正確'
+//         },
+//         submitHandler: function(form) {
+//           form.submit();
+//         }
+//   });
 
- });
+//  });
     </script>
     
 </body>

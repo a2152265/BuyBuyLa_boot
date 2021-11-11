@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
@@ -242,15 +242,13 @@
                   <div class="card-product__img">
                     <img class="card-img" src="<c:url value='/getPicture/${product.productId}' />" alt="">
                     <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-search"></i></button></li>
-                      <li><button><i class="ti-shopping-cart"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
+                       <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
                     </ul>
                   </div>
                   <div class="card-body">
                     <p>${product.category}</p>
                     <h4 class="card-product__title"><a href="#">${product.productName}</a></h4>
-                    <p class="card-product__price">$${product.price}</p>
+                    <p class="card-product__price" style="font-weight:bold">點數<span style="margin-top:20px;color:red;font-size:30px;font-weight:bolder">${product.point}</span></p>
                   </div>
                 </div>
 

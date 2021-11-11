@@ -19,6 +19,7 @@ import com.web.cart_30.model.Cart;
 
 import com.web.cart_30.model.RidCount;
 import com.web.cart_30.service.CartService;
+import com.web.celebrations_36.service.CouponService;
 import com.web.product_11.dao.ProductRepository;
 import com.web.product_11.model.Product;
 import com.web.record_30.dao.RecordRepository;
@@ -37,7 +38,7 @@ public class CartServiceImpl implements CartService {
 	RidCountRepository ridCountRepository;
 	RecordListRepository recordListRepository;
 	BuyerAddressRepository buyerAddressRepository;
-	
+	CouponService couponService;
 	
 	@Autowired
 	public CartServiceImpl(RecordRepository recordRepository, CartRepository cartRepository,
