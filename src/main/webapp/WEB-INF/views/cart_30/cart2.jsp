@@ -214,7 +214,7 @@
 <!--                                 <tr class="bottom_button"> -->
                         
 <!--                               <td> -->
-<!-- <!--                                   <a class="button" href="#">Update Cart</a> --> -->
+<!--                                   <a class="button" href="#">Update Cart</a> --> 
 <!--                               </td> -->
 <!--                               <td> -->
 
@@ -239,6 +239,7 @@
 <!--                               </td> -->
                               
 <!--                           </tr> -->
+  
                           <tr>
                               <td>
 

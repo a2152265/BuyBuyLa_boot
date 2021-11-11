@@ -24,9 +24,6 @@
   <link rel='stylesheet' href="css/campaigns.css"  >
   <link rel="stylesheet" href="css/productstyle.css">
   <link rel="icon"  sizes="180x180" href="images/favicon.ico" type="image/x-icon"/>
-<!-- <script src="sweetalert2.min.js"></script> -->
-<!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
-<!-- <script src="sweetalert2.all.min.js"></script> -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <style>
         ul {
@@ -212,7 +209,7 @@
         </li>
 
 
-<!--     </ul> -->
+<!--     </ul> -->	
 				</c:if>
 				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
 				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
@@ -220,7 +217,7 @@
             </ul>
             
               <!---------------- 我的最愛 ---------------->
-            <ul style="list-style-type: none; padding-left:10px" >
+            <ul style="list-style-type: none; padding-left:10px;padding-bottom:10px"  >
                <c:if test="${loginSession.userEmail != null}">
                 <li ><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
                </c:if>
@@ -285,7 +282,7 @@
         
         <div class="row">
         
-        <c:forEach items="${ascProduct}" var="product">
+        <c:forEach items="${descProduct}" var="product">
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
@@ -350,6 +347,7 @@
         <div class="owl-carousel owl-theme" id="bestSellerCarousel">
           
           <c:forEach items="${products}" var="product">
+          　<c:if test="${product.stock >0 }">
           <div class="card text-center card-product">
             <div  class="card-product__img">
               <img width="243.61" height="255" class="img-fluid" src="<c:url value='/getPicture/${product.productId}' />" alt="">
@@ -376,6 +374,7 @@
               <p class="card-product__price">${product.price}</p>
             </div>
           </div>
+          </c:if>
 		</c:forEach>
         </div>
       </div>

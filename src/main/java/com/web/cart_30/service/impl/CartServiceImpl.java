@@ -245,7 +245,7 @@ public class CartServiceImpl implements CartService {
 	public int getDiscount(String discountCode) {
 //		/int discount = assaRes.fuqd();
 //		return discount;
-		return 0;
+		return 50;
 	}
 
 

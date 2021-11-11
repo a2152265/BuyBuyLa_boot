@@ -150,13 +150,13 @@
               <li class="common-filter">
                 <form action="#">
                   <ul>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="men" name="brand"><label for="men">Men<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="women" name="brand"><label for="women">Women<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="accessories" name="brand"><label for="accessories">Accessories<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="footwear" name="brand"><label for="footwear">Footwear<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="bayItem" name="brand"><label for="bayItem">Bay item<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="electronics" name="brand"><label for="electronics">Electronics<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="food" name="brand"><label for="food">Food<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="priceDecs" name="list"><label for="priceDecs">Men<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="women" name="list"><label for="women">Women<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="accessories" name="list"><label for="accessories">Accessories<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="footwear" name="list"><label for="footwear">Footwear<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="bayItem" name="list"><label for="bayItem">Bay item<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="electronics" name="list"><label for="electronics">Electronics<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="food" name="list"><label for="food">Food<span> (3600)</span></label></li>
                   </ul>
                 </form>
               </li>
@@ -168,11 +168,11 @@
               <div class="head">Brands</div>
               <form action="#">
                 <ul>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="list"><label for="apple">Apple<span>(29)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="list"><label for="asus">Asus<span>(29)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="list"><label for="gionee">Gionee<span>(19)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="list"><label for="micromax">Micromax<span>(19)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="list"><label for="samsung">Samsung<span>(19)</span></label></li>
                 </ul>
               </form>
             </div>
@@ -377,5 +377,47 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="../vendors/jquery.ajaxchimp.min.js"></script>
   <script src="../vendors/mail-script.js"></script>
   <script src="../js/main.js"></script>
+  <script>
+  
+  var listArr = document.getElementsByName("list");
+  listArrs[0].onclick=function(){
+      $.ajax({
+	        type: 'post',
+	        url: '',
+	        data: {"productIds": productId},
+	        success: function (data, textStatus, xhr) {
+	          if (xhr.status == 200) {
+	        	 swal.fire({
+	                 icon: 'success',
+	                 title: '上架成功',
+	                 showConfirmButton: false,
+	                 timer: 1000
+	               })
+	        	 setTimeout("location.href='./products';", 1000);  
+	        		$.ajax({
+	    				type:'get',
+	    				url:'../launched_addaddress',
+	    				data:{},
+	    				
+	    				success:function(){
+	    					
+	    				}
+	    										
+	    			});		
+	        	 
+	          } 
+	        },
+	        error: function (xhr, status) {
+	        	console.log(xhr.status);
+	        	
+	        },
+	      });
+  };
+  pathTypeArr[1].onclick=function(){
+  	var checkValue = pathTypeArr[1].value;
+  	alert(checkValue);
+  };
+  
+  </script>
 </body>
 </html>

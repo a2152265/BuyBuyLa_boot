@@ -12,9 +12,6 @@
 <link rel='stylesheet' href="<c:url value='/css/styles.css' />"  type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- 表單驗證 -->
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
 <style type="text/css">
   body {
@@ -179,12 +176,18 @@
             </h1>
         </div>
     </section>
-
+ <!--     <div align='center'>
+        <a href="<c:url value='/' />">
+        回首頁
+        </a>
+    </div> 
+    -->
     <hr style="height: 1px; border: none; color: #333; background-color: #333;">
     <section class="container">
         <!--       三個地方要完全一樣 -->
-        <form id='form'  class='form-horizontal'>
-        <table rules="all">
+        <form:form id='form' method='POST' modelAttribute="productBean" class='form-horizontal'
+        	enctype="multipart/form-data">
+             <table rules="all">
        		
 		<tbody>
 				<div id="display" class="im" style="margin-bottom:80px">
@@ -192,54 +195,78 @@
 			</div>
 			
 			 <tr>
-                <td><label for="productInfo">商品照片:</label></td>
+                <td> <label  for="productInfo">
+                        商品照片:
+                     </label></td>
                 <td> 
-                	<input id="productImage" name="productImage" type='file' accept=".jpg,.png,.gif,.svg" class='form:input-large' />
-                </td>
+                		<form:input id="productImage" path="productImage" type='file' accept=".jpg,.png,.gif,.svg"
+                            class='form:input-large' /></td>
             </tr>
 			
             <tr>
-                <td><label  for="productName">商品名稱</label></td>
-                <td><input id="productName" name="productName" type='text' class='form:input-large'/></td>
+                <td><label  for="productName">
+						商品名稱
+					</label></td>
+                <td><form:input id="productName" path="productName" type='text'
+							class='form:input-large'  /></td>
             </tr>
 			<tr>
-                <td><label for='price'> 商品價格</label></td>
-                <td><input id="price" name="price" type='number' min='1' class='form:input-large' /></td>
+                <td><label for='price'>
+                        商品價格
+					</label></td>
+                <td>  <form:input id="price" path="price" type='number' min='1'
+                            class='form:input-large' /></td>
             </tr>
 
-	  		<tr>
-                <td><label for='category'>商品種類:</label></td>
-                <td>        
-                	<select id="category">
-                    	<option value="女生衣服">女生衣服</option>
-                    	<option value="男生衣服">男生衣服</option>
-                    	<option value="寵物">寵物</option>
-                    	<option value="運動健身">運動健身</option>
-                    	<option value="其他">其他</option>
-                     </select>
-                 </td>
+	  <tr>
+                <td><label  for='category'>
+						商品種類:          
+					</label></td>
+                		<td>        
+                		<form:select path="category">
+                            <form:option value="女生衣服"></form:option>
+                            <form:option value="男生衣服"></form:option>
+                            <form:option value="寵物"></form:option>
+                            <form:option value="運動健身"></form:option>
+                            <form:option value="其他"></form:option>
+                       
+                        </form:select>
+                        </td>
             </tr>
+
+
+
             <tr>
-                <td><label for='stock'>商品數量: </label></td>
-                <td><input id="stock" name="stock" type='number' min='1' class='form:input-large' /></td>
+                <td> <label   for='stock'>
+                         商品數量:
+                     </label></td>
+                <td> <form:input id="stock" path="stock" type='number' min='1'
+                            class='form:input-large' />
+		</td>
             </tr>
            
             <tr>
-                <td><label for="productNo">商品代號:</label></td>
-                <td><input id="productNo" name="productNo" type='text' class='form:input-large' /></td>
+                <td><label for="productNo">
+                     	商品代號:
+                    </label></td>
+                <td><form:input id="productNo" path="productNo" type='text'
+                            class='form:input-large' /></td>
             </tr>
             <tr>
-                <td><label  for="productInfo">商品描述:</label></td>
-                <td><textarea id="productInfo" name="productInfo" class='form:input-large'></textarea></td>
+                <td> <label  for="productInfo">
+                        商品描述:
+                     </label></td>
+                <td> <form:textarea id="productInfo" path="productInfo" type='text'
+                            class='form:input-large' /></td>
             </tr>
             
-         </tbody>
-    	 </table>
+               </tbody>
+    </table>
     		<div class="wrap" style="display: flex;margin-left: 80px;">
-      			  <input id="submit" type='button' class='btn btn-primary'value="送出" />
+      			  <input id="btnAdd" type='submit' class='btn btn-primary'value="送出" />
       			  <input id="auto" type='button' class='btn btn-primary' value="一鍵輸入" />
-			</div>  
-        </form>
+	</div>  
+        </form:form>
          
         
     </section>
@@ -258,112 +285,7 @@
     	 $("#productName").val("Hello World");
 
     })
-    
-    $('#submit').click(function() {
-        
-          
-        var postData = new FormData($("#form")[0]);
-         let productName= $('#productName').val();
-         let price= $('#price').val();
-         let category= $('#category').val();
-         let stock= $('#stock').val();
-         let productNo= $('#productNo').val();
-         let productInfo= $('productInfo').val();
-         let productImage = $('#productImage')[0].files[0];
-        postData.append('productName', productName);
-        postData.append('price', price);
-        postData.append('category', category);
-        postData.append('stock', stock);
-        postData.append('productNo', productNo);
-        postData.append('productInfo', productInfo);
-        postData.append('productImage', productImage);
-        
-        
 
-        
-        $.ajax({
-          url: "../products/add",
-          type: "POST",
-          data: postData,
-          cache:false,
-          //編碼設定
-          processData: false, 
-          contentType: false,
-          mimeType: 'multipart/form-data',
-          success: function (data, textStatus, xhr) {
-            console.log(data);
-            console.log(textStatus);
-            console.log(xhr.status);
-            if (xhr.status == 200) {
-              // location.href = "/indexproduct";
-              swal.fire({
-                icon: 'success',
-                title: '新增成功',
-                showConfirmButton: false,
-                timer: 1000
-              })
-              setTimeout(location.href = '<c:url value="/products/seller"/>',1000)
-            }
-          },
-          error: function (xhr, status) {
-            console.log(xhr.status);
-            console.log(status);
-          }
-        });
-      })
-      
- $(function(){
-	$('#form').validate({
-        /* 常用檢測屬性
-       required:必填
-       noSpace:空白
-       minlength:最小長度
-       maxlength:最大長度
-       email:信箱格式
-       number:數字格式
-       url:網址格式https://www.minwt.com
-       */
-       onkeyup: function(element, event) {
-         //去除左側空白
-         var value = this.elementValue(element).replace(/^\s+/g, "");
-         $(element).val(value);
-        },
-        rules: {
-          productName: {
-            required: true
-          },
-          price:{
-            required: true,
-            minlength: 8,
-            number: true
-          },
-          stock: 'required',
-          url:{
-            url: true
-          },
-          productNo: {
-            required: true
-          }
-        },
-        messages: {
-        	productName: {
-            required:'必填'
-          },
-          price: {
-            required:'必填'
-          },
-          stock: '必填',
-          productNo: {
-            required:'必填'
-          },
-          url:'網址格式不正確'
-        },
-        submitHandler: function(form) {
-          form.submit();
-        }
-  });
-
- });
     </script>
     
 </body>

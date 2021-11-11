@@ -67,7 +67,7 @@ public class HomeController {
 		
 		//商品顯示(依照商品上傳時間、上架顯示)
 		List<Product> ascProduct = productservice.productOrderByInsertTime();
-		model.addAttribute("ascProduct", ascProduct);
+		model.addAttribute("descProduct", ascProduct);
 		
 		//首頁輪播圖
 		List<Campaign> campaigns =campaignService.findAll();
