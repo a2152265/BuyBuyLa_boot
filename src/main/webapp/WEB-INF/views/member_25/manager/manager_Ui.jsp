@@ -78,10 +78,10 @@
             crossorigin="anonymous"></script>
 <!-- Ajax傳data專用 -->
 <script>
-	//人數統計
+	//會員人數統計
 	var memberCountList2=[];
 	 console.log('INNNNNNNNNNN');
-    	$.ajax({
+	 ajax_memberCount=$.ajax({
     		type:'get',
     		url:'AnalyzeData_memberCount',
     		data:{		
@@ -99,8 +99,6 @@
  				//sweat alert
  				for(i=0 ; i<memberCountList.length ; i++){
  					memberCountList2[i]=memberCountList[i];
- 					console.log('------月份----->'+memberCountList[i]);
- 					console.log('------月份2----->'+memberCountList2[i]);
      				s+=memberCountList[i];
  				}
  				
@@ -112,8 +110,49 @@
     	    }
     				
     	});	
-    	console.log('測試樓下');
-    	console.log('第幾個月->'+memberCountList2[2]+'<--在外面可用');
+	
+	 $.when(ajax_memberCount).done(function () {
+		//所做操作
+		});
+	 
+	 
+	 
+	 
+	 
+	//會員性別統計
+		var memberGenderList2=[];
+		 console.log('INNNNNNNNNNN2');
+		 ajax_memberGender=$.ajax({
+	    		type:'get',
+	    		url:'AnalyzeData_memberGender',
+	    		data:{		
+	    		},
+	    		 async: true,
+	    		 dataType: "json",     
+	    		 contentType: 'application/json; charset=utf-8',
+	    		 
+	    		 
+	    		 
+	    		success:function(memberGenderList){
+	 				 console.log('HAAAAAAAAAa');
+	 				console.log(memberGenderList);	
+	 				var s=[];
+	 				//sweat alert
+	 				for(i=0 ; i<memberGenderList.length ; i++){
+	 					memberGenderList2[i]=memberGenderList[i];
+	     				s+=memberGenderList[i];
+	 				}
+	 				
+	    		},
+	    		
+	    		
+	    		error: function (memberGenderList) {
+	    	        console.log(memberGenderList+'<------出錯拉');
+	    	    }
+	    				
+	    	});	
+	 
+		
 	
 </script>
 
@@ -126,6 +165,7 @@
     
     //memberGender  會員性別
     // 初始化ECharts元件到id為main的元素上
+    $.when(ajax_memberGender).done(function () {
     let myChart = echarts.init(document.getElementById('memberGender'));
     // 定義圖示的配置項
     let option = {
@@ -147,9 +187,9 @@
       type: 'pie',
       radius: '50%',
       data: [
-        { value: 12, name: '男性' },
-        { value: 735, name: '女性' },
-        { value: 580, name: '其他' },
+        { value: memberGenderList2[0], name: '男性' },
+        { value: memberGenderList2[1], name: '女性' },
+        { value: memberGenderList2[2], name: '其他' },
     
       ],
       emphasis: {
@@ -163,12 +203,13 @@
   ]
 };
     myChart.setOption(option);
-    
+    });
     
     
     
     //memberCount 會員人數
     // 初始化ECharts元件到id為main的元素上
+    $.when(ajax_memberCount).done(function () {
     let myChart2 = echarts.init(document.getElementById('memberCount'));
     // 定義圖示的配置項
     console.log('第幾個月->'+memberCountList2[2]+'<--在外面可用2222');
@@ -183,30 +224,28 @@
     	series: [
    		 {
     	  data: [
-    		  
-    		  
-    		  
-    	120,
-    	{
+    /*	{
     	value: 2000,
     	 itemStyle: {
     		color: '#a90000'
     	}
-    	},
-    	1500,
-    	80,
-    	70,
-    	110,
-    	130,
-    	20,
-    	
-    	
+    	}, */
+    	memberCountList2[0],
+    	memberCountList2[1],
+    	memberCountList2[2],
+    	memberCountList2[3],
+    	memberCountList2[4],
+    	memberCountList2[5],
+    	memberCountList2[6],
+    	memberCountList2[7],
     ],
     type: 'bar'
     }
     ]
   };
+    
     myChart2.setOption(option2);
+    });
     
 </script>
 

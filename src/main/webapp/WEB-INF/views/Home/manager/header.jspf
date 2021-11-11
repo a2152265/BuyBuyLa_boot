@@ -250,14 +250,7 @@
         </a>
       </li>
       
-      <li>
-        <a href="#0">
-          <svg>
-            <use xlink:href="#charts"></use>
-          </svg>
-          <span>效益分析</span>
-        </a>
-      </li>
+     
       <li>
         <div class="switch">
            <input type="checkbox" id="mode" checked style="display:none;">
