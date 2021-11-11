@@ -41,6 +41,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import com.web.member_25.func.MemberException;
 import com.web.member_25.func.MemberValidator;
 import com.web.member_25.func.ProcessImage;
@@ -159,6 +162,10 @@ public class TestLoginController {
 			//加密
 			mb.setUserPwd(new BCryptPasswordEncoder().encode(mb.getUserPwd()));
 			mb.setIdentification("member");
+			//會員創立時間
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+			String now = dtf.format(LocalDateTime.now());
+			mb.setMember_BornDate(now);
 			
 			memberService.save(mb);
 			return "redirect:/";
@@ -753,7 +760,7 @@ return "redirect:/manager_Ui0";
 		dataBean.setIdentification(bean.getIdentification());
 		dataBean.setNotes(bean.getNotes());
 		dataBean.setSuspension(bean.getSuspension());
-		
+		dataBean.setMember_BornDate(bean.getMember_BornDate());
 //		new MemberValidator().validate(bean, result);
 //
 //		if (result.hasErrors()) {
@@ -1098,6 +1105,46 @@ return "redirect:/manager_Ui0";
 			for(int i=0;i<memberList.size();i++) {
 				
 				try {
+					if (memberList.get(i).getSuspension().length()!=0) {
+						System.out.println("----22-------------->");
+						banList.add(memberList.get(i).getUserEmail());
+						memberCount++;
+						System.out.println("--會員被ban名單--------------"+banList);
+					}
+					count++;
+					
+				} catch (Exception e) {
+					System.out.println("---沒事 繼續找ban----->");
+				}
+				
+			}
+			System.out.println("--會員被ban名單---嫁入list完成-----------");
+			System.out.println("被ban人數----------->"+memberCount);
+			System.out.println("總人數----------->"+count);
+	
+			return banList;
+		}
+		
+		
+		@GetMapping("/AnalyzeData_memberCount")
+		@ResponseBody
+		public List<String> AnalyzeData_memberCount(@ModelAttribute("loginSession") membershipInformationBean mb,
+				Model model) {
+			List<membershipInformationBean> memberList = memberService.selectAllUsers();
+			int memberCount=0,count=0;
+			System.out.println("-------11----------->");
+			String [] sixMonthData;
+			for(int i=0;i<memberList.size();i++) {
+				
+				try {
+					
+//					memberList.get(i).getMember_BornDate()
+					
+					
+					
+					
+					
+					
 					if (memberList.get(i).getSuspension().length()!=0) {
 						System.out.println("----22-------------->");
 						banList.add(memberList.get(i).getUserEmail());

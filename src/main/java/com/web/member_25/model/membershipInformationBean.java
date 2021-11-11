@@ -66,6 +66,10 @@ public class membershipInformationBean {
 	@Column(name="suspension")
 	String suspension;
 	
+	//Suspension
+	@Column(name="member_BornDate")
+	String member_BornDate;
+	
 
 	@OneToMany(mappedBy = "membershipInformationBean",fetch = FetchType.LAZY) //本類別無外鍵 
 	Set<ProductFavorite> productFavorites=new HashSet<>();
@@ -107,7 +111,8 @@ public class membershipInformationBean {
 		public membershipInformationBean(Integer id, String userEmail, String userPhone, String userPwd,
 				String userName, String userNickname, String userGender, String address, String identification,
 				Blob head_shot, String fileName, String birthday, String notes, Integer verifyCode, String userPwd1,
-				int verificationCode, MultipartFile productImage,String suspension) {
+				int verificationCode, MultipartFile productImage,String suspension,
+				String member_BornDate) {
 
 			this.id = id;
 			this.userEmail = userEmail;
@@ -125,6 +130,7 @@ public class membershipInformationBean {
 			this.verifyCode = verifyCode;
 			this.userPwd1 = userPwd1;
 			this.suspension=suspension;
+			this.member_BornDate=member_BornDate;
 	
 		}
 		
@@ -266,11 +272,15 @@ public class membershipInformationBean {
 			VerificationCode = verificationCode;
 		}
 
+		
+		public String getMember_BornDate() {
+			return member_BornDate;
+		}
 
+		public void setMember_BornDate(String member_BornDate) {
+			this.member_BornDate = member_BornDate;
+		}
 
-		
-		
-		
 		public Set<ProductFavorite> getProductFavorites() {
 			return productFavorites;
 		}

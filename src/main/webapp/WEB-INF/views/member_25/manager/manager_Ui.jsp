@@ -5,6 +5,10 @@
 <!-- sidebar -->>
 <%@ include file="../../Home/manager/footer.jspf"%>
 
+
+<!-- chart analyzza pic -->
+ <script src="https://cdn.bootcss.com/echarts/4.6.0/echarts.min.js"></script>
+
 <!-- 通知欄 -->>
 <section class="page-content">
   <section class="search-and-user">
@@ -36,34 +40,123 @@
   <section class="grid">
   
     <article>
-    <h1>總收益</h1>
+    <button class="button buttonTotal">總收益</button>
     </article>
     
     
     <article>
-     <h1>品項</h1>
+     <button class="button button3">會員人數成長</button>
+     <div id="memberCount" style="width: 500px;height:300px;" class="analyzeDiv"></div>
     </article>
     
     
     <article>
-     <h1>會員數</h1>
+    
+   		<button class="button button3" style="background-color:;">會員性別</button>
+     <div id="memberGender" style="width: 500px;height:300px;" class="analyzeDiv"></div>
     </article>
     
     <article>
-     <h1>發文次數</h1>
+     <button class="button button3">發文次數</button>
     </article>
     
     <article>
-     <h1>活動收益一覽</h1>
+     <button class="button button3">活動收益一覽</button>
     </article>
     
     <article>
-     <h1>購物紀錄</h1>
+     <button class="button button3">購物紀錄</button>
     </article>
   </section>
 
 
 
 
+
+<!-- member_25  for Countmember  -->
+<script type="text/javascript">
+    //memberGender  會員性別
+    // 初始化ECharts元件到id為main的元素上
+    let myChart = echarts.init(document.getElementById('memberGender'));
+    // 定義圖示的配置項
+    let option = {
+        title: {
+    text: '會員性別',
+    subtext: '',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    orient: 'vertical',
+    left: 'left'
+  },
+  series: [
+    {
+      name: 'Access From',
+      type: 'pie',
+      radius: '50%',
+      data: [
+        { value: 12, name: '男性' },
+        { value: 735, name: '女性' },
+        { value: 580, name: '其他' },
+    
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+    myChart.setOption(option);
+    
+    
+    
+    
+    //memberCount 會員人數
+    // 初始化ECharts元件到id為main的元素上
+    let myChart2 = echarts.init(document.getElementById('memberCount'));
+    // 定義圖示的配置項
+    let option2 = {
+    	 xAxis: {
+    	 type: 'category',
+    	 data: ['5月','6月', '7月', '8月', '9月', '10月', '11月', '12月']
+    	},
+    	 yAxis: {
+    	 type: 'value'
+    	  },
+    	series: [
+   		 {
+    	  data: [
+    		  
+    		  
+    		  
+    	120,
+    	{
+    	value: 2000,
+    	 itemStyle: {
+    		color: '#a90000'
+    	}
+    	},
+    	1500,
+    	80,
+    	70,
+    	110,
+    	130,
+    	20,
+    	
+    	
+    ],
+    type: 'bar'
+    }
+    ]
+  };
+    myChart2.setOption(option2);
+</script>
 
   

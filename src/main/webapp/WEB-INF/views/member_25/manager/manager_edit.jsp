@@ -192,6 +192,16 @@ test-align:center;
     
     <div class="row">
       <div class="col-25">
+        <label for="lname">啟用</label>
+      </div>
+      <div class="col-75">
+        <form:input path="member_BornDate" id="lname" name="lastname" placeholder="帳號啟用時間"/>
+      </div>
+    </div>
+    
+    
+    <div class="row">
+      <div class="col-25">
         <label for="country">性別</label>
       </div>
       <div class="col-75">
