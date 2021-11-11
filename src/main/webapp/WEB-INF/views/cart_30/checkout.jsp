@@ -218,7 +218,7 @@
                       
                             <tr><th>商品</th><th>數量</th> <th>價錢</th></tr>
                               <c:forEach var="row" items="${cart}">
-                            <tr><td>${row.product.productName}</td><td class="middle">x ${row.count}</td> <td class="total" value='${row.count*row.product.price}'>${row.count*row.product.price}</td></tr>
+                            <tr><td>${row.product.productName}</td><td class="middle">x ${row.count}</td> <td class="total" value='${row.count*row.product.price*row.product.discount}'>${row.count*row.product.price*row.product.discount}</td></tr>
                             
 							</c:forEach>
                        
@@ -231,7 +231,7 @@
                             <tr>
                             <td>折扣</td>
                             <td></td>
-                            <td id='discount'>50.00</td>
+                            <td id='discount'>${discount}</td>
                             </tr>
                             <tr>
                             <td>應付金額</td>

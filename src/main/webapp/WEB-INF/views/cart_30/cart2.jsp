@@ -170,10 +170,10 @@
                                   </div>
                               </td>
                               <td>
-                                  <h5 value='${row.product.price}' class='price'>${row.product.price}</h5>
+                                  <h5 value='${row.product.price*row.product.discount}' class='price'>${row.product.price*row.product.discount}</h5>
                               </td>
                               <td>
-                                  <h5 class='total' value='8888'>${row.count*row.product.price}</h5>
+                                  <h5 class='total' value='8888'>${row.count*row.product.price*row.product.discount}</h5>
                               </td>
                               <td>
 						<a href="<c:url value='/deletecart' />?id=${row.product.productId}">
@@ -214,7 +214,7 @@
 <!--                                 <tr class="bottom_button"> -->
                         
 <!--                               <td> -->
-<!-- <!--                                   <a class="button" href="#">Update Cart</a> --> -->
+<!--                                   <a class="button" href="#">Update Cart</a> --> 
 <!--                               </td> -->
 <!--                               <td> -->
 

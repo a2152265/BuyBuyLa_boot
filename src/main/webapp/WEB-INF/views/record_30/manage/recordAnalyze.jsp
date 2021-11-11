@@ -34,15 +34,7 @@
   
   
   
-<!--     <div class="container"> -->
-<!--         <div class="row"> -->
-<!--           <div class="col-12 col-md-6"> -->
-<!--             <canvas id="lineChart"></canvas> -->
-<!--           </div> -->
-          
-<!--         </div> -->
-<!--       </div> -->
-  
+
   <!-- 放分析圓餅圖 -->
   <section class="">
   
@@ -56,20 +48,13 @@
     
 
     
-<!--     <article> -->
-<!--      	<canvas id="lineChart2"></canvas> -->
-<!--     </article> -->
+
     
     <article>
 
-<!--         <div class="container"> -->
-<!--         <div class="row"> -->
-<!--           <div class="col-12 col-md-6"> -->
+
             <canvas id="lineChart" style="background-color:white;"></canvas>
-<!--           </div> -->
-          
-<!--         </div> -->
-<!--       </div> -->
+
     </article>
     
     
@@ -111,11 +96,11 @@
             label: '# of Votes',
             data: [female,male, pet, fit,other],
             backgroundColor: [
-                'rgba(255, 99, 132,0.5)',
-                'rgba(54, 162, 235,0.5)',
-                'rgba(255, 206, 86,0.5)',
-                'rgba(75, 192, 192,0.5)',                
-                'rgba(255, 159, 64,0.5)'
+                'rgba(255, 99, 132,0.7)',
+                'rgba(54, 162, 235,0.7)',
+                'rgba(255, 206, 86,0.7)',
+                'rgba(75, 192, 192,0.7)',                
+                'rgba(255, 159, 64,0.7)'
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',

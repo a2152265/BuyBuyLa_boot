@@ -172,8 +172,10 @@ public class CartController {
 	public String check(@ModelAttribute("loginSession")  membershipInformationBean mb,Model model) {
 		String buyer=mb.getUserEmail();	
 		List<Cart> cart = cartService.addToRecord(buyer);
+		
 		model.addAttribute("cart", cart);
-	
+		int discount=cart.get(0).getDiscount();
+		model.addAttribute("discount", discount);
 		List<BuyerAddress> ba = cartService.selectAllBuyerAddressByBuyer(buyer);
 		System.out.println("**********************");
 		System.out.println(ba.size()+"////////////////////////");
@@ -228,7 +230,7 @@ public class CartController {
 			rb.setRecord_id(str);
 			rb.setPid(c.getProduct().getProductId());
 			rb.setP_name(c.getProduct().getProductName());
-			rb.setP_price(c.getProduct().getPrice());
+			rb.setP_price(c.getProduct().getPrice()*c.getProduct().getDiscount());
 			rb.setPcount(c.getCount());
 			rb.setBuyer(buyer);
 			rb.setSeller(c.getProduct().getSeller());
@@ -242,7 +244,7 @@ public class CartController {
 					+", BUYER = "+rb.getBuyer()+", SELLER = "+rb.getSeller());
 //			System.out.println(address+"////////////////////");
 			System.out.println(rb.getBuyeraddress());
-			totalprice+=c.getProduct().getPrice()*c.getCount();
+			totalprice+=c.getProduct().getPrice()*c.getCount()*c.getProduct().getDiscount();
 			
 			
 					

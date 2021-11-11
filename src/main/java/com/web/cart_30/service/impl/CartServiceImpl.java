@@ -243,7 +243,6 @@ public class CartServiceImpl implements CartService {
 //抓折扣碼
 	@Override
 	public int getDiscount(String discountCode) {
-//		/int discount = assaRes.fuqd();
 //		return discount;
 		return 0;
 	}
