@@ -9,6 +9,8 @@
 <!-- chart analyzza pic -->
  <script src="https://cdn.bootcss.com/echarts/4.6.0/echarts.min.js"></script>
 
+
+
 <!-- 通知欄 -->>
 <section class="page-content">
   <section class="search-and-user">
@@ -71,10 +73,57 @@
 
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+<!-- Ajax傳data專用 -->
+<script>
+	//人數統計
+	var memberCountList2=[];
+	 console.log('INNNNNNNNNNN');
+    	$.ajax({
+    		type:'get',
+    		url:'AnalyzeData_memberCount',
+    		data:{		
+    		},
+    		 async: true,
+    		 dataType: "json",     
+    		 contentType: 'application/json; charset=utf-8',
+    		 
+    		 
+    		 
+    		success:function(memberCountList){
+ 				 console.log('HAAAAAAAAAa');
+ 				console.log(memberCountList);	
+ 				var s=[];
+ 				//sweat alert
+ 				for(i=0 ; i<memberCountList.length ; i++){
+ 					memberCountList2[i]=memberCountList[i];
+ 					console.log('------月份----->'+memberCountList[i]);
+ 					console.log('------月份2----->'+memberCountList2[i]);
+     				s+=memberCountList[i];
+ 				}
+ 				
+    		},
+    		
+    		
+    		error: function (memberCountList) {
+    	        console.log(memberCountList+'<------出錯拉');
+    	    }
+    				
+    	});	
+    	console.log('測試樓下');
+    	console.log('第幾個月->'+memberCountList2[2]+'<--在外面可用');
+	
+</script>
+
+
 
 
 <!-- member_25  for Countmember  -->
 <script type="text/javascript">
+    
+    
     //memberGender  會員性別
     // 初始化ECharts元件到id為main的元素上
     let myChart = echarts.init(document.getElementById('memberGender'));
@@ -122,6 +171,7 @@
     // 初始化ECharts元件到id為main的元素上
     let myChart2 = echarts.init(document.getElementById('memberCount'));
     // 定義圖示的配置項
+    console.log('第幾個月->'+memberCountList2[2]+'<--在外面可用2222');
     let option2 = {
     	 xAxis: {
     	 type: 'category',
@@ -157,6 +207,12 @@
     ]
   };
     myChart2.setOption(option2);
+    
 </script>
+
+
+
+
+
 
   

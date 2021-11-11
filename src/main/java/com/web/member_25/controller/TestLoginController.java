@@ -1131,38 +1131,61 @@ return "redirect:/manager_Ui0";
 		public List<String> AnalyzeData_memberCount(@ModelAttribute("loginSession") membershipInformationBean mb,
 				Model model) {
 			List<membershipInformationBean> memberList = memberService.selectAllUsers();
-			int memberCount=0,count=0;
+			int count=0;
 			System.out.println("-------11----------->");
 			String [] sixMonthData;
+			List<String> memberCountList=new ArrayList<>();;
+			int m5=0,m6=0,m7=0,m8=0,m9=0,m10=0,m11=0,m12=0;
 			for(int i=0;i<memberList.size();i++) {
 				
 				try {
-					
-//					memberList.get(i).getMember_BornDate()
-					
-					
-					
-					
-					
-					
-					if (memberList.get(i).getSuspension().length()!=0) {
-						System.out.println("----22-------------->");
-						banList.add(memberList.get(i).getUserEmail());
-						memberCount++;
-						System.out.println("--會員被ban名單--------------"+banList);
+					sixMonthData= memberList.get(i).getMember_BornDate().split("/");
+					System.out.println("單人分割-----split----->"+sixMonthData);
+					System.out.println("前--->"+sixMonthData[0]);
+					System.out.println("中--->"+sixMonthData[1]);
+					System.out.println("後--->"+sixMonthData[2]);
+					if (sixMonthData[1].equals("5")) {
+						m5++;
+					}
+					if (sixMonthData[1].equals("6")) {
+						m6++;
+					}
+					if (sixMonthData[1].equals("7")) {
+						m7++;
+					}
+					if (sixMonthData[1].equals("8")) {
+						m8++;
+					}
+					if (sixMonthData[1].equals("9")) {
+						m9++;
+					}
+					if (sixMonthData[1].equals("10")) {
+						m10++;
+					}
+					if (sixMonthData[1].equals("11")) {
+						m11++;
+					}
+					if (sixMonthData[1].equals("12")) {
+						m12++;
 					}
 					count++;
-					
 				} catch (Exception e) {
-					System.out.println("---沒事 繼續找ban----->");
+					System.out.println("---沒事 繼續找分人數----->");
 				}
-				
 			}
-			System.out.println("--會員被ban名單---嫁入list完成-----------");
-			System.out.println("被ban人數----------->"+memberCount);
+			
+			memberCountList.add(String.valueOf(m5));
+			memberCountList.add(String.valueOf(m6));
+			memberCountList.add(String.valueOf(m7));
+			memberCountList.add(String.valueOf(m8));
+			memberCountList.add(String.valueOf(m9));
+			memberCountList.add(String.valueOf(m10));
+			memberCountList.add(String.valueOf(m11));
+			memberCountList.add(String.valueOf(m12));
+			
+			System.out.println("--會員月份人數統計完成----------->"+memberCountList);
 			System.out.println("總人數----------->"+count);
-	
-			return banList;
+			return memberCountList;
 		}
 		
 		

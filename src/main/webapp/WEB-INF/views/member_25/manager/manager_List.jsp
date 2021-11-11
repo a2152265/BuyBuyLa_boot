@@ -141,10 +141,6 @@ integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anon
     }
   })
     			 
-    			
-    			
-    			
-    			
     		},
     		error: function (banList) {
     	        console.log(banList);
