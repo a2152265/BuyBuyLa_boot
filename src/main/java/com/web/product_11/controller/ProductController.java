@@ -479,7 +479,8 @@ public class ProductController {
 			
 			List<Campaign> campaignsByCategory = campaignService.getCampaignsByCategory("限時活動", "已結束");
 			String category="寵物";
-			if(campaignsByCategory.size()==0) {
+			int size = campaignsByCategory.size();
+			if(size==0) {
 			
 //			System.out.println("12w12w12w12sqwxq"+campaignsByCategory.size());
       		
@@ -487,8 +488,9 @@ public class ProductController {
 			List<Product> beans = productservice.getProductsByCategory(category);
 
 			model.addAttribute("products", beans);
+			return "celebrations_36/countdownSales";
 			
-			}
+			}else {
 //			System.out.println("12w12w12w12sqwxq"+campaignsByCategory.size());
 
 				productservice.updateProductDiscount(1.0, category);
@@ -496,7 +498,7 @@ public class ProductController {
 
 				model.addAttribute("products", beans);
 			
-			return "celebrations_36/countdownSales";
+			return "celebrations_36/countdownSales";}
 		}
 		
 	//更新表單
