@@ -82,6 +82,28 @@ public class CartServiceImpl implements CartService {
 	
 	}
 
+	@Override
+	public void addItemByidAndQty(int pid, String buyer, int qty) {
+		System.out.println("serviceqqqqqqqqqqqqqqqqqqqqqqqqq");		
+		Optional<Product> product = productRepository.findById(pid);
+		Cart carta= cartRepository.existsByIdAndBuyer(pid,buyer);
+		System.out.println(carta+"-------------------------------");
+		if(carta!=null) {
+			System.out.println("****************************");
+			System.out.println(carta);
+			Cart cart =cartRepository.findByPidAndBuyer(pid,buyer);
+			int count = cart.getCount()+qty;
+			cartRepository.add(count,pid);
+			
+		}else {
+			System.out.println("///////////////////////////");
+			System.out.println(carta);
+			Cart cart = new Cart(qty,buyer,product.get(),0);				
+			cartRepository.save(cart);
+		}
+		
+	}
+
 
 
 
@@ -274,6 +296,13 @@ public boolean discountRepeat(String buyer) {
 	 }
 	return false;
 }
+
+
+
+
+
+
+
 
 
 

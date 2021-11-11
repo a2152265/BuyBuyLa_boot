@@ -152,16 +152,10 @@
 						</ul>
 						<br>
 						<div class="product_count">
-<<<<<<< HEAD
 
-              <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
-							<input type="number" name="qty" id="sst" min="1" max="${product.stock}"  size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-               class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
-							<input  type='hidden' class='pid' name='address' value='${product.productId}'/>
-							<a class="button primary-btn additem" href="#">Add to Cart</a>                             
-=======
+
+                             
+
 <!--               <label for="qty">Quantity:</label> -->
 <!--               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" -->
 <!-- 							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button> -->
@@ -169,9 +163,9 @@
 <!-- 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" -->
 <!--                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button> -->
 <%-- 							<a class="button primary-btn" href="<c:url value='/additem' />?id=${product.productId}">Add to Cart</a>  --%>
-							<input type='hidden' class='pid' name='address' value='${product.productId}'/>
-							<a class="button primary-btn additem" href="" >Add to Cart</a>                             
->>>>>>> Dev-Alex14
+							<input type='hidden' id='pid' class='pid' name='address' value='${product.productId}'/>
+							<input class="button primary-btn additem" href="" type='button' value='Add to Cart'/>                          
+
 						</div>
 						<div class="card_area d-flex align-items-center">
 							<c:choose>
@@ -572,17 +566,19 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script>
   $(".additem").click(function(){		
 
-		var data=$(this).val();
+		var data=$(".pid").val();
+		var qty=$("#sst").val();
+		console.log(data)
+		console.log(qty)
 			$.ajax({
 			type:'get',
 			url:'additemFromproduct',
 			data:{
-				"id":data
+				"id":data,
+				"qty":qty
 			},
 			
 			success:function(){
-		
-
 				Swal.fire({
 					  position:'center',
 					  icon: 'success',

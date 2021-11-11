@@ -65,14 +65,14 @@ public class CartController {
 	
 //單一商品加入購物車	
 	@GetMapping("/additemFromproduct")
-	public String additemFromproduct(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id ,Model model) {
-		System.out.println("PID cc= "+id);
+	public String additemFromproduct(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer qty,@RequestParam Integer id ,Model model) {
+		System.out.println("PID cc= "+id+"qty========"+qty);
 		String buyer=mb.getUserEmail();
-		cartService.addItemByid(id,buyer);
-		model.addAttribute("OrderItemCount",buyer);
-		List<Cart> cart = cartService.addToRecord(buyer);
-		model.addAttribute("cart", cart);	
-		
+		cartService.addItemByidAndQty(id,buyer,qty);
+//		model.addAttribute("OrderItemCount",buyer);
+//		List<Cart> cart = cartService.addToRecord(buyer);
+//		model.addAttribute("cart", cart);	
+//		
 		return "redirect:/";
 	}
 	

@@ -11,7 +11,12 @@ import com.web.record_30.model.RecordList;
 
 
 public interface CartService {
+	
+	//首頁加入購物車
 	public void addItemByid(int pid,String buyer);
+	//單向商品加入購物車
+	public void addItemByidAndQty(int pid,String buyer,int qty);
+	
 	public int add(int pid,String buyer);
 	public void sub(int pid,String buyer);
 	public void deletecart(int pid,String buyer);
@@ -19,6 +24,8 @@ public interface CartService {
 	public void addToRecord2(RecordBean rb);
 	public int getRidCount(int id);
 	public void addRidCount();
+	
+	
 	
 	public void deleteAll(String buyer);
 	
