@@ -238,28 +238,37 @@ public class ProductController {
 			 Model model) {
 		
 			Product product = productservice.getProductById(id);
+			
 			if((membershipInformationBean) model.getAttribute("loginSession")!=null) {
 				
 				membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
 				membershipInformationBean member = memberService.findMemberData(mb.getUserEmail());			
 				membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
+				System.out.println("!!!!!!!!!!!!!"+product.getProductId());
 				ProductFavorite producrFavorite = productFavoriteService.findByMidAndPid(member.getId(), product.getProductId());
-				
 				model.addAttribute("producrFavorite", producrFavorite); 
-				model.addAttribute("product", product);
-				model.addAttribute("productComment",productCommentService.findByProductId(id));
 				model.addAttribute("memberUiDefault",mBean);
-				productservice.updateViews(id);
 
 			
 			}else {
 				membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
-				model.addAttribute("product", product);
-				model.addAttribute("productComment",productCommentService.findByProductId(id));
 				model.addAttribute("memberUiDefault",mBean);
-				productservice.updateViews(id);
-
 			}
+			
+			
+			model.addAttribute("productComment",productCommentService.findByProductId(id));
+			model.addAttribute("product", product);
+
+			List<Product> productBySellerList= new ArrayList<>();
+			
+			for(Product p:productservice.findBySellerAndStatus(product.getSeller(), "上架中")) {
+				if(p.getProductId()==id) {
+					continue;
+				}
+				productBySellerList.add(p);
+			}
+			model.addAttribute("sellerProduct", productBySellerList);
+			productservice.updateViews(id);
 			
 			
 			
@@ -280,99 +289,81 @@ public class ProductController {
 			return "product_11/products_query";
 			
 		}
-		
-	// 新增空白表單
-	@GetMapping("/products/add")
-	public String getAddNewProductForm(Model model) {
-		Product p = new Product();
-		model.addAttribute("productBean", p);
-		return "product_11/addProduct";
-	}
 
-	//表單填寫，寫入資料庫
-	@PostMapping("/products/add")
-	public ResponseEntity<Product> processAddNewProductForm(
-			 @RequestParam("productName") String productName,
-             @RequestParam("price") String price,
-             @RequestParam("category") String category,
-             @RequestParam("stock") String stock,
-             @RequestParam("productNo") String productNo,
-             @RequestParam("productInfo") String productInfo,
-             @RequestParam("productImage") MultipartFile multipartFile,
-			@ModelAttribute("productBean") Product p,
-			@ModelAttribute("loginSession") membershipInformationBean loginMb,
-			BindingResult result // 父:Errors(表單如有錯誤放置)
-	) {
 		
-		p.setProductName(productName);
-		p.setPrice(Double.parseDouble(price));
-		p.setCategory(category);
-		p.setStock(Integer.parseInt(stock));
-		p.setProductNo(productNo);
-		p.setProductImage(multipartFile);
-		
-		
-		// 判斷是否有不合法欄位
-		String[] suppressedFields = result.getSuppressedFields();
-		if (suppressedFields.length > 0) {
-			throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
-			// 陣列裡面元素以逗號隔開，並轉成字串
+			// 新增空白表單
+		@GetMapping("/products/add")
+		public String getAddNewProductForm(Model model) {
+			Product p = new Product();
+			model.addAttribute("productBean", p);
+			return "product_11/addProduct";
 		}
-		System.out.println("p=" + p);
-		
-		//新增商品時間戳記
-		   Long timeStamp = System.currentTimeMillis();  //获取当前时间戳
-	       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	       String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp)))); 
-	       p.setInsertTime(sd);
-	       //獲取賣家帳號
-	       p.setSeller(loginMb.getUserEmail());
-	       //商品點擊率
-	       p.setViews(0);
-	       
-	       //商品狀態
-	       p.setStatus("待審核");
-
-	       //商品銷售量
-	       p.setSales(0);
-
-	       p.setDiscount(1.0);
-
-
-		if(!p.getProductImage().isEmpty()) {
-		// 於productImage取得照片
-		MultipartFile productImage = p.getProductImage();
-		// 使用者照片檔名
-		String originalFilename = productImage.getOriginalFilename();
-		p.setFileName(originalFilename);
-		// 建立Blob物件，交由 Hibernate 寫入資料庫
-		// 不是空的and位元組不為空
-		if (productImage != null && !productImage.isEmpty()) {
-			try {
-				// 取所有位元組
-				byte[] b = productImage.getBytes();
-				// 放置Blob
-				Blob blob = new SerialBlob(b);
-				// blob放到bean-Blob coverImage;
-				p.setCoverImage(blob);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-			}
-		}
-		
-	       
-	       productservice.addProduct(p);
-	       return new ResponseEntity<Product>(HttpStatus.OK); 
-		}else {
-			
-			productservice.addProduct(p);
-			return new ResponseEntity<Product>(HttpStatus.OK); 
-		}
-		
 	
- 
-	}
+		//表單填寫，寫入資料庫
+		@PostMapping("/products/add")
+		public String processAddNewProductForm(@ModelAttribute("productBean") Product p,
+				@ModelAttribute("loginSession") membershipInformationBean loginMb,
+				BindingResult result // 父:Errors(表單如有錯誤放置)
+		) {
+			// 判斷是否有不合法欄位
+			String[] suppressedFields = result.getSuppressedFields();
+			if (suppressedFields.length > 0) {
+				throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
+				// 陣列裡面元素以逗號隔開，並轉成字串
+			}
+			System.out.println("p=" + p);
+			
+			//新增商品時間戳記
+			   Long timeStamp = System.currentTimeMillis();  //获取当前时间戳
+		       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		       String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp)))); 
+		       p.setInsertTime(sd);
+		       //獲取賣家帳號
+		       p.setSeller(loginMb.getUserEmail());
+		       
+		       
+		       //商品狀態
+		       p.setStatus("待審核");
+		       //商品銷售量
+		       p.setSales(0);
+		       
+		       p.setViews(0);
+		       
+		       p.setDiscount(1.0);
+	
+			if(!p.getProductImage().isEmpty()) {
+			// 於productImage取得照片
+			MultipartFile productImage = p.getProductImage();
+			// 使用者照片檔名
+			String originalFilename = productImage.getOriginalFilename();
+			p.setFileName(originalFilename);
+			// 建立Blob物件，交由 Hibernate 寫入資料庫
+			// 不是空的and位元組不為空
+			if (productImage != null && !productImage.isEmpty()) {
+				try {
+					// 取所有位元組
+					byte[] b = productImage.getBytes();
+					// 放置Blob
+					Blob blob = new SerialBlob(b);
+					// blob放到bean-Blob coverImage;
+					p.setCoverImage(blob);
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+				}
+			}
+			
+		       
+		       productservice.addProduct(p);
+			}else {
+				
+				productservice.addProduct(p);
+			}
+			
+			
+	
+			return "redirect:/products/seller";
+		}
 
 	//獲取類別List
 	@ModelAttribute("categoryList")
@@ -466,12 +457,12 @@ public class ProductController {
 			return "product_11/products_category";
 		}
 		
-//		@GetMapping("/campaigns/shippingVoucher2/{category}") // 路徑變數{category}
-//		public String getProductsByCategory1(@PathVariable("category") String category, Model model) {
-//			List<Product> products = productservice.getProductsByCategory(category);
-//			model.addAttribute("products", products);
-//			return "celebrations_36/shippingVoucher2";
-//		}
+		@GetMapping("/rank/{category}") // 路徑變數{category}
+		public String getProductsByCategoryRank(@PathVariable("category") String category, Model model) {
+			List<Product> products = productservice.getProductsByCategory(category);
+			model.addAttribute("products", products);
+			return "product_11/products_category";
+		}
 		
 		//限時活動
 		@GetMapping("/campaigns/countdownSales")
@@ -514,6 +505,8 @@ public class ProductController {
 			
 				@RequestParam("productId") Integer productId,
 				@RequestParam("insertTime") String insertTime,
+				@RequestParam("discount") String discount,
+				@RequestParam("views") String views,
 				@ModelAttribute("product") Product p,
 				@ModelAttribute("loginSession") membershipInformationBean loginMb,
 				
@@ -526,6 +519,8 @@ public class ProductController {
 				p.setSeller(loginMb.getUserEmail());
 			       //商品狀態
 			       p.setStatus("待審核");
+			       p.setDiscount(Double.parseDouble(discount));
+			       p.setViews(Integer.parseInt(views));
 				if(!p.getProductImage().isEmpty()) {
 					
 					

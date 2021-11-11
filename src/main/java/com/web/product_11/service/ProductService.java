@@ -13,8 +13,14 @@ public interface ProductService {
 		//查詢商品類別
 		List<String>  getAllCategories();
 		
+		//依照商品類別價格排序
+		List<Product> getByCategoryOrderByPrice(String category);
+		
 		//獲取類別商品
 		List<Product>  getProductsByCategory(String category);
+		
+		//會員、狀態查詢商品
+		List<Product> findBySellerAndStatus(String seller,String status);
 		
 		//ID查詢商品
 		Product getProductById(int productId);

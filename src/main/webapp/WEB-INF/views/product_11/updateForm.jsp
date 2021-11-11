@@ -232,13 +232,15 @@
             </tr>
                  <tr>
                 <td><label class='' for="insertTime">新增時間:</label></td>
-                <td> <input name="insertTime"  value="${product.insertTime}" readonly="readonly" id="insertTime"  path="insertTime" type='text' class='form:input-large'  /></td>
+                <td> <input name="insertTime"  value="${product.insertTime}" readonly="readonly" id="insertTime"  type='text' class='form:input-large'  /></td>
             </tr>
-           
           
            
         </tbody>
    	 </table>
+           		<input name="discount"  value="${product.discount}"   type='hidden' class='form:input-large'  />
+   	           	<input name="views"  value="${product.views}"   type='hidden' class='form:input-large'  />
+   	
    	<div class="wrap" style="display: flex;margin-left: 80px;">
         <input id="btnAdd" type='submit' class='btn btn-primary'
                             value="送出" />

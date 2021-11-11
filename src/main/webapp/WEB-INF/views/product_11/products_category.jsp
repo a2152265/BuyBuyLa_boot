@@ -150,13 +150,13 @@
               <li class="common-filter">
                 <form action="#">
                   <ul>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="men" name="brand"><label for="men">Men<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="women" name="brand"><label for="women">Women<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="accessories" name="brand"><label for="accessories">Accessories<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="footwear" name="brand"><label for="footwear">Footwear<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="bayItem" name="brand"><label for="bayItem">Bay item<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="electronics" name="brand"><label for="electronics">Electronics<span> (3600)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="food" name="brand"><label for="food">Food<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="priceDecs" name="list"><label for="priceDecs">Men<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="women" name="list"><label for="women">Women<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="accessories" name="list"><label for="accessories">Accessories<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="footwear" name="list"><label for="footwear">Footwear<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="bayItem" name="list"><label for="bayItem">Bay item<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="electronics" name="list"><label for="electronics">Electronics<span> (3600)</span></label></li>
+                    <li class="filter-list"><input class="pixel-radio" type="radio" id="food" name="list"><label for="food">Food<span> (3600)</span></label></li>
                   </ul>
                 </form>
               </li>
@@ -168,11 +168,11 @@
               <div class="head">Brands</div>
               <form action="#">
                 <ul>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
-                  <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="list"><label for="apple">Apple<span>(29)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="list"><label for="asus">Asus<span>(29)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="list"><label for="gionee">Gionee<span>(19)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="list"><label for="micromax">Micromax<span>(19)</span></label></li>
+                  <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="list"><label for="samsung">Samsung<span>(19)</span></label></li>
                 </ul>
               </form>
             </div>
@@ -247,11 +247,21 @@
                       <li><button><i class="ti-heart"></i></button></li>
                     </ul>
                   </div>
-                  <div class="card-body">
-                    <p>${product.category}</p>
-                    <h4 class="card-product__title"><a href="#">${product.productName}</a></h4>
-                    <p class="card-product__price">$${product.price}</p>
-                  </div>
+                    <div class="card-body">
+                <p>${product.category}</p>
+                <h4 class="card-product__title">
+                <a  href="<c:url value='/product?id=${product.productId}' />"
+                	style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;">${product.productName}
+				</a>
+				</h4>
+                <p class="card-product__price">${product.price}</p>
+              </div>
                 </div>
 
               </div>
@@ -264,148 +274,7 @@
     </div>
   </section>
 	<!-- ================ category section end ================= -->		  
-
-	<!-- ================ top product area start ================= -->	
-	<section class="related-product-area">
-		<div class="container">
-			<div class="section-intro pb-60px">
-        <p>Popular Item in the market</p>
-        <h2>Top <span class="section-intro__style">Product</span></h2>
-      </div>
-			<div class="row mt-30">
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-          <div class="single-search-product-wrapper">
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
-              <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-          <div class="single-search-product-wrapper">
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-4.png" alt=""></a>
-              <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-5.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-6.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-          <div class="single-search-product-wrapper">
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-7.png" alt=""></a>
-              <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-8.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-9.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
-          <div class="single-search-product-wrapper">
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
-              <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-		</div>
-	</section>
-	<!-- ================ top product area end ================= -->		
-
-	<!-- ================ Subscribe section start ================= -->		  
-  <section class="subscribe-position">
-    <div class="container">
-      <div class="subscribe text-center">
-        <h3 class="subscribe__title">Get Update From Anywhere</h3>
-        <p>Bearing Void gathering light light his eavening unto dont afraid</p>
-        <div id="mc_embed_signup">
-          <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe-form form-inline mt-5 pt-1">
-            <div class="form-group ml-sm-auto">
-              <input class="form-control mb-1" type="email" name="EMAIL" placeholder="Enter your email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '" >
-              <div class="info"></div>
-            </div>
-            <button class="button button-subscribe mr-auto mb-1" type="submit">Subscribe Now</button>
-            <div style="position: absolute; left: -5000px;">
-              <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-            </div>
-
-          </form>
-        </div>
-        
-      </div>
-    </div>
-  </section>
-	<!-- ================ Subscribe section end ================= -->		  
-
+	
 
   <!--================ Start footer Area  =================-->	
 	<footer>
@@ -508,5 +377,47 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="../vendors/jquery.ajaxchimp.min.js"></script>
   <script src="../vendors/mail-script.js"></script>
   <script src="../js/main.js"></script>
+  <script>
+  
+  var listArr = document.getElementsByName("list");
+  listArrs[0].onclick=function(){
+      $.ajax({
+	        type: 'post',
+	        url: '',
+	        data: {"productIds": productId},
+	        success: function (data, textStatus, xhr) {
+	          if (xhr.status == 200) {
+	        	 swal.fire({
+	                 icon: 'success',
+	                 title: '上架成功',
+	                 showConfirmButton: false,
+	                 timer: 1000
+	               })
+	        	 setTimeout("location.href='./products';", 1000);  
+	        		$.ajax({
+	    				type:'get',
+	    				url:'../launched_addaddress',
+	    				data:{},
+	    				
+	    				success:function(){
+	    					
+	    				}
+	    										
+	    			});		
+	        	 
+	          } 
+	        },
+	        error: function (xhr, status) {
+	        	console.log(xhr.status);
+	        	
+	        },
+	      });
+  };
+  pathTypeArr[1].onclick=function(){
+  	var checkValue = pathTypeArr[1].value;
+  	alert(checkValue);
+  };
+  
+  </script>
 </body>
 </html>

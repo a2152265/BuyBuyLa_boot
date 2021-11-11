@@ -109,6 +109,20 @@ public class ProductSerivceImpl_boot implements ProductService{
 		
 	}
 
+	@Override
+	public List<Product> findBySellerAndStatus(String seller, String status) {
+		return productRepositoryDao.findBySellerAndStatus(seller, status);
+	}
+
+	@Override
+	public List<Product> getByCategoryOrderByPrice(String category) {
+		return productRepositoryDao.getByCategoryOrderByPrice(category);
+	}
+
+
+
+
+
 
 
 
