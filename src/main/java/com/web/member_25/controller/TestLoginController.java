@@ -3,7 +3,7 @@ package com.web.member_25.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -959,13 +959,25 @@ return "redirect:/manager_Ui0";
 				@PostMapping("/member/forget")
 				public String ForgetPdBtn(@ModelAttribute("forgetpwd") membershipInformationBean mb, Model model) {
 					membershipInformationBean mBean=memberService.findMemberData(mb.getUserEmail());
-
+					
+					String tokenString=UUID.randomUUID().toString();
+					System.out.println("-------忘記密碼token------>"+tokenString);
+					mBean.setMember_pwdToken(tokenString);
+					
+					//會員創立時間
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+					String now = dtf.format(LocalDateTime.now());
+					System.out.println("-------忘記密碼token時間------>"+now);
+					mBean.setMember_pwdToken_time(now);
+					memberService.save(mBean);
+					
 					//寄驗證信
 					SimpleMailMessage message =new SimpleMailMessage();
 //					message.setTo(mb.getUserEmail());  //使用者email
 					message.setTo(mBean.getUserEmail());  //測試用我的
 					message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
-					message.setText("您好 : "+mBean.getUserName()+"\r\n歡迎光臨BuyByLA  "+"  您的密碼是:"+mBean.getUserPwd() +"\r\n \r\n \r\n \r\n \r\n 隱私權政策\r\n"
+					message.setText("您好 : "+mBean.getUserName()+"\r\n歡迎光臨BuyByLA  "+"  請點擊連結重新認證您的密碼(連結將於5分鐘後失效) : \r\n"+"http://localhost:8080/BuyBuyla_boot/resetpp" +"?userEmail="+mBean.getUserEmail()+"&member_pwdToken="+tokenString
+							+"\r\n \r\n \r\n \r\n \r\n 隱私權政策\r\n"
 							+ "歡迎您來到BuyBuyLa的網站（以下簡稱本網站），本網站由BuyBuyBoy國際股份有限公司（以下簡稱我們）所經營。我們遵守「個人資料保護法」，並重視您的隱私權，為了確保您的個人資料安全，讓您能夠安心使用本網站的各項服務與資訊，我們訂立了以下的隱私權政策，請您詳細閱讀以了解本網站如何蒐集、應用、保護您的資料。\r\n"
 							+ "一、隱私權保護政策的適用範圍\r\n"
 							+ "\r\n"

@@ -99,7 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				  //product_11
 				  .antMatchers("/products/**","/product/**","/categoryList/**","/getPicture/**","/comment/**").permitAll()
 				  //member_25
-				  .antMatchers("/try/login/**","/try/add/**","/member/evolution/**","/member/suspension/**","/member/evolution/**","/member/**").permitAll()
+				  .antMatchers("/try/login/**","/try/add/**","/member/evolution/**","/member/suspension/**","/member/evolution/**","/member/**","/resetpp/**").permitAll()
 				  //forum_32
 				  .antMatchers("/xxx/xxx","/xxx/xxx").permitAll()
 				  //cele_36

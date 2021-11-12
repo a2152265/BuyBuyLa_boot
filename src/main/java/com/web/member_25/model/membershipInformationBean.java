@@ -70,18 +70,22 @@ public class membershipInformationBean {
 	@Column(name="member_BornDate")
 	String member_BornDate;
 	
+		
+	
+	//forget pwd token
+	@Column(name="member_pwdToken")
+	String member_pwdToken;
 
+	//token time
+	@Column(name="member_pwdToken_time")
+	String member_pwdToken_time;
+	
+	
 	@OneToMany(mappedBy = "membershipInformationBean",fetch = FetchType.LAZY) //本類別無外鍵 
 	Set<ProductFavorite> productFavorites=new HashSet<>();
 
 	
-	
-	//security用--------------------------------------------------------
-		@Transient
-		String password;
-		@Transient
-		String username;
-	//security用--------------------------------------------------------
+		
 	
 	public membershipInformationBean() {
 		
@@ -112,7 +116,7 @@ public class membershipInformationBean {
 				String userName, String userNickname, String userGender, String address, String identification,
 				Blob head_shot, String fileName, String birthday, String notes, Integer verifyCode, String userPwd1,
 				int verificationCode, MultipartFile productImage,String suspension,
-				String member_BornDate) {
+				String member_BornDate,String member_pwdToken,String member_pwdToken_time) {
 
 			this.id = id;
 			this.userEmail = userEmail;
@@ -131,6 +135,8 @@ public class membershipInformationBean {
 			this.userPwd1 = userPwd1;
 			this.suspension=suspension;
 			this.member_BornDate=member_BornDate;
+			this.member_pwdToken=member_pwdToken;
+			this.member_pwdToken_time=member_pwdToken_time;
 	
 		}
 		
@@ -288,6 +294,24 @@ public class membershipInformationBean {
 		public void setProductFavorites(Set<ProductFavorite> productFavorites) {
 			this.productFavorites = productFavorites;
 		}
+
+		public String getMember_pwdToken() {
+			return member_pwdToken;
+		}
+
+		public void setMember_pwdToken(String member_pwdToken) {
+			this.member_pwdToken = member_pwdToken;
+		}
+
+		public String getMember_pwdToken_time() {
+			return member_pwdToken_time;
+		}
+
+		public void setMember_pwdToken_time(String member_pwdToken_time) {
+			this.member_pwdToken_time = member_pwdToken_time;
+		}
+
+		
 		
 		
 		
