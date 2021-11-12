@@ -220,6 +220,14 @@ public class MemberSerivceImpl_boot implements MemberService{
 	}
 
 
+	@Override
+	public membershipInformationBean findMemberDataByToken(String member_pwdToken) {
+		membershipInformationBean mb=new membershipInformationBean();
+		mb=membertRepository.findByMember_pwdToken1(member_pwdToken);
+		return mb;
+	}
+
+
 	
 
 }

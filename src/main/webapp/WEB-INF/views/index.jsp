@@ -14,16 +14,21 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>BuyBuyLa|Home</title>
 	<link rel="icon" href="img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-  <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-   <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-  <link rel='stylesheet' href="css/campaigns.css"  >
-  <link rel="stylesheet" href="css/productstyle.css">
-  <link rel="icon"  sizes="180x180" href="images/favicon.ico" type="image/x-icon"/>
+
+  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css"  type="text/css">
+  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css"  type="text/css">
+	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css"  type="text/css">
+  <link rel="stylesheet" href="vendors/nice-select/nice-select.css"  type="text/css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css"  type="text/css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css"  type="text/css">
+   <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css"  type="text/css">
+<!--   <link rel='stylesheet' href="css/campaigns.css"  > -->
+  <link rel="stylesheet" href="css/productstyle.css"  type="text/css">
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
+
+<!-- <script src="sweetalert2.min.js"></script> -->
+<!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
+<!-- <script src="sweetalert2.all.min.js"></script> -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <style>
         ul {
@@ -118,7 +123,7 @@
     <div class="main_menu">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand logo_h" href="<c:url value='/' />"><img src="img/logo.png" alt=""></a>
+          <a class="navbar-brand logo_h" href="<c:url value='/' />"><img src="img/logo.png" alt="BuyBuyLa"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="icon-bar"></span>
@@ -164,8 +169,8 @@
 				</c:if>
 				</c:if>
 				<c:if test="${managerSession != null}">
-              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">Hi管理員!!! &nbsp;
-						${loginSession.userEmail}</a></li>
+              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">Hi! &nbsp;
+						${loginSession.userName}</a></li>
 				</c:if>
 
 			
@@ -540,16 +545,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/skrollr.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="vendors/jquery.ajaxchimp.min.js"></script>
-  <script src="vendors/mail-script.js"></script>
-  <script src="js/main.js"></script>
+  <script src="vendors/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
+  <script src="vendors/bootstrap/bootstrap.bundle.min.js" type="text/javascript"></script>
+  <script src="vendors/skrollr.min.js" type="text/javascript"></script>
+  <script src="vendors/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
+  <script src="vendors/nice-select/jquery.nice-select.min.js" type="text/javascript"></script>
+  <script src="vendors/jquery.ajaxchimp.min.js" type="text/javascript"></script>
+  <script src="vendors/mail-script.js" type="text/javascript"></script>
+  <script src="js/main.js" type="text/javascript"></script>
 
-  <script> 
+  <script type="text/javascript"> 
 
        $(function(){
            let index=0;
@@ -617,7 +622,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 	
-<script>
+<script type="text/javascript">
 
 
 

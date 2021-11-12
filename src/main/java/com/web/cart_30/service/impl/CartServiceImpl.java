@@ -64,7 +64,7 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public void addItemByid(int pid,String buyer) {
-		System.out.println("serviceqqqqqqqqqqqqqqqqqqqqqqqqq");		
+		System.out.println("serviceqqqqqqqqqqqqqqqqqqqqqqqqq---->pid"+pid);		
 		Optional<Product> product = productRepository.findById(pid);
 		Cart carta= cartRepository.existsByIdAndBuyer(pid,buyer);
 		System.out.println(carta+"-------------------------------");
@@ -249,7 +249,6 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public int getDiscount(String discountCode) {
 
-<<<<<<< HEAD
 
 		Coupon findByCouponNumber = couponRepository.findByCouponNumber(discountCode);
 		String couponStatus = findByCouponNumber.getCouponStatus();
@@ -264,10 +263,7 @@ public class CartServiceImpl implements CartService {
 		}else {
 		return 0;
 		}
-=======
-		
-		return 60;
->>>>>>> Dev-Alex16
+
 
 	}
 

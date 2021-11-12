@@ -5,12 +5,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -62,6 +64,7 @@ public class CartController {
 		model.addAttribute("cart", cart);	
 		//從購物車找該買家總購買商品數
 			
+
 		return "redirect:/";
 	}
 	
@@ -168,8 +171,7 @@ public class CartController {
 	}
 	
 	
-	
-	
+
 	
 	//到checkout畫面
 	@GetMapping("/check")
@@ -199,7 +201,6 @@ public class CartController {
 
 	
 	
-
 
 //確認付費，導到綠界
 	@PostMapping("/check")
@@ -292,7 +293,7 @@ public class CartController {
 		obj.setItemName("BuyBuyLa 商品一批X1");
 		obj.setReturnURL("http://211.23.128.214:5000");
 		obj.setNeedExtraPaidInfo("N");
-		obj.setClientBackURL("http://localhost:9090/BuyBuyla_boot/fin");
+		obj.setClientBackURL("http://localhost:8080/BuyBuyla_boot/fin");
 		String form = all.aioCheckOut(obj, null);
 
 		model.addAttribute("recordID",str);
@@ -300,8 +301,7 @@ public class CartController {
 		
 		
 		cartService.addToRecordList(recordList);
-
-	
+	System.out.println("----------------buy-----done-------------------------");
 		return form;
 		
 	}

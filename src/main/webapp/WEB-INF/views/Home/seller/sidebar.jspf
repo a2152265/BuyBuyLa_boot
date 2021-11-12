@@ -16,6 +16,12 @@
                         <span class="item">回首頁</span>
                     </a>
                 </li>
+                <li>
+                    <a href="<c:url value='/try/member_Ui' />" >
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">會員中心</span>
+                    </a>
+                </li>
 
                  <li>        
                     <a href="<c:url value='/update30' />">
@@ -39,12 +45,7 @@
                     </a>
                 </li>
                
-                <li>
-                    <a href="<c:url value='/member/managerPower' />" >
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">帳號管理</span>
-                    </a>
-                </li>
+                
 
                 <!-- /*減去footer高度*/ -->
                 <li style="min-height: calc(100% - 50px); ">

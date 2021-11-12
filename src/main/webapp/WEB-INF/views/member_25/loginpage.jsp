@@ -27,7 +27,11 @@
     <link rel='stylesheet' href="<spring:url value='../css/productstyle.css' />"  type="text/css" />
   <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
 
-
+<style>
+        body {
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+    </style>
  
 
   <style type="text/css">
@@ -149,7 +153,7 @@ function quickInput(){
 	
 }
 
-var names2= ["manager9527@gmail.com", 'manager04@gmail.com', 'manager07@gmail.com'];
+var names2= ["manager1@gmail.com", 'manager02@gmail.com', 'manager07@gmail.com'];
 function quickInput2(){
 	document.getElementById('name').value = names2[index2];
 	document.getElementById('pwd').value = names2[index2];
@@ -267,17 +271,20 @@ function quickInput2(){
 						<h3>登入後開始</h3>
 
 						<!-- 登入帳號區 -->
-						<form:form method='POST'   modelAttribute="loginSession"
+						<form:form method='POST'   modelAttribute="loginSession" action="/BuyBuyla_boot/try/login"
 							cssClass='row login_form' id="contactForm">
 
 
 							<div class="col-md-12 form-group">
-								<form:input  class="form-control" path="userEmail"  id="name" name="name" placeholder="請輸入帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"/>
+								<form:input  class="form-control" path="userEmail"  id="name" name="username" placeholder="請輸入帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"/>
 							</div>
 							<div class="col-md-12 form-group">
-								<form:password class="form-control" path="userPwd"  id="pwd" name="name" placeholder="請輸入密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"/>
+								<form:password class="form-control" path="userPwd"  id="pwd" name="password" placeholder="請輸入密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"/>
 							</div>
 							<div class="col-md-12 form-group">
+				 <c:if test="${param.error}">
+				<label style="color:red;">帳號或密碼錯誤,請重新輸入</label>
+				</c:if>
 								<div class="creat_account">
 									<input type="checkbox" id="f-option2" name="selector">
 									<label for="f-option2">保持登入狀態</label>
@@ -399,5 +406,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="vendors/jquery.ajaxchimp.min.js"></script>
   <script src="vendors/mail-script.js"></script>
   <script src="js/main.js"></script>
+  
+
 </body>
 </html>

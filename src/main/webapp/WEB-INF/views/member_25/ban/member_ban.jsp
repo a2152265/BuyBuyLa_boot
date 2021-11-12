@@ -37,8 +37,7 @@
                                  </div>
                             </div>                     
           
-                            
-          
+                 
                             <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                               <input type="submit" id="submitRewrite" name="submitRewrite" class="btn btn-primary btn-lg" value="送出">
                             </div>

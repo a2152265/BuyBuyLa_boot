@@ -54,6 +54,11 @@ public interface MemberService {
 
 	int loginByEmail(String userEmail);
 
+
+
+
+	membershipInformationBean findMemberDataByToken(String member_pwdToken);
+
 	
 //	//前置下拉選單 
 //	List<membershipInformationBean>  getIdentificationList();
