@@ -266,7 +266,7 @@ public class CartController {
 		int discount = cart.get(0).getDiscount();	
 		totalprice=totalprice-discount+60;
 		System.out.println(discount+"  weqqeweqewqewqe0");
-		RecordList  recordList = new RecordList(str, buyer, totalprice,now,buyeraddress,"已付款","待出貨");
+		RecordList  recordList = new RecordList(str, buyer, totalprice,now,buyeraddress,"待出貨","已付款");
 		
 		BuyerAddress buyerinfo=new BuyerAddress();
 		buyerinfo.setRecord_id(str);
