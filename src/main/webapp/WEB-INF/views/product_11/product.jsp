@@ -78,8 +78,8 @@
            <li class="nav-item" >
            
                <!---------------- 首頁查詢商品框 ---------------->
-           		<form:form method='get' action="./queryproduct" class='form-horizontal'>
-					<input name="productName" id="productName" type='text' class='form:input-large'/>
+           			<form:form method='get' action="./queryproduct" class='form-horizontal'>
+					<input name="productName" id="productName" type='text' class='form:input-large' />
 					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
 
@@ -97,10 +97,10 @@
             <!---------------- 我的最愛 ---------------->
             <ul style="list-style-type: none; padding-left:10px" >
                <c:if test="${loginSession.userEmail != null}">
-                <li><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
+                <li><button style="border:0 ;background-color:transparent;" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
                </c:if>
                  <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
-                <li ><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/try/login' />'"><i class="fas fa-heart"></i></button> </li>		
+                <li ><button style="border:0 ;background-color:transparent;" onclick="location.href='<c:url value='/try/login' />'"><i class="fas fa-heart"></i></button> </li>		
                </c:if>
             </ul>
             
@@ -167,14 +167,19 @@
 <!--                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button> -->
 <<<<<<< HEAD
 							<input  type='hidden' class='pid' name='address' value='${product.productId}'/>
+<<<<<<< HEAD
 							<a class="button primary-btn additem" href="#">Add to Cart</a>                             
 =======
 <%-- 							<a class="button primary-btn" href="<c:url value='/additem' />?id=${product.productId}">Add to Cart</a>  --%>
 							<input type='hidden' id='pid' class='pid' name='address' value='${product.productId}'/>
 							<input class="button primary-btn additem" href="" type='button'align="cent er" style="width: 125px;border-radius: 80px;" value='   Add to Cart'/>                          
 >>>>>>> Dev-Alex15
+=======
+<!-- 							<button >Add to Cart</button> -->
+							<a  class="button primary-btn additem" href="#">Add to Cart</a>
+>>>>>>> origin/Dev_Hsieh_11/11
 
-						</div>
+						</div>  
 						<div class="card_area d-flex align-items-center">
 							<c:choose>
 								<c:when test="${producrFavorite == null}">
@@ -555,10 +560,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script>
   $(".additem").click(function(){		
 
+<<<<<<< HEAD
 		var data=$(".pid").val();
 		var qty=$("#sst").val();
 		console.log(data)
 		console.log(qty)
+=======
+		var data=$('.pid').val();
+>>>>>>> origin/Dev_Hsieh_11/11
 			$.ajax({
 			type:'get',
 			url:'additemFromproduct',

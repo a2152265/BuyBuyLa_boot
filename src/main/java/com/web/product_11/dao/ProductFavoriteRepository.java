@@ -17,6 +17,8 @@ public interface ProductFavoriteRepository extends JpaRepository<ProductFavorite
 	@Query("from ProductFavorite where fk_member_id=:memberId")
 	List<ProductFavorite> findByMemberId(Integer memberId);
 	
+	
+	
 	@Modifying
 	@Transactional
 	@Query("delete from ProductFavorite where fk_member_id=:memberId and fk_product_id=:productId")

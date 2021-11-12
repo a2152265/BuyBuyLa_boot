@@ -2,6 +2,7 @@ package com.web.product_11.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -15,6 +16,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -137,7 +139,27 @@ public class ProductController {
 				List<Product> beans = productservice.findByStatus(status);
 				model.addAttribute("products", beans);
 				
-			
+				//商品種類圖表
+				String[] categoryArray=new String[] {"男生衣服","運動健身","女生衣服","寵物","其他"};
+				String c = "";
+				for (String category : categoryArray) {
+					Long countByCategory = productservice.countByCategory(category);
+					c += countByCategory+",";	
+				}
+				
+				model.addAttribute("category",c);
+				
+				//商品狀態圖表
+				String[] statusArray=new String[] {"上架中","待審核","審核失敗"};
+				String s = "";
+				for (String pStatus : statusArray) {
+					Long countByStatus = productservice.countByStatus(pStatus);
+					s += countByStatus+",";	
+				}
+				model.addAttribute("productStatus",s);
+				
+
+				
 			return "product_11/manage/products";
 					
 		}
@@ -224,8 +246,22 @@ public class ProductController {
 			if(loginMb==null) {
 				return "index";
 			}
-			List<Product> beans = productservice.getProductBySeller(loginMb.getUserEmail());
+			String userEmail = loginMb.getUserEmail();
+			List<Product> beans = productservice.getProductBySeller(userEmail);
 			model.addAttribute("sellerproducts", beans);
+			
+			//商品瀏覽次數排行
+			List<Product> viewProductList = productservice.getViewBySeller(userEmail);
+			model.addAttribute("viewProductList", viewProductList);
+			
+			//商品銷售量排行
+			List<Product> salesProductList = productservice.getSalesBySeller(userEmail);
+			model.addAttribute("salesProductList", salesProductList);
+			
+			//商品收藏排名
+			List<Product> favoriteProductList = productservice.getFavoriteCountBySeller(userEmail);
+			model.addAttribute("favoriteProductList", favoriteProductList);
+			
 			return "product_11/seller/productBySeller";		
 			
 		}
@@ -331,6 +367,8 @@ public class ProductController {
 		       
 		       p.setDiscount(1.0);
 	
+		       p.setFavoriteCount(0);
+		       
 			if(!p.getProductImage().isEmpty()) {
 			// 於productImage取得照片
 			MultipartFile productImage = p.getProductImage();
@@ -507,6 +545,7 @@ public class ProductController {
 				@RequestParam("insertTime") String insertTime,
 				@RequestParam("discount") String discount,
 				@RequestParam("views") String views,
+				@RequestParam("favoriteCount") String favoriteCount,
 				@ModelAttribute("product") Product p,
 				@ModelAttribute("loginSession") membershipInformationBean loginMb,
 				
@@ -521,6 +560,7 @@ public class ProductController {
 			       p.setStatus("待審核");
 			       p.setDiscount(Double.parseDouble(discount));
 			       p.setViews(Integer.parseInt(views));
+			       p.setFavoriteCount(Integer.parseInt(favoriteCount));
 				if(!p.getProductImage().isEmpty()) {
 					
 					
@@ -631,9 +671,9 @@ public class ProductController {
 					productFavorite.setMembershipInformationBean(member);
 					productFavorite.setProduct(product);
 					ProductFavorite producrFavorite = productFavoriteService.findByMidAndPid(member.getId(), product.getProductId());
-//					System.out.println("@@@@@@@@@@@@"+producrFavorite.getFavoriteId());
 					if(producrFavorite == null) {
 						productFavoriteService.addFavoriteProduct(productFavorite);
+						productservice.plusFavoriteCount(pId);
 					}
 					
 					return new ResponseEntity<String>(HttpStatus.OK);
@@ -655,7 +695,7 @@ public class ProductController {
 					membershipInformationBean member = memberService.findMemberData(mb.getUserEmail());
 					
 					productFavoriteService.deleteByMidAndPid(member.getId(),pId);
-				
+					productservice.subFavoriteCount(pId);
 					
 					return new ResponseEntity<String>(HttpStatus.OK);
 
@@ -681,5 +721,7 @@ public class ProductController {
 							return "product_11/buyer/product_favorite";
 					
 				}
+				
+
 				
 }
