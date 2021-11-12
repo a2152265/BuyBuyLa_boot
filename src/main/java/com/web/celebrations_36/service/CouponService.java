@@ -15,5 +15,6 @@ public interface CouponService {
 	Coupon getCouponcountByUseremail(String userEmail,Integer count);
 	List<Coupon> findAllByUseremail(String userEmail);
 	void updateCouponStatus(String couponStatus,String couponNumber);
-
+	List<Coupon> getCouponstatus(String couponStatus);
+	
 }

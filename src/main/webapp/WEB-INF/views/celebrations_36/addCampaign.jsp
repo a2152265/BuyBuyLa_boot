@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>新增活動</title>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <!-- <link rel="stylesheet" href="../css/newcamapig.css"> -->
@@ -1034,7 +1034,7 @@ body {
                 <td> <label   for='url'>
                          活動網址:
                      </label></td>
-                <td> <form:textarea id="url" path="url" type='text'
+                <td><form:textarea id="url" path="url" type='text'
                             class='form:input-large' />
 		</td>
             </tr>
@@ -1059,6 +1059,7 @@ body {
  	<div class="wrap" style="display: flex;margin-left: 180px;">
         <input id="btnAdd" type='submit' class='btn btn-primary'
                             value="送出" />
+                            <button type="button" id="oneclick" >一鍵輸入</button>
 	</div>  
  	
  </form:form>
@@ -1076,6 +1077,31 @@ body {
     x.onloadend = function () {
         document.images[0].src = this.result;
     }
+	</script>
+	
+	<script>
+// 	  $(function(){
+// 		  $('#oneclick').click(function(){
+			
+// 			  $('#name').text('123'); 
+// 			  $('#url').text('123');
+// 			  $('#description').text('123');
+// 			  $('#note').text('123');
+// 		  });
+		
+// 	  });
+// 	  )
+	  
+	 	  $(function(){
+		  $('#oneclick').click(function(){
+			  $('#date1').val('2021/11/11');
+			  $('#name').val('123'); 
+			  $('#url').val('123');
+			  $('#description').val('123');
+			  $('#note').val('123');
+		  });
+	
+	 		});
 	</script>
 <script>
 

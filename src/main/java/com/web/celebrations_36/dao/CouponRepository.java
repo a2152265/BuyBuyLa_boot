@@ -26,10 +26,13 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 	
 	Coupon findByUserEmail(String userEmail);
 	
+	Coupon findByCouponNumber(String couponNumber);
 
 	 @Query("from Coupon c where c.userEmail=:userEmail ")
 	 List<Coupon> findAllByUseremail(String userEmail);
 	
+	 @Query("from Coupon c where c.couponStatus=:couponStatus ")
+	 List<Coupon> getCouponstatus(String couponStatus);
 	
 	 @Modifying(clearAutomatically = true)
 	 @Transactional

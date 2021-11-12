@@ -142,6 +142,48 @@
 					</div>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
+					<c:if test="${product.point>0 }">
+					<div class="s_product_text">
+						<input id="productId" type="hidden" value="${product.productId}" />
+						<h3>${product.productName}</h3>
+					    <input  type='hidden' class='productName' name='address' value='${product.productName}'/>
+						
+						<h2 style="color:red">兌換點數:${product.point}</h2>
+						<input  type='hidden' class='point' name='address' value='${product.point}'/>
+						<ul class="list">
+							<li><a class="active" href="<c:url value='/products/${product.category}' />"><span>產品分類</span> ${product.category}</a></li>
+<%-- 							<li><a href="javascript:;"><span>庫存量</span>${product.stock}</a></li> --%>
+						</ul>
+						<br>
+						<div class="product_count">
+
+
+<!--               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" -->
+<!-- 							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button> -->
+<%-- 							<input type="number" name="qty" id="sst" min="1" max="${product.stock}"  size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty"> --%>
+<!-- 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" -->
+<!--                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button> -->
+							<input  type='hidden' class='pid2' name='address' value='${product.productId}'/>
+							<a class="button primary-btn redeem" href="#" style="background-color:#8d0e3b;font-size:20px;font-weight:bolder">立&nbsp即&nbsp兌&nbsp換</a>                             
+
+						</div>
+<!-- 						<div class="card_area d-flex align-items-center"> -->
+<%-- 							<c:choose> --%>
+<%-- 								<c:when test="${producrFavorite == null}"> --%>
+<!-- 									<a id="addfavorite" class="icon_btn" ><i class="lnr lnr lnr-heart"></i></a> -->
+<%-- 								</c:when> --%>
+<%-- 								<c:otherwise> --%>
+<!-- 									<a  id="deletefavorite" class="icon_btn" ><i class="fas fa-heart"></i></a> -->
+<%-- 								</c:otherwise> --%>
+<%-- 							</c:choose> --%>
+
+<%-- 						<div class="line-it-button" data-lang="zh_Hant" data-type="share-a" data-ver="3" data-url="http://localhost:8080/BuyBuyla_boot/product?id=${product.productId}" data-color="grey" data-size="small" data-count="true" style="display: none;"> --%>
+<!-- 						</div> -->
+<!-- 						</div> -->
+						
+					</div>
+					</c:if>
+					<c:if test="${product.point==0 }">
 					<div class="s_product_text">
 						<input id="productId" type="hidden" value="${product.productId}" />
 						<h3>${product.productName}</h3>
@@ -176,7 +218,9 @@
 						<div class="line-it-button" data-lang="zh_Hant" data-type="share-a" data-ver="3" data-url="http://localhost:8080/BuyBuyla_boot/product?id=${product.productId}" data-color="grey" data-size="small" data-count="true" style="display: none;">
 						</div>
 						</div>
+						
 					</div>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -543,7 +587,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script>
   $(".additem").click(function(){		
 
-		var data=$(this).val();
+		var data=$('.pid').val();
 			$.ajax({
 			type:'get',
 			url:'additemFromproduct',
@@ -656,6 +700,68 @@ $("#deletefavorite").click(function(){
 		
 		success:function(){
 				window.location.reload();
+		}
+								
+	});		
+	
+	
+});
+
+$(".redeem").click(function(){		
+
+	var id=$('.pid2').val();
+	var point=$('.point').val();
+	var productName=$('.productName').val();
+		$.ajax({
+		type:'get',
+		url:'redeempoint',
+		data:{
+			"id":id,
+			"point":point,
+			"productName":productName
+		},
+		
+		success:function(data,textStatus,xhr){
+			 if(data=='failure'){
+				 Swal.fire({
+					  position:'center',
+					  icon: 'error',
+					  title: '點數不足，兌換失敗',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+			
+			
+			 }
+			 else if(data=='success'){
+				 Swal.fire({
+					  position:'center',
+					  icon: 'success',
+					  title: '兌換成功',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+					
+					 }
+			 else if(data=='N'){
+					
+					Swal.fire({
+						  position:'center',
+						  icon: 'error',
+						  title: '點數不足，兌換失敗',
+						  showConfirmButton: false,
+						  timer: 1500
+						})
+					 }
+		},error:function(){
+			Swal.fire({
+				  position:'center',
+				  icon: 'error',
+				  title: '請登入會員',
+// 				  text: '請登入會員',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
 		}
 								
 	});		

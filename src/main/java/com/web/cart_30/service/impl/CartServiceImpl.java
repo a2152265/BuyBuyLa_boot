@@ -19,6 +19,8 @@ import com.web.cart_30.model.Cart;
 
 import com.web.cart_30.model.RidCount;
 import com.web.cart_30.service.CartService;
+import com.web.celebrations_36.dao.CouponRepository;
+import com.web.celebrations_36.model.Coupon;
 import com.web.product_11.dao.ProductRepository;
 import com.web.product_11.model.Product;
 import com.web.record_30.dao.RecordRepository;
@@ -37,12 +39,13 @@ public class CartServiceImpl implements CartService {
 	RidCountRepository ridCountRepository;
 	RecordListRepository recordListRepository;
 	BuyerAddressRepository buyerAddressRepository;
-	
+	CouponRepository couponRepository;
 	
 	@Autowired
 	public CartServiceImpl(RecordRepository recordRepository, CartRepository cartRepository,
 			ProductRepository productRepository, RidCountRepository ridCountRepository,
-			RecordListRepository recordListRepository,BuyerAddressRepository buyerAddressRepository) {
+			RecordListRepository recordListRepository,BuyerAddressRepository buyerAddressRepository,
+			CouponRepository couponRepository) {
 	
 		this.recordRepository = recordRepository;
 		this.cartRepository = cartRepository;
@@ -50,6 +53,8 @@ public class CartServiceImpl implements CartService {
 		this.ridCountRepository = ridCountRepository;
 		this.recordListRepository = recordListRepository;
 		this.buyerAddressRepository=buyerAddressRepository;
+		this.buyerAddressRepository=buyerAddressRepository;
+		this.couponRepository=couponRepository;
 	}
 
 
@@ -243,8 +248,19 @@ public class CartServiceImpl implements CartService {
 //抓折扣碼
 	@Override
 	public int getDiscount(String discountCode) {
-//		return discount;
-		return 50;
+		Coupon findByCouponNumber = couponRepository.findByCouponNumber(discountCode);
+		String couponStatus = findByCouponNumber.getCouponStatus();
+		System.out.println(couponStatus);
+		if(findByCouponNumber!=null&&couponStatus.equals("未使用")) {
+			couponRepository.updateCouponStatus("已使用", discountCode);
+		return 60;
+		}else if(findByCouponNumber!=null&&couponStatus.equals("已過期")) {
+		return -10;	
+		}else if(findByCouponNumber!=null&&couponStatus.equals("已使用")) {
+		return -20;	
+		}else {
+		return 0;
+		}
 	}
 
 

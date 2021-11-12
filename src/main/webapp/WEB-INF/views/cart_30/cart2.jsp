@@ -591,6 +591,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			
 			success:function(discount){
 // 				console.log("discount = "+discount)
+				if(discount==60)	{
 					Swal.fire({
 				  position:'center',
 				  icon: 'success',
@@ -604,12 +605,49 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				console.log(count)
 				
 				$('#totalPrice').html(count)
+				}else if(discount==-10){
+					
+					Swal.fire({
+						  position:'center',
+						  icon: 'error',
+						  title: '此優惠碼已過期',
+						  showConfirmButton: false,
+						  
+						  timer: 1500
+						})
+					
+				}else if(discount==-20){
+					
+					Swal.fire({
+						  position:'center',
+						  icon: 'error',
+						  title: '此優惠碼已使用',
+						  showConfirmButton: false,
+						  
+						  timer: 1500
+						})
+					
+				}
 				
-			},error:function(){
+				else{
+					
+					Swal.fire({
+						  position:'center',
+						  icon: 'error',
+						  title: '查無此優惠碼',
+						  text: '請再確認一次',
+						  showConfirmButton: false,
+						  
+						  timer: 1500
+						})
+				}
+				
+			}
+			,error:function(){
 				Swal.fire({
 					  position:'center',
 					  icon: 'error',
-					  title: '查無此優惠碼或您已使用過折價券',
+					  title: '查無此優惠碼或已使用優惠碼',
 					  text: '請再確認一次',
 					  showConfirmButton: false,
 					  timer: 2500

@@ -61,5 +61,6 @@ public interface ProductService {
 		List<Product> getProductBySeller(String seller);
 		
 		void updateProductDiscount(Double discount,String category);
-
+		
+		List<Product>  getAllPoints();
 }
