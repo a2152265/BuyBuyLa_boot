@@ -177,7 +177,11 @@ public class CartController {
 		List<Cart> cart = cartService.addToRecord(buyer);
 		
 		model.addAttribute("cart", cart);
+		
 		int discount=cart.get(0).getDiscount();
+		if(discount<0) {
+			discount=0;
+		}
 		model.addAttribute("discount", discount);
 		List<BuyerAddress> ba = cartService.selectAllBuyerAddressByBuyer(buyer);
 		System.out.println("**********************");
@@ -258,7 +262,7 @@ public class CartController {
 			
 		}
 		int discount = cart.get(0).getDiscount();	
-		totalprice=totalprice-discount;
+		totalprice=totalprice-discount+60;
 		System.out.println(discount+"  weqqeweqewqewqe0");
 		RecordList  recordList = new RecordList(str, buyer, totalprice,now,buyeraddress,"已付款","待出貨");
 		

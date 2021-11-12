@@ -154,30 +154,22 @@
 						<div class="product_count">
 
 
-<<<<<<< HEAD
-=======
-                             
+                   
 
 <!--               <label for="qty">Quantity:</label> -->
->>>>>>> Dev-Alex15
+
 <!--               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" -->
 <!-- 							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button> -->
 							<input type="number" name="qty" id="sst" min="1" max="${product.stock}"  size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
 <!-- 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" -->
 <!--                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button> -->
-<<<<<<< HEAD
+
 							<input  type='hidden' class='pid' name='address' value='${product.productId}'/>
-<<<<<<< HEAD
-							<a class="button primary-btn additem" href="#">Add to Cart</a>                             
-=======
+
 <%-- 							<a class="button primary-btn" href="<c:url value='/additem' />?id=${product.productId}">Add to Cart</a>  --%>
 							<input type='hidden' id='pid' class='pid' name='address' value='${product.productId}'/>
 							<input class="button primary-btn additem" href="" type='button'align="cent er" style="width: 125px;border-radius: 80px;" value='   Add to Cart'/>                          
->>>>>>> Dev-Alex15
-=======
-<!-- 							<button >Add to Cart</button> -->
-							<a  class="button primary-btn additem" href="#">Add to Cart</a>
->>>>>>> origin/Dev_Hsieh_11/11
+
 
 						</div>  
 						<div class="card_area d-flex align-items-center">
@@ -560,14 +552,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script>
   $(".additem").click(function(){		
 
-<<<<<<< HEAD
 		var data=$(".pid").val();
 		var qty=$("#sst").val();
 		console.log(data)
 		console.log(qty)
-=======
-		var data=$('.pid').val();
->>>>>>> origin/Dev_Hsieh_11/11
+
 			$.ajax({
 			type:'get',
 			url:'additemFromproduct',
