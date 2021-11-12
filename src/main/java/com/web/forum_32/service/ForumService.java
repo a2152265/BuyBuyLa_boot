@@ -44,7 +44,7 @@ public class ForumService implements IForumService {
 	public List<ForumBean> getAllArticlesByHotByPage(int page, int size) {
         Page<ForumBean> pageResult = forumRepository.findAll(
                 PageRequest.of(
-                		page,size,Sort.by("topArticle").descending().and(Sort.by("likeQty").descending()))); 
+                		page,size,Sort.by("viewQty").descending())); 
         pageResult.getNumberOfElements(); // 本頁筆數
         pageResult.getSize();             // 每頁筆數 
         pageResult.getTotalElements();    // 全部筆數

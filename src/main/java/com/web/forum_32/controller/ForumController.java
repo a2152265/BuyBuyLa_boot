@@ -34,8 +34,6 @@ public class ForumController {
 	public String forumIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
 		forum(model,page);
 		init(model);
-		model.addAttribute("newForum","最新");
-		model.addAttribute("hotForum","最熱門");
 		return "forum_32/forum";
 	}
 	// 首頁
@@ -43,8 +41,6 @@ public class ForumController {
 	public String forumHotIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
 		forumHot(model,page);
 		init(model);
-		model.addAttribute("newForum","最熱門");
-		model.addAttribute("hotForum","最新");
 		return "forum_32/forum";
 	}
 	

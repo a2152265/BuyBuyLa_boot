@@ -275,8 +275,8 @@
 						    <li class="breadcrumb-item active" aria-current="page">${Breadcrumb}</li>
 						  </ol>
 						  	<select class="right" onChange="location = this.options[this.selectedIndex].value;">
-						    <option value="forum">${newForum}</option>
-						    <option value="forumHot">${hotForum}</option>
+						    <option value="forum">最新</option>
+						    <option value="forumHot">最熱門</option>
 						    </select>
 <!-- 						<br><br><hr style='margin:0px'> -->
 						</c:if>
