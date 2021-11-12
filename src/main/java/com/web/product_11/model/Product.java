@@ -40,6 +40,7 @@ public class Product implements Serializable {
 
 	private Integer count;
 	private Integer views;
+	private Integer favoriteCount;
 
 	private Double discount;
 	
@@ -304,6 +305,18 @@ public class Product implements Serializable {
 	public void setDiscount(Double discount) {
 		this.discount = discount;
 
+	}
+
+
+
+	public Integer getFavoriteCount() {
+		return favoriteCount;
+	}
+
+
+
+	public void setFavoriteCount(Integer favoriteCount) {
+		this.favoriteCount = favoriteCount;
 	}
 
 	

@@ -258,61 +258,11 @@
 
                               </td>
                               <td>
-                                    <h3>總價:</h3>
+                              		<h4>運費:</h4><h4 id='fee' style="font-size:30px">60</h4>
+                                    <h4>總價:</h4><h2 id='totalPrice' style="font-size:60px">0</h2>
                               </td>
                           </tr>
-                              <tr>
-                              <td>
-
-                              </td>
-                              <td>
-
-                              </td>
-                                <td>
-
-                              </td>
-                             
-                             <td>
-
-                              </td>
-                              <td colspan="2"  style="text-align:right;">
-                                  <h2 id='totalPrice' style="font-size:60px">0</h2>
-                              </td>
-                          </tr>
-<!--                           <tr class="shipping_area"> -->
-<!--                               <td class="d-none d-md-block"> -->
-
-<!--                               </td> -->
-<!--                               <td> -->
-
-<!--                               </td> -->
-<!--                               <td> -->
-<!--                                   <h5>Shipping</h5> -->
-<!--                               </td> -->
-<!--                               <td> -->
-<!--                                   <div class="shipping_box"> -->
-<!--                                       <ul class="list"> -->
-<!--                                           <li><a href="#">Flat Rate: $5.00</a></li> -->
-<!--                                           <li><a href="#">Free Shipping</a></li> -->
-<!--                                           <li><a href="#">Flat Rate: $10.00</a></li> -->
-<!--                                           <li class="active"><a href="#">Local Delivery: $2.00</a></li> -->
-<!--                                       </ul> -->
-<!--                                       <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6> -->
-<!--                                       <select class="shipping_select"> -->
-<!--                                           <option value="1">Bangladesh</option> -->
-<!--                                           <option value="2">India</option> -->
-<!--                                           <option value="4">Pakistan</option> -->
-<!--                                       </select> -->
-<!--                                       <select class="shipping_select"> -->
-<!--                                           <option value="1">Select a State</option> -->
-<!--                                           <option value="2">Select a State</option> -->
-<!--                                           <option value="4">Select a State</option> -->
-<!--                                       </select> -->
-<!--                                       <input type="text" placeholder="Postcode/Zipcode"> -->
-<!--                                       <a class="gray_btn" href="#">Update Details</a> -->
-<!--                                   </div> -->
-<!--                               </td> -->
-<!--                           </tr> -->
+                            
 
                           <tr class="out_button_area">
                               <td class="d-none-l">
@@ -534,7 +484,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			total=total+a
 
 			})
-	
+			
 			$('#totalPrice').html(total)
 			
 			
@@ -574,13 +524,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		total=total+a
 
 		})
-	
+	total+=60;
 	$('#totalPrice').html(total)
 	
 	
 	$("#apply").click(function(){		
 					
 		var data=$("#discount").val();
+		var fee=$("#fee").val();
 		console.log("data = "+data)
 		$.ajax({
 			type:'get',
@@ -600,7 +551,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				  timer: 1500
 				})
 				var dis = parseInt(discount); 
-				var count = parseInt($('#totalPrice').html())-dis;
+				var count = parseInt($('#totalPrice').html())-dis-60;
 				console.log(count)
 				
 				$('#totalPrice').html(count)

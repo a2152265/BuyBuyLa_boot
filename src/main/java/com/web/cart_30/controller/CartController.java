@@ -26,6 +26,7 @@ import com.web.cart_30.model.BuyerAddress;
 import com.web.cart_30.model.Cart;
 import com.web.cart_30.service.CartService;
 import com.web.member_25.model.membershipInformationBean;
+import com.web.product_11.service.ProductService;
 import com.web.record_30.model.RecordBean;
 import com.web.record_30.model.RecordList;
 import ecpay.payment.integration.AllInOne;
@@ -39,16 +40,17 @@ import ecpay.payment.integration.domain.AioCheckOutALL;
 public class CartController {
 
 	CartService cartService;
-
-	@Autowired
-	public CartController(CartService cartService) {
+	ProductService productService;
 	
+	@Autowired
+	public CartController(CartService cartService, ProductService productService) {
 		this.cartService = cartService;
+		this.productService = productService;
 	}
 
 
 
-	
+
 //加入購物車	
 	@GetMapping("/additem")
 	public String additem(@ModelAttribute("loginSession") membershipInformationBean mb,@RequestParam Integer id ,Model model) {
@@ -250,7 +252,10 @@ public class CartController {
 			cartService.addToRecord2(rb);
 			int stock =c.getProduct().getStock()-rb.getPcount();
 			cartService.updateStock(rb.getPid(),stock);
-
+			
+			int sales=c.getProduct().getSales()+rb.getPcount();
+			productService.updateSales(c.getProduct().getProductId(), sales);
+			
 		}
 		int discount = cart.get(0).getDiscount();	
 		totalprice=totalprice-discount;

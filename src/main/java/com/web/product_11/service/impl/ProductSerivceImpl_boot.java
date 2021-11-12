@@ -85,11 +85,6 @@ public class ProductSerivceImpl_boot implements ProductService{
 		return productRepositoryDao.findByStatus(status);
 	}
 
-	@Override
-	public void updateSales(int pid) {
-		productRepositoryDao.updateSales(pid);
-	}
-
 
 	@Override
 	public List<Product> productOrderBySales() {
@@ -118,6 +113,49 @@ public class ProductSerivceImpl_boot implements ProductService{
 	public List<Product> getByCategoryOrderByPrice(String category) {
 		return productRepositoryDao.getByCategoryOrderByPrice(category);
 	}
+
+	@Override
+	public Long countByCategory(String category) {
+		return productRepositoryDao.countByCategory(category);
+	}
+
+	@Override
+	public Long countByStatus(String status) {
+		return productRepositoryDao.countByStatus(status);
+	}
+
+	@Override
+	public List<Product> getViewBySeller(String seller) {
+		return productRepositoryDao.getViewBySeller(seller);
+	}
+
+	@Override
+	public List<Product> getSalesBySeller(String seller) {
+		return productRepositoryDao.getSalesBySeller(seller);
+	}
+
+	@Override
+	public void plusFavoriteCount(int pid) {
+		productRepositoryDao.plusFavoriteCount(pid);
+	}
+
+	@Override
+	public void subFavoriteCount(int pid) {
+		productRepositoryDao.subFavoriteCount(pid);
+	}
+
+	@Override
+	public List<Product> getFavoriteCountBySeller(String seller) {
+		return productRepositoryDao.getFavoriteCountBySeller(seller);
+	}
+
+	@Override
+	public void updateSales(int pid, int sales) {
+		productRepositoryDao.updateSales(pid, sales);
+	}
+
+	
+	
 
 
 

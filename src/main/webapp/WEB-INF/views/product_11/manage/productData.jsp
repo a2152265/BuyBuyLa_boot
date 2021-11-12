@@ -1,252 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>商品管理</title>
-<link rel='stylesheet' href='../../css/manageHome.css' />
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<style>
-#myInput {
-  background-image: url('/css/searchicon.png'); /* Add a search icon to input */
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 50%; /* Full-width */
-  font-size: 16px; /* Increase font-size */
-  padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
-}
-
-#myTable {
-  border-collapse: collapse; /* Collapse borders */
-  width: 50%; /* Full-width */
-  border: 1px solid #ddd; /* Add a grey border */
-  font-size: 14px; /* Increase font-size */
-  margin:auto;
-  font-family: "微軟正黑體";
-  font-weight: bolder;
-            
-}
-
-#myTable th, #myTable td {
-  text-overflow:ellipsis; 
-  white-space:nowrap;
-  word-wrap:break-word; 
-  text-align: center; /* Left-align text */
-  padding: 12px; /* Add padding */
-}
-
-#myTable tr {
-  /* Add a bottom border to all table rows */
-  border-bottom: 1px solid #ddd;
-}
-
-#myTable tr.header, #myTable tr:hover {
-  /* Add a grey background color to the table header and on hover */
-  background-color: #ECF5FF;
-}
- .btn-outline-primary {
-  color:lightblue;
-  background-color: #fff;
-  border-color: lightblue;
-  width:130px;
-  height:50px;
-}
-  .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active:hover{
-  color: #fff;
-  background-color:lightblue;
-  border-color: lightblue;
-}
-
-
-.page-content {
-  position: relative;
-  left: var(--page-header-width);
-  width: calc(100% - var(--page-header-width));
-  min-height: 100vh;
-  padding: 30px;
-  color: var(--page-content-txtColor);
-  background: var(--page-content-bgColor);
-}
-
-.search-and-user {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-column-gap: 50px;
-  align-items: center;
-  background: var(--page-content-bgColor);
-  margin-bottom: 30px;
-}
-
-.search-and-user form {
-  position: relative;
-}
-
-.search-and-user [type="search"] {
-  width: 100%;
-  height: 50px;
-  font-size: 1.5rem;
-  padding-left: 15px;
-  background: var(--page-content-blockColor);
-  color: var(--white);
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-}
-
-.search-and-user ::placeholder {
-  color: var(--page-content-txtColor);
-}
-
-.search-and-user form svg {
-  width: 26px;
-  height: 26px;
-  fill: var(--page-content-txtColor);
-}
-
-.search-and-user form button {
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-}
-
-.search-and-user .admin-profile {
-  display: flex;
-  align-items: center;
-}
-
-.search-and-user .admin-profile .greeting {
-  margin: 0 10px 0 20px;
-}
-
-.search-and-user .admin-profile svg {
-  width: 30px;
-  height: 30px;
-}
-
-.search-and-user .admin-profile .notifications {
-  position: relative;
-}
-
-.search-and-user .admin-profile .badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: -10px;
-  right: -3px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  font-size: 10px;
-  color: var(--white);
-  background: var(--red);
-}
-
-.page-content .grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 30px;
-}
-
-/* .page-content .grid > article { */
-/*   display: flex; */
-/*   height: 300px; */
-/*   background: var(--page-content-blockColor); */
-/*   border-radius: var(--border-radius); */
-/*   box-shadow: var(--box-shadow); */
-/* } */
-
-/* .page-content .grid > article:first-child, */
-/* .page-content .grid > article:last-child { */
-/*   grid-column: 1 / -1; */
-/* } */
-
-.table-wrapper {
-					min-width: 1000px;
-					background: #fff;
-					padding: 20px;
-					box-shadow: 0 1px 1px rgba(0,0,0,.05);
-				}
-
-	.table-responsive {
-					margin: 30px 0;
-				}
-				
-				
-@import url(https://fonts.googleapis.com/css?family=Roboto:700);
-
-
-.button {
-  background: #3D4C53;
-  margin : 20px 5px 20px 0;
-  width : 200px;
-  height : 40px;
-  overflow: hidden;
-  text-align : center;
-  transition : .2s;
-  cursor : pointer;
-  border-radius: 3px;
-  box-shadow: 0px 1px 2px rgba(0,0,0,.2);
-  
-}
-.btnTwo {
-  position : relative;
-  width : 200px;
-  height : 150px;
-  margin-top: -100px;
-  padding-top: 2px;
-  background : #26A69A;
-  left : -250px;
-  transition : .3s;
-}
-.btnText {
-  color : white;
-  transition : .3s;
-  margin-top: 10px;
-}
-.btnText2 {
-  margin-top : 78px;
-  margin-right : -130px;
-  color : #FFF;
-}
-.button:hover .btnTwo{ /*When hovering over .button change .btnTwo*/
-  left: -130px;
-}
-.button:hover .btnText{ /*When hovering over .button change .btnText*/
-  margin-left : 65px;
-}
-.button:active { /*Clicked and held*/
-  box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
-}
-
-.link{
-margin:70px;
-color:white;
-}
-
-.link:hover{
-color:lightblue;
-font-size:17px
-
-}
- 
-</style>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
- 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<title>Insert title here</title>
+<link rel='stylesheet' href='../css/manageHome.css' />
 </head>
-
 <body>
  <svg style="display:none;">
   <symbol id="logo" viewBox="0 0 140 59">
@@ -347,7 +108,7 @@ font-size:17px
         <h3>ADMIN</h3>
       </li>
       <li>
-        <a href="<c:url value='../manager_Ui' />">
+        <a href="<c:url value='/manager_Ui' />">
           <svg>
             <use xlink:href="#pages"></use>
           </svg>
@@ -355,7 +116,7 @@ font-size:17px
         </a>
       </li>
       <li>
-        <a href="../manage/products">
+        <a href="<c:url value='/manage/products/待審核' />" >
           <svg>
             <use xlink:href="#users"></use>
           </svg>
@@ -371,7 +132,7 @@ font-size:17px
         </a>
       </li>
       <li>
-        <a href="../admincampaign">
+        <a href="./admincampaign">
           <svg>
             <use xlink:href="#collection"></use>
           </svg>
@@ -423,7 +184,7 @@ font-size:17px
       </li>
       <li>
         <div class="switch">
-          <input type="checkbox" id="mode"style="-webkit-appearance: none; position: absolute;left: -9999px;" checked>
+          <input type="checkbox" id="mode" style="-webkit-appearance: none;position: absolute;left: -9999px;" checked>
           <label for="mode">
             <span></span>
             <span>Dark</span>
@@ -459,100 +220,15 @@ font-size:17px
       </div>
     </div>
   </section>
-
-	<div style="width: 100%; display:flex;">
-     <div style="width: 900px; background-color:#fff ;">
-  		<canvas id="myChart" ></canvas>
-		<h3 style="text-align: center;">商品類別</h3>
-	</div>		
-	<div style="width: 500px; margin-left: 20px; background-color:#fff;	">
-  		<canvas id="myChart1" ></canvas>
-	</div>
-	<div style="width: 665px; margin-left: 20px; background-color:#fff;	">
-  		<div style="width: 500px; margin-left: 70px; background-color:#fff;	">
-  		<canvas id="myChart2"  ></canvas>
-  		<h3 style="text-align: center;">商品狀態</h3>
-	</div>
-	</div>
-	</div>
-
-
-
-
-    <div class="table-responsive" >
-	<div class="table-wrapper">
-	  <div style="background-color:#242e42; width:650px ; padding:10px;"  >
-	<a class="link"  id="uncheck" href="<c:url value='/manage/products/待審核 ' />">待審核</a>
-	<a class="link"  id="uncheck" href="<c:url value='/manage/products/上架中 ' />">上架中</a>
-	<a style="border:none; " class="link"  id="uncheck" href="<c:url value='/manage/products/審核失敗 ' />">審核失敗</a>
-
-  </div>
-
-<c:if test="${status =='待審核' }">
-<div style="display:flex;">
-<div class="button">
-    <p class="btnText">v</p>
-    <div class="btnTwo">
-      <button class="btnText2"  onClick="batch_up()" >上架</button>
-    </div>
-    
- </div>
-
-<div class="button">
-    <p class="btnText">x</p>
-    <div class="btnTwo">
-      <button class="btnText2" onClick="batch_fail()" >下架</button>
-    </div>
- </div>
- </div>
-</c:if>
-
-
-	<table id="myTable" class="display" style="width:100%;font-weight:bolder;font-size:20px;" >
-    <thead>
-        <tr>
-    <th style="width:10%;">商品編號</th>
-    <th style="width:20%;">商品名稱</th>
-    <th style="width:10%;">商品圖片</th>
-    <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp商品庫存</th>
-    <th style="width:10%;">商品價錢</th>
-    <th style="width:10%;">商品類別</th>
-    <th style="width:10%;">上傳時間</th>
-    <th style="width:10%;"><i class="fas fa-file-alt"></i>&nbsp商品狀態</th>
-    <c:if test="${status =='待審核' }">
-    <th style="width:10%;"><input type="checkbox" value="" name="selectall"></th>
-    </c:if>
-        </tr>
-    </thead>
-    <tbody>
-   
-   	
-    <c:forEach items="${products}" var="product">
-        <tr>
-		    <td id="id">${product.productId}</td>
-		    <td>${product.productName}</td>
-		    <td><img width='100' height='100' 
-		  				   src="<c:url value='/getPicture/${product.productId}' />" /></td>
-		    <td>${product.stock}</td>
-		    <td>${product.price}</td>
-		    <td>${product.category}</td>
-		    <td>${product.insertTime}</td>
-		    <td>${product.status}</td>
-		   <c:if test="${status =='待審核' }">
-		    <td>
-		       <input id="" type="checkbox" name="select" id="checkbox" value="${product.productId}"/>
-		    </td>
-		   </c:if> 
-        </tr>
-        </c:forEach> 
-
-
-    </tbody>
-</table>
-</div>
-</div>
-	
-
+  <section class="grid">
+    <article></article>
+    <article></article>
+    <article></article>
+    <article></article>
+    <article></article>
+    <article></article>
+    <article></article>
+    <article></article>
   </section>
   <footer class="page-footer">
     <span>made by </span>
@@ -560,7 +236,7 @@ font-size:17px
       <img width="24" height="24" src="https://assets.codepen.io/162656/george-martsoukos-small-logo.svg" alt="George Martsoukos logo">
     </a>
   </footer>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+</section>
 <script type="text/javascript">
 const html = document.documentElement;
 const body = document.body;
@@ -617,7 +293,7 @@ if (localStorage.getItem("dark-mode") === "false") {
   switchLabelText.textContent = "Light";
 }
 
-switchInput.addEventListener("input", function () {	
+switchInput.addEventListener("input", function () {
   html.classList.toggle(lightModeClass);
   if (html.classList.contains(lightModeClass)) {
     switchLabelText.textContent = "Light";
@@ -628,273 +304,6 @@ switchInput.addEventListener("input", function () {
   }
 });
 
-$('#myTable').DataTable({
-	  rowReorder: true,
-	  columnDefs: [
-	      { orderable: true, className: 'reorder', targets: 0},
-	      { orderable: true, className: 'reorder', targets: 3},
-	      { orderable: true, className: 'reorder', targets: 4},
-	      { orderable: true, className: 'reorder', targets: 5},
-	      { orderable: true, className: 'reorder', targets: 6},
-	      { orderable: false, targets: '_all' }
-
-	      ],
-   "language": {
-   "processing": "處理中...",
-   "loadingRecords": "載入中...",
-   "lengthMenu": "顯示 _MENU_ 項結果",
-   "zeroRecords": "沒有符合的結果",
-   "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
-   "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
-   "infoFiltered": "(從 _MAX_ 項結果中過濾)",
-   "infoPostFix": "",
-   "search": "搜尋:",
-   "paginate": {
-       "first": "第一頁",
-       "previous": "上一頁",
-       "next": "下一頁",
-       "last": "最後一頁"
-   },
-   "aria": {
-       "sortAscending": ": 升冪排列",
-       "sortDescending": ": 降冪排列"
-   }
-   
-   
-   
-}
-
-
-});
-
-$('input:checkbox[name="selectall"]').click(function(){
-	 if($(this).is(':checked')){
-	     $('input:checkbox[name="select"]').each(function(){
-	    $(this).prop("checked",true);
-	  });
-	    }else{
-	      $('input:checkbox[name="select"]').each(function(){
-	    $(this).prop("checked",false);
-	  });
-	    }
-	 });
-     
-
- function batch_up() {
-	    var productId = '';
-	    $('input:checkbox[name="select"]').each(function(){
-	      if(this.checked == true){
-	    	  productId += this.value + ',';
-	      }
-	      console.log(productId);
-	    });
-
-	      $.ajax({
-	        type: 'post',
-	        url: '../launched',
-	        data: {"productIds": productId},
-	        success: function (data, textStatus, xhr) {
-	          if (xhr.status == 200) {
-	        	 swal.fire({
-	                 icon: 'success',
-	                 title: '上架成功',
-	                 showConfirmButton: false,
-	                 timer: 1000
-	               })
-	        	 setTimeout("location.href='./products';", 1000);  
-	        		$.ajax({
-	    				type:'get',
-	    				url:'../launched_addaddress',
-	    				data:{},
-	    				
-	    				success:function(){
-	    					
-	    				}
-	    										
-	    			});		
-	        	 
-	          } 
-	        },
-	        error: function (xhr, status) {
-	        	console.log(xhr.status);
-	        	
-	        },
-	      });
-	      
-	  
-	   
-	  }
- 
- function batch_fail() {
-	    var productId = '';
-	    $('input:checkbox[name="select"]').each(function(){
-	      if(this.checked == true){
-	    	  productId += this.value + ',';
-	      }
-	      console.log(productId);
-	    });
-
-	      $.ajax({
-	        type: 'post',
-	        url: '../launchedfail',
-	        data: {"productIds": productId},
-	        success: function (data, textStatus, xhr) {
-	          if (xhr.status == 200) {
-	        	 swal.fire({
-	                 icon: 'success',
-	                 title: '上架成功',
-	                 showConfirmButton: false,
-	                 timer: 1000
-	               })
-	        	 setTimeout("location.href='./products';", 1000);  
-	        		$.ajax({
-	    				type:'get',
-	    				url:'../launched_addaddressfail',
-	    				data:{},
-	    				
-	    				success:function(){
-	    					
-	    				}
-	    										
-	    			});		
-	        	 
-	          } 
-	        },
-	        error: function (xhr, status) {
-	        	console.log(xhr.status);
-	        	
-	        },
-	      });
-	      
-	  
-	   
-	  }
- 
- const ctx = document.getElementById('myChart').getContext('2d');
- const myChart = new Chart(ctx, {
-     type: 'bar',
-     data: {
-         labels: ['男生衣服', '運動健身', '女生衣服', '寵物', '其他'],
-         datasets: [{
-             label: '',
-             data: [${category}],
-             backgroundColor: [
-                 'rgba(255, 99, 132, 0.5)',
-                 'rgba(54, 162, 235, 0.5)',
-                 'rgba(255, 206, 86, 0.5)',
-                 'rgba(75, 192, 192, 0.5)',
-                 'rgba(153, 102, 255, 0.5)',
-                 
-             ],
-             borderColor: [
-                 'rgba(255, 99, 132, 1)',
-                 'rgba(54, 162, 235, 1)',
-                 'rgba(255, 206, 86, 1)',
-                 'rgba(75, 192, 192, 1)',
-                 'rgba(153, 102, 255, 1)',
-                 
-             ],
-             
-             borderWidth: 1
-         }]
-     },
-     options: {
-         scales: {
-             y: {
-                 beginAtZero: true
-             }
-             
-         },
-         responsive: true,
-         plugins: {
-           legend: {
-             position: 'top',
-             
-           },
-           title: {
-             display: true,
-             text: '',
-             position: 'bottom',
-           }
-         }
-     }
- });
- 
- const ctx1 = document.getElementById('myChart1').getContext('2d');
- const myChart1 = new Chart(ctx1, {
-     type: 'pie',
-     data: {
-         labels: ['Red', 'Blue', 'Yellow', 'Green'],
-         datasets: [{
-             label: '',
-             data: [12, 19, 3, 5],
-             backgroundColor: [
-                 'rgba(255, 99, 132, 0.5)',
-                 'rgba(54, 162, 235, 0.5)',
-                 'rgba(255, 206, 86, 0.5)',
-                 'rgba(75, 192, 192, 0.5)',
-                 'rgba(153, 102, 255, 0.5)',
-                 'rgba(255, 159, 64, 0.5)'
-             ],
-             borderColor: [
-                 'rgba(255, 99, 132, 1)',
-                 'rgba(54, 162, 235, 1)',
-                 'rgba(255, 206, 86, 1)',
-                 'rgba(75, 192, 192, 1)',
-                 'rgba(153, 102, 255, 1)',
-                 'rgba(255, 159, 64, 1)'
-             ],
-             borderWidth: 1
-         }]
-     },
-     options: {
-         scales: {
-             y: {
-                 beginAtZero: true
-             }
-         }
-     }
- });
- 
- const ctx2 = document.getElementById('myChart2').getContext('2d');
- const myChart2 = new Chart(ctx2, {
-     type: 'doughnut',
-     data: {
-         labels: ['上架中', '審核中', '審核失敗'],
-         datasets: [{
-             label: '# of Votes',
-             data: [${productStatus}],
-             backgroundColor: [
-                 'rgba(255, 99, 132, 0.5)',
-                 'rgba(54, 162, 235, 0.5)',
-                 'rgba(255, 206, 86, 0.5)',
-                 'rgba(75, 192, 192, 0.5)',
-                 'rgba(153, 102, 255, 0.5)',
-                 'rgba(255, 159, 64, 0.5)'
-             ],
-             borderColor: [
-                 'rgba(255, 99, 132, 1)',
-                 'rgba(54, 162, 235, 1)',
-                 'rgba(255, 206, 86, 1)',
-                 'rgba(75, 192, 192, 1)',
-                 'rgba(153, 102, 255, 1)',
-                 'rgba(255, 159, 64, 1)'
-             ],
-             borderWidth: 1
-         }]
-     },
-     options: {
-         scales: {
-             y: {
-                 beginAtZero: true
-             }
-         }
-     }
- });
- 
-
- 
-
- </script>
+</script>
 </body>
 </html>

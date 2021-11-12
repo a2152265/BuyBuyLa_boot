@@ -3,7 +3,6 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -82,7 +81,7 @@
   left: var(--page-header-width);
   width: calc(100% - var(--page-header-width));
   min-height: 100vh;
-  padding: 30px;
+  padding: 25px 0;
   color: var(--page-content-txtColor);
   background: var(--page-content-bgColor);
 }
@@ -187,9 +186,185 @@
 					box-shadow: 0 1px 1px rgba(0,0,0,.05);
 				}
 
-	.table-responsive {
-					margin: 30px 0;
+.table-responsive {
+					margin: 30px 32px 30px 0 ;
 				}
+				
+    .dashboard-cards {
+  position: relative;
+  padding-bottom: 50px;
+  margin-left: 25px;
+  
+}
+
+.dashboard-cards .card {
+  background: #ffffff;
+  display: inline-block;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+  z-index: 20;
+  padding: 0 !important;
+  margin: 5px 5px 10px 5px;
+  position: relative;
+  text-align: left;
+  transition: all 0.3s 0s ease-in;
+  z-index: 1;
+  width: calc(33.33333333% - 21.5px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dashboard-cards .card:hover {
+  box-shadow: 0 15px 10px -10px rgba(31, 31, 31, 0.5);
+  transition: all 0.3s ease;
+}
+
+.dashboard-cards .card .card-title {
+  background: #ffffff;
+  padding: 20px 15px;
+  position: relative;
+  z-index: 0;
+}
+
+.dashboard-cards .card .card-title h2 {
+  font-size: 24px;
+  letter-spacing: -0.05em;
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-cards .card .card-title h2 small {
+  display: block;
+  font-size: 14px;
+  margin-top: 8px;
+  letter-spacing: -0.025em;
+}
+
+.dashboard-cards .card .card-description {
+  position: relative;
+  font-size: 14px;
+  border-top: 1px solid #ddd;
+  padding: 10px 15px 0 15px;
+}
+
+.dashboard-cards .card .card-actions {
+  box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.075);
+  padding: 10px;
+  text-align: center;
+}
+
+.dashboard-cards .card .card-flap {
+  background: #d9d9d9;
+  position: absolute;
+  width: 100%;
+  -webkit-transform-origin: top;
+  transform-origin: top;
+  -webkit-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+}
+
+.dashboard-cards .card .flap1 {
+  transition: all 0.3s 0.3s ease-out;
+  z-index: -1;
+}
+
+.dashboard-cards .card .flap2 {
+  transition: all 0.3s 0s ease-out;
+  z-index: -2;
+}
+
+.dashboard-cards.showing .card {
+  cursor: pointer;
+  opacity: 0.6;
+  -webkit-transform: scale(0.88);
+  transform: scale(0.88);
+}
+
+.dashboard-cards .no-touch .dashboard-cards.showing .card:hover {
+  opacity: 0.94;
+  -webkit-transform: scale(0.92);
+  transform: scale(0.92);
+}
+
+.dashboard-cards .card.d-card-show {
+  opacity: 1 !important;
+  -webkit-transform: scale(1) !important;
+  transform: scale(1) !important;
+}
+
+.dashboard-cards .card.d-card-show .card-flap {
+  background: #ffffff;
+  -webkit-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+
+.dashboard-cards .card.d-card-show .flap1 {
+  transition: all 0.3s 0s ease-out;
+}
+
+.dashboard-cards .card.d-card-show .flap2 {
+  transition: all 0.3s 0.2s ease-out;
+}
+
+.dashboard-cards .card .task-count {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 22px;
+  right: 10px;
+  background: #ecf0f1;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 100%;
+  color: #333333;
+  font-weight: 600;
+  transition: all .2s ease;
+}
+
+.dashboard-cards .task-list {
+  padding: 0 !important;
+}
+
+.dashboard-cards .task-list li {
+  padding: 10px 0;
+  padding-left: 10px;
+  margin: 3px 0;
+  list-style-type: none;
+  border-bottom: 1px solid #e9ebed;
+  border-left: 3px solid #ff3a3a;
+  transition: all .2s ease;
+}
+
+.dashboard-cards .task-list li:hover {
+  background: #ecf0f1;
+  transition: all .2s ease;
+}
+
+.dashboard-cards .task-list li span {
+  float: right;
+  color: #ff3a3a;
+  margin-right: 5px;
+}
+
+.dashboard-cards.showing .card.d-card-show .task-count {
+  color: #ffffff;
+  background: #ff3a3a;
+  transition: all .2s ease;
+}
+
+.dashboard-cards .card-actions .btn {
+  color: #333;
+}
+
+.dashboard-cards .card-actions .btn:hover {
+  color: #ff3a3a;
+}
+@media (max-width:750px) {
+  .dashboard-cards .card {
+    margin-top: 10px;
+    width: 100%;
+  }
+}
 </style>
 </head>
 <body>
@@ -209,7 +384,7 @@
 
 
 
-        <h1>Welcome ~~      WE Will BuyBuyLA your money</h1>
+        <h1></h1>
 
 
 
@@ -217,7 +392,92 @@
       <span style="font-size:30px;  font-weight:bold;">賣家中心</span>
       </div>
 
-
+  <div class='row dashboard-cards' >
+        <div class='card col-md-4 '>
+          <div class='card-title'>
+            <h2>
+              商品瀏覽排行
+              <small>Top 5</small>
+            </h2>
+            <div class='task-count'>
+              
+            </div>
+          </div>
+          <div class='card-flap flap1'>
+            <div class='card-description'>
+              <ul class='task-list'>
+              <c:forEach items="${viewProductList}" var="viewProductList" begin="0" end="4">
+                <li>
+                  ${viewProductList.productName}
+                  <span>${viewProductList.views}</span>
+                </li>
+                </c:forEach>
+              </ul>
+            </div>
+            <div class='card-flap flap2'>
+              <div class='card-actions'>
+                <a class='btn' href='#'>Close</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='card col-md-4 '>
+          <div class='card-title'>
+            <h2>
+              商品銷售排行
+              <small>Top 5</small>
+            </h2>
+            <div class='task-count'>
+              62
+            </div>
+          </div>
+          <div class='card-flap flap1'>
+            <div class='card-description'>
+              <ul class='task-list'>
+                  <c:forEach items="${salesProductList}" var="salesProductList" begin="0" end="4">
+                <li>
+                  ${salesProductList.productName}
+                  <span>${salesProductList.sales}</span>
+                </li>
+                </c:forEach>
+              </ul>
+            </div>
+            <div class='card-flap flap2'>
+              <div class='card-actions'>
+                <a class='btn' href='#'>Close</a>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+         <div class='card col-md-4 '>
+          <div class='card-title'>
+            <h2>
+              商品收藏排行
+              <small>Top 5</small>
+            </h2>
+            <div class='task-count'>
+              
+            </div>
+          </div>
+          <div class='card-flap flap1'>
+            <div class='card-description'>
+              <ul class='task-list'>
+              <c:forEach items="${favoriteProductList}" var="favoriteProductList" begin="0" end="4">
+                <li>
+                  ${favoriteProductList.productName}
+                  <span>${favoriteProductList.favoriteCount}</span>
+                </li>
+                </c:forEach>
+              </ul>
+            </div>
+            <div class='card-flap flap2'>
+              <div class='card-actions'>
+                <a class='btn' href='#'>Close</a>
+              </div>
+            </div>
+          </div>
+        </div>
 
   <section class="page-content">
   <div id="search" style="margin-bottom:30px">
@@ -328,6 +588,7 @@
         </div>
         
     </div>
+    </div>	
 
    
 
@@ -378,7 +639,46 @@
   
 });
   
-  
+  $(document).ready(function(){
+	  var zindex = 10;
+	  
+	  $("div.card").click(function(e){
+	    e.preventDefault();
+
+	    var isShowing = false;
+
+	    if ($(this).hasClass("d-card-show")) {
+	      isShowing = true
+	    }
+
+	    if ($("div.dashboard-cards").hasClass("showing")) {
+	      $("div.card.d-card-show")
+	        .removeClass("d-card-show");
+
+	      if (isShowing) {
+	        $("div.dashboard-cards")
+	          .removeClass("showing");
+	      } else {
+	        $(this)
+	          .css({zIndex: zindex})
+	          .addClass("d-card-show");
+
+	      }
+
+	      zindex++;
+
+	    } else {
+	      $("div.dashboard-cards")
+	        .addClass("showing");
+	      $(this)
+	        .css({zIndex:zindex})
+	        .addClass("d-card-show");
+
+	      zindex++;
+	    }
+	    
+	  });
+	});
   
   
     </script>

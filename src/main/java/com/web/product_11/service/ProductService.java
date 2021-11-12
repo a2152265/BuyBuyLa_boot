@@ -34,6 +34,15 @@ public interface ProductService {
 		//狀態查詢商品
 		List<Product> findByStatus(String status);
 		
+		//依會員找瀏覽排行
+		List<Product> getViewBySeller(String seller);
+		
+		//依會員找銷售排行
+		List<Product> getSalesBySeller(String seller);
+		
+		//依會員找收藏排行
+		List<Product> getFavoriteCountBySeller(String seller);
+		
 		//新增商品
 		void  addProduct(Product product);
 		
@@ -51,8 +60,14 @@ public interface ProductService {
 		
 
 		//更新商品銷售量
-		void updateSales(int pid);
+		void updateSales(int pid,int sales);
 
+		
+		//更新商品收藏量(新增)
+		void plusFavoriteCount(int pid);
+		
+		//更新商品收藏量(減少)
+		void subFavoriteCount(int pid);
 		
 		//刪除商品
 		void  deleteProduct(int productId);
@@ -62,4 +77,9 @@ public interface ProductService {
 		
 		void updateProductDiscount(Double discount,String category);
 
+		//種類計數
+		Long countByCategory(String category);
+		
+		//狀態計數
+		Long countByStatus(String status);
 }
