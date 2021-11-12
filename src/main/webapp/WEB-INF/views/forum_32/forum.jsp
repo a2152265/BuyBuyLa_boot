@@ -26,8 +26,8 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <link href='css/style32.css' rel='stylesheet' >
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src='js/forum_ajax_32.js'></script>
-<script src='js/forum_keyInput_32.js'></script>
+<script src='js/forum_32/forum_ajax_32.js'></script>
+<script src='js/forum_32/forum_keyInput_32.js'></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
@@ -37,7 +37,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
 					<a class="navbar-brand logo_h" href="<c:url value='/' />"><img
-						src="img/logo.png" alt=""></a>
+						src="img/logo.png"></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -84,19 +84,12 @@
 							</c:if>
 						</ul>
 						<ul class="nav-shop">
-							<li class="nav-item"><form:form method='POST'
-									action="./queryproduct" class='form-horizontal'>
+							<li class="nav-item">
 
-									<input name="productName" id="productName" type='text'
-										class='form:input-large' />
-									<button type='submit'>
-										<i class="ti-search"></i>
-									</button>
-								</form:form>
-							<li class="nav-item"><button
-									onclick="location.href='<c:url value='/cart' />'">
-									<i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span>
-								</button></li>
+						<input type='text' class='form:input-large serachText' list="browsers" placeholder="搜尋作者" />
+ 						<datalist id="browsers"></datalist>
+ 						<button class='searchBtn'><i class="ti-search"></i></button>
+
 						</ul>
 					</div>
 				</div>
@@ -196,6 +189,17 @@
 <!-- 							<div class="br"></div> -->
 <!-- 						</aside> -->
 						
+						<!-- ================ 發表討論 ================= -->
+						<aside class="single_sidebar_widget popular_post_widget">
+							<h3 class="widget_title addNewForum" data-bs-toggle="modal"
+								data-bs-target="#Modal">發表討論</h3>
+							<div class="br"></div>
+						</aside>
+						
+<!-- 		<input type="button" value="發起討論" class="widget_title btn-warning addNewForum" -->
+<!-- 								style="margin-left:50px;border-radius:10px;width: 154px; border: none;" data-bs-toggle="modal" -->
+<!-- 								data-bs-target="#Modal"> -->
+						
 						<!-- ================ 熱門文章 ================= -->
 						<aside class="single_sidebar_widget popular_post_widget">
 							<h3 class="widget_title hotArticles">熱門文章</h3>
@@ -247,26 +251,35 @@
 				
 				<!-- ================ 發起討論 ================= -->
 				<div class="col-lg-8">
-						<nav class="bg-light" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-						  <ol class="breadcrumb">
-						    <li class="breadcrumb-item"><a href="#">BuyBuyLa</a></li>
-						    <li class="breadcrumb-item active" aria-current="page">${Breadcrumb}</li>
-						  </ol>
-						  	<select class="right">
-						    <option class="new">最新</option>
-						    <option class="hot">最熱門</option>
-						    </select><br>
-						  		<input type="button" value="發起討論" class="widget_title btn-warning addNewForum"
-								style="margin-left:50px;border-radius:10px;width: 154px; border: none;" data-bs-toggle="modal"
-								data-bs-target="#Modal">
-								<br>
-						</nav>
+<!-- 						<nav class="bg-light" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb"> -->
+<!-- 						  <ol class="breadcrumb"> -->
+<!-- 						    <li class="breadcrumb-item"><a href="#">BuyBuyLa</a></li> -->
+<%-- 						    <li class="breadcrumb-item active" aria-current="page">${Breadcrumb}</li> --%>
+<!-- 						  </ol> -->
+<!-- 						  	<select class="right" onChange="location = this.options[this.selectedIndex].value;"> -->
+<%-- 						    <option value="forum">${newForum}</option> --%>
+<%-- 						    <option value="forumHot">${hotForum}</option> --%>
+<!-- 						    </select> -->
+<!-- 						  		<input type="button" value="發起討論" class="widget_title btn-warning addNewForum" -->
+<!-- 								style="margin-left:50px;border-radius:10px;width: 154px; border: none;" data-bs-toggle="modal" -->
+<!-- 								data-bs-target="#Modal"> -->
+<!-- 						</nav> -->
 				<!-- ================================= -->
 				
 				<!-- ================ 帖子 ================= -->
-					<div class="blog_left_sidebar bg-light"><br>
-					<div id="getAllArticlesByPage"></div>
+					<div class="blog_left_sidebar bg-light allArticles">
 						<c:forEach var='Articles' items='${Articles}' varStatus='c'>
+						<c:if test="${c.count==1}"   >
+							<ol class="breadcrumb">
+						    <li class="breadcrumb-item"><a href="#">BuyBuyLa</a></li>
+						    <li class="breadcrumb-item active" aria-current="page">${Breadcrumb}</li>
+						  </ol>
+						  	<select class="right" onChange="location = this.options[this.selectedIndex].value;">
+						    <option value="forum">最新</option>
+						    <option value="forumHot">最熱門</option>
+						    </select>
+<!-- 						<br><br><hr style='margin:0px'> -->
+						</c:if>
 							<article class="row blog_item bg-light" style="margin: 0px">
 								<div class="col-md-12">
 									<div class="blog_post">
@@ -283,10 +296,10 @@
 											<div class="box"><div class="ellipsis">${Articles.content}</div></div>
 											<a style="margin-left: 300px;" class="button button-blog addViewQty" id="${Articles.id}" href="<c:url value='/detailed' />?id=${Articles.id}">View More</a>
 											</div>
-												<br><br> 
+												<br> 
 											<span style="color: #00BFA5; font-size: 14px">${Articles.tag}</span>
-											<span><a><img style="width: 15px; margin-left: 30px" src="img/forum/likeView.png">
-											<span style="font-size: 14px; margin-left: 0px;">${Articles.likeQty}</span></a></span>
+											<span><a><img style="width: 15px; margin-left: 300px" src="img/forum/likeView.png">
+											<span style="font-size: 14px; margin-left: 0px;">${Articles.likeQty} Likes</span></a></span>
 											<span><a><img style="width: 15px; margin-left: 10px" src="img/forum/speech-bubble.png">
 											<span style="font-size: 14px; margin-left: 5px;">${Articles.messageQty} Comments</span></a></span>
 											<span><a><img style="width: 15px; margin-left: 10px" src="img/forum/eye.png">
@@ -295,7 +308,8 @@
 										</div>
 									</div>
 								</div>
-								<div></div>
+									<div>
+								</div>
 							</article>
 						</c:forEach>
 						<!-- ================================= -->
@@ -305,7 +319,11 @@
 								<form:form method='POST' modelAttribute="addForumBean" action="addNewForum" class='form-horizontal' enctype="multipart/form-data">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h3 class="modal-title" id="exampleModalLabel">發起討論</h3>
+<!-- 											<h3 class="modal-title" id="exampleModalLabel">發起討論</h3> -->
+												<select id="insSelectTag" aria-label="Default select example">
+													<option>新手賣家發問</option>
+													<option>賣家閒聊討論</option>
+												</select>
 											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										<div class="modal-body insContentBody">
@@ -320,10 +338,6 @@
 											<form:input path="Identification" type="hidden" value="member" />
 											<form:input path="topArticle" type="hidden" value="general" />
 											<div class="mb-3">
-												<select id="insSelectTag" aria-label="Default select example">
-													<option>新手賣家發問</option>
-													<option>賣家閒聊討論</option>
-												</select><br><br>
 												<form:input type="text" path="title" required="true"
 													placeholder="標題" class="form-control title-fontsize titleKeyInput"
 													aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
@@ -491,9 +505,9 @@
 	<script src="vendors/mail-script.js"></script>
 	<script src="js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src='js/forum_jquery_32.js'></script>
+	<script src='js/forum_32/forum_jquery_32.js'></script>
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	<script src='js/forum_summernote_32.js'></script>
+	<script src='js/forum_32/forum_summernote_32.js'></script>
 
 </body>
 </html>

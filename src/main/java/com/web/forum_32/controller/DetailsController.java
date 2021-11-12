@@ -104,6 +104,7 @@ public class DetailsController {
 	public String editDedailed(@RequestParam("id") Integer id, @ModelAttribute("editForumContent") ForumBean updfb) {
 		ForumBean editFb= forumService.getContentById(id);
 		updfb.setViewQty(editFb.getViewQty());
+		updfb.setLikeQty(editFb.getLikeQty());
 		updfb.setTopArticle(editFb.getTopArticle());
 		if (updfb.getContent() != null) {
 			forumService.addOrEdit(updfb);
@@ -170,6 +171,7 @@ public class DetailsController {
 	public boolean like(
 			@RequestParam("forumId") Integer forumId,
 			@RequestParam("loginUserName") String loginUserName,
+			@RequestParam("loginId") Integer loginId,
 			@RequestParam("status") boolean status) {
 		ForumLikeBean flb1 = forumService.findAllByForumIdAndLoginUserName(forumId, loginUserName);
 		ForumBean fb =forumService.getContentById(forumId);
@@ -180,6 +182,7 @@ public class DetailsController {
 		}
 		forumService.addOrEdit(fb);
 		if(flb1!=null) {
+			flb1.setLoginId(loginId);
 			flb1.setStatus(!status);
 			forumService.likeSave(flb1);
 			return flb1.getStatus();
@@ -187,6 +190,7 @@ public class DetailsController {
 			ForumLikeBean flb = new ForumLikeBean();
 			flb.setForumId(forumId);
 			flb.setLoginUserName(loginUserName);
+			flb.setLoginId(loginId);
 			flb.setStatus(!status);
 			forumService.likeSave(flb);
 			return flb.getStatus();
@@ -230,6 +234,16 @@ public class DetailsController {
 		forumService.addOrEdit(updateMessageQty);
 		messageService.delete(id);
 	}
+	// 刪除評論
+	@GetMapping(value = "/deleteReplyMessage")
+	public void deleteReplyMessage(@RequestParam("id") Integer id,
+			@RequestParam("forumId") Integer forumId) {
+		
+		ForumBean updateMessageQty =forumService.getContentById(forumId);
+		updateMessageQty.setMessageQty(updateMessageQty.getMessageQty()-1);
+		forumService.addOrEdit(updateMessageQty);
+		messageService.deleteReply(id);
+	}
 	// 回覆評論
 	@GetMapping(value="/addReplyMessage")
 	@ResponseBody
@@ -251,6 +265,9 @@ public class DetailsController {
 		mrb.setReplyPicId(replyPicId);
 		mrb.setReplyUserEmail(replyUserEmail);
 		mrb.setReplyUserName(replyUserName);
+		ForumBean fb = forumService.getContentById(replyForumId);
+		fb.setMessageQty(messageService.getAllMessage(replyForumId).size() + 1);
+		forumService.addOrEdit(fb);
 		messageService.addReplyMessage(mrb);
 	}
 	// 評論顯示
@@ -285,7 +302,32 @@ public class DetailsController {
 		mrb.setReportStatus("待審核");
 		messageService.saveReport(mrb);
 	}
-
+	// 檢舉評論
+	@GetMapping(value="/reprotReplyMessage")
+	@ResponseBody
+	public void reprotReplyMessage() {
+	}
+	// reply取值
+	@GetMapping(value="/getReplyBean")
+	@ResponseBody
+	public MessageReplyBean getReplyBean(@RequestParam("replyId") Integer replyId) {
+		MessageReplyBean mrb =  messageService.getByReplyId(replyId);
+		return new MessageReplyBean(mrb.getReplyId(),mrb.getMessageReplyId(),mrb.getReplyForumId(),mrb.getReplyDate(),
+				mrb.getReplyContent(),mrb.getReplyPicId(),mrb.getReplyUserName(),mrb.getReplyIdentification(),mrb.getReplyUserEmail());
+	}
+	// reply編輯評論送出
+	@PostMapping(value = "/editReplyFin")
+	@ResponseBody
+	public void editReplyFin(MessageReplyBean mrb) {
+		messageService.addReplyMessage(mrb);
+	}
+	// 顯示按讚使用者
+	@GetMapping(value="/displayUserLike")
+	@ResponseBody
+	public List<ForumLikeBean> displayUserLike(
+			@RequestParam("forumId") Integer forumId){
+		return forumService.findByForumIdAndStatus(forumId, true);
+	}
 	public void tagSize(Model model) {
 		model.addAttribute("allSize", forumService.getAll().size());
 		model.addAttribute("announcementSize",forumService.getAllByTag("官方最新公告").size());

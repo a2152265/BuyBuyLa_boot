@@ -26,10 +26,10 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <link href='css/style32.css' rel='stylesheet' >
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src='js/forum_ajax_32.js'></script>
-<script src='js/forum_ajax_like_32.js'></script>
-<script src='js/forum_keyInput_32.js'></script>
-<script src='js/forum_ajax_message_32.js'></script>
+<script src='js/forum_32/forum_ajax_32.js'></script>
+<script src='js/forum_32/forum_ajax_like_32.js'></script>
+<script src='js/forum_32/forum_keyInput_32.js'></script>
+<script src='js/forum_32/forum_ajax_message_32.js'></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
@@ -47,7 +47,7 @@
 		<div class="main_menu">
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
-					<a class="navbar-brand logo_h" href="<c:url value='/' />"><img src="" alt=""></a>
+					<a class="navbar-brand logo_h" href="<c:url value='/' />"><img src="img/logo.png" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
@@ -78,7 +78,7 @@
 									<a class="nav-link loginsession" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp; ${loginSession.userEmail}</a></li>
 								</c:if>
 						</ul>
-						<ul class="nav-shop">
+						<ul class="nav-shop" style='visibility:hidden'>
 							<li class="nav-item">
 								<form:form method='POST' action="./queryproduct" class='form-horizontal'>
 									<input name="productName" id="productName" type='text' class='form:input-large' />
@@ -192,7 +192,7 @@
 							${forumContent.content}
 						</div>
 					</div><br>
-					<div style='margin:10px'>
+					<div class='displayLikeQty' style='margin:10px'>
 					<span id='likeImg' style="width:40px"></span>
 					<span id='likeQty' style='font-size:20px;'></span>
 					</div>
@@ -272,6 +272,37 @@
 						</div>
 					</div>
 				</div>
+						<!--================ 編輯評論reply Modal =================-->
+				<div class="modal fade" id="editReplyMessageBtn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" style="margin-top:90px">
+						<div class="modal-content" style="border-radius:20px">
+							<div class="comment-form" id="reply" style="margin:0px;border-radius:20px">
+								<h4 style="margin:0px">編輯評論</h4>
+							<form id="editReplyMsgForm" style="background-color:#fafaff;border-radius:5%;padding:15px">
+								<input type="hidden" name="replyId" class="editReplyId">
+								<input type="hidden" name="messageReplyId" class="editMessageReplyId">
+								<input type="hidden" name="replyDate" class="editReplyDate"> 
+								<input type="hidden" name="replyForumId" class="editReplyForumId"> 
+								<input type="hidden" name="replyIdentification" class="editReplyIdentification">
+								<input type="hidden" name="replyPicId" class="editReplyPicId"> 
+								<div class="form-group form-inline">
+									<div class="form-group col-lg-6 col-md-6 name">
+										<input type="text" name="replyUserName" class="form-control editReplyUserName" placeholder="Guest" readonly="readonly">
+									</div>
+									<div class="form-group col-lg-6 col-md-6 email">
+										<input type="email" name="replyUserEmail" class="form-control editReplyUserEmail" readonly="readonly" placeholder="Email address">
+									</div>
+								</div>
+								<div class="form-group">
+									<textarea rows="5" name="replyContent" class="form-control mb-10 editReplyContent" placeholder="留言"></textarea>
+								</div>
+								<button class="button button-postComment button--active editReplyyBtn" type="button" style="border: none">確定修改</button>
+							</form>
+								<button class="DetailedEditMessageKeyInput">一鍵輸入</button>
+							</div>
+						</div>
+					</div>
+				</div>
 						
 						<!--================ 檢舉評論 Modal =================-->
 				<div class="modal fade" id="reportBtn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -311,26 +342,25 @@
 							<div class="comment-form" id="reply" style="margin:0px;border-radius:20px">
 							<form id="reportMessageForm" style="background-color:#fafaff;border-radius:5%;padding:15px">
 								<span style="font-size:30px">檢舉評論</span>
-									<select id="reportSelect" class="right">
+									<select id="reportReptySelect" class="right">
 										<option>有不當的內容</option>
 										<option>誤導或詐欺</option>
 										<option>垃圾訊息</option>
 										<option>冒犯他人</option>
 										<option>其他</option>
 									</select>
-								<input type="text" class="reportReplyId" > 
-								<input type="text" class="messageReplyId" > 
-								<input type="text" class="reportReplyUserName" > 
-								<input type="text" class="reportedReplyUserName" > 
-								<input type="text" class="reportReplySelect" > 
-								<input type="text" class="reportReplyDate" >
-								<input type="text" class="reportedReplyUserEmail">
+								<input type="hidden" class="reportReplyId" > 
+								<input type="hidden" class="reportReplyUserName" > 
+								<input type="hidden" class="reportedReplyUserName" > 
+								<input type="hidden" class="reportReplySelect" > 
+								<input type="hidden" class="reportReplyDate" >
+								<input type="hidden" class="reportedReplyUserEmail">
 								<br><br>
 								檢舉內容
 								<div class="form-group">
 									<textarea rows="5" name="ReportContent" class="form-control mb-10 reportedReplyContent" readonly="readonly"></textarea>
 								</div>
-								<button class="button button-postComment button--active reportMessageBtn" type="button" style="border: none">送出</button>
+								<button class="button button-postComment button--active reportReplyMessageBtn" type="button" style="border: none">送出</button>
 							</form>
 							</div>
 						</div>
@@ -374,17 +404,34 @@
 						</div>
 					</div>
 					<div class="form-group messageContentBlock">
-						<textarea rows="5" name="messageContent" class="form-control mb-10 messageContent" placeholder="留言"></textarea>
+						<textarea rows="5" name="messageContent" class="form-control mb-10 messageContent" placeholder="Comments"></textarea>
 					</div>
 					<button class="button button-postComment button--active messageBtn" type="button" style="border: none">發表評論</button>
 				</form>
+				<button class="DetailedMessageKeyInput" style="margin-left:300px">一鍵輸入</button>
 			</div>
-				<button class="DetailedMessageKeyInput" style="margin-left:700px">一鍵輸入</button>
 		</div>
 			<!--=================================-->
 				</div>
 			<div class="col-lg-4">
 			<div class="blog_right_sidebar">
+			<!--================ 社團精選話題 =================-->
+			<aside class="single_sidebar_widget popular_post_widget">
+				<h3 class="widget_title">社團精選話題</h3>
+				<c:forEach var='content' items='${tagFeatured}' begin="0" end="3">
+					<div class="media post_item">
+						<img width='40' src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
+						<div class="media-body">
+							<a href="<c:url value='/detailed' />?id=${content.id}">
+								<h3>${content.title}</h3>
+							</a>
+							<p>${content.date}</p>
+						</div>
+					</div>
+				</c:forEach>
+				<div class="br"></div>
+			</aside>
+			<!--=================================-->
 			<!--================ 最新帖子 =================-->
 			<aside class="single_sidebar_widget popular_post_widget">
 				<h3 class="widget_title">最新帖子</h3>
@@ -523,8 +570,8 @@
 	<script src="vendors/mail-script.js"></script>
 	<script src="js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src='js/forum_jquery_32.js'></script>
+	<script src='js/forum_32/forum_jquery_32.js'></script>
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	<script src='js/forum_summernote_32.js'></script>
+	<script src='js/forum_32/forum_summernote_32.js'></script>
 </body>
 </html>

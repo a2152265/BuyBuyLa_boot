@@ -1,18 +1,73 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 
-<!-- header -->
-<%@ include file="../Home/manager/datatable/header-forum.jspf"%>
-<!-- sidebar -->
-<%@ include file="../Home/manager/footer.jspf"%>
-<!-- 通知欄 -->
-<section class="page-content">
 
-	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Jquery JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+<!-- summernote -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<!-- js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src='js/forum_ajax_manager_32.js'></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- css -->
+<link rel='stylesheet' href='css/style32.css'>
+<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"> -->
+<link rel='stylesheet' href="<spring:url value='/css/member.css' />"  />
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管理中心</title>
+<!-- for form css -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+	crossorigin="anonymous"></script>
+<script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous">
+
+
+<script>
+   $(document).ready(function () { 
+       jQuery('#example').DataTable();
+       jQuery('#example2').DataTable();
+   }); 
+</script>
+
+
+
+</head>
+<body style="padding:0px">
 	<div class="wrapper">
 		<div class="section">
-			<h2>BuyBuyLa討論區管理</h2><br>
+			<div class="top_navbar" style="background: rgb(61, 27, 75);">
+				<div class="hamburger">
+					<a href="#"> <i class="fas fa-bars"></i>
+					</a>
+				</div>
+			</div>
+			<h2>BuyBuyLa討論區管理</h2>
 			<button type="button" style="margin-left: 200px"
 				class="btn btn-primary" data-bs-toggle="modal"
 				data-bs-target="#ManagerModal">發起公告</button>
@@ -33,7 +88,7 @@
 							<td><c:out value="${content.id}" /></td>
 							<td><c:out value="${content.userName}" /></td>
 							<td><c:out value="${content.tag}" /></td>
-							<td><a style='color:black' href="<c:url value='/detailed' />?id=${content.id}"><c:out
+							<td><a href="<c:url value='/detailed' />?id=${content.id}"><c:out
 										value="${content.title}" /></a></td>
 							<td><c:out value="${content.date}" /></td>
 							<td>
@@ -41,26 +96,13 @@
 
 								<div class="modal fade" id="ManagerModal" tabindex="-1"
 									aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-xl">
+									<div class="modal-dialog modal-lg" style="margin-top: 90px">
 										<form:form method='POST'
 											modelAttribute="managerAddForumContentBean"
 											class='form-horizontal' enctype="multipart/form-data">
 											<div class="modal-content">
 												<div class="modal-header">
-<!-- 													<h3 class="modal-title" id="exampleModalLabel">發起公告</h3> -->
-															<select id="insSelectTag" class="form-select"
-																aria-label="Default select example">
-																<option>官方最新公告</option>
-															</select>
-																<div style="display: flex">
-															<div class="form-check"
-																style="margin-top: 6px; margin-left: 400px">
-																<input class="form-check-input" type="checkbox"
-																	id="insFlexCheckDefault"> <label
-																	class="form-check-label" for="flexCheckDefault">
-																	置頂 </label>
-															</div>
-														</div>
+													<h3 class="modal-title" id="exampleModalLabel">發起公告</h3>
 													<button type="button" class="btn-close"
 														data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>
@@ -88,16 +130,29 @@
 														class="insTopArticle" value="general" />
 													<!-- 結束 -->
 													<div class="mb-3">
+														<div style="display: flex">
+															<select id="insSelectTag" class="form-select"
+																aria-label="Default select example">
+																<option>官方最新公告</option>
+															</select>
+															<div class="form-check"
+																style="margin-top: 6px; margin-left: 400px">
+																<input class="form-check-input" type="checkbox"
+																	id="insFlexCheckDefault"> <label
+																	class="form-check-label" for="flexCheckDefault">
+																	置頂 </label>
+															</div>
+														</div>
+														<br>
 														<form:input type="text" path="title" required="true"
-															placeholder="標題" class="form-control title-fontsize managerTitleKeyInput"
-															aria-label="Sizing example input" value=""
+															placeholder="標題" class="form-control title-fontsize"
+															aria-label="Sizing example input" value="[公告]  "
 															aria-describedby="inputGroup-sizing-lg" />
 														<br>
 														<div id="managerAddSummernote"></div>
 													</div>
 												</div>
 												<div class="modal-footer">
-										<input type='button' class='btn btn-warning addManagerNewForumKeyInput' value='一鍵輸入'>
 													<button id="managerInsSubmit" type="submit"
 														class="btn btn-primary">送出</button>
 													<button type="button" class="btn btn-secondary"
@@ -158,23 +213,7 @@
 											class='form-horizontal' enctype="multipart/form-data">
 											<div class="modal-content">
 												<div class="modal-header">
-<!-- 													<h3 class="modal-title" id="exampleModalLabel">管理員編輯</h3> -->
-														<div style="display: flex;">
-															<select id="updSelectTag" class="form-select"
-																aria-label="Default select example">
-																<option>社團精選話題</option>
-																<option>官方最新公告</option>
-																<option>新手賣家發問</option>
-																<option>賣家閒聊討論</option>
-															</select>
-															<div class="form-check"
-																style="margin-top: 6px; margin-left: 400px">
-																<input class="form-check-input" type="checkbox"
-																	id="editFlexCheckDefault"> <label
-																	class="form-check-label" for="flexCheckDefault">
-																	置頂 </label>
-															</div>
-														</div>
+													<h3 class="modal-title" id="exampleModalLabel">管理員編輯</h3>
 													<button type="button" class="btn-close"
 														data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>
@@ -203,12 +242,30 @@
 														type="hidden" value="${loginSession.userNickname}" />
 													<form:input path="Identification" type="hidden"
 														value="${loginSession.identification}" />
-													<form:input path="topArticle" class="editTopArticle"
+													<form:input path="topArticle" class="topArticle"
 														type="hidden" />
 													<!-- 結束 -->
 													<div class="mb-3">
+														<div style="display: flex;">
+															<select id="updSelectTag" class="form-select"
+																aria-label="Default select example">
+																<option>社團精選話題</option>
+																<option>官方最新公告</option>
+																<option>新手賣家發問</option>
+																<option>賣家閒聊討論</option>
+															</select>
+															<div class="form-check"
+																style="margin-top: 6px; margin-left: 400px">
+																<input class="form-check-input" type="checkbox"
+																	id="flexCheckDefault"> <label
+																	class="form-check-label" for="flexCheckDefault">
+																	置頂 </label>
+
+															</div>
+														</div>
+														<br>
 														<form:input type="text" required="true" placeholder="標題"
-															path="title" class="form-control title-fontsize editManagerTitleKeyInput"
+															path="title" class="form-control title-fontsize"
 															aria-label="Sizing example input"
 															aria-describedby="inputGroup-sizing-lg" />
 														<br>
@@ -218,7 +275,6 @@
 													</div>
 												</div>
 												<div class="modal-footer">
-												<input type="button" class="editManagerNewForumKeyInput btn btn-warning" value="一鍵輸入">
 													<button id="updSubmit" type="submit"
 														class="btn btn-primary">送出</button>
 													<button type="button" class="btn btn-secondary"
@@ -278,15 +334,64 @@
 				</tbody>
 			</table>
 			<input type="button"class="btn btn-info clear"  value="清除" style="float:right;margin-right:200px">
-			<br><br><br><br>
+			<br><br><br><br><br><br>
+		</div>
+		<div class="sidebar" style="background: rgb(66, 9, 122);">
+			<div class="profile">
+				<img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg"
+					alt="profile_picture">
+				<h3></h3>
+				<p>Designer</p>
+			</div>
+			<ul>
+				<li><a href="<c:url value='/forum' />" class=""> <span
+						class="icon"><i class="fas fa-home"></i></span> <span class="item">Home</span>
+				</a></li>
+				<li><a href="<c:url value='???' />""> <span class="icon"><i
+							class="fas fa-desktop"></i></span> <span class="item">會員資料管理</span>
+				</a></li>
+				<li><a href="<c:url value='???' />"> <span class="icon"><i
+							class="fas fa-user-friends"></i></span> <span class="item">效益分析</span>
+				</a></li>
+				<li><a href="<c:url value='/manager/forum' />" class="active">
+						<span class="icon"><i class="fas fa-tachometer-alt"></i></span> <span
+						class="item">討論區</span>
+				</a></li>
+				<li><a href="<c:url value='???' />"> <span class="icon"><i
+							class="fas fa-database"></i></span> <span class="item"></span>
+				</a></li>
+				<li><a href="<c:url value='/member/changePwd' />"> <span
+						class="icon"><i class="fas fa-chart-line"></i></span> <span
+						class="item"></span>
+				</a></li>
+				<li><a href="<c:url value='/try/delete' />"> <span
+						class="icon"><i class="fas fa-user-shield"></i></span> <span
+						class="item"></span>
+				</a></li>
+
+				<!-- /*減去footer高度*/ -->
+				<li style="min-height: calc(100% - 50px);"><a
+					href="<c:url value='/try/delete' />"> <span class="icon"><i
+							class="fas fa-user-shield"></i></span> <span class="item">隱私權政策</span>
+				</a></li>
+			</ul>
 		</div>
 	</div>
 
-</section>
-	
+
+	<script>
+          var hamburger = document.querySelector(".hamburger");
+		  hamburger.addEventListener("click", function(){
+		    document.querySelector("body").classList.toggle("active");
+		  })
+    </script>
+
 	<!-- jquery -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src='../js/forum_32/forum_jquery_32.js'></script>
+	<script src='js/forum_jquery_32.js'></script>
 	<!-- summernote -->
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-	<script src='../js/forum_32/forum_summernote_32.js'></script>
+	<script src='js/forum_summernote_32.js'></script>
+
+</body>
+</html>
