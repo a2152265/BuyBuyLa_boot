@@ -9,8 +9,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
 <title>${fTitle}</title>
-<!-- <title>Details</title> -->
 <link rel="icon" href="img/Fevicon.png" type="image/png">
 <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
@@ -31,6 +32,7 @@
 <script src='js/forum_32/forum_keyInput_32.js'></script>
 <script src='js/forum_32/forum_ajax_message_32.js'></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
 
@@ -192,10 +194,15 @@
 							${forumContent.content}
 						</div>
 					</div><br>
-					<div class='displayLikeQty' style='margin:10px'>
+					<div class='displayLikeQty' style='margin:10px;'>
 					<span id='likeImg' style="width:40px"></span>
 					<span id='likeQty' style='font-size:20px;'></span>
+					<div style="float:right;">
+   					 <div class="line-it-button" data-lang="zh_Hant" data-type="share-a" data-ver="3" data-url="http://localhost:8080/BuyBuyla_boot/detailed?id=${forumId}" data-size="large" data-count="true" style="display:none;"></div>		
 					</div>
+					</div>
+					
+					
 					<div class="navigation-area" style='margin:0px;'>
 						<div class="row">
 							<div class="previousBlock col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
@@ -415,10 +422,10 @@
 				</div>
 			<div class="col-lg-4">
 			<div class="blog_right_sidebar">
-			<!--================ 社團精選話題 =================-->
+			<!--================ 最新帖子 =================-->
 			<aside class="single_sidebar_widget popular_post_widget">
-				<h3 class="widget_title">社團精選話題</h3>
-				<c:forEach var='content' items='${tagFeatured}' begin="0" end="3">
+				<h3 class="widget_title">最新帖子</h3>
+				<c:forEach var='content' items='${getAll}' begin="0" end="15">
 					<div class="media post_item">
 						<img width='40' src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
 						<div class="media-body">
@@ -432,10 +439,10 @@
 				<div class="br"></div>
 			</aside>
 			<!--=================================-->
-			<!--================ 最新帖子 =================-->
+						<!--================ 社團精選話題 =================-->
 			<aside class="single_sidebar_widget popular_post_widget">
-				<h3 class="widget_title">最新帖子</h3>
-				<c:forEach var='content' items='${getAll}' begin="0" end="15">
+				<h3 class="widget_title">社團精選話題</h3>
+				<c:forEach var='content' items='${tagFeatured}' begin="0" end="3">
 					<div class="media post_item">
 						<img width='40' src="<c:url value='/getPicturefromMember/${content.picId}'/>" />
 						<div class="media-body">
@@ -559,7 +566,7 @@
 	</footer>
 	<!--================ End footer Area  =================-->
 
-
+ <script src="https://www.line-website.com/social-plugins/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
 
 	<script src="vendors/jquery/jquery-3.2.1.min.js"></script>
 	<script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>

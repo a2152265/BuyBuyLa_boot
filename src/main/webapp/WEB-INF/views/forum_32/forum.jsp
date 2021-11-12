@@ -123,7 +123,8 @@
 					<div class="categories_post">
 						<img class="card-img rounded-0"
 							style="width: 200px; height: 150px"
-							src="https://picsum.photos/200/150">
+							src="img/forum/1026-200x150.jpg">
+<!-- 							src="https://picsum.photos/200/150"> -->
 						<div class="categories_details">
 							<div class="categories_text">
 								<a href="<c:url value='/featured' />">
@@ -138,7 +139,7 @@
 					<div class="categories_post">
 						<img class="card-img rounded-0"
 							style="width: 200px; height: 150px"
-							src="https://picsum.photos/200/152" alt="post">
+							src="img/forum/692-200x152.jpg" alt="post">
 						<div class="categories_details">
 							<div class="categories_text">
 								<a href="<c:url value='/sellerChat' />">
@@ -153,7 +154,7 @@
 					<div class="categories_post">
 						<img class="card-img rounded-0"
 							style="width: 200px; height: 150px"
-							src="https://picsum.photos/200/151" alt="post">
+							src="img/forum/473-200x151.jpg" alt="post">
 						<div class="categories_details">
 							<div class="categories_text">
 								<a href="<c:url value='/noviceSeller' />">
