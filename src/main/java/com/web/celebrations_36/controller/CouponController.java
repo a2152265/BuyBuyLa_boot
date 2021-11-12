@@ -91,11 +91,11 @@ public class CouponController {
 		
 		Date date = new Date();
 	    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
-	   //String currentdate = format.format(date);
+//	   String expiryDate = format.format(date);
 	   //System.out.println("現在日期：" + currentdate);
 
 	    Calendar ca = Calendar.getInstance();
-	    ca.add(Calendar.DATE, 30);// num为增加的天数，可以改变的
+	    ca.add(Calendar.DATE, 30);//
 	    date = ca.getTime();
 	    String expiryDate = format.format(date);
 	   //System.out.println("到期日期：" + expiryDate);

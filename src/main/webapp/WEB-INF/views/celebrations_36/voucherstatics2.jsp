@@ -12,9 +12,11 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <!-- <link rel="stylesheet" href="../css/newcamapig.css"> -->
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <style>
+
 
 @import * as echarts from 'echarts';
 
@@ -1175,7 +1177,7 @@ body {
                                             </div>
                                             <div class="col-md-8">
                                                 <h6 class="text-muted font-semibold">點擊次數</h6>
-                                                <h6 class="font-extrabold mb-0">112.000</h6>
+                                                <h6 class="font-extrabold mb-0" style="margin-left:10px">1120</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -1251,6 +1253,9 @@ body {
   </svg>
   
 </div>
+
+<div id="chartdiv"></div>		
+
 <!--  <div style="margin-left:58px;color:#FF6200;font-weight:bolder;font-size:30px">使用率</div> -->
  <div style="margin-left:100px">
  <h5>Page Hits per Country</h5>
@@ -1299,7 +1304,11 @@ body {
   
 </section>
    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
-    
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
         <script type="text/javascript">
 var dom = document.getElementById("container1");
@@ -1464,10 +1473,8 @@ switchInput.addEventListener("input", function () {
 
 
 
-	
-
 </script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
 <script type="text/javascript">
 google.load("visualization", "1", {packages:["corechart"]});
 google.setOnLoadCallback(drawCharts);

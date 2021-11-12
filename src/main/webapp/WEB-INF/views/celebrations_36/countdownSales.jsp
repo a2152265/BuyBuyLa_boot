@@ -25,16 +25,16 @@
  height: 450px;
  margin: 0 auto;
  /* background: url(turntable-bg.jpg) no-repeat; */
- position: relative;
+/*  position: relative; */
 /*  margin-left:80px; */
  }
-img{
-     position: relative;
-     z-index: 1;
-    border: 0.5px solid gray;
-    border-radius: 10px;
-/*   margin-left:80px; */
- }
+/* img{ */
+/*      position: relative; */
+/*      z-index: 1; */
+/*     border: 0.5px solid gray; */
+/*     border-radius: 10px; */
+/* /*   margin-left:80px; */ */
+/*  } */
  .word{
       position: absolute;
      /* border: 3px solid black; */
@@ -248,19 +248,20 @@ img{
 
 <!--   <!--================Single Product Area =================--> 
 
-    <div id="bg" >
+<!--     <div id="bg" > -->
 <!--  <img id ="pointer" src="style/rotater_04.png" alt="pointer" width="100" height="100" style="margin-top: 80px;margin-left: 44px;"> -->
 <%--   <p>使用者名稱: ${loginMb.getUserEmail()}</p> --%>
- ${count}
-${loginSession.userEmail}
+ 
+<%-- ${loginSession.userEmail} --%>
+
 <%-- 	 <c:if test=""> --%>
-	 <div class="container" style="margin-left:80px;margin-top:30px" >
-		
-    </div>
- </div>
+	
+<!--  </div> -->
 	<section class="section-margin calc-60px">
       <div class="container">
         <div class="section-intro pb-60px">
+        		 <img  src="<c:url value='/images/pet.jpg' />" alt="turntable" style="width:1300px; height:500px;margin-left:-100px;margin-top:-70px;margin-bottom:100px" >
+        
           <p>New Products</p>
           <h2>New <span class="section-intro__style">Products</span></h2>
         </div>
