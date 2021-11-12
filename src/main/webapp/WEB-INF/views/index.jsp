@@ -164,7 +164,7 @@
                <c:if test="${managerSession == null}">
               <c:if test="${loginSession.userEmail != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
-						${loginSession.userEmail}</a></li>
+						${loginSession.userName}</a></li>
 
 				</c:if>
 				</c:if>
