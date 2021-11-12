@@ -37,7 +37,7 @@ public interface CartService {
 	public boolean discountRepeat(String buyer);
 	
 	
-	//賣出時扣庫存數量
+	//賣出時扣庫存數量跟加銷量
 	public void updateStock(int pid,int count);
 	
 	//用記錄ID查該筆紀錄資料

@@ -52,9 +52,9 @@
     
     <article>
 
-
+<div style="width:1200px">
             <canvas id="lineChart" style="background-color:white;"></canvas>
-
+</div>
     </article>
     
     

@@ -244,6 +244,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public int getDiscount(String discountCode) {
 //		return discount;
+		
 		return 0;
 	}
 

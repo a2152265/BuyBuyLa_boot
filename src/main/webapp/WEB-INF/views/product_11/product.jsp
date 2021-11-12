@@ -164,7 +164,7 @@
 <!--                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button> -->
 <%-- 							<a class="button primary-btn" href="<c:url value='/additem' />?id=${product.productId}">Add to Cart</a>  --%>
 							<input type='hidden' id='pid' class='pid' name='address' value='${product.productId}'/>
-							<input class="button primary-btn additem" href="" type='button' value='Add to Cart'/>                          
+							<input class="button primary-btn additem" href="" type='button'align="cent er" style="width: 125px;border-radius: 80px;" value='   Add to Cart'/>                          
 
 						</div>
 						<div class="card_area d-flex align-items-center">
