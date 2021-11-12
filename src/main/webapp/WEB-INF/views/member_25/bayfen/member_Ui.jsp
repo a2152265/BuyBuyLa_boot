@@ -257,6 +257,7 @@
                         <span class="item">我的折價券</span>
                     </a>
                 </li>
+               
                 <li>
                     <a href="<c:url value='/try/delete' />"  onclick="return(confirm('確認刪除？'))">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>

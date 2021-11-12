@@ -88,8 +88,8 @@ a:hover{text-decoration:none}
 <!--       </div> -->
 	
 	 
-	<div style="margin-left:50px;margin-top:50px; font-weight:bolder;size:16px">	  <img src="<c:url value='/images/coin.jpg' />" alt="..." width="40px" height="40px" >
-	<span style="font-size:24px;">可用點數:<span style="color:red">${point}</span></span></div>
+<%-- 	<div style="margin-left:50px;margin-top:50px; font-weight:bolder;size:16px">	  <img src="<c:url value='/images/coin.jpg' />" alt="..." width="40px" height="40px" > --%>
+<%-- 	<span style="font-size:24px;">可用點數:<span style="color:red">${point}</span></span></div> --%>
 	
     <div style="text-align: center ;margin-top:0px">
 <%--     ${couponList} --%>
@@ -254,6 +254,13 @@ a:hover{text-decoration:none}
                         <span class="item">我的折價券</span>
                     </a>
                  </li>
+                  <li>
+                    <a href="<c:url value='/try/point' />">
+                    
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">我的點數</span>
+                    </a>
+                 </li>
                  <!-- 333333333333333336666666666666666666666666666 -->
                  
                 <!-- /*減去footer高度*/ -->
@@ -269,9 +276,33 @@ a:hover{text-decoration:none}
         
     </div>
 
-   
+   <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
+<!--   Launch demo modal -->
+<!-- </button> -->
+<!-- Scrollable modal -->
 
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script>
           var hamburger = document.querySelector(".hamburger");
   hamburger.addEventListener("click", function(){

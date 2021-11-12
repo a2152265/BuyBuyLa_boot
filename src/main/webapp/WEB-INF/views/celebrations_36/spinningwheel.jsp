@@ -142,8 +142,10 @@
 
 
 <!--   <!--================Single Product Area =================--> 
+      <img id ="cele" src="<c:url value='/images/bg.jpg' />" >
 
     <div id="bg">
+    
 <!--  <img id ="pointer" src="style/rotater_04.png" alt="pointer" width="100" height="100" style="margin-top: 80px;margin-left: 44px;"> -->
 <%--   <p>使用者名稱: ${loginMb.getUserEmail()}</p> --%>
   
@@ -684,7 +686,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="../js/main.js"></script>
    <script>
 //  var oPointer=document.getElementsByTagName("img")[0];
- var oTurntable=document.getElementsByTagName("img")[2];
+ var oTurntable=document.getElementsByTagName("img")[3];
  var cat=60;
  var num=0;
  var offOn=true;

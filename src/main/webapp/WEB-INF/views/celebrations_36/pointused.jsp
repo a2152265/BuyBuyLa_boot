@@ -18,16 +18,37 @@
 <!--     <link rel="stylesheet" -->
 <!-- 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<!--     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員中心</title>
     <style>
-        <style>
+        
+        #mytable {
+  border-collapse: collapse; /* Collapse borders */
+  width: 80%; /* Full-width */
+  border: 1px solid #ddd; /* Add a grey border */
+  font-size: 20px; /* Increase font-size */
+  margin:auto;
+ 
+  font-family: "微軟正黑體";
+  font-weight: bolder;
+            
+}
+
+#mytable td {
+  text-overflow:ellipsis; 
+  white-space:nowrap;
+  word-wrap:break-word; 
+/*   padding-top:55px; */
+  text-align: center; /* Left-align text */
+  padding: 12px; /* Add padding */
+}
+
 a{text-decoration:none}
 a:hover{text-decoration:none}
-
- img { 
+ #voucher { 
  -webkit-filter: grayscale(100%); 
 	 -moz-filter: grayscale(100%); 
 	 -ms-filter: grayscale(100%); 
@@ -39,32 +60,8 @@ a:hover{text-decoration:none}
      border: 0.5px solid gray;
      border-radius: 10px;
  } 
-/* .word{ */
-/* z-index:1;  */
-/*  position:relative; */
-/*  border:3px solid black; */
-/*   float:top;  */
-/* } */
-/* .col-md-4{ */
-/* z-index:30;  */
-/*  position:absoulte; */
-/*   border:3px solid black; */
-/* /*   display:flex; */ */
-/* } */
-
-/* img{ */
-/* 	 -webkit-filter: grayscale(100%);  */
-/* 	 -moz-filter: grayscale(100%);  */
-/* 	 -ms-filter: grayscale(100%);  */
-/* 	 -o-filter: grayscale(100%);  */
-/* 	 filter: grayscale(100%);  */
-/* 	 filter: gray;  */
-/*      position: relative; */
-/*      z-index: 1; */
-/*      border: 0.5px solid gray; */
-/*      border-radius: 10px; */
-/*  } */
- .word{
+ 
+  .word{
       position: absolute;
      /* border: 3px solid black; */
      z-index: 1;
@@ -77,26 +74,7 @@ a:hover{text-decoration:none}
      width:160px;
 /*      float:left; */
  }
- .btn{
-    position: absolute;
-    z-index: 50;
-    margin-left: 290px;
-/*      margin-top: 120px; */
-     width: 130px;
-     height: 50px;
-     font-weight: bolder;
-     font-size: x-large;
-     border-radius: 10px;
-     background-color:white;
-     color:grey;
-     border:1px solid transparent;
-     
-/*      border:0px solid transparent; */
- }
-/*  .card-text{ */
-/*   style="position: absolute;z-index: 50;" */
-/*  } */
- 
+
     </style>
 </head>
 <body>
@@ -124,9 +102,8 @@ a:hover{text-decoration:none}
       <div class="navbar-nav" style="font-weight:bolder;font-size:25px">
 <%--         <a class="nav-link"  id="unused" href="<c:url value='/try/coupon/${memberUiDefault.userEmail}' />"style="padding-left:100px;">未使用</a> --%>
 <%--         <a class="nav-link" id="used" href="<c:url value='/try/usedcoupon/${memberUiDefault.userEmail}' />" style="padding-left:100px">已使用</a> --%>
-          <a class="nav-link"  id="unused" href="<c:url value='/try/coupon' />"style="padding-left:100px;">未使用</a>
-        <a class="nav-link" id="used" href="<c:url value='/try/usedcoupon' />" style="padding-left:100px">已使用</a>
-          <a class="nav-link" href="<c:url value='/try/expiredcoupon' />" style="padding-left:100px">已過期</a> 
+        <a class="nav-link"  id="unused" href="<c:url value='/try/point' />"style="padding-left:100px;">未使用</a>
+          <a class="nav-link" id="used" href="<c:url value='/try/usedpoint'/>" style="padding-left:100px">已使用</a>
       </div>
     </div>
   </div>
@@ -155,87 +132,41 @@ a:hover{text-decoration:none}
 <!--     <div class="container"> -->
 <!--       <span style="font-size:30px;  font-weight:bold;">會員專區</span> -->
 <!--       </div> -->
-<!-- 		<div style="margin-left:50px;margin-top:56px; font-weight:bolder;size:16px">	  <img   > -->
-<!-- 	<span style="font-size:24px;"><span style="color:red"></span></span></div> -->
-    <div style="text-align: center ;margin-top:0px">
+	<div style="margin-left:50px;margin-top:50px;margin-bottom:50px; font-weight:bolder;size:16px">	  <img src="<c:url value='/images/coin.jpg' />" alt="..." width="40px" height="40px" >
+	<span style="font-size:24px;">已使用點數:<span style="color:red">${point}</span></span></div>
+    <div style="text-align: center ;margin-top:px">
     
-    <c:choose>
-
-    <c:when test="${coupon.couponStatus==未使用}">
-<%--       <c:if test="${coupon.couponStatus==未使用}"> --%>
-	        <c:forEach items='${couponList}' var='coupon'>
-	        
-      <div class="card mb-3" style="height:132px;max-width: 350px;margin-left:80px ;margin-top:35px ;float:left">
-<%--     	     	    	                    		<div class="word" style="font-weight:bolder;color:black">有效期限 ${coupon.expiryDate}</div>  --%>
-  
-  <div class="row g-0">
-<%--   	     	    	                    		<div class="word" style="font-weight:bolder;color:black">有效期限 ${coupon.expiryDate}</div>  --%>
-  	
-    <div class="col-md-4">
-<%--     	                    		<div class="word" style="font-weight:bolder;color:black">有效期限 ${coupon.expiryDate}</div>  --%>
-    	
-      <img src="<c:url value='/images/shippingVoucher.jpg' />" alt="..." style="border-radius:3px "width=347.5px height=130px >
-      <div class="word" style="font-weight:bolder;color:black; width:160px">有效期限 ${coupon.expiryDate}</div> 
    
-    </div>
-    <div class="col-md-8">
-    
-      <div class="card-body" style="position:absolute;z-index: 50;margin-left:58px">
-<%--         <div class="card-text"style="font-size:20px;font-weight:bolder;color:black"> ${coupon.expiryDate}</div> --%>
-        <div class="card-text"style="font-size:20px;font-weight:bolder;color:white"> ${coupon.couponName}</div>
-        
-        <div class="card-text"style="font-weight:bolder;">${coupon.couponStatus}</div>
-        <div class="card-text"><small class="text-muted">號碼:${coupon.couponNumber}</small></div>
-<%--      	  	     	    	                    		<div class="word" style="float:left;font-weight:bolder;color:black">有效期限 ${coupon.expiryDate}</div>  --%>
-     	
-      </div>
-<%--         	     	    	                    		<div class="word" style="font-weight:bolder;color:black">有效期限 ${coupon.expiryDate}</div>  --%>
+<c:if test="${point>0 }">
+<table class="table table-bordered" id="mytable">
+  <thead>
+    <tr>
+      <th scope="col">圖片</th>
+      <th scope="col">商品名稱</th>
+      <th scope="col">使用點數</th>
+      <th scope="col">兌換日期</th>
+    </tr>
+  </thead>
+  <tbody>
+   <c:forEach items="${redeemlist}" var="redeem">
+    <tr>
       
-    </div>
-  </div>
-</div>
-      </c:forEach>
-</c:when>
-
- <c:when test="${coupon.couponStatus==已使用}">
-<%--       <c:if test="${coupon.couponStatus==未使用}"> --%>
-	        <c:forEach items='${couponList}' var='coupon'>
-      <div class="card mb-3" style="height:120px;max-width: 350px;margin-left:100px ;float:left">
-  <div class="row g-0">
-  	
-    <div class="col-md-5">
-    
-      <img  class="gray" src="<c:url value='/images/shippingVoucher.jpg' />" alt="..." style="border-radius:3px "width=347.5px height=150px >
-<%--           <div class="word" style="font-size:20px;font-weight:bolder;color:black"> ${coupon.couponName}</div> --%>
-  
-    </div>
-    <div class="col-md-9">
-      <div class="card-body" style="margin-left:30px">
-        <div class="card-text"style="font-size:20px;font-weight:bolder;color:white"> ${coupon.couponName}</div>
-        <div class="card-text"style="font-weight:bolder;color:red">${coupon.couponStatus}</div>
-        <div class="card-text"><small class="text-muted">號碼:${coupon.couponNumber}</small></div>
-      </div>
-    </div>
-  </div>
-</div>
-      </c:forEach>
-</c:when>
-
-
-
-
-
-<c:otherwise>  
-
-
-
-
-
-   </c:otherwise>
-
-  </c:choose>
-
-
+      <td><img width='100'src="<c:url value='/getPicture/${redeem.productId}' />" />
+</td>
+      <td style="padding-top:55px">${redeem.productName}</td>
+      <td style="padding-top:55px">${redeem.point}</td>
+      <td style="padding-top:55px">${redeem.redeemTime}</td>
+    </tr>
+    </c:forEach>
+  </tbody>
+</table>
+</c:if>
+<%--    <c:forEach items='${redeemlist}' var='redeem'> --%>
+<%-- 	<img width='150'src="<c:url value='/getPicture/${redeem.productId}' />" /> --%>
+<%-- 	${redeem.point} --%>
+<%-- 	${redeem.productName} --%>
+	
+<%--       </c:forEach> --%>
 
 
 <%--  <c:if test="${coupon.couponStatus==已使用}"> --%>
@@ -332,7 +263,7 @@ a:hover{text-decoration:none}
                         <span class="item">我的折價券</span>
                     </a>
                  </li>
-                  <li>
+                   <li>
                     <a href="<c:url value='/try/point' />">
                     
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
