@@ -1,6 +1,8 @@
 package com.web.product_11.service;
 
 
+import java.util.List;
+
 import com.web.product_11.model.ProductFavorite;
 
 public interface ProductFavoriteService {
@@ -8,6 +10,9 @@ public interface ProductFavoriteService {
 	
 	ProductFavorite findByMidAndPid(Integer memberId,Integer productId);
 	
+	List<ProductFavorite> findByMemberId(Integer memberId);
+	
+	void deleteByMidAndPid(Integer memberId,Integer productId);
 	
 	
 }

@@ -20,9 +20,30 @@
 
   <link rel="stylesheet" href="../css/productstyle.css">
    <style>
+   
+   .all-browsers {
+   width:890PX;
+  margin: 0 AUTO;
+  padding: 5px;
+  background-color: lightgray;
+}
+
+.all-browsers > h1, .browser {
+  margin: 10px;
+  padding: 5px;
+}
+
+.browser {
+  background: white;
+}
+
+.browser > h2, p {
+  margin: 4px;
+  font-size: 90%;
+}
  #bg{
  width: 650px;
- height: 450px;
+ height: 380px;
  margin: 0 auto;
  /* background: url(turntable-bg.jpg) no-repeat; */
  position: relative;
@@ -159,6 +180,8 @@ img{
 			</div>
     </div>
 	</section>
+	
+	
 <!-- 	<!-- ================ end banner area ================= --> 
 
 
@@ -170,16 +193,36 @@ img{
  ${count}
 ${loginSession.userEmail}
 <%-- 	 <c:if test=""> --%>
-	 <div class="container" style="margin-left:80px;margin-top:30px" >
+	 <div class="container" style="margin-left:80px;margin-top:70px" >
 <%-- 	 	<c:if test="${loginSession.voucherCount==1}"> --%>
         <div class="word">運費抵用券</div>
        <a id="btnurl" href="#" ><button class="btn" id="btn" type="button">領取</button></a> 
         <img src="<c:url value='/images/shippingVoucher.jpg' />" alt="">
     		   <input type="hidden" id="email" value="${loginSession.userEmail}" >
+    		   <input type="hidden" id="gender" value=" ${memberUiDefault.userGender}" >
 <%--     	</c:if> --%>
     </div>
  </div>
 
+
+<article class="all-browsers" style="margin-bottom:70px" >
+  <h1> ▌BuyBuyLa運費抵用券使用規範</h1>
+  <article class="browser">
+    <p style="font-size:20px;font-weight:bolder">
+   
+為維護每一位使用者的消費權益，請您留意：
+<ul  style="list-style-type:disc;margin-left:24px;font-size:20px;font-weight:bolder" >
+<li>每位買家每日不限使用 1 張運費抵用券，實際可使用次數依您所領到的運費抵用券張數為準。</li>
+<li>每位買家實際可享有之運費補助依消費當時系統顯示之折抵金額為主。</li>
+<li>買家結帳時仍可合併多位賣家的商品，並同時使用一張運費抵用券進行結帳 。</li>
+<li>訂單取消或申請退貨退款，運費抵用券會返回到你的優惠券中，您可重新使用。</li>
+<li>指定店家加碼運費抵用券僅限使用在商品首圖上顯示免運金額標籤的特定店家。</li>
+<li>指定店家加碼運費抵用券實際適用物流與條件，請您依該檔次活動案型說明為主。</li>
+</ul>    
+    </p>
+  </article>
+  
+</article>
 
 <!-- 	<!--================End Single Product Area =================--> 
 
@@ -720,10 +763,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
           	  console.log(str1);
           	  str2 =$('#email').val();
           	  console.log(str2);
+          	  str3=$('#gender').val();
   			$.ajax({
   				type:"GET",
   				url:"<c:url value='/campaigns/insertCoupon' />",
-  			 	   data:{'couponNumber':str1,'couponName':'運費折價券','userEmail':str2},
+  			 	   data:{'couponNumber':str1,'couponName':'運費折價券','userEmail':str2,'userGender':str3},
   			 	   success:function(data,textStatus,xhr){  	  
   			 	//   console.log(xhr.status);
   			 	   if(xhr.status==200){

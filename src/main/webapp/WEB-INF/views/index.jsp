@@ -24,10 +24,93 @@
   <link rel='stylesheet' href="css/campaigns.css"  >
   <link rel="stylesheet" href="css/productstyle.css">
   <link rel="icon"  sizes="180x180" href="images/favicon.ico" type="image/x-icon"/>
-<!-- <script src="sweetalert2.min.js"></script> -->
-<!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
-<!-- <script src="sweetalert2.all.min.js"></script> -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <style>
+        ul {
+            /* ����ul�w�]�����Y�μ˦� */
+            margin: 0;
+            padding: 0;
+            list-style: none;
+           
+        }
+
+            ul.drop-down-menu {
+/*                 border: #ccc 1px solid; */
+                display: inline-block;
+                font-family: 'Open Sans', Arial, sans-serif;
+                font-size: 13px;
+            }
+
+                ul.drop-down-menu li {
+                    position: relative;
+                    white-space: nowrap;
+/*                     border-right: #ccc 1px solid; */
+                }
+
+                ul.drop-down-menu > li:last-child {
+                    border-right: none;
+                }
+
+                ul.drop-down-menu > li {
+                    float: left;
+                  
+                }
+
+                ul.drop-down-menu a {
+                    background-color: #fff;
+                    color: #333;
+                    display: block;
+                    padding: 0 30px;
+                    text-decoration: none;
+                    line-height: 40px;
+                }
+
+                    ul.drop-down-menu a:hover {
+                        
+                        background-color: #fff;
+                        color: #fff;
+                    }
+
+                ul.drop-down-menu li:hover > a {
+                   
+                    color:black;
+                }
+
+                ul.drop-down-menu ul {
+                    border: #ccc 3px solid;
+                    position: absolute;
+                    z-index: 99;
+                    left: -68px;
+                    top: 100%;
+                    min-width: 200px;
+                    background-color:white;
+                }
+
+                    ul.drop-down-menu ul li {
+                        border-bottom: #ccc 1px solid;
+                    }
+
+                        ul.drop-down-menu ul li:last-child {
+                            border-bottom: none;
+                        }
+
+                    ul.drop-down-menu ul ul {
+                      
+                        z-index: 999;
+                        top: 10px;
+                        left: 90%;
+                    }
+
+                ul.drop-down-menu ul {
+                    
+                    display: none;
+                }
+
+                ul.drop-down-menu li:hover > ul {
+                    
+                    display: block;
+                }
+    </style>
 </head>
 <body>
   <!--================ 首頁標題 start =================-->
@@ -88,22 +171,59 @@
 			
 
             </ul>
-            <ul class="nav-shop">
+            <ul class="nav-shop drop-down-menu">
            <li class="nav-item" >
            
                <!---------------- 首頁查詢商品框 ---------------->
            		<form:form method='get' action="./queryproduct" class='form-horizontal'>
-					<input name="productName" id="productName" type='text' class='form:input-large'/>
+					<input name="productName" id="productName" type='text' class='form:input-large' />
 					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
 
               <!---------------- 購物車 ---------------->
 				<c:if test="${loginSession.userEmail != null}">
-              		<li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
+<!-- 				<ul class="drop-down-menu"> -->
+        <li class="nav-item">
+			<button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button>
+
+            <ul>
+            <li>
+            <p>近期加入購物車商品</p>
+             <c:forEach items="${cart}" var="carts">
+			<tr>
+			<td> 
+			 <div class="media">
+                 <div class="d-flex">   
+ 					<img width='100'src="<c:url value='/getPicture/${carts.product.productId}' />" />
+                  </div>     
+                 </div>
+             </td>
+			<td>${carts.product.productName}</td>
+			<td>${carts.count}</td>
+			<td>${carts.product.price}</td>
+			</tr>
+			</c:forEach>
+            </li>
+
+            </ul>
+        </li>
+
+
+<!--     </ul> -->	
 				</c:if>
 				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
 				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
 				 </c:if>
+            </ul>
+            
+              <!---------------- 我的最愛 ---------------->
+            <ul style="list-style-type: none; padding-left:10px;padding-bottom:10px"  >
+               <c:if test="${loginSession.userEmail != null}">
+                <li ><button style="border:0 ;background-color:transparent;" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
+                 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+                <li ><button style="border:0 ;background-color:transparent;" onclick="location.href='<c:url value='/try/login' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
             </ul>
           </div>
         </div>
@@ -162,7 +282,7 @@
         
         <div class="row">
         
-        <c:forEach items="${ascProduct}" var="product">
+        <c:forEach items="${descProduct}" var="product">
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
@@ -201,20 +321,20 @@
 
 
     <!-- ================ offer section start ================= --> 
-<!--     <section class="offer" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px"> -->
-<!--       <div class="container"> -->
-<!--         <div class="row"> -->
-<!--           <div class="col-xl-5"> -->
-<!--             <div class="offer__content text-center"> -->
-<!--               <h3>Up To 50% Off</h3> -->
-<!--               <h4>Winter Sale</h4> -->
-<!--               <p>Him she'd let them sixth saw light</p> -->
-<!--               <a class="button button--active mt-3 mt-xl-4" href="#">Shop Now</a> -->
-<!--             </div> -->
-<!--           </div> -->
-<!--         </div> -->
-<!--       </div> -->
-<!--     </section> -->
+    <section class="offer" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-5">
+            <div class="offer__content text-center">
+              <h3>Up To 50% Off</h3>
+              <h4>Winter Sale</h4>
+              <p>Him she'd let them sixth saw light</p>
+              <a class="button button--active mt-3 mt-xl-4" href="#">Shop Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- ================ offer section end ================= --> 
 
     <!-- ================ 熱銷產品 start ================= --> 
@@ -227,6 +347,7 @@
         <div class="owl-carousel owl-theme" id="bestSellerCarousel">
           
           <c:forEach items="${products}" var="product">
+          　<c:if test="${product.stock >0 }">
           <div class="card text-center card-product">
             <div  class="card-product__img">
               <img width="243.61" height="255" class="img-fluid" src="<c:url value='/getPicture/${product.productId}' />" alt="">
@@ -253,6 +374,7 @@
               <p class="card-product__price">${product.price}</p>
             </div>
           </div>
+          </c:if>
 		</c:forEach>
         </div>
       </div>
@@ -335,8 +457,8 @@
 						<div class="single-footer-widget tp_widgets ">
 							<h4 class="footer_title large_title">我們的目標</h4>
 							<p>
-								起初，BuyBuyLa最初創立的目標是為了讓廖總能在台北多買一棟帝寶，1997年時廖總誕生於台北醫學院的護理產房，伴隨著他的是大安區10幾張地契的月子禮，
-								而後又過了幾年，廖總與他一起長大的好夥伴葉總、謝總、歐總，他們展現出了無與倫比的天賦，在工程、財經、甚至極限運動上都有了驚人的成就(雖然他們並不缺錢)
+								起初，BuyBuyLa最初創立的目標是為了讓<h9 style="color:red;">莊董</h9>能在台北多買一棟帝寶，1997年時莊董誕生於台北醫學院的護理產房，伴隨著他的是大安區10幾張地契的月子禮，
+								而後又過了幾年，莊董與他一起長大的好夥伴廖總、葉總、謝總、歐總，他們展現出了無與倫比的天賦，在工程、財經、甚至極限運動上都有了驚人的成就(雖然他們並不缺錢)
 							</p>
 							<p>
 								2021年，BuyBuyLa於中央大學的一間小工作室中誕生(暫定)，為了BuyBuyLa人們的money而設計出了另類的網站，有著奇怪的會員系統，神奇的商品、複雜的購物車、賭徒般的活動、社交的討論區，

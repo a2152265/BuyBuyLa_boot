@@ -56,8 +56,8 @@ a:hover{text-decoration:none}
 <%--         <a class="nav-link"  id="unused" href="<c:url value='/try/coupon/${memberUiDefault.userEmail}' />"style="padding-left:100px;">未使用</a> --%>
 <%--         <a class="nav-link" id="used" href="<c:url value='/try/usedcoupon/${memberUiDefault.userEmail}' />" style="padding-left:100px">已使用</a> --%>
           <a class="nav-link"  id="unused" href="<c:url value='/try/coupon' />"style="padding-left:100px;">未使用</a>
-        <a class="nav-link" id="used" href="<c:url value='/try/usedcoupon' />" style="padding-left:100px">已使用</a>
-<%--         <a class="nav-link" href="<c:url value='/campaigns/免運' />" style="padding-left:100px">免運</a> --%>
+          <a class="nav-link" id="used" href="<c:url value='/try/usedcoupon' />" style="padding-left:100px">已使用</a>
+          <a class="nav-link" href="<c:url value='/try/expiredcoupon' />" style="padding-left:100px">已過期</a> 
       </div>
     </div>
   </div>
@@ -87,11 +87,11 @@ a:hover{text-decoration:none}
 <!--       <span style="font-size:30px;  font-weight:bold;">會員專區</span> -->
 <!--       </div> -->
 	
+	 
+<%-- 	<div style="margin-left:50px;margin-top:50px; font-weight:bolder;size:16px">	  <img src="<c:url value='/images/coin.jpg' />" alt="..." width="40px" height="40px" > --%>
+<%-- 	<span style="font-size:24px;">可用點數:<span style="color:red">${point}</span></span></div> --%>
 	
-	
-	
-	<h2>可用點數:${point}</h2>
-    <div style="text-align: center ;margin-top:60px">
+    <div style="text-align: center ;margin-top:0px">
 <%--     ${couponList} --%>
      <c:if test="${couponList!=''}">  
     <c:choose>
@@ -100,12 +100,14 @@ a:hover{text-decoration:none}
 <%--       <c:if test="${coupon.couponStatus==未使用}"> --%>
 	        <c:forEach items='${couponList}' var='coupon'>
 	        
-      <div class="card mb-3" style="height:120px;max-width: 350px;margin-left:100px ;float:left">
+      <div class="card mb-3" style="height:132px;max-width: 350px;margin-left:80px ;margin-top:35px ;float:left">
   <div class="row g-0">
   	
     <div class="col-md-4">
     
-      <img src="<c:url value='/images/shippingVoucher.jpg' />" alt="..." style="border-radius:3px "width=347.5px height=117px >
+      <img src="<c:url value='/images/shippingVoucher.jpg' />" alt="..." style="border-radius:3px "width=347.5px height=130px >
+          <div class="word" style="font-weight:bolder;color:black; width:160px">有效期限 ${coupon.expiryDate}</div> 
+    
     </div>
     <div class="col-md-8">
       <div class="card-body" style="margin-left:30px">
@@ -252,6 +254,13 @@ a:hover{text-decoration:none}
                         <span class="item">我的折價券</span>
                     </a>
                  </li>
+                  <li>
+                    <a href="<c:url value='/try/point' />">
+                    
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">我的點數</span>
+                    </a>
+                 </li>
                  <!-- 333333333333333336666666666666666666666666666 -->
                  
                 <!-- /*減去footer高度*/ -->
@@ -267,9 +276,33 @@ a:hover{text-decoration:none}
         
     </div>
 
-   
+   <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
+<!--   Launch demo modal -->
+<!-- </button> -->
+<!-- Scrollable modal -->
 
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script>
           var hamburger = document.querySelector(".hamburger");
   hamburger.addEventListener("click", function(){

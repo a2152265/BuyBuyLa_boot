@@ -29,7 +29,7 @@
                         <span class="item">購買紀錄</span>
                     </a>
                 </li>
-                 
+                    <li>
            
                 <li>
                     <a href="<c:url value='???' />">
@@ -56,7 +56,12 @@
                         <span class="item">我的折價券</span>
                     </a>
                 </li>
-               
+               <li>
+                    <a href="<c:url value='/try/point' />">
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">我的點數</span>
+                    </a>
+                </li>
 
                 <!-- /*減去footer高度*/ -->
                 <li>

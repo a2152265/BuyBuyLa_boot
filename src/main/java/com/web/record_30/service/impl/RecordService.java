@@ -221,6 +221,13 @@ public class RecordService implements IRecordService {
 	}
 
 
+	@Override
+	public void deleteAddress(String rid) {
+		buyerAddressRepository.deleteAddress(rid);
+		
+	}
+
+
 	
 
 

@@ -130,14 +130,14 @@ $(document).ready(function () {
 
 
 </head>
-<body>
+<body  style="background: rgb(220, 217, 223);">
    
     <div class="wrapper">
        <div class="section">
 
 
 
-    <div class="top_navbar" style="background: rgb(61, 27, 75);">
+    <div class="top_navbar"  style="background: rgb(26, 5, 48);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -290,17 +290,20 @@ $(document).ready(function () {
 
 
   </div>
-        <div class="sidebar" style="background: rgb(66, 9, 122);">
+        <div class="sidebar" style="background: rgb(26, 5, 48);">
             <div class="profile">
-                <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
+      
+                <!-- 讀取圖片 -->
+               <img src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>" />
+    
                 <h3></h3>
-                <p>Designer</p>
+                <p>您好! &nbsp; 管理員${loginSession.userEmail}</p>
             </div>
             <ul>
                 <li>
                     <a href="<c:url value='/' />" >
                         <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">Home</span>
+                        <span class="item">回首頁</span>
                     </a>
                 </li>
                 <li>
@@ -341,10 +344,17 @@ $(document).ready(function () {
                 </li>
 
                 <!-- /*減去footer高度*/ -->
-                <li style="min-height: calc(100% - 50px); ">
+                <li>
                     <a href="<c:url value='/try/delete' />">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">隱私權政策</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">登出</span>
                     </a>
                 </li>
                 

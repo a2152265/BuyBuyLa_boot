@@ -15,5 +15,12 @@ public interface PointRepository extends JpaRepository<Point, Integer> {
     @Query(nativeQuery = true,value="update point set point = ?1 where userEmail=?2")
 	public void add(Integer point,String userEmail);	
 	
+	@Transactional
+	@Modifying
+    @Query(nativeQuery = true,value="update point set point = ?1 ,usedpoint = ?2 where userEmail=?3")
+	public void minus(Integer point,Integer usedpoint,String userEmail);
+	
+	
+	
 	Point findByUserEmail(String userEmail);
 }

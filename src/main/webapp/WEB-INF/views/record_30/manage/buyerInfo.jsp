@@ -204,82 +204,15 @@ $(document).ready(function () {
        
 
   </div>
-        <div class="sidebar" style="background: rgb(44, 8, 80);">
-            <div class="profile">
-                <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
-                <h3></h3>
-                <p>Designer</p>
-            </div>
-            <ul>
-                <li>
-                    <a href="<c:url value='/' />" >
-                        <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/manager_Ui' />" class="active">
-                        <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">會員資料管理</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
-                        <span class="item">效益分析</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">討論區</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/member/changePwd' />">
-                        <span class="icon"><i class="fas fa-chart-line"></i></span>
-                        <span class="item"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/try/delete' />">
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item"></span>
-                    </a>
-                </li>
-
-                <li style="min-height: calc(100% - 50px); ">
-                    <a href="<c:url value='/try/delete' />">
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">隱私權政策</span>
-                    </a>
-                </li>
-                
-            </ul>
-        </div>
+      
         	<center>
 			<a class="btn btn-outline-secondary" href="recordManage" style='font-size:20px' role="button">回上一頁</a>	
 			</center>
     </div>
 
-   
-
-
-    <script>
-
-          var hamburger = document.querySelector(".hamburger");
- 			 hamburger.addEventListener("click", function(){
-  			  document.querySelector("body").classList.toggle("active");
- 				 })
   
-  
-    </script>
+</div>
+
  
 </body>
 </html>

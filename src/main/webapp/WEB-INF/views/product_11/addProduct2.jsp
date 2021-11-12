@@ -11,6 +11,8 @@
     href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <link rel='stylesheet' href="<c:url value='/css/styles.css' />"  type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 <style type="text/css">
   body {
             font-family: "微軟正黑體";
@@ -205,8 +207,8 @@
                 <td><label  for="productName">
 						商品名稱
 					</label></td>
-                <td>	<form:input id="productName" path="productName" type='text'
-							class='form:input-large' /></td>
+                <td><form:input id="productName" path="productName" type='text'
+							class='form:input-large'  /></td>
             </tr>
 			<tr>
                 <td><label for='price'>
@@ -261,10 +263,11 @@
                </tbody>
     </table>
     		<div class="wrap" style="display: flex;margin-left: 80px;">
-      			  <input id="btnAdd" type='submit' class='btn btn-primary'
-                            value="送出" />
+      			  <input id="btnAdd" type='submit' class='btn btn-primary'value="送出" />
+      			  <input id="auto" type='button' class='btn btn-primary' value="一鍵輸入" />
 	</div>  
         </form:form>
+         
         
     </section>
     
@@ -277,7 +280,11 @@
         document.images[0].src = this.result;
     }
     
-    
+    $('#auto').on('click',function(e){	
+    	 $("#productName").val("Hello World");
+    	 $("#productName").val("Hello World");
+
+    })
 
     </script>
     

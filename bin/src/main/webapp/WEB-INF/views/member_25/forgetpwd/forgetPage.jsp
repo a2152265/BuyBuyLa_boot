@@ -271,6 +271,23 @@ footer a {
     text-decoration: none;
 }
     </style>
+    
+    <script>
+    	let no = 1000;
+    let index = 0;
+    var names= ["a2152265@gmail.com", '0', 'a', 'b', 'c123@gmail.com'];
+    function quickInput(){
+    	document.getElementById('name').value = names[index];
+    	document.getElementById('pwd').value = names[index];
+   	
+    	index++;
+        if (index >= names.length) {
+        	index = 0 ;
+    	}
+    	
+    }
+    
+    </script>
 </head>
 <body>
 
@@ -297,7 +314,7 @@ footer a {
 	<div class="form-container sign-in-container">
 
         <!-- 登入帳號區 -->
-		<form:form method='POST'   modelAttribute="loginSession"
+		<form:form method='POST'   modelAttribute="forgetpwd"
 							cssClass='row login_form' >
 			<h1>歡迎您 請登入</h1>
 			<div class="social-container">
@@ -308,10 +325,23 @@ footer a {
 		
             <form:input id="name" path="userEmail" type='text' placeholder="請輸入帳號" cssclass='form-control'  />
 							
-            <form:password id="pwd" path="userPwd"  placeholder="請輸入密碼" cssclass='form-control'  />
-			<a href="#">Forgot your password?</a>
-			<!-- <button>登入</button> -->
-            <a href="<c:url value='/try/index' />"><button type="submit" value="submit" >登入</button> </a>
+           <!-- 驗證碼區 -->
+           <div ng-app style="margin-left:0px; margin-top:10px" >
+                <div ng-controller="ToogleStateCtrl">
+                    <span style="margin-top:9px;">發送驗證碼</span>
+                    <div id="srv-state" class="switch vertical-center" ng-click="toggleState()">
+                        <div class="switch-slider {{change}}" ng-class="{'disabled' : !plugin.enabled , 'enabled': plugin.enabled, 'pending': plugin.pending, 'loaded': !plugin.pending}">
+                           <!-- <a href="<c:url value='/member/verifyBtn' />"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>   --> 
+                        <a href="<c:url value='/try/index' />"><button type="submit" value="submit" style="background-color: rgb(9, 9, 121);"   >確認</button> </a>
+          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+           
+            <a href="<c:url value='/try/index' />"><button type="submit" value="submit" style="background-color: rgb(9, 9, 121);"   >登入</button> </a>
+          
         </form:form>
 
 
@@ -324,10 +354,10 @@ footer a {
 				<p>To keep connected with us please login with your personal info</p>
 				<button class="ghost" id="signIn">Sign In</button>
 			</div>
-			<div class="overlay-panel overlay-right">
+			<div class="overlay-panel overlay-right"  style="background-color: rgb(9, 9, 121);">
 				<h1>還沒有帳號?</h1>
 				<p>來建一個吧 很厲害的</p>
-                <a href="<c:url value='/try/add' />" >註冊</a>
+                <a href="<c:url value='/try/add' />"  style="color: white;">註冊</a>
 				<!-- <button class="ghost" id="signUp">註冊</button> -->
 			</div>
 		</div>
@@ -346,6 +376,19 @@ footer a {
 
 
     <script>
+    /*
+    // 1 jan input
+    let demoBTN = document.getElementById('onejan')
+    demoBTN.onclick = function(){
+    document.getElementById("name").setAttribute('value','a2152265@gmail.com');
+    document.getElementById("pwd").setAttribute('value','a2152265@gmail.com');               
+   console.log("YAA");
+    };*/
+    
+    
+    
+    
+    
         const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');

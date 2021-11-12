@@ -49,4 +49,20 @@ public class CouponServiceImpl implements CouponService {
 		return couponRepository.getCouponcountByUseremail(userEmail, count);
 	}
 
+	@Override
+	public List<Coupon> findAllByUseremail(String userEmail) {
+		return couponRepository.findAllByUseremail(userEmail);
+	}
+
+	@Override
+	public void updateCouponStatus(String couponStatus, String couponNumber) {
+		couponRepository.updateCouponStatus(couponStatus, couponNumber);
+		
+	}
+
+	@Override
+	public List<Coupon> getCouponstatus(String couponStatus) {
+		return couponRepository.getCouponstatus(couponStatus);
+	}
+
 }

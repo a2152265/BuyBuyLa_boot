@@ -65,11 +65,7 @@
 							<li class="nav-item submenu dropdown">
                 <a href="<c:url value='/campaigns' />" class="nav-link dropdown-toggle" role="button" aria-haspopup="true"
                   aria-expanded="false">活動專區</a>
-<!--                 <ul class="dropdown-menu"> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="tracking-order.html">Tracking</a></li> -->
-<!--                 </ul> -->
+
               </li>
               <c:if test="${loginSession.userEmail != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
@@ -82,29 +78,32 @@
            <li class="nav-item" >
            
                <!---------------- 首頁查詢商品框 ---------------->
-           		<form:form method='get' action="./queryproduct" class='form-horizontal'>
-					<input name="productName" id="productName" type='text' class='form:input-large'/>
+           			<form:form method='get' action="./queryproduct" class='form-horizontal'>
+					<input name="productName" id="productName" type='text' class='form:input-large' />
 					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
 
 
               <!---------------- 購物車 ---------------->
 				<c:if test="${loginSession.userEmail != null}">
-              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
+              <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>		
 				</c:if>
 				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
 				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
 				 </c:if>
-
               
-            
-              
-              <!-- 購物車顯示數量在這裡改 -->
-              
-<%--               <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li> --%>
-<!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
-
             </ul>
+            
+            <!---------------- 我的最愛 ---------------->
+            <ul style="list-style-type: none; padding-left:10px" >
+               <c:if test="${loginSession.userEmail != null}">
+                <li><button style="border:0 ;background-color:transparent;" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
+                 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+                <li ><button style="border:0 ;background-color:transparent;" onclick="location.href='<c:url value='/try/login' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
+            </ul>
+            
           </div>
         </div>
       </nav>
@@ -140,15 +139,51 @@
  						<div class="single-prd-item"> 
  							<img class="img-fluid" src="<c:url value='/getPicture/${product.productId}'/>" alt=""> 
  						</div> 
-						<!-- <div class="single-prd-item">
-							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
-						</div>
-						<div class="single-prd-item">
-							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
-						</div> -->
 					</div>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
+					<c:if test="${product.point>0 }">
+					<div class="s_product_text">
+						<input id="productId" type="hidden" value="${product.productId}" />
+						<h3>${product.productName}</h3>
+					    <input  type='hidden' class='productName' name='address' value='${product.productName}'/>
+						
+						<h2 style="color:red">兌換點數:${product.point}</h2>
+						<input  type='hidden' class='point' name='address' value='${product.point}'/>
+						<ul class="list">
+							<li><a class="active" href="<c:url value='/products/${product.category}' />"><span>產品分類</span> ${product.category}</a></li>
+<%-- 							<li><a href="javascript:;"><span>庫存量</span>${product.stock}</a></li> --%>
+						</ul>
+						<br>
+						<div class="product_count">
+
+
+<!--               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" -->
+<!-- 							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button> -->
+<%-- 							<input type="number" name="qty" id="sst" min="1" max="${product.stock}"  size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty"> --%>
+<!-- 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" -->
+<!--                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button> -->
+							<input  type='hidden' class='pid2' name='address' value='${product.productId}'/>
+							<a class="button primary-btn redeem" href="#" style="background-color:#8d0e3b;font-size:20px;font-weight:bolder">立&nbsp即&nbsp兌&nbsp換</a>                             
+
+						</div>
+<!-- 						<div class="card_area d-flex align-items-center"> -->
+<%-- 							<c:choose> --%>
+<%-- 								<c:when test="${producrFavorite == null}"> --%>
+<!-- 									<a id="addfavorite" class="icon_btn" ><i class="lnr lnr lnr-heart"></i></a> -->
+<%-- 								</c:when> --%>
+<%-- 								<c:otherwise> --%>
+<!-- 									<a  id="deletefavorite" class="icon_btn" ><i class="fas fa-heart"></i></a> -->
+<%-- 								</c:otherwise> --%>
+<%-- 							</c:choose> --%>
+
+<%-- 						<div class="line-it-button" data-lang="zh_Hant" data-type="share-a" data-ver="3" data-url="http://localhost:8080/BuyBuyla_boot/product?id=${product.productId}" data-color="grey" data-size="small" data-count="true" style="display: none;"> --%>
+<!-- 						</div> -->
+<!-- 						</div> -->
+						
+					</div>
+					</c:if>
+					<c:if test="${product.point==0 }">
 					<div class="s_product_text">
 						<input id="productId" type="hidden" value="${product.productId}" />
 						<h3>${product.productName}</h3>
@@ -158,33 +193,43 @@
 							<li><a href="javascript:;"><span>庫存量</span>${product.stock}</a></li>
 						</ul>
 						<br>
-<%-- 						<p>${product.productInfo}</p> --%>
 						<div class="product_count">
+
+
+                   
+
 <!--               <label for="qty">Quantity:</label> -->
-              <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button>
+
+<!--               <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;" -->
+<!-- 							 class="increase items-count" type="button"><i class="ti-angle-left"></i></button> -->
 							<input type="number" name="qty" id="sst" min="1" max="${product.stock}"  size="2" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-               class="reduced items-count" type="button"><i class="ti-angle-right"></i></button>
+<!-- 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" -->
+<!--                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button> -->
+
+							<input  type='hidden' class='pid' name='address' value='${product.productId}'/>
+
 <%-- 							<a class="button primary-btn" href="<c:url value='/additem' />?id=${product.productId}">Add to Cart</a>  --%>
-							<input type='hidden' class='pid' name='address' value='${product.productId}'/>
-							<a class="button primary-btn additem" href="#">Add to Cart</a>                             
-						</div>
+							<input type='hidden' id='pid' class='pid' name='address' value='${product.productId}'/>
+							<input class="button primary-btn additem" href="" type='button'align="cent er" style="width: 125px;border-radius: 80px;" value='   Add to Cart'/>                          
+
+
+						</div>  
 						<div class="card_area d-flex align-items-center">
-							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
 							<c:choose>
 								<c:when test="${producrFavorite == null}">
-									<a class="icon_btn" href="<c:url value='./favorite?id=${product.productId}' />"><i class="lnr lnr lnr-heart"></i></a>
+									<a id="addfavorite" class="icon_btn" ><i class="lnr lnr lnr-heart"></i></a>
 								</c:when>
 								<c:otherwise>
-									<a class="icon_btn" href="<c:url value='./favorite?id=${product.productId}' />"><i class="fas fa-heart"></i></a>
+									<a  id="deletefavorite" class="icon_btn" ><i class="fas fa-heart"></i></a>
 								</c:otherwise>
 							</c:choose>
 
 						<div class="line-it-button" data-lang="zh_Hant" data-type="share-a" data-ver="3" data-url="http://localhost:8080/BuyBuyla_boot/product?id=${product.productId}" data-color="grey" data-size="small" data-count="true" style="display: none;">
 						</div>
 						</div>
+						
 					</div>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -217,76 +262,7 @@
 					<p></p>
 				</div>
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-<!-- 					<div class="table-responsive"> -->
-<!-- 						<table class="table"> -->
-<!-- 							<tbody> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5></h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5></h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>Height</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>508mm</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>Depth</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>85mm</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>Weight</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>52gm</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>Quality checking</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>yes</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>Freshness Duration</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>03days</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>When packeting</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>Without touch of hand</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td> -->
-<!-- 										<h5>Each Box contains</h5> -->
-<!-- 									</td> -->
-<!-- 									<td> -->
-<!-- 										<h5>60pcs</h5> -->
-<!-- 									</td> -->
-<!-- 								</tr> -->
-<!-- 							</tbody> -->
-<!-- 						</table> -->
-<!-- 					</div> -->
+
 				</div>
 				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 					<div class="row">
@@ -427,107 +403,88 @@
       </div>
 			<div class="row mt-30">
         <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <c:forEach items="${sellerProduct}" var="product" begin="0" end="2">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
+              <a href="#"><img src="<c:url value='/getPicture/${product.productId}'/>" alt=""></a>
               <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
+                  <a href="<c:url value='/product?id=${product.productId}' />" class="title"
+                  style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;"
+                  >${product.productName}</a>
+                  <div class="price">${product.price*product.discount}</div>
               </div>
             </div>
           </div>
+          </c:forEach>
         </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <c:forEach items="${sellerProduct}" var="product" begin="3" end="5">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-4.png" alt=""></a>
+              <a href="#"><img src="<c:url value='/getPicture/${product.productId}'/>" alt=""></a>
               <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-5.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-6.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
+                  <a href="<c:url value='/product?id=${product.productId}' />" class="title"
+                  style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;"
+                  >${product.productName}</a>
+                  <div class="price">${product.price*product.discount}</div>
               </div>
             </div>
           </div>
+          </c:forEach>
         </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+          <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <c:forEach items="${sellerProduct}" var="product" begin="6" end="8">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-7.png" alt=""></a>
+              <a href="#"><img src="<c:url value='/getPicture/${product.productId}'/>" alt=""></a>
               <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-8.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-9.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
+                  <a href="<c:url value='/product?id=${product.productId}' />" class="title"
+                  style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;"
+                  >${product.productName}</a>
+                  <div class="price">${product.price*product.discount}</div>
               </div>
             </div>
           </div>
+          </c:forEach>
         </div>
-
-        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+          <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <c:forEach items="${sellerProduct}" var="product" begin="9" end="11">
           <div class="single-search-product-wrapper">
             <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-1.png" alt=""></a>
+              <a href="#"><img src="<c:url value='/getPicture/${product.productId}'/>" alt=""></a>
               <div class="desc">
-                  <a href="#" class="title">Gray Coffee Cup</a>
-                  <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-2.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
-              </div>
-            </div>
-            <div class="single-search-product d-flex">
-              <a href="#"><img src="img/product/product-sm-3.png" alt=""></a>
-              <div class="desc">
-                <a href="#" class="title">Gray Coffee Cup</a>
-                <div class="price">$170.00</div>
+                  <a href="<c:url value='/product?id=${product.productId}' />" class="title"
+                  style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;"
+                  >${product.productName}</a>
+                  <div class="price">${product.price*product.discount}</div>
               </div>
             </div>
           </div>
+          </c:forEach>
         </div>
       </div>
 		</div>
@@ -639,17 +596,21 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script>
   $(".additem").click(function(){		
 
-		var data=$(this).val();
+		var data=$(".pid").val();
+		var qty=$("#sst").val();
+		console.log(data)
+		console.log(qty)
+
+
 			$.ajax({
 			type:'get',
 			url:'additemFromproduct',
 			data:{
-				"id":data
+				"id":data,
+				"qty":qty
 			},
 			
 			success:function(){
-		
-
 				Swal.fire({
 					  position:'center',
 					  icon: 'success',
@@ -718,6 +679,107 @@ $('#comment').click(function() {
 
 
 
+});
+
+$("#addfavorite").click(function(){		
+	
+	var productId= $('#productId').val();
+	console.log(productId);
+		$.ajax({
+		type:'get',
+		url:'favorite',
+		data:{
+			"productId":productId
+		},
+		
+		success:function(){
+				window.location.reload();
+		}						
+	});		
+	
+	
+});
+
+$("#deletefavorite").click(function(){		
+
+	var productId= $('#productId').val();
+	console.log(productId);
+		$.ajax({
+		type:'get',
+		url:'deletefavorite',
+		data:{
+			"productId":productId
+		},
+		
+		success:function(){
+				window.location.reload();
+		}
+								
+	});		
+	
+	
+});
+
+$(".redeem").click(function(){		
+
+	var id=$('.pid2').val();
+	var point=$('.point').val();
+	var productName=$('.productName').val();
+		$.ajax({
+		type:'get',
+		url:'redeempoint',
+		data:{
+			"id":id,
+			"point":point,
+			"productName":productName
+		},
+		
+		success:function(data,textStatus,xhr){
+			 if(data=='failure'){
+				 Swal.fire({
+					  position:'center',
+					  icon: 'error',
+					  title: '點數不足，兌換失敗',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+			
+			
+			 }
+			 else if(data=='success'){
+				 Swal.fire({
+					  position:'center',
+					  icon: 'success',
+					  title: '兌換成功',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+					
+					 }
+			 else if(data=='N'){
+					
+					Swal.fire({
+						  position:'center',
+						  icon: 'error',
+						  title: '點數不足，兌換失敗',
+						  showConfirmButton: false,
+						  timer: 1500
+						})
+					 }
+		},error:function(){
+			Swal.fire({
+				  position:'center',
+				  icon: 'error',
+				  title: '請登入會員',
+// 				  text: '請登入會員',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
+		}
+								
+	});		
+	
+	
 });
 
 

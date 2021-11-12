@@ -42,5 +42,31 @@ public class PointServiceImpl implements PointService {
 		return pointRepository.findByUserEmail(useremail);
 	}
 
+
+
+	@Override
+	public void minusPointByUseremail(Integer point, Integer point2, String userEmail) {
+//		System.out.println(point);
+//		System.out.println(point2);
+//		System.out.println(pointRepository.findByUserEmail(userEmail).getPoint());
+//		System.out.println(pointRepository.findByUserEmail(userEmail).getUsedpoint());
+		point=(pointRepository.findByUserEmail(userEmail).getPoint())-point2;
+		point2=(pointRepository.findByUserEmail(userEmail).getUsedpoint())+point2;
+//		System.out.println(point);
+//		System.out.println(point2);
+		pointRepository.minus(point, point2, userEmail);
+	}
+
+
+
+	@Override
+	public void save(Point point) {
+		pointRepository.save(point);
+		
+	}
+
+
+
+	
 	
 }

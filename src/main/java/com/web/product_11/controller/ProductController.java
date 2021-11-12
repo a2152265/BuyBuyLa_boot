@@ -2,11 +2,13 @@ package com.web.product_11.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -60,14 +63,16 @@ public class ProductController {
 	ServletContext servletContext;
 	CartService cartService;
 	CampaignService campaignService;
-	@Autowired
 	JavaMailSender mailSender;
 	
+
+
 
 	@Autowired
 	public ProductController(ProductService productservice, ProductCommentService productCommentService,
 			ProductFavoriteService productFavoriteService, MemberService memberService, ServletContext servletContext,
-			CartService cartService, JavaMailSender mailSender) {
+			CartService cartService, JavaMailSender mailSender,
+			CampaignService campaignService) {
 		this.productservice = productservice;
 		this.productCommentService = productCommentService;
 		this.productFavoriteService = productFavoriteService;
@@ -75,12 +80,13 @@ public class ProductController {
 		this.servletContext = servletContext;
 		this.cartService = cartService;
 		this.mailSender = mailSender;
-
+		this.campaignService = campaignService;
 	}
 
 	
 	public ProductController() {
 	}
+
 
 	//顯示所有商品
 	@GetMapping("/products")
@@ -113,12 +119,6 @@ public class ProductController {
 		model.addAttribute("cart", cart);	
 
 		
-		
-		
-		//討論區-官方最新公告
-//		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
-//		model.addAttribute("announcementList",announcementList);
-		
 		return "index";
 		
 		
@@ -131,11 +131,35 @@ public class ProductController {
 		public String managelist(
 				@PathVariable String status
 				,Model model) {
-	
+				System.out.println("@@@@@@@@@@@"+status);
+				if(status=="待審核") {
+					model.addAttribute("status", "待審核");
+				}
+				
 				List<Product> beans = productservice.findByStatus(status);
 				model.addAttribute("products", beans);
 				
-			
+				//商品種類圖表
+				String[] categoryArray=new String[] {"男生衣服","運動健身","女生衣服","寵物","其他"};
+				String c = "";
+				for (String category : categoryArray) {
+					Long countByCategory = productservice.countByCategory(category);
+					c += countByCategory+",";	
+				}
+				
+				model.addAttribute("category",c);
+				
+				//商品狀態圖表
+				String[] statusArray=new String[] {"上架中","待審核","審核失敗"};
+				String s = "";
+				for (String pStatus : statusArray) {
+					Long countByStatus = productservice.countByStatus(pStatus);
+					s += countByStatus+",";	
+				}
+				model.addAttribute("productStatus",s);
+				
+
+				
 			return "product_11/manage/products";
 					
 		}
@@ -222,8 +246,22 @@ public class ProductController {
 			if(loginMb==null) {
 				return "index";
 			}
-			List<Product> beans = productservice.getProductBySeller(loginMb.getUserEmail());
+			String userEmail = loginMb.getUserEmail();
+			List<Product> beans = productservice.getProductBySeller(userEmail);
 			model.addAttribute("sellerproducts", beans);
+			
+			//商品瀏覽次數排行
+			List<Product> viewProductList = productservice.getViewBySeller(userEmail);
+			model.addAttribute("viewProductList", viewProductList);
+			
+			//商品銷售量排行
+			List<Product> salesProductList = productservice.getSalesBySeller(userEmail);
+			model.addAttribute("salesProductList", salesProductList);
+			
+			//商品收藏排名
+			List<Product> favoriteProductList = productservice.getFavoriteCountBySeller(userEmail);
+			model.addAttribute("favoriteProductList", favoriteProductList);
+			
 			return "product_11/seller/productBySeller";		
 			
 		}
@@ -234,24 +272,40 @@ public class ProductController {
 		public String getProductById(
 			@RequestParam("id") Integer id, // 查詢字串
 			 Model model) {
+		
 			Product product = productservice.getProductById(id);
+			
 			if((membershipInformationBean) model.getAttribute("loginSession")!=null) {
 				
 				membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
 				membershipInformationBean member = memberService.findMemberData(mb.getUserEmail());			
 				membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
+				System.out.println("!!!!!!!!!!!!!"+product.getProductId());
 				ProductFavorite producrFavorite = productFavoriteService.findByMidAndPid(member.getId(), product.getProductId());
-				
 				model.addAttribute("producrFavorite", producrFavorite); 
-				model.addAttribute("product", product);
-				model.addAttribute("productComment",productCommentService.findByProductId(id));
 				model.addAttribute("memberUiDefault",mBean);
-			
+
 			
 			}else {
-				model.addAttribute("product", product);
-
+				membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
+				model.addAttribute("memberUiDefault",mBean);
 			}
+			
+			
+			model.addAttribute("productComment",productCommentService.findByProductId(id));
+			model.addAttribute("product", product);
+
+			List<Product> productBySellerList= new ArrayList<>();
+			
+			for(Product p:productservice.findBySellerAndStatus(product.getSeller(), "上架中")) {
+				if(p.getProductId()==id) {
+					continue;
+				}
+				productBySellerList.add(p);
+			}
+			model.addAttribute("sellerProduct", productBySellerList);
+			productservice.updateViews(id);
+			
 			
 			
 			
@@ -271,92 +325,83 @@ public class ProductController {
 			return "product_11/products_query";
 			
 		}
-		
-	// 新增空白表單
-	@GetMapping("/products/add")
-	public String getAddNewProductForm(Model model) {
-		Product p = new Product();
-		model.addAttribute("productBean", p);
-		return "product_11/addProduct";
-	}
 
-	//表單填寫，寫入資料庫
-	@PostMapping("/products/add")
-	public String processAddNewProductForm(@ModelAttribute("productBean") Product p,
-			@ModelAttribute("loginSession") membershipInformationBean loginMb,
-			BindingResult result // 父:Errors(表單如有錯誤放置)
-	) {
-		// 判斷是否有不合法欄位
-		String[] suppressedFields = result.getSuppressedFields();
-		if (suppressedFields.length > 0) {
-			throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
-			// 陣列裡面元素以逗號隔開，並轉成字串
+		
+			// 新增空白表單
+		@GetMapping("/products/add")
+		public String getAddNewProductForm(Model model) {
+			Product p = new Product();
+			model.addAttribute("productBean", p);
+			return "product_11/addProduct";
 		}
-		System.out.println("p=" + p);
-		
-		//新增商品時間戳記
-		   Long timeStamp = System.currentTimeMillis();  //获取当前时间戳
-	       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	       String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp)))); 
-	       p.setInsertTime(sd);
-	       //獲取賣家帳號
-	       p.setSeller(loginMb.getUserEmail());
-	       
-	       
-	       //商品狀態
-	       p.setStatus("待審核");
-	       //商品銷售量
-	       p.setSales(0);
-
-		if(!p.getProductImage().isEmpty()) {
-		// 於productImage取得照片
-		MultipartFile productImage = p.getProductImage();
-		// 使用者照片檔名
-		String originalFilename = productImage.getOriginalFilename();
-		p.setFileName(originalFilename);
-		// 建立Blob物件，交由 Hibernate 寫入資料庫
-		// 不是空的and位元組不為空
-		if (productImage != null && !productImage.isEmpty()) {
-			try {
-				// 取所有位元組
-				byte[] b = productImage.getBytes();
-				// 放置Blob
-				Blob blob = new SerialBlob(b);
-				// blob放到bean-Blob coverImage;
-				p.setCoverImage(blob);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+	
+		//表單填寫，寫入資料庫
+		@PostMapping("/products/add")
+		public String processAddNewProductForm(@ModelAttribute("productBean") Product p,
+				@ModelAttribute("loginSession") membershipInformationBean loginMb,
+				BindingResult result // 父:Errors(表單如有錯誤放置)
+		) {
+			// 判斷是否有不合法欄位
+			String[] suppressedFields = result.getSuppressedFields();
+			if (suppressedFields.length > 0) {
+				throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
+				// 陣列裡面元素以逗號隔開，並轉成字串
 			}
-		}
-		
-	       
-	       productservice.addProduct(p);
-		}else {
+			System.out.println("p=" + p);
 			
-			productservice.addProduct(p);
+			//新增商品時間戳記
+			   Long timeStamp = System.currentTimeMillis();  //获取当前时间戳
+		       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		       String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp)))); 
+		       p.setInsertTime(sd);
+		       //獲取賣家帳號
+		       p.setSeller(loginMb.getUserEmail());
+		       
+		       
+		       //商品狀態
+		       p.setStatus("待審核");
+		       //商品銷售量
+		       p.setSales(0);
+		       
+		       p.setViews(0);
+		       
+		       p.setDiscount(1.0);
+	
+		       p.setFavoriteCount(0);
+		       
+			if(!p.getProductImage().isEmpty()) {
+			// 於productImage取得照片
+			MultipartFile productImage = p.getProductImage();
+			// 使用者照片檔名
+			String originalFilename = productImage.getOriginalFilename();
+			p.setFileName(originalFilename);
+			// 建立Blob物件，交由 Hibernate 寫入資料庫
+			// 不是空的and位元組不為空
+			if (productImage != null && !productImage.isEmpty()) {
+				try {
+					// 取所有位元組
+					byte[] b = productImage.getBytes();
+					// 放置Blob
+					Blob blob = new SerialBlob(b);
+					// blob放到bean-Blob coverImage;
+					p.setCoverImage(blob);
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+				}
+			}
+			
+		       
+		       productservice.addProduct(p);
+			}else {
+				
+				productservice.addProduct(p);
+			}
+			
+			
+	
+			return "redirect:/products/seller";
 		}
-		
-		
-		// ----------------------------------------
-//		// 取出副檔名，.png、.jpg
-//		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-//		// 找到應用系統根目錄 /mvcExercise
-//		String rootDirectory = servletContext.getRealPath("/");
-//		try {
-//			// 在根目錄下建立images資料夾
-//			File imageFolder = new File(rootDirectory, "images");
-//			if (!imageFolder.exists())
-//				imageFolder.mkdirs();
-//			File file = new File(imageFolder, "Product_" + p.getProductId() + ext);
-//			productImage.transferTo(file);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-//		}
-
-		return "redirect:/products/seller";
-	}
 
 	//獲取類別List
 	@ModelAttribute("categoryList")
@@ -450,6 +495,41 @@ public class ProductController {
 			return "product_11/products_category";
 		}
 		
+		@GetMapping("/rank/{category}") // 路徑變數{category}
+		public String getProductsByCategoryRank(@PathVariable("category") String category, Model model) {
+			List<Product> products = productservice.getProductsByCategory(category);
+			model.addAttribute("products", products);
+			return "product_11/products_category";
+		}
+		
+		//限時活動
+		@GetMapping("/campaigns/countdownSales")
+		public String productList1(Model model) {
+			
+			List<Campaign> campaignsByCategory = campaignService.getCampaignsByCategory("限時活動", "已結束");
+			String category="寵物";
+			int size = campaignsByCategory.size();
+			if(size==0) {
+			
+//			System.out.println("12w12w12w12sqwxq"+campaignsByCategory.size());
+      		
+			productservice.updateProductDiscount(0.8, category);
+			List<Product> beans = productservice.getProductsByCategory(category);
+
+			model.addAttribute("products", beans);
+			return "celebrations_36/countdownSales";
+			
+			}else {
+//			System.out.println("12w12w12w12sqwxq"+campaignsByCategory.size());
+
+				productservice.updateProductDiscount(1.0, category);
+				List<Product> beans = productservice.getProductsByCategory(category);
+
+				model.addAttribute("products", beans);
+			
+			return "celebrations_36/countdownSales";}
+		}
+		
 	//更新表單
 		@GetMapping("/update")
 		public String getUpdateProductForm(@RequestParam("productId") Integer productId, Model model) {
@@ -463,6 +543,9 @@ public class ProductController {
 			
 				@RequestParam("productId") Integer productId,
 				@RequestParam("insertTime") String insertTime,
+				@RequestParam("discount") String discount,
+				@RequestParam("views") String views,
+				@RequestParam("favoriteCount") String favoriteCount,
 				@ModelAttribute("product") Product p,
 				@ModelAttribute("loginSession") membershipInformationBean loginMb,
 				
@@ -475,6 +558,9 @@ public class ProductController {
 				p.setSeller(loginMb.getUserEmail());
 			       //商品狀態
 			       p.setStatus("待審核");
+			       p.setDiscount(Double.parseDouble(discount));
+			       p.setViews(Integer.parseInt(views));
+			       p.setFavoriteCount(Integer.parseInt(favoriteCount));
 				if(!p.getProductImage().isEmpty()) {
 					
 					
@@ -568,8 +654,8 @@ public class ProductController {
 //-----------------------------------商品我的最愛-----------------------------------------
 		//新增我的最愛
 				@GetMapping("/favorite")
-				public String AddFavoriteProduct(
-						@RequestParam("id") String id
+				public ResponseEntity<String> addFavoriteProduct(
+						@RequestParam("productId") String id
 						,Model model) {
 			
 					membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
@@ -585,29 +671,57 @@ public class ProductController {
 					productFavorite.setMembershipInformationBean(member);
 					productFavorite.setProduct(product);
 					ProductFavorite producrFavorite = productFavoriteService.findByMidAndPid(member.getId(), product.getProductId());
-//					System.out.println("@@@@@@@@@@@@"+producrFavorite.getFavoriteId());
 					if(producrFavorite == null) {
 						productFavoriteService.addFavoriteProduct(productFavorite);
-					}else if(producrFavorite != null) {
-						System.out.println("################"+producrFavorite.getFavoriteId());
-						return "redirect:/";
-						
+						productservice.plusFavoriteCount(pId);
 					}
 					
+					return new ResponseEntity<String>(HttpStatus.OK);
+
+				}
+				
+				
+		//刪除我的最愛
+				@GetMapping("/deletefavorite")
+				public ResponseEntity<String> deleteFavoriteProduct(
+						@RequestParam("productId") String id
+						,Model model) {
+					System.out.println("############"+id);
+					membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
+					int pId = Integer.parseInt(id);
+		
+
+					System.out.println("############"+mb.getUserEmail());
+					membershipInformationBean member = memberService.findMemberData(mb.getUserEmail());
 					
-					return "redirect:/";
+					productFavoriteService.deleteByMidAndPid(member.getId(),pId);
+					productservice.subFavoriteCount(pId);
+					
+					return new ResponseEntity<String>(HttpStatus.OK);
+
 				}
 				
 		//依照會員取得我的最愛
-//				@GetMapping("/favorite")
-//				public String getFavoriteProduct(
-//						@RequestParam("id") String id
-//						,Model model) {
-//					
-//					membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
-//					
-//							return "";
-//					
-//				}
+				@GetMapping("/member/favorite")
+				public String getFavoriteProduct(Model model) {
+					
+					membershipInformationBean mb=(membershipInformationBean) model.getAttribute("loginSession");
+					membershipInformationBean member = memberService.findMemberData(mb.getUserEmail());
+					List<Product> pList= new ArrayList<>();
+					System.out.println(member.getId());
+					List<ProductFavorite> productFavorite = productFavoriteService.findByMemberId(member.getId());
+					for(ProductFavorite p:productFavorite) {
+						Product product = p.getProduct();
+						Integer productId = product.getProductId();
+						Product favoriteproduct = productservice.getProductById(productId);
+						pList.add(favoriteproduct);
+					}
+						model.addAttribute("favoriteList", pList);
+					
+							return "product_11/buyer/product_favorite";
+					
+				}
+				
+
 				
 }

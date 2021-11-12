@@ -5,7 +5,7 @@
 <!-- sidebar -->>
 <%@ include file="../Home/member/member_25/sidebar.jspf"%>
                           
-                               <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"> 修改會員資料 </p>
+                          <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"> 修改會員資料 </p>
                        
                             <!-- 修改表單開始 -->
                           <form:form method='POST' modelAttribute="memberUiDefault"

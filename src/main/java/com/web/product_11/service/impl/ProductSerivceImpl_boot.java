@@ -85,21 +85,88 @@ public class ProductSerivceImpl_boot implements ProductService{
 		return productRepositoryDao.findByStatus(status);
 	}
 
-	@Override
-	public void updateSales(int pid) {
-		productRepositoryDao.updateSales(pid);
-	}
-//
-//	@Override
-//	public List<Product> productOrderBySales() {
-//		return productRepositoryDao.productOrderBySales();
-//	}
 
 	@Override
 	public List<Product> productOrderBySales() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public void updateViews(int pid) {
+		productRepositoryDao.updateViews(pid);
+	}
+
+
+	public void updateProductDiscount(Double discount, String category) {
+		productRepositoryDao.updateProductDiscount(discount, category);
+		
+	}
+
+	@Override
+	public List<Product> findBySellerAndStatus(String seller, String status) {
+		return productRepositoryDao.findBySellerAndStatus(seller, status);
+	}
+
+	@Override
+	public List<Product> getByCategoryOrderByPrice(String category) {
+		return productRepositoryDao.getByCategoryOrderByPrice(category);
+	}
+
+	@Override
+	public Long countByCategory(String category) {
+		return productRepositoryDao.countByCategory(category);
+	}
+
+	@Override
+	public Long countByStatus(String status) {
+		return productRepositoryDao.countByStatus(status);
+	}
+
+	@Override
+	public List<Product> getViewBySeller(String seller) {
+		return productRepositoryDao.getViewBySeller(seller);
+	}
+
+	@Override
+	public List<Product> getSalesBySeller(String seller) {
+		return productRepositoryDao.getSalesBySeller(seller);
+	}
+
+	@Override
+	public void plusFavoriteCount(int pid) {
+		productRepositoryDao.plusFavoriteCount(pid);
+	}
+
+	@Override
+	public void subFavoriteCount(int pid) {
+		productRepositoryDao.subFavoriteCount(pid);
+	}
+
+	@Override
+	public List<Product> getFavoriteCountBySeller(String seller) {
+		return productRepositoryDao.getFavoriteCountBySeller(seller);
+	}
+
+	@Override
+	public void updateSales(int pid, int sales) {
+		productRepositoryDao.updateSales(pid, sales);
+	}
+
+	
+	
+
+
+
+	@Override
+	public List<Product> getAllPoints() {
+		
+		return productRepositoryDao.getAllPoints();
+	}
+
+
+
 
 
 

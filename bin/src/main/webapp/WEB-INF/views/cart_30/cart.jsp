@@ -138,11 +138,6 @@ h2 span {
 </head>
 
 <body>
-
-
-
-
- 
 	<div class="container">
 		<div id="title" class="title">
 			<h1>購物車</h1>
@@ -173,11 +168,18 @@ h2 span {
 				<tr>
 					<td><img width='150'src="<c:url value='/getPicture/${row.pid}' />" /></td>
 					<td>${row.p_name}</td>
-					<td><a href="<c:url value='/sub' />?id=${row.pid}"><button class="down">-</button></a><input type="text" value="${row.count}" readonly="readonly" /><a href="<c:url value='/add' />?id=${row.pid}"><button class="up">+</button></a></td>
+					<td>
+
+					<button class="down"  value='${row.pid}'>-</button>
+					<input  class="cnt" type="text" value="${row.count}" readonly="readonly" />
+
+					<button class="up" value='${row.pid}'>+</button>
+					</td>
 					<td>NT<span>${row.p_price}</span></td>
 					<td>NT<span class="total">${row.count*row.p_price}</span></td>
 					<td>
-						<a href="<c:url value='/deletecart' />?id=${row.pid}"><button>刪除</button></a>
+						<a href="<c:url value='/deletecart' />?id=${row.pid}"></a>
+						<button class='deletecart' value='${row.pid}'>刪除</button>
 					</td>
 				</tr>
 			
@@ -200,8 +202,76 @@ h2 span {
 				value="我要結帳" class="submit"></a>
 		</center>
 	</div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
+	
+	$(".down").click(function(){		
+	var cnt = $(".cnt").val();
+	var cnt2;
+	var data=$(this).val();
+	console.log(data+"************************");
+	$.ajax({
+		type:'get',
+		url:'sub',
+		data:{
+			"id":data
+		},
+		
+		success:function(){
+			cnt2=parseInt(cnt)-1;
+			$(".cnt").val(cnt2);
+			console.log(cnt2)
+		}
+								
+	});			
+});
+
+	
+	$(".up").click(function(){		
+	var cnt = $(this).prev().val(); 
+	
+	console.log("cnt=="+cnt)
+	var data=$(this).val();
+
+	$.ajax({
+		type:'get',
+		url:'add',
+		data:{
+			"id":data
+		},
+		
+		success:function(result){
+			console.log("result=="+result)
+			
+// 			console.log("cnt2 = "+cnt2);
+			
+		}
+								
+	});			
+});
+	
+	$(".deletecart").click(function(){		
+//		var data=$("#form1").serializeArray();
+	var data=$(this).val();
+	console.log(data+"************************");
+	$.ajax({
+		type:'get',
+		url:'deletecart',
+		data:{
+			"id":data
+		},
+		
+		success:function(){
+			 console.log("77777777")
+		}
+								
+	});			
+});
+
+
+	
+	
 	
 	var total=0;
 	$('.total').each(function(){
@@ -212,6 +282,7 @@ h2 span {
 		})
 	
 	$('#totalPrice').html(total)
+	
 	</script>
 	
 </body>

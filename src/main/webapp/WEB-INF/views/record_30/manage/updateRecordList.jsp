@@ -195,16 +195,18 @@ $(document).ready(function () {
             <label for="country">買家住址:</label>
           </div>
           <div class="col-75">
-            <form:input path="buyeraddress" size="25" />      <br>&nbsp;
-			<form:errors path="buyeraddress" cssClass="error" style="color: red;"/>
+            ${RecordList.buyeraddress} 
+    
           </div>
         </div>
         <div class="row">
           <div class="col-25">
             <label for="country">付費狀態:</label>
           </div>
-          <div class="col-75">
+          <div class="col-15">
           	<form:select path="pay_status"  >
+          	<option value="已付款" selected>已付款</option>	
+          	<option value="已付款" disabled>-------------</option>	
           	<form:option value="待付款">待付款</form:option>
           	<form:option value="已付款">已付款</form:option>	 
          	</form:select>
@@ -217,10 +219,11 @@ $(document).ready(function () {
           <div class="col-25">
             <label for="country">出貨狀態:</label>
           </div>
-          <div class="col-75">
+          <div class="col-15">
           <form:select path="transport_status" >
           	<form:option value="待出貨">待出貨</form:option>
-          	<form:option value="待運送">運送中</form:option>
+          	<option value="已付款" disabled>-------------</option>	
+          	<form:option value="運送中">運送中</form:option>
           	<form:option value="已到貨">已到貨</form:option>      	
  		</form:select>
 <%--             <form:input path="transport_status" size="25" /><br>&nbsp; --%>

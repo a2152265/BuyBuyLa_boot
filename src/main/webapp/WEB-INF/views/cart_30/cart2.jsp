@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
 
   <link rel="stylesheet" href="css/productstyle.css">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <!--================ Start Header Menu Area =================-->
@@ -42,69 +43,71 @@
           </button>
           <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-              <li class="nav-item active"><a class="nav-link" href="<c:url value='/' />">Home</a></li>
+              <li class="nav-item active"><a class="nav-link" href="<c:url value='/' />">首頁</a></li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">會員</a>
                 <ul class="dropdown-menu">
-                <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+                <c:if test="${loginSession ==null}">
 	                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/login' />">會員登入</a></li> 
                   	   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/add' />">會員註冊</a></li>
                </c:if>
+                <c:if test="${managerSession == null}">
                <c:if test="${loginSession.userEmail != null}">
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/member/evolution' />">賣家專區</a></li>
                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">會員登出</a></li>
-<!--                   <li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li> -->
                 </c:if>
+                </c:if>
+                 <c:if test="${managerSession != null}">
+                   <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">管理中心</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">登出</a></li>
+                    </c:if>
                 </ul>
-							</li>
+			  </li>
               <li class="nav-item submenu dropdown">
                 <a href="<c:url value='/forum' />" class="nav-link dropdown-toggle"  role="button" aria-haspopup="true"
                   aria-expanded="false">討論區</a>
-<!--                 <ul class="dropdown-menu"> -->
-<%--                   <li class="nav-item"><a class="nav-link" href="<c:url value='/forum' />"></a></li> --%>
-<%--                   <li class="nav-item"><a class="nav-link" href="<c:url value='/forum' />">討論區</a></li> --%>
-<!--                 </ul> -->
 							</li>
 							<li class="nav-item submenu dropdown">
                 <a href="<c:url value='/campaigns' />" class="nav-link dropdown-toggle" role="button" aria-haspopup="true"
                   aria-expanded="false">活動專區</a>
-<!--                 <ul class="dropdown-menu"> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li> -->
-<!--                   <li class="nav-item"><a class="nav-link" href="tracking-order.html">Tracking</a></li> -->
-<!--                 </ul> -->
               </li>
+               <c:if test="${managerSession == null}">
               <c:if test="${loginSession.userEmail != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
 						${loginSession.userEmail}</a></li>
-				</c:if>
-            </ul>
 
+				</c:if>
+				</c:if>
+				<c:if test="${managerSession != null}">
+              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">Hi管理員!!! &nbsp;
+						${loginSession.userEmail}</a></li>
+				</c:if>
+
+			
+
+            </ul>
             <ul class="nav-shop">
-           <li class="nav-item" ><form:form method='POST' action="./queryproduct"
-						class='form-horizontal'>
-				
-							<input name="productName" id="productName" type='text'
-								class='form:input-large'/>
-							<button type='submit' ><i class="ti-search" ></i></button>
-<!-- 							<input id="btnAdd" type='submit' -->
-<!-- 								class='btn btn-primary' /> -->
-				
+           <li class="nav-item" >
+           
+               <!---------------- 首頁查詢商品框 ---------------->
+           		<form:form method='get' action="./queryproduct" class='form-horizontal'>
+					<input name="productName" id="productName" type='text' class='form:input-large'/>
+					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
-              
-            
-              
-              <!-- 購物車顯示數量在這裡改 -->
-              
-               <li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
-<!--               <li class="nav-item"><a class="button button-header" href="#">Buy Now</a></li> -->
+
+              <!---------------- 購物車 ---------------->
+				<c:if test="${loginSession.userEmail != null}">
+              		<li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
+				</c:if>
+				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
+				 </c:if>
             </ul>
           </div>
         </div>
       </nav>
     </div>
-  </header>
   </header>
 	<!--================ End Header Menu Area =================-->
 
@@ -167,10 +170,10 @@
                                   </div>
                               </td>
                               <td>
-                                  <h5 value='${row.product.price}' class='price'>${row.product.price}</h5>
+                                  <h5 value='${row.product.price*row.product.discount}' class='price'>${row.product.price*row.product.discount}</h5>
                               </td>
                               <td>
-                                  <h5 class='total' value='8888'>${row.count*row.product.price}</h5>
+                                  <h5 class='total' value='8888'>${row.count*row.product.price*row.product.discount}</h5>
                               </td>
                               <td>
 						<a href="<c:url value='/deletecart' />?id=${row.product.productId}">
@@ -196,15 +199,47 @@
 
                               </td>
                            
+                            <td>
+
+                              </td>
                               <td colspan="2">
                                   <div class="cupon_text d-flex align-items-center">
-                                      <input type="text" placeholder="Coupon Code">
-                                      <a class="primary-btn" href="#">Apply</a>
-                                      <a class="button" href="#">Have a Coupon?</a>
+                                      <input type="text" placeholder="優惠碼" id='discount'>
+                                      <input type="button" value="送出" class="primary-btn ml-2 submit" id='apply'>                                
+                                   
                                   </div>
                               </td>
                               
                           </tr>
+<!--                                 <tr class="bottom_button"> -->
+                        
+<!--                               <td> -->
+<!--                                   <a class="button" href="#">Update Cart</a> --> 
+<!--                               </td> -->
+<!--                               <td> -->
+
+<!--                               </td> -->
+<!--                               <td> -->
+
+<!--                               </td> -->
+<!--                              <td> -->
+
+<!--                               </td> <td> -->
+
+<!--                               </td> -->
+<!--                             <td> -->
+
+<!--                               </td> -->
+<!--                               <td colspan="2"> -->
+<!--                                   <div class="cupon_text d-flex align-items-center"> -->
+<!--                                       <input type="text" placeholder="優惠碼" id='discount2'> -->
+<!--                                       <input type="button" value="送出" class="primary-btn ml-2 submit" id='apply2'>                                 -->
+                                    
+<!--                                   </div> -->
+<!--                               </td> -->
+                              
+<!--                           </tr> -->
+  
                           <tr>
                               <td>
 
@@ -223,61 +258,11 @@
 
                               </td>
                               <td>
-                                    <h3>總價:</h3>
+                              		<h4>運費:</h4><h4 id='fee' style="font-size:30px">60</h4>
+                                    <h4>總價:</h4><h2 id='totalPrice' style="font-size:60px">0</h2>
                               </td>
                           </tr>
-                              <tr>
-                              <td>
-
-                              </td>
-                              <td>
-
-                              </td>
-                                <td>
-
-                              </td>
-                             
-                             <td>
-
-                              </td>
-                              <td colspan="2"  style="text-align:right;">
-                                  <h2 id='totalPrice' style="font-size:60px">0</h2>
-                              </td>
-                          </tr>
-<!--                           <tr class="shipping_area"> -->
-<!--                               <td class="d-none d-md-block"> -->
-
-<!--                               </td> -->
-<!--                               <td> -->
-
-<!--                               </td> -->
-<!--                               <td> -->
-<!--                                   <h5>Shipping</h5> -->
-<!--                               </td> -->
-<!--                               <td> -->
-<!--                                   <div class="shipping_box"> -->
-<!--                                       <ul class="list"> -->
-<!--                                           <li><a href="#">Flat Rate: $5.00</a></li> -->
-<!--                                           <li><a href="#">Free Shipping</a></li> -->
-<!--                                           <li><a href="#">Flat Rate: $10.00</a></li> -->
-<!--                                           <li class="active"><a href="#">Local Delivery: $2.00</a></li> -->
-<!--                                       </ul> -->
-<!--                                       <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6> -->
-<!--                                       <select class="shipping_select"> -->
-<!--                                           <option value="1">Bangladesh</option> -->
-<!--                                           <option value="2">India</option> -->
-<!--                                           <option value="4">Pakistan</option> -->
-<!--                                       </select> -->
-<!--                                       <select class="shipping_select"> -->
-<!--                                           <option value="1">Select a State</option> -->
-<!--                                           <option value="2">Select a State</option> -->
-<!--                                           <option value="4">Select a State</option> -->
-<!--                                       </select> -->
-<!--                                       <input type="text" placeholder="Postcode/Zipcode"> -->
-<!--                                       <a class="gray_btn" href="#">Update Details</a> -->
-<!--                                   </div> -->
-<!--                               </td> -->
-<!--                           </tr> -->
+                            
 
                           <tr class="out_button_area">
                               <td class="d-none-l">
@@ -322,26 +307,26 @@
 				<div class="row section_gap">
 					<div class="col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets ">
-							<h4 class="footer_title large_title">Our Mission</h4>
+							<h4 class="footer_title large_title">我們的目標</h4>
 							<p>
-								So seed seed green that winged cattle in. Gathering thing made fly you're no 
-								divided deep moved us lan Gathering thing us land years living.
+								起初，BuyBuyLa最初創立的目標是為了讓廖總能在台北多買一棟帝寶，1997年時廖總誕生於台北醫學院的護理產房，伴隨著他的是大安區10幾張地契的月子禮，
+								而後又過了幾年，廖總與他一起長大的好夥伴葉總、謝總、歐總，他們展現出了無與倫比的天賦，在工程、財經、甚至極限運動上都有了驚人的成就(雖然他們並不缺錢)
 							</p>
 							<p>
-								So seed seed green that winged cattle in. Gathering thing made fly you're no divided deep moved 
+								2021年，BuyBuyLa於中央大學的一間小工作室中誕生(暫定)，為了BuyBuyLa人們的money而設計出了另類的網站，有著奇怪的會員系統，神奇的商品、複雜的購物車、賭徒般的活動、社交的討論區，
+								BuyBuyLa於人們野望中誕生。
 							</p>
 						</div>
 					</div>
 					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets">
-							<h4 class="footer_title">Quick Links</h4>
+							<h4 class="footer_title">快速連結</h4>
 							<ul class="list">
-								<li><a href="#">Home</a></li>
-								<li><a href="#">Shop</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">Product</a></li>
-								<li><a href="#">Brand</a></li>
-								<li><a href="#">Contact</a></li>
+								<li><a href="#">首頁</a></li>
+								<li><a href="#">商品</a></li>
+								<li><a href="#">討論版</a></li>
+								<li><a href="#">購物車</a></li>
+								<li><a href="#">活動</a></li>
 							</ul>
 						</div>
 					</div>
@@ -360,30 +345,30 @@
 					</div>
 					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets">
-							<h4 class="footer_title">Contact Us</h4>
+							<h4 class="footer_title">聯絡我們</h4>
 							<div class="ml-40">
 								<p class="sm-head">
 									<span class="fa fa-location-arrow"></span>
-									Head Office
+									總部
 								</p>
-								<p>123, Main Street, Your City</p>
+								<p>台北市中正區重慶南路一段122號</p>
 	
 								<p class="sm-head">
 									<span class="fa fa-phone"></span>
-									Phone Number
+									電話
 								</p>
 								<p>
-									+123 456 7890 <br>
-									+123 456 7890
+									+0921212121 <br>
+									+0226462646
 								</p>
 	
 								<p class="sm-head">
 									<span class="fa fa-envelope"></span>
-									Email
+									電子信箱
 								</p>
 								<p>
-									free@infoexample.com <br>
-									www.infoexample.com
+									a212121@BuyBuyLa.org <br>
+									
 								</p>
 							</div>
 						</div>
@@ -466,7 +451,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			"id":data
 		},
 		success:function(){
-			$(".cnt").val(cnt2);
+			var count = parseInt($('#ccount').html())-1
+			console.log(count)
+			if(count>0){
+				$('#ccount').html(count)
+			}
+			
 		}
 								
 	});			
@@ -494,7 +484,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			total=total+a
 
 			})
-	
+			
 			$('#totalPrice').html(total)
 			
 			
@@ -517,16 +507,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		},
 		
 		success:function(){
-		
+			var count = parseInt($('#ccount').html())+1
+			console.log(count)
+			
+			$('#ccount').html(count)
 		
 			
 		}
 								
 	});			
 });
-	
-	
-
 	var total=0;
 	$('.total').each(function(){
 		$(this).html;
@@ -534,8 +524,100 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		total=total+a
 
 		})
-	
+	total+=60;
 	$('#totalPrice').html(total)
+	
+	
+	$("#apply").click(function(){		
+					
+		var data=$("#discount").val();
+		var fee=$("#fee").html();
+		console.log("data = "+data)
+		$.ajax({
+			type:'get',
+			url:'getDiscount',
+			data:{
+				"discountCode":data
+			},
+			
+			success:function(discount){
+// 				console.log("discount = "+discount)
+				if(discount==60)	{
+					Swal.fire({
+				  position:'center',
+				  icon: 'success',
+				  title: '已為您扣除'+discount+'元',
+				  showConfirmButton: false,
+				  
+				  timer: 1500
+				})
+				var dis = parseInt(discount); 
+// 				var fe=parseInt(fee)-60;
+				$('#fee').html(0)
+				var count = parseInt($('#totalPrice').html())-dis;
+				console.log(count)
+				
+				$('#totalPrice').html(count)
+				}else if(discount==-10){
+					
+					Swal.fire({
+						  position:'center',
+						  icon: 'error',
+						  title: '此優惠碼已過期',
+						  showConfirmButton: false,
+						  
+						  timer: 1500
+						})
+					
+				}else if(discount==-20){
+					
+					Swal.fire({
+						  position:'center',
+						  icon: 'error',
+						  title: '此優惠碼已使用',
+						  showConfirmButton: false,
+						  
+						  timer: 1500
+						})
+					
+				}
+				
+				else{
+					
+					Swal.fire({
+						  position:'center',
+						  icon: 'error',
+						  title: '查無此優惠碼',
+						  text: '請再確認一次',
+						  showConfirmButton: false,
+						  
+						  timer: 1500
+						})
+				}
+				
+			}
+			,error:function(){
+				Swal.fire({
+					  position:'center',
+					  icon: 'error',
+					  title: '查無此優惠碼或已使用優惠碼',
+					  text: '請再確認一次',
+					  showConfirmButton: false,
+					  timer: 2500
+					})
+			}
+									
+		});			
+	});
+	
+	
+	
+	
+	
+	
+	
+
+
 	
 	 </script>	
 </body>

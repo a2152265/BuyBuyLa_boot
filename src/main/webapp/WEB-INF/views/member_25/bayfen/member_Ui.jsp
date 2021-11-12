@@ -225,13 +225,7 @@
                         <span class="item">購買紀錄</span>
                     </a>
                 </li>
-                  <li>
-                    <a href="<c:url value='/addressLsit'/>">
-                        <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">地址管理</span>
-                    </a>
-                </li>
-           
+             
                 <li>
                     <a href="<c:url value='???' />">
                         <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
@@ -263,6 +257,7 @@
                         <span class="item">我的折價券</span>
                     </a>
                 </li>
+               
                 <li>
                     <a href="<c:url value='/try/delete' />"  onclick="return(confirm('確認刪除？'))">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>

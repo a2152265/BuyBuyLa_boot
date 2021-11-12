@@ -153,7 +153,7 @@
 					padding-left: 0px;
 					padding-top: 0px;
 					padding-bottom: 3px;	
-					border-top-width: 0px;
+						border-top-width: 0px;
 					border-bottom-width: 0px;
 					border-right-width: 0px;
 				}
@@ -162,8 +162,6 @@
         $(document).ready(function () {
             jQuery('#example').DataTable();
         });
-
-
     </script>
 
     <style>

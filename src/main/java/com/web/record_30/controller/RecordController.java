@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -106,7 +108,7 @@ public class RecordController {
 	
 	
 	
-
+//到管理紀錄頁面
 	@GetMapping("/update30")
 	public String update(@ModelAttribute("loginSession") membershipInformationBean mb,@ModelAttribute("updatebean") RecordBean record ,Model model ) {
 		RecordBean recordBean =new RecordBean();
@@ -177,10 +179,13 @@ public class RecordController {
 		RecordList recordList = recordservice.getRecordByRid(rid);
 		model.addAttribute("RecordList",recordList);
 
-		return "record_30/manage/updateRecordList";
+		return "record_30/manage/updateRecordList2";
 	}
 	
+	@Autowired
+	JavaMailSender mailSender;
 	
+	//更新購物資料
 	@PostMapping("/updateRecordList")
 	public String updateRecordList(@ModelAttribute("RecordList") RecordList recordList,Model model) {
 	
@@ -200,6 +205,20 @@ public class RecordController {
 //		System.out.println("rid = "+ rid+",pid = "+pid+"TS = "+transport_status+"+++++++++++++++++++++++");
 		recordservice.updateRecordList(recordList);
 //		return "record_30/manage/updateRecordList";
+	
+		
+		String buyTime = recordList.getBuy_time();
+
+		
+		SimpleMailMessage message =new SimpleMailMessage();
+		message.setTo(buyer);
+		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
+		message.setText("您已於"+buyTime+"，完成訂單編號為"+rid+"之交易，現在"+transport_status+"\n"
+		+"謝謝您的惠顧，祝您有愉快的一天 :)");
+		
+		mailSender.send(message); 
+		System.out.println("------------------已寄出------------------ --->");
+		
 		return "record_30/manage/updateRecordSuccess";
 		
 	}
@@ -209,11 +228,13 @@ public class RecordController {
 	public String deleteRecordList(@RequestParam String rid,Model model) {
 		List<RecordList> recordList = recordservice.getAllMemberRecord();
 		recordservice.deleteRecordList(rid);
+		recordservice.deleteAddress(rid);
 		recordservice.deleteAllRecordByRid(rid);
 		model.addAttribute("allreocrd", recordList);
 		return "record_30/manage/deleteRecordSuccess";
 	}
 
+	//分析圖
 	@GetMapping("/recordanalyze")
 	public String recordanalyze(Model model) {
 		Double female = recordservice.findFemaleRecord();

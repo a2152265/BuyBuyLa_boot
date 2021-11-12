@@ -26,7 +26,32 @@
         <style>
 a{text-decoration:none}
 a:hover{text-decoration:none}
-
+ #voucher { 
+ -webkit-filter: grayscale(100%); 
+	 -moz-filter: grayscale(100%); 
+	 -ms-filter: grayscale(100%); 
+	 -o-filter: grayscale(100%); 
+	 filter: grayscale(100%); 
+	 filter: gray; 
+     position: relative;
+     z-index: 1;
+     border: 0.5px solid gray;
+     border-radius: 10px;
+ } 
+ 
+  .word{
+      position: absolute;
+     /* border: 3px solid black; */
+     z-index: 1;
+/*        margin-left:15px;   */
+     margin-top:2px;  
+     font-size:16px;
+     font-weight: bolder;
+     color: white;
+/*       border:1px solid black;  */
+     width:160px;
+/*      float:left; */
+ }
 
     </style>
 </head>
@@ -57,7 +82,7 @@ a:hover{text-decoration:none}
 <%--         <a class="nav-link" id="used" href="<c:url value='/try/usedcoupon/${memberUiDefault.userEmail}' />" style="padding-left:100px">已使用</a> --%>
           <a class="nav-link"  id="unused" href="<c:url value='/try/coupon' />"style="padding-left:100px;">未使用</a>
         <a class="nav-link" id="used" href="<c:url value='/try/usedcoupon' />" style="padding-left:100px">已使用</a>
-<%--         <a class="nav-link" href="<c:url value='/campaigns/免運' />" style="padding-left:100px">免運</a> --%>
+          <a class="nav-link" href="<c:url value='/try/expiredcoupon' />" style="padding-left:100px">已過期</a> 
       </div>
     </div>
   </div>
@@ -86,8 +111,9 @@ a:hover{text-decoration:none}
 <!--     <div class="container"> -->
 <!--       <span style="font-size:30px;  font-weight:bold;">會員專區</span> -->
 <!--       </div> -->
-	<h2>已使用點數:${point} </h2>
-    <div style="text-align: center ;margin-top:60px">
+<%-- 	<div style="margin-left:50px;margin-top:50px; font-weight:bolder;size:16px">	  <img src="<c:url value='/images/coin.jpg' />" alt="..." width="40px" height="40px" > --%>
+<%-- 	<span style="font-size:24px;">已使用點數:<span style="color:red">${point}</span></span></div> --%>
+    <div style="text-align: center ;margin-top:px">
     
     <c:choose>
 
@@ -95,15 +121,17 @@ a:hover{text-decoration:none}
 <%--       <c:if test="${coupon.couponStatus==未使用}"> --%>
 	        <c:forEach items='${couponList}' var='coupon'>
 	        
-      <div class="card mb-3" style="height:120px;max-width: 350px;margin-left:100px ;float:left">
+      <div class="card mb-3" style="height:132px;max-width: 350px;margin-left:80px ;margin-top:35px ;float:left">
   <div class="row g-0">
   	
     <div class="col-md-4">
     
-      <img src="<c:url value='/images/shippingVoucher.jpg' />" alt="..." style="border-radius:3px "width=347.5px height=117px >
+      <img id="voucher" src="<c:url value='/images/shippingVoucher.jpg' />" alt="..." style="border-radius:3px "width=347.5px height=130px >
+          <div class="word" style="font-weight:bolder;color:black; width:160px">有效期限 ${coupon.expiryDate}</div> 
+    
     </div>
     <div class="col-md-8">
-      <div class="card-body" style="margin-left:30px">
+      <div class="card-body" style="position:absolute;z-index: 50;margin-left:58px">
         <div class="card-text"style="font-size:20px;font-weight:bolder;color:white"> ${coupon.couponName}</div>
         <div class="card-text"style="font-weight:bolder;">${coupon.couponStatus}</div>
         <div class="card-text"><small class="text-muted">號碼:${coupon.couponNumber}</small></div>
@@ -245,6 +273,13 @@ a:hover{text-decoration:none}
                     
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">我的折價券</span>
+                    </a>
+                 </li>
+                  <li>
+                    <a href="<c:url value='/try/point' />">
+                    
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">我的點數</span>
                     </a>
                  </li>
                  <!-- 333333333333333336666666666666666666666666666 -->

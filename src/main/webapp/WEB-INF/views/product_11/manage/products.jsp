@@ -159,18 +159,18 @@
   grid-gap: 30px;
 }
 
-.page-content .grid > article {
-  display: flex;
-  height: 300px;
-  background: var(--page-content-blockColor);
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-}
+/* .page-content .grid > article { */
+/*   display: flex; */
+/*   height: 300px; */
+/*   background: var(--page-content-blockColor); */
+/*   border-radius: var(--border-radius); */
+/*   box-shadow: var(--box-shadow); */
+/* } */
 
-.page-content .grid > article:first-child,
-.page-content .grid > article:last-child {
-  grid-column: 1 / -1;
-}
+/* .page-content .grid > article:first-child, */
+/* .page-content .grid > article:last-child { */
+/*   grid-column: 1 / -1; */
+/* } */
 
 .table-wrapper {
 					min-width: 1000px;
@@ -182,6 +182,65 @@
 	.table-responsive {
 					margin: 30px 0;
 				}
+				
+				
+@import url(https://fonts.googleapis.com/css?family=Roboto:700);
+
+
+.button {
+  background: #3D4C53;
+  margin : 20px 5px 20px 0;
+  width : 200px;
+  height : 40px;
+  overflow: hidden;
+  text-align : center;
+  transition : .2s;
+  cursor : pointer;
+  border-radius: 3px;
+  box-shadow: 0px 1px 2px rgba(0,0,0,.2);
+  
+}
+.btnTwo {
+  position : relative;
+  width : 200px;
+  height : 150px;
+  margin-top: -100px;
+  padding-top: 2px;
+  background : #26A69A;
+  left : -250px;
+  transition : .3s;
+}
+.btnText {
+  color : white;
+  transition : .3s;
+  margin-top: 10px;
+}
+.btnText2 {
+  margin-top : 78px;
+  margin-right : -130px;
+  color : #FFF;
+}
+.button:hover .btnTwo{ /*When hovering over .button change .btnTwo*/
+  left: -130px;
+}
+.button:hover .btnText{ /*When hovering over .button change .btnText*/
+  margin-left : 65px;
+}
+.button:active { /*Clicked and held*/
+  box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
+}
+
+.link{
+margin:70px;
+color:white;
+}
+
+.link:hover{
+color:lightblue;
+font-size:17px
+
+}
+ 
 </style>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
  	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -400,22 +459,56 @@
       </div>
     </div>
   </section>
-  <div style="background-color:#242e42; width:600px ; padding:10px;"  >
-	<a class="nav-link"  id="uncheck" href="<c:url value='/manage/products/待審核 ' />"style="padding-left:100px; color:white">待審核</a>
-	<a class="nav-link"  id="uncheck" href="<c:url value='/manage/products/上架中 ' />"style="padding-left:100px;color:white">上架中</a>
-	<a class="nav-link"  id="uncheck" href="<c:url value='/manage/products/審核失敗 ' />"style="padding-left:100px;color:white">審核失敗</a>
-  </div>
-	
 
-    <button  onClick="batch_up()" >審核上架</button>
-    <button  onClick="batch_fail()" >未通過</button>
+	<div style="width: 100%; display:flex;">
+     <div style="width: 900px; background-color:#fff ;">
+  		<canvas id="myChart" ></canvas>
+		<h3 style="text-align: center;">商品類別</h3>
+	</div>		
+	<div style="width: 500px; margin-left: 20px; background-color:#fff;	">
+  		<canvas id="myChart1" ></canvas>
+	</div>
+	<div style="width: 665px; margin-left: 20px; background-color:#fff;	">
+  		<div style="width: 500px; margin-left: 70px; background-color:#fff;	">
+  		<canvas id="myChart2"  ></canvas>
+  		<h3 style="text-align: center;">商品狀態</h3>
+	</div>
+	</div>
+	</div>
 
 
-    
-    <div class="table-responsive">
+
+
+    <div class="table-responsive" >
 	<div class="table-wrapper">
-<table id="myTable" class="display" style="width:100%;font-weight:bolder;font-size:20px;" >
+	  <div style="background-color:#242e42; width:650px ; padding:10px;"  >
+	<a class="link"  id="uncheck" href="<c:url value='/manage/products/待審核 ' />">待審核</a>
+	<a class="link"  id="uncheck" href="<c:url value='/manage/products/上架中 ' />">上架中</a>
+	<a style="border:none; " class="link"  id="uncheck" href="<c:url value='/manage/products/審核失敗 ' />">審核失敗</a>
 
+  </div>
+
+<c:if test="${status =='待審核' }">
+<div style="display:flex;">
+<div class="button">
+    <p class="btnText">v</p>
+    <div class="btnTwo">
+      <button class="btnText2"  onClick="batch_up()" >上架</button>
+    </div>
+    
+ </div>
+
+<div class="button">
+    <p class="btnText">x</p>
+    <div class="btnTwo">
+      <button class="btnText2" onClick="batch_fail()" >下架</button>
+    </div>
+ </div>
+ </div>
+</c:if>
+
+
+	<table id="myTable" class="display" style="width:100%;font-weight:bolder;font-size:20px;" >
     <thead>
         <tr>
     <th style="width:10%;">商品編號</th>
@@ -426,7 +519,9 @@
     <th style="width:10%;">商品類別</th>
     <th style="width:10%;">上傳時間</th>
     <th style="width:10%;"><i class="fas fa-file-alt"></i>&nbsp商品狀態</th>
+    <c:if test="${status =='待審核' }">
     <th style="width:10%;"><input type="checkbox" value="" name="selectall"></th>
+    </c:if>
         </tr>
     </thead>
     <tbody>
@@ -443,9 +538,11 @@
 		    <td>${product.category}</td>
 		    <td>${product.insertTime}</td>
 		    <td>${product.status}</td>
+		   <c:if test="${status =='待審核' }">
 		    <td>
 		       <input id="" type="checkbox" name="select" id="checkbox" value="${product.productId}"/>
 		    </td>
+		   </c:if> 
         </tr>
         </c:forEach> 
 
@@ -463,6 +560,7 @@
       <img width="24" height="24" src="https://assets.codepen.io/162656/george-martsoukos-small-logo.svg" alt="George Martsoukos logo">
     </a>
   </footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
 <script type="text/javascript">
 const html = document.documentElement;
 const body = document.body;
@@ -671,6 +769,131 @@ $('input:checkbox[name="selectall"]').click(function(){
 	  
 	   
 	  }
+ 
+ const ctx = document.getElementById('myChart').getContext('2d');
+ const myChart = new Chart(ctx, {
+     type: 'bar',
+     data: {
+         labels: ['男生衣服', '運動健身', '女生衣服', '寵物', '其他'],
+         datasets: [{
+             label: '',
+             data: [${category}],
+             backgroundColor: [
+                 'rgba(255, 99, 132, 0.5)',
+                 'rgba(54, 162, 235, 0.5)',
+                 'rgba(255, 206, 86, 0.5)',
+                 'rgba(75, 192, 192, 0.5)',
+                 'rgba(153, 102, 255, 0.5)',
+                 
+             ],
+             borderColor: [
+                 'rgba(255, 99, 132, 1)',
+                 'rgba(54, 162, 235, 1)',
+                 'rgba(255, 206, 86, 1)',
+                 'rgba(75, 192, 192, 1)',
+                 'rgba(153, 102, 255, 1)',
+                 
+             ],
+             
+             borderWidth: 1
+         }]
+     },
+     options: {
+         scales: {
+             y: {
+                 beginAtZero: true
+             }
+             
+         },
+         responsive: true,
+         plugins: {
+           legend: {
+             position: 'top',
+             
+           },
+           title: {
+             display: true,
+             text: '',
+             position: 'bottom',
+           }
+         }
+     }
+ });
+ 
+ const ctx1 = document.getElementById('myChart1').getContext('2d');
+ const myChart1 = new Chart(ctx1, {
+     type: 'pie',
+     data: {
+         labels: ['Red', 'Blue', 'Yellow', 'Green'],
+         datasets: [{
+             label: '',
+             data: [12, 19, 3, 5],
+             backgroundColor: [
+                 'rgba(255, 99, 132, 0.5)',
+                 'rgba(54, 162, 235, 0.5)',
+                 'rgba(255, 206, 86, 0.5)',
+                 'rgba(75, 192, 192, 0.5)',
+                 'rgba(153, 102, 255, 0.5)',
+                 'rgba(255, 159, 64, 0.5)'
+             ],
+             borderColor: [
+                 'rgba(255, 99, 132, 1)',
+                 'rgba(54, 162, 235, 1)',
+                 'rgba(255, 206, 86, 1)',
+                 'rgba(75, 192, 192, 1)',
+                 'rgba(153, 102, 255, 1)',
+                 'rgba(255, 159, 64, 1)'
+             ],
+             borderWidth: 1
+         }]
+     },
+     options: {
+         scales: {
+             y: {
+                 beginAtZero: true
+             }
+         }
+     }
+ });
+ 
+ const ctx2 = document.getElementById('myChart2').getContext('2d');
+ const myChart2 = new Chart(ctx2, {
+     type: 'doughnut',
+     data: {
+         labels: ['上架中', '審核中', '審核失敗'],
+         datasets: [{
+             label: '# of Votes',
+             data: [${productStatus}],
+             backgroundColor: [
+                 'rgba(255, 99, 132, 0.5)',
+                 'rgba(54, 162, 235, 0.5)',
+                 'rgba(255, 206, 86, 0.5)',
+                 'rgba(75, 192, 192, 0.5)',
+                 'rgba(153, 102, 255, 0.5)',
+                 'rgba(255, 159, 64, 0.5)'
+             ],
+             borderColor: [
+                 'rgba(255, 99, 132, 1)',
+                 'rgba(54, 162, 235, 1)',
+                 'rgba(255, 206, 86, 1)',
+                 'rgba(75, 192, 192, 1)',
+                 'rgba(153, 102, 255, 1)',
+                 'rgba(255, 159, 64, 1)'
+             ],
+             borderWidth: 1
+         }]
+     },
+     options: {
+         scales: {
+             y: {
+                 beginAtZero: true
+             }
+         }
+     }
+ });
+ 
+
+ 
 
  </script>
 </body>

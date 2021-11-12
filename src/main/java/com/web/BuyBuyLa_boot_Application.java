@@ -11,3 +11,4 @@ public class BuyBuyLa_boot_Application {
 	}
 
 }
+
