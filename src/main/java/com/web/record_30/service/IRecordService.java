@@ -26,7 +26,7 @@ public interface IRecordService {
 	List<RecordList> getAllMemberRecord();
 	
 	void deleteRecordList(String rid);
-	
+	void deleteAddress(String rid);
 	RecordList getRecordByRid(String rid);
 	
 	void updateRecordList(RecordList recordList);

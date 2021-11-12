@@ -230,7 +230,7 @@
     </table>
 
 	<center>
-			<a class="btn btn-outline-secondary" href="<c:url value='/member/evolution' />" style='font-size:20px' role="button">回上一頁</a>	
+			<a class="btn btn-outline-secondary" href="<c:url value='/manager_Ui0' />" style='font-size:20px' role="button">回上一頁</a>	
 			</center>
 
 </body>

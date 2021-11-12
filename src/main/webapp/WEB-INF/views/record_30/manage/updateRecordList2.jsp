@@ -119,33 +119,28 @@ $(document).ready(function () {
     <div class="wrapper">
        <div class="section">
 
-
-
-  
-
-
-
-
     <div class="container">
-       <span style="font-size: 40px;">詳細資訊</span> 
+       <span style="font-size: 40px;">買家資訊</span> 
       </div>
 
+      <h2>您可以在此頁面更改買家資訊</h2><hr>
 
-
-
-
-      
+    
       <div class="container">
 
         <!-- 修改表單資料 -->
-    
-       
+       <form:form method='POST' modelAttribute="RecordList" >
+        <input type="hidden" name="_method"  id='putOrDelete'   value="DELETE" >
+        <c:if test='${RecordList.buyer != null}'>
+               <form:hidden path="buyer" /><br>&nbsp;
+			</c:if>
+ 		
 	<div class="row">
           <div class="col-25">
             <label for="fname">訂單編號</label>
           </div>
           <div class="col-75" style="padding-top: 10px;">
-          ${BuyerAddress.record_id} 
+          ${RecordList.record_id} 
           </div>
         </div>
         
@@ -154,64 +149,83 @@ $(document).ready(function () {
             <label for="fname">會員帳號</label>
           </div>
           <div class="col-75" style="padding-top: 10px;">
-          ${BuyerAddress.buyer} 
+          ${RecordList.buyer} 
           </div>
         </div>
         <div class="row">
           <div class="col-25">
-            <label for="fname">取貨人</label>
+            <label for="fname">訂單總價</label>
           </div>
           <div class="col-75" style="padding-top: 10px;">
-          ${BuyerAddress.buyerName} 
+          ${RecordList.totalprice} 
           </div>
         </div>
-          <div class="row">
+       <div class="row">
           <div class="col-25">
-            <label for="fname">聯絡電話</label>
+            <label for="fname">購買日期</label>
           </div>
           <div class="col-75" style="padding-top: 10px;">
-          ${BuyerAddress.phone} 
+          ${RecordList.buy_time} 
           </div>
         </div>
     
-           <div class="row">
+        <div class="row">
           <div class="col-25">
-            <label for="fname">聯絡信箱</label>
+            <label for="country">買家住址:</label>
           </div>
-          <div class="col-75" style="padding-top: 10px;">
-          ${BuyerAddress.email} 
+          <div class="col-75">
+            ${RecordList.buyeraddress} 
+    
           </div>
         </div>
-           
-  	 <div class="row">
+        <div class="row">
           <div class="col-25">
-            <label for="fname">郵遞區號</label>
+            <label for="country">付費狀態:</label>
           </div>
-          <div class="col-75" style="padding-top: 10px;">
-          ${BuyerAddress.postalcode} 
+          <div class="col-15">
+          	<form:select path="pay_status"  >
+          	<option value="已付款" selected>已付款</option>	
+          	<option value="已付款" disabled>-------------</option>	
+          	<form:option value="待付款">待付款</form:option>
+          	<form:option value="已付款">已付款</form:option>	 
+         	</form:select>
+          
+<%--             <form:input path="pay_status" size="25" />      <br>&nbsp; --%>
+<%-- 			<form:errors path="pay_status" cssClass="error" style="color: red;" /> --%>
           </div>
         </div>
- 
-		<div class="row">
+        <div class="row">
           <div class="col-25">
-            <label for="fname">取貨地點</label>
+            <label for="country">出貨狀態:</label>
           </div>
-          <div class="col-75" style="padding-top: 10px;">
-          ${BuyerAddress.city}${BuyerAddress.country}${BuyerAddress.address} 
+          <div class="col-15">
+          <form:select path="transport_status" >
+          	<form:option value="待出貨">待出貨</form:option>
+          	<option value="已付款" disabled>-------------</option>	
+          	<form:option value="運送中">運送中</form:option>
+          	<form:option value="已到貨">已到貨</form:option>      	
+ 		</form:select>
+<%--             <form:input path="transport_status" size="25" /><br>&nbsp; --%>
+<%-- 			<form:errors path="transport_status" cssClass="error" style="color: red;" /> --%>
           </div>
         </div>
         
+
+        <br>
+        	<form:hidden path="record_id" /><br>
+ 			<form:hidden path="buy_time" /><br>
+		<form:hidden path="totalprice" /><br>
+        <div class="row">
+          <input type="submit" value="修改" name='updateBtn' onclick="return confirmUpdate('${RecordList.buyer}');">&nbsp; 
+          
        
-
-  </div>
-      
-        	<center>
-			<a class="btn btn-outline-secondary" href="recordManage" style='font-size:20px' role="button">回上一頁</a>	
-			</center>
-    </div>
-
-  
+          </div>
+       </form:form>
+      </div>
 </div>
+</div>
+
+
 
  
 </body>
