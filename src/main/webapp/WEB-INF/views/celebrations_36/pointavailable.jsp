@@ -27,76 +27,7 @@
 a{text-decoration:none}
 a:hover{text-decoration:none}
 
- img { 
- -webkit-filter: grayscale(100%); 
-	 -moz-filter: grayscale(100%); 
-	 -ms-filter: grayscale(100%); 
-	 -o-filter: grayscale(100%); 
-	 filter: grayscale(100%); 
-	 filter: gray; 
-     position: relative;
-     z-index: 1;
-     border: 0.5px solid gray;
-     border-radius: 10px;
- } 
-/* .word{ */
-/* z-index:1;  */
-/*  position:relative; */
-/*  border:3px solid black; */
-/*   float:top;  */
-/* } */
-/* .col-md-4{ */
-/* z-index:30;  */
-/*  position:absoulte; */
-/*   border:3px solid black; */
-/* /*   display:flex; */ */
-/* } */
 
-/* img{ */
-/* 	 -webkit-filter: grayscale(100%);  */
-/* 	 -moz-filter: grayscale(100%);  */
-/* 	 -ms-filter: grayscale(100%);  */
-/* 	 -o-filter: grayscale(100%);  */
-/* 	 filter: grayscale(100%);  */
-/* 	 filter: gray;  */
-/*      position: relative; */
-/*      z-index: 1; */
-/*      border: 0.5px solid gray; */
-/*      border-radius: 10px; */
-/*  } */
- .word{
-      position: absolute;
-     /* border: 3px solid black; */
-     z-index: 1;
-/*        margin-left:15px;   */
-     margin-top:2px;  
-     font-size:16px;
-     font-weight: bolder;
-     color: white;
-/*       border:1px solid black;  */
-     width:160px;
-/*      float:left; */
- }
- .btn{
-    position: absolute;
-    z-index: 50;
-    margin-left: 290px;
-/*      margin-top: 120px; */
-     width: 130px;
-     height: 50px;
-     font-weight: bolder;
-     font-size: x-large;
-     border-radius: 10px;
-     background-color:white;
-     color:grey;
-     border:1px solid transparent;
-     
-/*      border:0px solid transparent; */
- }
-/*  .card-text{ */
-/*   style="position: absolute;z-index: 50;" */
-/*  } */
- 
     </style>
 </head>
 <body>
@@ -124,145 +55,24 @@ a:hover{text-decoration:none}
       <div class="navbar-nav" style="font-weight:bolder;font-size:25px">
 <%--         <a class="nav-link"  id="unused" href="<c:url value='/try/coupon/${memberUiDefault.userEmail}' />"style="padding-left:100px;">未使用</a> --%>
 <%--         <a class="nav-link" id="used" href="<c:url value='/try/usedcoupon/${memberUiDefault.userEmail}' />" style="padding-left:100px">已使用</a> --%>
-          <a class="nav-link"  id="unused" href="<c:url value='/try/coupon' />"style="padding-left:100px;">未使用</a>
-        <a class="nav-link" id="used" href="<c:url value='/try/usedcoupon' />" style="padding-left:100px">已使用</a>
-          <a class="nav-link" href="<c:url value='/try/expiredcoupon' />" style="padding-left:100px">已過期</a> 
+          <a class="nav-link"  id="unused" href="<c:url value='/try/point' />"style="padding-left:100px;">未使用</a>
+          <a class="nav-link" id="used" href="<c:url value='/try/usedpoint'/>" style="padding-left:100px">已使用</a>
       </div>
     </div>
   </div>
 </nav>
 
 
-        <!-- <h1>WE Will BuyBuyLA your money</h1>
-        <h2>Flexbo -> 商品狀態x</h2>
-        <nav>
-            <ul class="flex-nav">
-                <li><a href="#">未付款</a></li>
-                <li><a href="#">已付款</a></li>
-                <li><a href="#">已出貨</a></li>
-                <li><a href="#">運送中</a></li>
-                <li><a href="#">已送達</a></li>
-                <li><a href="#">已完成</a></li>
-                <li><a href="#">取消交易</a></li>
-            </ul>
-        </nav> -->
-        
-  
-
-
-
-
-<!--     <div class="container"> -->
-<!--       <span style="font-size:30px;  font-weight:bold;">會員專區</span> -->
-<!--       </div> -->
-<!-- 		<div style="margin-left:50px;margin-top:56px; font-weight:bolder;size:16px">	  <img   > -->
-<!-- 	<span style="font-size:24px;"><span style="color:red"></span></span></div> -->
-    <div style="text-align: center ;margin-top:0px">
-    
-    <c:choose>
-
-    <c:when test="${coupon.couponStatus==未使用}">
-<%--       <c:if test="${coupon.couponStatus==未使用}"> --%>
-	        <c:forEach items='${couponList}' var='coupon'>
-	        
-      <div class="card mb-3" style="height:132px;max-width: 350px;margin-left:80px ;margin-top:35px ;float:left">
-<%--     	     	    	                    		<div class="word" style="font-weight:bolder;color:black">有效期限 ${coupon.expiryDate}</div>  --%>
-  
-  <div class="row g-0">
-<%--   	     	    	                    		<div class="word" style="font-weight:bolder;color:black">有效期限 ${coupon.expiryDate}</div>  --%>
-  	
-    <div class="col-md-4">
-<%--     	                    		<div class="word" style="font-weight:bolder;color:black">有效期限 ${coupon.expiryDate}</div>  --%>
-    	
-      <img src="<c:url value='/images/shippingVoucher.jpg' />" alt="..." style="border-radius:3px "width=347.5px height=130px >
-      <div class="word" style="font-weight:bolder;color:black; width:160px">有效期限 ${coupon.expiryDate}</div> 
-   
-    </div>
-    <div class="col-md-8">
-    
-      <div class="card-body" style="position:absolute;z-index: 50;margin-left:58px">
-<%--         <div class="card-text"style="font-size:20px;font-weight:bolder;color:black"> ${coupon.expiryDate}</div> --%>
-        <div class="card-text"style="font-size:20px;font-weight:bolder;color:white"> ${coupon.couponName}</div>
-        
-        <div class="card-text"style="font-weight:bolder;">${coupon.couponStatus}</div>
-        <div class="card-text"><small class="text-muted">號碼:${coupon.couponNumber}</small></div>
-<%--      	  	     	    	                    		<div class="word" style="float:left;font-weight:bolder;color:black">有效期限 ${coupon.expiryDate}</div>  --%>
-     	
-      </div>
-<%--         	     	    	                    		<div class="word" style="font-weight:bolder;color:black">有效期限 ${coupon.expiryDate}</div>  --%>
       
-    </div>
-  </div>
-</div>
-      </c:forEach>
-</c:when>
-
- <c:when test="${coupon.couponStatus==已使用}">
-<%--       <c:if test="${coupon.couponStatus==未使用}"> --%>
-	        <c:forEach items='${couponList}' var='coupon'>
-      <div class="card mb-3" style="height:120px;max-width: 350px;margin-left:100px ;float:left">
-  <div class="row g-0">
-  	
-    <div class="col-md-5">
+	 
+	<div style="margin-left:50px;margin-top:50px; font-weight:bolder;size:16px">	  <img src="<c:url value='/images/coin.jpg' />" alt="..." width="40px" height="40px" >
+	<span style="font-size:24px;">可用點數:<span style="color:red">${point}</span></span></div>
+	
     
-      <img  class="gray" src="<c:url value='/images/shippingVoucher.jpg' />" alt="..." style="border-radius:3px "width=347.5px height=150px >
-<%--           <div class="word" style="font-size:20px;font-weight:bolder;color:black"> ${coupon.couponName}</div> --%>
-  
-    </div>
-    <div class="col-md-9">
-      <div class="card-body" style="margin-left:30px">
-        <div class="card-text"style="font-size:20px;font-weight:bolder;color:white"> ${coupon.couponName}</div>
-        <div class="card-text"style="font-weight:bolder;color:red">${coupon.couponStatus}</div>
-        <div class="card-text"><small class="text-muted">號碼:${coupon.couponNumber}</small></div>
-      </div>
-    </div>
-  </div>
-</div>
-      </c:forEach>
-</c:when>
 
 
 
-
-
-<c:otherwise>  
-
-
-
-
-
-   </c:otherwise>
-
-  </c:choose>
-
-
-
-
-<%--  <c:if test="${coupon.couponStatus==已使用}"> --%>
-<%-- 	        <c:forEach items='${couponList}' var='coupon'> --%>
-<!--       <div class="card mb-3" style="height:120px;max-width: 350px;margin-left:100px ;float:left"> -->
-<!--   <div class="row g-0"> -->
-  	
-<!--     <div class="col-md-4"> -->
-    
-<%--       <img src="<c:url value='/images/shippingVoucher.jpg' />" alt="..." style="border-radius:3px "width=347.5px height=117px > --%>
-<!--     </div> -->
-<!--     <div class="col-md-8"> -->
-<!--       <div class="card-body" style="margin-left:30px"> -->
-<%--         <div class="card-text"style="font-size:20px;font-weight:bolder;color:white"> ${coupon.couponName}</div> --%>
-<%--         <div class="card-text"style="font-weight:bolder;color:red">${coupon.couponStatus}</div> --%>
-<%--         <div class="card-text"><small class="text-muted">號碼:${coupon.couponNumber}</small></div> --%>
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </div> -->
-<%--       </c:forEach> --%>
-<%-- </c:if> --%>
-
-
-
-  </div>
-
+ 
 
 
 

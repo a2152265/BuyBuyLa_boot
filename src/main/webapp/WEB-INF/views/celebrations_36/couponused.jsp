@@ -111,8 +111,8 @@ a:hover{text-decoration:none}
 <!--     <div class="container"> -->
 <!--       <span style="font-size:30px;  font-weight:bold;">會員專區</span> -->
 <!--       </div> -->
-	<div style="margin-left:50px;margin-top:50px; font-weight:bolder;size:16px">	  <img src="<c:url value='/images/coin.jpg' />" alt="..." width="40px" height="40px" >
-	<span style="font-size:24px;">已使用點數:<span style="color:red">${point}</span></span></div>
+<%-- 	<div style="margin-left:50px;margin-top:50px; font-weight:bolder;size:16px">	  <img src="<c:url value='/images/coin.jpg' />" alt="..." width="40px" height="40px" > --%>
+<%-- 	<span style="font-size:24px;">已使用點數:<span style="color:red">${point}</span></span></div> --%>
     <div style="text-align: center ;margin-top:px">
     
     <c:choose>
@@ -273,6 +273,13 @@ a:hover{text-decoration:none}
                     
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">我的折價券</span>
+                    </a>
+                 </li>
+                  <li>
+                    <a href="<c:url value='/try/point' />">
+                    
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">我的點數</span>
                     </a>
                  </li>
                  <!-- 333333333333333336666666666666666666666666666 -->

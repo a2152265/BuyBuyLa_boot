@@ -148,7 +148,7 @@ public class CampaignController {
 			byte[] img = new byte[1024];
 			Blob blob = null;
 			try {
-				InputStream in = new FileInputStream("C:\\Users\\User\\git\\BuyBuyLa_boot\\src\\main\\resources\\static\\NoImage.jpg");
+				InputStream in = new FileInputStream("C:\\Users\\ASUS_NB\\git\\BuyBuyLa_boot\\src\\main\\resources\\static\\NoImage.jpg");
 				ByteArrayOutputStream bos = new ByteArrayOutputStream();
 				
 				int length;

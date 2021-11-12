@@ -77,9 +77,14 @@ public interface ProductService {
 		
 		void updateProductDiscount(Double discount,String category);
 
+
 		//種類計數
 		Long countByCategory(String category);
 		
 		//狀態計數
 		Long countByStatus(String status);
+
+		
+		List<Product>  getAllPoints();
+
 }

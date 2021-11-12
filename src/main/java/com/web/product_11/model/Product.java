@@ -40,8 +40,11 @@ public class Product implements Serializable {
 
 	private Integer count;
 	private Integer views;
+
 	private Integer favoriteCount;
 
+
+	private Integer point;
 	private Double discount;
 	
 	@Transient
@@ -309,6 +312,7 @@ public class Product implements Serializable {
 
 
 
+
 	public Integer getFavoriteCount() {
 		return favoriteCount;
 	}
@@ -317,6 +321,16 @@ public class Product implements Serializable {
 
 	public void setFavoriteCount(Integer favoriteCount) {
 		this.favoriteCount = favoriteCount;
+	}
+	public Integer getPoint() {
+		return point;
+	}
+
+
+
+	public void setPoint(Integer point) {
+		this.point = point;
+
 	}
 
 	

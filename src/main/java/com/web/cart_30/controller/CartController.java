@@ -143,6 +143,7 @@ public class CartController {
 		//重活動資料庫找折扣碼對應之折扣
 		
 		int discount = cartService.getDiscount(discountCode);
+		
 		List<Cart> cart = cartService.addToRecord(buyer);
 		
 		boolean exist =	cartService.discountRepeat(buyer);
