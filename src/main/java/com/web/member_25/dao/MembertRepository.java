@@ -2,7 +2,6 @@ package com.web.member_25.dao;
 
 import java.sql.Blob;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -24,10 +23,12 @@ public interface MembertRepository extends JpaRepository<membershipInformationBe
 	membershipInformationBean findByUserEmailAndUserPwd(String userEmail,String userPwd);
 	//管理者or會員
 	membershipInformationBean findIdentificationByUserEmail(String userEmail);
-	
+	//找會員data
 	membershipInformationBean findByUserEmail(String userEmail);
 	
-	
+	//忘記密碼驗證
+	@Query("from membershipInformationBean m where m.member_pwdToken=:member_pwdToken")
+	membershipInformationBean findByMember_pwdToken1(@Param("member_pwdToken") String member_pwdToken);
 	//刪除帳號
 	@Transactional
 	void deleteByUserEmail(String userEmail);
@@ -79,6 +80,7 @@ public interface MembertRepository extends JpaRepository<membershipInformationBe
 		  @Param("userGender") String userGender,
 		  @Param("address") String address,
 		  @Param("userEmail") String userEmail);
+
 	
 	
 	

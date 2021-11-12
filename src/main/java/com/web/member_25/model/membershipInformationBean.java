@@ -1,6 +1,7 @@
 package com.web.member_25.model;
 
 import java.sql.Blob;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.product_11.model.ProductFavorite;
@@ -64,10 +66,26 @@ public class membershipInformationBean {
 	@Column(name="suspension")
 	String suspension;
 	
+	//Suspension
+	@Column(name="member_BornDate")
+	String member_BornDate;
+	
+		
+	
+	//forget pwd token
+	@Column(name="member_pwdToken")
+	String member_pwdToken;
 
+	//token time
+	@Column(name="member_pwdToken_time")
+	String member_pwdToken_time;
+	
+	
 	@OneToMany(mappedBy = "membershipInformationBean",fetch = FetchType.LAZY) //本類別無外鍵 
 	Set<ProductFavorite> productFavorites=new HashSet<>();
 
+	
+		
 	
 	public membershipInformationBean() {
 		
@@ -97,7 +115,8 @@ public class membershipInformationBean {
 		public membershipInformationBean(Integer id, String userEmail, String userPhone, String userPwd,
 				String userName, String userNickname, String userGender, String address, String identification,
 				Blob head_shot, String fileName, String birthday, String notes, Integer verifyCode, String userPwd1,
-				int verificationCode, MultipartFile productImage,String suspension) {
+				int verificationCode, MultipartFile productImage,String suspension,
+				String member_BornDate,String member_pwdToken,String member_pwdToken_time) {
 
 			this.id = id;
 			this.userEmail = userEmail;
@@ -115,6 +134,9 @@ public class membershipInformationBean {
 			this.verifyCode = verifyCode;
 			this.userPwd1 = userPwd1;
 			this.suspension=suspension;
+			this.member_BornDate=member_BornDate;
+			this.member_pwdToken=member_pwdToken;
+			this.member_pwdToken_time=member_pwdToken_time;
 	
 		}
 		
@@ -256,6 +278,15 @@ public class membershipInformationBean {
 			VerificationCode = verificationCode;
 		}
 
+		
+		public String getMember_BornDate() {
+			return member_BornDate;
+		}
+
+		public void setMember_BornDate(String member_BornDate) {
+			this.member_BornDate = member_BornDate;
+		}
+
 		public Set<ProductFavorite> getProductFavorites() {
 			return productFavorites;
 		}
@@ -263,6 +294,24 @@ public class membershipInformationBean {
 		public void setProductFavorites(Set<ProductFavorite> productFavorites) {
 			this.productFavorites = productFavorites;
 		}
+
+		public String getMember_pwdToken() {
+			return member_pwdToken;
+		}
+
+		public void setMember_pwdToken(String member_pwdToken) {
+			this.member_pwdToken = member_pwdToken;
+		}
+
+		public String getMember_pwdToken_time() {
+			return member_pwdToken_time;
+		}
+
+		public void setMember_pwdToken_time(String member_pwdToken_time) {
+			this.member_pwdToken_time = member_pwdToken_time;
+		}
+
+		
 		
 		
 		

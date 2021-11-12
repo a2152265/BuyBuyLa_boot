@@ -2,7 +2,7 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!-- header -->
 <%@ include file="../Home/member/member_25/header.jspf"%>
-<!-- sidebar -->>
+<!-- sidebar -->
 <%@ include file="../Home/member/member_25/sidebar.jspf"%>
                           
                           <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"> 修改會員資料 </p>
@@ -46,7 +46,14 @@
                               <div class="form-outline flex-fill mb-0">
                                 <form:input id="birthday" path="birthday" type='text' class="form-control"  placeholder="生日"  />
                                  </div>
-                            </div>                       
+                            </div>    
+                            
+                             <div class="d-flex flex-row align-items-center mb-4">
+                                <i class="fas fa-people fa-lg me-3 fa-fw"></i>
+                                <div class="form-outline flex-fill mb-0">
+                                  <form:input id="address" path="address" type='text' class="form-control" placeholder="地址" />
+                                   </div>
+                              </div>                   
 
                               <div class="d-flex flex-row align-items-center mb-4">
                                 <i class="fas fa-Genderless fa-lg me-3 fa-fw"></i>
@@ -60,12 +67,7 @@
                                    </div>
                               </div>
 
-                              <div class="d-flex flex-row align-items-center mb-4">
-                                <i class="fas fa-Genderless fa-lg me-3 fa-fw"></i>
-                                <div class="form-outline flex-fill mb-0">
-                                  <form:input id="address" path="address" type='text' class="form-control" placeholder="地址" />
-                                   </div>
-                              </div>
+                             
           
                             
           
@@ -92,7 +94,7 @@
                <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>" 
                    class="img-fluid" alt="Sample image"  style="width: 50%;  height:50%;" />
          
-                        <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                        <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2" style="margin-top:-30%; margin-left:-30%;">
           
 
                             
@@ -103,7 +105,7 @@
                         <br><br> <label class="custom-file-label" for="customFile">選擇大頭貼</label> 
                       </div>
 						</form>
-
+						</div>
                     </form:form> 
 
                           <!-- <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-registration/draw1.png" class="img-fluid" alt="Sample image"> -->
@@ -137,77 +139,6 @@
           </button>
         </div>
         <div class="modal-body" style="height:600px">
-
-  </div>
-        <div class="sidebar">
-            <div class="profile">
-             <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
-                <!-- 讀取圖片 -->
-               <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
-                <h3></h3>
-                <p>${memberUiDefault.userEmail} </p>
-            </div>
-            <ul>
-                <li>
-                    <a href="<c:url value='/' />" class="active">
-                        <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">回首頁</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/selectLsit'/>">
-                        <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">購買紀錄</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
-                        <span class="item">  個人主頁</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/member/forum' />">
-                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">討論區</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item">帳號管理</span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="<c:url value='/member/evolution' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item">賣家中心</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/member/changePwd_check' />">
-                        <span class="icon"><i class="fas fa-chart-line"></i></span>
-                        <span class="item">更改密碼</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/try/delete' />"  onclick="return(confirm('確認刪除？'))">
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">刪除會員</span>
-                    </a>
-                </li>
-
-                <!-- /*減去footer高度*/ -->
-                <li style="min-height: calc(100% - 50px); ">
-                    <a href="<c:url value='/try/delete' />">
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">隱私權政策</span>
-                    </a>
-                </li>
-                
-            </ul>
-        </div>
         
         
         <!-- 進入頁面 -->

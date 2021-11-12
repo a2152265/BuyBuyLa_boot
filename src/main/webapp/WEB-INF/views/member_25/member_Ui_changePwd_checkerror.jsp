@@ -65,39 +65,47 @@
 
 
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     <div style="text-align: center;">
     
-        <form:form method='POST' modelAttribute="memberUiDefault"
-        class='form-horizontal' enctype="multipart/form-data">
-        <!-- 檔案上傳的標籤一定要有enctype="multipart/form-data -->
+       
       
         <table style="text-align:center;">
           
           <span > - 更改密碼</span><br><br><br>
           
           
-           <form:password id="pwd" path="userPwd"   style="width: 40%; height:30px; font-size:18px"  placeholder="請輸入密碼" cssclass='form-control'  />
-			
-			    
+               
                     
+                    
+                    <form:form method='POST' modelAttribute="changePwd"
+        			class='form-horizontal' enctype="multipart/form-data">
+  						<div class="form-group" style="padding-left:31%; padding-right:31%;">
+    					<label for="exampleInputEmail1">密碼</label>
+    					<form:password  path="userPwd"  class="form-control" id="pwd" aria-describedby="emailHelp" placeholder="請輸入舊密碼"/>
+   						 <small id="emailHelp" class="form-text text-muted">請確認密碼是否正確</small>
+ 						 </div>
+  						<div class="form-group"  style="padding-left:31%; padding-right:31%;">
+  						  <label for="exampleInputPassword1">確認密碼</label>
+ 						   <form:password  path="userPwd1" class="form-control" id="pwd" placeholder="請再次輸入密碼"/>
+ 						 </div>
+  						<div class="form-check">
+    					<input type="checkbox" class="form-check-input" id="exampleCheck1">
+  						 <label class="form-check-label" for="exampleCheck1">確認</label>
+ 						 </div>
+  						<button type="submit"   onclick="return(confirm('確認送出？'))"   class="btn btn-primary">送出</button>
+					</form:form>
           </table>
           
       
           <p>&nbsp;</p>
   
-          <input type="submit"  onclick="return(confirm('確認更改？'))"  id="submitRewrite"  name="submitRewrite" 
-          style="text-align: center; font-size: 18x;  background-color: rgb(9, 9, 102);"  class="button-1"  value="更改密碼"/>
-
-         
-         
-         
-         </form:form>
-      
+          
        
-       
-      
-      
-      
       
         </div>
 
@@ -113,7 +121,13 @@
                 <h3></h3>
                 <p>${memberUiDefault.userEmail} </p>
             </div>
-            <ul>
+             <ul>
+          		  <li>
+                    <a href="<c:url value='/try/member_Ui' />">
+                        <span class="icon"><i class="fas fa-database"></i></span>
+                        <span class="item">會員資料</span>
+                    </a>
+                </li>
                 <li>
                     <a href="<c:url value='/' />">
                         <span class="icon"><i class="fas fa-home"></i></span>
@@ -144,12 +158,7 @@
                         <span class="item">討論區</span>
                     </a>
                 </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item">帳號管理</span>
-                    </a>
-                </li>
+                
                 
                 <li>
                     <a href="<c:url value='/member/evolution' />">
@@ -158,21 +167,16 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='/member/changePwd' />"   class="active">
+                    <a href="<c:url value='/member/changePwd' />"  class="active">
                         <span class="icon"><i class="fas fa-chart-line"></i></span>
                         <span class="item">更改密碼</span>
                     </a>
                 </li>
-                <li>
-                    <a href="<c:url value='/try/delete' />"  onclick="return(confirm('確認刪除？'))" >
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">刪除會員</span>
-                    </a>
-                </li>
+                
 
                 <!-- /*減去footer高度*/ -->
                 <li style="min-height: calc(100% - 50px); ">
-                    <a href="<c:url value='/try/delete' />">
+                    <a href="<c:url value='/member/ischan' />">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">隱私權政策</span>
                     </a>

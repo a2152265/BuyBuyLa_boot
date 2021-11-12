@@ -215,6 +215,7 @@ $(document).ready(function () {
         	<form:hidden path="record_id" /><br>
  			<form:hidden path="buy_time" /><br>
 		<form:hidden path="totalprice" /><br>
+		<form:hidden path="buyeraddress" /><br>
         <div class="row">
           <input type="submit" value="修改" name='updateBtn' onclick="return confirmUpdate('${RecordList.buyer}');">&nbsp; 
           

@@ -71,6 +71,7 @@ public class ChatController {
     @MessageMapping("/chatback")
     @SendTo("/topic/public") //只要有訂閱這個/topic/public的東東的人都會收到這個訊息 大概
     public ChatMessage sendMessageByme(@Payload ChatMessage chatMessage) {
+    
     	if (login(chatMessage.getContent())==true) {
 			System.out.println("成功登入---準備發送訊息");
 			System.out.println("成功登入---準備發送訊息");
@@ -85,8 +86,8 @@ public class ChatController {
 			System.out.println("處禮後返回的訊息---CharType-->"+chatMessage.getType());
 			System.out.println("處禮後返回的訊息--Class--->"+chatMessage.getClass());
 		}
-    	
-        return chatMessage; // 返回時會將訊息送至/topic/public
+        return null; // 返回時會將訊息送至/topic/public
+        
     }
     @MessageMapping("/chatback2")
     @SendTo("/topic/public") //只要有訂閱這個/topic/public的東東的人都會收到這個訊息 大概
@@ -95,7 +96,7 @@ public class ChatController {
 			chatMessage.setContent("請問您還需要甚麼服務嗎?  輸入1查詢會員資料 輸入2給你一個微笑");
 		}
     	
-        return chatMessage; // 返回時會將訊息送至/topic/public
+        return null; // 返回時會將訊息送至/topic/public
     }
     
     
@@ -122,7 +123,7 @@ public class ChatController {
     	System.out.println("BBB----getSender------->"+chatMessage.getSender());
     	System.out.println("BBB----getContent------->"+chatMessage.getContent());
     	System.out.println("user2動作中");
-        return chatMessage; // 返回時會將訊息送至/topic/public
+        return null; // 返回時會將訊息送至/topic/public
     }
     
     

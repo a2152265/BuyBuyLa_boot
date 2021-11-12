@@ -64,7 +64,7 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public void addItemByid(int pid,String buyer) {
-		System.out.println("serviceqqqqqqqqqqqqqqqqqqqqqqqqq");		
+		System.out.println("serviceqqqqqqqqqqqqqqqqqqqqqqqqq---->pid"+pid);		
 		Optional<Product> product = productRepository.findById(pid);
 		Cart carta= cartRepository.existsByIdAndBuyer(pid,buyer);
 		System.out.println(carta+"-------------------------------");
@@ -263,6 +263,7 @@ public class CartServiceImpl implements CartService {
 		}else {
 		return 0;
 		}
+
 
 	}
 

@@ -40,6 +40,31 @@
   font-size: 14px;
 }
 
+ .analyzeDiv{
+ 	margin-top:25px;
+ 	margin-left:25px;
+ }
+ 
+ 
+ /*analyze option*/
+ 
+ .button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+
+.button3 {width: 2%;}
+
+.buttonTotal {width: 20%;}
 
 
 
@@ -181,7 +206,7 @@
         </a>
       </li>
       <li>
-        <a href="manage/products">
+        <a href="<c:url value='/manage/products/待審核' />">
           <svg>
             <use xlink:href="#pages"></use>
           </svg>
@@ -225,17 +250,10 @@
         </a>
       </li>
       
-      <li>
-        <a href="#0">
-          <svg>
-            <use xlink:href="#charts"></use>
-          </svg>
-          <span>效益分析</span>
-        </a>
-      </li>
+     
       <li>
         <div class="switch">
-          <input type="checkbox" id="mode" checked>
+           <input type="checkbox" id="mode" checked style="display:none;">
           <label for="mode">
             <span></span>
             <span>暗黑模式</span>

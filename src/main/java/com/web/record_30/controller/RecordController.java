@@ -200,7 +200,7 @@ public class RecordController {
 		String pay_status= recordList.getPay_status();
 		recordList.setLast_update_time(now);
 		System.out.println("qqqqqqqqqqqqqqqqqqqqqqqqq");
-		System.out.println(rid+","+buyer+","+totalprice+","+buyeraddress+","+buytime+","+transport_status+","+pay_status);
+		System.out.println(rid+","+buyer+","+totalprice+","+buyeraddress+","+buytime+","+pay_status+","+transport_status);
 //		recordservice.update(rid, pid, transport_status);
 //		System.out.println("rid = "+ rid+",pid = "+pid+"TS = "+transport_status+"+++++++++++++++++++++++");
 		recordservice.updateRecordList(recordList);

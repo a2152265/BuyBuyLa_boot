@@ -17,20 +17,20 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>訂單確認</title>
 	<link rel="icon" href="img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css">
-	<link rel="stylesheet" href="vendors/linericon/style.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-  <link rel="stylesheet" href="vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css">
+  <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css" type="text/css">
+	<link rel="stylesheet" href="vendors/themify-icons/themify-icons.css" type="text/css">
+	<link rel="stylesheet" href="vendors/linericon/style.css" type="text/css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css" type="text/css">
+  <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css" type="text/css">
+  <link rel="stylesheet" href="vendors/nice-select/nice-select.css" type="text/css">
+  <link rel="stylesheet" href="vendors/nouislider/nouislider.min.css" type="text/css">
 
-  <link rel="stylesheet" href="css/productstyle.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="css/productstyle.css"  type="text/css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"  type="text/javascript"></script>
 <!--   <script src="js/jquery.twzipcode.js"></script> -->
-    <script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
-    <script>
+    <script src="https://demeter.5fpro.com/tw/zipcode-selector.js"  type="text/javascript"></script>
+    <script  type="text/javascript">
     let no = 1000;
     let index = 0;
     var buyerName= ["莊逸洪", '廖家慶', '葉俊偉', '謝德榮', '張晉愷'];
@@ -229,6 +229,11 @@
                             <td id='totalPrice'>$2160.00</td>
                             </tr>
                             <tr>
+                            <td>運費</td>
+                            <td></td>
+                            <td id='pee'>60</td>
+                            </tr>
+                            <tr>
                             <td>折扣</td>
                             <td></td>
                             <td id='discount'>${discount}</td>
@@ -362,31 +367,32 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 
-  <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="vendors/skrollr.min.js"></script>
-  <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="vendors/jquery.ajaxchimp.min.js"></script>
-  <script src="vendors/mail-script.js"></script>
+  <script src="vendors/jquery/jquery-3.2.1.min.js"  type="text/javascript"></script>
+  <script src="vendors/bootstrap/bootstrap.bundle.min.js" type="text/javascript"></script>
+  <script src="vendors/skrollr.min.js" type="text/javascript"></script>
+  <script src="vendors/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
+  <script src="vendors/nice-select/jquery.nice-select.min.js" type="text/javascript"></script>
+  <script src="vendors/jquery.ajaxchimp.min.js" type="text/javascript"></script>
+  <script src="vendors/mail-script.js" type="text/javascript"></script>
 <!--   <script src="js/main.js"></script> -->
   
-   <script>
+   <script type="text/javascript">
   
 
 
 	var total=0;
 	var discount=parseInt($("#discount").html())
+	
 	$('.total').each(function(){
 		$(this).html;
 		var a = parseInt($(this).html());
 		total=total+a
 
 		})
-	
+
 	$('#totalPrice').html(total)
 	
-	total=total-discount
+	total=total-discount+60
 	$('#finalTotal').html(total)
 	
 	 </script>	
