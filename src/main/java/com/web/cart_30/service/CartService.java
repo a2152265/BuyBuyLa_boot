@@ -22,9 +22,8 @@ public interface CartService {
 	public void deletecart(int pid,String buyer);
 	public  List<Cart> addToRecord(String buyer);
 	public void addToRecord2(RecordBean rb);
-	public int getRidCount(int id);
-	public void addRidCount();
-	
+
+
 	
 	
 	public void deleteAll(String buyer);
@@ -40,6 +39,11 @@ public interface CartService {
 	
 	//賣出時扣庫存數量
 	public void updateStock(int pid,int count);
+	
+	//用記錄ID查該筆紀錄資料
+	public RecordList findRecordByRecordId(String rid);
+	
+	
 	
 	//地址管理
 	public List<BuyerAddress> selectAllBuyerAddressByBuyer(String buyer);

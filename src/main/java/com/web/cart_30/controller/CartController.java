@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.web.cart_30.model.BuyerAddress;
 import com.web.cart_30.model.Cart;
@@ -34,7 +35,7 @@ import ecpay.payment.integration.domain.AioCheckOutALL;
 
 
 @Controller
-@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" ,"cart","OrderItemCount","count"})
+@SessionAttributes({ "loginSession", "memberUiDefault", "managerSession","beanForVerificationCode","sellerData" ,"cart","OrderItemCount","count","recordID"})
 public class CartController {
 
 	CartService cartService;
@@ -188,9 +189,7 @@ public class CartController {
 	
 
 	
-	
-	@Autowired
-	JavaMailSender mailSender;
+
 	
 	
 
@@ -207,7 +206,7 @@ public class CartController {
 		
 
 		List<Cart> cart = cartService.addToRecord(buyer);	
-		Integer rc = cartService.getRidCount(1);
+		
 		RecordBean rb=new RecordBean();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		
@@ -286,12 +285,12 @@ public class CartController {
 		obj.setClientBackURL("http://localhost:9090/BuyBuyla_boot/fin");
 		String form = all.aioCheckOut(obj, null);
 
-		
+		model.addAttribute("recordID",str);
 		
 		
 		
 		cartService.addToRecordList(recordList);
-		cartService.addRidCount();
+
 	
 		return form;
 		
@@ -299,20 +298,7 @@ public class CartController {
 	
 	
 	
-//綠界做完導回首頁+寄信
-	@GetMapping("/fin")
-	public String fin(@ModelAttribute("address") String address ,@ModelAttribute("loginSession") membershipInformationBean mb ,Model model) {
-		String buyer=mb.getUserEmail();	
-		cartService.deleteAll(buyer);
-		SimpleMailMessage message =new SimpleMailMessage();
-		message.setTo(buyer);
-		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
-		message.setText("您在BuyBuyLA 線上商城購買成功");
-		
-		mailSender.send(message); 
-		System.out.println("------------------已寄出------------------ --->");
-		 return "cart_30/buysuccess";
-	}
+
 	
 	
 //	@GetMapping("/removeAllCart")

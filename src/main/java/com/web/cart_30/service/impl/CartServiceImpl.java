@@ -13,11 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.web.cart_30.dao.BuyerAddressRepository;
 import com.web.cart_30.dao.CartRepository;
 import com.web.cart_30.dao.RecordListRepository;
-import com.web.cart_30.dao.RidCountRepository;
+
 import com.web.cart_30.model.BuyerAddress;
 import com.web.cart_30.model.Cart;
 
-import com.web.cart_30.model.RidCount;
 import com.web.cart_30.service.CartService;
 import com.web.product_11.dao.ProductRepository;
 import com.web.product_11.model.Product;
@@ -34,20 +33,19 @@ public class CartServiceImpl implements CartService {
 	RecordRepository  recordRepository;
 	CartRepository cartRepository;
 	ProductRepository productRepository;
-	RidCountRepository ridCountRepository;
 	RecordListRepository recordListRepository;
 	BuyerAddressRepository buyerAddressRepository;
 	
 	
 	@Autowired
 	public CartServiceImpl(RecordRepository recordRepository, CartRepository cartRepository,
-			ProductRepository productRepository, RidCountRepository ridCountRepository,
+			ProductRepository productRepository,
 			RecordListRepository recordListRepository,BuyerAddressRepository buyerAddressRepository) {
 	
 		this.recordRepository = recordRepository;
 		this.cartRepository = cartRepository;
 		this.productRepository = productRepository;
-		this.ridCountRepository = ridCountRepository;
+
 		this.recordListRepository = recordListRepository;
 		this.buyerAddressRepository=buyerAddressRepository;
 	}
@@ -182,27 +180,7 @@ public class CartServiceImpl implements CartService {
 
 
 
-	@Transactional
-	@Override
-	public int getRidCount(int id) {
 
-		RidCount rc=ridCountRepository.getById(1);
-		
-		System.out.println(rc+"************************************");
-		
-		return rc.getRidcount();
-		
-	}
-
-
-	@Transactional
-	@Override
-	public void addRidCount() {
-		RidCount rc =ridCountRepository.getById(1);
-		int cnt = rc.getRidcount()+1;
-		ridCountRepository.add(cnt,1);
-		
-	}
 
 
 
@@ -295,6 +273,18 @@ public boolean discountRepeat(String buyer) {
 		 return true;
 	 }
 	return false;
+}
+
+
+
+
+
+
+
+@Override
+public RecordList findRecordByRecordId(String rid) {
+	RecordList record = recordListRepository.getById(rid);
+	return record;
 }
 
 
