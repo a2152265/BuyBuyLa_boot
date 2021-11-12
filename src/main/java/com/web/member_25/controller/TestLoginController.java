@@ -68,34 +68,6 @@ public class TestLoginController {
 	}
 
 
-//	@GetMapping("/zxczc")   //改
-//	public String indexDefault() {
-//		System.out.println("回首頁");
-//		return "member_25/tryIndex";
-//	}
-
-	@GetMapping("/try/index")
-	public String index(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
-		System.out.println("login後回首頁GetMapping");
-		membershipInformationBean mb2 = new membershipInformationBean();
-		
-		mb2.setUserEmail(mb.getUserEmail());
-		mb2.setUserPwd(mb.getUserPwd());
-		mb2.setUserName(mb.getUserName());
-		model.addAttribute("loginSession", mb2);
-		System.out.println("首頁的getmapping ----------->getUserEmail =" + mb.getUserName());
-
-		return "cart_30/TotalHome";
-	}
-
-	@PostMapping("/try/index")
-	public String processIndex(@ModelAttribute("loginSession") membershipInformationBean mb, Model model) {
-		System.out.println("有進到POST Index哦-------->UserEmail " + mb.getUserEmail());
-		System.out.println("有進到POST Index哦-------->");
-
-		return "cart_30/TotalHome";
-	}
-
 	//進入方法前先驗證
 	@GetMapping("/try/add")
 	public String trySignUp(Model model
@@ -134,19 +106,12 @@ public class TestLoginController {
 			System.out.println("======================");
 			return "member_25/signUpPage";
 		}else {
-			System.out.println("無錯誤-----帳號-------->"+mb.getUserEmail());
-			System.out.println("無錯誤------密碼------->"+mb.getUserPwd());
 	
 		}
 		
 		
 
 		System.out.println("-------------表單檢查無錯誤-------------");
-		System.out.println("-------> mb = " + mb);
-		System.out.println("---->mb.ID=" + mb.getId());
-		System.out.println("---->mb.ID=" + mb.getUserEmail());
-		System.out.println("---->mb.getIdentification=" + mb.getIdentification());
-
 		Boolean loginResult=false;
 		
 		loginResult = memberService.overlappedAccount(mb.getUserEmail());
@@ -240,7 +205,7 @@ public class TestLoginController {
 //			*************************************************************
 				model.addAttribute("loginSession",memberService.findMemberData(mb2.getUserEmail()));
 //			*************************************************************
-return "redirect:/manager_Ui0";
+				return "redirect:/manager_Ui0";
 				
 //				return "redirect:/manager_Ui";
 //>>>>>>> refs/heads/Dev_32_newCSS
@@ -261,10 +226,8 @@ return "redirect:/manager_Ui0";
 			return "redirect:/"; // 登入成功
 
 		} else if (loginResult == 2) {
-			System.out.println("查無帳號  ----->");
 			return "member_25/loginpage_error";
 		} else if (loginResult == 3) {
-			System.out.println("帳號重複  ----->");
 			return "member_25/loginpage_error";
 		}
 
@@ -277,18 +240,14 @@ return "redirect:/manager_Ui0";
 		session.removeAttribute("loginSession");
 		session.removeAttribute("memberUiDefault");
 		session.removeAttribute("managerSession");
-		System.out.println("logout:" + session.getAttribute("loginSession"));
 		sessionStatus.setComplete();
-		System.out.println("已清除 登入狀態loginSession+managerSession+memberUiDefault");
 		return "redirect:/"; // 回乾淨首頁成功 讚
 	}
 
-	// 老師範例
 	@RequestMapping("/try/logout2")
 	public String tologout2(SessionStatus sessionStatus) {
 
 		sessionStatus.setComplete(); // 讓本controller的sessionAtribute中的物件全部失效(也就是其他sessionAtribute創出來的物件不會刪到)
-		System.out.println("已清除 所有登入狀態");
 		return "redirect:/"; // 回乾淨首頁成功 讚
 	}
 
@@ -299,14 +258,9 @@ return "redirect:/manager_Ui0";
 	public String tryMemberUpdate(@ModelAttribute("loginSession") membershipInformationBean mb, Model model,
 			HttpServletRequest httpServletRequest
 			) {
-		System.out.println("--------------進入會員_Ui------------------------");
-		System.out.println("--------------進入會員_Ui------------------------");
-		System.out.println("--------------進入會員_Ui------------------------");
-		System.out.println("--------------進入會員_Ui------------------------");
 		System.out.println("-httpServletRequest------------>"+httpServletRequest.getUserPrincipal().getName());
 		mb=memberService.findMemberDataAll(httpServletRequest.getUserPrincipal().getName());
 		
-		System.out.println("membershipInformationBean --getUserEmail----->" + mb.getUserEmail());
 		try {
 			if (mb.getSuspension().length()!=0) {
 				System.out.println("這傢伙被ban了");
@@ -325,8 +279,6 @@ return "redirect:/manager_Ui0";
 			System.out.println("------登入後預載預設圖片------");
 		}
 		
-		System.out.println("getUserEmail --getMemberData2--><--->" + mb2.getUserEmail());
-		System.out.println("getUserPwd --getMemberData2--><--->" + mb2.getUserPwd());
 		model.addAttribute("memberUiDefault", mb2);
 		
 		return "member_25/member_Ui";
@@ -350,8 +302,6 @@ return "redirect:/manager_Ui0";
 		membershipInformationBean mb2 = new membershipInformationBean();
 		//先查DB的會員資料再去把表單的資料塞過去
 		mb2=memberService.findMemberDataAll(mb.getUserEmail());
-		System.out.println("mb.getUserGender()+++++"+mb.getUserGender());
-		System.out.println("mb.getUserName()+++++"+mb.getUserName());
 		mb2.setUserEmail(mb.getUserEmail());
 		mb2.setUserPwd(mb.getUserPwd());
 		mb2.setAddress(mb.getAddress());
@@ -366,10 +316,7 @@ return "redirect:/manager_Ui0";
 		
 		//下面是個處理好的bean 待update
 		mb2= new ProcessImage().uploadImage(mb2,mb);
-		System.out.println("setIdentification2---------->"+mb2.getIdentification());
-		System.out.println("-------------開始存入");
 		memberService.save(mb2);
-		System.out.println("-------------存入完畢");
 		
 	model.addAttribute("memberData", mb2);	
 		System.out.println("update success");
@@ -382,9 +329,7 @@ return "redirect:/manager_Ui0";
 		System.out.println("membershipInformationBean --tryMemberDelete----->");
 
 		memberService.deleteByName(mb.getUserEmail());
-		System.out.println("------ 刪除完畢 ------");
 		tologout(session, request, response, sessionStatus);
-		System.out.println("------ 刪除session完畢 ------重新導向中...");
 			System.out.println("de---------------------------");
 		return "member_25/alertPage_delete";
 	}
@@ -403,10 +348,6 @@ return "redirect:/manager_Ui0";
 		} catch (Exception e) {
 			System.out.println("-------------沒事 繼續-麥加區");
 		}
-		//sellerData初始化設定
-//		model.addAttribute("sellerData", sellerDataMb);
-		System.out.println("------sellerData 驗證後資料 name----------------?"+sellerDataMb.getUserName());
-		
 		membershipInformationBean mb2 = new membershipInformationBean();
 		
 		mb2 = memberService.findMemberDataAll(mb.getUserEmail());
@@ -642,11 +583,7 @@ return "redirect:/manager_Ui0";
 				+ "本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。");	  
 		mailSender.send(message); 
 		System.out.println("------------------已寄出------------------ --->code="+VerificationCode);
-		System.out.println("------------------已寄出------------------ --->code="+VerificationCode);
-		System.out.println("------------------已寄出------------------ --->code="+VerificationCode);
 
-		System.out.println("------------------loginSession------------------ --->code="+mb2.getUserEmail());
-		System.out.println("------------------selletData------------------ --->code="+mb.getUserEmail());
 		vtBtn.setVerificationCode(VerificationCode);
 		model.addAttribute("beanForVerificationCode",vtBtn);
 	
@@ -678,8 +615,6 @@ return "redirect:/manager_Ui0";
 //			return "member_25/manager/manager_List";
 			return "redirect:/memberEdit?id={id}";
 		}else {
-			System.out.println("無錯誤-----帳號-------->"+mb.getUserEmail());
-			System.out.println("無錯誤------密碼------->"+mb.getUserPwd());
 	
 		}
 			
@@ -702,12 +637,6 @@ return "redirect:/manager_Ui0";
 			@ModelAttribute("memberInsert") membershipInformationBean bean, 
 			BindingResult result) {
 
-		System.out.println("進入----- insert-->PostMapping" );
-		System.out.println("------------------->"+bean.getAddress());
-		System.out.println("------------------->"+bean.getBirthday());
-		System.out.println("------------------->"+bean.getFileName());
-		System.out.println("---------權限---------->"+bean.getIdentification());
-		System.out.println("------------------->"+bean.getUserEmail());
 		bean.setIdentification(bean.getIdentification());
 		memberService.save(bean);
 		System.out.println("沒有錯誤 save完成" + bean);
@@ -740,13 +669,6 @@ return "redirect:/manager_Ui0";
 			BindingResult result, 
 			@PathVariable(required=false) Integer id) {
 
-		System.out.println("進入-------?PostMapping" );
-		System.out.println("------------------->"+bean.getAddress());
-		System.out.println("------------------->"+bean.getBirthday());
-		System.out.println("------------------->"+bean.getFileName());
-		System.out.println("------------------->"+bean.getIdentification());
-		System.out.println("------------------->"+bean.getUserEmail());
-		System.out.println("---getSuspension---------------->"+bean.getSuspension());
 		Optional<membershipInformationBean> dataBeanD=memberService.findById(id);
 		membershipInformationBean dataBean=dataBeanD.get();
 		System.out.println("databean----  id---->"+dataBean.getId());
@@ -852,12 +774,6 @@ return "redirect:/manager_Ui0";
 			BindingResult result, 
 			@PathVariable Integer id
 			) {
-		System.out.println("in @PutMapping, bean=" + bean);
-		System.out.println("in @PutMapping, bean=" + bean);
-		System.out.println("in @PutMapping, bean=" + bean);
-		System.out.println("in @PutMapping, bean=" + bean);
-		System.out.println("in @PutMapping, bean=" + bean);
-		System.out.println("in @PutMapping, bean=" + bean);
 		new MemberValidator().validate(bean, result);
 		if (result.hasErrors()) {
 			//
@@ -1044,9 +960,6 @@ return "redirect:/manager_Ui0";
 				@ModelAttribute("suspension") membershipInformationBean mb, 
 				@ModelAttribute("loginSession") membershipInformationBean loMb, 
 				Model model,SessionStatus sessionStatus) {
-			System.out.println("sus---------->"+mb.getUserPwd());
-			System.out.println("login email------------->"+loMb.getUserEmail());
-			System.out.println("login PWD------------->"+loMb.getUserPwd());
 			
 			membershipInformationBean pwMb=memberService.findMemberDataAll(loMb.getUserEmail());
 			String password=mb.getUserPwd();
@@ -1054,7 +967,6 @@ return "redirect:/manager_Ui0";
 			//加密
 			BCryptPasswordEncoder encoder1 = new BCryptPasswordEncoder(); 
 			boolean isPasswordMatches = encoder1.matches(password,pwMb.getUserPwd());
-			System.out.println("--密碼比對------ban區-------->"+isPasswordMatches);
 			
 			if (isPasswordMatches==true) {
 				System.out.println("--------------已ban------------------");
@@ -1077,32 +989,11 @@ return "redirect:/manager_Ui0";
 		@PostMapping("/member/member_ban")
 		public String processUnban(@ModelAttribute("loginSession") membershipInformationBean mb,Model model) {
 			System.out.println("unban-------notes---->"+mb.getNotes());
-			membershipInformationBean mb2;
-			try {
-				 mb2=memberService.findMemberDataAll(mb.getUserEmail());
-				
-				 
-				//加密
-					BCryptPasswordEncoder encoder1 = new BCryptPasswordEncoder(); 
-					System.out.println("-userDetail成功登入---pwdencode>"+new BCryptPasswordEncoder().encode(mb2.getUserPwd()));
-					boolean isPasswordMatches = encoder1.matches(mb.getUserPwd(),mb2.getUserPwd());
-					System.out.println("--密碼比對-------------->"+isPasswordMatches);
-				 
-				 
-				 
-				 if (isPasswordMatches==true) {
-					 mb2.setNotes(mb.getNotes());
-					 memberService.save(mb2);
-					System.out.println("成功更ban帳號");
-					return "member_25/ban/member_ban_done";
-				}
-				
-				 
-			} catch (Exception e) {
-				System.out.println("ban帳號環節出錯拉");
-			}
-			return "member_25/ban/member_ban_fail";
-			
+			System.out.println("unban-------notes---->"+mb.getNotes());
+			membershipInformationBean mb2=memberService.findMemberDataAll(mb.getUserEmail());
+			mb2.setNotes(mb.getNotes());
+			memberService.save(mb2);
+			return "member_25/ban/member_ban_done";
 			
 		}
 		
@@ -1152,10 +1043,6 @@ return "redirect:/manager_Ui0";
 				
 				try {
 					sixMonthData= memberList.get(i).getMember_BornDate().split("/");
-					System.out.println("單人分割-----split----->"+sixMonthData);
-					System.out.println("前--->"+sixMonthData[0]);
-					System.out.println("中--->"+sixMonthData[1]);
-					System.out.println("後--->"+sixMonthData[2]);
 					if (sixMonthData[1].equals("5")) {
 						m5++;
 					}
