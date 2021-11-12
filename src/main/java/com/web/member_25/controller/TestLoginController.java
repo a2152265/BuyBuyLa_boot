@@ -1188,44 +1188,41 @@ return "redirect:/manager_Ui0";
 			return memberCountList;
 		}
 		
-		
-		@GetMapping("/AnalyzeData_memberGender")
-		@ResponseBody
-		public List<String> AnalyzeData_memberGender(@ModelAttribute("loginSession") membershipInformationBean mb,
-				Model model) {
-			List<membershipInformationBean> memberList = memberService.selectAllUsers();
-			int count=0;
-			System.out.println("-------11----------->");
-			String [] sixMonthData;
-			List<String> memberGenderList=new ArrayList<>();;
-			int g0=0,g1=0,gn=0;
-			for(int i=0;i<memberList.size();i++) {
-				
-				try {
-					if (memberList.get(i).getUserGender().equals("男性")) {
-						g1++;
-					}
-					if (memberList.get(i).getUserGender().equals("女性")) {
-						g0++;
-					}
-					if (memberList.get(i).getUserGender().equals("其他")) {
-						gn++;
-					}
-					count++;
-				} catch (Exception e) {
-					System.out.println("---沒事 繼續找分人數----->");
-				}
-			}
-			memberGenderList.add(String.valueOf(g0));
-			memberGenderList.add(String.valueOf(g1));
-			memberGenderList.add(String.valueOf(gn));
-			
-			System.out.println("--會員性別統計完成----------->"+memberGenderList);
-			System.out.println("總人數----------->"+count);
-			return memberGenderList;
-		}
-		
-		
+        @GetMapping("/AnalyzeData_memberGender")
+        @ResponseBody
+        public List<String> AnalyzeData_memberGender(@ModelAttribute("loginSession") membershipInformationBean mb,
+                Model model) {
+            List<membershipInformationBean> memberList = memberService.selectAllUsers();
+            int count=0;
+            System.out.println("-------11----------->");
+            String [] sixMonthData;
+            List<String> memberGenderList=new ArrayList<>();;
+            int g0=0,g1=0,gn=0;
+            for(int i=0;i<memberList.size();i++) {
+                
+                try {
+                    if (memberList.get(i).getUserGender().equals("男性")) {
+                        g1++;
+                    }
+                    if (memberList.get(i).getUserGender().equals("女性")) {
+                        g0++;
+                    }
+                    if (memberList.get(i).getUserGender().equals("其他")) {
+                        gn++;
+                    }
+                    count++;
+                } catch (Exception e) {
+                    System.out.println("---沒事 繼續找分人數----->");
+                }
+            }
+            memberGenderList.add(String.valueOf(g0));
+            memberGenderList.add(String.valueOf(g1));
+            memberGenderList.add(String.valueOf(gn));
+            
+            System.out.println("--會員性別統計完成----------->"+memberGenderList);
+            System.out.println("總人數----------->"+count);
+            return memberGenderList;
+        }  
 		
 				
 		@GetMapping("/error_403")
