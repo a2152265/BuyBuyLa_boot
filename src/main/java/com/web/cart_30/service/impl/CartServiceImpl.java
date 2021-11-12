@@ -244,7 +244,7 @@ public class CartServiceImpl implements CartService {
 	public int getDiscount(String discountCode) {
 
 		
-		return 0;
+		return 60;
 
 	}
 

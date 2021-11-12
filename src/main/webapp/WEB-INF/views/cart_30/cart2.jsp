@@ -531,7 +531,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	$("#apply").click(function(){		
 					
 		var data=$("#discount").val();
-		var fee=$("#fee").val();
+		var fee=$("#fee").html();
 		console.log("data = "+data)
 		$.ajax({
 			type:'get',
@@ -551,7 +551,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				  timer: 1500
 				})
 				var dis = parseInt(discount); 
-				var count = parseInt($('#totalPrice').html())-dis-60;
+// 				var fe=parseInt(fee)-60;
+				$('#fee').html(0)
+				var count = parseInt($('#totalPrice').html())-dis;
 				console.log(count)
 				
 				$('#totalPrice').html(count)

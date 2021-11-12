@@ -229,6 +229,11 @@
                             <td id='totalPrice'>$2160.00</td>
                             </tr>
                             <tr>
+                            <td>運費</td>
+                            <td></td>
+                            <td id='pee'>$60</td>
+                            </tr>
+                            <tr>
                             <td>折扣</td>
                             <td></td>
                             <td id='discount'>${discount}</td>
@@ -377,16 +382,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 	var total=0;
 	var discount=parseInt($("#discount").html())
+	
 	$('.total').each(function(){
 		$(this).html;
 		var a = parseInt($(this).html());
 		total=total+a
 
 		})
-	
+
 	$('#totalPrice').html(total)
 	
-	total=total-discount
+	total=total-discount+60
 	$('#finalTotal').html(total)
 	
 	 </script>	
