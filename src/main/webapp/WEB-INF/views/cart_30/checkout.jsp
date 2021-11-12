@@ -231,7 +231,7 @@
                             <tr>
                             <td>運費</td>
                             <td></td>
-                            <td id='pee'>$60</td>
+                            <td id='pee'>60</td>
                             </tr>
                             <tr>
                             <td>折扣</td>
