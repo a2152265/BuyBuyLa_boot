@@ -17,19 +17,27 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("select distinct category from Product")
 	List<String>  getAllCategories();
 	
-	@Query("from Product where productName like %:productName% and status='上架中'and stock>0" )
+	@Query("from Product where productName like %:productName% and status='上架中'and stock>0 " )
 	List<Product> findByProductName(@Param("productName") String productName);
 	
-	@Query("from Product p where p.category=:category and status='上架中'and stock>0 ")
+	@Query("from Product p where p.category=:category and status='上架中'and stock>0  ")
 	List<Product> getProductsByCategory(String category);
 
 	@Query("from Product  where category=:category and status='上架中'and stock>0 order by price DESC ")
 	List<Product> getByCategoryOrderByPrice(String category);
 	
-
+	@Query("from Product  where seller=:seller order by views DESC ")
+	List<Product> getViewBySeller(String seller);
+	
+	@Query("from Product  where seller=:seller order by sales DESC ")
+	List<Product> getSalesBySeller(String seller);
+	
+	@Query("from Product  where seller=:seller order by favoriteCount DESC ")
+	List<Product> getFavoriteCountBySeller(String seller);
+	
 	Product findByProductId(int productId);
 	
-	@Query("from Product p where p.status='上架中'and stock>0 order by p.insertTime DESC")
+	@Query("from Product p where p.status='上架中'and p.stock>0  order by p.insertTime DESC")
 	List<Product>productOrderByInsertTime();
 	
 	@Query("from Product p where p.status=:status")
@@ -66,14 +74,32 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	//更新銷售量
 	@Transactional
 	@Modifying
-	@Query("update Product set sales=sales+1 where productId=:pid")
-	void updateSales(int pid);
+	@Query("update Product set sales=:sales where productId=:pid")
+	void updateSales(int pid,int sales);
 
+	//更新收藏量(增加)
+	@Transactional
+	@Modifying
+	@Query("update Product set favoriteCount=favoriteCount+1 where productId=:pid")
+	void plusFavoriteCount(int pid);
+	
+	//更新收藏量(減少)
+	@Transactional
+	@Modifying
+	@Query("update Product set favoriteCount=favoriteCount-1 where productId=:pid")
+	void subFavoriteCount(int pid);
+	
+	
 	@Transactional
 	@Modifying
 	@Query("update Product set discount=:discount where category=:category")
 	void updateProductDiscount(Double discount,String category);
 	
 
+	Long countByCategory(String category);
+	
+	Long countByStatus(String status);
+	
+	
 	
 }

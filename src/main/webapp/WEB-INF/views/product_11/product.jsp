@@ -78,8 +78,8 @@
            <li class="nav-item" >
            
                <!---------------- 首頁查詢商品框 ---------------->
-           		<form:form method='get' action="./queryproduct" class='form-horizontal'>
-					<input name="productName" id="productName" type='text' class='form:input-large'/>
+           			<form:form method='get' action="./queryproduct" class='form-horizontal'>
+					<input name="productName" id="productName" type='text' class='form:input-large' />
 					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
 
@@ -97,10 +97,10 @@
             <!---------------- 我的最愛 ---------------->
             <ul style="list-style-type: none; padding-left:10px" >
                <c:if test="${loginSession.userEmail != null}">
-                <li><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
+                <li><button style="border:0 ;background-color:transparent;" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
                </c:if>
                  <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
-                <li ><button style="border:0 ;background-color:white" onclick="location.href='<c:url value='/try/login' />'"><i class="fas fa-heart"></i></button> </li>		
+                <li ><button style="border:0 ;background-color:transparent;" onclick="location.href='<c:url value='/try/login' />'"><i class="fas fa-heart"></i></button> </li>		
                </c:if>
             </ul>
             
@@ -160,9 +160,10 @@
 <!-- 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" -->
 <!--                class="reduced items-count" type="button"><i class="ti-angle-right"></i></button> -->
 							<input  type='hidden' class='pid' name='address' value='${product.productId}'/>
-							<a class="button primary-btn additem" href="#">Add to Cart</a>                             
+<!-- 							<button >Add to Cart</button> -->
+							<a  class="button primary-btn additem" href="#">Add to Cart</a>
 
-						</div>
+						</div>  
 						<div class="card_area d-flex align-items-center">
 							<c:choose>
 								<c:when test="${producrFavorite == null}">
@@ -543,7 +544,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script>
   $(".additem").click(function(){		
 
-		var data=$(this).val();
+		var data=$('.pid').val();
 			$.ajax({
 			type:'get',
 			url:'additemFromproduct',

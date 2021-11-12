@@ -240,7 +240,7 @@
    	 </table>
            		<input name="discount"  value="${product.discount}"   type='hidden' class='form:input-large'  />
    	           	<input name="views"  value="${product.views}"   type='hidden' class='form:input-large'  />
-   	
+   				<input name="favoriteCount"  value="${product.favoriteCount}"   type='hidden' class='form:input-large'  />
    	<div class="wrap" style="display: flex;margin-left: 80px;">
         <input id="btnAdd" type='submit' class='btn btn-primary'
                             value="送出" />

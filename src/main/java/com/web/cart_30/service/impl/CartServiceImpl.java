@@ -232,7 +232,6 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public void updateStock(int pid, int count) {
 		productRepository.updateStock(pid,count);
-		
 	}
 
 
