@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,13 +24,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
 
-    <title>card</title>
-<!-- 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto"> -->
-<!-- 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
+    <title>購物紀錄</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
-<!-- 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <!-- 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
 	<style>
 				body {
@@ -153,15 +153,19 @@
 					padding-left: 0px;
 					padding-top: 0px;
 					padding-bottom: 3px;	
-						border-top-width: 0px;
+					border-top-width: 0px;
 					border-bottom-width: 0px;
 					border-right-width: 0px;
 				}
+				/*container-xl*/
+				
 	</style>
     <script>
         $(document).ready(function () {
             jQuery('#example').DataTable();
         });
+
+
     </script>
 
     <style>
@@ -169,77 +173,59 @@
 </head>
 
 <body>
-  <div class="container-xl">
+<div class="container-xl " style="max-width: 1300px !important;">
 		<div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">
-					<div class="row">
-						<div class="col-sm-8"><h2> <b>購物紀錄</b></h2></div>
-<!-- 						<div class="col-sm-4"> -->
-<!-- 							<div class="search-box"> -->
-<!-- 								<i class="material-icons">&#xE8B6;</i> -->
-<!-- 								<input type="text" class="form-control" placeholder="Search&hellip;"> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
+					<div class="row" >
+						<div class="col-sm-11" ><h2><b>訂單管理</b></h2></div>
+						<a href="recordanalyze" style="text-decoration:none;">訂單數據</a>
 					</div>
 				</div>
+    
     <table id="example" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>訂單編號<i class="fa fa-sort"></i></th>
-                <th>訂單總價</th>
-                <th>購買時間</th>
-                <th>付費狀態</th>
-                <th>出貨狀態</th>                
-                <th>詳細資料</th>
-                <th>退款申請</th>
-                
-            </tr>
-        </thead>
-        		<%
-			int i = 0;
-			%>
-        <tbody>
-        <c:forEach var="selects" items="${selectlist}">
-					<% i += 1;	%>
-            <tr>
-                <td>${selects.record_id}</td>
-                <td>${selects.totalprice}</td>
-                <td>${selects.buy_time}</td>
-                <td>${selects.pay_status}</td>
-                <td>${selects.transport_status}</td>
-                <td>
-				<a href="<c:url value='/select?id=${selects.record_id}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-				</td>
-				 <td>
-				  <c:if test="${selects.status == 'OK'}">
-				 	<button type="button" class="btn btn-primary " onclick="if(window.confirm('確定要退款？')) location.href ='<c:url value='/refund?id=${selects.record_id}'/>'" value='${row.product.productId}'>我要退款</button>
-				 </c:if>
-				 <c:if test="${selects.status == '待審核'}">
-				 	<h6 style="padding-top: 5px;">已申請退款</h6>
-				 </c:if>
-				 <c:if test="${selects.status == '駁回'}">
-				 	<h6 style="padding-top: 5px;">退款失敗</h6>
-				 </c:if>
+       	<thead>
+						<tr>
+							<th>訂單編號<i class="fa fa-sort"></i></th>	
+							<th>訂單總價</th>						
+							<th>購買時間</th>
+							<th>買家帳號</th>
 				
-<%-- 				<button href="<c:url value='/refund?id=${selects.record_id}'/>" class="view" title="View" data-toggle="tooltip">我要退款</a> --%>
-				</td>
-            </tr>
-</c:forEach>
+					
+							<th>詳細資料</th>
+							<th>退款審核</th>
+						</tr>
+					</thead>
+        	
+<tbody>
+    	<c:forEach var="manage" items="${allRefund}">
+						<tr>
+							<td id='rid'>${manage.record_id}</td>			
+							<td>${manage.totalprice}</td>
+							<td>${manage.buy_time}</td>
+							<td>${manage.buyer}</td>
+					
+							<td>
+							 <a href="<c:url value='/select?id=${manage.record_id}'/>" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+							</td>
+							<td>
+							<button type="button" class="btn btn-primary " onclick="if(window.confirm('確定駁回要求？')) location.href ='<c:url value='/refundRefuse?rid=${manage.record_id}'/>'" >駁回退款</button>
+							<button type="button" class="btn btn-danger " onclick="if(window.confirm('確定審核通過？')) location.href ='<c:url value='/refundRecord?rid=${manage.record_id}&buyer=${manage.buyer}'/>'" >同意退款</button>
+											
+							</td>
+						</tr>
+													
+							
 
+
+						
+						</c:forEach>	
+					</tbody>
     </table>
-	</div>
-		<h2 style="text-align: right;">
-				共
-				<%
-				out.println(i);
-				%>筆交易
-			</h2>
-			<center>
-			<a class="btn btn-outline-secondary" href="<c:url value='/try/member_Ui' />" style='font-size:20px' role="button">回上一頁</a>	
-			</center>
-			</div>
 
+	<center>
+			<a class="btn btn-outline-secondary" href="<c:url value='/manager_Ui0' />" style='font-size:20px' role="button">回上一頁</a>	
+			</center>
 
 </body>
 </html>

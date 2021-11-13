@@ -11,6 +11,10 @@ public interface IRecordService {
 	List<RecordBean> getAllRecord(String record_id);
 	List<RecordBean> getAllRecords(String buyer );
 	
+	
+	//買家退款
+	void refundByBuyer(String record_id);
+	
 	void deleteRecord(String record_id,int pid);
 	void updateRecordListTotalPrice(String record_id,int pid);
 	void deleteRecordListById(String record_id);
@@ -33,6 +37,15 @@ public interface IRecordService {
 	
 	void deleteAllRecordByRid(String rid);
 	
+	//退款畫面
+	List<RecordList> getAllRefundRecord();
+	
+	//駁回退款
+	void refundRefuse(String rid);
+	
+	
+	
+	//數據分析
 	Double findFemaleRecord();
 	Double findMaleRecord();
 	Double findPetRecord();

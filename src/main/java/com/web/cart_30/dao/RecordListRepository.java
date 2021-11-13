@@ -11,7 +11,7 @@ import com.web.record_30.model.RecordList;
 
 public interface RecordListRepository extends JpaRepository< RecordList, Integer> {
 	
-	@Query(nativeQuery = true, value = "select * from RecordList where buyer=?1")
+	@Query(nativeQuery = true, value = "select * from RecordList where buyer=?1 AND status!='已退款'")
     public List<RecordList> findRecordList(String buyer);
 	
 	@Transactional
@@ -27,6 +27,24 @@ public interface RecordListRepository extends JpaRepository< RecordList, Integer
 	
 	@Query(nativeQuery = true, value = "select * from RecordList where record_id = ?1")
     public RecordList getById(String record_id);
+	
+	
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value = "update RecordList set status='待審核' where record_id = ?1")
+    public void refund(String record_id);
+
+	
+	
+	@Query(nativeQuery = true, value = "select * from RecordList where status='待審核'")
+	public List<RecordList> findAllRefundRecord();
+
+	
+
+	@Transactional
+	@Modifying
+	@Query(nativeQuery = true, value = "update RecordList set status='駁回' where record_id = ?1")   
+	public void refundRefuse(String rid);
 
 	
 	

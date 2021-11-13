@@ -221,6 +221,14 @@
           <span>購物紀錄管理</span>
         </a>
       </li>
+        <li>
+        <a href="<c:url value='/refundManage' />">
+          <svg>
+            <use xlink:href="#pages"></use>
+          </svg>
+          <span>退款管理</span>
+        </a>
+      </li>
       <li>
         <a href="./admincampaign">
           <svg>

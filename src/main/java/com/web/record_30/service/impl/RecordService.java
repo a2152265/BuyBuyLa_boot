@@ -229,6 +229,29 @@ public class RecordService implements IRecordService {
 
 
 	
+	//退款
+	@Override
+	public void refundByBuyer(String record_id) {
+		recordListRepository.refund(record_id);
+		
+	}
+
+
+	@Override
+	public List<RecordList> getAllRefundRecord() {
+		
+		return recordListRepository.findAllRefundRecord();
+	}
+
+
+	@Override
+	public void refundRefuse(String rid) {
+		recordListRepository.refundRefuse(rid);
+		
+	}
+
+
+	
 
 
 
