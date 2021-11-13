@@ -114,27 +114,21 @@ public class TestLoginController {
 			for (ObjectError error : list) {
 				System.out.println("有錯誤：" + error);
 			}
-			System.out.println("======================");
 			return "member_25/signUpPage";
 		}else {
 	
 		}
 		
-		
-
-		System.out.println("-------------表單檢查無錯誤-------------");
 		Boolean loginResult=false;
 		
 		loginResult = memberService.overlappedAccount(mb.getUserEmail());
 		System.out.println("----done------------------------=");
 		if (loginResult ==false) {
-			System.out.println("帳號重複  ----->");
 
 			return "member_25/signUpPage_error";
 
 		} else if (loginResult == true) {
 
-			System.out.println("無人使用此帳號 已註冊  ----->");
 			//加密
 			mb.setUserPwd(new BCryptPasswordEncoder().encode(mb.getUserPwd()));
 			mb.setIdentification("member");
@@ -171,7 +165,6 @@ public class TestLoginController {
 					StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
 
-		System.out.println("==========進入processMemberLogin=====================");
 		membershipInformationBean mb2 = new membershipInformationBean();
 		membershipInformationBean mb4 = new membershipInformationBean();
 		
@@ -180,7 +173,6 @@ public class TestLoginController {
 		String userEmail = null, userPwd = null;
 		userEmail = mb.getUserEmail();
 		userPwd = mb.getUserPwd();
-		System.out.println("登入表單的userEmail ======>" + userEmail);
 	
 		//登入結果   // 0錯誤 1成功 2無帳號 3重複帳號(除了自己+的應該不會出現這個可能)
 		loginResult = memberService.login(userEmail, userPwd);
@@ -189,8 +181,6 @@ public class TestLoginController {
 			
 			mb4 =memberService.findMemberData(userEmail);
 			String susban=mb4.getSuspension();
-			System.out.println("--登入後先判斷停權狀態----------->"+mb4.getSuspension());
-			System.out.println("--登入後先判斷停權狀態-------susban---->"+susban);
 			try {
 				if (mb4.getSuspension().length()!=0) {
 					System.out.println("-----------開始登入ban介面----------"+mb4.getSuspension());
@@ -887,16 +877,19 @@ public class TestLoginController {
 				}
 				@PostMapping("/member/forget")
 				public String ForgetPdBtn(@ModelAttribute("forgetpwd") membershipInformationBean mb, Model model) {
+
 					membershipInformationBean mBean=memberService.findMemberData(mb.getUserEmail());
 					
+					if (mBean==null) {
+						return "member_25/forgetpwd/forgetPage_noaccount";
+					}
+					
 					String tokenString=UUID.randomUUID().toString();
-					System.out.println("-------忘記密碼token------>"+tokenString);
 					mBean.setMember_pwdToken(tokenString);
 					
 					//會員創立時間
 					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 					String now = dtf.format(LocalDateTime.now());
-					System.out.println("-------忘記密碼token時間------>"+now);
 					mBean.setMember_pwdToken_time(now);
 					memberService.save(mBean);
 					
@@ -1025,7 +1018,6 @@ public class TestLoginController {
 						System.out.println("----22-------------->");
 						banList.add(memberList.get(i).getUserEmail());
 						memberCount++;
-						System.out.println("--會員被ban名單--------------"+banList);
 					}
 					count++;
 					
@@ -1035,8 +1027,6 @@ public class TestLoginController {
 				
 			}
 			System.out.println("--會員被ban名單---嫁入list完成-----------");
-			System.out.println("被ban人數----------->"+memberCount);
-			System.out.println("總人數----------->"+count);
 	
 			return banList;
 		}
@@ -1082,7 +1072,6 @@ public class TestLoginController {
 					}
 					count++;
 				} catch (Exception e) {
-					System.out.println("---沒事 繼續找分人數----->");
 				}
 			}
 			
