@@ -164,7 +164,7 @@ $(document).ready(function() {
 											"<img style='width:40px; height:40px' src='getPicturefromMember/" + replyResult[j]['replyPicId'] + "'>" +
 											"</div>" +
 											"<div class='desc'>" +
-											"<input class='replyId' type='hidden' value='"+replyResult[j]['replyId']+"'"+
+											"<input class='replyId' type='hidden' value='" + replyResult[j]['replyId'] + "' >" +
 											"<h5>" +
 											"<a href='#' class='replyUserName'>" + replyResult[j]['replyUserName'] + "</a>" +
 											"</h5>" +
@@ -174,13 +174,13 @@ $(document).ready(function() {
 											"</p>" +
 											"</div>" +
 											"</div>" +
-								"<div class='editReplyBtn dropdown' style='visibility:hidden'>" +
-								"<img  id='dropdownMenuButton2' data-bs-toggle='dropdown' style='cursor:pointer;width:30px;height:30px;' src='img/forum/more.png'>" +
-								"<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton2'>" +
-								"<li><a class='dropdown-item reportReplyMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#replyReportBtn'>檢舉</a></li>" +
-								"<li><a class='dropdown-item editReplyMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#editReplyMessageBtn'>編輯</a></li>" +
-								"<li><a class='dropdown-item delReplyMessageContent' style='cursor:pointer;'>刪除</a></li></ul>" +
-								"</div>" +
+											"<div class='editReplyBtn dropdown' style='visibility:hidden'>" +
+											"<img  id='dropdownMenuButton2' data-bs-toggle='dropdown' style='cursor:pointer;width:30px;height:30px;' src='img/forum/more.png'>" +
+											"<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton2'>" +
+											"<li><a class='dropdown-item reportReplyMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#replyReportBtn'>檢舉</a></li>" +
+											"<li><a class='dropdown-item editReplyMessageContent' style='cursor:pointer;' data-bs-toggle='modal' data-bs-target='#editReplyMessageBtn'>編輯</a></li>" +
+											"<li><a class='dropdown-item delReplyMessageContent' style='cursor:pointer;'>刪除</a></li></ul>" +
+											"</div>" +
 											"</div>" +
 											"</div>"
 										)
@@ -208,20 +208,20 @@ $(document).ready(function() {
 								})
 							})
 						}
-						$('.single-comment1').each(function(){
+						$('.single-comment1').each(function() {
 							var date = new Date();
 							const nowReplyFormatDate = (date) => {
 								let nowReplyFormatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "  " + date.getHours() + ":" + date.getMinutes();
 								return nowReplyFormatted_date;
 							}
 							// 登入的人
-							var LoginUserName=$('.loginUser').val();
+							var LoginUserName = $('.loginUser').val();
 							// 發文的人
 							var AuthorUserName = $('.authorUserName').html();
-							var replyForumId=$('#id').val();
-							var replyUserName=$(this).find('.replyUserName').html();
-							var replyNowDate=nowReplyFormatDate(date);
-							
+							var replyForumId = $('#id').val();
+							var replyUserName = $(this).find('.replyUserName').html();
+							var replyNowDate = nowReplyFormatDate(date);
+
 							if (LoginUserName == '') {
 								$('.editReplyBtn').css('display', 'none');
 							}
@@ -245,20 +245,124 @@ $(document).ready(function() {
 								$(this).find('.editReplyMessageContent').css('display', 'none');
 								$(this).find('.delReplyMessageContent').css('display', 'none');
 							}
-							
-							var reportReplyMessageContent=$(this).find('.reportReplyMessageContent');
-							var editReplyMessageContent=$(this).find('.editReplyMessageContent');
-							var delReplyMessageContent=$(this).find('.delReplyMessageContent');
-							reportReplyMessageContent.click(function(){
+
+							var reportReplyMessageContent = $(this).find('.reportReplyMessageContent');
+							var editReplyMessageContent = $(this).find('.editReplyMessageContent');
+							var delReplyMessageContent = $(this).find('.delReplyMessageContent');
+							reportReplyMessageContent.click(function() {
 								$('.reportedReplyContent').text($(this).parent().parent().parent().prev().find('.comment').html());
 								$('.reportReplyDate').val(replyNowDate)
-								
+								$('.reportReplySelect').val($('#reportReptySelect option:selected').text());
+								$('#reportReptySelect').change(function() {
+									$('.reportReplySelect').val($('#reportReptySelect option:selected').text());
+								})
+								$('.reportReplyId').val($(this).parent().parent().parent().prev().find('.replyId').val());
+								$('.reportReplyUserName').val(LoginUserName);
+								$('.reportedReplyUserName').val($(this).parent().parent().parent().prev().find('.replyUserName').html())
+								$('.reportedReplyUserEmail').val($(this).parent().parent().parent().prev().find('.replyUserEmail').val())
+								$('.reportReplyMessageBtn').click(function() {
+									$.ajax({
+										type: "get",
+										url: "reprotReplyMessage",
+										data: {
+											"reportReplyUserName": LoginUserName,
+											"reportedReplyUserName": $('.reportedReplyUserName').val(),
+											"reportedReplyContent": $('.reportedReplyContent').text(),
+											"reportReplyForumId": replyForumId,
+											"reportReplyMessageId": $('.reportReplyId').val(),
+											"reportReplyReason": $('.reportReplySelect').val(),
+											"reportReplyDate": $('.reportReplyDate').val(),
+											"reportedReplyUserEmail": $('.reportedReplyUserEmail').val()
+										},
+										success: function() {
+											Swal.fire({
+												icon: 'success',
+												title: '感謝你提交檢舉',
+												showConfirmButton: false,
+												timer: 1000
+											});
+											setTimeout(function() { history.go(0) }, 1000);
+										}
+									})
+								})
 							})
-							editReplyMessageContent.click(function(){
-								alert('編輯')
+							editReplyMessageContent.click(function() {
+								var replyId=$(this).parent().parent().parent().prev().find('.replyId').val();
+								$.ajax({
+									type:"get",
+									url:"getReplyBean",
+									data:{"replyId":replyId},
+									success:function(result){
+										$('.editReplyId').val(result['replyId'])
+										$('.editMessageReplyId').val(result['messageReplyId'])
+										$('.editReplyDate').val(nowReplyFormatDate(date))
+										$('.editReplyForumId').val(result['replyForumId'])
+										$('.editReplyIdentification').val('member')
+										$('.editReplyPicId').val(result['replyPicId'])
+										$('.editReplyUserName').val(result['replyUserName'])
+										$('.editReplyUserEmail').val(result['replyUserEmail'])
+										$('.editReplyContent').text(result['replyContent'])
+										$('.editReplyyBtn').click(function(e){
+											e.preventDefault();
+											var replyDatas=$('#editReplyMsgForm').serializeArray();
+											if($('.editReplyContent').val()==""){
+													Swal.fire({
+													icon: 'error',
+													title: '錯誤',
+													text: '內容為空!',
+													showConfirmButton: false,
+													timer: 1000
+												})
+												return false;
+											}
+											$.ajax({
+												type:"post",
+												url:"editReplyFin",
+												data:replyDatas,
+												success:function(){
+													Swal.fire({
+														icon: 'success',
+														title: '修改留言成功',
+														showConfirmButton: false,
+														timer: 1000
+													});
+													setTimeout(function() { history.go(0) }, 1000);
+												}
+											})
+										})
+									}
+								})
 							})
-							delReplyMessageContent.click(function(){
-								alert('刪除');
+							delReplyMessageContent.click(function() {
+								var replyId = $(this).parent().parent().parent().prev().find('.replyId').val();
+								Swal.fire({
+									title: '確定?',
+									text: "你想要刪除這筆留言!",
+									icon: 'warning',
+									showCancelButton: true,
+									confirmButtonColor: '#3085d6',
+									cancelButtonColor: '#d33',
+									confirmButtonText: '確定!'
+								}).then((result) => {
+									if (result.isConfirmed) {
+										Swal.fire(
+											'Deleted!',
+											'刪除成功.',
+											'success'
+										)
+										$.ajax({
+											type: 'get',
+											url: 'deleteReplyMessage',
+											data: {
+												'id': replyId,
+												"forumId": replyForumId
+											},
+											success: function() {
+											}
+										})
+										setTimeout(function() { history.go(0) }, 1000);
+									}
+								})
 							})
 						})
 						$('.single-comment').each(function() {
@@ -296,17 +400,22 @@ $(document).ready(function() {
 												"replyUserEmail": $('.loginUserEmail').val()
 											},
 											success: function() {
-												alert('回覆成功');
+												Swal.fire({
+													icon: 'success',
+													title: '回覆成功',
+													showConfirmButton: false,
+													timer: 1500
+												})
 												replyText.val('');
 												replyText.css('display', 'none');
 												$.ajax({
-													type:"get",
-													url:"message",
-													data:{
-													"id": forumId,
-													"page": page
+													type: "get",
+													url: "message",
+													data: {
+														"id": forumId,
+														"page": page
 													},
-													success:function(data){
+													success: function(data) {
 														showMessage(data);
 													}
 												})
@@ -353,7 +462,7 @@ $(document).ready(function() {
 								})
 								var reportUserName = $('.loginUser').val();
 								var reportedUserName = $(this).parent().parent().parent().parent().find('.user').find('.messageName').html();
-								var reportedUserEmail = $(this).parent().parent().parent().parent().find('.user').find('.messageUserEmail').html();
+								var reportedUserEmail = $(this).parent().parent().parent().prev().prev().find('.messageUserEmail').val();
 								var reportedContent = $(this).parent().parent().parent().parent().find('.user').find('.comment').html();
 								var reportMessageId = messageId;
 								var date = new Date();
@@ -485,5 +594,4 @@ $(document).ready(function() {
 			})
 		}
 	});
-
 });

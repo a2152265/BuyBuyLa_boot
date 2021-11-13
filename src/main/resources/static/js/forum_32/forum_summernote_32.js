@@ -8,7 +8,8 @@ $('#summernote').summernote({
 	toolbar: [
 		['font', ['bold', 'underline', 'clear']],
 		['color', ['color']],
-		['insert', ['picture']]
+		['insert', ['picture']],
+		['view', ['codeview']]
 	]
 
 });

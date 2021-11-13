@@ -427,7 +427,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				total=total+a
 
 				})
-	
+				var count = parseInt($('#ccount').html())-1
+				$('#ccount').html(count)
+				total+=60
 				$('#totalPrice').html(total)
 			}
 			
@@ -442,8 +444,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		
 //	 	console.log("cnt=="+cnt)
 		var data=$(this).val();
-
-	
+		var text = $(this).prev().prev();
+		var cnt =parseInt(text.val());
 	$.ajax({
 		type:'get',
 		url:'sub',
@@ -451,11 +453,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			"id":data
 		},
 		success:function(){
-			var count = parseInt($('#ccount').html())-1
-			console.log(count)
-			if(count>0){
-				$('#ccount').html(count)
-			}
+// 			console.log(data)
+// 			var count = parseInt($('#ccount').html())-1
+// 			console.log(count)
+// 			if(count>0){
+				
+			
+				
+// 				$('#ccount').html(count)
+// 			}
 			
 		}
 								
@@ -484,7 +490,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			total=total+a
 
 			})
-			
+			total+=60
 			$('#totalPrice').html(total)
 			
 			

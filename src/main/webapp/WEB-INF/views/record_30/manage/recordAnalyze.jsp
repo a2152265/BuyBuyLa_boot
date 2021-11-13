@@ -91,7 +91,7 @@
 	let myChart = new Chart(ctx, {
     type: 'pie',
     data: {
-        labels: ['女性衣服', '男性衣服', '寵物', '健身器材', '其他'],
+        labels: ['生活用品', '手機平板與周邊', '寵物', '健身器材', '其他'],
         datasets: [{
             label: '# of Votes',
             data: [female,male, pet, fit,other],

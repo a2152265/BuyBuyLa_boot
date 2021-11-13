@@ -65,6 +65,15 @@ public class RecordController {
 		return "record_30/select";	
 	}
 	
+	
+	
+	//買家退款
+			@GetMapping("/refund")
+			public String refund(@RequestParam String id,Model model) {
+				recordservice.refundByBuyer(id);
+				return "redirect:/selectLsit";
+			}
+	
 	//查買家資料	
 		@GetMapping("/selectbuyer")
 	    public String selectBuyerInfo(@RequestParam String rid,Model model) {		
@@ -78,7 +87,8 @@ public class RecordController {
 			return "record_30/manage/buyerInfo";
 	    }
 
-	
+		
+
 	
 //	@GetMapping("/delete")
 //	public String delete(@ModelAttribute("delete") RecordBean record,Model model) {
@@ -173,6 +183,7 @@ public class RecordController {
 		return "record_30/manage/recordManage";
 	}
 	
+	
 	//更新購物資料
 	@GetMapping("/updateRecordList")
 	public String updateRecordList(@RequestParam String rid,Model model) {
@@ -251,6 +262,43 @@ public class RecordController {
 		model.addAttribute("other",other);
 			return "record_30/manage/recordAnalyze";
 	}
-	
+	//退款畫面
+	@GetMapping("/refundManage")
+	public String refundManage(Model model) {
+		List<RecordList> recordList = recordservice.getAllRefundRecord();
 
+		model.addAttribute("allRefund", recordList);
+		
+		return "record_30/manage/refundManage";
+	}
+	
+	//確定退款
+	@GetMapping("/refundRecord")
+	public String refundRecord(@RequestParam String rid,@RequestParam String buyer,Model model) {
+		List<RecordList> recordList = recordservice.getAllRefundRecord();
+		recordservice.deleteRecordList(rid);
+		recordservice.deleteAddress(rid);
+		recordservice.deleteAllRecordByRid(rid);
+		SimpleMailMessage message =new SimpleMailMessage();
+		message.setTo(buyer);
+		message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
+		message.setText("您訂單編號為"+rid+"之交易，已退款成功\n"
+		+"謝謝您的惠顧，祝您有愉快的一天 :)");
+		
+		mailSender.send(message); 
+		model.addAttribute("allRefund", recordList);
+		return "record_30/manage/refundSuccess";
+	}
+	
+	//駁回退款
+		@GetMapping("/refundRefuse")
+		public String refundRefuse(@RequestParam String rid,Model model) {
+			List<RecordList> recordList = recordservice.getAllRefundRecord();
+			recordservice.refundRefuse(rid);
+			model.addAttribute("allRefund", recordList);
+			return "record_30/manage/refuseSuccess";
+		}
+		
+	
+	
 }

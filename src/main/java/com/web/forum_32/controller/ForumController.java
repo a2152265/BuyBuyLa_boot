@@ -36,6 +36,13 @@ public class ForumController {
 		init(model);
 		return "forum_32/forum";
 	}
+	// 首頁
+	@GetMapping("/forumHot")
+	public String forumHotIndex(Model model,@RequestParam(required = false,value="page",defaultValue = "0") Integer page) {
+		forumHot(model,page);
+		init(model);
+		return "forum_32/forum";
+	}
 	
 	// 首頁 標籤:新手賣家發問
 	@GetMapping("/noviceSeller")
@@ -66,6 +73,27 @@ public class ForumController {
 		return "forum_32/forum";
 	}
 
+	//搜尋
+	@GetMapping("searchText")
+	@ResponseBody
+	public List<ForumBean> searchText(@RequestParam("searchText") String searchText){
+		List<ForumBean> searchList=forumService.findUserNameContaining(searchText);
+		for(int i=0;i<searchList.size();i++) {
+			for(int j=0;j<searchList.size();j++) {
+				if(i!=j&&searchList.get(i).getUserName().equals(searchList.get(j).getUserName())) {
+					searchList.remove(searchList.get(j));
+				}
+			}
+		}
+		return searchList;
+	}
+	@GetMapping("getSearchTextList")
+	@ResponseBody
+	public List<ForumBean> getSearchTextListIndex(@RequestParam("searchText") String searchText,Model model){
+		List<ForumBean> getSearchTextList=forumService.findUserNameContaining(searchText);
+		return getSearchTextList;
+	}
+	// 分頁
 	@GetMapping({"/Page","/PageLeft","/PageRight"})
 	public String forumPage(Model model,
 			@RequestParam("tag") String tag,
@@ -80,6 +108,8 @@ public class ForumController {
 			featured(model,page-1);
 		}else if (tag.equals("announcement")) {
 			announcement(model,page-1);
+		}else if(tag.equals("forumHot")) {
+			forumHot(model,page-1);
 		}
 		init(model);
 		if(page==1) {
@@ -95,6 +125,13 @@ public class ForumController {
 	public void forum(Model model,Integer page) {
 		List<ForumBean> getAllArticles = forumService.getAllArticlesByPage(page, 5);
 		model.addAttribute("tag","forum");
+		model.addAttribute("pageSize", forumService.getAll());
+		model.addAttribute("Breadcrumb","所有討論");
+		model.addAttribute("Articles", getAllArticles);
+	}
+	public void forumHot(Model model,Integer page) {
+		List<ForumBean> getAllArticles = forumService.getAllArticlesByHotByPage(page, 5);
+		model.addAttribute("tag","forumHot");
 		model.addAttribute("pageSize", forumService.getAll());
 		model.addAttribute("Breadcrumb","所有討論");
 		model.addAttribute("Articles", getAllArticles);

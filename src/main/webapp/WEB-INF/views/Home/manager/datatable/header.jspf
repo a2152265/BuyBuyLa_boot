@@ -345,7 +345,7 @@
         </a>
       </li>
       <li>
-        <a href="#0">
+        <a href="<c:url value='/manager/forum' />">
           <svg>
             <use xlink:href="#comments"></use>
           </svg>

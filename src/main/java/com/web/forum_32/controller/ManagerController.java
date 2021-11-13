@@ -132,7 +132,6 @@ public class ManagerController {
 	public void warning(@RequestParam("reportId") Integer reportId, 
 			@RequestParam("messageId") Integer messageId,
 			@RequestParam("userEmail") String userEmail) {
-
 		MessageBean mb = messageService.getById(messageId);
 		mb.setMessageContent("此評論已被刪除");
 		MessageReportBean mrb = messageService.getMessageReportById(reportId);
@@ -141,11 +140,14 @@ public class ManagerController {
 		messageService.addMessage(mb);
 		messageService.saveReport(mrb);
 		
+		
+		ForumBean fb= forumService.getContentById(mrb.getReportForumId());
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo("hyprocrite1631@gmail.com");
-		message.setSubject("你的留言遭到檢舉");
-		message.setText("你的留言遭到檢舉 \r\n 內容:"+mrb.getWarningContent());
-		
+		message.setSubject("BuyBuyLa討論區通知");
+		message.setText("\r\n你在\""+fb.getTitle()+"\"的留言遭到刪除"+
+				"\r\n\r\n"+"違規原因 : "+mrb.getReportReason()+
+				"\r\n\r\n"+"違規內容 : "+mrb.getWarningContent());
 		mailSender.send(message);
 
 	}

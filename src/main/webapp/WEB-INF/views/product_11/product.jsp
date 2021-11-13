@@ -196,7 +196,7 @@
 						<div class="product_count">
 
 
-                   
+
 
 <!--               <label for="qty">Quantity:</label> -->
 
@@ -208,9 +208,12 @@
 
 							<input  type='hidden' class='pid' name='address' value='${product.productId}'/>
 
+
 <%-- 							<a class="button primary-btn" href="<c:url value='/additem' />?id=${product.productId}">Add to Cart</a>  --%>
 							<input type='hidden' id='pid' class='pid' name='address' value='${product.productId}'/>
-							<input class="button primary-btn additem" href="" type='button'align="cent er" style="width: 125px;border-radius: 80px;" value='   Add to Cart'/>                          
+
+							<input class="button primary-btn additem"  type='button'style="width: 125px;border-radius: 80px;" value='   Add to Cart'/>                          
+
 
 
 						</div>  
@@ -596,11 +599,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script>
   $(".additem").click(function(){		
 
+
 		var data=$(".pid").val();
 		var qty=$("#sst").val();
 		console.log(data)
 		console.log(qty)
-
 
 			$.ajax({
 			type:'get',
