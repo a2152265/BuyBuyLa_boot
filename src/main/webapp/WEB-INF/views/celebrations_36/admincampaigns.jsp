@@ -838,7 +838,8 @@ body {
 </header>
 <section class="page-content">
   <div id="search" style="margin-bottom:30px">
-						<button  type="button" class="btn btn-outline-primary"onclick="location.href ='./campaign/addCampaign'">新增活動</button>
+		<button  type="button" class="btn btn-outline-primary"onclick="location.href ='./campaign/addCampaign'">新增活動</button>
+		<button  type="button" class="btn btn-outline-primary"onclick="location.href ='./campaigns/voucher1'">數據分析</button>
 	</div>
 	<div class="table-wrapper">
 			

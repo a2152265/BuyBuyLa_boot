@@ -190,8 +190,8 @@ img{
     <div id="bg" >
 <!--  <img id ="pointer" src="style/rotater_04.png" alt="pointer" width="100" height="100" style="margin-top: 80px;margin-left: 44px;"> -->
 <%--   <p>使用者名稱: ${loginMb.getUserEmail()}</p> --%>
- ${count}
-${loginSession.userEmail}
+<%--  ${count} --%>
+<%-- ${loginSession.userEmail} --%>
 <%-- 	 <c:if test=""> --%>
 	 <div class="container" style="margin-left:80px;margin-top:70px" >
 <%-- 	 	<c:if test="${loginSession.voucherCount==1}"> --%>
@@ -205,7 +205,7 @@ ${loginSession.userEmail}
  </div>
 
 
-<article class="all-browsers" style="margin-bottom:70px" >
+<article class="all-browsers" style="margin-bottom:100px;margin-top:-60px" >
   <h1> ▌BuyBuyLa運費抵用券使用規範</h1>
   <article class="browser">
     <p style="font-size:20px;font-weight:bolder">

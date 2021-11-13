@@ -151,10 +151,10 @@
   
   <img id ="pointer" src="<c:url value='/images/rotater_04.png' />" alt="pointer" width="100" height="100" style="margin-top: 80px;margin-left: 44px;">
  
- ${loginSession.userEmail}
- ${memberUiDefault.userPhone}
-  ${memberUiDefault.userGender}
-  ${memberUiDefault.birthday}
+<%--  ${loginSession.userEmail} --%>
+<%--  ${memberUiDefault.userPhone} --%>
+<%--   ${memberUiDefault.userGender} --%>
+<%--   ${memberUiDefault.birthday} --%>
  <img src="<c:url value='/images/rotater_05.png' />" alt="turntable" width="450" height="450">
  <input type="hidden" id="couponName" name="" >
  <input type="hidden" id="couponNumber" name="" >
