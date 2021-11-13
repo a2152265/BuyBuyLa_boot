@@ -9,5 +9,7 @@
 <body>
 	<h2>ㄎㄎ 這裡是404</h2>
     <p>你訪問的資源不會存在在這裡</p>
+    
+	<img src="img/error/404error.jpg" alt="BuyBuyLa">
 </body>
 </html>
