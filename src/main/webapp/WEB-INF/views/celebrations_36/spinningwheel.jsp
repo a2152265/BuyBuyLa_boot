@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>BuyBuyLa</title>
+  <title>好運轉轉轉</title>
 	<link rel="icon" href="../img/Fevicon.png" type="image/png">
   <link rel="stylesheet" href="../vendors/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="../vendors/fontawesome/css/all.min.css">
@@ -33,7 +33,7 @@
  top: 155px;
  left: 247px;
  }
- img[src^="<c:url value='/images/rotater_05.png' />"]{
+ img[src^="<c:url value='/images/rotater_06.png' />"]{
  position: absolute;
  z-index: 5;
  top: 60px;
@@ -155,7 +155,7 @@
 <%--  ${memberUiDefault.userPhone} --%>
 <%--   ${memberUiDefault.userGender} --%>
 <%--   ${memberUiDefault.birthday} --%>
- <img src="<c:url value='/images/rotater_05.png' />" alt="turntable" width="450" height="450">
+ <img src="<c:url value='/images/rotater_06.png' />" alt="turntable" width="450" height="450">
  <input type="hidden" id="couponName" name="" >
  <input type="hidden" id="couponNumber" name="" >
   <input type="hidden" id="email" value="${loginSession.userEmail}" >
@@ -818,7 +818,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     	 // console.log(xhr.status);
     	  
     	  if(xhr.status==200){
-    		alert("10元");
+    		alert("10元BuyBuy幣");
     			  }
     		   },
     	  error: function(xhr,status) {
@@ -857,7 +857,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
  	 // console.log(xhr.status);
  	  
  	  if(xhr.status==200){
- 		alert("5000元");
+ 		alert("5000元BuyBuy幣");
  			  }
  		   },
  	  error: function(xhr,status) {
@@ -867,15 +867,29 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
    
   
 }else if(num<=cat*3){
-   var str =document.getElementById("couponName").value = "銘謝惠顧";
-   console.log(str);
-   str1= '';
-   console.log(str1);
-   
-   alert("銘謝惠顧");
+	 var str =document.getElementById("couponName").value = "300元BuyBuy幣";
+	  console.log(str);
+	  str1= myrandomstring();
+	  console.log(str1);
+	  var str2 =$('#email').val();
+	 
+	  $.ajax({
+		  type: "GET",
+		  url: "<c:url value='/campaigns/insertPoint' />",
+		  data:{'point':300,'userEmail':str2},
+		  success:function(data,textStatus,xhr){  	  
+		//  console.log(xhr.status);
+		  if(xhr.status==200){
+			alert("300元BuyBuy幣");
+				  }
+			   },
+		  error: function(xhr,status) {
+			// location.href="<c:url value='/try/login' />";
+		    }     
+		  });
   
 }else if(num<=cat*4){
-  var str =document.getElementById("couponName").value = "600元折價券";
+  var str =document.getElementById("couponName").value = "600元BuyBuy幣";
   console.log(str);
   str1= myrandomstring();
   console.log(str1);
@@ -888,7 +902,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	  success:function(data,textStatus,xhr){  	  
 	//  console.log(xhr.status);
 	  if(xhr.status==200){
-		alert("600元折價券");
+		alert("600元BuyBuy幣");
 			  }
 		   },
 	  error: function(xhr,status) {

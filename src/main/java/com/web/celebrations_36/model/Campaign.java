@@ -35,6 +35,7 @@ public class Campaign implements Serializable {
 	private Blob coverImage;
 	private String fileName;
 	private String campaignStatus;
+	private Integer views;
 	@Transient
 	private MultipartFile  productImage;
 	
@@ -101,6 +102,17 @@ public class Campaign implements Serializable {
 		this.fileName = fileName;
 		this.campaignStatus = campaignStatus;
 		this.productImage = productImage;
+	}
+
+	
+
+	public Integer getViews() {
+		return views;
+	}
+
+
+	public void setViews(Integer views) {
+		this.views = views;
 	}
 
 

@@ -1070,7 +1070,7 @@ body {
                </tbody>
     </table>
 
- 	<div class="wrap" style="display: flex;margin-left: 180px;">
+ 	<div class="wrap" style="display: flex;margin-left: 280px;">
         <input id="btnAdd" type='submit' class='btn btn-primary'
                             value="送出" />
                             <button type="button" id="oneclick" >一鍵輸入</button>
@@ -1108,11 +1108,10 @@ body {
 	  
 	 	  $(function(){
 		  $('#oneclick').click(function(){
-			  $('#date1').val('2021/11/11');
-			  $('#name').val('123'); 
-			  $('#url').val('123');
-			  $('#description').val('123');
-			  $('#note').val('123');
+			  $('#name').val('寵物限時活動'); 
+			  $('#url').val('/campaigns/countdownSales');
+			  $('#description').val('寵物商品8折優惠');
+			  $('#note').val('寵物');
 		  });
 	
 	 		});

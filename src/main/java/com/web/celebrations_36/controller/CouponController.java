@@ -1,5 +1,11 @@
 package com.web.celebrations_36.controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,9 +27,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.web.cart_30.model.Cart;
+import com.web.celebrations_36.model.Campaign;
 import com.web.celebrations_36.model.Coupon;
 import com.web.celebrations_36.model.Point;
 import com.web.celebrations_36.model.Redeem;
+import com.web.celebrations_36.service.CampaignService;
 import com.web.celebrations_36.service.CouponService;
 import com.web.celebrations_36.service.PointService;
 import com.web.celebrations_36.service.RedeemService;
@@ -35,18 +43,12 @@ import com.web.product_11.service.ProductService;
 @SessionAttributes("loginSession")
 
 public class CouponController {
-
+	
+	CampaignService campaignService;
 	CouponService couponService;
 	PointService pointService;
 	ProductService productservice;
 	RedeemService redeemService;
-//	@Autowired
-//	public CouponController(CouponService couponService, PointService pointService) {
-//		this.couponService = couponService;
-//		this.pointService = pointService;
-//	}
-
-	
 	
 //	@Autowired
 //	public CouponController(CouponService couponService, PointService pointService, ProductService productservice) {
@@ -55,19 +57,33 @@ public class CouponController {
 //		this.productservice = productservice;
 //	}
 
+//	@Autowired
+//	public CouponController(CouponService couponService, PointService pointService, ProductService productservice,
+//			RedeemService redeemService) {
+//		this.couponService = couponService;
+//		this.pointService = pointService;
+//		this.productservice = productservice;
+//		this.redeemService = redeemService;
+//	}
+	
+	
+
 	@Autowired
-	public CouponController(CouponService couponService, PointService pointService, ProductService productservice,
-			RedeemService redeemService) {
-		this.couponService = couponService;
-		this.pointService = pointService;
-		this.productservice = productservice;
-		this.redeemService = redeemService;
-	}
+	public CouponController(CampaignService campaignService, CouponService couponService, PointService pointService,
+		ProductService productservice, RedeemService redeemService) {
+	this.campaignService = campaignService;
+	this.couponService = couponService;
+	this.pointService = pointService;
+	this.productservice = productservice;
+	this.redeemService = redeemService;
+}
+
 
 
 
 	@GetMapping("/campaigns/voucher") 
 	public String voucher(Model model) {
+		
 		return "celebrations_36/voucherstatics";
 	}
 //	@GetMapping("/campaigns/voucher1") 
@@ -77,6 +93,7 @@ public class CouponController {
 
 	@GetMapping("/campaigns/shippingVoucher") 
 	public String spinningWheel(Model model) {
+		campaignService.updateViews(93);
 		return "celebrations_36/shippingVoucher";
 	}
 
@@ -201,17 +218,89 @@ public class CouponController {
 	
 	@GetMapping("/campaigns/voucher1") 
 	public String voucherStatic(Model model) {
+		List<Campaign> campaigns=campaignService.findAll();
+		Integer views = campaigns.get(1).getViews();
 		List<Coupon> totalnum = couponService.findAll();
 		double size = totalnum.size();
-		System.out.println(size);
+//		System.out.println(size);
 		List<Coupon> couponstatus = couponService.getCouponstatus("已使用");
 		double usenum=couponstatus.size();
-		System.out.println(usenum);
+//		System.out.println(usenum);
 		double userate=(usenum/size)*100;
-		System.out.println(userate);
+		double userate2=(100-userate);
+		List<Coupon> man =couponService.getUserGender("男性");
+		List<Coupon> woman =couponService.getUserGender("女性");
+		int mansize = man.size();
+		int womansize = woman.size();
+
+//		if(userate2<userate) {
+//			userate2=userate;
+//		}
+//		System.out.println(userate);
+//		System.out.println(userate2);
+		model.addAttribute("views", views);
 		model.addAttribute("size", size);
 		model.addAttribute("userate", userate);
+		model.addAttribute("userate2", userate2);
+		model.addAttribute("man", mansize);
+		model.addAttribute("woman", womansize);
 		return "celebrations_36/voucherstatics2";
 	}
+	
+	@GetMapping("/Csv")
+    public ResponseEntity<String> egoPostExportCsv() throws SQLException, IOException {
+
+     FileOutputStream fos=new FileOutputStream(new File("C:\\Users\\ASUS_NB\\Desktop\\campaigns.csv"));
+     OutputStreamWriter osw=new OutputStreamWriter(fos,"MS950");
+     BufferedWriter fileWriter = new BufferedWriter(osw);
+        fileWriter.write("活動名稱,點擊次數,領取次數,使用率,男,女");
+        fileWriter.newLine();
+        
+        //點擊次數
+        List<Campaign> campaigns=campaignService.findAll();
+		Integer views = campaigns.get(1).getViews();
+		//領取次數
+        List<Coupon> totalnum = couponService.findAll();
+		double size = totalnum.size();
+//		System.out.println(size);
+		//使用率
+		List<Coupon> couponstatus = couponService.getCouponstatus("已使用");
+		double usenum=couponstatus.size();
+//		System.out.println(usenum);
+		double userate=(usenum/size)*100;
+		//男女比率
+		
+		List<Coupon> man =couponService.getUserGender("男性");
+		List<Coupon> woman =couponService.getUserGender("女性");
+		double mansize = man.size();
+		double womansize = woman.size();
+		double manpercentage=(mansize/size)*100;
+		double womanpercentage=(womansize/size)*100;
+		String line = String.format("%s,%s,%s,%.2f,%.2f,%.2f%n	","免運券",views,size,userate,manpercentage,womanpercentage);
+//		fileWriter.newLine();
+		fileWriter.write(line);
+		fileWriter.newLine();
+		fileWriter.write("活動名稱,結束日期,點擊率");
+		
+      List<Campaign> eBean= campaignService.findAll();
+//      String line1="";
+//      for(int i=0;i<eBean.size();i++) {
+//    	  Integer views2 = eBean.get(i).getViews();
+//    	  line1=line1+views2;
+//      }
+//      System.out.println(line1);
+//      fileWriter.write(line1);
+      for (Campaign ego: eBean) {
+       String line1 = String.format("%s,%s,%s",ego.getName(),ego.getDate1(),
+               ego.getViews());
+
+                fileWriter.newLine();
+                fileWriter.write(line1);
+   }
+
+      	fileWriter.close();
+        osw.close();
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
 
 }

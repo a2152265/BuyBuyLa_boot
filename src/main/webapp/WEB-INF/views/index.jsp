@@ -122,6 +122,7 @@
     </style>
 </head>
 <body>
+ 
   <!--================ 首頁標題 start =================-->
 	<header class="header_area">
     <div class="main_menu">
@@ -241,26 +242,55 @@
   </header>
 	<!--================ End 首頁標題 =================-->
 
+
   <main class="site-main">
+  
     
     <!--================  start =================-->
-    <section class="hero-banner">
-      <div class="container">
-        <div class="row no-gutters align-items-center pt-60px">
-          <div class="col-5 d-none d-sm-block">
-            <div class="hero-banner__img">
-              <img class="img-fluid" src="img/home/hero-banner.png" alt="">
-            </div>
-          </div>
-          <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
-            <div class="hero-banner__content">
-              <h4>Shop is fun</h4>
-              <h1>BuyBuyLa</h1>
-              <p></p>
-            </div>
-          </div>
+    
+    
+    <section style="margin:100px">
+    
+        <c:if test="${campaignsizes>0}">
+ 	<div class="wrap">
+            <a class="slide-arrow" id="slidePrev"><i class="fas fa-arrow-left"></i></a>
+            <a class="slide-arrow right" id="slideNext"><i class="fas fa-arrow-right"></i></a>
+            <ul class="slide-img" id="slide-img">
+           
+           <c:forEach items='${campaignss}' var='campaign'>
+                <li>
+                <a href="<c:url value='${campaign.url}'  /> " target="_blank">
+                <img style=" width:1500px ;height:400px" src="<c:url value='/getCampaignPicture/${campaign.id}' />" alt="">
+                </a>
+                </li>
+          </c:forEach>
+
+            </ul>
+            
+            
+              <ul class="pages" id="pages">
+                <c:forEach var="i" begin="0" end="${campaignsizes-1}">
+                <li></li>
+                </c:forEach>
+            </ul>
         </div>
-      </div>
+          </c:if>  
+<!--       <div class="container"> -->
+<!--         <div class="row no-gutters align-items-center pt-60px"> -->
+<!--           <div class="col-5 d-none d-sm-block"> -->
+<!--             <div class="hero-banner__img"> -->
+<!--               <img class="img-fluid" src="img/home/hero-banner.png" alt=""> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--           <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0"> -->
+<!--             <div class="hero-banner__content"> -->
+<!--               <h4>Shop is fun</h4> -->
+<!--               <h1>BuyBuyLa</h1> -->
+<!--               <p></p> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--         </div> -->
+<!--       </div> -->
     </section>
     <!--================ End =================-->
 
@@ -433,30 +463,30 @@
 
     <!-- ================ Subscribe section start ================= --> 
  <section class="subscribe-position">
-       <c:if test="${campaignsizes>0}">
- 	<div class="wrap">
-            <a class="slide-arrow" id="slidePrev"><i class="fas fa-arrow-left"></i></a>
-            <a class="slide-arrow right" id="slideNext"><i class="fas fa-arrow-right"></i></a>
-            <ul class="slide-img" id="slide-img">
+<%--        <c:if test="${campaignsizes>0}"> --%>
+<!--  	<div class="wrap"> -->
+<!--             <a class="slide-arrow" id="slidePrev"><i class="fas fa-arrow-left"></i></a> -->
+<!--             <a class="slide-arrow right" id="slideNext"><i class="fas fa-arrow-right"></i></a> -->
+<!--             <ul class="slide-img" id="slide-img"> -->
            
-           <c:forEach items='${campaignss}' var='campaign'>
-                <li>
-                <a href="<c:url value='${campaign.url}'  /> " target="_blank">
-                <img style=" width:1000px ;height:300px" src="<c:url value='/getCampaignPicture/${campaign.id}' />" alt="">
-                </a>
-                </li>
-          </c:forEach>
+<%--            <c:forEach items='${campaignss}' var='campaign'> --%>
+<!--                 <li> -->
+<%--                 <a href="<c:url value='${campaign.url}'  /> " target="_blank"> --%>
+<%--                 <img style=" width:1000px ;height:300px" src="<c:url value='/getCampaignPicture/${campaign.id}' />" alt=""> --%>
+<!--                 </a> -->
+<!--                 </li> -->
+<%--           </c:forEach> --%>
 
-            </ul>
+<!--             </ul> -->
             
             
-              <ul class="pages" id="pages">
-                <c:forEach var="i" begin="0" end="${campaignsizes-1}">
-                <li></li>
-                </c:forEach>
-            </ul>
-        </div>
-          </c:if>  
+<!--               <ul class="pages" id="pages"> -->
+<%--                 <c:forEach var="i" begin="0" end="${campaignsizes-1}"> --%>
+<!--                 <li></li> -->
+<%--                 </c:forEach> --%>
+<!--             </ul> -->
+<!--         </div> -->
+<%--           </c:if>   --%>
     </section>
     <!-- ================ Subscribe section end ================= --> 
 
@@ -571,7 +601,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
        $(function(){
            let index=0;
            let slideMove=0;
-           $('#pages li').eq(0).css('background-color','lightblue')
+           $('#pages li').eq(0).css('background-color','white')
            $('#pages li').on('click',function(){
                // console.log('123')
                //移動第一張圖
@@ -581,9 +611,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                //區域變數變全域變數
                index=$(this).index()
                console.log(index)
-               slideMove=-1000*index;
+               slideMove=-1500*index;
                $('#slide-img').css('left',slideMove)
-               $(this).css('background-color','lightblue')
+               $(this).css('background-color','white')
                .siblings().css('background-color','transparent')
             
            })
@@ -612,9 +642,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                moveImg()
            })
            function moveImg(){
-               slideMove=-1000*index;
+               slideMove=-1500*index;
                $('#slide-img').css('left',slideMove)
-               $('#pages li').eq(index).css('background-color','lightblue')
+               $('#pages li').eq(index).css('background-color','white')
                .siblings().css('background-color','transparent')
            }
            setInterval(autoImg,3000)

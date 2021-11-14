@@ -662,7 +662,7 @@ public class ProductController {
 		
 		
 	//刪除表單		
-		@GetMapping("/delete/{productId}")
+		@GetMapping("delete/{productId}")
 		public String getDeleteProductForm(Model model,@PathVariable("productId") String productId ) {
 			
 			productservice.deleteProduct(Integer.parseInt(productId));

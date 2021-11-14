@@ -90,6 +90,12 @@ public class CampaignServiceImpl implements CampaignService {
 		return campaignRepository.getCampaignsByCategory(category, campaignStatus);
 	}
 
+	@Override
+	public void updateViews(int campaignId) {
+		campaignRepository.updateViews(campaignId);
+		
+	}
+
 //	@Override
 //	public void deleteCampaignById(int campaignId) {
 //		campaignRepository.deleteCampaignById(campaignId);
