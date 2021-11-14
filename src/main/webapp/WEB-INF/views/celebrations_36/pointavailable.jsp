@@ -84,7 +84,7 @@ a:hover{text-decoration:none}
 	<i class="fab fa-bitcoin" style='font-size:48px;color:gold;margin:5px'></i><span style="font-size:24px;">可用點數:<span style="color:red">${point}</span></span></div>
 	
    
- <div id="search" style="margin-left:600px;margin-top:230px">
+ <div id="search" style="margin-left:650px;margin-top:230px">
 		<button style="font-size:25px;font-weight:bolder" type="button" class="btn btn-outline-primary" onclick="location.href ='../campaigns/redeem'">兌換去</button>
  </div>
 

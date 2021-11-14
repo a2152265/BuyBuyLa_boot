@@ -361,7 +361,18 @@ public class ProductController {
 			model.addAttribute("starcount", productCommentService.countAllCommentByPid(id));	
 			model.addAttribute("star", arrayList);	
 			
-		
+			//顯示兌換商品
+			List<Product> productByPoint= new ArrayList<>();
+			
+			for(Product p:productservice.getAllPoints()) {
+				if(p.getProductId()==id) {
+					continue;
+				}
+				productByPoint.add(p);
+			}
+			
+					model.addAttribute("allPoints", productByPoint);
+				
 			
 			
 			return "product_11/product";

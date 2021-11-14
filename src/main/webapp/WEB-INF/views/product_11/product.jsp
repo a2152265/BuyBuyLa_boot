@@ -242,6 +242,56 @@
 	<!--================End Single Product Area =================-->
 
 	<!--================Product Description Area =================-->
+	<c:if test="${product.point>0 }">
+	<section class="product_description_area">
+		<div class="container">
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">商品描述</a>
+				</li>
+<!-- 				<li class="nav-item"> -->
+<!-- 					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" -->
+<!-- 					 aria-selected="false">Specification</a> -->
+<!-- 				</li> -->
+			
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+					<p>${product.productInfo}</p>
+					<p></p>
+				</div>
+				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+				</div>
+				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="comment_list">
+								<div class="review_item">
+									<div class="media">
+										<div class="d-flex">
+											 <img  style="width:60px; height:60px;border-radius: 30px 30px 30px 30	px;" src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>">
+										</div>
+										<div class="media-body">
+											<h4>${memberUiDefault.userEmail}</h4>
+											<h5>${memberUiDefault.userName}</h5>
+											<a class="reply_btn" href="#">查看賣場</a>
+										</div>
+									</div>
+									<p></p>
+								</div>
+								
+								
+							</div>
+						</div>
+			
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	</c:if>
+	<c:if test="${product.point==0 }">
 	<section class="product_description_area">
 		<div class="container">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -405,10 +455,106 @@
 			</div>
 		</div>
 	</section>
+	</c:if>
 	<!--================End Product Description Area =================-->
 
 	<!--================ Start related Product area =================-->  
 	<section class="related-product-area section-margin--small mt-0">
+		<c:if test="${product.point>0 }">
+		<div class="container">
+			<div class="section-intro pb-60px">
+        <p>BuyBuyLa</p>
+        <h2>逛逛<span class="section-intro__style"></span>其他兌換商品</h2>
+      </div>
+			<div class="row mt-30">
+        <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <c:forEach items="${allPoints}" var="product" begin="0" end="2">
+          <div class="single-search-product-wrapper">
+            <div class="single-search-product d-flex">
+              <a href="#"><img src="<c:url value='/getPicture/${product.productId}'/>" alt=""></a>
+              <div class="desc">
+                  <a href="<c:url value='/product?id=${product.productId}' />" class="title"
+                  style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;"
+                  >${product.productName}</a>
+                  <div class="price">${product.point}點</div>
+              </div>
+            </div>
+          </div>
+          </c:forEach>
+        </div>
+         <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <c:forEach items="${allPoints}" var="product" begin="3" end="5">
+          <div class="single-search-product-wrapper">
+            <div class="single-search-product d-flex">
+              <a href="#"><img src="<c:url value='/getPicture/${product.productId}'/>" alt=""></a>
+              <div class="desc">
+                  <a href="<c:url value='/product?id=${product.productId}' />" class="title"
+                  style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;"
+                  >${product.productName}</a>
+                  <div class="price">${product.point}點</div>
+              </div>
+            </div>
+          </div>
+          </c:forEach>
+        </div>
+          <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <c:forEach items="${allPoints}" var="product" begin="6" end="8">
+          <div class="single-search-product-wrapper">
+            <div class="single-search-product d-flex">
+              <a href="#"><img src="<c:url value='/getPicture/${product.productId}'/>" alt=""></a>
+              <div class="desc">
+                  <a href="<c:url value='/product?id=${product.productId}' />" class="title"
+                  style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;"
+                  >${product.productName}</a>
+                  <div class="price">${product.point}點</div>
+              </div>
+            </div>
+          </div>
+          </c:forEach>
+        </div>
+          <div class="col-sm-6 col-xl-3 mb-4 mb-xl-0">
+         <c:forEach items="${allPoints}" var="product" begin="9" end="11">
+          <div class="single-search-product-wrapper">
+            <div class="single-search-product d-flex">
+              <a href="#"><img src="<c:url value='/getPicture/${product.productId}'/>" alt=""></a>
+              <div class="desc">
+                  <a href="<c:url value='/product?id=${product.productId}' />" class="title"
+                  style="overflow:hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 2;
+					-webkit-box-orient: vertical;
+					white-space: normal;"
+                  >${product.productName}</a>
+                  <div class="price">${product.point}點</div>
+              </div>
+            </div>
+          </div>
+          </c:forEach>
+        </div>
+      </div>
+		</div>
+		</c:if>
+		<c:if test="${product.point==0 }">
 		<div class="container">
 			<div class="section-intro pb-60px">
         <p>BuyBuyLa</p>
@@ -501,6 +647,7 @@
         </div>
       </div>
 		</div>
+		</c:if>
 	</section>
 	<!--================ end related Product area =================-->  	
 
