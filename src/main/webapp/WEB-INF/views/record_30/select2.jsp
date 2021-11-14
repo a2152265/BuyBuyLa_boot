@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ include file="../Home/member/record_30/header.jspf"%>
+<%@ include file="../Home/member/record_30/sidebar.jspf"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

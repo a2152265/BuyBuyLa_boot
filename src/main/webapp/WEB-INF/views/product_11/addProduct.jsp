@@ -175,14 +175,14 @@
 	}
 </style>
 </head>
-<body>
+<body style="background-color: rgb(1, 1, 112,0.1);">
    
     <div class="wrapper">
        <div class="section">
 
 
 
-    <div class="top_navbar">
+    <div class="top_navbar" style="background-color: rgb(1, 1, 112);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -294,61 +294,54 @@
 
 
   </div>
-        <div class="sidebar">
+        <div class="sidebar" style="background-color: rgb(1, 1, 112);">
             <div class="profile">
                 <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
                 <h3></h3>
                 <p>Designer</p>
             </div>
             <ul>
-                <li>
-                    <a href="<c:url value='/' />" class="active">
+               <li>
+                    <a href="<c:url value='/' />" >
                         <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">Home</span>
+                        <span class="item">首頁</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='' />">
-                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                    <a href="<c:url value='/try/member_Ui' />" >
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">會員中心</span>
+                    </a>
+                </li>
+
+                 <li>        
+                    <a href="<c:url value='/update30' />">
+
+
+                        <span class="icon"><i class="fas fa-chart-line"></i></span>
                         <span class="item">訂單管理</span>
                     </a>
                 </li>
                 <li>
+
                     <a href="<c:url value='/products/seller' />">
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="icon"><i class="fas fa-gifts"></i></span>
                         <span class="item">商品管理</span>
                     </a>
                 </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">數據中心</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/member/seller_Ui' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item">帳號管理</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/member/changePwd' />">
-                        <span class="icon"><i class="fas fa-chart-line"></i></span>
-                        <span class="item">更改密碼</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/try/delete' />">
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">刪除會員</span>
-                    </a>
-                </li>
-
+ 
                 <!-- /*減去footer高度*/ -->
                 <li style="min-height: calc(100% - 50px); ">
-                    <a href="<c:url value='/try/delete' />">
+                    <a href="<c:url value='/seller/inschan_on' />">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">隱私權政策</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                        <span class="item">登出</span>
                     </a>
                 </li>
                 
