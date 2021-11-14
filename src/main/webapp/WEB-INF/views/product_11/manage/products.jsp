@@ -461,17 +461,18 @@ font-size:17px
     	<h1 style="font-size:50px; text-align:center;">管理者中心</h1>
    </div>
   <section class="search-and-user">
-    
-    
+
   </section>
 
 	<div style="width: 100%; display:flex;">
      <div style="width: 900px; background-color:#fff ;">
   		<canvas id="myChart" ></canvas>
 		<h3 style="text-align: center;">商品類別</h3>
+		<h3 style="text-align: center;">${allProduct}</h3>
 	</div>		
 	<div style="width: 500px; margin-left: 20px; background-color:#fff;	">
   		<canvas id="myChart1" ></canvas>
+  		<h3 style="text-align: center;">賣家商品數量</h3>
 	</div>
 	<div style="width: 665px; margin-left: 20px; background-color:#fff;	">
   		<div style="width: 500px; margin-left: 70px; background-color:#fff;	">
@@ -496,19 +497,26 @@ font-size:17px
 <c:if test="${status =='待審核' }">
 <div style="display:flex;">
 <div class="button">
-    <p class="btnText">v</p>
+    <p class="btnText">上架</p>
     <div class="btnTwo">
-      <button class="btnText2"  onClick="batch_up()" >上架</button>
+      <button class="btnText2"  onClick="batch_up()" >v</button>
     </div>
     
  </div>
 
 <div class="button">
-    <p class="btnText">x</p>
+    <p class="btnText">下架</p>
     <div class="btnTwo">
-      <button class="btnText2" onClick="batch_fail()" >下架</button>
+      <button class="btnText2" onClick="batch_fail()" >X</button>
     </div>
  </div>
+ <div class="button">
+    <p class="btnText">匯出</p>
+    <div class="btnTwo">
+      <button id="csv" class="btnText2">Csv</button>
+    </div>
+ </div>
+ 
  </div>
 </c:if>
 
@@ -517,6 +525,7 @@ font-size:17px
     <thead>
         <tr>
     <th style="width:10%;">商品編號</th>
+    <th style="width:10%;">賣家</th>
     <th style="width:20%;">商品名稱</th>
     <th style="width:10%;">商品圖片</th>
     <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp商品庫存</th>
@@ -535,6 +544,7 @@ font-size:17px
     <c:forEach items="${products}" var="product">
         <tr>
 		    <td id="id">${product.productId}</td>
+		  	<td>${product.seller}</td>
 		    <td>${product.productName}</td>
 		    <td><img width='100' height='100' 
 		  				   src="<c:url value='/getPicture/${product.productId}' />" /></td>
@@ -710,7 +720,7 @@ $('input:checkbox[name="selectall"]').click(function(){
 	        		$.ajax({
 	    				type:'get',
 	    				url:'../launched_addaddress',
-	    				data:{},
+	    				data: {"productIds": productId},
 	    				
 	    				success:function(){
 	    					
@@ -747,14 +757,14 @@ $('input:checkbox[name="selectall"]').click(function(){
 	          if (xhr.status == 200) {
 	        	 swal.fire({
 	                 icon: 'success',
-	                 title: '上架成功',
+	                 title: '審核成功',
 	                 showConfirmButton: false,
 	                 timer: 1000
 	               })
 	        	 setTimeout("location.href='./products';", 1000);  
 	        		$.ajax({
 	    				type:'get',
-	    				url:'../launched_addaddressfail',
+	    				url:'./launched_addaddressfail',
 	    				data:{},
 	    				
 	    				success:function(){
@@ -779,7 +789,7 @@ $('input:checkbox[name="selectall"]').click(function(){
  const myChart = new Chart(ctx, {
      type: 'bar',
      data: {
-         labels: ['男生衣服', '運動健身', '女生衣服', '寵物', '其他'],
+         labels: ['手機平板與周邊', '運動健身', '生活用品', '寵物', '其他'],
          datasets: [{
              label: '',
              data: [${category}],
@@ -829,10 +839,10 @@ $('input:checkbox[name="selectall"]').click(function(){
  const myChart1 = new Chart(ctx1, {
      type: 'pie',
      data: {
-         labels: ['Red', 'Blue', 'Yellow', 'Green'],
+         labels: ['${sellerNo1}', '${sellerNo2}', '${sellerNo3}'],
          datasets: [{
              label: '',
-             data: [12, 19, 3, 5],
+             data: [${seller}],
              backgroundColor: [
                  'rgba(255, 99, 132, 0.5)',
                  'rgba(54, 162, 235, 0.5)',
@@ -854,9 +864,9 @@ $('input:checkbox[name="selectall"]').click(function(){
      },
      options: {
          scales: {
-             y: {
-                 beginAtZero: true
-             }
+//              y: {
+//                  beginAtZero: true
+//              }
          }
      }
  });
@@ -889,14 +899,47 @@ $('input:checkbox[name="selectall"]').click(function(){
          }]
      },
      options: {
-         scales: {
-             y: {
-                 beginAtZero: true
-             }
-         }
+//          scales: {
+//              y: {
+//                  beginAtZero: true
+//              }
+//          }
      }
  });
  
+ $('#csv').click(function () {
+	   var url = "<c:url value='/Csv'/>";
+	   $.ajax({
+	  url: url,
+	  type: 'get',
+	  contentType: "application/json; charset=utf-8",
+	  data: {},
+	  success: function (data) {
+	    Swal.fire({
+	   title: '匯出成功',
+	   icon: 'success',
+	   text: "已匯出全部商品資料！",
+	   position: 'center',
+
+	    }).then((result) => {
+	   /* Read more about isConfirmed, isDenied below */
+	   if (result.isConfirmed) {
+	     location.href = "<c:url value='/manage/products/待審核'/>";
+	   }
+	    })
+	  },
+	  error: function (xhr, text) {
+	    console.log("status code: " + xhr.status);
+	    console.log("error message: " + text);
+	    Swal.fire({
+	   title: '匯出失敗',
+	   icon: 'error',
+	   text: "",
+	    })
+	  }
+	   });
+
+	 });
 
  
 

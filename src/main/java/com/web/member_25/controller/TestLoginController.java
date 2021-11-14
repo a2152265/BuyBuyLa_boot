@@ -388,7 +388,7 @@ public class TestLoginController {
 	
 	System.out.println("---------預載已認證賣家中心---------");
 	model.addAttribute("memberUiDefault",mb);
-		return "member_25/seller/member_Ui_seller";		
+		return "redirect:/products/seller";		
 	}
 	
 	// 買家進化_ 驗證碼升級ing

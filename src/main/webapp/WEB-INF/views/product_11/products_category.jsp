@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="../vendors/owl-carousel/owl.carousel.min.css">
   <link rel="stylesheet" href="../vendors/nice-select/nice-select.css">
   <link rel="stylesheet" href="../vendors/nouislider/nouislider.min.css">
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="./../css/productstyle.css">
 </head>
 <body>
@@ -241,11 +241,13 @@
                 <div class="card text-center card-product">
                   <div class="card-product__img">
                     <img class="card-img" src="<c:url value='/getPicture/${product.productId}' />" alt="">
-                    <ul class="card-product__imgOverlay">
-                      <li><button><i class="ti-search"></i></button></li>
-                      <li><button><i class="ti-shopping-cart"></i></button></li>
-                      <li><button><i class="ti-heart"></i></button></li>
-                    </ul>
+                     <ul class="card-product__imgOverlay">
+                  <li><button onclick="location.href='<c:url value='/product?id=${product.productId}' />'"><i class="ti-search"></i></button></li>
+                  <c:if test="${loginSession.userEmail != null}">
+                  <li><button class='additem' value='${product.productId}' ><i class="ti-shopping-cart"></i></button></li>                  
+                  </c:if>
+                  
+                </ul>
                   </div>
                     <div class="card-body">
                 <p>${product.category}</p>
@@ -379,44 +381,88 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="../js/main.js"></script>
   <script>
   
-  var listArr = document.getElementsByName("list");
-  listArrs[0].onclick=function(){
-      $.ajax({
-	        type: 'post',
-	        url: '',
-	        data: {"productIds": productId},
-	        success: function (data, textStatus, xhr) {
-	          if (xhr.status == 200) {
-	        	 swal.fire({
-	                 icon: 'success',
-	                 title: '上架成功',
-	                 showConfirmButton: false,
-	                 timer: 1000
-	               })
-	        	 setTimeout("location.href='./products';", 1000);  
-	        		$.ajax({
-	    				type:'get',
-	    				url:'../launched_addaddress',
-	    				data:{},
+//   var listArr = document.getElementsByName("list");
+//   listArrs[0].onclick=function(){
+//       $.ajax({
+// 	        type: 'post',
+// 	        url: '',
+// 	        data: {"productIds": productId},
+// 	        success: function (data, textStatus, xhr) {
+// 	          if (xhr.status == 200) {
+// 	        	 swal.fire({
+// 	                 icon: 'success',
+// 	                 title: '上架成功',
+// 	                 showConfirmButton: false,
+// 	                 timer: 1000
+// 	               })
+// 	        	 setTimeout("location.href='./products';", 1000);  
+// 	        		$.ajax({
+// 	    				type:'get',
+// 	    				url:'../launched_addaddress',
+// 	    				data:{},
 	    				
-	    				success:function(){
+// 	    				success:function(){
 	    					
-	    				}
+// 	    				}
 	    										
-	    			});		
+// 	    			});		
 	        	 
-	          } 
-	        },
-	        error: function (xhr, status) {
-	        	console.log(xhr.status);
+// 	          } 
+// 	        },
+// 	        error: function (xhr, status) {
+// 	        	console.log(xhr.status);
 	        	
-	        },
-	      });
-  };
-  pathTypeArr[1].onclick=function(){
-  	var checkValue = pathTypeArr[1].value;
-  	alert(checkValue);
-  };
+// 	        },
+// 	      });
+//   };
+//   pathTypeArr[1].onclick=function(){
+//   	var checkValue = pathTypeArr[1].value;
+//   	alert(checkValue);
+//   };
+  
+  $(".additem").click(function(){		
+
+		var data=$(this).val();
+			$.ajax({
+			type:'get',
+			url:'	../additem',
+			data:{
+				"id":data
+			},
+			
+			success:function(){
+				
+
+				Swal.fire({
+					  position:'center',
+					  icon: 'success',
+					  title: '已加入購物車',
+					  showConfirmButton: false,
+					  
+					  timer: 1500
+					})
+			
+					var count = parseInt($('#ccount').html())+1
+					console.log(count)
+					
+					$('#ccount').html(count)
+			},error:function(){
+				Swal.fire({
+					  position:'center',
+					  icon: 'error',
+					  title: '加入購物車失敗 ! ! !',
+					  text: '請登入會員',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+			}
+									
+		});		
+		
+		
+	});
+
+  
   
   </script>
 </body>

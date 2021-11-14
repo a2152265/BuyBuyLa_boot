@@ -24,13 +24,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='/try/member_Ui' />"  class="active">
+                    <a href="<c:url value='/try/member_Ui' />">
                         <span class="icon"><i class="fas fa-user-edit"></i></span>
                         <span class="item">會員資料</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='/selectLsit'/>">
+                    <a href="<c:url value='/selectLsit'/>" class="active">
                         <span class="icon"><i class="far fa-clipboard"></i></span>
                         <span class="item">購買紀錄</span>
                     </a>

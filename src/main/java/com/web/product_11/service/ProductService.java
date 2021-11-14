@@ -7,6 +7,7 @@ public interface ProductService {
 		//查詢全部商品
 		List<Product>  getAllProducts(); 
 			
+		List<Product> getAllProductOrderBySales();
 		//依商品名稱查詢商品
 		List<Product> getProductByName(String name);
 		
@@ -86,5 +87,9 @@ public interface ProductService {
 
 		
 		List<Product>  getAllPoints();
+		
+		Long countBySeller(String seller);
+		
+		List<String> getProductSeller();
 
 }

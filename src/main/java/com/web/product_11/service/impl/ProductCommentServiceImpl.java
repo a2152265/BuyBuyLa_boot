@@ -45,6 +45,41 @@ public class ProductCommentServiceImpl implements ProductCommentService {
 
 
 
+	@Override
+	public Integer countAllCommentByPid(Integer productId) {
+		return productCommentRepository.countAllCommentByPid(productId);
+	}
+
+
+	@Override
+	public ProductComment findByProductIdAndUserEmail(Integer productId, String userEmail) {
+		return productCommentRepository.findByProductIdAndUserEmail(productId, userEmail);
+	}
+
+
+
+
+
+	@Override
+	public Long countAllComment() {
+		return productCommentRepository.countAllComment();
+	}
+
+
+	@Override
+	public Long countByStar(Integer star, Integer productId) {
+		return productCommentRepository.countByStar(star, productId);
+	}
+
+
+	@Override
+	public Long SumAllStar(Integer productId) {
+		return productCommentRepository.SumAllStar(productId);
+	}
+
+
+
+
 
 
 }

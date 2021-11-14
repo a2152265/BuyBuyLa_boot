@@ -7,18 +7,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <link rel="stylesheet" href="member.css">
     <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
     
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>賣家中心</title>
+    <title>BuyBuyLa | 賣家中心</title>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
  	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
@@ -63,16 +61,16 @@
   background-color: #ECF5FF;
 }
  .btn-outline-primary {
-  color:lightblue;
-  background-color: #fff;
-  border-color: lightblue;
+  color:black;
+  background-color: liightgray;
+  border:0;
   width:130px;
   height:50px;
 }
   .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active:hover{
-  color: #fff;
-  background-color:lightblue;
-  border-color: lightblue;
+  color: black;
+  background-color:#f5f6fa;
+  border-color: #f5f6fa;
 }
 
 
@@ -80,7 +78,7 @@
   position: relative;
   left: var(--page-header-width);
   width: calc(100% - var(--page-header-width));
-  min-height: 100vh;
+/*   min-height: 100vh; */
   padding: 25px 0;
   color: var(--page-content-txtColor);
   background: var(--page-content-bgColor);
@@ -367,7 +365,7 @@
 }
 </style>
 </head>
-<body>
+<body style="background-color: rgb(214, 214, 238,0.5);">
    
     <div class="wrapper">
        <div class="section">
@@ -383,13 +381,11 @@
     </div>
 
 
-
-        <h1></h1>
-
-
-
-    <div class="container">
-      <span style="font-size:30px;  font-weight:bold;">賣家中心</span>
+    <div class="container" style="display:flex">
+      <span style="font-size:30px;  font-weight:bold;">商品管理</span>
+      	<div id="search" style="margin-left:1730px">
+		<button  type="button" class="btn btn-outline-primary"onclick="location.href ='<c:url value='/products/add' />'">新增商品</button>
+	</div>
       </div>
 
   <div class='row dashboard-cards' >
@@ -428,7 +424,7 @@
               <small>Top 5</small>
             </h2>
             <div class='task-count'>
-              62
+              
             </div>
           </div>
           <div class='card-flap flap1'>
@@ -480,12 +476,16 @@
         </div>
 
   <section class="page-content">
-  <div id="search" style="margin-bottom:30px">
-						<button  type="button" class="btn btn-outline-primary"onclick="location.href ='<c:url value='/products/add' />'">新增商品</button>
-	</div>
+  
+	
+	 
+      <span style="font-size:30px; display:block;text-align: center; font-weight:bold;">全部商品</span>
+     
+	
 	<div class="table-responsive">
 	<div class="table-wrapper">
-<table id="myTable" class="display" style="width:100%;font-weight:bolder;font-size:20px;" >
+		<table id="myTable" class="display" style="width:100%;font-weight:bolder;font-size:20px;" >
+  
     <thead >
         <tr >
     <th style="width:6%;"><i class="fas fa-list-ol"></i>&nbsp商品編號</th>
@@ -493,6 +493,8 @@
     <th style="width:15%;"><i class="fas fa-image"></i>&nbsp商品圖片</th>
     <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp商品庫存</th>
     <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp商品價錢</th>
+    <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp銷售量</th>
+    <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp商品瀏覽量</th>
     <th style="width:10%;"><i class="far fa-clipboard"></i>&nbsp商品類別</th>
     <th style="width:20%;"><i class="fas fa-file-alt"></i>&nbsp上傳時間</th>
     <th style="width:20%;"><i class="fas fa-file-alt"></i>&nbsp商品狀態</th>
@@ -509,6 +511,8 @@
   				   src="<c:url value='/getPicture/${product.productId}' />" /></td>
   	<td>${product.stock}</td>			   
     <td>${product.price}</td>
+    <td>${product.sales}</td>
+    <td>${product.views}</td>
     <td>${product.category}</td>
     <td>${product.insertTime}</td>
     <td>${product.status}</td>
@@ -522,67 +526,59 @@
 </div>
 </div>
 </section>
+	<span style="font-size:30px; display:block;text-align: center; font-weight:bold;">商品留言</span>
 
 
 
-  </div>
-        <div class="sidebar">
+  </div >
+        <div class="sidebar" style="background-color: rgb(1, 1, 112);">
             <div class="profile">
-                <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
-                <h3></h3>
-                <p>Designer</p>
-            </div>
+                <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
+                   <!-- 讀取圖片 -->
+                  <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
+                   <h3></h3>
+                   <p>${memberUiDefault.userEmail} </p>
+               </div>
             <ul>
                 <li>
-                    <a href="<c:url value='/' />" class="active">
+                    <a href="<c:url value='/' />" >
                         <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">Home</span>
+                        <span class="item">首頁</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='' />">
-                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                    <a href="<c:url value='/try/member_Ui' />">
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">會員中心</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='/update30' />">
+                        <span class="icon"><i class="fas fa-chart-line"></i></span>
                         <span class="item">訂單管理</span>
                     </a>
                 </li>
                 <li>
                     <a href="<c:url value='/products/seller' />">
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="icon"><i class="fas fa-gifts"></i></span>
                         <span class="item">商品管理</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">數據中心</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/member/seller_Ui' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item">帳號管理</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/member/changePwd' />">
-                        <span class="icon"><i class="fas fa-chart-line"></i></span>
-                        <span class="item">更改密碼</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/try/delete' />">
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">刪除會員</span>
-                    </a>
-                </li>
-
-                <!-- /*減去footer高度*/ -->
-                <li style="min-height: calc(100% - 50px); ">
-                    <a href="<c:url value='/try/delete' />">
+                    <a href="<c:url value='/seller/inschan_on' />">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">隱私權政策</span>
                     </a>
                 </li>
+                <li>
+                    <a href="<c:url value='/try/logout' />">
+                        <span class="icon"><i class="fas fa-chart-line"></i></span>
+                        <span class="item">登出</span>
+                    </a>
+                </li>
+ 
+
+             
                 
             </ul>
         </div>
@@ -590,7 +586,6 @@
     </div>
     </div>	
 
-   
 
 
     <script>

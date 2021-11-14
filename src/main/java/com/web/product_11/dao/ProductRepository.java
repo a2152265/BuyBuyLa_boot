@@ -17,12 +17,13 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("select distinct category from Product")
 	List<String>  getAllCategories();
 	
+	@Query("from Product  where status='上架中'and stock>0 and point=0 order by sales DESC ")
+	List<Product> getAllProductOrderBySales();
 
 	@Query("from Product where point>0")
 	List<Product> getAllPoints();
 	
 	@Query("from Product where productName like %:productName% and status='上架中'and stock>0 and point=0" )
-
 	List<Product> findByProductName(@Param("productName") String productName);
 	
 	@Query("from Product p where p.category=:category and status='上架中'and stock>0 and point=0 ")
@@ -42,12 +43,14 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	
 	Product findByProductId(int productId);
 	
-	@Query("from Product p where p.status='上架中'and p.stock>0 and point=0 order by p.insertTime DESC")
+	@Query("from Product p where p.status='上架中'and p.stock>0 and p.point=0 order by p.insertTime DESC")
 	List<Product>productOrderByInsertTime();
 	
 	@Query("from Product p where p.status=:status")
 	List<Product> findByStatus(String status);
 	
+	@Query("select DISTINCT seller from Product")
+	List<String> getProductSeller();
 	
 	@Transactional
 	@Modifying
@@ -104,6 +107,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	Long countByCategory(String category);
 	
 	Long countByStatus(String status);
+	
+	Long countBySeller(String seller);
 	
 	
 	

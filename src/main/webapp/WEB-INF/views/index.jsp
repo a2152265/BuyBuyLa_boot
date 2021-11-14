@@ -12,8 +12,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>BuyBuyLa|Home</title>
-<link rel="icon" href="img/Fevicon.png" type="image/png">
+
+  <title>BuyBuyLa | 首頁</title>
+	<link rel="icon" href="img/Fevicon.png" type="image/png">
+
 
   <link rel="stylesheet" href="vendors/bootstrap/bootstrap.min.css"  type="text/css">
   <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css"  type="text/css">
@@ -115,6 +117,8 @@
                     
                     display: block;
                 }
+	
+            
     </style>
 </head>
 <body>
@@ -276,18 +280,20 @@
     </section>
     <!--================ 顯示類別產品 end =================-->
 
+
+
     <!-- ================ start 最新商品 ================= -->  
     
     <section class="section-margin calc-60px">
       <div class="container">
         <div class="section-intro pb-60px">
-          <p>New Products</p>
-          <h2>New <span class="section-intro__style">Products</span></h2>
+          <p>BuyBuyLa</p>
+          <h2>最新<span class="section-intro__style">商品</span></h2>
         </div>
         
         <div class="row">
         
-        <c:forEach items="${descProduct}" var="product">
+        <c:forEach items="${descProduct}" var="product" begin="0" end="11">
           <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card text-center card-product">
               <div class="card-product__img">
@@ -314,7 +320,7 @@
 					white-space: normal;">${product.productName}
 				</a>
 				</h4>
-                <p class="card-product__price">${product.price}</p>
+                <p class="card-product__price">${product.price*product.discount}</p>
               </div>
             </div>
           </div>
@@ -323,8 +329,13 @@
       </div>
     </section>
     <!-- ================ 最新商品 end ================= -->  
-
-
+    
+	<div style="    display: flex;
+    justify-content: center; 
+    align-items: center; ">
+	<a class="button button--active mt-3 mt-xl-4" href=".	/allProducts">查看更多</a>
+	</div>
+	
     <!-- ================ offer section start ================= --> 
     <section class="offer" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px">
       <div class="container">
@@ -346,12 +357,12 @@
     <section class="section-margin calc-60px">
       <div class="container">
         <div class="section-intro pb-60px">
-          <p>Popular Item in the market</p>
-          <h2>Best <span class="section-intro__style">Sellers</span></h2>
+          <p>BuyBuyLa</p>
+          <h2>熱銷<span class="section-intro__style">商品</span></h2>
         </div>
         <div class="owl-carousel owl-theme" id="bestSellerCarousel">
           
-          <c:forEach items="${products}" var="product">
+          <c:forEach items="${products}" var="product" begin="0" end="20">
           　<c:if test="${product.stock >0 }">
           <div class="card text-center card-product">
             <div  class="card-product__img">
@@ -376,7 +387,8 @@
 					-webkit-line-clamp: 2;
 					-webkit-box-orient: vertical;
 					white-space: normal;" href="single-product.html">${product.productName}</a></h4>
-              <p class="card-product__price">${product.price}</p>
+              <p class="card-product__price">${product.price*product.discount}</p>
+              
             </div>
           </div>
           </c:if>
@@ -390,8 +402,8 @@
     <section class="blog">
       <div class="container">
         <div class="section-intro pb-60px">
-          <p>Popular Item in the market</p>
-          <h2>Latest <span class="section-intro__style">News</span></h2>
+          <p>BuyBuyLa</p>
+          <h2>最新<span class="section-intro__style">消息</span></h2>
         </div>
 
         <div class="row">

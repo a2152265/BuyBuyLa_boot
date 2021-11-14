@@ -3,22 +3,22 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!-- header -->
 <%@ include file="../../Home/seller/header.jspf"%>
-<!-- sidebar -->>
+<!-- sidebar -->
 <%@ include file="../../Home/seller/sidebar.jspf"%>
 
 
-        <h1>Welcome ~~      WE Will BuyBuyLA your money</h1>
-        <nav>
-            <ul class="flex-nav" style="background-color: rgb(163, 163, 230);">
-                <li><a href="#">未付款</a></li>
-                <li><a href="#">已付款</a></li>
-                <li><a href="#">已出貨</a></li>
-                <li><a href="#">運送中</a></li>
-                <li><a href="#">已送達</a></li>
-                <li><a href="#">已完成</a></li>
-                <li><a href="#">取消交易</a></li>
-            </ul>
-        </nav>
+        <h1></h1>
+<!--         <nav> -->
+<!--             <ul class="flex-nav" style="background-color: rgb(163, 163, 230);"> -->
+<!--                 <li><a href="#">未付款</a></li> -->
+<!--                 <li><a href="#">已付款</a></li> -->
+<!--                 <li><a href="#">已出貨</a></li> -->
+<!--                 <li><a href="#">運送中</a></li> -->
+<!--                 <li><a href="#">已送達</a></li> -->
+<!--                 <li><a href="#">已完成</a></li> -->
+<!--                 <li><a href="#">取消交易</a></li> -->
+<!--             </ul> -->
+<!--         </nav> -->
         
   
 
@@ -43,5 +43,6 @@
         </div>
 
 
-
+</div>
+</div>
 

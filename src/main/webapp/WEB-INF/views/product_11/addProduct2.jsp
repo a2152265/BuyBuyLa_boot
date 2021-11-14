@@ -224,8 +224,8 @@
 					</label></td>
                 		<td>        
                 		<form:select path="category">
-                            <form:option value="女生衣服"></form:option>
-                            <form:option value="男生衣服"></form:option>
+                            <form:option value="生活用品"></form:option>
+                            <form:option value="手機平板與周邊"></form:option>
                             <form:option value="寵物"></form:option>
                             <form:option value="運動健身"></form:option>
                             <form:option value="其他"></form:option>
@@ -281,8 +281,13 @@
     }
     
     $('#auto').on('click',function(e){	
-    	 $("#productName").val("Hello World");
-    	 $("#productName").val("Hello World");
+    	 $("#productName").val("Matchwood Clutch 三用軍事後背包");
+    	 $("#price").val(3120);
+    	 $("#stock").val(20);
+    	 $("#productNo").val("E101");
+    	 $("#productInfo").val("機能系後背包向來就是Matchwood的拿手強項，Clutch三用後背包再次將機能/多用途/外觀搭配..等需求推向更高層次；維持軍事元素作為核心視覺，再以多包款拆裝組合概念展現強大機能用途。");
+    	 
+    	 
 
     })
 
