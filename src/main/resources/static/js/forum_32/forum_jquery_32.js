@@ -33,7 +33,7 @@ $(function() {
 	}
 	
 	if($('.loginsession').html()==null){
-		$('.addNewForum').css('display','none')
+		$('.addNewForumBlock').css('display','none')
 		$('.newFoRuM').attr("disabled","disabled");
 		$('.newFoRuM').css("background","gray");
 		$('.messageContentBlock').css('display','none');

@@ -298,7 +298,7 @@
         <use xlink:href="#down"></use>
       </svg>
     </button>
-    <ul class="admin-menu" style='padding:0px'>
+   <ul class="admin-menu" style='padding:0px'>
       <li class="menu-heading">
       
       
@@ -308,11 +308,8 @@
                <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
                 <h3></h3>
                 <p>您好! &nbsp; 管理員${memberUiDefault.userEmail}</p><br>
-            </div>
+        </div>
             
-            
-            
-        
       </li>
       <li>
         <a href="<c:url value='/' />">
@@ -331,7 +328,7 @@
         </a>
       </li>
       <li>
-        <a href="manage/products">
+        <a href="<c:url value='/manage/products/待審核' />">
           <svg>
             <use xlink:href="#pages"></use>
           </svg>
@@ -339,15 +336,23 @@
         </a>
       </li>
       <li>
-        <a href="./user">
+        <a href="<c:url value='/recordManage' />">
           <svg>
             <use xlink:href="#pages"></use>
           </svg>
-          <span>購物車管理</span>
+          <span>購物紀錄管理</span>
+        </a>
+      </li>
+        <li>
+        <a href="<c:url value='/refundManage' />">
+          <svg>
+            <use xlink:href="#pages"></use>
+          </svg>
+          <span>退款管理</span>
         </a>
       </li>
       <li>
-        <a href="./admincampaign">
+        <a href="../admincampaign">
           <svg>
             <use xlink:href="#collection"></use>
           </svg>
@@ -362,30 +367,9 @@
           <span>動態管理</span>
         </a>
       </li>
-      
-      <li class="menu-heading">
-        <h3>Settings</h3>
-      </li>
-      <li>
-        <a href="#0">
-          <svg>
-            <use xlink:href="#settings"></use>
-          </svg>
-          <span>設定</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="#0">
-          <svg>
-            <use xlink:href="#charts"></use>
-          </svg>
-          <span>效益分析</span>
-        </a>
-      </li>
       <li>
         <div class="switch">
-          <input type="checkbox" id="mode" checked style='display:none;'>
+          <input type="checkbox" id="mode"style="-webkit-appearance: none; position: absolute;left: -9999px;" checked>
           <label for="mode">
             <span></span>
             <span>暗黑模式</span>
