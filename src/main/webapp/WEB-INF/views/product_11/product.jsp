@@ -621,6 +621,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 					  showConfirmButton: false,
 					  timer: 1500
 					})
+					
+				var count = parseInt($('#ccount').html())+parseInt(qty)
+				console.log(count)
+				
+				$('#ccount').html(count)
 			},error:function(){
 				Swal.fire({
 					  position:'center',
