@@ -33,6 +33,12 @@
   font-size: 14px;
 }
 
+
+.button3 {width: 2%;}
+
+.buttonTotal {width: 20%;}
+
+
 </style>
 
 
@@ -297,7 +303,7 @@
                 <!-- 讀取圖片 -->
                <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
                 <h3></h3>
-                <p>您好! &nbsp; 管理員${memberUiDefault.userEmail}</p><br>
+                <p style="margin:0px;" >您好! &nbsp; 管理員${memberUiDefault.userEmail}</p><br>
             </div>
             
             
@@ -321,7 +327,7 @@
         </a>
       </li>
       <li>
-        <a href="manage/products">
+        <a href="<c:url value='/manage/products/待審核' />">
           <svg>
             <use xlink:href="#pages"></use>
           </svg>
@@ -329,11 +335,19 @@
         </a>
       </li>
       <li>
-        <a href="./user">
+        <a href="<c:url value='/recordManage' />">
           <svg>
             <use xlink:href="#pages"></use>
           </svg>
-          <span>購物車管理</span>
+          <span>購物紀錄管理</span>
+        </a>
+      </li>
+        <li>
+        <a href="<c:url value='/refundManage' />">
+          <svg>
+            <use xlink:href="#pages"></use>
+          </svg>
+          <span>退款管理</span>
         </a>
       </li>
       <li>
@@ -352,20 +366,9 @@
           <span>動態管理</span>
         </a>
       </li>
-      
-      <li class="menu-heading">
-        <h3>Settings</h3>
-      </li>
      
       
-      <li>
-        <a href="<c:url value='/manager_Ui0' />">
-          <svg>
-            <use xlink:href="#charts"></use>
-          </svg>
-          <span>效益分析</span>
-        </a>
-      </li>
+      
       <li>
         <div class="switch">
           <input type="checkbox" id="mode" checked style="display:none;">

@@ -39,8 +39,8 @@ Themes Usage
 </head>
 <body style="background-color: rgb(93, 93, 235);">
 
-				<h1>!!!!</h1>
-			<img src="img/error/YSNP.png" alt="BuyBuyLa">
+				<h1>!!!!沒權限</h1>
+			<img src="../img/error/YSNP.png" alt="BuyBuyLa">
 	
 		
 </body>

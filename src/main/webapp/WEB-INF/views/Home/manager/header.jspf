@@ -247,14 +247,14 @@
       </li>
       
       <li class="menu-heading">
-        <h3>Settings</h3>
+        <h3>Analyze</h3>
       </li>
       <li>
-        <a href="#0">
+        <a href="<c:url value='/manager_Ui0' />">
           <svg>
-            <use xlink:href="#settings"></use>
+            <use xlink:href="#charts"></use>
           </svg>
-          <span>設定</span>
+          <span>效益分析</span>
         </a>
       </li>
       
