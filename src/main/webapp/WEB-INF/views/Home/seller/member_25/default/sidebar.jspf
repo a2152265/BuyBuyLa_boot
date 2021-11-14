@@ -24,37 +24,7 @@
                     </a>
                 </li>
 
-                 <li>        
-                    <a href="<c:url value='/update30' />">
-
-
-                        <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">訂單管理</span>
-                    </a>
-                </li>
-                <li>
-
-                    <a href="<c:url value='/products/seller' />">
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
-                        <span class="item">商品管理</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">數據中心</span>
-                    </a>
-                </li>
-               
-               
-
-                <!-- /*減去footer高度*/ -->
-                <li style="min-height: calc(100% - 50px); ">
-                    <a href="<c:url value='/seller/inschan' />">
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">隱私權政策</span>
-                    </a>
-                </li>
+                 
                 
                 <li>
                     <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >

@@ -19,7 +19,6 @@
 	<section class="search-and-user">
 		
 		
-		
 	</section>
 	
 	
@@ -367,10 +366,17 @@ integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anon
   	  rowReorder: true,
   	  columnDefs: [
   	      { orderable: true, className: 'reorder', targets: 0},
+  	    { orderable: true, className: 'reorder', targets: 1},
+  	  { orderable: true, className: 'reorder', targets: 2},
   	      { orderable: true, className: 'reorder', targets: 3},
   	      { orderable: true, className: 'reorder', targets: 4},
   	      { orderable: true, className: 'reorder', targets: 5},
+  	    { orderable: true, className: 'reorder', targets: 6},
   	      { orderable: true, className: 'reorder', targets: 7},
+  	    { orderable: true, className: 'reorder', targets: 8},
+  	  { orderable: true, className: 'reorder', targets: 9},
+  	{ orderable: true, className: 'reorder', targets: 10},
+  	{ orderable: true, className: 'reorder', targets: 11},
 
   	      { orderable: false, targets: '_all' }
 

@@ -90,13 +90,13 @@
                <c:if test="${managerSession == null}">
               <c:if test="${loginSession.userEmail != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
-						${loginSession.userEmail}</a></li>
+						${loginSession.userName}</a></li>
 
 				</c:if>
 				</c:if>
 				<c:if test="${managerSession != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">Hi管理員!!! &nbsp;
-						${loginSession.userEmail}</a></li>
+						${loginSession.userName}</a></li>
 				</c:if>
 
 			

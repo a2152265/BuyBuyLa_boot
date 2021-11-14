@@ -434,7 +434,7 @@ public class TestLoginController {
 						memberService.save(mb2);
 						model.addAttribute("sellerData",mb2);
 						model.addAttribute("memberUiDefault",mb2);
-						return "member_25/seller/member_Ui_seller_success";		
+						return "redirect:/products/seller";		
 					}
 				
 			} catch (Exception e) {

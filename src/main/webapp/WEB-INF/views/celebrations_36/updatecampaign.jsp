@@ -788,6 +788,32 @@ body {
 .page-footer a {
   margin-left: 4px;
 }
+
+/*manager pic*/
+.profile{
+  margin-top:-40px;
+  margin-bottom:-20px;
+  text-align: center;
+}
+
+ .profile img{
+  display: block;
+  width: 100px;
+  height: 100px;
+    border-radius: 50%;
+  margin: 0 auto;
+}
+
+ .profile h3{
+  color: #ffffff;
+  margin: 10px 0 5px;
+}
+
+ .profile p{
+  color: rgb(206, 240, 253);
+  font-size: 14px;
+}
+
 </style>
 </head>
 <body>
@@ -886,35 +912,63 @@ body {
       </svg>
     </button>
     <ul class="admin-menu">
-      <li class="menu-heading">
-        <h3 style="text-align:left">ADMIN</h3>
+       <li class="menu-heading">
+      
+      
+       <div class="profile">
+             <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
+                <!-- 讀取圖片 -->
+               <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
+                <h3></h3>
+                <p style="margin:0px;" >您好! &nbsp; 管理員${memberUiDefault.userEmail}</p><br>
+            </div>
+            
+            
+            
+        
       </li>
       <li>
-        <a href="#0">
+        <a href="<c:url value='/' />">
           <svg>
-            <use xlink:href="#pages"></use>
+            <use xlink:href="#appearance"></use>
           </svg>
-          <span>會員管理</span>
+          <span>回首頁</span>
         </a>
       </li>
       <li>
-        <a href="manage/products">
+        <a href="<c:url value='/manager_Ui' />">
           <svg>
             <use xlink:href="#users"></use>
+          </svg>
+          <span>會員資料管理</span>
+        </a>
+      </li>
+      <li>
+        <a href="<c:url value='/manage/products/待審核' />">
+          <svg>
+            <use xlink:href="#pages"></use>
           </svg>
           <span>商品管理</span>
         </a>
       </li>
       <li>
-        <a href="./user">
+        <a href="<c:url value='/recordManage' />">
           <svg>
-            <use xlink:href="#trends"></use>
+            <use xlink:href="#pages"></use>
           </svg>
-          <span>購物車管理</span>
+          <span>購物紀錄管理</span>
+        </a>
+      </li>
+        <li>
+        <a href="<c:url value='/refundManage' />">
+          <svg>
+            <use xlink:href="#pages"></use>
+          </svg>
+          <span>退款管理</span>
         </a>
       </li>
       <li>
-        <a href="../admincampaign">
+        <a href="./admincampaign">
           <svg>
             <use xlink:href="#collection"></use>
           </svg>
@@ -922,7 +976,7 @@ body {
         </a>
       </li>
       <li>
-        <a href="#0">
+        <a href="<c:url value='/manager/forum' />">
           <svg>
             <use xlink:href="#comments"></use>
           </svg>
@@ -930,53 +984,18 @@ body {
         </a>
       </li>
       <li>
-        <a href="#0">
-          <svg>
-            <use xlink:href="#appearance"></use>
-          </svg>
-          <span>Appearance</span>
-        </a>
-      </li>
-      <li class="menu-heading">
-        <h3 style="text-align:left">Settings</h3>
-      </li>
-      <li>
-        <a href="#0">
-          <svg>
-            <use xlink:href="#settings"></use>
-          </svg>
-          <span >Settings</span>
-        </a>
-      </li>
-      <li>
-        <a href="#0">
-          <svg>
-            <use xlink:href="#options"></use>
-          </svg>
-          <span>Options</span>
-        </a>
-      </li>
-      <li>
-        <a href="#0">
-          <svg>
-            <use xlink:href="#charts"></use>
-          </svg>
-          <span>Charts</span>
-        </a>
-      </li>
-      <li>
         <div class="switch">
           <input type="checkbox" id="mode" checked>
           <label for="mode">
             <span></span>
-            <span>Dark</span>
+            <span style="width:64px;">暗黑模式</span>
           </label>
         </div>
         <button class="collapse-btn" aria-expanded="true" aria-label="collapse menu">
           <svg aria-hidden="true">
             <use xlink:href="#collapse"></use>
           </svg>
-          <span>Collapse</span>
+          <span>全螢幕</span>
         </button>
       </li>
     </ul>
@@ -1055,7 +1074,7 @@ body {
         x.readAsDataURL(this.files[0]);
     }
     x.onloadend = function () {
-        document.images[0].src = this.result;
+        document.images[1].src = this.result;
     }
 	</script>
 	
@@ -1123,10 +1142,10 @@ if (localStorage.getItem("dark-mode") === "false") {
 switchInput.addEventListener("input", function () {
   html.classList.toggle(lightModeClass);
   if (html.classList.contains(lightModeClass)) {
-    switchLabelText.textContent = "Light";
+    switchLabelText.textContent = "白天模式";
     localStorage.setItem("dark-mode", "false");
   } else {
-    switchLabelText.textContent = "Dark";
+    switchLabelText.textContent = "暗黑模式";
     localStorage.setItem("dark-mode", "true");
   }
 });
