@@ -93,7 +93,7 @@
                 <li>
                     <a href="<c:url value='/' />" >
                         <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">回首頁</span>
+                        <span class="item">回首頁1</span>
                     </a>
                 </li>
 

@@ -75,13 +75,13 @@
                <c:if test="${managerSession == null}">
               <c:if test="${loginSession.userEmail != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
-						${loginSession.userEmail}</a></li>
+						${loginSession.userName}</a></li>
 
 				</c:if>
 				</c:if>
 				<c:if test="${managerSession != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">Hi管理員!!! &nbsp;
-						${loginSession.userEmail}</a></li>
+						${loginSession.userName}</a></li>
 				</c:if>
 
 			
@@ -103,6 +103,15 @@
 				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
 				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
 				 </c:if>
+            </ul>
+               <!---------------- 我的最愛 ---------------->
+            <ul style="list-style-type: none; padding-left:10px;padding-bottom:10px"  >
+               <c:if test="${loginSession.userEmail != null}">
+                <li ><button style="border:0 ;background-color:transparent;" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
+                 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+                <li ><button style="border:0 ;background-color:transparent;" onclick="location.href='<c:url value='/try/login' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
             </ul>
           </div>
         </div>

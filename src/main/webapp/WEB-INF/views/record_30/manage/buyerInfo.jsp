@@ -206,7 +206,7 @@ $(document).ready(function () {
   </div>
       
         	<center>
-			<a class="btn btn-outline-secondary" href="recordManage" style='font-size:20px' role="button">回上一頁</a>	
+			<a class="btn btn-outline-secondary" href="update30" style='font-size:20px' role="button">回上一頁</a>	
 			</center>
     </div>
 

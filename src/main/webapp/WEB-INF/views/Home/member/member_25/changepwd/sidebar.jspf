@@ -1,65 +1,63 @@
-
+<!-- 解決轉碼問題 -->
  <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
-
-<div class="sidebar" style="background-color: rgb(51, 63, 177);">
+ 
+<div>
+        <div class="sidebar" style="background-color: rgb(70,130,180);">
             <div class="profile">
-               <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
+             <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
                 <!-- 讀取圖片 -->
                <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
                 <h3></h3>
                 <p>${memberUiDefault.userEmail} </p>
             </div>
-           <ul>
-                <li>
-                    <a href="<c:url value='/try/member_Ui' />" >
-                        <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item">會員資料</span>
-                    </a>
-                </li>
+            <ul>
                 <li>
                     <a href="<c:url value='/' />">
                         <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">回首頁</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/selectLsit'/>">
-                        <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">購買紀錄</span>
-                    </a>
-                </li>
-                 
-           
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">討論區</span>
-                    </a>
-                </li>
-                
+                        <span class="item">首頁</span>
+                    </a> 
+                </li>          
                 <li>
                     <a href="<c:url value='/member/evolution' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">賣家中心</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='/member/changePwd_check' />"  class="active">
-                        <span class="icon"><i class="fas fa-chart-line"></i></span>
+                    <a href="<c:url value='/try/member_Ui' />"  class="active">
+                        <span class="icon"><i class="fas fa-user-edit"></i></span>
+                        <span class="item">會員資料</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='/selectLsit'/>">
+                        <span class="icon"><i class="far fa-clipboard"></i></span>
+                        <span class="item">購買紀錄</span>
+                    </a>
+                </li>
+                    <li>              
+                <li>
+                    <a href="<c:url value='/member/changePwd_check' />">
+                        <span class="icon"><i class="fas fa-key"></i></span>
                         <span class="item">更改密碼</span>
                     </a>
                 </li>
                 <li>
                     <a href="<c:url value='/try/coupon' />">
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="icon"><i class="fas fa-ticket-alt"></i></span>
                         <span class="item">我的折價券</span>
                     </a>
                 </li>
-               
+               <li>
+                    <a href="<c:url value='/try/point' />">
+                        <span class="icon"><i class="fab fa-btc"></i></span>
+                        <span class="item">我的點數</span>
+                    </a>
+                </li>
 
                 <!-- /*減去footer高度*/ -->
                 <li>
-                    <a href="<c:url value='/member/inschan' />" > 
+                    <a href="<c:url value='/member/inschan' />">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">隱私權政策</span>
                     </a>
@@ -67,7 +65,7 @@
                 
                 <li>
                     <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
                         <span class="item">登出</span>
                     </a>
                 </li>
@@ -77,16 +75,3 @@
         </div>
         
     </div>
-
-   
-
-
-    <script>
-          var hamburger = document.querySelector(".hamburger");
-  hamburger.addEventListener("click", function(){
-    document.querySelector("body").classList.toggle("active");
-  })
-    </script>
- 
-</body>
-</html>

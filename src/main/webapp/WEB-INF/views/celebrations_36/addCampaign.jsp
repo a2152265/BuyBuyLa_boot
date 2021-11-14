@@ -1089,7 +1089,7 @@ body {
         x.readAsDataURL(this.files[0]);
     }
     x.onloadend = function () {
-        document.images[0].src = this.result;
+        document.images[1].src = this.result;
     }
 	</script>
 	

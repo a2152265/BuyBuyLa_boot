@@ -257,7 +257,7 @@
                 <li>
                     <a href="<c:url value='/' />" class="active">
                         <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">Home</span>
+                        <span class="item">Home11</span>
                     </a>
                 </li>
                 <li>
@@ -267,7 +267,7 @@
                     <a href="<c:url value='???' />"   onclick="return(confirm('請先成為認證賣家'))">
 
                         <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">訂單管理</span>
+                        <span class="item">訂單管理1</span>
                     </a>
                 </li>
                 <li>

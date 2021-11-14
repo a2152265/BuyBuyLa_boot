@@ -3,7 +3,7 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!-- header -->
 <%@ include file="../../Home/seller/member_25/default/header.jspf"%>
-<!-- sidebar -->>
+<!-- sidebar -->
 <%@ include file="../../Home/seller/member_25/default/sidebar.jspf"%>
 
 
