@@ -129,6 +129,7 @@
 				</tr>
 			</thead>
                       <tbody>
+
                       	<c:forEach var="favoriteList" items="${favoriteList}">
                           <tr align='center' valign="middle">
                               <td>

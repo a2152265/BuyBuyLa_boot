@@ -154,15 +154,25 @@ public class ProductSerivceImpl_boot implements ProductService{
 		productRepositoryDao.updateSales(pid, sales);
 	}
 
-	
-	
-
-
-
 	@Override
 	public List<Product> getAllPoints() {
 		
 		return productRepositoryDao.getAllPoints();
+	}
+
+	@Override
+	public Long countBySeller(String seller) {
+		return productRepositoryDao.countBySeller(seller);
+	}
+
+	@Override
+	public List<String> getProductSeller() {
+		return productRepositoryDao.getProductSeller();
+	}
+
+	@Override
+	public List<Product> getAllProductOrderBySales() {
+		return productRepositoryDao.getAllProductOrderBySales();
 	}
 
 

@@ -1,22 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<link rel="stylesheet"
-    href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<link rel='stylesheet' href="<c:url value='/css/styles.css' />"  type="text/css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-
-<style type="text/css">
-  body {
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="member.css">
+    <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>賣家中心</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+ 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<style>
+ body {
             font-family: "微軟正黑體";
-            background-color: rgb(203, 218, 218);
+            background-color: rgba(147, 156, 165, 0.2);
             align-items: center;
             justify-content: center;
             position: relative;
@@ -50,7 +59,7 @@
         form {
             background-color: rgb(255, 255, 255, 0.8);
             margin: 20px auto;
-            max-width: 600px;
+            max-width: 800px;
             padding: 80px;
             /* border-radius: 20px; */
             box-shadow: 0 10px 10px 0 rgba(177, 175, 175, 0.2);
@@ -129,7 +138,7 @@
 
         .wrap {
             text-align: center;
-            margin-top: 50px;
+             margin-top: 50px; 
         }
 
         .button {
@@ -165,31 +174,42 @@
 		
 	}
 </style>
-<title>Products</title>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
-    <section>
-        <div class="container">
-            <h1 style="text-align: center">
-         		新增產品資料
-            </h1>
-        </div>
-    </section>
- <!--     <div align='center'>
-        <a href="<c:url value='/' />">
-        回首頁
+   
+    <div class="wrapper">
+       <div class="section">
+
+
+
+    <div class="top_navbar">
+      <div class="hamburger">
+        <a href="#">
+          <i class="fas fa-bars"></i>
         </a>
-    </div> 
-    -->
-    <hr style="height: 1px; border: none; color: #333; background-color: #333;">
-    <section class="container">
-        <!--       三個地方要完全一樣 -->
-        <form:form id='form' method='POST' modelAttribute="productBean" class='form-horizontal'
+      </div>
+    </div>
+
+
+
+
+    <div class="container">
+      <span style="font-size:30px;  font-weight:bold;">新增商品</span>
+ 
+      </div>
+
+  
+
+  <section class="page-content">
+
+
+	<div class="table-responsive">
+	<div class="table-wrapper">
+		 <form:form id='form' method='POST' modelAttribute="productBean" class='form-horizontal'
         	enctype="multipart/form-data">
              <table rules="all">
        		
-		<tbody>
+			<tbody>
 				<div id="display" class="im" style="margin-bottom:80px">
 				<img src="https://unsplash.com/photos/8pb7Hq539Zw?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink" width="150" height="150" alt="封面圖片" >
 			</div>
@@ -224,8 +244,8 @@
 					</label></td>
                 		<td>        
                 		<form:select path="category">
-                            <form:option value="女生衣服"></form:option>
-                            <form:option value="男生衣服"></form:option>
+                            <form:option value="生活用品"></form:option>
+                            <form:option value="手機平板與周邊"></form:option>
                             <form:option value="寵物"></form:option>
                             <form:option value="運動健身"></form:option>
                             <form:option value="其他"></form:option>
@@ -267,11 +287,88 @@
       			  <input id="auto" type='button' class='btn btn-primary' value="一鍵輸入" />
 	</div>  
         </form:form>
-         
+</div>
+</div>
+</section>
+
+
+
+  </div>
+        <div class="sidebar">
+            <div class="profile">
+                <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
+                <h3></h3>
+                <p>Designer</p>
+            </div>
+            <ul>
+                <li>
+                    <a href="<c:url value='/' />" class="active">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='' />">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">訂單管理</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='/products/seller' />">
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">商品管理</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='???' />">
+                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+                        <span class="item">數據中心</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='/member/seller_Ui' />">
+                        <span class="icon"><i class="fas fa-database"></i></span>
+                        <span class="item">帳號管理</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='/member/changePwd' />">
+                        <span class="icon"><i class="fas fa-chart-line"></i></span>
+                        <span class="item">更改密碼</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='/try/delete' />">
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">刪除會員</span>
+                    </a>
+                </li>
+
+                <!-- /*減去footer高度*/ -->
+                <li style="min-height: calc(100% - 50px); ">
+                    <a href="<c:url value='/try/delete' />">
+                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="item">隱私權政策</span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
         
-    </section>
-    
+    </div>
+    </div>	
+
+   
+
+
     <script>
+    
+    var hamburger = document.querySelector(".hamburger");
+    hamburger.addEventListener("click", function(){
+      document.querySelector("body").classList.toggle("active");
+    })
+    
+    
     var x = new FileReader;
     document.forms[0].elements[0].onchange = function () {
         x.readAsDataURL(this.files[0]);
@@ -281,12 +378,18 @@
     }
     
     $('#auto').on('click',function(e){	
-    	 $("#productName").val("Hello World");
-    	 $("#productName").val("Hello World");
+    	 $("#productName").val("Matchwood Clutch 三用軍事後背包");
+    	 $("#price").val(3120);
+    	 $("#stock").val(20);
+    	 $("#productNo").val("E101");
+    	 $("#productInfo").val("機能系後背包向來就是Matchwood的拿手強項，Clutch三用後背包再次將機能/多用途/外觀搭配..等需求推向更高層次；維持軍事元素作為核心視覺，再以多包款拆裝組合概念展現強大機能用途。");
+    	 
+    	 
 
     })
-
+  
+  
     </script>
-    
+ 
 </body>
 </html>

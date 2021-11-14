@@ -63,16 +63,16 @@
   background-color: #ECF5FF;
 }
  .btn-outline-primary {
-  color:lightblue;
-  background-color: #fff;
-  border-color: lightblue;
+  color:black;
+  background-color: liightgray;
+  border:0;
   width:130px;
   height:50px;
 }
   .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active:hover{
-  color: #fff;
-  background-color:lightblue;
-  border-color: lightblue;
+  color: black;
+  background-color:#f5f6fa;
+  border-color: #f5f6fa;
 }
 
 
@@ -80,7 +80,7 @@
   position: relative;
   left: var(--page-header-width);
   width: calc(100% - var(--page-header-width));
-  min-height: 100vh;
+/*   min-height: 100vh; */
   padding: 25px 0;
   color: var(--page-content-txtColor);
   background: var(--page-content-bgColor);
@@ -388,8 +388,11 @@
 
 
 
-    <div class="container">
-      <span style="font-size:30px;  font-weight:bold;">賣家中心</span>
+    <div class="container" style="display:flex">
+      <span style="font-size:30px;  font-weight:bold;">商品管理</span>
+      	<div id="search" style="margin-left:1730px">
+		<button  type="button" class="btn btn-outline-primary"onclick="location.href ='<c:url value='/products/add' />'">新增商品</button>
+	</div>
       </div>
 
   <div class='row dashboard-cards' >
@@ -428,7 +431,7 @@
               <small>Top 5</small>
             </h2>
             <div class='task-count'>
-              62
+              
             </div>
           </div>
           <div class='card-flap flap1'>
@@ -480,12 +483,16 @@
         </div>
 
   <section class="page-content">
-  <div id="search" style="margin-bottom:30px">
-						<button  type="button" class="btn btn-outline-primary"onclick="location.href ='<c:url value='/products/add' />'">新增商品</button>
-	</div>
+  
+	
+	 
+      <span style="font-size:30px; display:block;text-align: center; font-weight:bold;">全部商品</span>
+     
+	
 	<div class="table-responsive">
 	<div class="table-wrapper">
-<table id="myTable" class="display" style="width:100%;font-weight:bolder;font-size:20px;" >
+		<table id="myTable" class="display" style="width:100%;font-weight:bolder;font-size:20px;" >
+  
     <thead >
         <tr >
     <th style="width:6%;"><i class="fas fa-list-ol"></i>&nbsp商品編號</th>
@@ -493,6 +500,8 @@
     <th style="width:15%;"><i class="fas fa-image"></i>&nbsp商品圖片</th>
     <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp商品庫存</th>
     <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp商品價錢</th>
+    <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp銷售量</th>
+    <th style="width:10%;"><i class="far fa-calendar-alt"></i>&nbsp商品瀏覽量</th>
     <th style="width:10%;"><i class="far fa-clipboard"></i>&nbsp商品類別</th>
     <th style="width:20%;"><i class="fas fa-file-alt"></i>&nbsp上傳時間</th>
     <th style="width:20%;"><i class="fas fa-file-alt"></i>&nbsp商品狀態</th>
@@ -509,6 +518,8 @@
   				   src="<c:url value='/getPicture/${product.productId}' />" /></td>
   	<td>${product.stock}</td>			   
     <td>${product.price}</td>
+    <td>${product.sales}</td>
+    <td>${product.views}</td>
     <td>${product.category}</td>
     <td>${product.insertTime}</td>
     <td>${product.status}</td>
@@ -522,6 +533,7 @@
 </div>
 </div>
 </section>
+	<span style="font-size:30px; display:block;text-align: center; font-weight:bold;">商品留言</span>
 
 
 

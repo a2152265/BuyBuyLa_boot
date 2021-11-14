@@ -1,22 +1,25 @@
 package com.web.product_11.controller;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 
-import org.apache.tomcat.util.json.JSONParser;
+import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -89,39 +92,11 @@ public class ProductController {
 
 
 	//顯示所有商品
-	@GetMapping("/products")
-	public String productList(@ModelAttribute("OrderItemCount") String buyer,Model model) {
-
-		List<Product> beans = productservice.getAllProducts();
-		model.addAttribute("products", beans);
-		
-		
-		System.out.println("進入首頁La");
-		System.out.println("haha");
-		List<Product> allProduct = productservice.getAllProducts();
-		System.out.println("首頁の商品列表展示中ing.....");
-		model.addAttribute("products", allProduct);
-		model.addAttribute("categoryList", productservice.getAllCategories());
-		
-		//商品顯示(依照商品上傳時間、上架顯示)
-		List<Product> ascProduct = productservice.productOrderByInsertTime();
-		model.addAttribute("ascProduct", ascProduct);
-		
-		//首頁輪播圖
-		List<Campaign> cambeans = campaignService.findAll();
-		model.addAttribute("campaignss",cambeans);
-		model.addAttribute("campaignsizes",cambeans.size());
-		
-		System.out.println("/*/*/*//*/*/*/*/*/*/*/*/*");
-		System.out.println(buyer);
-		//從購物車找該買家總購買商品數
-		List<Cart> cart = cartService.addToRecord(buyer);
-		model.addAttribute("cart", cart);	
-
-		
-		return "index";
-		
-		
+	@GetMapping("/allProducts")
+	public String productList(Model model) {
+		List<Product> allProducts = productservice.productOrderByInsertTime();
+		model.addAttribute("allProducts", allProducts);
+		return "product_11/products_all";
 	}
 	
 	
@@ -140,14 +115,16 @@ public class ProductController {
 				model.addAttribute("products", beans);
 				
 				//商品種類圖表
-				String[] categoryArray=new String[] {"男生衣服","運動健身","女生衣服","寵物","其他"};
+				String[] categoryArray=new String[] {"手機平板與周邊","運動健身","生活用品","寵物","其他"};
 				String c = "";
+
 				for (String category : categoryArray) {
 					Long countByCategory = productservice.countByCategory(category);
 					c += countByCategory+",";	
 				}
 				
 				model.addAttribute("category",c);
+
 				
 				//商品狀態圖表
 				String[] statusArray=new String[] {"上架中","待審核","審核失敗"};
@@ -158,7 +135,22 @@ public class ProductController {
 				}
 				model.addAttribute("productStatus",s);
 				
-
+				//商品會賣家圖表
+				String seller="";
+				System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+				List<String> productSeller = productservice.getProductSeller();
+				System.out.println("!!!!!!!!");
+				String[] sellerArray=new String[] {productSeller.get(0),productSeller.get(1),productSeller.get(2)};
+				System.out.println("~~~~~~~~~~~"+sellerArray[0]);
+				for(String pSeller:sellerArray) {
+					Long countBySeller = productservice.countBySeller(pSeller);
+					seller+=countBySeller+",";
+				}
+				model.addAttribute("sellerNo1", productSeller.get(0));
+				model.addAttribute("sellerNo2", productSeller.get(1));
+				model.addAttribute("sellerNo3", productSeller.get(2));
+				model.addAttribute("seller", seller);
+				
 				
 			return "product_11/manage/products";
 					
@@ -208,13 +200,35 @@ public class ProductController {
 		//商品上架成功(管理者)寄信
 		@GetMapping("/launched_addaddress")
 		public ResponseEntity<String> launchedEmail(
-				@ModelAttribute("loginSession") membershipInformationBean mb2
-				) {
-			SimpleMailMessage message =new SimpleMailMessage();
-			message.setTo(mb2.getUserEmail());  //測試用我的
-			message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
-			message.setText("您好 : "+mb2.getUserName()+"\r\n歡迎光臨BuyByLA  "+"您的商品已經審核成功。");
+				@ModelAttribute("loginSession") membershipInformationBean mb2,
+				 @RequestParam("productIds") String productIds
 
+				) {
+			System.out.println("準備寄信---------------------------------");
+		
+			String[] productIds_line = productIds.split(",");
+			
+
+			SimpleMailMessage message =new SimpleMailMessage();
+			for(int i=0;i<productIds_line.length;i++) {
+				int pId = Integer.parseInt(productIds_line[i]);
+				Product productById = productservice.getProductById(pId);
+				message.setTo(productById.getSeller());  //測試用我的
+				message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
+				message.setText(
+				"您好 : "+mb2.getUserName()+"\r\n歡迎光臨BuyByLA購物商城 "+
+				"您的商品已經審核成功。"
+				+ "商品資訊如下:"
+				+ "商品代號:"+productById.getProductId()
+				+ "商品名稱:"+productById.getProductName()
+				+ "提醒您，商品資訊請照實填寫"
+				+ "如對商品上下架審核結果有疑問，請聯絡客服，謝謝您，祝您生意興榮。"
+						);
+				
+			}
+			
+			
+			
 			mailSender.send(message);
 			System.out.println("------------------已寄出------------------ --->code=");
 			 return new ResponseEntity<String>(HttpStatus.OK);
@@ -281,8 +295,11 @@ public class ProductController {
 				membershipInformationBean member = memberService.findMemberData(mb.getUserEmail());			
 				membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
 				System.out.println("!!!!!!!!!!!!!"+product.getProductId());
-				ProductFavorite producrFavorite = productFavoriteService.findByMidAndPid(member.getId(), product.getProductId());
-				model.addAttribute("producrFavorite", producrFavorite); 
+				if(productFavoriteService.findByMidAndPid(member.getId(), product.getProductId())!=null) {
+					ProductFavorite producrFavorite = productFavoriteService.findByMidAndPid(member.getId(), product.getProductId());
+					model.addAttribute("producrFavorite", producrFavorite); 
+					
+				}
 				model.addAttribute("memberUiDefault",mBean);
 
 			
@@ -368,6 +385,8 @@ public class ProductController {
 		       p.setDiscount(1.0);
 	
 		       p.setFavoriteCount(0);
+		       
+		       p.setPoint(0);
 		       
 			if(!p.getProductImage().isEmpty()) {
 			// 於productImage取得照片
@@ -546,6 +565,7 @@ public class ProductController {
 				@RequestParam("discount") String discount,
 				@RequestParam("views") String views,
 				@RequestParam("favoriteCount") String favoriteCount,
+				@RequestParam("point") String point,
 				@ModelAttribute("product") Product p,
 				@ModelAttribute("loginSession") membershipInformationBean loginMb,
 				
@@ -561,6 +581,7 @@ public class ProductController {
 			       p.setDiscount(Double.parseDouble(discount));
 			       p.setViews(Integer.parseInt(views));
 			       p.setFavoriteCount(Integer.parseInt(favoriteCount));
+			       p.setFavoriteCount(Integer.parseInt(point));
 				if(!p.getProductImage().isEmpty()) {
 					
 					
@@ -723,5 +744,26 @@ public class ProductController {
 				}
 				
 
+		//匯出資料
+				@GetMapping("/Csv")
+			     public ResponseEntity<String> exportProduct() throws SQLException, IOException {
+			      
+			      FileOutputStream fos=new FileOutputStream(new File("C:/CSV/products.json"));
+			      OutputStreamWriter osw=new OutputStreamWriter(fos);
+			      BufferedWriter fileWriter = new BufferedWriter(osw);
+			         fileWriter.write("商品代號,商品名稱,新增時間,商品價格,商品描述,商品銷售量,商品賣家,商品狀態,商品庫存,商品瀏覽");
+			         List<Product> pBean= productservice.getAllProducts();
+			         for ( Product p: pBean) {
+			          String line = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",
+			           p.getProductId(),p.getProductName(),p.getInsertTime(),p.getPrice(),p.getProductInfo(),p.getSales(),p.getSeller(),p.getStatus(),p.getStock(),p.getViews());
+			           System.out.println("@@@@@@@@@@@@@@@@12346"+p.getProductName());
+			                   fileWriter.newLine();
+			                   fileWriter.write(line);                         
+			      }
+			         fileWriter.close();
+			         osw.close();
+			         return new ResponseEntity<String>(HttpStatus.OK);
+			     }
+				
 				
 }

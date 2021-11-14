@@ -1,31 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <link rel="stylesheet" href="member.css">
-    <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
-    
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>賣家中心</title>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
- 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-<style>
- body {
+
+<meta charset="UTF-8">
+<link rel='stylesheet' href="<c:url value='/css/styles.css' />"  type="text/css" />
+<link rel="stylesheet"
+    href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<style type="text/css">
+  body {
             font-family: "微軟正黑體";
-            background-color: rgba(147, 156, 165, 0.2);
+            background-color: rgb(203, 218, 218);
             align-items: center;
             justify-content: center;
             position: relative;
@@ -59,7 +47,7 @@
         form {
             background-color: rgb(255, 255, 255, 0.8);
             margin: 20px auto;
-            max-width: 800px;
+            max-width: 600px;
             padding: 80px;
             /* border-radius: 20px; */
             box-shadow: 0 10px 10px 0 rgba(177, 175, 175, 0.2);
@@ -138,7 +126,7 @@
 
         .wrap {
             text-align: center;
-             margin-top: 50px; 
+            margin-top: 50px;
         }
 
         .button {
@@ -173,39 +161,26 @@
 		/*padding-bottom: 100px;*/
 		
 	}
+	
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<title>Products</title>
 </head>
 <body>
-   
-    <div class="wrapper">
-       <div class="section">
+    <section>
+        <div class="container">
+            <h1 style="text-align: center">
+         		更新產品資料
+            </h1>
+        </div>
+    </section>
 
-
-
-    <div class="top_navbar">
-      <div class="hamburger">
-        <a href="#">
-          <i class="fas fa-bars"></i>
-        </a>
-      </div>
-    </div>
-
-
-
-
-    <div class="container">
-      <span style="font-size:30px;  font-weight:bold;">更新商品</span>
- 
-      </div>
-
-  
-
-  <section class="page-content">
-
-
-	<div class="table-responsive">
-	<div class="table-wrapper">
-		 <form:form method='POST' modelAttribute="product" class='form-horizontal'
+    <hr style="height: 1px; border: none; color: #333; background-color: #333;">
+    <section class="container">
+        <!--       三個地方要完全一樣 -->
+      
+  				   
+        <form:form method='POST' modelAttribute="product" class='form-horizontal'
         	enctype="multipart/form-data">
         	<div>
 			<img  style="display:block; margin:auto;" width='300' height='300' id="demo" class="normalFace" onclick="fileSelect();"
@@ -272,89 +247,13 @@
                             value="送出" />
 	</div> 
         </form:form>
-</div>
-</div>
-</section>
-
-
-
-  </div>
-        <div class="sidebar">
-            <div class="profile">
-                <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
-                <h3></h3>
-                <p>Designer</p>
-            </div>
-            <ul>
-                <li>
-                    <a href="<c:url value='/' />" class="active">
-                        <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='' />">
-                        <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">訂單管理</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/products/seller' />">
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
-                        <span class="item">商品管理</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">數據中心</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/member/seller_Ui' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item">帳號管理</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/member/changePwd' />">
-                        <span class="icon"><i class="fas fa-chart-line"></i></span>
-                        <span class="item">更改密碼</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/try/delete' />">
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">刪除會員</span>
-                    </a>
-                </li>
-
-                <!-- /*減去footer高度*/ -->
-                <li style="min-height: calc(100% - 50px); ">
-                    <a href="<c:url value='/try/delete' />">
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">隱私權政策</span>
-                    </a>
-                </li>
-                
-            </ul>
-        </div>
-        
-    </div>
-    </div>	
-
+    </section>
    
-
-
+    
+    
+    
     <script>
-    
-    var hamburger = document.querySelector(".hamburger");
-    hamburger.addEventListener("click", function(){
-      document.querySelector("body").classList.toggle("active");
-    })
-    
-    
-   $('#productImage').change(function() {
+    $('#productImage').change(function() {
     	  var file = $('#productImage')[0].files[0];
     	  var reader = new FileReader;
     	  reader.onload = function(e) {
@@ -370,9 +269,9 @@
     function fileSelected() {
       // 檔案選擇後觸發次函式
     }
-  
-  
+    
+
     </script>
- 
+    
 </body>
 </html>
