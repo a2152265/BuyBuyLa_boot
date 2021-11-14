@@ -908,7 +908,7 @@ $('input:checkbox[name="selectall"]').click(function(){
  });
  
  $('#csv').click(function () {
-	   var url = "<c:url value='/Csv'/>";
+	   var url = "<c:url value='/productCsv'/>";
 	   $.ajax({
 	  url: url,
 	  type: 'get',

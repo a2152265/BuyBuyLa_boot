@@ -784,7 +784,7 @@ public class ProductController {
 				
 
 		//匯出資料
-				@GetMapping("/Csv")
+				@GetMapping("/productCsv")
 			     public ResponseEntity<String> exportProduct() throws SQLException, IOException {
 			      
 			      FileOutputStream fos=new FileOutputStream(new File("C:/CSV/products.json"));
