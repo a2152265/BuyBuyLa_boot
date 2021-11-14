@@ -420,7 +420,7 @@ font-size:17px
         </a>
       </li>
       <li>
-        <a href="./admincampaign">
+        <a href="../../admincampaign">
           <svg>
             <use xlink:href="#collection"></use>
           </svg>
@@ -625,10 +625,10 @@ if (localStorage.getItem("dark-mode") === "false") {
 switchInput.addEventListener("input", function () {	
   html.classList.toggle(lightModeClass);
   if (html.classList.contains(lightModeClass)) {
-    switchLabelText.textContent = "Light";
+    switchLabelText.textContent = "白天模式";
     localStorage.setItem("dark-mode", "false");
   } else {
-    switchLabelText.textContent = "Dark";
+    switchLabelText.textContent = "暗黑模式";
     localStorage.setItem("dark-mode", "true");
   }
 });

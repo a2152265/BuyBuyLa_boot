@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="vendors/owl-carousel/owl.theme.default.min.css"  type="text/css">
   <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css"  type="text/css">
    <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css"  type="text/css">
-<!--   <link rel='stylesheet' href="css/campaigns.css"  > -->
+  <link rel='stylesheet' href="css/campaigns.css"  >
   <link rel="stylesheet" href="css/productstyle.css"  type="text/css">
   <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
 
