@@ -97,7 +97,7 @@ $(document).ready(function() {
 			success:function(datas){
 				$('.allArticles').html('');
 				$('.allArticles').append(
-				"<ol class='breadcrumb'><li class='breadcrumb-item active' aria-current='page'>搜尋有關"+searchText+"的結果</li></ol>"+
+				"<ol class='breadcrumb' style='width:400px;font-size:20px;'><li class='breadcrumb-item active' aria-current='page'>搜尋有關 "+searchText+" 的結果</li></ol>"+
 				"<br>");
 				for(i=0;i<datas.length;i++){
 					$('.allArticles').append(

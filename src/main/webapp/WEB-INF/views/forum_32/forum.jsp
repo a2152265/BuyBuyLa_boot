@@ -84,12 +84,10 @@
 							</c:if>
 						</ul>
 						<ul class="nav-shop">
-							<li class="nav-item">
-
+						<li class="nav-item">
 						<input type='text' class='form:input-large serachText' list="browsers" placeholder="搜尋作者" />
  						<datalist id="browsers"></datalist>
  						<button class='searchBtn'><i class="ti-search"></i></button>
-
 						</ul>
 					</div>
 				</div>
@@ -123,7 +121,23 @@
 					<div class="categories_post">
 						<img class="card-img rounded-0"
 							style="width: 200px; height: 150px"
-							src="https://picsum.photos/200/150">
+							src="img/forum/473-200x151.jpg" alt="post">
+						<div class="categories_details">
+							<div class="categories_text">
+								<a href="<c:url value='/announcement' />">
+									<h5>官方最新公告</h5>
+								</a>
+								<div class="border_line"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+					<div class="categories_post">
+						<img class="card-img rounded-0"
+							style="width: 200px; height: 150px"
+							src="img/forum/1026-200x150.jpg">
+<!-- 							src="https://picsum.photos/200/150"> -->
 						<div class="categories_details">
 							<div class="categories_text">
 								<a href="<c:url value='/featured' />">
@@ -138,7 +152,7 @@
 					<div class="categories_post">
 						<img class="card-img rounded-0"
 							style="width: 200px; height: 150px"
-							src="https://picsum.photos/200/152" alt="post">
+							src="img/forum/692-200x152.jpg" alt="post">
 						<div class="categories_details">
 							<div class="categories_text">
 								<a href="<c:url value='/sellerChat' />">
@@ -149,74 +163,47 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
-					<div class="categories_post">
-						<img class="card-img rounded-0"
-							style="width: 200px; height: 150px"
-							src="https://picsum.photos/200/151" alt="post">
-						<div class="categories_details">
-							<div class="categories_text">
-								<a href="<c:url value='/noviceSeller' />">
-									<h5>新手賣家發問</h5>
-								</a>
-								<div class="border_line"></div>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
+			
 	</section>
 	<!--================Blog Categorie Area =================-->
-
 
 	<!--================Blog Area =================-->
 	<section class="blog_area">
 		<div class="container">
 			<div class="row">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-8">
+					<ol class="breadcrumb bg-white">
+						<li class="breadcrumb-item"><a href="#">BuyBuyLa</a></li>
+						<li class="breadcrumb-item" aria-current="page">${Breadcrumb}</li>
+					</ol>
+				</div>
+				
 				<div class="col-lg-4">
 					<div class="blog_right_sidebar">
 <!-- 						<aside class="single_sidebar_widget search_widget"> -->
 <!-- 							<div class="input-group"> -->
-<!-- 								<input type="text" class="form-control searchUserName" placeholder="搜尋作者"> -->
+<!-- 								<input type="text" class="form-control serachText" list="browsers" placeholder="搜尋作者"> -->
+<!-- 								<datalist id="browsers"></datalist> -->
 <!-- 								<span class="input-group-btn"> -->
-<!-- 									<button class="btn btn-default" type="button"> -->
+<!-- 									<button class="btn btn-default searchBtn" type="button"> -->
 <!-- 										<i class="lnr lnr-magnifier"></i> -->
 <!-- 									</button> -->
 <!-- 								</span> -->
 <!-- 							</div> -->
-<!-- 							/input-group -->
 <!-- 							<div class="br"></div> -->
 <!-- 						</aside> -->
 						
 						<!-- ================ 發表討論 ================= -->
-						<aside class="single_sidebar_widget popular_post_widget">
-							<h3 class="widget_title addNewForum" data-bs-toggle="modal"
+						<aside class="single_sidebar_widget popular_post_widget addNewForumBlock">
+							<h3 class="widget_title addNewForum" data-bs-toggle="modal" style='cursor:pointer;'
 								data-bs-target="#Modal">發表討論</h3>
 							<div class="br"></div>
 						</aside>
 						
-<!-- 		<input type="button" value="發起討論" class="widget_title btn-warning addNewForum" -->
-<!-- 								style="margin-left:50px;border-radius:10px;width: 154px; border: none;" data-bs-toggle="modal" -->
-<!-- 								data-bs-target="#Modal"> -->
-						
-						<!-- ================ 熱門文章 ================= -->
-						<aside class="single_sidebar_widget popular_post_widget">
-							<h3 class="widget_title hotArticles">熱門文章</h3>
-							<div id="hotArticles"></div>
-							<div class="br"></div>
-						</aside>
-						<!-- ================================= -->
-						
-						<!-- ================ 最新帖子 ================= -->
-						<aside class="single_sidebar_widget popular_post_widget">
-							<h3 class="widget_title">最新帖子</h3>
-							<div id="newArticles"></div>
-							<div class="br"></div>
-						</aside>
-						<!-- ================================= -->
-						
-						<!-- ================ 標籤分類 ================= -->
+				<!-- ================ 標籤分類 ================= -->
 						<aside class="single_sidebar_widget post_category_widget">
 							<h4 class="widget_title">標籤</h4>
 							<ul class="list cat-list">
@@ -245,41 +232,36 @@
 							<div class="br"></div>
 						</aside>
 						<!-- ================================= -->
+						<!-- ================ 熱門文章 ================= -->
+						<aside class="single_sidebar_widget popular_post_widget">
+							<h3 class="widget_title hotArticles">熱門文章</h3>
+							<div id="hotArticles"></div>
+							<div class="br"></div>
+						</aside>
+						<!-- ================================= -->
+						
+						<!-- ================ 最新帖子 ================= -->
+						<aside class="single_sidebar_widget popular_post_widget">
+							<h3 class="widget_title">最新帖子</h3>
+							<div id="newArticles"></div>
+							<div class="br"></div>
+						</aside>
+						<!-- ================================= -->
+						
 					</div>
 				</div>
 				<!-- ================================= -->
-				
-				<!-- ================ 發起討論 ================= -->
 				<div class="col-lg-8">
-<!-- 						<nav class="bg-light" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb"> -->
-<!-- 						  <ol class="breadcrumb"> -->
-<!-- 						    <li class="breadcrumb-item"><a href="#">BuyBuyLa</a></li> -->
-<%-- 						    <li class="breadcrumb-item active" aria-current="page">${Breadcrumb}</li> --%>
-<!-- 						  </ol> -->
-<!-- 						  	<select class="right" onChange="location = this.options[this.selectedIndex].value;"> -->
-<%-- 						    <option value="forum">${newForum}</option> --%>
-<%-- 						    <option value="forumHot">${hotForum}</option> --%>
-<!-- 						    </select> -->
-<!-- 						  		<input type="button" value="發起討論" class="widget_title btn-warning addNewForum" -->
-<!-- 								style="margin-left:50px;border-radius:10px;width: 154px; border: none;" data-bs-toggle="modal" -->
-<!-- 								data-bs-target="#Modal"> -->
-<!-- 						</nav> -->
-				<!-- ================================= -->
-				
+				<div>
+					<select class="right" onChange="location = this.options[this.selectedIndex].value;">
+					<option value="forum">最新</option>
+					<option value="forumHot">最熱門</option>
+					</select>
+				</div>
+					
 				<!-- ================ 帖子 ================= -->
 					<div class="blog_left_sidebar bg-light allArticles">
 						<c:forEach var='Articles' items='${Articles}' varStatus='c'>
-						<c:if test="${c.count==1}"   >
-							<ol class="breadcrumb">
-						    <li class="breadcrumb-item"><a href="#">BuyBuyLa</a></li>
-						    <li class="breadcrumb-item active" aria-current="page">${Breadcrumb}</li>
-						  </ol>
-						  	<select class="right" onChange="location = this.options[this.selectedIndex].value;">
-						    <option value="forum">最新</option>
-						    <option value="forumHot">最熱門</option>
-						    </select>
-<!-- 						<br><br><hr style='margin:0px'> -->
-						</c:if>
 							<article class="row blog_item bg-light" style="margin: 0px">
 								<div class="col-md-12">
 									<div class="blog_post">
@@ -292,13 +274,13 @@
 												</span>
 											</div>
 											<div>
-											<a href="<c:url value='/detailed' />?id=${Articles.id}"><h2>${Articles.title}</h2></a>
+											<h2><a style='color:black' href="<c:url value='/detailed' />?id=${Articles.id}">${Articles.title}</a></h2>
 											<div class="box"><div class="ellipsis">${Articles.content}</div></div>
 											<a style="margin-left: 300px;" class="button button-blog addViewQty" id="${Articles.id}" href="<c:url value='/detailed' />?id=${Articles.id}">View More</a>
 											</div>
 												<br> 
-											<span style="color: #00BFA5; font-size: 14px">${Articles.tag}</span>
-											<span><a><img style="width: 15px; margin-left: 300px" src="img/forum/likeView.png">
+											<span style="color: #00BFA5; font-size: 14px">${Articles.tag} </span>
+											<span><a><img style="width: 15px; margin-left: 50px" src="img/forum/likeView.png">
 											<span style="font-size: 14px; margin-left: 0px;">${Articles.likeQty} Likes</span></a></span>
 											<span><a><img style="width: 15px; margin-left: 10px" src="img/forum/speech-bubble.png">
 											<span style="font-size: 14px; margin-left: 5px;">${Articles.messageQty} Comments</span></a></span>
@@ -312,7 +294,8 @@
 								</div>
 							</article>
 						</c:forEach>
-						<!-- ================================= -->
+						
+						
 						<!-- ================ 發起討論Model ================= -->
 						<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog modal-lg" style="margin-top: 90px">
@@ -355,7 +338,6 @@
 									</form:form>
 								</div>
 							</div>
-							<!-- ================================= -->
 						
 						<!-- ================ 分頁 ================= -->
 						<nav class="blog-pagination justify-content-center d-flex" style="padding-bottom: 0px;">
@@ -388,6 +370,8 @@
 	<br>
 	<br>
 	<!--================Blog Area =================-->
+	
+	
 	<!--================Instagram Area =================-->
 	<section class="instagram_area">
 		<div class="container box_1620">
