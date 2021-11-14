@@ -318,7 +318,7 @@
 							<div class="comment-form" id="reply" style="margin:0px;border-radius:20px">
 							<form id="reportMessageForm" style="background-color:#fafaff;border-radius:5%;padding:15px">
 								<span style="font-size:30px">檢舉評論</span><br>
-									<select id="reportSelect" class="right">
+									<select id="reportSelect" class="">
 										<option>有不當的內容</option>
 										<option>垃圾訊息</option>
 										<option>冒犯他人</option>

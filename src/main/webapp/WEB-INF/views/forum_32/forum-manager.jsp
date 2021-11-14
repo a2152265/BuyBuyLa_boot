@@ -16,7 +16,7 @@
 			<button type="button" style="margin-left: 200px"
 				class="btn btn-primary" data-bs-toggle="modal"
 				data-bs-target="#ManagerModal">發起公告</button>
-			<table id="example" class="display" style="width: 100%">
+			<table id="forum" class="display" style="width: 100%">
 				<thead>
 					<tr>
 						<th>編號</th>
@@ -120,7 +120,7 @@
 											</div>
 											<div class="modal-body">
 
-												<table id="example" class="display" style="width: 100%">
+												<table id="message" class="display" style="width: 100%">
 													<thead>
 														<tr>
 															<th>評論編號</th>
@@ -183,7 +183,7 @@
 													<form:input path="id" id="updid" type="hidden" />
 													<form:input path="tag" id="updTag" type="hidden" />
 													<form:textarea path="content"
-														class="updContent display-none" />
+														class="updManagerContent display-none" />
 													<form:input path="date" id="nowUpdDate" type="hidden" />
 
 													<form:input path="messageQty" class="editMessageQty"
@@ -213,14 +213,14 @@
 															aria-describedby="inputGroup-sizing-lg" />
 														<br>
 
-														<div id="summernote"></div>
+														<div id="editesummernote"></div>
 														<div class="mb-3"></div>
 													</div>
 												</div>
 												<div class="modal-footer">
 												<input type="button" class="editManagerNewForumKeyInput btn btn-warning" value="一鍵輸入">
 													<button id="updSubmit" type="submit"
-														class="btn btn-primary">送出</button>
+														class="btn btn-primary updManagerSubmit">送出</button>
 													<button type="button" class="btn btn-secondary"
 														data-bs-dismiss="modal">取消</button>
 												</div>
@@ -241,7 +241,7 @@
 			<br><br><br>
 			<hr>
 			<h1>評論檢舉</h1>
-			<table id="example2" class="display" style="width: 100%">
+			<table id="messageReport" class="display" style="width: 100%">
 				<thead>
 					<tr>
 						<th style="display:none">檢舉編號</th>
@@ -283,6 +283,7 @@
 	</div>
 
 </section>
+
 	
 	<!-- jquery -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -290,3 +291,4 @@
 	<!-- summernote -->
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	<script src='../js/forum_32/forum_summernote_32.js'></script>
+	

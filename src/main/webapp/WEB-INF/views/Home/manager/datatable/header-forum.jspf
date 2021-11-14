@@ -56,10 +56,10 @@
 <%-- <link rel='stylesheet' href="<spring:url value='/css/member.css' />" /> --%>
     <script>
         $(document).ready(function () {
-            jQuery('#example').DataTable();
-            jQuery('#example2').DataTable();
+            jQuery('#forum').DataTable();
+            jQuery('#message').DataTable();
+            jQuery('#messageReport').DataTable();
         });
-
 
     </script>
 

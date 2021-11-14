@@ -63,3 +63,15 @@ $('#managerInsSubmit').on('click', function() {
 		return false;
 	}
 })
+$('.updManagerSubmit').on('click', function() {
+	var markupStr = $('#editesummernote').summernote('code');
+	$('.updManagerContent').text(markupStr);
+	if ($('#editesummernote').summernote('isEmpty')) {
+		Swal.fire({
+		  icon: 'error',
+		  title: 'Oops...',
+		  text: '請輸入內容!'
+		})
+		return false;
+	}
+})

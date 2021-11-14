@@ -45,6 +45,5 @@ $(function() {
 			window.location.href ="try/login";
 		})
 	}
-	
-
 })
+

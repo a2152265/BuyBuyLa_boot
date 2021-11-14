@@ -35,13 +35,13 @@ $(document).ready(function() {
 			},
 			success: function(data) {
 				$('#updid').val(dataid);
-				$('#summernote').summernote('code', data['content']);
+				$('#editesummernote').summernote('code', data['content']);
 				$('.title-fontsize').val(data['title']);
 				$('.userNickname').val(data['userNickname']);
 				$('.userEmail').val(data['userEmail']);
 				$('.userName').val(data['userName']);
 				$('.picId').val(data['picId']);
-				$('.topArticle').val(data['topArticle']);
+				$('.editTopArticle').val(data['topArticle']);
 				$('.editMessageQty').val(data['messageQty']);
 				$('.editViewQty').val(data['viewQty']);
 				$('.editLikeQty').val(data['likeQty']);
