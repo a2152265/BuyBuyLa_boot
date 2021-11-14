@@ -299,13 +299,21 @@ public class ProductController {
 					ProductFavorite producrFavorite = productFavoriteService.findByMidAndPid(member.getId(), product.getProductId());
 					model.addAttribute("producrFavorite", producrFavorite); 
 					
+					
+					
 				}
+	
 				model.addAttribute("memberUiDefault",mBean);
-
+				
+				
 			
 			}else {
+				
 				membershipInformationBean mBean=memberService.findMemberData(product.getSeller());
 				model.addAttribute("memberUiDefault",mBean);
+				
+				
+				
 			}
 			
 			
@@ -323,8 +331,37 @@ public class ProductController {
 			model.addAttribute("sellerProduct", productBySellerList);
 			productservice.updateViews(id);
 			
+			//商品狀態圖表
+			Integer[] starArray=new Integer[] {5,4,3,2,1};
+			ArrayList<Long> arrayList = new ArrayList<>();
+		
+			for (Integer star : starArray) {
+				
+				
+					Long countByStar = productCommentService.countByStar(star,id);
+					arrayList.add(countByStar);
+					System.out.println("^^^^^^^^^^^"+countByStar);
+					
+				
+			}
 			
+			//總星星平價計算
+			System.out.println("countAllComment"+productCommentService.countAllComment());
+			if(productCommentService.SumAllStar(id)!=null) {
+				
+				Long sumAllStar = productCommentService.SumAllStar(id);
+				if(productCommentService.countAllCommentByPid(id)!=0) {
+					Long starScore = sumAllStar/productCommentService.countAllCommentByPid(id);
+					System.out.println("sumAllStar"+sumAllStar);
+					System.out.println("starScore"+starScore);
+					model.addAttribute("starScore", starScore);	
+					
+				}
+			}
+			model.addAttribute("starcount", productCommentService.countAllCommentByPid(id));	
+			model.addAttribute("star", arrayList);	
 			
+		
 			
 			
 			return "product_11/product";
@@ -651,11 +688,13 @@ public class ProductController {
 						@RequestParam("userEmail") String userEmail,
 						@RequestParam("content") String content,
 						@RequestParam("productId") String productId,
+						@RequestParam("star") String star,
 						Model model) {
 					ProductComment productComment = new ProductComment();
 					productComment.setContent(content);
 					productComment.setUserEmail(userEmail);
 					productComment.setProductId(Integer.parseInt(productId));
+					productComment.setStar(Integer.parseInt(star));
 					
 					ProductComment comment = productCommentService.findByUserEmailandProductId(userEmail, Integer.parseInt(productId));
 					if(comment !=null) {

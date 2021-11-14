@@ -12,4 +12,14 @@ public interface ProductCommentService {
 	ProductComment findByUserEmailandProductId(String userEmail,Integer productId);
 	
 	List<ProductComment>findByProductId(Integer productId);
+	
+	Long countByStar(Integer star,Integer productId);
+	
+	Integer countAllCommentByPid(Integer productId);
+	
+	Long countAllComment();
+	
+	ProductComment findByProductIdAndUserEmail(Integer productId,String userEmail);
+	
+	Long SumAllStar(Integer productId);
 }

@@ -21,7 +21,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>會員中心</title>
+    <title>BuyBuyLa | 會員中心</title>
     <style>
         <style>
 a{text-decoration:none}
@@ -39,31 +39,7 @@ a:hover{text-decoration:none}
      border: 0.5px solid gray;
      border-radius: 10px;
  } 
-/* .word{ */
-/* z-index:1;  */
-/*  position:relative; */
-/*  border:3px solid black; */
-/*   float:top;  */
-/* } */
-/* .col-md-4{ */
-/* z-index:30;  */
-/*  position:absoulte; */
-/*   border:3px solid black; */
-/* /*   display:flex; */ */
-/* } */
 
-/* img{ */
-/* 	 -webkit-filter: grayscale(100%);  */
-/* 	 -moz-filter: grayscale(100%);  */
-/* 	 -ms-filter: grayscale(100%);  */
-/* 	 -o-filter: grayscale(100%);  */
-/* 	 filter: grayscale(100%);  */
-/* 	 filter: gray;  */
-/*      position: relative; */
-/*      z-index: 1; */
-/*      border: 0.5px solid gray; */
-/*      border-radius: 10px; */
-/*  } */
  .word{
       position: absolute;
      /* border: 3px solid black; */
@@ -99,14 +75,14 @@ a:hover{text-decoration:none}
  
     </style>
 </head>
-<body>
+<body style="background-color: rgb(70,130,180,0.2);">
    
     <div class="wrapper">
        <div class="section">
 
 
 
-    <div class="top_navbar">
+    <div class="top_navbar" style="background-color: rgb(70,130,180);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -133,30 +109,7 @@ a:hover{text-decoration:none}
 </nav>
 
 
-        <!-- <h1>WE Will BuyBuyLA your money</h1>
-        <h2>Flexbo -> 商品狀態x</h2>
-        <nav>
-            <ul class="flex-nav">
-                <li><a href="#">未付款</a></li>
-                <li><a href="#">已付款</a></li>
-                <li><a href="#">已出貨</a></li>
-                <li><a href="#">運送中</a></li>
-                <li><a href="#">已送達</a></li>
-                <li><a href="#">已完成</a></li>
-                <li><a href="#">取消交易</a></li>
-            </ul>
-        </nav> -->
-        
-  
-
-
-
-
-<!--     <div class="container"> -->
-<!--       <span style="font-size:30px;  font-weight:bold;">會員專區</span> -->
-<!--       </div> -->
-<!-- 		<div style="margin-left:50px;margin-top:56px; font-weight:bolder;size:16px">	  <img   > -->
-<!-- 	<span style="font-size:24px;"><span style="color:red"></span></span></div> -->
+     
     <div style="text-align: center ;margin-top:0px">
     
     <c:choose>
@@ -238,28 +191,6 @@ a:hover{text-decoration:none}
 
 
 
-<%--  <c:if test="${coupon.couponStatus==已使用}"> --%>
-<%-- 	        <c:forEach items='${couponList}' var='coupon'> --%>
-<!--       <div class="card mb-3" style="height:120px;max-width: 350px;margin-left:100px ;float:left"> -->
-<!--   <div class="row g-0"> -->
-  	
-<!--     <div class="col-md-4"> -->
-    
-<%--       <img src="<c:url value='/images/shippingVoucher.jpg' />" alt="..." style="border-radius:3px "width=347.5px height=117px > --%>
-<!--     </div> -->
-<!--     <div class="col-md-8"> -->
-<!--       <div class="card-body" style="margin-left:30px"> -->
-<%--         <div class="card-text"style="font-size:20px;font-weight:bolder;color:white"> ${coupon.couponName}</div> --%>
-<%--         <div class="card-text"style="font-weight:bolder;color:red">${coupon.couponStatus}</div> --%>
-<%--         <div class="card-text"><small class="text-muted">號碼:${coupon.couponNumber}</small></div> --%>
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </div> -->
-<%--       </c:forEach> --%>
-<%-- </c:if> --%>
-
-
 
   </div>
 
@@ -267,7 +198,7 @@ a:hover{text-decoration:none}
 
 
   </div>
-        <div class="sidebar">
+        <div class="sidebar" style="background-color: rgb(70,130,180);">
             <div class="profile">
              <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
                 <!-- 讀取圖片 -->
@@ -276,76 +207,61 @@ a:hover{text-decoration:none}
             </div>
             <ul>
                 <li>
-                    <a href="<c:url value='/' />" class="active">
+                    <a href="<c:url value='/' />">
                         <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">回首頁</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/selectLsit'/>">
-                        <span class="icon"><i class="fas fa-desktop"></i></span>
-                        <span class="item">購買紀錄</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
-                        <span class="item">  個人主頁</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">討論區</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item">帳號管理</span>
-                    </a>
-                </li>
-                
+                        <span class="item">首頁</span>
+                    </a> 
+                </li>          
                 <li>
                     <a href="<c:url value='/member/evolution' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
                         <span class="item">賣家中心</span>
                     </a>
                 </li>
                 <li>
+                    <a href="<c:url value='/try/member_Ui' />">
+                        <span class="icon"><i class="fas fa-user-edit"></i></span>
+                        <span class="item">會員資料</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<c:url value='/selectLsit'/>">
+                        <span class="icon"><i class="far fa-clipboard"></i></span>
+                        <span class="item">購買紀錄</span>
+                    </a>
+                </li>
+                                
+                <li>
                     <a href="<c:url value='/member/changePwd_check' />">
-                        <span class="icon"><i class="fas fa-chart-line"></i></span>
+                        <span class="icon"><i class="fas fa-key"></i></span>
                         <span class="item">更改密碼</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='/try/delete' />"  onclick="return(confirm('確認刪除？'))">
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">刪除會員</span>
-                    </a>
-                </li>
-				<!-- 333333333333333336666666666666666666666666666 -->
-				  <li>
-                    <a href="<c:url value='/try/coupon' />">
-                    
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                    <a href="<c:url value='/try/coupon' />" class="active">
+                        <span class="icon"><i class="fas fa-ticket-alt"></i></span>
                         <span class="item">我的折價券</span>
                     </a>
-                 </li>
-                  <li>
+                </li>
+               <li>
                     <a href="<c:url value='/try/point' />">
-                    
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
+                        <span class="icon"><i class="fab fa-btc"></i></span>
                         <span class="item">我的點數</span>
                     </a>
-                 </li>
-                 <!-- 333333333333333336666666666666666666666666666 -->
-                 
+                </li>
+
                 <!-- /*減去footer高度*/ -->
-                <li style="min-height: calc(100% - 50px); ">
-                    <a href="<c:url value='/try/delete' />">
+                <li>
+                    <a href="<c:url value='/member/inschan' />">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">隱私權政策</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                        <span class="item">登出</span>
                     </a>
                 </li>
                 

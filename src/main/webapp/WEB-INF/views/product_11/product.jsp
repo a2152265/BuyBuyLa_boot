@@ -298,32 +298,33 @@
 						<div class="col-lg-6">
 							<div class="row total_rate">
 								<div class="col-6">
-<!-- 									<div class="box_total"> -->
-<!-- 										<h5>Overall</h5> -->
-<!-- 										<h4>4.0</h4> -->
-<!-- 										<h6>(03 Reviews)</h6> -->
-<!-- 									</div> -->
+									<div class="box_total">
+										<h5>商品評分</h5>
+										<h4>${starScore}</h4>
+										<h6>(平均分數)</h6>
+									</div>
 								</div>
 								<div class="col-6">
 									<div class="rating_list">
-<!-- 										<h3>Based on 3 Reviews</h3> -->
-<!-- 										<ul class="list"> -->
-<!-- 											<li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i -->
-<!-- 													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li> -->
-<!-- 											<li><a href="#">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i -->
-<!-- 													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li> -->
-<!-- 											<li><a href="#">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i -->
-<!-- 													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li> -->
-<!-- 											<li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i -->
-<!-- 													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li> -->
-<!-- 											<li><a href="#">1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i -->
-<!-- 													 class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li> -->
-<!-- 										</ul> -->
+										<h3>總共 ${starcount} 則評分</h3>
+										<ul class="list">
+											<li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+													 class="fa fa-star"></i><i class="fa fa-star"></i>${star[0]}</a></li>
+											<li><a href="#">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+													 class="fa fa-star"></i><i class="far fa-star"></i>${star[1]}</a></li>
+											<li><a href="#">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+													 class="far fa-star"></i><i class="far fa-star"></i>${star[2]}</a></li>
+											<li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i
+													 class="far fa-star"></i><i class="far fa-star"></i>${star[3]}</a></li>
+											<li><a href="#">1 Star <i class="fa fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i
+													 class="far fa-star"></i><i class="far fa-star"></i>${star[4]}</a></li>
+										</ul>
 									</div>
 								</div>
 							</div>
 							<div class="review_list">
 								<c:forEach var='productComment' items='${productComment}'>
+								<hr>
 								<div class="review_item">
 									<div class="media">
 										<div class="d-flex">
@@ -331,7 +332,15 @@
 										</div>
 										<div class="media-body">
 											<h4>${productComment.userEmail}</h4>
-<!-- 											<i class="fa fa-star"></i> -->
+<%--  										<c:if test="${memberStar==1}"> --%>
+<!--  											<i class="fa fa-star"></i>  -->
+<%--  										</c:if> --%>
+<%--  											<c:if test="${memberStar==4}"> --%>
+<!--  											<i class="fa fa-star"></i>  -->
+<!--  											<i class="fa fa-star"></i>  -->
+<!--  											<i class="fa fa-star"></i>  -->
+<!--  											<i class="fa fa-star"></i>  -->
+<%--  										</c:if> --%>
 <!-- 											<i class="fa fa-star"></i> -->
 <!-- 											<i class="fa fa-star"></i> -->
 <!-- 											<i class="fa fa-star"></i> -->
@@ -342,6 +351,7 @@
 									<p>${productComment.commentTime}</p>
 								</div>
 								
+							        
 							        </c:forEach>
 							
 							</div>
@@ -349,23 +359,27 @@
 <!-- 						留言評論 -->
 						<div class="col-lg-6">
 							<div class="review_box">
-								<h4>Add a Review</h4>
-								<p>Your Rating:</p>
-								<div>
-									<img src="./images/star.png">
-									<img src="./images/star.png">
-									<img src="./images/star.png">
-									<img src="./images/star.png">
-									<img src="./images/star.png">
-								</div>
-								<p>Outstanding</p>
+								
 			<c:if test="${loginSession.userEmail != null}">
+				
                 <form class="form-contact form-review mt-3">
+                	<h4>新增評論</h4>
+								<p>評分:</p>
+								<div>
+									<img id="1" class="star" src="./images/star.png">
+									<img id="2" class="star" src="./images/star.png">
+									<img id="3" class="star"src="./images/star.png">
+									<img id="4" class="star"src="./images/star.png">
+									<img id="5" class="star"src="./images/star.png">
+									<input type="hidden" value="" id="score" name="score" />
+									<div hidden id="img"></div>
+								</div>
+								<br>
                   <div class="form-group"> 
                     <input class="form-control" id="userEmail" name="userEmail" type="text" value="${loginSession.userEmail}"   readonly>
                   </div>
                   <div class="form-group">
-                    <textarea id="content" class="form-control different-control w-100" name="content" id="textarea" cols="30" rows="5" placeholder="Enter Message"></textarea>
+                    <textarea id="content" class="form-control different-control w-100" name="content" id="textarea" cols="30" rows="5" placeholder="請輸入評論"></textarea>
                   </div>
                   <div class="form-group text-center text-md-right mt-3">
                     <button id="comment" type="button" class="button button--active button-review">送出</button>
@@ -640,12 +654,14 @@ $('#comment').click(function() {
      let userEmail= $('#userEmail').val();
      let content= $('#content').val();
      let productId= $('#productId').val();
+     let star =$('#score').val();
   
     postData.append('userEmail', userEmail);
     postData.append('content', content);
     postData.append('productId', productId);
-    
+    postData.append('star',star);
 
+    
     
     $.ajax({
       url: "comment",
@@ -799,7 +815,7 @@ $(document).ready(function () {
         console.log(this.id);
         let a = this.id;
         for (let i = 0; i < a; i++) {
-            imgs[i].src = "<c:url value='/image/chngstar.png'/>";
+            imgs[i].src = "<c:url value='./images/chngstar.png'/>";
         }
         div.innerHTML = "您的評分:" + a + "分";
 
@@ -809,7 +825,7 @@ $(document).ready(function () {
 
         let b = this.id;
         for (let i = 0; i < b; i++) {
-            imgs[i].src = "<c:url value='/image/star.png'/>";
+            imgs[i].src = "<c:url value='./images/star.png'/>";
         }
         div.innerHTML = "";
     }
@@ -818,7 +834,7 @@ $(document).ready(function () {
         let score = document.getElementById("score");
         let c = this.id;
         for (let i = 0; i < c; i++) {
-            imgs[i].src = "<c:url value='/image/chngstar.png'/>";
+            imgs[i].src = "<c:url value='/images/chngstar.png'/>";
         }
 
         div.innerHTML = "您的評分:" + c + "分";
@@ -836,7 +852,7 @@ $(document).ready(function () {
     function dblclick() {
         let d = this.id;
         for (let i = 0; i < imgsLen; i++) {
-            imgs[i].src = "<c:url value='/image/star.png'/>"
+            imgs[i].src = "<c:url value='/images/star.png'/>"
             imgs[i].addEventListener("mouseout", mouseout);
             imgs[i].addEventListener("mouseover", mouseover);
             imgs[i].addEventListener("click", click);
@@ -844,7 +860,7 @@ $(document).ready(function () {
 
     }
 
-
+})
 
 </script>
   

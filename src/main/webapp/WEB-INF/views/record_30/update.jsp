@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+	<%@ include file="../Home/seller/header.jspf"%>
+	<!-- sidebar -->	
+	<%@ include file="../Home/seller/sidebar.jspf"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,13 +31,12 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+	    <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<!-- 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
+	
 	<style>
 				body {
 					color: #566787;
-					background: #f5f5f5;
 					font-family: 'Roboto', sans-serif;
 				}
 				.table-responsive {
@@ -158,19 +159,13 @@
 					border-right-width: 0px;
 				}
 	</style>
-    <script>
-        $(document).ready(function () {
-            jQuery('#example').DataTable();
-        });
 
-
-    </script>
-
-    <style>
-    </style>
 </head>
 
 <body>
+    <div class="container" style="max-width: 95%;">
+      <span style="font-size:30px;  font-weight:bold;">訂單管理</span>
+      </div>
 <div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
@@ -234,17 +229,25 @@
 							</td>
 						</tr>
 													
-							
-
-<%-- 						</form:form>				 --%>
 						
 						</c:forEach>	
 					</tbody>
     </table>
-
+</div>
+</div>
+</div>
 	<center>
 			<a class="btn btn-outline-secondary" href="<c:url value='/member/evolution' />" style='font-size:20px' role="button">回上一頁</a>	
 			</center>
+
+
+    <script>
+        $(document).ready(function () {
+            jQuery('#example').DataTable();
+        });
+
+
+    </script>
 
 </body>
 </html>

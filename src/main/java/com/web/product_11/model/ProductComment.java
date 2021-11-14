@@ -23,6 +23,7 @@ public class ProductComment implements Serializable{
 	private Integer productId;
 	private String userEmail;
 	private String commentTime;
+	private Integer star;
 	
 	public ProductComment() {
 	}
@@ -68,5 +69,12 @@ public class ProductComment implements Serializable{
 		this.commentTime = commentTime;
 	}
 
-	
+	public Integer getStar() {
+		return star;
+	}
+
+	public void setStar(Integer star) {
+		this.star = star;
+	}
+
 }

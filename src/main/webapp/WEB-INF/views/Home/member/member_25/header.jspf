@@ -15,19 +15,16 @@
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
-    <link rel='stylesheet' href="<spring:url value='/css/member.css' />"  type="text/css" />
 	
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    
-    <link rel="stylesheet" href="member.css">
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>會員中心</title>
+    <title>BuyBuyLa | 會員中心</title>
     <style>
     
     /*聊天室樣式區*/
@@ -49,7 +46,6 @@
     background-color: #f4f4f4;
     height: 100%;
     
-    
     height: 50%;
     width: 100%;
     position: absolute;
@@ -58,14 +54,8 @@
     background: #008080;
     content: "";
     z-index: 0;
-    
-    
-    
-    
+
 }
-
-
-
 
 .clearfix:after {
     display: block;
@@ -375,14 +365,14 @@ button.accent {
 
     </style>
 </head>
-<body >
+<body style="background-color: rgb(70,130,180,0.2);" >
    
     <div class="wrapper" >
        <div class="section">
 
 
 
-    <div class="top_navbar" style="background-color: rgb(51, 63, 177);">
+    <div class="top_navbar" style="background-color: rgb(70,130,180);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -406,23 +396,10 @@ button.accent {
             </ul>
         </nav> -->
         
-  
-
-
-
-
-    <div class="container" >
-      <span style="font-size:30px;  font-weight:bold;">會員專區</span>
-      </div>
-
-
-
-    
-
          
-                  <div class="card text-black" style="border-radius: 25px;">
-                    <div class="card-body p-md-5">
+                  <div class="card text-black" style="border-radius:30px;margin:100px 20px;">
+                    <div class="card-body p-md-5" >
                       <div class="row justify-content-center">
                         <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-          
+                                 
                         
