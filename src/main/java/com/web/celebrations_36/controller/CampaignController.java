@@ -1,11 +1,14 @@
 package com.web.celebrations_36.controller;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -129,6 +132,7 @@ public class CampaignController {
 			}
 		}		
 		//==============================================
+		campaign.setViews(0);
 		campaign.setCampaignStatus("進行中");
 		campaignService.save(campaign);
 		//===============================================
@@ -161,6 +165,8 @@ public class CampaignController {
 				blob = new SerialBlob(img);
 				campaign.setFileName("NoImage2.png");
 				campaign.setCoverImage(blob);
+				campaign.setViews(0);
+				campaign.setCampaignStatus("進行中");
 				campaignService.save(campaign);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -277,12 +283,13 @@ public class CampaignController {
 	@PostMapping("/updatecampaign")
 	public String processUpdateCampaingById(
 			@RequestParam("id") Integer id,
+			@RequestParam("views") Integer views,
 			@ModelAttribute("campaign") Campaign campaign, 
 			Model model
 	) throws ParseException{
 		System.out.println("id="+campaign.getId());
 		campaign.setId(id);
-		
+		campaign.setViews(views);
 		if(!campaign.getProductImage().isEmpty()) {
 		
 		MultipartFile productImage = campaign.getProductImage();
@@ -305,6 +312,7 @@ public class CampaignController {
 		String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
 		Date currentDate = sdf.parse(sd);
 		Date expiryDate=sdf.parse(campaign.getDate1() + " " + "00:00:00");;
+		campaign.setCampaignStatus("進行中");
 
 		if (currentDate.after(expiryDate)) {
 //		System.out.println(sdf.parse(list.get(i).getExpiryDate()+" "+ "00:00:00"));
@@ -395,6 +403,12 @@ public class CampaignController {
 	public List<String> getCategoryList() {
 		return campaignService.getAllCategories();
 	}
+	
+	
+	
+	
+	
+	
 //	@GetMapping("/campaigns/login") // 路徑變數{category}
 //	public String spinningWheel(@ModelAttribute("loginSession") membershipInformationBean loginMb,Model model) {
 //		if(loginMb.getUserEmail()==null) {

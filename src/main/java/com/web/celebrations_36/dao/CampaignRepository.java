@@ -38,5 +38,12 @@ public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
 	 @Transactional
      @Query("update Campaign set campaignStatus=:campaignStatus where id = :id")
 	 void updateCampaignstatus(String campaignStatus,Integer id);
+
+
+	 @Transactional
+	 @Modifying
+	 @Query("update Campaign set views=views+1 where id = :campaignId")
+	 void updateViews(int campaignId);
+
 }
 

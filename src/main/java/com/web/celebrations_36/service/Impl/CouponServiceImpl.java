@@ -65,4 +65,9 @@ public class CouponServiceImpl implements CouponService {
 		return couponRepository.getCouponstatus(couponStatus);
 	}
 
+	@Override
+	public List<Coupon> getUserGender(String userGender) {
+		return couponRepository.getUserGender(userGender);
+	}
+
 }

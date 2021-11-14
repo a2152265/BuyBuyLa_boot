@@ -8,12 +8,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>數據分析</title>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <!-- <link rel="stylesheet" href="../css/newcamapig.css"> -->
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!-- <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet"> -->
+
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <style>
 
@@ -1165,82 +1167,57 @@ body {
   </nav>
 </header>
 <section class="page-content">
-      <div class="row">
+      <div class="row" style="margin-left:30px">
+     
                             <div class="col-6 col-lg-2 col-md-6 style="max-width:25%" >
-                                <div class="card" style="border-radius:10px;width:220px">
+                                <div class="card" style="border-radius:10px;width:200px">
                                     <div class="card-body px-3 py-4-5" >
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="stats-icon purple">
-                                                    <i class="iconly-boldShow"></i>
-                                                </div>
+                                            <div class="col-md-2" style="margin-left:10px">
+                                                
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">點擊次數</h6>
-                                                <h6 class="font-extrabold mb-0" style="margin-left:10px">1120</h6>
+                                                <h5 class="text-muted font-semibold">點擊次數</h5>
+                                                <h3 class="font-extrabold mb-0" style="margin-left:15px;font-weight:bolder">${views}</h3>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6 col-lg-2 col-md-6">
-                                <div class="card" style="border-radius:10px;width:220px">
+                                <div class="card" style="border-radius:10px;width:200px">
                                     <div class="card-body px-3 py-4-5">
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="stats-icon blue">
-                                                    <i class="iconly-boldProfile"></i>
-                                                </div>
+                                           <div class="col-md-2" style="margin-left:10px">
+                                                
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">領取次數</h6>
-                                                <h6 class="font-extrabold mb-0" style="margin-left:20px"><fmt:formatNumber type="number" value="${size}" maxFractionDigits="0"/></h6>
+                                                <h5 class="text-muted font-semibold">領取次數</h5>
+                                                <h3 class="font-extrabold mb-0" style="margin-left:20px;font-weight:bolder"><fmt:formatNumber type="number" value="${size}" maxFractionDigits="0"/></h3>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-lg-2 col-md-6">
-                                <div class="card" style="border-radius:10px;width:220px">
-                                    <div class="card-body px-3 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="stats-icon green">
-                                                    <i class="iconly-boldAdd-User"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Following</h6>
-                                                <h6 class="font-extrabold mb-0">80.000</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-lg-2 col-md-6">
-                                <div class="card" style="border-radius:10px;width:220px">
-                                    <div class="card-body px-3 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="stats-icon red">
-                                                    <i class="iconly-boldBookmark"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Saved Post</h6>
-                                                <h6 class="font-extrabold mb-0">112</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                           <div>
+	                             <button type="button" id="csv" style="margin-left:30px;margin-top:10px;border:1px solid black;font-size:22px;border-radius:5px">匯出</button>
+                        	</div>
                         </div>
-       <div style="display:flex;margin-top:40px;margin-left:20px">                 
-    <div class="svg-item">
+                        
+       <div style="display:flex;margin-top:40px;margin-left:32px">  
+         <div class="col-6 col-lg-2 col-md-6">
+                                <div class="card" style="border-radius:10px;width:400px;height:350px">
+                                    <div class="card-body px-3 py-4-5">
+                                        <div class="row">
+                                           <div class="col-md-2" style="margin-left:10px">
+                                                
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="svg-item">
   <svg style="margin-top:40px;margin-right:100px" width="100%" height="100%" viewBox="0 0 40 40" class="donut">
     <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="#fff"></circle>
     <circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5"></circle>
-    <circle class="donut-segment" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5" stroke-dasharray="20 80" stroke-dashoffset="25"></circle>
+    <circle class="donut-segment" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5" stroke-dasharray="${userate} ${userate2}" stroke-dashoffset="25"></circle>
     <g class="donut-text">
 
       <text y="50%" transform="translate(0, 2)">
@@ -1253,13 +1230,54 @@ body {
   </svg>
   
 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   
+                             <div class="col-6 col-lg-2 col-md-6" style="margin-left:250px">
+                                <div class="card" style="border-radius:10px;width:500px;height:350px">
+                                    <div class="card-body px-3 py-4-5">
+                                        <div class="row">
+                                            </div>
+                                            <div class="col-md-8">
+                                                 <div class="col-md-2">
+                                              
+<!--  												<h5 style="margin-left:px;font-weight:bolder">男女比率</h5> -->
+  											<div id="pie-chart"></div>
+                                           
+                                        </div>
+                                          <div  style="margin-left:125px;margin-top:30px;font-weight:bolder;font-size:24px">男女比率</div>
+                                    </div>
+                                </div>
+                            </div>            
+<!--     <div class="svg-item"> -->
+<!--   <svg style="margin-top:40px;margin-right:100px" width="100%" height="100%" viewBox="0 0 40 40" class="donut"> -->
+<%--     <circle class="donut-hole" cx="20" cy="20" r="15.91549430918954" fill="#fff"></circle> --%>
+<%--     <circle class="donut-ring" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5"></circle> --%>
+<%--     <circle class="donut-segment" cx="20" cy="20" r="15.91549430918954" fill="transparent" stroke-width="3.5" stroke-dasharray="${userate} ${userate2}" stroke-dashoffset="25"></circle> --%>
+<!--     <g class="donut-text"> -->
 
-<div id="chartdiv"></div>		
+<!--       <text y="50%" transform="translate(0, 2)"> -->
+<%--         <tspan x="50%" text-anchor="middle" class="donut-percent"><fmt:formatNumber type="number" value="${userate}" maxFractionDigits="2"/>%</tspan>    --%>
+<!--      	<div style="margin-left:58px;color:#FF6200;font-weight:bolder;font-size:30px">使用率</div> -->
+<!--       </text> -->
+     
+<!--     </g> -->
+    
+<!--   </svg> -->
+  
+<!-- </div> -->
 
+
+<!-- <div id="chartdiv"></div>		 -->
 <!--  <div style="margin-left:58px;color:#FF6200;font-weight:bolder;font-size:30px">使用率</div> -->
- <div style="margin-left:100px">
- <h5>Page Hits per Country</h5>
-  <div id="pie-chart"></div>
+<!--  <div style="margin-left:80px"> -->
+<!--  <h5 style="margin-left:110px;font-weight:bolder">男女比率</h5> -->
+<!--   <div id="pie-chart"></div> -->
+<%--   <input type="hidden" id="man" value="${man}"> --%>
+<%--   <input type="hidden" id="woman" value="${woman}"> --%>
+  
  </div>
   </div>
 <!--   <main> -->
@@ -1303,11 +1321,9 @@ body {
   
   
 </section>
-   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
-    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-<script src="https://www.amcharts.com/lib/3/pie.js"></script>
-<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
         <script type="text/javascript">
@@ -1322,14 +1338,14 @@ var option;
 option = {
   xAxis: {
     type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','123',]
+    data: ['購物金', '免運券','兌換商品', '輪盤', '寵物限時',  '好釋連蓮', '禮物節']
   },
   yAxis: {
     type: 'value'
   },
   series: [
     {
-      data: [120, 100, 110, 80, 70, 110, 130],
+      data: [323, ${views}, 423, 564, 443, 223, 364],
       type: 'bar'
     }
   ]
@@ -1480,31 +1496,25 @@ google.load("visualization", "1", {packages:["corechart"]});
 google.setOnLoadCallback(drawCharts);
 function drawCharts() {
   
-var a=1000;
- console.log(a);
- 
+// var a=document.getElementById("man").value;
+// var b=document.getElementById("woman").value; 
+// // var a =35;
+// // var b =4;
+//  console.log(a);
+//  console.log(b);
   var pieData = google.visualization.arrayToDataTable([
     ['Country', 'Page Hits'],
-    ['寵物',      12],
-    ['運動用品',   33],
-    ['diana',   45],
-    ['Sweden',    46],
-    ['Germany',  50]
+    ['男',   ${man}],
+    ['女',  ${woman}]
+   
+   
   ]);
   // pie chart options
   var pieOptions = {
     backgroundColor: 'transparent',
     pieHole: 0.4,
-    colors: [ "cornflowerblue", 
-              "olivedrab", 
-              "orange", 
-              "tomato", 
-              "crimson", 
-              "purple", 
-              "turquoise", 
-              "forestgreen", 
-              "navy", 
-              "gray"],
+    colors: [ "lightblue", 
+              "lightpink"],
     pieSliceText: 'value',
     tooltip: {
       text: 'percentage'
@@ -1524,6 +1534,44 @@ var a=1000;
   var pieChart = new google.visualization.PieChart(document.getElementById('pie-chart'));
   pieChart.draw(pieData, pieOptions);
 }
+</script>
+
+<script>
+    $('#csv').click(function () {
+      var url = "<c:url value='/Csv/'/>";
+      $.ajax({
+        url: url,
+        type: 'get',
+        contentType: "application/json; charset=utf-8",
+        data: {},
+        success: function (data) {
+          Swal.fire({
+            title: '匯出成功',
+            icon: 'success',
+//             text: "已匯出全部分局資料！ 按OK回分局查詢首頁！",
+            position: 'center',
+
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              location.href = "<c:url value='/campaigns/voucher1'/>";
+            }
+          })
+        },
+        error: function (xhr, text) {
+          console.log("status code: " + xhr.status);
+          console.log("error message: " + text);
+          Swal.fire({
+            title: '匯出失敗',
+            icon: 'error',
+            text: "此筆ID" + $("#id").val() + "不存在，請檢查後重試！",
+          })
+        }
+      });
+
+    });
+
+
 </script>
 </body>
 </html>

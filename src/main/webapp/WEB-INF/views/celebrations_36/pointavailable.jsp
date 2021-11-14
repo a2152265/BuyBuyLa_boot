@@ -23,10 +23,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員中心</title>
     <style>
-        <style>
+      
 a{text-decoration:none}
 a:hover{text-decoration:none}
-
+ 
+ .btn-outline-primary {
+  color:lightblue;
+  background-color: #fff;
+  border-color: lightblue;
+  width:130px;
+  height:50px;
+}
+  .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active:hover{
+  color: #fff;
+  background-color:lightblue;
+  border-color: lightblue;
+}
 
     </style>
 </head>
@@ -68,8 +80,10 @@ a:hover{text-decoration:none}
 	<div style="margin-left:50px;margin-top:50px; font-weight:bolder;size:16px">	  <img src="<c:url value='/images/coin.jpg' />" alt="..." width="40px" height="40px" >
 	<span style="font-size:24px;">可用點數:<span style="color:red">${point}</span></span></div>
 	
-    
-
+   
+ <div id="search" style="margin-left:600px;margin-top:230px">
+		<button style="font-size:25px;font-weight:bolder" type="button" class="btn btn-outline-primary" onclick="location.href ='../campaigns/redeem'">兌換去</button>
+ </div>
 
 
  

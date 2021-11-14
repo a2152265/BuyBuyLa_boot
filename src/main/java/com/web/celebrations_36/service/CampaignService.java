@@ -25,6 +25,6 @@ public interface CampaignService {
 	List<Campaign> getCampaignsByCategory(String category,String campaignStatus);
 	List<Campaign> getCampaignsByCampaignstatus(String campaignStatus);
     void updateCampaignstatus(String campaignStatus,Integer id);
-
+    void updateViews(int campaignId);
 }
 

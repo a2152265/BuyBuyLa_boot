@@ -33,6 +33,9 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 	
 	 @Query("from Coupon c where c.couponStatus=:couponStatus ")
 	 List<Coupon> getCouponstatus(String couponStatus);
+	 
+	 @Query("from Coupon c where c.userGender=:userGender")
+	 List<Coupon> getUserGender(String userGender);
 	
 	 @Modifying(clearAutomatically = true)
 	 @Transactional

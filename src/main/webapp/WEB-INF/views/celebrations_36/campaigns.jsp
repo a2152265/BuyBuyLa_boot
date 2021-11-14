@@ -177,7 +177,7 @@
             <div class="col-sm-6 col-md-3" style="width: 390px; height: 370px;margin:40px">
                 <div class="thumbnail" style="width: 320px; height: 340px ;border:1px solid grey">
                 	  <a href="<c:url value='${campaign.url}' />">
-                	<img style="margin-left:0px;margin-bottom:20px;" width='319' height='140' 
+                	<img style="margin-left:0px;margin-bottom:20px;" width='318' height='140' 
                 		src="<c:url value='/getCampaignPicture/${campaign.id}' />" />
                 		</a>
                     <div class="caption">

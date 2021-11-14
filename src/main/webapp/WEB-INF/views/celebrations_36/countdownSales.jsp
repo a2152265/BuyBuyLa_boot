@@ -262,8 +262,7 @@
         <div class="section-intro pb-60px">
         		 <img  src="<c:url value='/images/pet.jpg' />" alt="turntable" style="width:1300px; height:500px;margin-left:-100px;margin-top:-70px;margin-bottom:100px" >
         
-          <p>New Products</p>
-          <h2>New <span class="section-intro__style">Products</span></h2>
+          <h2>特惠<span class="section-intro__style">商品</span></h2>
         </div>
         
         <div class="row">
@@ -883,7 +882,7 @@ function initializeClock(id, endtime) {
   var timeinterval = setInterval(updateClock, 1000);
 }
 // count down timer:
-var deadline = new Date("Nov 14, 2021 00:00:00");
+var deadline = new Date("Nov 16, 2021 00:00:00");
 initializeClock('clockdiv', deadline);
 </script>
 </body>

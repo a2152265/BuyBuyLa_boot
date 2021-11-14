@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>活動管理</title>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -16,7 +16,8 @@
 body{
 
 }
-.table-wrapper {
+.table-wrapper {	
+					text-align:center;
 					min-width: 1000px;
 					background: #fff;
 					padding: 40px;
@@ -838,8 +839,9 @@ body {
 </header>
 <section class="page-content">
   <div id="search" style="margin-bottom:30px">
-		<button  type="button" class="btn btn-outline-primary"onclick="location.href ='./campaign/addCampaign'">新增活動</button>
-		<button  type="button" class="btn btn-outline-primary"onclick="location.href ='./campaigns/voucher1'">數據分析</button>
+						<button  type="button" class="btn btn-outline-primary"onclick="location.href ='./campaign/addCampaign'" style="font-size:24px;font-weight:bolder">新增活動</button>
+						<button  type="button" class="btn btn-outline-primary"onclick="location.href ='./campaigns/voucher1'"  style="font-size:24px;font-weight:bolder">數據分析</button>
+						
 	</div>
 	<div class="table-wrapper">
 			
