@@ -184,7 +184,7 @@
     <table id="example" class="display" style="width:100%">
        	<thead>
 						<tr>
-							<th>訂單編號<i class="fa fa-sort"></i></th>	
+							<th>訂單編號11<i class="fa fa-sort"></i></th>	
 							<th>訂單總價</th>						
 							<th>購買時間</th>
 							<th>買家資訊</th>

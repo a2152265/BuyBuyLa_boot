@@ -28,7 +28,7 @@ public class ControllerExceptionHandler {
         ModelAndView mv = new ModelAndView();
         mv.addObject("url",request.getRequestURL());
         mv.addObject("exception", e);
-        mv.setViewName("error/error");
+        mv.setViewName("BuyBuyla_boot/error/error");
         return mv;
     }
 }

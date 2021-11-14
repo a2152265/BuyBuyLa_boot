@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>BuyBuyLa後臺管理中心</title>
+<title>BuyBuyLa || 後臺管理中心</title>
 <link rel='stylesheet' href='../css/manageHome.css' />
 
 <style>
@@ -289,9 +289,9 @@
 
   <nav>
     <a href="#0" aria-label="forecastr logo" class="logo">
-<!--       <svg width="140" height="49"> -->
-<!--         <use xlink:href="/image/BuyBuyLa.jsp"></use> -->
-<!--       </svg> -->
+      <svg width="140" height="49">
+        <use xlink:href="/image/BuyBuyLa.jsp"></use>
+      </svg>
     </a>
     <button class="toggle-mob-menu" aria-expanded="false" aria-label="open menu">
       <svg width="20" height="20" aria-hidden="true">

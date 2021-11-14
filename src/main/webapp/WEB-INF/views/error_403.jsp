@@ -38,6 +38,10 @@ Themes Usage
 	</script>
 </head>
 <body style="background-color: rgb(93, 93, 235);">
+
+				<h1>!!!!沒權限</h1>
+			<img src="../img/error/YSNP.png" alt="BuyBuyLa">
+	
 		
 </body>
 </html>

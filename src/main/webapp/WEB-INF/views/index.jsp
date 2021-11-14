@@ -148,7 +148,7 @@
                 </c:if>
                 </c:if>
                  <c:if test="${managerSession != null}">
-                   <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">管理中心</a></li>
+                   <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui' />">管理中心</a></li>
                     <li class="nav-item"><a class="nav-link" href="<c:url value='/try/logout' />">登出</a></li>
                     </c:if>
                 </ul>
@@ -164,12 +164,12 @@
                <c:if test="${managerSession == null}">
               <c:if test="${loginSession.userEmail != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
-						${loginSession.userEmail}</a></li>
+						${loginSession.userName}</a></li>
 
 				</c:if>
 				</c:if>
 				<c:if test="${managerSession != null}">
-              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">Hi! &nbsp;
+              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui' />">Hi! &nbsp;
 						${loginSession.userName}</a></li>
 				</c:if>
 

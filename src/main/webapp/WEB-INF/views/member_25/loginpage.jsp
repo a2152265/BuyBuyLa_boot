@@ -174,7 +174,7 @@ function quickInput2(){
     <div class="main_menu">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand logo_h" style="position:obsolute; z-index:999;" href="<c:url value='/' />"><img src="../img/logo.png" alt="BuyBuyLa"></a>
+          <a class="navbar-brand logo_h" href="<c:url value='/' />"><img src="img/logo.png" alt="BuyBuyLa"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="icon-bar"></span>
@@ -188,7 +188,7 @@ function quickInput2(){
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                   aria-expanded="false">會員</a>
                 <ul class="dropdown-menu">
-                <c:if test="${loginSession ==null}">
+                <c:if test="${loginSession.userEmail ==null}">
 	                   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/login' />">會員登入</a></li> 
                   	   <li class="nav-item"><a class="nav-link" href="<c:url value='/try/add' />">會員註冊</a></li>
                </c:if>
@@ -215,34 +215,71 @@ function quickInput2(){
                <c:if test="${managerSession == null}">
               <c:if test="${loginSession.userEmail != null}">
               <li class="nav-item"><a class="nav-link" href="<c:url value='/try/member_Ui' />">Hi!!! &nbsp;
-						${loginSession.userEmail}</a></li>
+						${loginSession.userName}</a></li>
 
 				</c:if>
 				</c:if>
 				<c:if test="${managerSession != null}">
-              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">Hi管理員!!! &nbsp;
-						${loginSession.userEmail}</a></li>
+              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">Hi! &nbsp;
+						${loginSession.userName}</a></li>
 				</c:if>
 
 			
 
             </ul>
-            <ul class="nav-shop">
+            <ul class="nav-shop drop-down-menu">
            <li class="nav-item" >
            
                <!---------------- 首頁查詢商品框 ---------------->
            		<form:form method='get' action="./queryproduct" class='form-horizontal'>
-					<input name="productName" id="productName" type='text' class='form:input-large'/>
+					<input name="productName" id="productName" type='text' class='form:input-large' />
 					<button type='submit' ><i class="ti-search" ></i></button>
 				</form:form>
 
               <!---------------- 購物車 ---------------->
 				<c:if test="${loginSession.userEmail != null}">
-              		<li class="nav-item"><button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button> </li>
+<!-- 				<ul class="drop-down-menu"> -->
+        <li class="nav-item">
+			<button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button>
+
+            <ul>
+            <li>
+            <p>近期加入購物車商品</p>
+             <c:forEach items="${cart}" var="carts">
+			<tr>
+			<td> 
+			 <div class="media">
+                 <div class="d-flex">   
+ 					<img width='100'src="<c:url value='/getPicture/${carts.product.productId}' />" />
+                  </div>     
+                 </div>
+             </td>
+			<td>${carts.product.productName}</td>
+			<td>${carts.count}</td>
+			<td>${carts.product.price}</td>
+			</tr>
+			</c:forEach>
+            </li>
+
+            </ul>
+        </li>
+
+
+<!--     </ul> -->	
 				</c:if>
 				 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
 				 	<li class="nav-item"><button onclick="location.href='<c:url value='/try/login' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li>
 				 </c:if>
+            </ul>
+            
+              <!---------------- 我的最愛 ---------------->
+            <ul style="list-style-type: none; padding-left:10px;padding-bottom:10px"  >
+               <c:if test="${loginSession.userEmail != null}">
+                <li ><button style="border:0 ;background-color:transparent;" onclick="location.href='<c:url value='/member/favorite' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
+                 <c:if test="${loginSession.userEmail == '' || loginSession.userEmail == null}">
+                <li ><button style="border:0 ;background-color:transparent;" onclick="location.href='<c:url value='/try/login' />'"><i class="fas fa-heart"></i></button> </li>		
+               </c:if>
             </ul>
           </div>
         </div>

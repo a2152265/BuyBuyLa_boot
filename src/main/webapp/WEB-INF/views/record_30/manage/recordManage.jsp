@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -164,16 +167,32 @@
         $(document).ready(function () {
             jQuery('#example').DataTable();
         });
+        
+       
 
 
     </script>
 
     <style>
     </style>
+    <!-- header -->
+<%@ include file="../../Home/manager/datatable/header.jspf"%>
+<!-- sidebar -->
+<%@ include file="../../Home/manager/footer.jspf"%>
 </head>
 
+
 <body>
-<div class="container-xl " style="max-width: 1300px !important;">
+
+<!-- title -->
+   <div style="color:black; background-color:white; margin-left:15%;  margin-right:5%; margin-top:15px; margin-botton:30px; padding:30px;">
+    	<h1 style="font-size:50px; font-weight:bold; text-align:center;">管理者中心</h1>
+   </div>
+<section class="page-content">
+
+
+
+<div class="container-xl " style="max-width: 1700px !important; ">
 		<div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">
@@ -230,8 +249,55 @@
     </table>
 
 	<center>
-			<a class="btn btn-outline-secondary" href="<c:url value='/manager_Ui0' />" style='font-size:20px' role="button">回上一頁</a>	
-			</center>
+			<a class="btn btn-outline-secondary" href="<c:url value='/manager_Ui' />" style='font-size:20px' role="button">回上一頁</a>	
+	</center>
+	
+	</div>
+		</div>
+			</div>
+	</section>
+	
+	<script>
+	 $('#example').DataTable({
+   	  rowReorder: true,
+   	  columnDefs: [
+   	      { orderable: true, className: 'reorder', targets: 0},
+   	      { orderable: true, className: 'reorder', targets: 3},
+   	      { orderable: true, className: 'reorder', targets: 4},
+   	      { orderable: true, className: 'reorder', targets: 5},
+   	      { orderable: true, className: 'reorder', targets: 7},
+
+   	      { orderable: false, targets: '_all' }
+
+   	      ],
+        "language": {
+        "processing": "處理中...",
+        "loadingRecords": "載入中...",
+        "lengthMenu": "顯示 _MENU_ 項結果",
+        "zeroRecords": "沒有符合的結果",
+        "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+        "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+        "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+        "infoPostFix": "",
+        "search": "搜尋:",
+        "paginate": {
+            "first": "第一頁",
+            "previous": "上一頁",
+            "next": "下一頁",
+            "last": "最後一頁"
+        },
+        "aria": {
+            "sortAscending": ": 升冪排列",
+            "sortDescending": ": 降冪排列"
+        }
+        
+        
+        
+    }
+     
+     
+   });
+	 </script>
 
 </body>
 </html>
