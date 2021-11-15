@@ -178,7 +178,7 @@
 															</select>
 															<div class="form-check"
 																style="margin-top: 6px; margin-left: 400px">
-																<input class="form-check-input" type="checkbox"
+																<input class="form-check-input editFlexCheckDefault" type="checkbox"
 																	id="editFlexCheckDefault"> <label
 																	class="form-check-label" for="flexCheckDefault">
 																	置頂 </label>
@@ -228,7 +228,7 @@
 												</div>
 												<div class="modal-footer">
 												<input type="button" class="editManagerNewForumKeyInput btn btn-warning" value="一鍵輸入">
-													<button id="updSubmit" type="submit"
+													<button type="submit"
 														class="btn btn-primary updManagerSubmit">送出</button>
 													<button type="button" class="btn btn-secondary"
 														data-bs-dismiss="modal">取消</button>
