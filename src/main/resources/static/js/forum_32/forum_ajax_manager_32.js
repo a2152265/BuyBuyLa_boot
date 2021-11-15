@@ -2,7 +2,54 @@
  * 
  */
 $(document).ready(function() {
-
+	
+//   ajax_tagCount=$.ajax({
+//      type:'get',
+//      url:'AnalyzeData_tagCount',
+//      success:function(countList){
+//    	  console.log(countList)
+//      }
+//     })
+        //count 人數
+    // 初始化ECharts元件到id為main的元素上
+//    $.when(ajax_tagCount).done(function () {
+//    let myChart = echarts.init(document.getElementById('count'));
+//    // 定義圖示的配置項
+//    let option = {
+//    		 title: {
+//    			    text: '標籤數量',
+//    			    subtext: '',
+//    			    left: 'center'
+//    			  },
+//    	 xAxis: {
+//    	 type: 'category',
+//    	 data: ['官方最新公告','社團精選話題', '賣家閒聊討論', '新手賣家發問']
+//    	},
+//    	 yAxis: {
+//    	 type: 'value'
+//    	  },
+//    	series: [
+//   		 {
+//    	  data: [
+    /*	{
+    	value: 2000,
+    	 itemStyle: {
+    		color: '#a90000'
+    	}
+    	}, */
+//    	countList[0],
+//    	countList[1],
+//    	countList[2],
+//    	countList[3]
+//    ],
+//    type: 'bar'
+//    }
+//    ]
+//  };
+//    myChart.setOption(option);
+//    });
+     
+     
 	// 管理員  置頂設定
 	$("#insFlexCheckDefault").click(function() {
 			var managerTitleKeyInput = $('.managerTitleKeyInput').val();
@@ -210,6 +257,6 @@ $(document).ready(function() {
 			}
 		})
 	})
-
+  
 
 });
