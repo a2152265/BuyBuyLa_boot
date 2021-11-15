@@ -62,7 +62,7 @@ public class TestLoginController {
 	ServletContext servletContext; // get pic用
 	CouponService couponService;
 	
-//	@Autowired
+//	@Autowired9
 //	public TestLoginController(MemberService memberService, ServletContext servletContext) {
 //		this.memberService = memberService;
 //		this.servletContext = servletContext;
