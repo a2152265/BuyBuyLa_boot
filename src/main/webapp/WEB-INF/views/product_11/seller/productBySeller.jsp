@@ -475,7 +475,6 @@
           </div>
         </div>
 
-  <section class="page-content">
   
 	
 	 
@@ -525,7 +524,7 @@
 </table>
 </div>
 </div>
-</section>
+
 <!-- 	<span style="font-size:30px; display:block;text-align: center; font-weight:bold;">商品留言</span> -->
 
 
