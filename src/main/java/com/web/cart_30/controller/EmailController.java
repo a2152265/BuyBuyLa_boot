@@ -45,13 +45,13 @@ public class EmailController {
 			
 			
 			
-//			SimpleMailMessage message =new SimpleMailMessage();
-//			message.setTo(buyer);
-//			message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
-//			message.setText("您已於"+buyTime+"，完成訂單編號為"+recordId+"之交易，消費金額為"+totalprice+"元\n"
-//			+"謝謝您的惠顧，祝您有愉快的一天 :)");
-//			
-//			mailSender.send(message); 
+			SimpleMailMessage message =new SimpleMailMessage();
+			message.setTo(buyer);
+			message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
+			message.setText("您已於"+buyTime+"，完成訂單編號為"+recordId+"之交易，消費金額為"+totalprice+"元\n"
+			+"謝謝您的惠顧，祝您有愉快的一天 :)");
+			
+			mailSender.send(message); 
 			System.out.println("------------------已寄出------------------ --->");
 			sessionStatus.setComplete();
 			 return "cart_30/buysuccess";
