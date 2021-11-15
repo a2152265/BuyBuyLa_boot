@@ -295,9 +295,11 @@
   </div>
         <div class="sidebar" style="background-color: rgb(1, 1, 112);">
             <div class="profile">
-                <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
+             <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
+                <!-- 讀取圖片 -->
+               <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
                 <h3></h3>
-                <p>Designer</p>
+                <p>${memberUiDefault.userEmail} </p>
             </div>
             <ul>
                <li>
