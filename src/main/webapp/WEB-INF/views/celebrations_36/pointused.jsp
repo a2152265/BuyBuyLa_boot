@@ -22,14 +22,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>>BuyBuyLa | 會員中心</title>
+    <title>BuyBuyLa | 會員中心</title>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <style>
         
         #mytable {
   border-collapse: collapse; /* Collapse borders */
   width: 80%; /* Full-width */
-  border: 1px solid #ddd; /* Add a grey border */
+  border: 1px solid black; /* Add a grey border */
   font-size: 20px; /* Increase font-size */
   margin:auto;
  
@@ -37,8 +37,12 @@
   font-weight: bolder;
             
 }
-
+#mytable th{
+ border: 1px solid black;
+}
 #mytable td {
+  border: 1px solid black; /* Add a grey border */
+
   text-overflow:ellipsis; 
   white-space:nowrap;
   word-wrap:break-word; 

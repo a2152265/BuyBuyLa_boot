@@ -158,6 +158,9 @@
 					border-bottom-width: 0px;
 					border-right-width: 0px;
 				}
+				.container-xl {
+					max-width:1300px !important;
+				}
 	</style>
 
 </head>
