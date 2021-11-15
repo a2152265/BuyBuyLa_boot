@@ -72,6 +72,8 @@
  <input id='pet' value='${pet}' type='hidden'/>
  <input id='fit' value='${fit}' type='hidden'/>
  <input id='other' value='${other}' type='hidden'/>
+<h2>總共:</h2>
+<h2>${female+male+pet+fit+other}元</h2>
       
       
       
@@ -160,6 +162,9 @@
         }
     }
 });
+	
+	
+	
 </script>   
 </body>
 </html>
