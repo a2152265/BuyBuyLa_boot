@@ -160,6 +160,17 @@ public class ManagerController {
 	}
 
 	/***************************************************************/
+	
+//	@GetMapping(value = "/manager/AnalyzeData_tagCount")
+//	@ResponseBody
+//	public List<Integer> AnalyzeData_Count(Model model) {
+//		List<Integer> countList=new ArrayList<>();;
+//		countList.add(forumService.getAllByTag("官方最新公告").size());
+//		countList.add(forumService.getAllByTag("社團精選話題").size());
+//		countList.add(forumService.getAllByTag("賣家閒聊討論").size());
+//		countList.add(forumService.getAllByTag("新手賣家發問").size());
+//		return countList;
+//	}
 
 	/************************** 後臺管理結束 ***************************/
 }

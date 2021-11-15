@@ -13,6 +13,15 @@
 	<div class="wrapper">
 		<div class="section">
 			<h2>BuyBuyLa討論區管理</h2><br>
+			
+			 <!-- 放分析圓餅圖 -->
+<!--  	<div style=" display:flex; 　position:relative"> -->
+<!--   	<div style="width:60%; display:flex; 　position:relative"> -->
+<!--     <article style="width:40%; 　position:relative"> -->
+<!--      <div id="count" style="width: 500px;height:300px;" class="analyzeDiv"></div> -->
+<!--     </article> -->
+<!--     </div></div> -->
+			
 			<button type="button" style="margin-left: 200px"
 				class="btn btn-primary" data-bs-toggle="modal"
 				data-bs-target="#ManagerModal">發起公告</button>
