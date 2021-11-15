@@ -101,7 +101,7 @@
               <!---------------- 購物車 ---------------->
 				<c:if test="${loginSession.userEmail != null}">
 <!-- 				<ul class="drop-down-menu"> -->
-        <li class="nav-item">
+        <li class="nav-item" style="visibility: hidden">
 			<button onclick="location.href='<c:url value='/cart' />'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" id='ccount'>${count}</span></button>
 
             <ul>
