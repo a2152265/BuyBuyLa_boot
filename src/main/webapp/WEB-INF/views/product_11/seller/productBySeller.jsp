@@ -383,7 +383,7 @@
 
     <div class="container" style="display:flex">
       <span style="font-size:30px;  font-weight:bold;">商品管理</span>
-      	<div id="search" style="margin-left:1730px">
+      	<div id="search" style="margin-left:auto">
 		<button  type="button" class="btn btn-outline-primary"onclick="location.href ='<c:url value='/products/add' />'">新增商品</button>
 	</div>
       </div>
@@ -475,7 +475,6 @@
           </div>
         </div>
 
-  <section class="page-content">
   
 	
 	 
@@ -525,8 +524,8 @@
 </table>
 </div>
 </div>
-</section>
-	<span style="font-size:30px; display:block;text-align: center; font-weight:bold;">商品留言</span>
+
+<!-- 	<span style="font-size:30px; display:block;text-align: center; font-weight:bold;">商品留言</span> -->
 
 
 

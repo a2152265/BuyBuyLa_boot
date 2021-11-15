@@ -143,7 +143,8 @@ public class ManagerController {
 		
 		ForumBean fb= forumService.getContentById(mrb.getReportForumId());
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo("hyprocrite1631@gmail.com");
+		message.setTo("a2152265@gmail.com");
+//		message.setTo("hyprocrite1631@gmail.com");
 		message.setSubject("BuyBuyLa討論區通知");
 		message.setText("\r\n你在\""+fb.getTitle()+"\"的留言遭到刪除"+
 				"\r\n\r\n"+"違規原因 : "+mrb.getReportReason()+

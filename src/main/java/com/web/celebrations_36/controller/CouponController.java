@@ -250,7 +250,7 @@ public class CouponController {
 	@GetMapping("/Csv")
     public ResponseEntity<String> egoPostExportCsv() throws SQLException, IOException {
 
-     FileOutputStream fos=new FileOutputStream(new File("C:\\Users\\ASUS_NB\\Desktop\\campaigns.csv"));
+     FileOutputStream fos=new FileOutputStream(new File("C:/CSV/campaigns.csv"));
      OutputStreamWriter osw=new OutputStreamWriter(fos,"MS950");
      BufferedWriter fileWriter = new BufferedWriter(osw);
         fileWriter.write("活動名稱,點擊次數,領取次數,使用率,男,女");

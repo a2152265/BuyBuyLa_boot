@@ -174,7 +174,7 @@ function quickInput2(){
     <div class="main_menu">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand logo_h" style="position:obsolute; z-index:999;" href="<c:url value='/' />"><img src="../img/logo.png" alt="BuyBuyLa"></a>
+          <a class="navbar-brand logo_h" style="position:obsolute; z-index:999;" href="<c:url value='/' />"><img src="./img/logo.png" alt="BuyBuyLa"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="icon-bar"></span>
@@ -220,8 +220,8 @@ function quickInput2(){
 				</c:if>
 				</c:if>
 				<c:if test="${managerSession != null}">
-              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui0' />">Hi管理員!!! &nbsp;
-						${loginSession.userEmail}</a></li>
+              <li class="nav-item"><a class="nav-link" href="<c:url value='/manager_Ui' />">Hi管理員!!! &nbsp;
+						${loginSession.userName}</a></li>
 				</c:if>
 
 			
