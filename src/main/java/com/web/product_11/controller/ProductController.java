@@ -214,14 +214,14 @@ public class ProductController {
 				int pId = Integer.parseInt(productIds_line[i]);
 				Product productById = productservice.getProductById(pId);
 				message.setTo(productById.getSeller());  //測試用我的
-				message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
+				message.setSubject("BuyBuyLa  最懂你的購物商城");
 				message.setText(
-				"您好 : "+mb2.getUserName()+"\r\n歡迎光臨BuyByLA購物商城 "+
-				"您的商品已經審核成功。"
-				+ "商品資訊如下:"
-				+ "商品代號:"+productById.getProductId()
-				+ "商品名稱:"+productById.getProductName()
-				+ "提醒您，商品資訊請照實填寫"
+				"您好 : "+mb2.getUserName()+"\r\n歡迎光臨BuyByLA購物商城 "+"\r\n"
+				+"您的商品已經審核成功。"+"\r\n"
+				+ "商品資訊如下:"+"\r\n"
+				+ "商品代號:"+productById.getProductId()+"\r\n"
+				+ "商品名稱:"+productById.getProductName()+"\r\n"+"\r\n"
+				+ "提醒您，商品資訊請照實填寫"+"\r\n"
 				+ "如對商品上下架審核結果有疑問，請聯絡客服，謝謝您，祝您生意興榮。"
 						);
 				
@@ -239,13 +239,27 @@ public class ProductController {
 		//商品上架失敗(管理者)寄信
 				@GetMapping("/launched_addaddressfail")
 				public ResponseEntity<String> launchedEmailfail(
-						@ModelAttribute("loginSession") membershipInformationBean mb2
+						@ModelAttribute("loginSession") membershipInformationBean mb2,
+						@RequestParam("productIds") String productIds
 						) {
 					SimpleMailMessage message =new SimpleMailMessage();
-					message.setTo(mb2.getUserEmail());  //測試用我的
-					message.setSubject("BuyBuyLa Verification 最懂你的購物商城");
-					message.setText("您好 : "+mb2.getUserName()+"\r\n歡迎光臨BuyByLA  "+"您的商品審核未成功，請重新檢視商品資訊後再次送出。"
-													);
+					String[] productIds_line = productIds.split(",");
+					for(int i=0;i<productIds_line.length;i++) {
+						int pId = Integer.parseInt(productIds_line[i]);
+						Product productById = productservice.getProductById(pId);
+						message.setTo(productById.getSeller());  //測試用我的
+						message.setSubject("BuyBuyLa  最懂你的購物商城");
+						message.setText(
+						"您好 : "+mb2.getUserName()+"\r\n歡迎光臨BuyByLA購物商城 "+"\r\n"
+						+"您的商品已經審核失敗。"+"\r\n"
+						+ "商品資訊如下:"+"\r\n"
+						+ "商品代號:"+productById.getProductId()+"\r\n"
+						+ "商品名稱:"+productById.getProductName()+"\r\n"+"\r\n"
+						+ "提醒您，商品資訊請照實填寫"+"\r\n"
+						+ "如對商品上下架審核結果有疑問，請聯絡客服，謝謝您，祝您生意興榮。"
+								);
+						
+					}
 
 					mailSender.send(message);
 					System.out.println("------------------已寄出------------------ --->code=");
