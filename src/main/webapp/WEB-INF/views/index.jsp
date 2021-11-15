@@ -679,9 +679,9 @@ $(".additem").click(function(){
 			"id":data
 		},
 		
-		success:function(){
+		success:function(data){
 			
-
+console.log(data)
 			Swal.fire({
 				  position:'center',
 				  icon: 'success',
