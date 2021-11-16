@@ -119,7 +119,10 @@ public class CampaignController {
 		String originalFilename = productImage.getOriginalFilename();
 		campaign.setFileName(originalFilename);
 		//  建立Blob物件，交由 Hibernate 寫入資料庫
-		
+//			Long timeStamp = System.currentTimeMillis();
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
+//			String sd = sdf.format(new Date(Long.parseLong(String.valueOf(timeStamp))));
+//			campaign.setDate1(sd);
 		if(!campaign.getProductImage().isEmpty()) {
 		if (productImage != null && !productImage.isEmpty() ) {
 			try {
@@ -147,6 +150,7 @@ public class CampaignController {
 			e.printStackTrace();
 			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 		}
+	
 		}else if(campaign.getProductImage().isEmpty()){
 			
 			byte[] img = new byte[1024];

@@ -11,8 +11,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <!-- <link rel="stylesheet" href="../css/newcamapig.css"> -->
- 
- <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <style>
 
@@ -974,8 +973,8 @@ body {
           <span>動態管理</span>
         </a>
       </li>
-      <li>
-        <div class="switch">
+      <li >
+        <div class="switch" style="margin-top:90px" >
           <input type="checkbox" id="mode" checked>
           <label for="mode">
             <span></span>
@@ -1036,8 +1035,8 @@ body {
 					</td>
                 		<td>        
                 		<form:select path="category">
-                            <form:option value="折價券"></form:option>
                             <form:option value="限時活動"></form:option>
+                            <form:option value="折價券"></form:option>
                             <form:option value="購物金"></form:option>
                        		<form:option value="免運"></form:option>
                         </form:select>
@@ -1070,10 +1069,14 @@ body {
                </tbody>
     </table>
 
- 	<div class="wrap" style="display: flex;margin-left: 280px;">
-        <input id="btnAdd" type='submit' class='btn btn-primary'
-                            value="送出" />
-                            <button type="button" id="oneclick" >一鍵輸入</button>
+ 	<div class="wrap" style="display: flex;margin-left: 190px;">
+<!--         <input id="btnAdd" type='submit' class='btn btn-primary' -->
+<!--                             value="送出" /> -->
+       <button type="submit"  class="button">送出</button>
+                            
+                                   	 <button type="button" id="oneclick" " class="button">一鍵輸入</button>
+<!--                             <input id="oneclick"  class='btn btn-primary' -->
+<!--                             value="一鍵輸入" /> -->
 	</div>  
  	
  </form:form>

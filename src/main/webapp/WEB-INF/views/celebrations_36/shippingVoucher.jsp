@@ -199,7 +199,7 @@ img{
        <a id="btnurl" href="#" ><button class="btn" id="btn" type="button">領取</button></a> 
         <img src="<c:url value='/images/shippingVoucher.jpg' />" alt="">
     		   <input type="hidden" id="email" value="${loginSession.userEmail}" >
-    		   <input type="hidden" id="gender" value=" ${memberUiDefault.userGender}" >
+    		   <input type="hidden" id="gender" value="${memberUiDefault.userGender}" >
 <%--     	</c:if> --%>
     </div>
  </div>

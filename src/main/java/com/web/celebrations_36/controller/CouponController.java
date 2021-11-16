@@ -93,7 +93,7 @@ public class CouponController {
 
 	@GetMapping("/campaigns/shippingVoucher") 
 	public String spinningWheel(Model model) {
-		campaignService.updateViews(93);
+		campaignService.updateViews(1);
 		return "celebrations_36/shippingVoucher";
 	}
 
@@ -107,18 +107,18 @@ public class CouponController {
 		Integer count = 1;
 		
 		Date date = new Date();
-	    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
-//	   String expiryDate = format.format(date);
-	   //System.out.println("現在日期：" + currentdate);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
 
 	    Calendar ca = Calendar.getInstance();
 	    ca.add(Calendar.DATE, 30);//
 	    date = ca.getTime();
 	    String expiryDate = format.format(date);
-	   //System.out.println("到期日期：" + expiryDate);
-		
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$" + couponStatus);
 		couponService.save(new Coupon(userEmail, couponName, couponNumber, couponStatus, count,userGender,expiryDate));
+
+	   
+//		couponService.save(new Coupon(userEmail, couponName, couponNumber, couponStatus, count,userGender,"2021-11-13"));
+
+//		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$" + couponStatus);
 		return new ResponseEntity<String>(HttpStatus.OK);
 
 	}
@@ -219,7 +219,7 @@ public class CouponController {
 	@GetMapping("/campaigns/voucher1") 
 	public String voucherStatic(Model model) {
 		List<Campaign> campaigns=campaignService.findAll();
-		Integer views = campaigns.get(1).getViews();
+		Integer views = campaigns.get(0).getViews();
 		List<Coupon> totalnum = couponService.findAll();
 		double size = totalnum.size();
 //		System.out.println(size);
@@ -258,7 +258,7 @@ public class CouponController {
         
         //點擊次數
         List<Campaign> campaigns=campaignService.findAll();
-		Integer views = campaigns.get(1).getViews();
+		Integer views = campaigns.get(0).getViews();
 		//領取次數
         List<Coupon> totalnum = couponService.findAll();
 		double size = totalnum.size();

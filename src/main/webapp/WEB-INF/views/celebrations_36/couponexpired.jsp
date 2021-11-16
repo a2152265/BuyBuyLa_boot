@@ -27,7 +27,7 @@
 a{text-decoration:none}
 a:hover{text-decoration:none}
 
- img { 
+ #voucher  { 
  -webkit-filter: grayscale(100%); 
 	 -moz-filter: grayscale(100%); 
 	 -ms-filter: grayscale(100%); 
@@ -127,7 +127,7 @@ a:hover{text-decoration:none}
     <div class="col-md-4">
 <%--     	                    		<div class="word" style="font-weight:bolder;color:black">有效期限 ${coupon.expiryDate}</div>  --%>
     	
-      <img src="<c:url value='/images/shippingVoucher.jpg' />" alt="..." style="border-radius:3px "width=347.5px height=130px >
+      <img id="voucher" src="<c:url value='/images/shippingVoucher.jpg' />" alt="..." style="border-radius:3px "width=347.5px height=130px >
       <div class="word" style="font-weight:bolder;color:black; width:160px">有效期限 ${coupon.expiryDate}</div> 
    
     </div>

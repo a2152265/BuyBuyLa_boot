@@ -249,7 +249,7 @@
     <!--================  start =================-->
     
     
-    <section style="margin:100px">
+    <section style="margin:50px">
     
         <c:if test="${campaignsizes>0}">
  	<div class="wrap">
