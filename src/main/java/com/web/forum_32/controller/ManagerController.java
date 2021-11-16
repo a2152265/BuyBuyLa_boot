@@ -143,7 +143,8 @@ public class ManagerController {
 		
 		ForumBean fb= forumService.getContentById(mrb.getReportForumId());
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo("hyprocrite1631@gmail.com");
+		message.setTo("a2152265@gmail.com");
+//		message.setTo("hyprocrite1631@gmail.com");
 		message.setSubject("BuyBuyLa討論區通知");
 		message.setText("\r\n你在\""+fb.getTitle()+"\"的留言遭到刪除"+
 				"\r\n\r\n"+"違規原因 : "+mrb.getReportReason()+
@@ -160,6 +161,17 @@ public class ManagerController {
 	}
 
 	/***************************************************************/
+	
+//	@GetMapping(value = "/manager/AnalyzeData_tagCount")
+//	@ResponseBody
+//	public List<Integer> AnalyzeData_Count(Model model) {
+//		List<Integer> countList=new ArrayList<>();;
+//		countList.add(forumService.getAllByTag("官方最新公告").size());
+//		countList.add(forumService.getAllByTag("社團精選話題").size());
+//		countList.add(forumService.getAllByTag("賣家閒聊討論").size());
+//		countList.add(forumService.getAllByTag("新手賣家發問").size());
+//		return countList;
+//	}
 
 	/************************** 後臺管理結束 ***************************/
 }

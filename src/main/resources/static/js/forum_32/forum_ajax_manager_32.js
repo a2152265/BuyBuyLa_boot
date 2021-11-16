@@ -2,7 +2,7 @@
  * 
  */
 $(document).ready(function() {
-
+     
 	// 管理員  置頂設定
 	$("#insFlexCheckDefault").click(function() {
 			var managerTitleKeyInput = $('.managerTitleKeyInput').val();
@@ -13,7 +13,7 @@ $(document).ready(function() {
 			$('.insTopArticle').val('general')
 		}
 	});
-	$("#editFlexCheckDefault").click(function() {
+	$(".editFlexCheckDefault").click(function() {
 		var editManagerTitleKeyInput = $('.editManagerTitleKeyInput').val();
 		if ($(this).prop("checked")) {
 			$('.editTopArticle').val('top');
@@ -210,6 +210,6 @@ $(document).ready(function() {
 			}
 		})
 	})
-
+  
 
 });

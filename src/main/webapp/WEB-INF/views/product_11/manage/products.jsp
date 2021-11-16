@@ -719,7 +719,7 @@ $('input:checkbox[name="selectall"]').click(function(){
 	        	 setTimeout("location.href='./products';", 1000);  
 	        		$.ajax({
 	    				type:'get',
-	    				url:'../launched_addaddress',
+	    				url:'../../launched_addaddress',
 	    				data: {"productIds": productId},
 	    				
 	    				success:function(){
@@ -764,7 +764,7 @@ $('input:checkbox[name="selectall"]').click(function(){
 	        	 setTimeout("location.href='./products';", 1000);  
 	        		$.ajax({
 	    				type:'get',
-	    				url:'./launched_addaddressfail',
+	    				url:'../../launched_addaddressfail',
 	    				data:{},
 	    				
 	    				success:function(){

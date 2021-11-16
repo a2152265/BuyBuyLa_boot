@@ -13,6 +13,15 @@
 	<div class="wrapper">
 		<div class="section">
 			<h2>BuyBuyLa討論區管理</h2><br>
+			
+			 <!-- 放分析圓餅圖 -->
+<!--  	<div style=" display:flex; 　position:relative"> -->
+<!--   	<div style="width:60%; display:flex; 　position:relative"> -->
+<!--     <article style="width:40%; 　position:relative"> -->
+<!--      <div id="count" style="width: 500px;height:300px;" class="analyzeDiv"></div> -->
+<!--     </article> -->
+<!--     </div></div> -->
+			
 			<button type="button" style="margin-left: 200px"
 				class="btn btn-primary" data-bs-toggle="modal"
 				data-bs-target="#ManagerModal">發起公告</button>
@@ -169,7 +178,7 @@
 															</select>
 															<div class="form-check"
 																style="margin-top: 6px; margin-left: 400px">
-																<input class="form-check-input" type="checkbox"
+																<input class="form-check-input editFlexCheckDefault" type="checkbox"
 																	id="editFlexCheckDefault"> <label
 																	class="form-check-label" for="flexCheckDefault">
 																	置頂 </label>
@@ -219,7 +228,7 @@
 												</div>
 												<div class="modal-footer">
 												<input type="button" class="editManagerNewForumKeyInput btn btn-warning" value="一鍵輸入">
-													<button id="updSubmit" type="submit"
+													<button type="submit"
 														class="btn btn-primary updManagerSubmit">送出</button>
 													<button type="button" class="btn btn-secondary"
 														data-bs-dismiss="modal">取消</button>

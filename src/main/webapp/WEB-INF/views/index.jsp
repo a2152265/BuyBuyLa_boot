@@ -367,20 +367,20 @@
 	</div>
 	
     <!-- ================ offer section start ================= --> 
-    <section class="offer" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-5">
-            <div class="offer__content text-center">
-              <h3>Up To 50% Off</h3>
-              <h4>Winter Sale</h4>
-              <p>Him she'd let them sixth saw light</p>
-              <a class="button button--active mt-3 mt-xl-4" href="#">Shop Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<!--     <section class="offer" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px"> -->
+<!--       <div class="container"> -->
+<!--         <div class="row"> -->
+<!--           <div class="col-xl-5"> -->
+<!--             <div class="offer__content text-center"> -->
+<!--               <h3>Up To 50% Off</h3> -->
+<!--               <h4>Winter Sale</h4> -->
+<!--               <p>Him she'd let them sixth saw light</p> -->
+<!--               <a class="button button--active mt-3 mt-xl-4" href="#">Shop Now</a> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--         </div> -->
+<!--       </div> -->
+<!--     </section> -->
     <!-- ================ offer section end ================= --> 
 
     <!-- ================ 熱銷產品 start ================= --> 
@@ -446,11 +446,11 @@
               <div class="card-body">
                 <ul class="card-blog__info">
                   <li><a href="#">${announcementList.tag}</a></li>
-                  <li><a href="#"><i class="ti-comments-smiley"></i> ${announcementList.messageQty} Comments</a></li>
+                  <li><a href="#"><i class="ti-comments-smiley"></i> ${announcementList.viewQty} 觀看次數</a></li>
                 </ul>
                 <h4 class="card-blog__title"><a href="single-blog.html"></a>${announcementList.title}</h4>
-                <p>${announcementList.content}</p>
-                <a class="card-blog__link" href="#">Read More <i class="ti-arrow-right"></i></a>
+<%--                 <p>${announcementList.content}</p> --%>
+                <a class="card-blog__link" href="<c:url value='/detailed' />?id=${announcementList.id}"> 繼續閱讀 <i class="ti-arrow-right"></i></a>
               </div>
             </div>
           </div>
@@ -504,12 +504,9 @@
 						<div class="single-footer-widget tp_widgets ">
 							<h4 class="footer_title large_title">我們的目標</h4>
 							<p>
-								起初，BuyBuyLa最初創立的目標是為了讓<h9 style="color:red;">莊董</h9>能在台北多買一棟帝寶，1997年時莊董誕生於台北醫學院的護理產房，伴隨著他的是大安區10幾張地契的月子禮，
-								而後又過了幾年，莊董與他一起長大的好夥伴廖總、葉總、謝總、歐總，他們展現出了無與倫比的天賦，在工程、財經、甚至極限運動上都有了驚人的成就(雖然他們並不缺錢)
+							BuyBuyLa購物是台灣首屈一指的電商平台，在東南亞六國皆有佈局（新加坡、馬來西亞、泰國、印尼、越南、菲律賓），簡易方便的操作介面讓你隨時隨地都能輕鬆購物！BuyBuyLa購物擁有完整的金流、物流服務，提供多種安全可靠的付款方式，包含銀行轉帳、信用卡線上交易、貨到付款、蝦皮錢包，和街口支付等多元行動支付管道，更有蝦皮承諾保障你的交易安全，啟動第三方支付託管交易款項，無須擔心收不到訂購的商品、或是拿不到退還的金額。商品評價和評論透明呈現在你眼前，你可以快速挑選出商品受歡迎、並提供良好服務、得到買家一致推薦的賣家；還能夠透過購買清單中的訂單詳情獲得最即時的貨態追蹤，查詢訂單最新配送進度。現在就來加入蝦皮購物，享受最獨一無二的網路購物體驗！
 							</p>
 							<p>
-								2021年，BuyBuyLa於中央大學的一間小工作室中誕生(暫定)，為了BuyBuyLa人們的money而設計出了另類的網站，有著奇怪的會員系統，神奇的商品、複雜的購物車、賭徒般的活動、社交的討論區，
-								BuyBuyLa於人們野望中誕生。
 							</p>
 						</div>
 					</div>
@@ -525,19 +522,19 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-lg-2 col-md-6 col-sm-6">
-						<div class="single-footer-widget instafeed">
-							<h4 class="footer_title">Gallery</h4>
-							<ul class="list instafeed d-flex flex-wrap">
-								<li><img src="img/gallery/r1.jpg" alt=""></li>
-								<li><img src="img/gallery/r2.jpg" alt=""></li>
-								<li><img src="img/gallery/r3.jpg" alt=""></li>
-								<li><img src="img/gallery/r5.jpg" alt=""></li>
-								<li><img src="img/gallery/r7.jpg" alt=""></li>
-								<li><img src="img/gallery/r8.jpg" alt=""></li>
-							</ul>
-						</div>
-					</div>
+<!-- 					<div class="col-lg-2 col-md-6 col-sm-6"> -->
+<!-- 						<div class="single-footer-widget instafeed"> -->
+<!-- 							<h4 class="footer_title">Gallery</h4> -->
+<!-- 							<ul class="list instafeed d-flex flex-wrap"> -->
+<!-- 								<li><img src="img/gallery/r1.jpg" alt=""></li> -->
+<!-- 								<li><img src="img/gallery/r2.jpg" alt=""></li> -->
+<!-- 								<li><img src="img/gallery/r3.jpg" alt=""></li> -->
+<!-- 								<li><img src="img/gallery/r5.jpg" alt=""></li> -->
+<!-- 								<li><img src="img/gallery/r7.jpg" alt=""></li> -->
+<!-- 								<li><img src="img/gallery/r8.jpg" alt=""></li> -->
+<!-- 							</ul> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets">
 							<h4 class="footer_title">聯絡我們</h4>
@@ -679,9 +676,9 @@ $(".additem").click(function(){
 			"id":data
 		},
 		
-		success:function(){
+		success:function(data){
 			
-
+console.log(data)
 			Swal.fire({
 				  position:'center',
 				  icon: 'success',
