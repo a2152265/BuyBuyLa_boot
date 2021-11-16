@@ -273,7 +273,7 @@ function quickInput2(){
 						
 						
 						<!-- 登入帳號區 -->
-						<form:form method='POST'   modelAttribute="forgetpwd" 
+						<form:form method='POST'   modelAttribute="forgetpwd"
 							cssClass='row login_form'  id="contactForm">
 
 							
@@ -287,7 +287,7 @@ function quickInput2(){
 								</div>
 							</div>
 							<div class="col-md-12 form-group">
-							<a href="<c:url value='/member/forgetpwd' />">	<button type="submit"  value="submit" class="button button-login w-100">送出驗證碼</button> </a>
+							<a href="<c:url value='/try/index' />">	<button type="submit"  value="submit" class="button button-login w-100">送出驗證碼</button> </a>
 								
 								<input id="onejan" type="button" value="一键输入用户名"  onclick='quickInput();' > 
 									<input id="onejan2" type="button" value="一键输入管理者"  onclick='quickInput2();' >  <br>
@@ -405,6 +405,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="js/main.js"></script>
   
   <script>
+  
+   alert('驗證碼逾時，請重新再試');
 
         let labSub=document.getElementById("labSub");
         let sub=document.getElementById("sub");

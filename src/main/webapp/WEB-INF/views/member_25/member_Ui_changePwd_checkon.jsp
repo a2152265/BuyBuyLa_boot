@@ -30,12 +30,12 @@
                     
                     <form:form method='POST' modelAttribute="changePwd"
         			class='form-horizontal' enctype="multipart/form-data">
-  						<div class="form-group" style="padding-left:31%; padding-right:31%;">
+  						<div class="form-group"  style="padding-left:10%; padding-right:10%;"">
     					<label for="exampleInputEmail1">請輸入新密碼</label>
     					<form:password  path="userPwd"  class="form-control" id="pwd" aria-describedby="emailHelp" placeholder="請輸入新密碼"/>
    						 <small id="emailHelp" class="form-text text-muted"></small>
  						 </div>
-  						<div class="form-group"  style="padding-left:31%; padding-right:31%;">
+  						<div class="form-group" style="padding-left:10%; padding-right:10%;"">
   						  <label for="exampleInputPassword1">請再次輸入新密碼</label>
  						   <form:password  path="userPwd1" class="form-control" id="pwd" placeholder="請再次輸入密碼"/>
  						 </div>

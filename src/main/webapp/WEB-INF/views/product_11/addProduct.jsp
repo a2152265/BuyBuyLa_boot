@@ -22,6 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
  	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <style>
  body {
             font-family: "微軟正黑體";
@@ -48,8 +49,8 @@
         input,
         textarea,
         select {
-            border: 1px solid rgb(155, 153, 153, 0.4);
-            background-color: rgb(203, 218, 218, 0.2);
+            border: 1px solid rgb(147, 156, 165, 0.2);
+            background-color: rgb(147, 156, 165, 0.2);
         }
 		label{
 		/*border:3px solid lightblue;*/
@@ -57,10 +58,10 @@
 		overflow:flex;
 		}
         form {
-            background-color: rgb(255, 255, 255, 0.8);
+            background-color: #fff;
             margin: 20px auto;
             max-width: 800px;
-            padding: 80px;
+            padding: 100px;
             /* border-radius: 20px; */
             box-shadow: 0 10px 10px 0 rgba(177, 175, 175, 0.2);
         }
@@ -193,8 +194,8 @@
 
 
 
-    <div class="container">
-      <span style="font-size:30px;  font-weight:bold;">新增商品</span>
+    <div class="container" style="max-width: 95%;">
+      <span style="font-size:30px;  font-weight:bold; ">新增商品</span>
  
       </div>
 
@@ -207,13 +208,11 @@
 	<div class="table-wrapper">
 		 <form:form id='form' method='POST' modelAttribute="productBean" class='form-horizontal'
         	enctype="multipart/form-data">
-             <table rules="all">
-       		
-			<tbody>
-				<div id="display" class="im" style="margin-bottom:80px">
-				<img src="https://unsplash.com/photos/8pb7Hq539Zw?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink" width="150" height="150" alt="封面圖片" >
-			</div>
+				<img src="../NoImage.jpg" alt="封面圖片"  style="width:400px;height:400px;padding:20px;margin-left:120px">
 			
+             <table rules="all">
+	
+			<tbody>
 			 <tr>
                 <td> <label  for="productInfo">
                         商品照片:
@@ -227,7 +226,7 @@
                 <td><label  for="productName">
 						商品名稱
 					</label></td>
-                <td><form:input id="productName" path="productName" type='text'
+                <td><form:input id="productName" path="productName" type='text' 
 							class='form:input-large'  /></td>
             </tr>
 			<tr>
@@ -296,9 +295,11 @@
   </div>
         <div class="sidebar" style="background-color: rgb(1, 1, 112);">
             <div class="profile">
-                <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
+             <!--    <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">  --> 
+                <!-- 讀取圖片 -->
+               <img  src="<c:url value='/getPicturefromMember/${memberUiDefault.id}'/>"   alt="profile_picture" />
                 <h3></h3>
-                <p>Designer</p>
+                <p>${memberUiDefault.userEmail} </p>
             </div>
             <ul>
                <li>

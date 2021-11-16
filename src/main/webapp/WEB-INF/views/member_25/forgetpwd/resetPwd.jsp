@@ -16,15 +16,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>BuyBuyLa|Home</title>
 	<link rel="icon" href="img/Fevicon.png" type="image/png">
-  <link rel="stylesheet" href="../vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="../vendors/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="../vendors/themify-icons/themify-icons.css">
-  <link rel="stylesheet" href="../vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="../vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="../vendors/owl-carousel/owl.carousel.min.css">
+  <link rel="stylesheet" href="./vendors/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="./vendors/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="./vendors/themify-icons/themify-icons.css">
+  <link rel="stylesheet" href="./vendors/nice-select/nice-select.css">
+  <link rel="stylesheet" href="./vendors/owl-carousel/owl.theme.default.min.css">
+  <link rel="stylesheet" href="./vendors/owl-carousel/owl.carousel.min.css">
 
  
-    <link rel='stylesheet' href="<spring:url value='../css/productstyle.css' />"  type="text/css" />
+    <link rel='stylesheet' href="<spring:url value='./css/productstyle.css' />"  type="text/css" />
   <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
 
 <style>
@@ -268,27 +268,29 @@ function quickInput2(){
 				</div>
 				<div class="col-lg-6">
 					<div class="login_form_inner">
-						<h3>發送驗證碼</h3>
+						<h3>重設您的新密碼</h3>
 
-						
-						
 						<!-- 登入帳號區 -->
-						<form:form method='POST'   modelAttribute="forgetpwd" 
-							cssClass='row login_form'  id="contactForm">
+						<form:form method='POST'   modelAttribute="loginSession"  action="/BuyBuyla_boot/resetpp"
+							cssClass='row login_form' id="contactForm">
+
 
 							
 							<div class="col-md-12 form-group">
-								<form:input class="form-control" path="userEmail"  id="name" name="password" placeholder="請輸入帳號" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"/>
+								<form:password class="form-control" path="userPwd"  id="pwd" name="password" placeholder="請輸入新密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"/>
 							</div>
-							
 							<div class="col-md-12 form-group">
+								<form:password class="form-control" path="userPwd1"  id="pwd1" name="password" placeholder="請再次輸入密碼" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"/>
+							</div>
+							<div class="col-md-12 form-group">
+						 <label id="lab"  style="color: red; display: none;" >確認密碼必須和密碼一致</label><br>
 								<div class="creat_account">
-									
+									<input type="checkbox" id="f-option2" name="selector">
+									<label for="f-option2">保持登入狀態</label>
 								</div>
 							</div>
 							<div class="col-md-12 form-group">
-							<a href="<c:url value='/member/forgetpwd' />">	<button type="submit"  value="submit" class="button button-login w-100">送出驗證碼</button> </a>
-								
+								<button type="submit"  onclick="return(confirm('確認更改？'))" value="submit" class="button button-login w-100">送出</button>
 								<input id="onejan" type="button" value="一键输入用户名"  onclick='quickInput();' > 
 									<input id="onejan2" type="button" value="一键输入管理者"  onclick='quickInput2();' >  <br>
 								<a href="<c:url value='/member/forget' />">忘記密碼?</a>

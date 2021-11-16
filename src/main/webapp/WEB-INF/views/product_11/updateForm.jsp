@@ -22,10 +22,12 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
  	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	
 <style>
  body {
             font-family: "微軟正黑體";
-            background-color: rgba(147, 156, 165, 0.2);
+            background-color: rgb(1, 1, 112,0.1);
             align-items: center;
             justify-content: center;
             position: relative;
@@ -182,7 +184,7 @@
 
 
 
-    <div class="top_navbar">
+    <div class="top_navbar" style="background-color: rgb(1, 1, 112);">
       <div class="hamburger">
         <a href="#">
           <i class="fas fa-bars"></i>
@@ -193,7 +195,7 @@
 
 
 
-    <div class="container">
+    <div class="container" style="max-width: 95%;">
       <span style="font-size:30px;  font-weight:bold;">更新商品</span>
  
       </div>
@@ -208,7 +210,7 @@
 		 <form:form method='POST' modelAttribute="product" class='form-horizontal'
         	enctype="multipart/form-data">
         	<div>
-			<img  style="display:block; margin:auto;" width='300' height='300' id="demo" class="normalFace" onclick="fileSelect();"
+			<img  style="display:block; margin:auto;padding:10px;width='300' height='300'" id="demo  onclick="fileSelect();"
   				   src="<c:url value='/getPicture/${product.productId}' />" />	
   				             <div class="form-group">
 					<label class='control-label col-lg-2 col-lg-2' for="productImage">
@@ -279,61 +281,54 @@
 
 
   </div>
-        <div class="sidebar">
+        <div class="sidebar" style="background-color: rgb(1, 1, 112);">
             <div class="profile">
                 <img src="https://i.ytimg.com/vi/LMu_WwyqZJI/maxresdefault.jpg" alt="profile_picture">
                 <h3></h3>
                 <p>Designer</p>
             </div>
             <ul>
-                <li>
-                    <a href="<c:url value='/' />" class="active">
+               <li>
+                    <a href="<c:url value='/' />" >
                         <span class="icon"><i class="fas fa-home"></i></span>
-                        <span class="item">Home</span>
+                        <span class="item">首頁</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<c:url value='' />">
-                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                    <a href="<c:url value='/try/member_Ui' />" >
+                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="item">會員中心</span>
+                    </a>
+                </li>
+
+                 <li>        
+                    <a href="<c:url value='/update30' />">
+
+
+                        <span class="icon"><i class="fas fa-chart-line"></i></span>
                         <span class="item">訂單管理</span>
                     </a>
                 </li>
                 <li>
+
                     <a href="<c:url value='/products/seller' />">
-                        <span class="icon"><i class="fas fa-user-friends"></i></span>
+                        <span class="icon"><i class="fas fa-gifts"></i></span>
                         <span class="item">商品管理</span>
                     </a>
                 </li>
-                <li>
-                    <a href="<c:url value='???' />">
-                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                        <span class="item">數據中心</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/member/seller_Ui' />">
-                        <span class="icon"><i class="fas fa-database"></i></span>
-                        <span class="item">帳號管理</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/member/changePwd' />">
-                        <span class="icon"><i class="fas fa-chart-line"></i></span>
-                        <span class="item">更改密碼</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="<c:url value='/try/delete' />">
-                        <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">刪除會員</span>
-                    </a>
-                </li>
-
+ 
                 <!-- /*減去footer高度*/ -->
                 <li style="min-height: calc(100% - 50px); ">
-                    <a href="<c:url value='/try/delete' />">
+                    <a href="<c:url value='/seller/inschan_on' />">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
                         <span class="item">隱私權政策</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="<c:url value='/try/logout' />"  onclick="return(confirm('確認登出？'))" >
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                        <span class="item">登出</span>
                     </a>
                 </li>
                 

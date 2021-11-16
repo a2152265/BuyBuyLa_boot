@@ -405,6 +405,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="js/main.js"></script>
   
   <script>
+  
+  alert('查無此帳號，請重新在試');
 
         let labSub=document.getElementById("labSub");
         let sub=document.getElementById("sub");
