@@ -14,7 +14,6 @@ $(document).ready(function() {
 		}
 	});
 	$(".editFlexCheckDefault").click(function() {
-		alert('123')
 		var editManagerTitleKeyInput = $('.editManagerTitleKeyInput').val();
 		if ($(this).prop("checked")) {
 			$('.editTopArticle').val('top');
