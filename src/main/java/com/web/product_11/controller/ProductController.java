@@ -586,7 +586,9 @@ public class ProductController {
 		//限時活動
 		@GetMapping("/campaigns/countdownSales")
 		public String productList1(Model model) {
-			
+			List<Campaign> findAll = campaignService.findAll();
+			campaignService.updateViews(findAll.get(6).getId());
+
 			List<Campaign> campaignsByCategory = campaignService.getCampaignsByCategory("限時活動", "已結束");
 			String category="寵物";
 			int size = campaignsByCategory.size();

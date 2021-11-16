@@ -882,7 +882,7 @@ function initializeClock(id, endtime) {
   var timeinterval = setInterval(updateClock, 1000);
 }
 // count down timer:
-var deadline = new Date("Nov 16, 2021 00:00:00");
+var deadline = new Date("Nov 17, 2021 00:00:00");
 initializeClock('clockdiv', deadline);
 </script>
 </body>

@@ -146,8 +146,11 @@ public class HomeController {
 
 		
 		//討論區-官方最新公告
-//		List<ForumBean> announcementList = forumService.getAllContentsByAnnouncement();
-//		model.addAttribute("announcementList",announcementList);
+		List<ForumBean> announcementList = forumService.findTop4ByOrderByIdDesc();
+		
+		model.addAttribute("announcementList",announcementList);
+		
+		
 	
 		return "index";
 	
