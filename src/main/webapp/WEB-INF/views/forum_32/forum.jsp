@@ -398,60 +398,49 @@
 					<div class="col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets">
 							<h4 class="footer_title large_title">Our Mission</h4>
-							<p>So seed seed green that winged cattle in. Gathering thing
-								made fly you're no divided deep moved us lan Gathering thing us
-								land years living.</p>
-							<p>So seed seed green that winged cattle in. Gathering thing
-								made fly you're no divided deep moved</p>
+							<p>BuyBuyLa購物是台灣首屈一指的電商平台，在東南亞六國皆有佈局（新加坡、馬來西亞、泰國、印尼、越南、菲律賓），簡易方便的操作介面讓你隨時隨地都能輕鬆購物！BuyBuyLa購物擁有完整的金流、物流服務，提供多種安全可靠的付款方式，包含銀行轉帳、信用卡線上交易、貨到付款、蝦皮錢包，和街口支付等多元行動支付管道，更有蝦皮承諾保障你的交易安全，啟動第三方支付託管交易款項，無須擔心收不到訂購的商品、或是拿不到退還的金額。商品評價和評論透明呈現在你眼前，你可以快速挑選出商品受歡迎、並提供良好服務、得到買家一致推薦的賣家；還能夠透過購買清單中的訂單詳情獲得最即時的貨態追蹤，查詢訂單最新配送進度。現在就來加入蝦皮購物，享受最獨一無二的網路購物體驗！</p>
+							<p></p>
 						</div>
 					</div>
 					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets">
-							<h4 class="footer_title">Quick Links</h4>
+							<h4 class="footer_title">快速連結</h4>
 							<ul class="list">
-								<li><a href="#">Home</a></li>
-								<li><a href="#">Shop</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">Product</a></li>
-								<li><a href="#">Brand</a></li>
-								<li><a href="#">Contact</a></li>
+								<li><a href="#">首頁</a></li>
+								<li><a href="#">商品</a></li>
+								<li><a href="#">討論版</a></li>
+								<li><a href="#">購物車</a></li>
+								<li><a href="#">活動</a></li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-lg-2 col-md-6 col-sm-6">
-						<div class="single-footer-widget instafeed">
-							<h4 class="footer_title">Gallery</h4>
-							<ul class="list instafeed d-flex flex-wrap">
-								<li><img src="img/gallery/r1.jpg" alt=""></li>
-								<li><img src="img/gallery/r2.jpg" alt=""></li>
-								<li><img src="img/gallery/r3.jpg" alt=""></li>
-								<li><img src="img/gallery/r5.jpg" alt=""></li>
-								<li><img src="img/gallery/r7.jpg" alt=""></li>
-								<li><img src="img/gallery/r8.jpg" alt=""></li>
-							</ul>
-						</div>
-					</div>
+					
 					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
-						<div class="single-footer-widget tp_widgets">
-							<h4 class="footer_title">Contact Us</h4>
+							<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">聯絡我們</h4>
 							<div class="ml-40">
 								<p class="sm-head">
-									<span class="fa fa-location-arrow"></span> Head Office
+									<span class="fa fa-location-arrow"></span>
+									總部
 								</p>
-								<p>123, Main Street, Your City</p>
-
+								<p>台北市中正區重慶南路一段122號</p>
+	
 								<p class="sm-head">
-									<span class="fa fa-phone"></span> Phone Number
+									<span class="fa fa-phone"></span>
+									電話
 								</p>
 								<p>
-									+123 456 7890 <br> +123 456 7890
+									+0921212121 <br>
+									+0226462646
 								</p>
-
+	
 								<p class="sm-head">
-									<span class="fa fa-envelope"></span> Email
+									<span class="fa fa-envelope"></span>
+									電子信箱
 								</p>
 								<p>
-									free@infoexample.com <br> www.infoexample.com
+									a212121@BuyBuyLa.org <br>
+									
 								</p>
 							</div>
 						</div>
